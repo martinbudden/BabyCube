@@ -349,9 +349,9 @@ module pcb_back_screw_positions(type, yCutoff = 0) {
    }
 }
 
-AL12x8x1 =  ["AL12x8x1",  "Aluminium rectangular box section 12mm x 8mm x 1mm",     [12, 8],  1, 0.5, silver, undef];
-AL20x20x2 = ["AL20x20x2", "Aluminium rectangular box section 20mm x 20mm x 2mm",    [20, 20], 2, 0.5, silver, undef];
-CF12x8x1 =  ["CF10x10x1", "Carbon fiber rectangular box section 10mm x 10mm x 1mm", [10, 10], 1, 0.5, grey(35), grey(20)];
+AL12x8x1 =  ["AL12x8x1",  "Aluminium box section 12mm x 8mm x 1mm",     [12, 8],  1, 0.5, silver, undef];
+AL20x20x2 = ["AL20x20x2", "Aluminium box section 20mm x 20mm x 2mm",    [20, 20], 2, 0.5, silver, undef];
+CF12x8x1 =  ["CF10x10x1", "Carbon fiber box section 10mm x 10mm x 1mm", [10, 10], 1, 0.5, grey(35), grey(20)];
 
 function box_section_material(type)  = type[1]; //! Material description
 function box_section_size(type)      = type[2]; //! Size
