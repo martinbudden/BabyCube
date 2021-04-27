@@ -1,0 +1,9 @@
+{
+    "default": true,
+    "MD013": false,
+    "MD033": { "allowed_elements": ["a", "br", "img", "span", "sup"] },
+    "MD024": { "siblings_only": true },
+    "MD012": { "maximum": 3 },
+    "MD009": false,
+    "MD041": false
+}

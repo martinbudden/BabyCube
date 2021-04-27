@@ -1,0 +1,47 @@
+
+M503
+  G21    ; Units in mm (mm)
+
+  M149 C ; Units in Celsius
+
+;(c Steps per unit:
+  M92 X80.00 Y80.00 Z3200.00 E135.00
+
+;(c not explicit) Material heatup parameters:
+  M145 S0 H185 B45 F255
+  M145 S1 H240 B110 F255
+
+; Filament settings: Disabled
+  M200 S0 D1.75
+;(c) Maximum feedrates (units/s):
+  M203 X500.00 Y500.00 Z10.00 E25.00
+;(c) Maximum Acceleration (units/s2):
+  M201 X500.00 Y500.00 Z100.00 E5000.00
+;(c) Acceleration (units/s2): P<print_accel> R T
+  M204 P500.00 R500.00 T500.00
+;(c) Advanced: B S T J
+  M205 B20000.00 S0.00 T0.00 J0.08
+;(x but see Z_MAX_POS in c) Home offset:
+  M206 X0.00 Y0.00 Z-4.90
+
+;(c not explicit) PID settings:
+  M301 P33.27 I2.56 D108.03
+
+;(ca not explicit) Driver stepping mode:
+  M569 S1 X Y
+
+;(ca not explicit) Filament load/unload lengths:
+  M603 L350.00 U400.00
+
+;(c not explicit)  Z-Probe Offset (mm):
+  M851 X10.00 Y10.00 Z0.00
+
+;(ca not explicit) Linear Advance:
+  M900 K0.00
+
+;(ca not explicit) Stepper driver current:
+  M906 X800 Y800 Z1000
+  M906 T0 E800
+
+;(ca not explicit) StallGuard threshold:
+  M914 X45 Y15 Z100

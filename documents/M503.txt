@@ -1,0 +1,45 @@
+M503
+E0 Flow: 100%
+  G21    ; Units in mm (mm)
+  M149 C ; Units in Celsius
+
+; Filament settings: Disabled
+  M200 S0 D1.75
+; Steps per unit:
+ M92 X80.00 Y80.00 Z3200.00 E136.00
+; Maximum feedrates (units/s):
+  M203 X500.00 Y500.00 Z10.00 E25.00
+; Maximum Acceleration (units/s2):
+  M201 X3000.00 Y3000.00 Z50.00 E10000.00
+; Acceleration (units/s2): P<print_accel> R T
+  M204 P3000.00 R3000.00 T3000.00
+; Advanced: B S T J
+  M205 B20000.00 S0.00 T0.00 J0.08
+; Home offset:
+  M206 X0.00 Y0.00 Z0.00
+; Mesh Bed Leveling:
+  M420 S0 Z10.00
+; Material heatup parameters:
+  M145 S0 H185 B45 F255
+  M145 S1 H240 B110 F255
+; PID settings:
+  M301 P40.15 I3.17 D127.14
+  M304 P50.71 I9.88 D173.43
+; Z-Probe Offset (mm):
+  M851 X10.00 Y10.00 Z0.00
+; Stepper driver current:
+  M906 X600 Y600 Z1000
+  M906 T0 E800
+
+; Hybrid Threshold:
+  M913 X100 Y100 Z3
+  M913 T0 E30
+
+; StallGuard threshold:
+  M914 X45 Y15 Z100
+; Driver stepping mode:
+  M569 S1 X Y
+; Linear Advance:
+  M900 K0.00
+; Filament load/unload lengths:
+  M603 L350.00 U400.00
