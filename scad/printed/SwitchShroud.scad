@@ -159,6 +159,8 @@ module Switch_Shroud_hardware() {
     wire_swg("black", 100, 12);
     wire_swg("red", 100, 12);
     wire_swg("red", 100, 12);
+    hidden() XT60Male();
+    hidden() XT60Female();
 }
 
 module Switch_Shroud_bolts() {
