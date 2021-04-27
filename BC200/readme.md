@@ -15,30 +15,30 @@
 
 1. [Parts list](#Parts_list)
 
-1. [X Carriage Assembly](#X_Carriage_assembly)
-1. [Print Head Assembly](#Print_head_assembly)
-1. [X Carriage Front Assembly](#X_Carriage_Front_assembly)
-1. [Top Face Stage 1 Assembly](#Top_Face_Stage_1_assembly)
-1. [Top Face Stage 2 Assembly](#Top_Face_Stage_2_assembly)
-1. [Top Face Assembly](#Top_Face_assembly)
-1. [Display Cover Assembly](#Display_Cover_assembly)
-1. [Display Housing Assembly](#Display_Housing_assembly)
-1. [Z Carriage Assembly](#Z_Carriage_assembly)
-1. [Print Bed Assembly](#Print_bed_assembly)
-1. [Back Face Stage 1 Assembly](#Back_Face_Stage_1_assembly)
-1. [Back Face Assembly](#Back_Face_assembly)
-1. [Right Face Stage 1 Assembly](#Right_Face_Stage_1_assembly)
-1. [Right Face Assembly](#Right_Face_assembly)
-1. [Base Assembly](#Base_assembly)
-1. [Switch Shroud Assembly](#Switch_Shroud_assembly)
-1. [Left Face Assembly](#Left_Face_assembly)
-1. [Stage 1 Assembly](#Stage_1_assembly)
-1. [Stage 2 Assembly](#Stage_2_assembly)
-1. [Stage 3 Assembly](#Stage_3_assembly)
-1. [Stage 4 Assembly](#Stage_4_assembly)
-1. [Stage 5 Assembly](#Stage_5_assembly)
-1. [Stage 6 Assembly](#Stage_6_assembly)
-1. [Main Assembly](#main_assembly)
+1. [X_Carriage assembly](#X_Carriage_assembly)
+1. [Print_head assembly](#Print_head_assembly)
+1. [X_Carriage_Front assembly](#X_Carriage_Front_assembly)
+1. [Top_Face_Stage_1 assembly](#Top_Face_Stage_1_assembly)
+1. [Top_Face_Stage_2 assembly](#Top_Face_Stage_2_assembly)
+1. [Top_Face assembly](#Top_Face_assembly)
+1. [Display_Cover assembly](#Display_Cover_assembly)
+1. [Display_Housing assembly](#Display_Housing_assembly)
+1. [Z_Carriage assembly](#Z_Carriage_assembly)
+1. [Print_bed assembly](#Print_bed_assembly)
+1. [Back_Face_Stage_1 assembly](#Back_Face_Stage_1_assembly)
+1. [Back_Face assembly](#Back_Face_assembly)
+1. [Right_Face_Stage_1 assembly](#Right_Face_Stage_1_assembly)
+1. [Right_Face assembly](#Right_Face_assembly)
+1. [Base assembly](#Base_assembly)
+1. [Switch_Shroud assembly](#Switch_Shroud_assembly)
+1. [Left_Face assembly](#Left_Face_assembly)
+1. [Stage_1 assembly](#Stage_1_assembly)
+1. [Stage_2 assembly](#Stage_2_assembly)
+1. [Stage_3 assembly](#Stage_3_assembly)
+1. [Stage_4 assembly](#Stage_4_assembly)
+1. [Stage_5 assembly](#Stage_5_assembly)
+1. [Stage_6 assembly](#Stage_6_assembly)
+1. [Main assembly](#main_assembly)
 
 
 ## Tips for printing the parts
@@ -108,106 +108,108 @@ baseplate can be used instead.
 | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Head</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">X Carriage Front</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Top Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Display Housing</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Back Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Right Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Base</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Left Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Main</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">TOTALS</span> |  |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|:---|
 |  |  |  |  |  |  |  |  |  |  | | **Vitamins** |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Aluminium rectangular box section 12mm x 8mm x 1mm, length 85mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Aluminium sheet 220mm x 204mm x 3mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Belt GT2 x 6mm x 728mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Belt GT2 x 6mm x 728mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; BigTreeTech SKR Mini E3 v2.0 |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; BigTreeTech TFT35 v3.0 |
-| &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp; Bolt M2 caphead x  6mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Bolt M3 buttonhead x  8mm |
-| &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;6&nbsp; |  &nbsp;&nbsp;17&nbsp; | &nbsp;&nbsp; Bolt M3 buttonhead x 10mm |
-| &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;24&nbsp; |  &nbsp;&nbsp;38&nbsp; | &nbsp;&nbsp; Bolt M3 buttonhead x 12mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp; Bolt M3 buttonhead x 16mm |
-| &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Bolt M3 buttonhead x 25mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;5&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;9&nbsp; | &nbsp;&nbsp; Bolt M3 caphead x  6mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;26&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;5&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;35&nbsp; | &nbsp;&nbsp; Bolt M3 caphead x  8mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp; Bolt M3 caphead x 10mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;8&nbsp; | &nbsp;&nbsp; Bolt M3 caphead x 16mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Bolt M3 caphead x 20mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Bolt M3 caphead x 25mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;6&nbsp; |  &nbsp;&nbsp;6&nbsp; | &nbsp;&nbsp; Bolt M3 countersunk x  6mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;12&nbsp; |  &nbsp;&nbsp;14&nbsp; | &nbsp;&nbsp; Bolt M3 countersunk x 10mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Bolt M3 countersunk x 12mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;6&nbsp; | &nbsp;&nbsp; Bolt M3 countersunk x 16mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Bolt M3 countersunk x 30mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;8&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;8&nbsp; | &nbsp;&nbsp; Bolt M5 countersunk x 16mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Cork damper NEMA 14 |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Cork damper NEMA 17 |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Cork underlay 105mm x 105mm x 3mm |
-| &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; E3D V6 Fan Duct |
-| &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Fan 30mm x 10mm |
-| &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Hot end E3D V6 direct 1.75mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Leadscrew 8mm x 150mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Leadscrew nut 8 x 2 |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Linear bearing LM12LUU |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Linear rail MGN9 x 150mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Linear rail MGN9 x 200mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;3&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;3&nbsp; | &nbsp;&nbsp; Linear rail carriage MGN9C |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Linear rod 12mm x 200mm |
-| &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; M3 self tapping screw x 16mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; MK10 Dual Pulley Extruder |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Magnetic base 100mm x 100mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;8&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;8&nbsp; | &nbsp;&nbsp; Nut M5 nyloc |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp; O-ring nitrile 3mm x 2mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; OpenBuilds mini heated bed 100mm x 100mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; PTFE tube 229 mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;5&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;5&nbsp; | &nbsp;&nbsp; Pillar hex nylon F/F M3x12 |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Print surface 100mm x 100mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;6&nbsp; | &nbsp;&nbsp; Pulley GT2 idler 16 teeth |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Pulley GT2 idler smooth 9.63mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Pulley GT2UM 20 teeth |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Rocker Switch PRASA1-16F-BB0BW |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp; SK12 shaft support bracket |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Spiral wrap, 500mm |
-| &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Square radial fan 3010 |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Stepper motor NEMA14 x 36mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Stepper motor NEMA17 x 34mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Stepper motor NEMA17 x 40mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; Stepper motor cable, 150mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;3&nbsp; | &nbsp;&nbsp; Stepper motor cable, 400mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;6&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;6&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;6&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;18&nbsp; | &nbsp;&nbsp; Washer  M3 |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Wire black 12SWG, length 100mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp; Wire red 12SWG, length 100mm |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; XT60 Connector Female |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp; XT60 Connector Male |
-| &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;5&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;5&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;13&nbsp; | &nbsp;&nbsp; Ziptie 2.5mm x 100mm min length |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;4&nbsp; |  &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp; Ziptie 2.5mm x 100mm min length |
-| &nbsp;&nbsp;19&nbsp; | &nbsp;&nbsp;6&nbsp; | &nbsp;&nbsp;54&nbsp; | &nbsp;&nbsp;13&nbsp; | &nbsp;&nbsp;21&nbsp; | &nbsp;&nbsp;30&nbsp; | &nbsp;&nbsp;26&nbsp; | &nbsp;&nbsp;20&nbsp; | &nbsp;&nbsp;34&nbsp; | &nbsp;&nbsp;58&nbsp; | &nbsp;&nbsp;281&nbsp; | &nbsp;&nbsp;Total vitamins count |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |    Aluminium rectangular box section 12mm x 8mm x 1mm, length 85mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |    Aluminium sheet 220mm x 204mm x 3mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |    Belt GT2 x 6mm x 728mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |    Belt GT2 x 6mm x 728mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |    BigTreeTech SKR Mini E3 v2.0 |
+|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |    BigTreeTech TFT35 v3.0 |
+|   4  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |    Bolt M2 caphead x  6mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |    2  |    Bolt M3 buttonhead x  8mm |
+|   4  |   4  |   .  |   .  |   .  |   .  |   .  |   2  |   1  |   6  |    17  |    Bolt M3 buttonhead x 10mm |
+|   2  |   .  |   .  |   .  |   .  |   4  |   4  |   .  |   4  |   24  |    38  |    Bolt M3 buttonhead x 12mm |
+|   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |    Bolt M3 buttonhead x 16mm |
+|   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |    Bolt M3 buttonhead x 25mm |
+|   .  |   .  |   .  |   4  |   .  |   .  |   .  |   5  |   .  |   .  |    9  |    Bolt M3 caphead x  6mm |
+|   .  |   .  |   26  |   .  |   4  |   .  |   .  |   5  |   .  |   .  |    35  |    Bolt M3 caphead x  8mm |
+|   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |    Bolt M3 caphead x 10mm |
+|   .  |   .  |   4  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    8  |    Bolt M3 caphead x 16mm |
+|   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |    Bolt M3 caphead x 20mm |
+|   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |    Bolt M3 caphead x 25mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   6  |    6  |    Bolt M3 countersunk x  6mm |
+|   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   12  |    14  |    Bolt M3 countersunk x 10mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |    2  |    Bolt M3 countersunk x 12mm |
+|   .  |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   2  |   .  |    6  |    Bolt M3 countersunk x 16mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |    Bolt M3 countersunk x 30mm |
+|   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |    Bolt M5 countersunk x 16mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |    Cork damper NEMA 14 |
+|   .  |   .  |   .  |   .  |   .  |   1  |   1  |   .  |   .  |   .  |    2  |    Cork damper NEMA 17 |
+|   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |    Cork underlay 105mm x 105mm x 3mm |
+|   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |    E3D V6 Fan Duct |
+|   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |    Fan 30mm x 10mm |
+|   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |    Hot end E3D V6 direct 1.75mm |
+|   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |    Leadscrew 8mm x 150mm |
+|   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |    Leadscrew nut 8 x 2 |
+|   .  |   .  |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |    2  |    Linear bearing LM12LUU |
+|   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |    Linear rail MGN9 x 150mm |
+|   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |    Linear rail MGN9 x 200mm |
+|   .  |   .  |   3  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    3  |    Linear rail carriage MGN9C |
+|   .  |   .  |   .  |   .  |   .  |   2  |   .  |   .  |   .  |   .  |    2  |    Linear rod 12mm x 200mm |
+|   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |    M3 self tapping screw x 16mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |    MK10 Dual Pulley Extruder |
+|   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |    Magnetic base 100mm x 100mm |
+|   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |    Nut M5 nyloc |
+|   .  |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |    4  |    O-ring nitrile 3mm x 2mm |
+|   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |    OpenBuilds mini heated bed 100mm x 100mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |    PTFE tube 229 mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   5  |   .  |   .  |    5  |    Pillar hex nylon F/F M3x12 |
+|   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |    Print surface 100mm x 100mm |
+|   .  |   .  |   2  |   .  |   .  |   .  |   2  |   .  |   2  |   .  |    6  |    Pulley GT2 idler 16 teeth |
+|   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |    Pulley GT2 idler smooth 9.63mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |    Pulley GT2UM 20 teeth |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |    Rocker Switch PRASA1-16F-BB0BW |
+|   .  |   .  |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |    4  |    SK12 shaft support bracket |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |    Spiral wrap, 500mm |
+|   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |    Square radial fan 3010 |
+|   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |    Stepper motor NEMA14 x 36mm |
+|   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |    Stepper motor NEMA17 x 34mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |    Stepper motor NEMA17 x 40mm |
+|   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |    Stepper motor cable, 150mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |   1  |   .  |    3  |    Stepper motor cable, 400mm |
+|   .  |   .  |   6  |   .  |   .  |   .  |   6  |   .  |   6  |   .  |    18  |    Washer  M3 |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |    2  |    Wire black 12SWG, length 100mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |    2  |    Wire red 12SWG, length 100mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |    XT60 Connector Female |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |    XT60 Connector Female - not shown |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |    XT60 Connector Male |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |    XT60 Connector Male - not shown |
+|   1  |   .  |   .  |   .  |   2  |   .  |   5  |   .  |   5  |   .  |    13  |    Ziptie 2.5mm x 100mm min length |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   4  |    4  |    Ziptie 2.5mm x 100mm min length |
+|   19  |   6  |   54  |   13  |   21  |   30  |   26  |   20  |   36  |   58  |   283  |   Total vitamins count |
 |  |  |  |  |  |  |  |  |  |  | | **3D printed parts** |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Back_Face.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Base.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Base_Template.stl |
-| &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;Belt_Clamp.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;Belt_Tensioner.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Belt_Tidy.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Display_Housing.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Display_Housing_Bracket.stl |
-| &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Fan_Duct.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;4&nbsp; |  &nbsp;&nbsp;4&nbsp; | &nbsp;&nbsp;Foot_LShaped_8mm.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Front_Lower_Chord.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Front_Upper_Chord.stl |
-| &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Hotend_Clamp.stl |
-| &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Hotend_Strain_Relief_Clamp.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Left_Face.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;PSU_Bracket.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;2&nbsp; | &nbsp;&nbsp;PSU_Support.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Right_Face.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Spool_Holder.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Switch_Shroud.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Switch_Shroud_Clamp.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Top_Face.stl |
-| &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;X_Carriage.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;X_Carriage_Front.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Y_Carriage_Brace_Left.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Y_Carriage_Brace_Right.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Y_Carriage_Left.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Y_Carriage_Right.stl |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Z_Carriage.stl |
-| &nbsp;&nbsp;6&nbsp; | &nbsp;&nbsp;6&nbsp; | &nbsp;&nbsp;5&nbsp; | &nbsp;&nbsp;3&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;5&nbsp; | &nbsp;&nbsp;3&nbsp; | &nbsp;&nbsp;6&nbsp; | &nbsp;&nbsp;37&nbsp; | &nbsp;&nbsp;Total 3D printed parts count |
+|   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |   Back_Face.stl |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |   Base.stl |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |   Base_Template.stl |
+|   2  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |   Belt_Clamp.stl |
+|   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |   Belt_Tensioner.stl |
+|   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   Belt_Tidy.stl |
+|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   Display_Housing.stl |
+|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   Display_Housing_Bracket.stl |
+|   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   Fan_Duct.stl |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   4  |    4  |   Foot_LShaped_8mm.stl |
+|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   Front_Lower_Chord.stl |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |   Front_Upper_Chord.stl |
+|   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   Hotend_Clamp.stl |
+|   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   Hotend_Strain_Relief_Clamp.stl |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |   Left_Face.stl |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |   PSU_Bracket.stl |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |   .  |    2  |   PSU_Support.stl |
+|   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |   Right_Face.stl |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |   Spool_Holder.stl |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |   Switch_Shroud.stl |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |   Switch_Shroud_Clamp.stl |
+|   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   Top_Face.stl |
+|   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   X_Carriage.stl |
+|   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   X_Carriage_Front.stl |
+|   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   Y_Carriage_Brace_Left.stl |
+|   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   Y_Carriage_Brace_Right.stl |
+|   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   Y_Carriage_Left.stl |
+|   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |   Y_Carriage_Right.stl |
+|   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |   Z_Carriage.stl |
+|   6  |   6  |   5  |   3  |   1  |   1  |   1  |   5  |   3  |   6  |   37  |   Total 3D printed parts count |
 |  |  |  |  |  |  |  |  |  |  | | **CNC routed parts** |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; |  &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;BaseAL.dxf |
-| &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;.&nbsp; | &nbsp;&nbsp;1&nbsp; | &nbsp;&nbsp;Total CNC routed parts count |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |   BaseAL.dxf |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   1  |   Total CNC routed parts count |
 
 <span></span>
 [Top](#TOP)
@@ -215,7 +217,7 @@ baseplate can be used instead.
 ---
 <a name="X_Carriage_assembly"></a>
 
-## X Carriage Assembly
+## X_Carriage assembly
 
 ### Vitamins
 
@@ -251,7 +253,7 @@ baseplate can be used instead.
 ---
 <a name="Print_head_assembly"></a>
 
-## Print Head Assembly
+## Print_head assembly
 
 ### Vitamins
 
@@ -300,7 +302,7 @@ Note that wiring is not shown in this diagram.
 ---
 <a name="X_Carriage_Front_assembly"></a>
 
-## X Carriage Front Assembly
+## X_Carriage_Front assembly
 
 ### Vitamins
 
@@ -339,7 +341,7 @@ Note that wiring is not shown in this diagram.
 ---
 <a name="Top_Face_Stage_1_assembly"></a>
 
-## Top Face Stage 1 Assembly
+## Top_Face_Stage_1 assembly
 
 ### Vitamins
 
@@ -375,7 +377,7 @@ Note that wiring is not shown in this diagram.
 ---
 <a name="Top_Face_Stage_2_assembly"></a>
 
-## Top Face Stage 2 Assembly
+## Top_Face_Stage_2 assembly
 
 ### Vitamins
 
@@ -433,7 +435,7 @@ so they run freely.
 ---
 <a name="Top_Face_assembly"></a>
 
-## Top Face Assembly
+## Top_Face assembly
 
 ### Vitamins
 
@@ -473,7 +475,7 @@ tightening the corresponding bolts.
 ---
 <a name="Display_Cover_assembly"></a>
 
-## Display Cover Assembly
+## Display_Cover assembly
 
 ### Vitamins
 
@@ -506,7 +508,7 @@ Attach the knob to the display.
 ---
 <a name="Display_Housing_assembly"></a>
 
-## Display Housing Assembly
+## Display_Housing assembly
 
 ### Vitamins
 
@@ -547,7 +549,7 @@ Attach the knob to the display.
 ---
 <a name="Z_Carriage_assembly"></a>
 
-## Z Carriage Assembly
+## Z_Carriage assembly
 
 ### Vitamins
 
@@ -582,7 +584,7 @@ Affix the leadscrew nut.
 ---
 <a name="Print_bed_assembly"></a>
 
-## Print Bed Assembly
+## Print_bed assembly
 
 ### Vitamins
 
@@ -622,7 +624,7 @@ Affix the leadscrew nut.
 ---
 <a name="Back_Face_Stage_1_assembly"></a>
 
-## Back Face Stage 1 Assembly
+## Back_Face_Stage_1 assembly
 
 ### Vitamins
 
@@ -661,7 +663,7 @@ Affix the leadscrew nut.
 ---
 <a name="Back_Face_assembly"></a>
 
-## Back Face Assembly
+## Back_Face assembly
 
 ### Vitamins
 
@@ -694,7 +696,7 @@ Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on t
 ---
 <a name="Right_Face_Stage_1_assembly"></a>
 
-## Right Face Stage 1 Assembly
+## Right_Face_Stage_1 assembly
 
 ### Vitamins
 
@@ -735,7 +737,7 @@ Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on t
 ---
 <a name="Right_Face_assembly"></a>
 
-## Right Face Assembly
+## Right_Face assembly
 
 ### Vitamins
 
@@ -772,7 +774,7 @@ Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on t
 ---
 <a name="Base_assembly"></a>
 
-## Base Assembly
+## Base assembly
 
 ### Vitamins
 
@@ -830,7 +832,7 @@ Once you have drilled these re-drill the holes with a 3mm bit. Note that the Bas
 ---
 <a name="Switch_Shroud_assembly"></a>
 
-## Switch Shroud Assembly
+## Switch_Shroud assembly
 
 ### Vitamins
 
@@ -840,7 +842,9 @@ Once you have drilled these re-drill the holes with a 3mm bit. Note that the Bas
 |2| Wire black 12SWG, length 100mm|
 |2| Wire red 12SWG, length 100mm|
 |1| XT60 Connector Female|
+|1| XT60 Connector Female - not shown|
 |1| XT60 Connector Male|
+|1| XT60 Connector Male - not shown|
 
 
 ### 3D Printed parts
@@ -865,7 +869,7 @@ Once you have drilled these re-drill the holes with a 3mm bit. Note that the Bas
 ---
 <a name="Left_Face_assembly"></a>
 
-## Left Face Assembly
+## Left_Face assembly
 
 ### Vitamins
 
@@ -919,7 +923,7 @@ Once you have drilled these re-drill the holes with a 3mm bit. Note that the Bas
 ---
 <a name="Stage_1_assembly"></a>
 
-## Stage 1 Assembly
+## Stage_1 assembly
 
 ### Vitamins
 
@@ -960,7 +964,7 @@ Bolt the left face and the left feet to the base
 ---
 <a name="Stage_2_assembly"></a>
 
-## Stage 2 Assembly
+## Stage_2 assembly
 
 ### Vitamins
 
@@ -1001,7 +1005,7 @@ Bolt the right face and the right feet to the base
 ---
 <a name="Stage_3_assembly"></a>
 
-## Stage 3 Assembly
+## Stage_3 assembly
 
 ### Vitamins
 
@@ -1037,7 +1041,7 @@ Add the back face and bolt it to the left and right faces and the base.
 ---
 <a name="Stage_4_assembly"></a>
 
-## Stage 4 Assembly
+## Stage_4 assembly
 
 ### Vitamins
 
@@ -1079,7 +1083,7 @@ Bolt the BabyCube nameplate and the display housing to the front of the frame.
 ---
 <a name="Stage_5_assembly"></a>
 
-## Stage 5 Assembly
+## Stage_5 assembly
 
 ### Vitamins
 
@@ -1112,7 +1116,7 @@ Add the Top Face.
 ---
 <a name="Stage_6_assembly"></a>
 
-## Stage 6 Assembly
+## Stage_6 assembly
 
 ### Vitamins
 
@@ -1150,7 +1154,7 @@ Add the Top Face.
 ---
 <a name="main_assembly"></a>
 
-## Main Assembly
+## main assembly
 
 ### Vitamins
 
