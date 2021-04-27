@@ -4,6 +4,7 @@ include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../scad/printed/BackFace.scad>
+use <../scad/printed/Extras.scad>
 use <../scad/printed/LeftAndRightFaces.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
@@ -30,8 +31,9 @@ module Right_Face_test() {
     //CoreXYBelts(NEMA_width(NEMA_type), carriagePosition, x_gap=16, show_pulleys=false);
 
     Right_Face_assembly();
-    //faceRightSpoolHolder();
-    //faceRightSpool();
+    faceRightSpoolHolder();
+    faceRightSpool();
+    bowdenTube();
     //Right_Face_CF_assembly();
     //Right_Face_stl();
     //Right_Face_NEMA_17_stl();

@@ -181,13 +181,13 @@ module rightFaceCF(NEMA_type) {
                 sideFaceBackDogBones(cnc=true);
             translate([-eY - 2*eSizeY, 0])
                 sideFaceBackDogBones(cnc=true);
-            translate([extruderPosition(NEMA_type).y, extruderPosition(NEMA_type).z]) {
+            translate([extruderPosition(NEMA_width).y, extruderPosition(NEMA_width).z]) {
                 circle(r = NEMA_boss_radius(extruderNEMA_type()) + 0.25);
                 // extruder motor bolt holes
                 NEMA_screw_positions(extruderNEMA_type())
                     circle(r = M3_clearance_radius);
             }
-            spoolHolderCutout(NEMA_type, cnc=true);
+            spoolHolderCutout(NEMA_width, cnc=true);
             lowerSideJoinerHolePositions()
                 circle(r = M3_clearance_radius);
             upperSideJoinerHolePositions()
@@ -250,5 +250,5 @@ assembly("Right_Face_CF", big=true) {
     XY_Motor_Mount_Right_assembly();
     XY_Idler_Bracket_Right_assembly();
     rightFaceHardware();
-    rightFaceAssembly(NEMA14T());
+    rightFaceAssembly(_xyNEMA_width);
 }

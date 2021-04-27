@@ -16,9 +16,9 @@ use <Printbed.scad>
 use <Printbed3point.scad>
 use <Z_MotorMount.scad>
 
-include <../Parameters_Main.scad>
-include <../Parameters_Positions.scad>
 use <../Parameters_CoreXY.scad>
+use <../Parameters_Positions.scad>
+include <../Parameters_Main.scad>
 
 
 module Back_Face_stl() {
@@ -92,7 +92,7 @@ assembly("Back_Face", big=true) {
                         rotate([90, 0, 0])
                             rod(d=_zRodDiameter, l=_zRodLength);
     explode(50)
-        translate_z(_bedHeight) {
+        translate_z(bedHeight()) {
             if (_printBedSize == 100)
                 Print_bed_assembly();
             else
@@ -176,7 +176,7 @@ assembly("Back_Face_CF", big=true) {
                         rotate([90, 0, 0])
                             rod(d=_zRodDiameter, l=_zRodLength);
     explode(50)
-        translate_z(_bedHeight) {
+        translate_z(bedHeight()) {
             if (_printBedSize == 100)
                 Print_bed_assembly();
             else

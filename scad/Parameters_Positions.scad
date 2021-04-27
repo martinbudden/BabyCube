@@ -1,3 +1,5 @@
+include <Parameters_main.scad>
+
 // set $t = 2 for mid position
 $t = 2;
 
@@ -24,9 +26,9 @@ function yPos(t) = t==-1 ? 0 : t==2 ? (_yMin + _yMax)/2 : t==3 ? _yMin : t==4 ? 
 function yPosAnimate(t) = eY/2 + t*100;
 __carriagePositionY = $t > 1  ? yPos($t) : yPosAnimate($t);
 
-carriagePosition = [__carriagePositionX, __carriagePositionY];
+function carriagePosition() = [__carriagePositionX, __carriagePositionY];
 
 // Z-axis
 function zPos(t) = t==2 ? _zMin : t==7 ? (_zMin + _zMax)/2 - 15 : _zMax;
 function zPosAnimate(t) = _zMax - t*10;
-_bedHeight = $t > 1 ? zPos($t) : zPosAnimate($t);
+function bedHeight() = $t > 1 ? zPos($t) : zPosAnimate($t);

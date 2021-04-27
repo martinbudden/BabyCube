@@ -9,15 +9,15 @@ use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/utils/CoreXYBelts.scad>
 
 use <../scad/Parameters_CoreXY.scad>
+use <../scad/Parameters_Positions.scad>
 include <../scad/Parameters_Main.scad>
-include <../scad/Parameters_Positions.scad>
 
 
 //$explode = 1;
 //$pose = 1;
 module XY_IdlerBracket_test() {
     echo(idlerBracketSize = idlerBracketSize(coreXYPosBL(_xyNEMA_width)));
-    CoreXYBelts(_xyNEMA_width, carriagePosition, x_gap=16, show_pulleys=false);
+    CoreXYBelts(_xyNEMA_width, carriagePosition(), x_gap=16, show_pulleys=false);
 
     //XY_IdlerBracket(coreXYPosBL(_xyNEMA_width), _xyNEMA_width, _sidePlateThickness);
     //XY_IdlerBracketHardware(coreXYPosBL(_xyNEMA_width));

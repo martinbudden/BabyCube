@@ -10,15 +10,15 @@ use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/Printbed.scad>
 use <../scad/printed/Printbed3point.scad>
 
+use <../scad/Parameters_Positions.scad>
 include <../scad/Parameters_Main.scad>
-include <../scad/Parameters_Positions.scad>
 
 //$explode = 1;
 //$pose = 1;
 module Back_Face_test() {
     //Back_Face_Stage_1_assembly();
-    //translate_z(_bedHeight) Print_bed_3_point_assembly();
-    //translate_z(_bedHeight) Print_bed_assembly();
+    //translate_z(bedHeight()) Print_bed_3_point_assembly();
+    //translate_z(bedHeight()) Print_bed_assembly();
     //translate_z(_zMin) Print_bed_3_point_printed_assembly();
     Back_Face_assembly();
     //Back_Face_CF_assembly();

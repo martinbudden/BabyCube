@@ -19,7 +19,6 @@ use <X_CarriageAssemblies.scad>
 
 use <../Parameters_CoreXY.scad>
 include <../Parameters_Main.scad>
-include <../Parameters_Positions.scad>
 
 
 //!

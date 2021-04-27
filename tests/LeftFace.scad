@@ -22,7 +22,6 @@ use <../scad/vitamins/bolts.scad>
 
 use <../scad/Parameters_CoreXY.scad>
 include <../scad/Parameters_Main.scad>
-include <../scad/Parameters_Positions.scad>
 
 
 NEMA_type = xyNEMA_type();

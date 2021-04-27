@@ -15,8 +15,8 @@ use <Y_Carriage.scad>
 use <Y_CarriageAssemblies.scad>
 
 use <../Parameters_CoreXY.scad>
+use <../Parameters_Positions.scad>
 include <../Parameters_Main.scad>
-include <../Parameters_Positions.scad>
 
 
 module Top_Face_stl() {
@@ -181,7 +181,7 @@ module topFaceAssembly(NEMA_width) {
     yRailType = carriage_rail(yCarriageType);
 
     railOffset = yRailOffset(NEMA_width);
-    posY = carriagePosition.y - _yRailLength/2 - (_fullLengthYRail ? 0 : eSizeY);
+    posY = carriagePosition().y - _yRailLength/2 - (_fullLengthYRail ? 0 : eSizeY);
 
     translate([railOffset.z, railOffset.x, railOffset.y])
         rotate([180, 0, 90])
@@ -205,7 +205,7 @@ module topFaceAssembly(NEMA_width) {
 module yCarriageAssemblies(NEMA_width) {
     yCarriageType = yCarriageType();
     railOffset = yRailOffset(NEMA_width);
-    posY = carriagePosition.y - _yRailLength/2 - (_fullLengthYRail ? 0 : eSizeY);
+    posY = carriagePosition().y - _yRailLength/2 - (_fullLengthYRail ? 0 : eSizeY);
 
     //hidden() Y_Carriage_Left_AL_dxf();
     //hidden() Y_Carriage_Right_AL_dxf();

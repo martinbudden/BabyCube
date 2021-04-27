@@ -20,8 +20,8 @@ use <../scad/printed/Y_CarriageAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 
 use <../scad/Parameters_CoreXY.scad>
+use <../scad/Parameters_Positions.scad>
 include <../scad/Parameters_Main.scad>
-include <../scad/Parameters_Positions.scad>
 
 
 module CoreXY() {
@@ -29,7 +29,7 @@ module CoreXY() {
     echo(coreXY_drive_pulley_x_offset=coreXY_drive_pulley_x_alignment(coreXY_type()));
     echo(coreXYSeparation=coreXYSeparation());
 
-    CoreXYBelts(_xyNEMA_width, carriagePosition, x_gap=16, show_pulleys=false);
+    CoreXYBelts(_xyNEMA_width, carriagePosition(), x_gap=16, show_pulleys=false);
     yCarriageAssemblies(_xyNEMA_width);
     XY_Idler_Bracket_Left_assembly();
     XY_Idler_Bracket_Right_assembly();

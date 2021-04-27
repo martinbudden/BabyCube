@@ -6,24 +6,21 @@ use <printed/BackFace.scad>
 use <printed/BackFaceAssemblies.scad>
 use <printed/Base.scad>
 use <printed/DisplayHousingAssemblies.scad>
+use <printed/Extras.scad>
 use <printed/FrontChords.scad>
-use <printed/LeftAndRightFaces.scad>
 use <printed/LeftAndRightFaceAssemblies.scad>
 use <printed/PrintheadAssemblies.scad>
 use <printed/TopFaceAssemblies.scad>
-use <printed/X_Carriage.scad>
 use <printed/X_CarriageAssemblies.scad>
 
 use <utils/carriageTypes.scad>
 use <utils/CoreXYBelts.scad>
 use <utils/HolePositions.scad>
-use <utils/X_Rail.scad>
 
 use <vitamins/bolts.scad>
 
-use <Parameters_CoreXY.scad>
+use <Parameters_Positions.scad>
 include <Parameters_Main.scad>
-include <Parameters_Positions.scad>
 
 
 staged_assembly = true; // set this to false for faster builds during development
@@ -164,7 +161,7 @@ staged_assembly("Stage_6", big=true, ngb=true) {
     Stage_5_assembly();
 
     explode(100)
-        CoreXYBelts(NEMA_width = _xyNEMA_width, carriagePosition=carriagePosition, x_gap=10, show_pulleys=false);
+        CoreXYBelts(NEMA_width = _xyNEMA_width, carriagePosition=carriagePosition(), x_gap=10, show_pulleys=false);
     explode(100, true)
         fullPrinthead();
     if (!exploded())

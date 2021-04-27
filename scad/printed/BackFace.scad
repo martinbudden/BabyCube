@@ -21,8 +21,8 @@ use <X_Carriage.scad>
 use <Z_MotorMount.scad>
 
 use <../Parameters_CoreXY.scad>
+use <../Parameters_Positions.scad>
 include <../Parameters_Main.scad>
-include <../Parameters_Positions.scad>
 
 
 // in XZ plane, coordinates are [x, z, y]
@@ -72,7 +72,7 @@ module backFaceCableTies() {
 module printheadWiring() {
     vitamin(str(": Spiral wrap, 500mm"));
 
-    endPos = [carriagePosition.x + eSizeX - 6 - xCarriageFrontSize(xCarriageType()).x/2, carriagePosition.y + xCarriageBackOffsetY(xCarriageType()), eZ] + printheadWiringOffset();
+    endPos = [carriagePosition().x + eSizeX - 6 - xCarriageFrontSize(xCarriageType()).x/2, carriagePosition().y + xCarriageBackOffsetY(xCarriageType()), eZ] + printheadWiringOffset();
     zp = zipTiePositions;
     y = eY + 2*eSizeY - printheadWireRadius();
     p = [

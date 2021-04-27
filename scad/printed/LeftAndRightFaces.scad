@@ -1,12 +1,9 @@
 include <../global_defs.scad>
 
 include <NopSCADlib/core.scad>
-use <NopSCADlib/utils/dogbones.scad>
 use <NopSCADlib/utils/fillet.scad>
-include <NopSCADlib/vitamins/sheets.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 include <NopSCADlib/vitamins/rockers.scad>
-include <NopSCADlib/vitamins/wire.scad>
 
 use <../utils/diagonal.scad>
 use <../utils/cutouts.scad>
@@ -42,7 +39,7 @@ upperFillet = 1.5;
 function rocker_type() = small_rocker;
 function rockerPosition(rocker_type) = [0, rocker_height(rocker_type)/2 + frontLowerChordSize().y + 3, eSizeX + eps + rocker_slot_w(rocker_type)/2];
 function extruderMotorOffsetZ() = upperWebThickness;
-function extruderPosition(NEMA_type) = [eX + 2*eSizeX, eY - 2*NEMA_width(NEMA_type) + 2*35.2 - 40-motorClearance().y, eZ - 73];
+function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - 2*NEMA_width + 2*35.2 - 40 - motorClearance().y, eZ - 73];
 function spoolHolderPosition() = [eX + 2*eSizeX, 24, eZ - 75];
 function frontReinforcementThickness() = 3;
 
@@ -176,17 +173,15 @@ module webbingLeft(NEMA_type) {
         diagonal([eY + eSizeY - switchShroudSizeX, middleWebOffsetZ() - eSizeZ, _webThickness], min(eSizeY, eSizeZ), 5);
 }
 
-module spoolHolderCutout(NEMA_type, cnc=false) {
-    assert(is_list(NEMA_type));
-    NEMA_width = NEMA_width(NEMA_type);
+module spoolHolderCutout(NEMA_width, cnc=false) {
 
-    width = (extruderPosition(NEMA_type).y - XY_MotorMountSize(NEMA_width).y)/2;
+    width = (extruderPosition(NEMA_width).y - XY_MotorMountSize(NEMA_width).y)/2;
     if (cnc)
         translate([eSizeY+5, spoolHolderPosition().z])
             rounded_square([50, eZ - antiShearSize.y - spoolHolderPosition().z], innerFillet, center=false);
     else
         translate([idlerBracketSize(coreXYPosBL(NEMA_width)).x, spoolHolderPosition().z])
-            rounded_square([extruderPosition(NEMA_type).y - width/2 - eSizeY-idlerBracketSize(coreXYPosBL(NEMA_width)).x, eZ - antiShearSize.y - spoolHolderPosition().z], innerFillet, center=false);
+            rounded_square([extruderPosition(NEMA_width).y - width/2 - eSizeY-idlerBracketSize(coreXYPosBL(NEMA_width)).x, eZ - antiShearSize.y - spoolHolderPosition().z], innerFillet, center=false);
 }
 
 module webbingRight(NEMA_type) {
@@ -199,7 +194,8 @@ module webbingRight(NEMA_type) {
     translate([eSizeY + eps, eSizeZ - eps, 0]) // eps displacement probably not necessary
         diagonalDown([eY + 2*eps, middleWebOffsetZ() - eSizeZ + 2*eps, _webThickness], min(eSizeY, eSizeZ), 5);
 
-    width = (extruderPosition(NEMA_type).y - XY_MotorMountSize(NEMA_width).y)/2;
+    extruderPosition = extruderPosition(NEMA_width);
+    width = (extruderPosition.y - XY_MotorMountSize(NEMA_width).y)/2;
     // plate to hold extruder
     linear_extrude(upperWebThickness)
         difference() {
@@ -215,21 +211,21 @@ module webbingRight(NEMA_type) {
                 if (_sideTabs)
                     sideFaceBackTabs();
             }
-            translate([extruderPosition(NEMA_type).y, extruderPosition(NEMA_type).z]) {
+            translate([extruderPosition.y, extruderPosition.z]) {
                 poly_circle(r = NEMA_boss_radius(extruderNEMA_type()) + 0.25);
                 // extruder motor bolt holes
                 NEMA_screw_positions(extruderNEMA_type())
                     poly_circle(r = M3_clearance_radius);
             }
-            spoolHolderCutout(NEMA_type);
+            spoolHolderCutout(NEMA_width);
             sideFaceMotorCutout(left, NEMA_width, cnc=true);
         }
 
     // support for the spoolholder
     offset = 22.5;
     translate([0, middleWebOffsetZ(), 0])
-        rounded_cube_xy([extruderPosition(NEMA_type).y - offset - eSizeY + innerFillet, spoolHolderPosition().z - middleWebOffsetZ(), eSizeX], innerFillet);
-    translate([extruderPosition(NEMA_type).y - offset - eSizeY + innerFillet, middleWebOffsetZ() + eSizeZ, 0])
+        rounded_cube_xy([extruderPosition.y - offset - eSizeY + innerFillet, spoolHolderPosition().z - middleWebOffsetZ(), eSizeX], innerFillet);
+    translate([extruderPosition.y - offset - eSizeY + innerFillet, middleWebOffsetZ() + eSizeZ, 0])
         fillet(innerFillet, eSizeX);
     translate([idlerBracketSize.x, spoolHolderPosition().z, 0])
         fillet(innerFillet, eSizeX);
@@ -397,7 +393,7 @@ module frame(NEMA_type, left=true) {
         // middle chord
         if (!left)// add cutouts for extruder motor wires
             for (y = extruderZipTiePositions())
-                translate([y + extruderPosition(NEMA_type).y, middleWebOffsetZ() - eps, eSizeX])
+                translate([y + extruderPosition(NEMA_width).y, middleWebOffsetZ() - eps, eSizeX])
                     rotate(90)
                         zipTieCutout();
     }
@@ -462,9 +458,9 @@ module leftAndRightFaceZipTies(left) {
                 cable_tie(cable_r = 3, thickness = 2);
 }
 
-module rightFaceExtruderZipTies(NEMA_type) {
+module rightFaceExtruderZipTies(NEMA_width) {
     for (y = extruderZipTiePositions())
-        translate([eX + eSizeX, y + extruderPosition(NEMA_type).y, middleWebOffsetZ() + 0.5])
+        translate([eX + eSizeX, y + extruderPosition(NEMA_width).y, middleWebOffsetZ() + 0.5])
             rotate([90, 0, -90])
                 cable_tie(cable_r = 3, thickness = 3);
 }

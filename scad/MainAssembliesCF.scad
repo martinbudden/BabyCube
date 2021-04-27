@@ -2,26 +2,25 @@ include <global_defs.scad>
 
 include <NopSCADlib/core.scad>
 
-include <Parameters_Main.scad>
-include <Parameters_Positions.scad>
-use <Parameters_CoreXY.scad>
-
 use <utils/CoreXYBelts.scad>
 use <utils/HolePositions.scad>
 use <utils/carriageTypes.scad>
-use <utils/X_Rail.scad>
 
 use <printed/BackFace.scad>
 use <printed/BackFaceAssemblies.scad>
 use <printed/Base.scad>
 use <printed/DisplayHousingAssemblies.scad>
+use <printed/Extras.scad>
 use <printed/FrontFace.scad>
 use <printed/LeftAndRightFaceAssemblies.scad>
 use <printed/LeftAndRightFaceAssembliesCF.scad>
 use <printed/PrintheadAssemblies.scad>
 use <printed/TopFaceAssemblies.scad>
-use <printed/X_Carriage.scad>
 use <printed/X_CarriageAssemblies.scad>
+
+use <Parameters_Positions.scad>
+include <Parameters_Main.scad>
+
 
 staged_assembly = !true; // set this to false for faster builds during development
 
@@ -194,5 +193,5 @@ module FinalAssemblyCF() {
     //Stage_6_CF_assembly();
     Debug_CF_assembly();
     if (!exploded())
-        CoreXYBelts(NEMA_width = _xyNEMA_width, carriagePosition=carriagePosition, x_gap=10, show_pulleys=false);
+        CoreXYBelts(NEMA_width = _xyNEMA_width, carriagePosition=carriagePosition(), x_gap=10, show_pulleys=false);
 }

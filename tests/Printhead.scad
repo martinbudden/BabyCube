@@ -4,6 +4,8 @@ include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/e3d.scad>
 
+use <../scad/printed/Base.scad>
+use <../scad/printed/Extras.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/Printhead.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
@@ -15,10 +17,10 @@ use <../scad/utils/printParameters.scad>
 use <../scad/utils/carriageTypes.scad>
 use <../scad/utils/X_Rail.scad>
 
-include <../scad/Parameters_Main.scad>
-use <../scad/printed/Base.scad>
-include <../scad/Parameters_Positions.scad>
 use <../scad/Parameters_CoreXY.scad>
+use <../scad/Parameters_Positions.scad>
+include <../scad/Parameters_Main.scad>
+
 
 NEMA_width = _xyNEMA_width;
 
@@ -30,11 +32,11 @@ module Printhead_test() {
     xCarriageType = xCarriageType();
 
     //let($hide_bolts=true)
-    translate(-[ eSizeX+eX/2, carriagePosition.y, eZ - yRailOffset(NEMA_width).z - carriage_clearance(xCarriageType) ]) {
+    translate(-[ eSizeX+eX/2, carriagePosition().y, eZ - yRailOffset(NEMA_width).z - carriage_clearance(xCarriageType) ]) {
         //Back_Face_assembly();
         //bowdenTube();
         //printheadWiring();
-        CoreXYBelts(NEMA_width, carriagePosition, x_gap=2, show_pulleys=false);
+        CoreXYBelts(NEMA_width, carriagePosition(), x_gap=2, show_pulleys=false);
         xRail(xCarriageType(), _xRailLength);
         fullPrinthead();
         bowdenTube();
