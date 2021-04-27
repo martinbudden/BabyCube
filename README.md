@@ -20,8 +20,8 @@ The assembly instructions and the BOM (parts list) are [here](BC200/readme.md). 
 
 ## Design Goals
 
-The primary design goal was to produce a small 3D printer with a printable frame with external dimensions of approximately
-200mm by 200mm by 200mm, with a target print volume of approximately 75mm by 75mm by 75mm.
+The primary design goal was to produce a small 3D printer with a printable frame, external dimensions of approximately
+200mm by 200mm by 200mm, and a target print volume of approximately 75mm by 75mm by 75mm.
 
 The aim was that BabyCube could be printed on "standard" size printers, that is printers with a bed size of approximately 220mm by 220mm, such as the Ender 3 (print volume 220mm by 220mm by 250mm) and the Prusa i3 (print volume 250mm by 210mm by 210mm).
 I printed my BabyCube on a BIQU B1 (which is similar to an Ender 3).
@@ -38,7 +38,7 @@ Further design goals:
 3. **Require minimal tools for assembly**
     * Assembly can essentially be completed using just hex keys.
     * Some small files are useful cleaning up printed parts, and optionally an M3 tap (and tap wrench) can be used to start self-tapping holes.
-    * A drill and 3mm bit is required to drill the holes in the aluminium base, but a 3D printed base can be used instead.
+    * A drill with 2mm and 3mm bits is required to drill the holes in the aluminium base, but a 3D printed base can be used instead.
 4. **Require minimal rework of printed parts**
     * [NopSCADlib](https://github.com/nophead/NopSCADlib) provides several features to avoid part rework.
     * All parts can be printed without supports. [Hanging holes](https://hydraraptor.blogspot.com/2014/03/buried-nuts-and-hanging-holes.html) are used to avoid supports in the display housing and the X_Carriage front.
@@ -51,7 +51,7 @@ Further design goals:
 6. **Make the BabyCube as silent a possible**
     * Use TMC 2209 silent stepper drivers
     * The hotend fan is temperature regulated and only switches on when the hotend reaches 50&deg; Celsius
-    * The BTT SKR E3 mini V2 and E3 turbo controls board are passively cooled by being thermally connected to the aluminium base
+    * The the control board and stepper drivers are passively cooled by being thermally connected to the aluminium base (if either the BTT SKR E3 mini V2 or the BTT E3 turbo control boards are used).
 7. **Try and keep the costs down**
     * the aim is not to be as cheap as possible, but rather to avoid unnecessary costs
     * use standard parts as far as possible
@@ -63,9 +63,8 @@ Further design goals:
     * As far as possible, make it easy to partially disassemble the frame and exchange parts
 10. **Support different size and material variants**
     * BabyCube's parametric design allows different size variants
-    * There is a carbon fibre variant under development
 11. **Be delightful**
-    * A good design should aspects that the user finds delightful
+    * A good design should have aspects that the user finds delightful
 
 ## Variants
 
