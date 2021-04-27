@@ -158,9 +158,9 @@ module XY_IdlerBracketHardware(coreXYPosBL) {
                                         washer(M3_washer);
             if (yCarriageBraceThickness())
                 translate([boltPos.x, -boltPos.y, -washer_thickness(M3_washer)])
-                    explode([-40, 2, 0], true)
+                    explode([-40, 5, 0], true)
                         washer(M3_washer)
-                            explode([0, -4, 0])
+                            explode([0, -10, 0])
                                 washer(M3_washer);
         }
 }
