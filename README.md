@@ -40,7 +40,7 @@ Further design goals:
     * Some small files are useful cleaning up printed parts, and optionally an M3 tap (and tap wrench) can be used to start self-tapping holes.
     * A drill and 3mm bit is required to drill the holes in the aluminium base, but a 3D printed base can be used instead.
 4. **Require minimal rework of printed parts**
-    * [NopSCADlib's](https://github.com/nophead/NopSCADlib) provides several features to avoid part rework.
+    * [NopSCADlib](https://github.com/nophead/NopSCADlib) provides several features to avoid part rework.
     * All parts can be printed without supports. [Hanging holes](https://hydraraptor.blogspot.com/2014/03/buried-nuts-and-hanging-holes.html) are used to avoid supports in the display housing and the X_Carriage front.
     * Bolt holes are created using [horizontal holes](https://hydraraptor.blogspot.com/2020/07/horiholes-2.htm) and [polyholes](https://hydraraptor.blogspot.com/2011/02/polyholes.html) and so are correct size and should not need redrilling.
 5. **Use linear rails for the x and y axes**

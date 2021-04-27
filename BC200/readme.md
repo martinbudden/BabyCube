@@ -108,7 +108,7 @@ baseplate can be used instead.
 | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Head</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">X Carriage Front</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Top Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Display Housing</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Back Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Right Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Base</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Left Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Main</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">TOTALS</span> |  |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|:---|
 |  |  |  |  |  |  |  |  |  |  | | **Vitamins** |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |    Aluminium rectangular box section 12mm x 8mm x 1mm, length 85mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |    Aluminium box section 12mm x 8mm x 1mm, length 85mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |    Aluminium sheet 220mm x 204mm x 3mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |    Belt GT2 x 6mm x 728mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |    Belt GT2 x 6mm x 728mm |
@@ -780,7 +780,7 @@ Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on t
 
 |Qty|Description|
 |---:|:----------|
-|1| Aluminium rectangular box section 12mm x 8mm x 1mm, length 85mm|
+|1| Aluminium box section 12mm x 8mm x 1mm, length 85mm|
 |1| Aluminium sheet 220mm x 204mm x 3mm|
 |1| BigTreeTech SKR Mini E3 v2.0|
 |2| Bolt M3 buttonhead x 10mm|
