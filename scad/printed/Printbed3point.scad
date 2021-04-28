@@ -17,7 +17,7 @@ use <Z_carriage.scad>
 include <../Parameters_Main.scad>
 
 
-AL6anodised = [ "AL6anodised",       "Aluminium tooling plate", 6, [0.3, 0.3, 0.3, 1    ], false];
+AL6anodised = [ "AL6anodised",       "Aluminium tooling plate", 6, [0.3, 0.3, 0.3, 1 ], false];
 
 scs_type = _zRodDiameter == 8 ? SCS8UU : _zRodDiameter == 10 ? SCS10UU : SCS12UU;
 leadnut = LSN8x2;
