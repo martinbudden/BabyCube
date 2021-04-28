@@ -953,7 +953,7 @@ Once you have drilled these re-drill the holes with a 3mm bit. Note that the Bas
 
 ![Stage_1_assembly](assemblies/Stage_1_assembly.png)
 
-Bolt the left face and the left feet to the base
+Bolt the left face and the left feet to the base.
 
 ![Stage_1_assembled](assemblies/Stage_1_assembled.png)
 
@@ -993,7 +993,7 @@ Bolt the left face and the left feet to the base
 
 ![Stage_2_assembly](assemblies/Stage_2_assembly.png)
 
-Bolt the right face and the right feet to the base
+Bolt the right face and the right feet to the base.
 
 ![Stage_2_assembled](assemblies/Stage_2_assembled.png)
 
