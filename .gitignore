@@ -33,11 +33,11 @@ BC200/*.html
 # change to ! once released
 !BC200/readme.md
 !BC200/assemblies/main_assembled.png
-#!BC200/assemblies/*.png
-#!BC200/dxfs/*.dxf
-#!BC200/dxfs/*.png
-#!BC200/stls/*.stl
-#!BC200/stls/*.png
+!BC200/assemblies/*.png
+!BC200/dxfs/*.dxf
+!BC200/dxfs/*.png
+!BC200/stls/*.stl
+!BC200/stls/*.png
 
 
 BC200CF/assemblies/*
