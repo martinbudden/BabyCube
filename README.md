@@ -59,7 +59,7 @@ Further design goals:
     * see proof of concept [here](concepts/readme.md) (still a work in progress)
 9. **Facilitate customisation and experimentation**
     * Open source design
-    * Parametric design in OpenSCAD
+    * Parametric design in [OpenSCAD](https://openscad.org/)
     * As far as possible, make it easy to partially disassemble the frame and exchange parts
 10. **Support different size and material variants**
     * BabyCube's parametric design allows different size variants
