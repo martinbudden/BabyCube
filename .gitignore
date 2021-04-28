@@ -34,10 +34,13 @@ BC200/*.html
 !BC200/readme.md
 !BC200/assemblies/main_assembled.png
 !BC200/assemblies/*.png
+BC200/assemblies/*_diff.png
 !BC200/dxfs/*.dxf
 !BC200/dxfs/*.png
+BC200/dxfs/*_diff.png
 !BC200/stls/*.stl
 !BC200/stls/*.png
+BC200/stls/*_diff.png
 
 
 BC200CF/assemblies/*
@@ -51,10 +54,13 @@ BC200CF/readme.md
 !BC200CF/assemblies/main_assembly.png
 !BC200CF/assemblies/main_assembled.png
 #!BC200CF/assemblies/*.png
+BC200CF/assemblies/*_diff.png
 #!BC200CF/dxfs/*.dxf
 #!BC200CF/dxfs/*.png
+BC200CF/dxfs/*_diff.png
 #!BC200CF/stls/*.stl
 #!BC200CF/stls/*.png
+BC200CF/stls/*_diff.png
 
 
 BC220/assemblies/*
@@ -67,7 +73,10 @@ BC220/*.html
 BC220/readme.md
 BC220/assemblies/main_assembled.png
 #!BC220/assemblies/*.png
+BC220/assemblies/*_diff.png
 #!BC220/dxfs/*.dxf
 #!BC220/dxfs/*.png
+BC220/dxfs/*_diff.png
 #!BC220/stls/*.stl
 #!BC220/stls/*.png
+BC220/stls/*_diff.png
