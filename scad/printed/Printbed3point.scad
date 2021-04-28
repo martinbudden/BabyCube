@@ -289,8 +289,8 @@ assembly("Print_bed_3_point_printed") {
     translate([eX/2 + eSizeX, eY + 2*eSizeY - _zLeadScrewOffset, 0]) // this moves it to the back face
         rotate(180) {
             printbed3point(-eSize/2 + leadnutInset, (eSize - scs_size(scs_type).z)/2);
-            stl_colour(pp1_colour)
-                vflip()
+            vflip()
+                stl_colour(pp1_colour)
                     Printbed_Frame_stl();
         }
 }

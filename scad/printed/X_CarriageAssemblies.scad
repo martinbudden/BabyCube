@@ -60,23 +60,23 @@ assembly("X_Carriage_Front", big=true) {
         translate([size.x/2, -1.5, beltOffsetZ])
             rotate([0, -90, 90])
                 explode(20, true) {
-                    stl_colour(pp2_colour)
-                        hidden()
+                    hidden()
+                        stl_colour(pp2_colour)
                             Belt_Tidy_stl();
                     //Belt_Tidy_hardware();
                 }
 
         translate([12, (size.y + beltInsetFront())/2, beltOffsetZ - coreXYSeparation().z/2]) {
-            stl_colour(pp3_colour)
-                explode([0, -10, 0])
+            explode([0, -10, 0])
+                stl_colour(pp3_colour)
                     Belt_Tensioner_stl();
             Belt_Tensioner_hardware();
         }
 
         translate([size.x - 12, (size.y + beltInsetFront())/2, beltOffsetZ + coreXYSeparation().z/2])
             rotate(180) {
-                stl_colour(pp3_colour)
-                    explode([0, 10, 0])
+                explode([0, 10, 0])
+                    stl_colour(pp3_colour)
                         Belt_Tensioner_stl();
                 Belt_Tensioner_hardware();
             }
