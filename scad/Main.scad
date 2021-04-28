@@ -1,5 +1,9 @@
 //!# BabyCube Assembly Instructions
 //!
+//!These are the assembly instructions for the BabyCube. These instructions are not fully comprehensive, that is they do
+//!not show every small detail of the construction and in particular they do not show the wiring. However there is sufficient
+//!detail that someone with a good understanding of 3D printers can build the BabyCube.
+//!
 //!![Main Assembly](assemblies/main_assembled.png)
 //!
 //!![BabyCube](../pictures/babycube200_1000.jpg)
