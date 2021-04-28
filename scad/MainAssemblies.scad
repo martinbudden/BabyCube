@@ -33,7 +33,7 @@ module staged_assembly(name, big, ngb) {
         children();
 }
 
-//! Bolt the left face and the left feet to the base
+//! Bolt the left face and the left feet to the base.
 //
 module Stage_1_assembly()
 staged_assembly("Stage_1", big=true, ngb=true) {
@@ -56,7 +56,7 @@ staged_assembly("Stage_1", big=true, ngb=true) {
                 boltM3Buttonhead(8);
 }
 
-//! Bolt the right face and the right feet to the base
+//! Bolt the right face and the right feet to the base.
 //
 module Stage_2_assembly()
 staged_assembly("Stage_2", big=true, ngb=true) {
