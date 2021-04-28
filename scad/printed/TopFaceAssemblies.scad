@@ -79,7 +79,7 @@ assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
 //!
 //! Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16 of a turn)
 //! so they run freely.
-//!
+//
 module Top_Face_Stage_2_assembly() pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_Stage_2", big=true, ngb=true) {
 
@@ -98,7 +98,7 @@ assembly("Top_Face_Stage_2", big=true, ngb=true) {
 //!
 //! Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16 of a turn)
 //! so they run freely.
-//!
+//
 module Top_Face_NEMA_17_Stage_2_assembly() pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
 
@@ -115,7 +115,7 @@ assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
 //!the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the top face, again
 //!tightening the corresponding bolts.
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
-//!
+//
 module Top_Face_assembly()
 assembly("Top_Face", big=true) {
 

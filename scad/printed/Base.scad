@@ -113,7 +113,7 @@ module baseCutouts(cncSides = undef, radius=M3_clearance_radius) {
 //!5. Cover the top and bottom sides of the box section with thermal paste.
 //!6. Attach the box section to the bottom of the control board with electrical tape. The tape serves to keep the box section in place until it is attached to the base plate.
 //!7. Using the hex pillars, attach the control board to the base plate.
-//!
+//
 module Base_assembly()
 assembly("Base", big=true) {
 

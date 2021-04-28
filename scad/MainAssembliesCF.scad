@@ -42,7 +42,7 @@ module staged_explode(z=0) {
 }
 
 //! Bolt the left face and the left feet to the base
-//!
+//
 module Stage_1_CF_assembly()
 staged_assembly("Stage_1_CF", big=true, ngb=true) {
 
@@ -68,7 +68,7 @@ staged_assembly("Stage_1_CF", big=true, ngb=true) {
 }
 
 //! Bolt the right face and the right feet to the base
-//!
+//
 module Stage_2_CF_assembly()
 staged_assembly("Stage_2_CF", big=true, ngb=true) {
 
@@ -91,9 +91,8 @@ staged_assembly("Stage_2_CF", big=true, ngb=true) {
                     boltM3Buttonhead(8);
 }
 
-//!
 //! Add the back face.
-//!
+//
 module Stage_3_CF_assembly()
 staged_assembly("Stage_3_CF", big=true, ngb=true) {
 
@@ -121,8 +120,8 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
 }
 
 
-//!
-//!
+//! Add the Front Face
+//
 module Stage_4_CF_assembly()
 staged_assembly("Stage_4_CF", big=true, ngb=true) {
 
@@ -132,9 +131,8 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
         Front_Face_CF_assembly();
 }
 
-//!
 //! Add the Top Face
-//!
+//
 module Stage_5_CF_assembly()
 staged_assembly("Stage_5_CF", big=true, ngb=true) {
 
@@ -148,10 +146,9 @@ staged_assembly("Stage_5_CF", big=true, ngb=true) {
                 boltM3Buttonhead(8);
 }
 
-//!
 //! Add the printhead
 //! Thread the belts
-//!
+//
 module Stage_6_CF_assembly()
 staged_assembly("Stage_6_CF", big=true, ngb=true) {
 
