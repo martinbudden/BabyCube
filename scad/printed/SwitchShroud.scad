@@ -25,7 +25,7 @@ insideThickness = 3;
 function switchShroudSize() = [60, 85, idlerBracketSize(coreXYPosBL(_xyNEMA_width)).z];
 
 //!1. Place the XT60 connectors through the Switch_Shroud and use the Switch_Shroud_Clamp to keep them in place.
-module Switch_Shroud_assembly()
+module Switch_Shroud_assembly()  pose(a=[55, 0, 25 - 90])
     assembly("Switch_Shroud", ngb = true) {
 
     translate([0, eps, 0])
@@ -33,11 +33,15 @@ module Switch_Shroud_assembly()
             hflip() {
                 stl_colour(pp2_colour)
                     Switch_Shroud_stl();
-                Switch_Shroud_hardware();
+                explode([30, 0, 0])
+                    Switch_Shroud_hardware();
             }
-            stl_colour(pp1_colour)
-                Switch_Shroud_Clamp_stl();
-            Switch_Shroud_Clamp_hardware();
+            translate([-3, 0, 0]) {
+                explode(-30)
+                    stl_colour(pp1_colour)
+                        Switch_Shroud_Clamp_stl();
+                Switch_Shroud_Clamp_hardware();
+            }
         }
 }
 
@@ -135,7 +139,7 @@ module Switch_Shroud_stl() {
                         fillet(1, sizeN.z);
                 translate([sizeN.x-eSizeY - 10, eSizeZ+XT60HolderOffsetY+XT60MaleHolderSize().x, size.z])
                     hull()
-                        for (x = [-3, 2])
+                        for (x = [-4, 1])
                             translate([x, 0, 0])
                                 boltHoleM3(5);
             }
@@ -208,29 +212,25 @@ module Switch_Shroud_Clamp_stl() {
     cutoutSize = [20, 5.75, 20];
     fillet = 1;
 
-    stl("Switch_Shroud_Clamp")
-    translate([-4, 0, 0])
-    difference() {
-        translate([sizeN.x - XT60MaleHolderSize().z - sizeX, eSizeZ, _webThickness]) {
-            rounded_cube_xy([sizeX, XT60FemaleHolderSize().x + XT60MaleHolderSize().x + XT60HolderOffsetY, XT60MaleHolderSize().y-1.5], fillet);
-            translate([eSizeY-2*fillet, XT60MaleHolderSize().x + XT60HolderOffsetY, 0])
-                rounded_cube_xy([XT60MaleHolderSize().z - XT60FemaleHolderSize().z + 2*fillet + 2, XT60FemaleHolderSize().x, XT60MaleHolderSize().y-1.5], fillet);
-        }
-        for (y = [0, XT60MaleHolderSize().x])
-            translate([sizeN.x-eSizeY-cutoutSize.x + 3, y+eSizeZ+XT60HolderOffsetY+XT60MaleHolderSize().x/2-cutoutSize.y/2, _webThickness+5-1.5])
-                cube(cutoutSize);
-
-        translate([sizeN.x-eSizeY-4-4, eSizeZ+XT60HolderOffsetY+XT60MaleHolderSize().x, _webThickness+10])
-            boltHoleM3Tap(10);
-    }
+    color(pp1_colour)
+        stl("Switch_Shroud_Clamp")
+            difference() {
+                translate([sizeN.x - XT60MaleHolderSize().z - sizeX, eSizeZ, _webThickness]) {
+                    rounded_cube_xy([sizeX, XT60FemaleHolderSize().x + XT60MaleHolderSize().x + XT60HolderOffsetY, XT60MaleHolderSize().y - 1.5], fillet);
+                    translate([eSizeY - 2*fillet, XT60MaleHolderSize().x + XT60HolderOffsetY, 0])
+                        rounded_cube_xy([XT60MaleHolderSize().z - XT60FemaleHolderSize().z + 2*fillet + 2, XT60FemaleHolderSize().x, XT60MaleHolderSize().y - 1.5], fillet);
+                }
+                for (y = [0, XT60MaleHolderSize().x])
+                    translate([sizeN.x - eSizeY - cutoutSize.x + 3, y + eSizeZ + XT60HolderOffsetY+XT60MaleHolderSize().x/2 - cutoutSize.y/2, _webThickness + 5 - 1.5])
+                        cube(cutoutSize);
+                translate([sizeN.x - eSizeY - 8, eSizeZ + XT60HolderOffsetY+XT60MaleHolderSize().x, _webThickness + 10])
+                    boltHoleM3Tap(10);
+            }
 }
 
 module Switch_Shroud_Clamp_hardware() {
     sizeN = switchShroudSize();
 
-    if ($preview) {
-        translate([-4, 0, 0])
-            translate([sizeN.x - eSizeY - 8, eSizeZ+XT60HolderOffsetY + XT60MaleHolderSize().x, sizeN.z])
-                boltM3Buttonhead(10);
-    }
+    translate([sizeN.x - eSizeY - 8, eSizeZ+XT60HolderOffsetY + XT60MaleHolderSize().x, sizeN.z])
+        boltM3Buttonhead(10);
 }
