@@ -2,6 +2,10 @@
 
 # BabyCube Assembly Instructions
 
+These are the assembly instructions for the BabyCube. These instructions are not fully comprehensive, that is they do
+not show every small detail of the construction and in particular they do not show the wiring. However there is sufficient
+detail that someone with a good understanding of 3D printers can build the BabyCube.
+
 ![Main Assembly](assemblies/main_assembled.png)
 
 ![BabyCube](../pictures/babycube200_1000.jpg)
@@ -426,7 +430,6 @@ each pulley, but not on top of the each pulley.
 Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16 of a turn)
 so they run freely.
 
-
 ![Top_Face_Stage_2_assembled](assemblies/Top_Face_Stage_2_assembled.png)
 
 <span></span>
@@ -465,7 +468,6 @@ so they run freely.
 the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the top face, again
 tightening the corresponding bolts.
 5. Check that the carriages run smoothly on the Y-axis linear rails.
-
 
 ![Top_Face_assembled](assemblies/Top_Face_assembled.png)
 
@@ -687,7 +689,6 @@ Affix the leadscrew nut.
 Slide the linear rods through the SK brackets and the printbed bearings.
 Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on the rods.
 
-
 ![Back_Face_assembled](assemblies/Back_Face_assembled.png)
 
 <span></span>
@@ -823,7 +824,6 @@ Once you have drilled these re-drill the holes with a 3mm bit. Note that the Bas
 6. Attach the box section to the bottom of the control board with electrical tape. The tape serves to keep the box section in place until it is attached to the base plate.
 7. Using the hex pillars, attach the control board to the base plate.
 
-
 ![Base_assembled](assemblies/Base_assembled.png)
 
 <span></span>
@@ -955,7 +955,6 @@ Once you have drilled these re-drill the holes with a 3mm bit. Note that the Bas
 
 Bolt the left face and the left feet to the base
 
-
 ![Stage_1_assembled](assemblies/Stage_1_assembled.png)
 
 <span></span>
@@ -996,7 +995,6 @@ Bolt the left face and the left feet to the base
 
 Bolt the right face and the right feet to the base
 
-
 ![Stage_2_assembled](assemblies/Stage_2_assembled.png)
 
 <span></span>
@@ -1029,9 +1027,7 @@ Bolt the right face and the right feet to the base
 
 ![Stage_3_assembly](assemblies/Stage_3_assembly.png)
 
-
 Add the back face and bolt it to the left and right faces and the base.
-
 
 ![Stage_3_assembled](assemblies/Stage_3_assembled.png)
 
@@ -1071,9 +1067,7 @@ Add the back face and bolt it to the left and right faces and the base.
 
 ![Stage_4_assembly](assemblies/Stage_4_assembly.png)
 
-
 Bolt the BabyCube nameplate and the display housing to the front of the frame.
-
 
 ![Stage_4_assembled](assemblies/Stage_4_assembled.png)
 
@@ -1104,9 +1098,7 @@ Bolt the BabyCube nameplate and the display housing to the front of the frame.
 
 ![Stage_5_assembly](assemblies/Stage_5_assembly.png)
 
-
 Add the Top Face.
-
 
 ![Stage_5_assembled](assemblies/Stage_5_assembled.png)
 
@@ -1140,7 +1132,6 @@ Add the Top Face.
 ### Assembly instructions
 
 ![Stage_6_assembly](assemblies/Stage_6_assembly.png)
-
 
 1. Add the printhead.
 2. Thread the the bolts in the pattern shown.
