@@ -21,7 +21,7 @@ function railFirstHoleOffset(type, length) = (length - (rail_holes(type, length)
 function counterBore(thickness) = screw_head_height(M3_cap_screw) + max(thickness - 9, 0);
 function yCarriageBlockSizeX(yCarriageType) = carriage_width(yCarriageType) + 4;
 
-yCarriageExplodeFactor = 5;
+function yCarriageExplodeFactor() = 5;
 
 
 module Y_Carriage(yCarriageType, xRailType, xRailLength, thickness, chamfer, yCarriageBraceThickness, endStopOffsetX, tongueOffset, left, pulleyOffset, topInset=0, cnc=false) {
@@ -163,14 +163,13 @@ module yCarriageBrace(yCarriageType, yCarriageBraceThickness, left, pulleyOffset
     blockSizeX = yCarriageBlockSizeX(yCarriageType);
     size = left ? [35, 7, yCarriageBraceThickness] : [35, 9.5, yCarriageBraceThickness];
 
-    explode(4*yCarriageExplodeFactor)
-        difference() {
-            translate([-4.5, left ? -size.y/2 : -4, 0])
-                rounded_cube_xy(size, left ? 3 : 1.5);
-            for (x = [pulleyOffset.x, 11.75, 11.75 + 14])
-                translate([x, 0, 0])
-                    boltHoleM3Tap(size.z);
-        }
+    difference() {
+        translate([-4.5, left ? -size.y/2 : -4, 0])
+            rounded_cube_xy(size, left ? 3 : 1.5);
+        for (x = [pulleyOffset.x, 11.75, 11.75 + 14])
+            translate([x, 0, 0])
+                boltHoleM3Tap(size.z);
+    }
 }
 
 module yCarriageBolts(yCarriageType, thickness) {
@@ -199,7 +198,7 @@ module pulleyStack(pulley, explode=0) {
 
 module yCarriagePulleys(yCarriageType, thickness, yCarriageBraceThickness, left, pulleyOffset, inset) {
     blockSizeX = yCarriageBlockSizeX(yCarriageType);
-    explode = yCarriageExplodeFactor;
+    explode = yCarriageExplodeFactor();
 
     translate(plainPulleyPos(left, pulleyOffset, thickness, yCarriageBraceThickness)) {
         explode(left ? 5*explode : explode, true)

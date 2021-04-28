@@ -216,8 +216,9 @@ module yCarriageAssemblies(NEMA_width) {
                 Y_Carriage_Left_stl();
             if (yCarriageBraceThickness())
                 translate_z(yCarriageThickness() + pulleyStackHeight() + eps)
-                    stl_colour(pp1_colour)
-                        Y_Carriage_Brace_Left_stl();
+                    explode(4*yCarriageExplodeFactor())
+                        stl_colour(pp1_colour)
+                            Y_Carriage_Brace_Left_stl();
             Y_Carriage_hardware(yCarriageType, yCarriageThickness(), yCarriageBraceThickness(), left=true, pulleyOffset=pulleyOffset());
         }
 
@@ -227,8 +228,9 @@ module yCarriageAssemblies(NEMA_width) {
                 Y_Carriage_Right_stl();
             if (yCarriageBraceThickness())
                 translate_z(yCarriageThickness() + pulleyStackHeight() + 2*eps)
-                    stl_colour(pp1_colour)
-                        Y_Carriage_Brace_Right_stl();
+                    explode(4*yCarriageExplodeFactor())
+                        stl_colour(pp1_colour)
+                            Y_Carriage_Brace_Right_stl();
             Y_Carriage_hardware(yCarriageType, yCarriageThickness(), yCarriageBraceThickness(), left=false, pulleyOffset=pulleyOffset());
         }
 }
