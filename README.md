@@ -42,7 +42,7 @@ Further design goals:
 4. **Require minimal rework of printed parts**
     * [NopSCADlib](https://github.com/nophead/NopSCADlib) provides several features to avoid part rework.
     * All parts can be printed without supports. [Hanging holes](https://hydraraptor.blogspot.com/2014/03/buried-nuts-and-hanging-holes.html) are used to avoid supports in the display housing and the X_Carriage front.
-    * Bolt holes are created using [horizontal holes](https://hydraraptor.blogspot.com/2020/07/horiholes-2.htm) and [polyholes](https://hydraraptor.blogspot.com/2011/02/polyholes.html) and so are correct size and should not need redrilling.
+    * Bolt holes are created using [horizontal holes](https://hydraraptor.blogspot.com/2020/07/horiholes-2.html) and [polyholes](https://hydraraptor.blogspot.com/2011/02/polyholes.html) and so are correct size and should not need redrilling.
 5. **Use linear rails for the x and y axes**
     * linear rails are now not much more expensive than linear rods
     * linear rails make design and assembly easier, reducing the need for custom printed parts
