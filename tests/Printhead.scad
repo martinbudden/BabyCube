@@ -32,7 +32,7 @@ module Printhead_test() {
     xCarriageType = xCarriageType();
 
     //let($hide_bolts=true)
-    translate(-[ eSizeX+eX/2, carriagePosition().y, eZ - yRailOffset(NEMA_width).z - carriage_clearance(xCarriageType) ]) {
+    translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffsetXYZ(NEMA_width).x - carriage_clearance(xCarriageType) ]) {
         //Back_Face_assembly();
         //bowdenTube();
         //printheadWiring();

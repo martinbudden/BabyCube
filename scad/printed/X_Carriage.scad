@@ -167,7 +167,6 @@ module xCarriageFront(xCarriageType, beltOffsetZ, coreXYSeparationZ) {
     assert(is_list(xCarriageType));
 
     size = xCarriageFrontSize(xCarriageType);
-    //baseOffset = 49;
     baseOffset = size.z - topThickness;
 
     translate([-size.x/2, -xCarriageFrontOffsetY(xCarriageType), 0]) {

@@ -186,9 +186,9 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius = M3_clearance_radius, 
 }
 
 module topFaceRailHolePositions(NEMA_width) {
-    railOffset = yRailOffset(NEMA_width);
-    for (x = [railOffset.z, eX + 2*eSizeX - railOffset.z])
-        translate([x, railOffset.x, 0])
+    railOffset = yRailOffsetXYZ(NEMA_width);
+    for (x = [railOffset.x, eX + 2*eSizeX - railOffset.x])
+        translate([x, railOffset.y, 0])
             rotate(90)
                 rail_hole_positions(yRailType(), _yRailLength, first = 0, screws = rail_holes(yRailType(), _yRailLength))
                     children();

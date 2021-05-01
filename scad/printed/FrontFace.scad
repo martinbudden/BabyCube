@@ -45,7 +45,7 @@ module Front_Face_CF_dxf() {
                     displayBracketHolePositionsCNC(display_type)
                         circle(r=M3_clearance_radius);
                 frontLowerChordSKR_1_4_cutout(display_type, cnc=true);
-                railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
+                railsCutout(_xyNEMA_width, yRailOffsetXYZ(_xyNEMA_width), cnc=true);
             }
         }
 }

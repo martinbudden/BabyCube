@@ -48,7 +48,7 @@ module Top_Face_test() {
     //topFaceBackCutouts();
     *translate_z(eZ)
         topFaceCover(NEMA_type);
-    *translate_z(eZ+eps)
+    *translate_z(eZ + eps)
         topFaceInterlock(NEMA_type);
 
     //Top_Face_Stage_1_assembly();

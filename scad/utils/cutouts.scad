@@ -167,11 +167,11 @@ module railsCutout(NEMA_width, railOffset, cnc=false) {
     filletY = cnc ? 0.5 : 1;
     heightExtra = 10;
     railCutoutSize = [rail_width(rail_type) + 2*filletX, rail_height(rail_type) + 2*filletY + heightExtra, _backPlateThickness - 1];
-    for (x = [railOffset.z, eX + 2*eSizeX - railOffset.z])
+    for (x = [railOffset.x, eX + 2*eSizeX - railOffset.x])
         if (cnc)
-            translate([x - railCutoutSize.x/2, railOffset.y - railCutoutSize.y + heightExtra])
+            translate([x - railCutoutSize.x/2, railOffset.z - railCutoutSize.y + heightExtra])
                 rounded_square([railCutoutSize.x, railCutoutSize.y], filletX, center=false);
         else
-            translate([x, railOffset.y - rail_height(rail_type)/2 + heightExtra/2, -railCutoutSize.z + eps])
+            translate([x, railOffset.z - rail_height(rail_type)/2 + heightExtra/2, -railCutoutSize.z + eps])
                 rounded_cube_xy(railCutoutSize, filletX, xy_center=true);
 }

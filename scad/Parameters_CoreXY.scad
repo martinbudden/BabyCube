@@ -12,8 +12,8 @@ function coreXY_type() = coreXY_GT2_20_16;
 
 function yRailSupportThickness() = 3; // was 8// needs to be at least 7.5 to clear the side bolt holes
 function yRailShiftX() = 1; // limit it this to [-0.5, +1.25] avoid problems with yCarriage bolt interference
-function yRailOffset(NEMA_width) = [ _yRailLength/2 + (_fullLengthYRail ? 0 : eSizeY), eZ - yRailSupportThickness(), coreXYPosBL(NEMA_width).x - coreXYSeparation().x + yRailShiftX()];
-
+function yRailOffset(NEMA_width) = [_yRailLength/2 + (_fullLengthYRail ? 0 : eSizeY), eZ - yRailSupportThickness(), coreXYPosBL(NEMA_width).x - coreXYSeparation().x + yRailShiftX()];
+function yRailOffsetXYZ(NEMA_width) = [coreXYPosBL(NEMA_width).x - coreXYSeparation().x + yRailShiftX(), _yRailLength/2 + (_fullLengthYRail ? 0 : eSizeY), eZ - yRailSupportThickness()];
 function yCarriageThickness() = 8;
 function yCarriageBraceThickness() = 1; // brace to support cantilevered pulleys on yCarriage
 
