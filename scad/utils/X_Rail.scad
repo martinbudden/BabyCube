@@ -14,7 +14,7 @@ include <../Parameters_Main.scad>
 
 module xRailCarriagePosition() {
     translate([
-        carriagePosition().x + yRailOffset(_xyNEMA_width).z,
+        carriagePosition().x + yRailOffsetXYZ(_xyNEMA_width).x,
         carriagePosition().y,
         eZ - yRailSupportThickness()
         ])
@@ -27,7 +27,7 @@ module xRail(xCarriageType, xRailLength) {
     assert(is_list(xRailType));
 
     translate([ eSizeX + eX/2, carriagePosition().y, eZ - yRailSupportThickness() - carriage_height(yCarriageType())]) {
-        railOffsetX = yRailOffset(_xyNEMA_width).z;
+        railOffsetX = yRailOffsetXYZ(_xyNEMA_width).x;
         tongueOffset = (eX + 2*eSizeX - xRailLength -2*railOffsetX)/2;
         posX = carriagePosition().x - tongueOffset - xRailLength/2;
         rail_assembly(xCarriageType, xRailLength, posX, carriage_end_colour="green", carriage_wiper_colour="red");

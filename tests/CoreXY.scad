@@ -30,7 +30,8 @@ module CoreXY() {
     echo(coreXYSeparation=coreXYSeparation());
 
     CoreXYBelts(_xyNEMA_width, carriagePosition(), x_gap=16, show_pulleys=false);
-    yCarriageAssemblies(_xyNEMA_width);
+    yCarriageLeftAssembly(_xyNEMA_width);
+    yCarriageRightAssembly(_xyNEMA_width);
     XY_Idler_Bracket_Left_assembly();
     XY_Idler_Bracket_Right_assembly();
     //XY_Idler_Left_assembly();

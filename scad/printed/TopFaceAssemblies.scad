@@ -85,8 +85,10 @@ assembly("Top_Face_Stage_2", big=true, ngb=true) {
 
     Top_Face_Stage_1_assembly();
 
-    explode(-15, true)
-        yCarriageAssemblies(NEMA_width(NEMA14));
+    explode(-15, true) {
+        yCarriageLeftAssembly(NEMA_width(NEMA14));
+        yCarriageRightAssembly(NEMA_width(NEMA14));
+    }
 }
 
 //! Attach the left and right Y carriages to the top face rails. Note that the two carriages are not interchangeable so be sure
@@ -104,8 +106,10 @@ assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
 
     Top_Face_NEMA_17_Stage_1_assembly();
 
-    explode(-15, true)
-        yCarriageAssemblies(NEMA_width(NEMA17M));
+    explode(-15, true) {
+        yCarriageLeftAssembly(NEMA_width(NEMA17M));
+        yCarriageRightAssembly(NEMA_width(NEMA17M));
+    }
 }
 
 //!1. Turn the Top_Face into its normal orientation.
@@ -148,7 +152,8 @@ assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
 
     Top_Face_CF_Stage_1_assembly();
 
-    yCarriageAssemblies(NEMA_width(NEMA14));
+    yCarriageLeftAssembly(NEMA_width(NEMA14));
+    yCarriageRightAssembly(NEMA_width(NEMA14));
 }
 
 module Top_Face_CF_assembly()
@@ -180,57 +185,24 @@ module topFaceAssembly(NEMA_width) {
     yCarriageType = yCarriageType();
     yRailType = carriage_rail(yCarriageType);
 
-    railOffset = yRailOffset(NEMA_width);
+    railOffset = yRailOffsetXYZ(NEMA_width);
     posY = carriagePosition().y - _yRailLength/2 - (_fullLengthYRail ? 0 : eSizeY);
 
-    translate([railOffset.z, railOffset.x, railOffset.y])
+    translate(railOffset.x)
         rotate([180, 0, 90])
             explode(20, true) {
                 rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
                 rail_screws(yRailType, _yRailLength, thickness = 5, index_screws = _useCNC ? 0 : 1);
             }
 
-    translate([eX + 2*eSizeX - railOffset.z, railOffset.x, railOffset.y])
-        rotate([180, 0, -90])
+    translate([eX + 2*eSizeX - railOffset.x, railOffset.y, railOffset.z])
+        rotate([180, 0, 90])
             explode(20, true) {
-                rail_assembly(yCarriageType, _yRailLength, -posY, carriage_end_colour="green", carriage_wiper_colour="red");
+                rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
                 rail_screws(yRailType, _yRailLength, thickness = 5, index_screws = 0);
             }
     *translate_z(eZ - bb_width(BB608)/2)
         zLeadScrewHolePosition()
             ball_bearing(BB608);
 
-}
-
-module yCarriageAssemblies(NEMA_width) {
-    yCarriageType = yCarriageType();
-    railOffset = yRailOffset(NEMA_width);
-    posY = carriagePosition().y - _yRailLength/2 - (_fullLengthYRail ? 0 : eSizeY);
-
-    //hidden() Y_Carriage_Left_AL_dxf();
-    //hidden() Y_Carriage_Right_AL_dxf();
-
-    translate([railOffset.z, railOffset.x + posY, railOffset.y - carriage_height(yCarriageType)])
-        rotate([180, 0, 0]) {
-            stl_colour(pp2_colour)
-                Y_Carriage_Left_stl();
-            if (yCarriageBraceThickness())
-                translate_z(yCarriageThickness() + pulleyStackHeight() + eps)
-                    explode(4*yCarriageExplodeFactor())
-                        stl_colour(pp1_colour)
-                            Y_Carriage_Brace_Left_stl();
-            Y_Carriage_hardware(yCarriageType, yCarriageThickness(), yCarriageBraceThickness(), left=true, pulleyOffset=pulleyOffset());
-        }
-
-    translate([eX + 2*eSizeX - railOffset.z, railOffset.x + posY, railOffset.y - carriage_height(yCarriageType)])
-        rotate([180, 0, 180]) {
-            stl_colour(pp2_colour)
-                Y_Carriage_Right_stl();
-            if (yCarriageBraceThickness())
-                translate_z(yCarriageThickness() + pulleyStackHeight() + 2*eps)
-                    explode(4*yCarriageExplodeFactor())
-                        stl_colour(pp1_colour)
-                            Y_Carriage_Brace_Right_stl();
-            Y_Carriage_hardware(yCarriageType, yCarriageThickness(), yCarriageBraceThickness(), left=false, pulleyOffset=pulleyOffset());
-        }
 }
