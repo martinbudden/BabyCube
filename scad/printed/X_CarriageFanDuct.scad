@@ -11,8 +11,6 @@ use <../vitamins/bolts.scad>
 use <Printhead.scad>
 use <X_Carriage.scad>
 
-include <../Parameters_Main.scad>
-
 
 fanDuctTabThickness = 2;
 

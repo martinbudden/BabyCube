@@ -7,8 +7,6 @@ use <../vitamins/bolts.scad>
 
 use <X_Carriage.scad>
 
-include <../Parameters_Main.scad>
-
 
 beltTidySize = [tidyHoleSpacing() + 8, 7, 2];
 
