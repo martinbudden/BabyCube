@@ -1,6 +1,7 @@
 include <target.scad>
 
 _cubeName = "BabyCube";
+_blower_type = 30;
 
 // the base, top, and side plates, back plate is defined in variant
 _basePlateThickness = 3;

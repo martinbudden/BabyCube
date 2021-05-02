@@ -188,7 +188,7 @@ module topFaceAssembly(NEMA_width) {
     railOffset = yRailOffsetXYZ(NEMA_width);
     posY = carriagePosition().y - _yRailLength/2 - (_fullLengthYRail ? 0 : eSizeY);
 
-    translate(railOffset.x)
+    translate(railOffset)
         rotate([180, 0, 90])
             explode(20, true) {
                 rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
