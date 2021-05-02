@@ -8,16 +8,16 @@ include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../scad/utils/carriageTypes.scad>
 use <../scad/utils/CoreXYBelts.scad>
-use <../scad/utils/X_Rail.scad>
+use <../scad/utils/X_rail.scad>
 
+use <../scad/printed/LeftAndRightFaceAssemblies.scad>
+use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/XY_IdlerBracket.scad>
 use <../scad/printed/XY_MotorMount.scad>
 use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
-use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/Y_CarriageAssemblies.scad>
-use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 
 use <../scad/Parameters_CoreXY.scad>
 use <../scad/Parameters_Positions.scad>
