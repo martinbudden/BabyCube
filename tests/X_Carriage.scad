@@ -3,7 +3,6 @@
 include <../scad/global_defs.scad>
 include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/blowers.scad>
-include <NopSCADlib/vitamins/rails.scad>
 
 use <../scad/printed/Printhead.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
@@ -11,8 +10,6 @@ use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 
 use <../scad/utils/carriageTypes.scad>
-
-use <../scad/Parameters_CoreXY.scad>
 
 
 //$explode = 1;
@@ -27,7 +24,7 @@ module X_Carriage_test() {
     //rotate([0, 90, 0]) X_Carriage_stl();
     X_Carriage_assembly();
     //Fan_Duct_stl();
-    //X_Carriage_Front_stl();
+    //rotate([0, 90, 0]) X_Carriage_Front_stl();
     X_Carriage_Front_assembly();
     //xCarriageFrontAssemblyBolts(xCarriageType());
 

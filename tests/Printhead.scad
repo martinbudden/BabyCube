@@ -2,23 +2,19 @@
 
 include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/rails.scad>
-include <NopSCADlib/vitamins/e3d.scad>
 
 use <../scad/printed/Base.scad>
 use <../scad/printed/Extras.scad>
-use <../scad/printed/LeftAndRightFaceAssemblies.scad>
-use <../scad/printed/Printhead.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 
+use <../scad/utils/carriageTypes.scad>
 use <../scad/utils/CoreXYBelts.scad>
 use <../scad/utils/printParameters.scad>
-use <../scad/utils/carriageTypes.scad>
-use <../scad/utils/X_Rail.scad>
+use <../scad/utils/X_rail.scad>
 
 use <../scad/Parameters_CoreXY.scad>
-use <../scad/Parameters_Positions.scad>
 include <../scad/Parameters_Main.scad>
 
 
@@ -33,13 +29,12 @@ module Printhead_test() {
 
     //let($hide_bolts=true)
     translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffsetXYZ(NEMA_width).x - carriage_clearance(xCarriageType) ]) {
-        //Back_Face_assembly();
-        //bowdenTube();
-        //printheadWiring();
+        fullPrinthead();
         CoreXYBelts(NEMA_width, carriagePosition(), x_gap=2, show_pulleys=false);
         xRail(xCarriageType(), _xRailLength);
-        fullPrinthead();
         bowdenTube();
+        //Back_Face_assembly();
+        //printheadWiring();
     }
     //X_Carriage_assembly();
     //Fan_Duct_stl();
