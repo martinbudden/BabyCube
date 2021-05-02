@@ -2,10 +2,6 @@ include <global_defs.scad>
 
 include <NopSCADlib/core.scad>
 
-use <utils/CoreXYBelts.scad>
-use <utils/HolePositions.scad>
-use <utils/carriageTypes.scad>
-
 use <printed/BackFace.scad>
 use <printed/BackFaceAssemblies.scad>
 use <printed/Base.scad>
@@ -17,6 +13,10 @@ use <printed/LeftAndRightFaceAssembliesCF.scad>
 use <printed/PrintheadAssemblies.scad>
 use <printed/TopFaceAssemblies.scad>
 use <printed/X_CarriageAssemblies.scad>
+
+use <utils/CoreXYBelts.scad>
+use <utils/HolePositions.scad>
+use <utils/carriageTypes.scad>
 
 use <Parameters_Positions.scad>
 include <Parameters_Main.scad>
