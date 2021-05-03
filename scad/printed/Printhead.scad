@@ -17,8 +17,6 @@ use <../vitamins/bolts.scad>
 use <X_Carriage.scad>
 
 
-function blower_size(type) = [blower_length(type), blower_width(type), blower_depth(type)];
-
 function hotendOffset(xCarriageType, hotend_type=0) = printHeadHotendOffset(hotend_type) + [-xCarriageBackSize(xCarriageType).x/2, xCarriageBackOffsetY(xCarriageType), 0];
 function hotendClampOffset(xCarriageType, hotend_type=0) =  [hotendOffset(xCarriageType, hotend_type).x, 18+xCarriageBackOffsetY(xCarriageType)+grooveMountOffsetX(hotend_type), hotendOffset(xCarriageType, hotend_type).z];
 grooveMountHoleOffsets = [13.5, -12];
