@@ -3,10 +3,11 @@ include <../global_defs.scad>
 include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/utils/tube.scad>
+include <NopSCADlib/vitamins/box_sections.scad>
+include <NopSCADlib/vitamins/iecs.scad>
 include <NopSCADlib/vitamins/pcbs.scad>
 include <NopSCADlib/vitamins/pillar.scad>
 include <NopSCADlib/vitamins/sheets.scad>
-include <NopSCADlib/vitamins/iecs.scad>
 
 use <../utils/HolePositions.scad>
 
@@ -29,7 +30,7 @@ module Base_stl() {
         color(pp3_colour) {
             psuPosition()
                 psuSupportPositions()
-                    psuSupport(psuZOffset);
+                    psuSupport();
             translate_z(-size.z)
                 linear_extrude(size.z)
                     difference() {
@@ -249,25 +250,11 @@ module PSU_Bracket_stl() {
 module PSU_Support_stl() {
     stl("PSU_Support")
         color(pp1_colour)
-            psuSupport(psuZOffset);
+            psuSupport();
 }
 
-module psuSupport(sizeZ) {
-    linear_extrude(sizeZ)
-        difference() {
-            size = [20, psuSize.y];
-            rounded_square(size, 1, center=true);
-            /*for (y = [psuSize.y/2 - psuHoleInset.y, -psuSize.y/2 + psuHoleInset.y])
-                translate([0, y])
-                    rounded_square(psuSupportHoleSize, 0.5);*/
-            /*tSize = 3.5;
-            translate([-size.x/2 + tSize, -size.y/2])
-                right_triangle(tSize -1, tSize);
-            translate([-size.x/2, -size.y/2])
-                square([tSize, tSize]);
-            translate([-size.x/2, -size.y/2 + tSize])
-                fillet(1);*/
-        }
+module psuSupport() {
+    rounded_cube_xy([20, psuSize.y, psuZOffset], 1, xy_center=true);
 }
 
 module PSU() {
@@ -347,42 +334,6 @@ module pcb_back_screw_positions(type, yCutoff = 0) {
                     children();
         }
    }
-}
-
-AL12x8x1 =  ["AL12x8x1",  "Aluminium box section 12mm x 8mm x 1mm",     [12, 8],  1, 0.5, silver, undef];
-AL20x20x2 = ["AL20x20x2", "Aluminium box section 20mm x 20mm x 2mm",    [20, 20], 2, 0.5, silver, undef];
-CF12x8x1 =  ["CF10x10x1", "Carbon fiber box section 10mm x 10mm x 1mm", [10, 10], 1, 0.5, grey(35), grey(20)];
-
-function box_section_material(type)  = type[1]; //! Material description
-function box_section_size(type)      = type[2]; //! Size
-function box_section_thickness(type) = type[3]; //! Thickness
-function box_section_fillet(type)    = type[4]; //! Fillet
-function box_section_colour(type)    = type[5]; //! Colour
-function box_section_colour2(type)   = type[6]; //! Colour2, for woven box section
-function box_section_is_woven(type)  = !is_undef(type[6]); //! Box section is woven, eg carbon fiber
-
-module box_section(type, length, center = true) {
-    vitamin(str("box_section(", type[0], arg(length, 15), "): ", box_section_material(type), ", length ", length, "mm"));
-
-    size = box_section_size(type);
-    thickness = box_section_thickness(type);
-
-    if (box_section_is_woven(type))
-        translate_z(center ? 0 : length / 2) {
-            rotate([0, -90, 90])
-                for (z = [-size.y / 2, size.y / 2 - thickness])
-                    translate_z(z)
-                        woven_sheet(CF1, thickness, box_section_colour(type), box_section_colour2(type), length, size.x)
-                            square([length, size.x], center=true);
-            rotate([0, -90, 0])
-                for (z = [-size.x / 2, size.x / 2 - thickness])
-                    translate_z(z)
-                        woven_sheet(CF1, thickness, box_section_colour(type), box_section_colour2(type), length, size.y)
-                            square([length, size.y], center=true);
-        }
-    else
-        color(box_section_colour(type))
-            rectangular_tube([size.x, size.y, length], center, thickness, box_section_fillet(type));
 }
 
 M3x10_nylon_hex_pillar = ["M3x10_nylon_hex_pillar", "hex nylon", 3, 10, 6/cos(30), 6/cos(30),  6, 6,  grey(20),   grey(20),  -5, -5+eps];
