@@ -59,23 +59,23 @@ module Y_Carriage(yCarriageType, xRailType, xRailLength, thickness, chamfer, yCa
     module tongue(left) {
         // add rail_width/2 to tongueSize.x to give a bit of extra length to the tongue for wider rails
         translate([0, -tongueSize.y/2, 0])
-            rounded_cube_xy(tongueSize, fillet);
+            chamfered_rounded_cube(tongueSize, fillet, chamfer);
 
         //endStopSize = [tongueOffset + endStopOffsetX, tongueSize.y+(left ? 5.5 : 11), tongueSize.z];
         //translate([0, -(endStopSize.y - tongueSize.y), 0])
         //    rounded_cube_xy(endStopSize, fillet);
         if (left) {
-            translate([tongueOffset + endStopOffsetX + blockOffset.x, tongueSize.y/2, 0])
-                fillet(1, tongueSize.z);
-            translate([blockSize.x/2 + blockOffset.x, -tongueSize.y/2, 0])
+            translate([tongueOffset + endStopOffsetX + blockOffset.x, tongueSize.y/2, chamfer])
+                fillet(1, tongueSize.z - 2*chamfer);
+            translate([blockSize.x/2 + blockOffset.x, -tongueSize.y/2, chamfer])
                 rotate(-90)
-                    fillet(2, tongueSize.z);
+                    fillet(2, tongueSize.z - 2*chamfer);
         } else {
-            translate([tongueOffset + endStopOffsetX + blockOffset.x, -tongueSize.y/2, 0])
+            translate([tongueOffset + endStopOffsetX + blockOffset.x, -tongueSize.y/2, chamfer])
                 rotate(-90)
-                    fillet(1, tongueSize.z);
-            translate([blockSize.x/2 + blockOffset.x, tongueSize.y/2, 0])
-                    fillet(2, tongueSize.z);
+                    fillet(1, tongueSize.z - 2*chamfer);
+            translate([blockSize.x/2 + blockOffset.x, tongueSize.y/2, chamfer])
+                fillet(2, tongueSize.z - 2*chamfer);
         }
 
         /*if (blockSize.x/2 + blockOffset.x < tongueOffset) {
@@ -152,7 +152,7 @@ module Y_Carriage(yCarriageType, xRailType, xRailLength, thickness, chamfer, yCa
             rotate(90)
                 carriage_hole_positions(yCarriageType)
                     vflip()
-                        boltHoleM3Counterbore(thickness, cnc=cnc);
+                        boltHoleM3Counterbore(thickness, counterBore(thickness), cnc=cnc);
         if (left) {
             translate([toothedPulleyPos.x, toothedPulleyPos.y, 0])
                 boltHoleM3Tap(thickness, cnc=cnc);
@@ -173,7 +173,7 @@ module Y_Carriage(yCarriageType, xRailType, xRailLength, thickness, chamfer, yCa
 
 module yCarriageBrace(yCarriageType, yCarriageBraceThickness, pulleyOffset, left) {
     blockSizeX = yCarriageBlockSizeX(yCarriageType);
-    size = left ? [35, 7, yCarriageBraceThickness] : [35, 9.5, yCarriageBraceThickness];
+    size = [35, left ? 7 : 9.5, yCarriageBraceThickness];
 
     difference() {
         translate([-4.5, left ? -size.y/2 : -4, 0])
@@ -189,8 +189,9 @@ module yCarriageBolts(yCarriageType, thickness) {
 
     // depth of holes in MGN9 and MGN12 carriages is approx 5mm. so 4.5mm leaves room for error
     carriageHoleDepth = 4.5;
-    counterBore = screw_head_height(M3_cap_screw);
+    counterBore = counterBore(thickness);
     boltLength = screw_shorter_than(thickness - counterBore + carriageHoleDepth);
+    //echo(boltLength=boltLength, counterBore=counterBore, cap=screw_head_height(M3_cap_screw),protrudes=boltLength-thickness+counterBore);
 
     rotate(90)
         translate_z(thickness - carriage_height(yCarriageType) - counterBore)
@@ -222,7 +223,7 @@ module yCarriagePulleys(yCarriageType, thickness, yCarriageBraceThickness, pulle
             } else {
                 translate_z(yCarriageBraceThickness + washer_thickness(M3_washer))
                     explode(4*explode, true)
-                        boltM3Caphead(screw_shorter_than(thickness + pulleyStackHeight()));
+                        boltM3Caphead(screw_shorter_than(thickness + pulleyStackHeight() + yCarriageBraceThickness));
                 if (yCarriageBraceThickness)
                     explode(3*explode)
                         washer(M3_washer);
@@ -236,7 +237,7 @@ module yCarriagePulleys(yCarriageType, thickness, yCarriageBraceThickness, pulle
             if (left) {
                 translate_z(yCarriageBraceThickness + washer_thickness(M3_washer))
                     explode(4*explode, true)
-                        boltM3Caphead(screw_shorter_than(thickness + pulleyStackHeight()));
+                        boltM3Caphead(screw_shorter_than(thickness + pulleyStackHeight() + yCarriageBraceThickness));
                 if (yCarriageBraceThickness)
                     explode(3*explode)
                         washer(M3_washer);
@@ -247,9 +248,10 @@ module yCarriagePulleys(yCarriageType, thickness, yCarriageBraceThickness, pulle
     }
 
     if (yCarriageBraceThickness)
-        translate([11.75 + 14, 0, thickness + pulleyStackHeight() + yCarriageBraceThickness])
-            explode(4*explode, true)
-                boltM3Caphead(screw_shorter_than(thickness + pulleyStackHeight() + yCarriageBraceThickness));
+        for (x = [11.75 + 14])
+            translate([x, 0, thickness + pulleyStackHeight() + yCarriageBraceThickness])
+                explode(4*explode, true)
+                    boltM3Caphead(screw_shorter_than(thickness + pulleyStackHeight() + yCarriageBraceThickness));
 }
 
 module Y_Carriage_hardware(yCarriageType, thickness, yCarriageBraceThickness, pulleyOffset, left) {

@@ -40,6 +40,7 @@ module Y_Carriage_test1() {
             carriage(yCarriageType());
 
     translate([100, 0, 0]) rotate(180) {
+        //Y_Carriage_Right_AL_dxf();
         Y_Carriage_Right_stl();
         Y_Carriage_hardware(yCarriageType(), yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=false);
         if (yCarriageBraceThickness())
