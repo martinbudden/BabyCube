@@ -3,7 +3,7 @@ include <../global_defs.scad>
 include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/utils/tube.scad>
-include <NopSCADlib/vitamins/box_sections.scad>
+use <NopSCADlib/vitamins/box_section.scad>
 include <NopSCADlib/vitamins/iecs.scad>
 include <NopSCADlib/vitamins/pcbs.scad>
 include <NopSCADlib/vitamins/pillar.scad>
@@ -21,6 +21,7 @@ function pcbOffsetFromBase() = eSizeZ + 2;
 psuZOffset = 2.5;
 
 AL3 = [ "AL3", "Aluminium sheet", 3, silver, false];
+AL12x8x1 =  ["AL12x8x1",  "Aluminium box section 12mm x 8mm x 1mm",     [12, 8],  1, 0.5, silver, undef];
 
 
 module Base_stl() {
