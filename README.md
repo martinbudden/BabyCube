@@ -52,6 +52,7 @@ Further design goals:
     * Use TMC 2209 silent stepper drivers
     * The hotend fan is temperature regulated and only switches on when the hotend reaches 50&deg; Celsius
     * The the control board and stepper drivers are passively cooled by being thermally connected to the aluminium base (if either the BTT SKR E3 mini V2 or the BTT E3 turbo control boards are used).
+    * The PSU is a fanless "brick" style laptop PSU.
 7. **Try and keep the costs down**
     * the aim is not to be as cheap as possible, but rather to avoid unnecessary costs
     * use standard parts as far as possible
