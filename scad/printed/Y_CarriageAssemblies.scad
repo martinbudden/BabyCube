@@ -1,3 +1,4 @@
+
 include <../global_defs.scad>
 
 include <NopSCADlib/core.scad>
@@ -44,6 +45,26 @@ module Y_Carriage_Right_stl() {
             Y_Carriage(yCarriageType(), xRailType(), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), endStopOffsetX, tongueOffset, pulleyOffset(), topInset, left=false, cnc=false);
 }
 
+module Y_Carriage_Left_AL_dxf() {
+    tongueOffset = tongueOffset(_xyNEMA_width);
+    endStopOffsetX = 2.5;
+    chamfer = 0;
+
+    dxf("Y_Carriage_Left_AL")
+        color(silver)
+            Y_Carriage(yCarriageType(), xRailType(), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), endStopOffsetX, tongueOffset, pulleyOffset(), topInset, left=true, cnc=true);
+}
+
+module Y_Carriage_Right_AL_dxf() {
+    tongueOffset = tongueOffset(_xyNEMA_width);
+    endStopOffsetX = 1;
+    chamfer = 0;
+
+    dxf("Y_Carriage_Right_AL")
+        color(silver)
+            Y_Carriage(yCarriageType(), xRailType(), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), endStopOffsetX, tongueOffset, pulleyOffset(), topInset, left=false, cnc=true);
+}
+
 module Y_Carriage_Brace_Left_stl() {
     stl("Y_Carriage_Brace_Left")
         color(pp1_colour)
@@ -71,7 +92,7 @@ module yCarriageLeftAssembly(NEMA_width) {
                             Y_Carriage_Brace_Left_stl();
             Y_Carriage_hardware(yCarriageType(), yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=true);
         }
-    //hidden() Y_Carriage_Left_AL_dxf();
+    hidden() Y_Carriage_Left_AL_dxf();
 }
 
 module yCarriageRightAssembly(NEMA_width) {
@@ -89,25 +110,5 @@ module yCarriageRightAssembly(NEMA_width) {
                             Y_Carriage_Brace_Right_stl();
             Y_Carriage_hardware(yCarriageType(), yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=false);
         }
-    //hidden() Y_Carriage_Right_AL_dxf();
-}
-
-module Y_Carriage_Left_AL_dxf() {
-    tongueOffset = tongueOffset(_xyNEMA_width);
-    endStopOffsetX = 2.5;
-    chamfer = 0;
-
-    dxf("Y_Carriage_Left_AL")
-        color(silver)
-            Y_Carriage(yCarriageType(), xRailType(), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), endStopOffsetX, tongueOffset, pulleyOffset(), topInset, left=true, cnc=true);
-}
-
-module Y_Carriage_Right_AL_dxf() {
-    tongueOffset = tongueOffset(_xyNEMA_width);
-    endStopOffsetX = 1;
-    chamfer = 0;
-
-    dxf("Y_Carriage_Right_AL")
-        color(silver)
-            Y_Carriage(yCarriageType(), xRailType(), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), endStopOffsetX, tongueOffset, pulleyOffset(), topInset, left=false, cnc=true);
+    hidden() Y_Carriage_Right_AL_dxf();
 }
