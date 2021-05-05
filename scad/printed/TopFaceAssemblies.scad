@@ -124,6 +124,8 @@ module Top_Face_assembly()
 assembly("Top_Face", big=true) {
 
     Top_Face_Stage_2_assembly();
+    //hidden() Y_Carriage_Left_AL_dxf();
+    //hidden() Y_Carriage_Right_AL_dxf();
 
     explode(30, true)
         xRail(xCarriageType(), _xRailLength);

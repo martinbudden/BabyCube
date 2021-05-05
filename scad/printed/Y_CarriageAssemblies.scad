@@ -92,7 +92,6 @@ module yCarriageLeftAssembly(NEMA_width) {
                             Y_Carriage_Brace_Left_stl();
             Y_Carriage_hardware(yCarriageType(), yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=true);
         }
-    hidden() Y_Carriage_Left_AL_dxf();
 }
 
 module yCarriageRightAssembly(NEMA_width) {
@@ -110,5 +109,4 @@ module yCarriageRightAssembly(NEMA_width) {
                             Y_Carriage_Brace_Right_stl();
             Y_Carriage_hardware(yCarriageType(), yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=false);
         }
-    hidden() Y_Carriage_Right_AL_dxf();
 }
