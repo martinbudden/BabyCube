@@ -15,7 +15,7 @@ include <../Parameters_Main.scad>
 
 
 function yRailSupportSize(NEMA_width = _xyNEMA_width)
-    = [ eY + 2*eSizeY, yRailSupportThickness(), yRailOffsetXYZ(NEMA_width).x + rail_width(yRailType())/2 + 1 ];
+    = [ eY + 2*eSizeY, yRailSupportThickness(), yRailOffset(NEMA_width).x + rail_width(yRailType())/2 + 1 ];
 
 function idlerBracketSize(coreXYPosBL=[0, 0, 0]) = [coreXYPosBL.y + 6, 6, floor(coreXYPosBL.x/2)*2 + 10];
 function idlerBracketTopSizeY() = 11;

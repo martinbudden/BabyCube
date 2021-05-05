@@ -28,7 +28,7 @@ module Printhead_test() {
     xCarriageType = xCarriageType();
 
     //let($hide_bolts=true)
-    translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffsetXYZ(NEMA_width).x - carriage_clearance(xCarriageType) ]) {
+    translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffset(NEMA_width).x - carriage_clearance(xCarriageType) ]) {
         fullPrinthead();
         CoreXYBelts(NEMA_width, carriagePosition(), x_gap=2, show_pulleys=false);
         xRail(xCarriageType(), _xRailLength);

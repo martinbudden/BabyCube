@@ -197,7 +197,7 @@ module backFaceUpperBrackets(NEMA_width) {
             rotate([90, 0, 0])
                 boltHoleM3Tap(8+10, horizontal = true, chamfer_both_ends = false);
 
-        railsCutout(NEMA_width, yRailOffsetXYZ(NEMA_width));
+        railsCutout(NEMA_width, yRailOffset(NEMA_width));
     }
 
     /*translate([zRodOffsetX, _zRodLength - rodBracketSize().y + eSizeY/2, 0]) {
