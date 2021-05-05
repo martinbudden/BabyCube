@@ -158,7 +158,7 @@ staged_assembly("Stage_6", big=true, ngb=true) {
     Stage_5_assembly();
 
     explode(100)
-        CoreXYBelts(NEMA_width = _xyNEMA_width, carriagePosition=carriagePosition(), x_gap=10, show_pulleys=false);
+        CoreXYBelts(carriagePosition());
     explode(100, true)
         fullPrinthead();
     if (!exploded())

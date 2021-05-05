@@ -20,15 +20,12 @@ use <../scad/Parameters_CoreXY.scad>
 include <../scad/Parameters_Main.scad>
 
 
-NEMA_type = xyNEMA_type();
-NEMA_width = NEMA_width(NEMA_type);
-
 //$explode = 1;
 //$pose = 1;
 module Right_Face_test() {
     echoPrintSize();
     echoPrintParameters();
-    //CoreXYBelts(NEMA_width(NEMA_type), carriagePosition, x_gap=16, show_pulleys=false);
+    //CoreXYBelts(carriagePosition(), x_gap=16);
 
     Right_Face_assembly();
     faceRightSpoolHolder();
@@ -41,9 +38,9 @@ module Right_Face_test() {
     //Right_Face_Stage_1_assembly();
     //Left_Face_assembly();
 
-    //webbingRight(NEMA_type);
+    //webbingRight(xyNEMA_type());
     //frame(NEMA_type, left=false);
-    //XY_MotorUpright(NEMA_type, left=false);
+    //XY_MotorUpright(xyNEMA_type(), left=false);
     //bowdenTube();
     //hotEndWiring();
 

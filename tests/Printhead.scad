@@ -18,9 +18,6 @@ use <../scad/Parameters_CoreXY.scad>
 include <../scad/Parameters_Main.scad>
 
 
-NEMA_width = _xyNEMA_width;
-
-
 //$explode = 1;
 //$pose = 1;
 module Printhead_test() {
@@ -28,9 +25,9 @@ module Printhead_test() {
     xCarriageType = xCarriageType();
 
     //let($hide_bolts=true)
-    translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffset(NEMA_width).x - carriage_clearance(xCarriageType) ]) {
+    translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
         fullPrinthead();
-        CoreXYBelts(NEMA_width, carriagePosition(), x_gap=2, show_pulleys=false);
+        CoreXYBelts(carriagePosition(), x_gap=2);
         xRail(xCarriageType(), _xRailLength);
         bowdenTube();
         //Back_Face_assembly();
