@@ -120,7 +120,7 @@ baseplate can be used instead.
 |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  BigTreeTech TFT35 v3.0 |
 |   4  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M2 caphead x  6mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |    2  |  Bolt M3 buttonhead x  8mm |
-|   4  |   4  |   .  |   .  |   .  |   .  |   .  |   2  |   1  |   6  |   17  |  Bolt M3 buttonhead x 10mm |
+|   4  |   6  |   .  |   .  |   .  |   .  |   .  |   2  |   1  |   6  |   19  |  Bolt M3 buttonhead x 10mm |
 |   2  |   .  |   .  |   .  |   .  |   4  |   4  |   .  |   4  |  24  |   38  |  Bolt M3 buttonhead x 12mm |
 |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 buttonhead x 16mm |
 |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 buttonhead x 25mm |
@@ -179,7 +179,7 @@ baseplate can be used instead.
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male - not shown |
 |   1  |   .  |   .  |   .  |   2  |   .  |   5  |   .  |   5  |   .  |   13  |  Ziptie 2.5mm x 100mm min length |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   4  |    4  |  Ziptie 2.5mm x 100mm min length |
-|  19  |   6  |  54  |  13  |  21  |  30  |  26  |  20  |  36  |  58  |  283  | Total vitamins count |
+|  19  |   8  |  54  |  13  |  21  |  30  |  26  |  20  |  36  |  58  |  285  | Total vitamins count |
 |      |      |      |      |      |      |      |      |      |      |       | **3D printed parts** |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  | Back_Face.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | Base.stl |
@@ -309,7 +309,7 @@ baseplate can be used instead.
 
 |Qty|Description|
 |---:|:----------|
-|4| Bolt M3 buttonhead x 10mm|
+|6| Bolt M3 buttonhead x 10mm|
 |2| Bolt M3 caphead x 20mm|
 
 
