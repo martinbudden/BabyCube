@@ -60,10 +60,9 @@ assembly("X_Carriage_Front", big=true) {
         translate([size.x/2, -1.5, beltOffsetZ])
             rotate([0, -90, 90])
                 explode(20, true) {
-                    hidden()
-                        stl_colour(pp2_colour)
-                            Belt_Tidy_stl();
-                    //Belt_Tidy_hardware();
+                    stl_colour(pp2_colour)
+                        Belt_Tidy_stl();
+                    Belt_Tidy_hardware();
                 }
 
         translate([12, (size.y + beltInsetFront())/2, beltOffsetZ - coreXYSeparation().z/2]) {
