@@ -18,7 +18,7 @@ include <../Parameters_Main.scad>
 //function pulleyOffset() = [-yRailShiftX(), 0, yCarriageThickness() - 6 + 1.25 + pulleyStackHeight()];
 //function pulleyOffset() = [-yRailShiftX(), 0, yCarriageThickness() + pulleyStackHeight()/2];
 function pulleyOffset() = [-yRailShiftX(), 0, 0];
-function tongueOffset(NEMA_width) = (eX + 2*eSizeX - _xRailLength - 2*yRailOffsetXYZ(NEMA_width).x)/2;
+function tongueOffset(NEMA_width) = (eX + 2*eSizeX - _xRailLength - 2*yRailOffset(NEMA_width).x)/2;
 
 topInset = 3.5;
 
@@ -79,7 +79,7 @@ module Y_Carriage_Brace_Right_stl() {
 
 module yCarriageLeftAssembly(NEMA_width) {
 
-    railOffset = yRailOffsetXYZ(NEMA_width);
+    railOffset = yRailOffset(NEMA_width);
 
     translate([railOffset.x, carriagePosition().y, railOffset.z - carriage_height(yCarriageType())])
         rotate([180, 0, 0]) {
@@ -96,7 +96,7 @@ module yCarriageLeftAssembly(NEMA_width) {
 
 module yCarriageRightAssembly(NEMA_width) {
 
-    railOffset = yRailOffsetXYZ(NEMA_width);
+    railOffset = yRailOffset(NEMA_width);
 
     translate([eX + 2*eSizeX - railOffset.x, carriagePosition().y, railOffset.z - carriage_height(yCarriageType())])
         rotate([180, 0, 180]) {

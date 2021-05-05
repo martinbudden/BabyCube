@@ -187,7 +187,7 @@ module topFaceAssembly(NEMA_width) {
     yCarriageType = yCarriageType();
     yRailType = carriage_rail(yCarriageType);
 
-    railOffset = yRailOffsetXYZ(NEMA_width);
+    railOffset = yRailOffset(NEMA_width);
     posY = carriagePosition().y - _yRailLength/2 - (_fullLengthYRail ? 0 : eSizeY);
 
     translate(railOffset)
