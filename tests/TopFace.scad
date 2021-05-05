@@ -30,8 +30,6 @@ use <../scad/MainAssemblies.scad>
 include <../scad/Parameters_Main.scad>
 
 
-NEMA_type = xyNEMA_type();
-
 //$explode = 1;
 //$pose = 1;
 module Top_Face_test() {
@@ -39,7 +37,7 @@ module Top_Face_test() {
 
     //xRailCarriagePosition() Print_head_assembly();
     //fullPrinthead();
-    //CoreXYBelts(NEMA_width(NEMA_type), carriagePosition, x_gap=16, show_pulleys=false);
+    //CoreXYBelts(carriagePosition());
     //Top_Face_stl();
     //Top_Face();
     //rotate(-90) topFaceSideDogbones();
@@ -47,9 +45,9 @@ module Top_Face_test() {
     //topFaceSideCutouts();
     //topFaceBackCutouts();
     *translate_z(eZ)
-        topFaceCover(NEMA_type);
+        topFaceCover(xyNEMA_type());
     *translate_z(eZ + eps)
-        topFaceInterlock(NEMA_type);
+        topFaceInterlock(xyNEMA_type());
 
     //Top_Face_Stage_1_assembly();
     //Top_Face_Stage_2_assembly();
@@ -61,7 +59,7 @@ module Top_Face_test() {
     //Top_Face_NEMA_17_Stage_2_assembly();
     //Top_Face_NEMA_17_assembly();
     //printheadWiring();
-    //CoreXYBelts(_xyNEMA_width, carriagePosition, x_gap=16, show_pulleys=false);
+    //CoreXYBelts(carriagePosition());
 
     //Left_Face_assembly();
     //Right_Face_assembly();

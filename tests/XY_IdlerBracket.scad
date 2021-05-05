@@ -17,7 +17,7 @@ include <../scad/Parameters_Main.scad>
 //$pose = 1;
 module XY_IdlerBracket_test() {
     echo(idlerBracketSize = idlerBracketSize(coreXYPosBL(_xyNEMA_width)));
-    CoreXYBelts(_xyNEMA_width, carriagePosition(), x_gap=16, show_pulleys=false);
+    CoreXYBelts(carriagePosition());
 
     //XY_IdlerBracket(coreXYPosBL(_xyNEMA_width), _xyNEMA_width, _sidePlateThickness);
     //XY_IdlerBracketHardware(coreXYPosBL(_xyNEMA_width));

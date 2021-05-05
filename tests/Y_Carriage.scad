@@ -21,7 +21,7 @@ include <../scad/Parameters_Main.scad>
 //$pose = 1;
 module Y_Carriage_test0() {
     translate_z(-eZ+20) {
-        CoreXYBelts(_xyNEMA_width, carriagePosition(), x_gap=16, show_pulleys=false);
+        CoreXYBelts(carriagePosition(), x_gap=16, show_pulleys=false);
         yCarriageLeftAssembly(_xyNEMA_width);
         yCarriageRightAssembly(_xyNEMA_width);
     }

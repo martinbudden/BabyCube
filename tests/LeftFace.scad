@@ -30,7 +30,7 @@ NEMA_type = xyNEMA_type();
 //$pose = 1;
 module Left_Face_test() {
     echoPrintSize();
-    //CoreXYBelts(NEMA_width(NEMA_type), carriagePosition, x_gap=16, show_pulleys=false);
+    //CoreXYBelts(carriagePosition());
 
     //zipTieCutout();
     Left_Face_assembly();
