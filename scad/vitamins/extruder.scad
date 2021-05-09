@@ -12,9 +12,9 @@ include <NopSCADlib/vitamins/stepper_motors.scad>
 use <CorkDamper.scad>
 
 extruder_spring  = ["spring", 8, 0.9, 21, 10, 1, false, 0, "silver"];
-extruder_pulley  = ["pulley", "EP", 16, 9.5, GT2x6, 3.5, 8, 9.5, 5, 8, 0.5, 0, 0, false, 0];
+extruder_pulley  = ["pulley", "EP", 16, 9.35, GT2x6, 3.5, 8, 9.5, 5, 8, 0.5, 0, 0, false, 0];
 
-function extruderBowdenOffset() = [18, 4.5, 30];
+function extruderBowdenOffset() = [18, 4.25, 30];
 function extruderBaseSize() = [42, 42, 4];
 function extruderFilamentOffset() = [extruderBowdenOffset().y, extruderBaseSize().y / 2, extruderBowdenOffset().x];
 
@@ -128,7 +128,7 @@ module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17, motorOffsetZ = 3, motorRota
                         circle(r=1.5);
                     translate([-18, 0, 0])
                         circle(r=r);
-                    translate([-4.5 - bowdenOffset.x, 19.5, 0])
+                    translate([-9.5, 19.5, 0])
                         circle(r=2.5);
                     }
         }
