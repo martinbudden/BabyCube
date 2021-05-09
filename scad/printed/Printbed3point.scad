@@ -63,7 +63,6 @@ module Heated_Bed() {
 }
 
 module extrusionOX(length, eSize=20) {
-    //echo("extrusionLength=", length);
     frameColor = [135/255, 145/255, 155/255];
     if (is_undef($hide_extrusions))
         translate([0, eSize/2, eSize/2])
@@ -102,10 +101,8 @@ module scs_bearing_block_hole_positions_x(type) {
                 children();
 }
 
-
 module Printbed_Frame_stl() {
     scsSize = scs_size(scs_type);
-    //yExtrusionLength = (floor(heatedBedSize.y/50) + 1)*50;
     armSize = [10, (floor(heatedBedSize.y/50) + 1)*50, eSize];
     endPieceSize = [heatedBedSize.x, 10, eSize];
     fillet = 1;
@@ -185,7 +182,6 @@ module Printbed_Frame_stl() {
                                     boltHoleM5(sideBracketThickness, horizontal=true, chamfer=5, chamfer_both_ends=false);
                 }
             }
-
 
             translate_z(-eSize/2)
                 render(convexity=8)
