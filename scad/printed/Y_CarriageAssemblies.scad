@@ -25,8 +25,6 @@ topInset = 3.5;
 
 module Y_Carriage_Left_stl() {
     idlerHeight = pulley_height(coreXY_toothed_idler(coreXY_type()));
-echo(idler=coreXY_toothed_idler(coreXY_type()));
-echo(idlerHeight=idlerHeight);
     pulleyStackHeight = pulleyStackHeight(idlerHeight);
     assert(pulleyStackHeight + yCarriageBraceThickness() == coreXYSeparation().z);
 

@@ -58,7 +58,6 @@ module Shaft_Coupling_8x5_stl() {
             }
         }
 
-    echo(or=or);
     *grub_screw_positions(or, 11)
         screw(M4_grub_screw, grubScrewLength);
 }
