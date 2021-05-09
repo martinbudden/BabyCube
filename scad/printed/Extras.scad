@@ -24,7 +24,7 @@ module bowdenTube() {
 }
 
 module faceRightSpoolHolder() {
-    explode([100, 0, 100])
+    explode([75, 0, 100])
         translate(spoolHolderPosition())
             rotate([90, 0, 0])
                 stl_colour(pp2_colour)
@@ -33,11 +33,12 @@ module faceRightSpoolHolder() {
 
 module faceRightSpool() {
     spool = spool_200x60;
-    translate(spoolHolderPosition() + spoolOffset())
-        translate([0.1 + spool_width(spool)/2 + spool_rim_thickness(spool), 0, -spool_hub_bore(spool)/2])
-            rotate([0, 90, 0])
-                not_on_bom()
-                    spool(spool, 46, "deepskyblue", 1.75);
+    explode([150, 0, 0])
+        translate(spoolHolderPosition() + spoolOffset())
+            translate([0.1 + spool_width(spool)/2 + spool_rim_thickness(spool), 0, -spool_hub_bore(spool)/2])
+                rotate([0, 90, 0])
+                    not_on_bom()
+                        spool(spool, 46, "deepskyblue", 1.75);
 }
 
 module Spool_Holder_stl() {
