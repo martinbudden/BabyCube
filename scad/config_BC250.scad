@@ -19,5 +19,6 @@ _xRailLength = 200;
 _yRailLength = 250;
 _xCarriageType = "9C";
 _yCarriageType = "9C";
+_beltWidth = 6;
 
 _printBedSize = 180;

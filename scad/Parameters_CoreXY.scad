@@ -7,7 +7,13 @@ include <NopSCADlib/vitamins/rails.scad>
 include <Parameters_Main.scad>
 
 
-function coreXY_type() = coreXY_GT2_20_16;
+GT2x9 = ["GT", 2.0,  9, 1.38, 0.75, 0.254];
+GT2x16x11_toothed_idler = ["GT2x16_toothed_idler", "GT2",   16,  9.75, GT2x9, 11.0,  14, 0,   3, 14.0, 1.0, 0, 0,    false,         0];
+GT2x16x11_plain_idler =   ["GT2x16x7_plain_idler", "GT2",    0,  9.63, GT2x9, 11.0,  13, 0,   3, 13.0, 1.0, 0, 0,    false,         0];
+
+coreXY_GT2x9_20_16=["coreXY_20_16", GT2x9, GT2x20ob_pulley, GT2x16x11_toothed_idler, GT2x16x11_plain_idler, [0, 0, 1], [0, 0, 0.5, 1], [0, 1, 0], [0, 0.5, 0, 1] ];
+
+function coreXY_type() = _beltWidth == 6 ? coreXY_GT2_20_16 : coreXY_GT2x9_20_16;
 
 
 function yRailSupportThickness() = 3; // was 8// needs to be at least 7.5 to clear the side bolt holes

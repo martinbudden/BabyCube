@@ -153,7 +153,7 @@ module XY_IdlerBracketHardware(coreXYPosBL) {
                     explode([-40, 0, 0], true)
                         washer(M3_washer)
                             explode([20, 0, 0], true)
-                                pulley(GT2x16_toothed_idler)
+                                pulley(coreXY_toothed_idler(coreXY_type()))
                                     explode([-20, 0, 0])
                                         washer(M3_washer);
             if (yCarriageBraceThickness())
