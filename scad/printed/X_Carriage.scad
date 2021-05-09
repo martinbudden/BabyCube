@@ -18,23 +18,22 @@ fillet = 1;
 
 topThickness = xCarriageTopThickness();
 baseThickness = xCarriageBaseThickness();
-beltWidth = 7;
 beltHoleWidth = 18;
 xCarriageFrontSize = [30, 4, 40.5];
-cutoutSize = [beltHoleWidth, xCarriageFrontSize.y + beltInsetFront() + 2*eps, beltWidth + 1.5];
+function cutoutSize(beltWidth) = [beltHoleWidth, xCarriageFrontSize.y + beltInsetFront() + 2*eps, beltWidth + 2.5];
 railCarriageGap = 0.5;
 
-function beltTensionerSize() = [beltHoleWidth - 10, xCarriageFrontSize.y + beltInsetBack() - 1, beltWidth + 0.75];
-function clampHoleSpacing() = 12;
-function tidyHoleSpacing() = 25;
+function beltTensionerSize(beltWidth) = [beltHoleWidth - 10, xCarriageFrontSize.y + beltInsetBack() - 1, beltWidth + 1.75];
+function clampHoleSpacing(beltWidth) = beltWidth*2;
+function tidyHoleSpacing(beltWidth) = 2*clampHoleSpacing(beltWidth) + 1;
 function beltClampOffsetX() = 3;
 function beltInsetFront() = 5.5; // belt inset from side of rail carriage
 function beltInsetBack() = 4.5;
 
 function xCarriageTopThickness() = 8;
 function xCarriageBaseThickness() = 8;
-function xCarriageFrontSize(xCarriageType) =  [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x), xCarriageFrontSize.y, xCarriageFrontSize.z + carriage_height(xCarriageType) + topThickness]; //has the belt tensioners
-function xCarriageBackSize(xCarriageType) = [xCarriageFrontSize(xCarriageType).x, 5, xCarriageFrontSize(xCarriageType).z];
+function xCarriageFrontSize(xCarriageType, beltWidth) =  [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x), xCarriageFrontSize.y, xCarriageFrontSize.z + carriage_height(xCarriageType) + topThickness + (!is_undef(beltWidth) && beltWidth == 9 ? 4.5 : 0)]; //has the belt tensioners
+function xCarriageBackSize(xCarriageType, beltWidth) = [xCarriageFrontSize(xCarriageType, beltWidth).x, 5, xCarriageFrontSize(xCarriageType, beltWidth).z];
 function xCarriageFrontOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageFrontSize(xCarriageType).y + 2;
 function xCarriageBackOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageBackSize(xCarriageType).y;
 function xCarriageTopHolePositions(xCarriageType) = [4, xCarriageFrontSize(xCarriageType).x - 4];
@@ -104,14 +103,14 @@ module xCarriageBottom(xCarriageType) {
     }*/
 }
 
-module xCarriageBack(xCarriageType, beltOffsetZ, coreXYSeparationZ, toolheadHoles=false) {
+module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, toolheadHoles=false) {
     assert(is_list(xCarriageType));
 
-    size = xCarriageBackSize(xCarriageType);
+    size = xCarriageBackSize(xCarriageType, beltWidth);
 
     // the back has clamps for the two belts and attaches to the hotend
     baseSize = [size.x, carriage_size(xCarriageType).y + size.y - 2*beltInsetBack(), baseThickness];
-    topSize =  [size.x, carriage_size(xCarriageType).y + size.y - 2*beltInsetBack() + xCarriageFrontSize(xCarriageType).y, topThickness];
+    topSize =  [size.x, carriage_size(xCarriageType).y + size.y - 2*beltInsetBack() + xCarriageFrontSize(xCarriageType, beltWidth).y, topThickness];
     difference() {
         translate([-size.x/2, carriage_size(xCarriageType).y/2, 0])
             union() {
@@ -130,20 +129,20 @@ module xCarriageBack(xCarriageType, beltOffsetZ, coreXYSeparationZ, toolheadHole
                 translate_z(-size.z + topThickness)
                     xCarriageBottom(xCarriageType);
             } // end union
-            translate([-size.x/2 - eps, carriage_size(xCarriageType).y/2 - beltInsetBack() + xCarriageBackSize(xCarriageType).y, beltOffsetZ]) {
-                for (z = [clampHoleSpacing()/2, -clampHoleSpacing()/2])
+            translate([-size.x/2 - eps, carriage_size(xCarriageType).y/2 - beltInsetBack() + xCarriageBackSize(xCarriageType, beltWidth).y, beltOffsetZ]) {
+                for (z = [clampHoleSpacing(beltWidth)/2, -clampHoleSpacing(beltWidth)/2])
                     translate_z(z - coreXYSeparationZ/2)
                         rotate([90, 0, 90])
                             boltHoleM3TapOrInsert(10);
                 translate([size.x + 2*eps, 0, ])
-                    for (z = [clampHoleSpacing()/2, -clampHoleSpacing()/2])
+                    for (z = [clampHoleSpacing(beltWidth)/2, -clampHoleSpacing(beltWidth)/2])
                         translate_z(z + coreXYSeparationZ/2)
                             rotate([90, 0, -90])
                                 boltHoleM3TapOrInsert(10);
             }
             if (toolheadHoles) {
                 // using large carriage, so can support XChange toolhead
-                translate([0, carriage_size(xCarriageType).y/2 + size.y+eps, topThickness - 20]) {
+                translate([0, carriage_size(xCarriageType).y/2 + size.y + eps, topThickness - 20]) {
                     rotate([90, 0, 0])
                         translate_z(-carriage_height(MGN12H_carriage))
                             carriage_hole_positions(MGN12H_carriage)
@@ -162,11 +161,12 @@ module xCarriageBack(xCarriageType, beltOffsetZ, coreXYSeparationZ, toolheadHole
     }*/
 }
 
-module xCarriageFront(xCarriageType, beltOffsetZ, coreXYSeparationZ) {
+module xCarriageFront(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ) {
     // this has the belt tensioners
     assert(is_list(xCarriageType));
 
-    size = xCarriageFrontSize(xCarriageType);
+    size = xCarriageFrontSize(xCarriageType, beltWidth);
+    cutoutSize = cutoutSize(beltWidth);
     baseOffset = size.z - topThickness;
 
     translate([-size.x/2, -xCarriageFrontOffsetY(xCarriageType), 0]) {
@@ -200,12 +200,12 @@ module xCarriageFront(xCarriageType, beltOffsetZ, coreXYSeparationZ) {
 
             // holes for the belt clamps
             for (i = [ [beltClampOffsetX(), 0, -coreXYSeparationZ/2], [size.x - beltClampOffsetX(), 0, coreXYSeparationZ/2] ],
-                 z = [clampHoleSpacing()/2, -clampHoleSpacing()/2])
+                 z = [clampHoleSpacing(beltWidth)/2, -clampHoleSpacing(beltWidth)/2])
                 translate(i + [0, 0, z + beltOffsetZ])
                     rotate([-90, -90, 0])
                         boltHoleM3TapOrInsert(size.y + beltInsetFront(), horizontal=true, chamfer_both_ends=true);
             // holes for the belt tidy
-            for (z = [-tidyHoleSpacing()/2, tidyHoleSpacing()/2])
+            for (z = [-tidyHoleSpacing(beltWidth)/2, tidyHoleSpacing(beltWidth)/2])
                 translate([size.x/2, 0, z + beltOffsetZ])
                     rotate([-90, -90, 0])
                         boltHoleM3TapOrInsert(size.y + beltInsetFront(), horizontal=true, chamfer_both_ends=true);
@@ -232,7 +232,7 @@ module xCarriageFront(xCarriageType, beltOffsetZ, coreXYSeparationZ) {
             // inserts for the belt clamps
             translate([0, 0, beltOffsetZ])
                 for (i= [[beltClampOffsetX(), 0, coreXYSeparationZ/2], [size.x - beltClampOffsetX(), 0, -coreXYSeparationZ/2] ],
-                     z= [clampHoleSpacing()/2, -clampHoleSpacing()/2])
+                     z= [clampHoleSpacing(beltWidth)/2, -clampHoleSpacing(beltWidth)/2])
                     translate(i + [0, 0, z])
                         rotate([90, 90, 0])
                             _threadedInsertM3();
@@ -242,13 +242,13 @@ module xCarriageFront(xCarriageType, beltOffsetZ, coreXYSeparationZ) {
 
 
 
-module beltFragment(xCarriageType, color) {
+module beltFragment(xCarriageType, beltType, color) {
 
-    belt = GT2x6;
-    beltThickness = belt_thickness(belt);
+    beltWidth = belt_width(beltType);
+    beltThickness = belt_thickness(beltType);
     extraX = 9.5;
     extraY = 0.75;
-    size = [beltTensionerSize().x + extraX, xCarriageFrontSize(xCarriageType).y + 2*beltThickness + beltInsetFront() + extraY, belt_width(belt)];
+    size = [beltTensionerSize(beltWidth).x + extraX, xCarriageFrontSize(xCarriageType).y + 2*beltThickness + beltInsetFront() + extraY, beltWidth];
     color(color)
         translate([-extraX/2 - 1, extraY/2, -size.z/2])
             linear_extrude(size.z)
@@ -264,18 +264,19 @@ module beltFragment(xCarriageType, color) {
                 }
 }
 
-module xCarriageBeltFragments(xCarriageType, beltOffsetZ, coreXYSeparationZ, upperBeltColor, lowerBeltColor) {
+module xCarriageBeltFragments(xCarriageType, beltType, beltOffsetZ, coreXYSeparationZ, upperBeltColor, lowerBeltColor) {
     assert(is_list(xCarriageType));
-    size = xCarriageFrontSize(xCarriageType);
+    beltWidth = belt_width(beltType);
+    size = xCarriageFrontSize(xCarriageType, beltWidth);
 
     translate([-size.x/2, size.y/2 - xCarriageFrontOffsetY(xCarriageType) + beltInsetFront()/2, beltOffsetZ - coreXYSeparationZ/2])
         translate([beltHoleWidth - 6, 0, 0])
-            beltFragment(xCarriageType, lowerBeltColor);
+            beltFragment(xCarriageType, beltType, lowerBeltColor);
 
     translate([size.x/2, size.y/2 - xCarriageFrontOffsetY(xCarriageType) + beltInsetFront()/2, beltOffsetZ + coreXYSeparationZ/2])
         hflip()
             translate([beltHoleWidth - 6, 0, 0])
-                beltFragment(xCarriageType, upperBeltColor);
+                beltFragment(xCarriageType, beltType, upperBeltColor);
 }
 
 module boltHoleM3TapOrInsert(length, useInsert = false, horizontal = false, rotate = 0, chamfer = 0.5, twist = undef, chamfer_both_ends = false) {

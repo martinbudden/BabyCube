@@ -29,7 +29,7 @@ module X_Carriage_Front_stl() {
     stl("X_Carriage_Front")
         color(pp4_colour)
             rotate([0, -90, 0])
-                xCarriageFront(xCarriageType, beltOffsetZ(), coreXYSeparation().z);
+                xCarriageFront(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z);
 }
 
 //!1. Bolt the Belt_Clamps to the X_Carriage_Front, leaving them loose for later insertion of the belts.
@@ -38,7 +38,7 @@ module X_Carriage_Front_assembly()
 assembly("X_Carriage_Front", big=true) {
 
     xCarriageType = xCarriageType();
-    size = xCarriageFrontSize(xCarriageType);
+    size = xCarriageFrontSize(xCarriageType, _beltWidth);
     beltOffsetZ = beltOffsetZ();
 
     rotate([0, 90, 0])
@@ -55,21 +55,21 @@ assembly("X_Carriage_Front", big=true) {
                     explode(20, true) {
                         stl_colour(pp2_colour)
                             Belt_Clamp_stl();
-                        Belt_Clamp_hardware();
+                        Belt_Clamp_hardware(_beltWidth);
                     }
         translate([size.x/2, -1.5, beltOffsetZ])
             rotate([0, -90, 90])
                 explode(20, true) {
                     stl_colour(pp2_colour)
                         Belt_Tidy_stl();
-                    Belt_Tidy_hardware();
+                    Belt_Tidy_hardware(_beltWidth);
                 }
 
         translate([12, (size.y + beltInsetFront())/2, beltOffsetZ - coreXYSeparation().z/2]) {
             explode([0, -10, 0])
                 stl_colour(pp3_colour)
                     Belt_Tensioner_stl();
-            Belt_Tensioner_hardware();
+            Belt_Tensioner_hardware(_beltWidth);
         }
 
         translate([size.x - 12, (size.y + beltInsetFront())/2, beltOffsetZ + coreXYSeparation().z/2])
@@ -77,15 +77,15 @@ assembly("X_Carriage_Front", big=true) {
                 explode([0, 10, 0])
                     stl_colour(pp3_colour)
                         Belt_Tensioner_stl();
-                Belt_Tensioner_hardware();
+                Belt_Tensioner_hardware(_beltWidth);
             }
     }
 }
 
-module xCarriageFrontAssemblyBolts(xCarriageType) {
+module xCarriageFrontAssemblyBolts(xCarriageType, beltWidth) {
     assert(is_list(xCarriageType));
 
-    size = xCarriageFrontSize(xCarriageType);
+    size = xCarriageFrontSize(xCarriageType, beltWidth);
 
     translate([-size.x/2, -xCarriageFrontOffsetY(xCarriageType), 0]) {
         // holes at the top to connect to the printhead
@@ -104,7 +104,7 @@ module xCarriageFrontAssemblyBolts(xCarriageType) {
 module xCarriageAssembly(xCarriageType, beltOffsetZ, coreXYSeparationZ) {
     assert(is_list(xCarriageType));
 
-    size = xCarriageBackSize(xCarriageType);
+    size = xCarriageBackSize(xCarriageType, _beltWidth);
     hotend_type = 0;
 
     //translate([-size.x/2-eps, carriage_size(xCarriageType).y/2-beltInsetBack()+xCarriageBackSize(xCarriageType).y, beltOffsetZ + coreXYSeparationZ/2]) {
@@ -114,14 +114,14 @@ module xCarriageAssembly(xCarriageType, beltOffsetZ, coreXYSeparationZ) {
             explode(10, true) {
                 stl_colour(pp2_colour)
                     Belt_Clamp_stl();
-                Belt_Clamp_hardware();
+                Belt_Clamp_hardware(_beltWidth);
             }
         translate([size.x + 2, 0, coreXYSeparationZ])
             rotate([0, 90, 0])
                 explode(10, true) {
                     stl_colour(pp2_colour)
                         Belt_Clamp_stl();
-                    Belt_Clamp_hardware();
+                    Belt_Clamp_hardware(_beltWidth);
                 }
     }
 }
@@ -134,7 +134,7 @@ module X_Carriage_stl() {
     stl("X_Carriage")
         color(pp1_colour)
             rotate([0, -90, 0]) {
-                xCarriageBack(xCarriageType, beltOffsetZ(), coreXYSeparation().z);
+                xCarriageBack(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z);
                 hotEndHolder(xCarriageType, hotend_type, blower_type);
             }
 }
@@ -164,4 +164,21 @@ assembly("X_Carriage", big=true, ngb=true) {
                     Fan_Duct_stl();
                 Fan_Duct_hardware(xCarriageType, hotend_type);
             }
+}
+
+module Belt_Tidy_stl() {
+    stl("Belt_Tidy")
+        beltTidy(_beltWidth);
+}
+
+module Belt_Clamp_stl() {
+    stl("Belt_Clamp")
+        color(pp2_colour)
+            beltClamp(_beltWidth);
+}
+
+module Belt_Tensioner_stl() {
+    stl("Belt_Tensioner")
+        color(pp3_colour)
+            beltTensioner(_beltWidth);
 }

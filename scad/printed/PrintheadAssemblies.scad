@@ -59,12 +59,12 @@ module fullPrinthead(rotate=0) {
         rotate(rotate) {// for debug, to see belts better
             explode([0, -20, 0], true) {
                 X_Carriage_Front_assembly();
-                xCarriageFrontAssemblyBolts(xCarriageType());
+                xCarriageFrontAssemblyBolts(xCarriageType(), _beltWidth);
             }
             Print_head_assembly();
             xCarriageTopBolts(xCarriageType());
             if (!exploded())
-                xCarriageBeltFragments(xCarriageType(), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
+                xCarriageBeltFragments(xCarriageType(), coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
         }
 }
 
