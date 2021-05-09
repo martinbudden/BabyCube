@@ -10,7 +10,7 @@ use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 
 use <../scad/utils/carriageTypes.scad>
-
+include <../scad/Parameters_Main.scad>
 
 //$explode = 1;
 //$pose = 1;
@@ -26,12 +26,12 @@ module X_Carriage_test() {
     //Fan_Duct_stl();
     //rotate([0, 90, 0]) X_Carriage_Front_stl();
     X_Carriage_Front_assembly();
-    //xCarriageFrontAssemblyBolts(xCarriageType());
+    xCarriageFrontAssemblyBolts(xCarriageType(), _beltWidth);
 
     //let($preview=false)
     *translate([-xCarriageBackSize(xCarriageType).x/2, carriage_size(xCarriageType).y/2, 0])
         xCarriageTop(xCarriageType);
-    //xCarriageBack(xCarriageType, beltOffsetZ(), coreXYSeparation().z);
+    //xCarriageBack(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z);
     //xCarriageBottom(xCarriageType);
     //Belt_Tensioner_stl();
     //Belt_Clamp_stl();
