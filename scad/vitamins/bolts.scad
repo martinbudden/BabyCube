@@ -152,80 +152,72 @@ module boltHoleM6Counterbore(length, boreDepth=undef, boltHeadTolerance = 0, cnc
 
 // Bolts
 
-module boltM2Caphead(length) {
+module bolt(type, length) {
     if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        screw(M2_cap_screw, length);
+        screw(type, length);
+}
+
+
+module boltM2Caphead(length) {
+    bolt(M2_cap_screw, length);
 }
 
 
 module boltM2p5Caphead(length) {
-    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        screw(M2p5_cap_screw, length);
+    bolt(M2p5_cap_screw, length);
 }
 
 
 module boltM3Caphead(length) {
-    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        screw(M3_cap_screw, length);
+    bolt(M3_cap_screw, length);
 }
 
 module boltM3Countersunk(length, boreDepth=undef) {
-    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        translate_z(is_undef(boreDepth) ? 0 : boreDepth)
-            screw(M3_cs_cap_screw, length);
+    translate_z(is_undef(boreDepth) ? 0 : boreDepth)
+        bolt(M3_cs_cap_screw, length);
 }
 
 module boltM3Buttonhead(length) {
-    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        screw(M3_dome_screw, length);
+    bolt(M3_dome_screw, length);
 }
 
 module boltM3Panhead(length) {
-    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        screw(M3_pan_screw, length);
+    bolt(M3_pan_screw, length);
 }
 
 
 module boltM4Caphead(length) {
-    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        screw(M4_cap_screw, length);
+    bolt(M4_cap_screw, length);
 }
 
 module boltM4Countersunk(length, boreDepth=undef) {
-    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        translate_z(is_undef(boreDepth) ? 0 : boreDepth)
-            screw(M4_cs_cap_screw, length);
+    translate_z(is_undef(boreDepth) ? 0 : boreDepth)
+        bolt(M4_cs_cap_screw, length);
 }
 
 module boltM4Buttonhead(length) {
-    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        screw(M4_dome_screw, length);
+    bolt(M4_dome_screw, length);
 }
 
 
 module boltM5Caphead(length) {
-    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        screw(M5_cap_screw, length);
+    bolt(M5_cap_screw, length);
 }
 
 module boltM5Countersunk(length, boreDepth=undef) {
-    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        translate_z(is_undef(boreDepth)  ? 0 : boreDepth)
-            screw(M5_cs_cap_screw, length);
+    translate_z(is_undef(boreDepth)  ? 0 : boreDepth)
+        bolt(M5_cs_cap_screw, length);
 }
 
 module boltM5Buttonhead(length) {
-    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        screw(M5_dome_screw, length);
+    bolt(M5_dome_screw, length);
 }
 
 
 module boltM6Caphead(length) {
-    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        screw(M6_cap_screw, length);
+    bolt(M6_cap_screw, length);
 }
 
 module boltM6Buttonhead(length) {
-    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-        screw(M6_dome_screw, length);
+    bolt(M6_dome_screw, length);
 }
