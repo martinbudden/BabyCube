@@ -46,10 +46,10 @@ module Fan_Duct_stl() {
                             }
                         }
                     }
-                    tabTopSize = [33.25, fanDuctTabThickness, 5];
+                    tabTopSize = [33.5, fanDuctTabThickness, 5];
                     tabBottomSize = [chimneySize.x, tabTopSize.y, 1];
                     hull() {
-                        translate([offsetX, -fanDuctTabThickness, -chimneySize.z+0.5])
+                        translate([offsetX, -fanDuctTabThickness, -chimneySize.z + 0.5])
                             rounded_cube_xy(tabBottomSize, 0.5);
                         translate([30 - tabTopSize.x, -fanDuctTabThickness, -tabTopSize.z])
                             rounded_cube_xy(tabTopSize, 0.5);
@@ -60,7 +60,7 @@ module Fan_Duct_stl() {
                         boltHoleM2(fanDuctTabThickness, horizontal=true);
 
                 flueSize = chimneyTopSize - [1.5, 1.5, 0];
-                translate([wallLeft + 1.5/2, -chimneySize.y + top+1.5/2, -chimneySize.z + eps])
+                translate([wallLeft + 1.5/2, -chimneySize.y + top + 1.5/2, -chimneySize.z + eps])
                     rounded_cube_xy(flueSize, 1);
 
                 jetEndSize = [5, 2, 2];

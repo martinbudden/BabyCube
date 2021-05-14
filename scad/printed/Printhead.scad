@@ -21,7 +21,7 @@ function hotendOffset(xCarriageType, hotend_type=0) = printHeadHotendOffset(hote
 function hotendClampOffset(xCarriageType, hotend_type=0) =  [hotendOffset(xCarriageType, hotend_type).x, 18+xCarriageBackOffsetY(xCarriageType)+grooveMountOffsetX(hotend_type), hotendOffset(xCarriageType, hotend_type).z];
 grooveMountHoleOffsets = [13.5, -12];
 grooveMountFillet = 1;
-function grooveMountSize(xCarriageType, hotend_type, blower_type) = [hotendOffset(xCarriageType, hotend_type).x + xCarriageBackSize(xCarriageType).x/2, blower_size(blower_type).x+6, 12];
+function grooveMountSize(xCarriageType, hotend_type, blower_type) = [hotendOffset(xCarriageType, hotend_type).x + xCarriageBackSize(xCarriageType).x/2, blower_size(blower_type).x + 6.25, 12];
 function grooveMountOffsetX(hotend_type) = hotend_type == 0 ? 0 : 4;
 grooveMountClampOffsetX = 0.5;
 function grooveMountClampSize(xCarriageType, hotend_type, blower_type) = [grooveMountSize(xCarriageType, hotend_type, blower_type).y - 2*grooveMountFillet - grooveMountClampOffsetX, 12, 17];
@@ -148,8 +148,9 @@ module blowerTranslate(xCarriageType, hotend_type, blower_type, z=0) {
     grooveMountSize = grooveMountSize(xCarriageType, hotend_type, blower_type);
     hotendOffset = hotendOffset(xCarriageType, hotend_type);
 
-    translate([-grooveMountSize.x + z, blower_length(blower_type) - 16 + grooveMountOffsetX(hotend_type), -blower_size(blower_type).x - grooveMountClampSize(xCarriageType, hotend_type, blower_type).y/2])
-        translate([hotendOffset.x, xCarriageBackOffsetY(xCarriageType) + 17, hotendOffset.z])
+    translate([hotendOffset.x - grooveMountSize.x + z,
+                 xCarriageBackOffsetY(xCarriageType) + 0.5 + blower_length(blower_type) + grooveMountOffsetX(hotend_type),
+                 hotendOffset.z - blower_size(blower_type).x - grooveMountClampSize(xCarriageType, hotend_type, blower_type).y/2])
             rotate([90, 0, -90])
                 children();
 }
