@@ -246,14 +246,13 @@ module printbed3point(leadnutOffset=eSize/2, scsOffset=0) {
                     magneticBase(printBedSize, 0.75, holeRadius = 3);
     }
 
-    translate_z(leadnutOffset) {
-        //translate_z(leadnut_flange_t(leadnut))
+    translate_z(leadnutOffset)
         vflip() {
             leadnut(leadnut);
             leadnut_screw_positions(leadnut)
                 screw(leadnut_screw(leadnut), 8);
         }
-    }
+
     translate([_zRodSeparation/2 - 6 - eps, 0, (eSize - scsSize.z)/2 - scs_screw_separation_z(scs_type)])
         rotate(-90)
             scs_bearing_block_hole_positions_x(scs_type)
