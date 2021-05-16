@@ -9,6 +9,11 @@ use <Z_Carriage.scad>
 include <../Parameters_Main.scad>
 
 
+underlayThickness = 3;
+heatingPadThickness = 2.5;
+magneticBaseThickness = 0.75;
+printSurfaceThickness = 1;
+
 module drilledBed(size, printBedSize, holeRadius = M3_clearance_radius) {
     linear_extrude(size.z)
         difference() {
@@ -88,10 +93,6 @@ module heatedBed(printBedSize) {
         translate_z(size.z)
             children();
 }
-
-underlayThickness = 3;
-magneticBaseThickness = 0.75;
-printSurfaceThickness = 1;
 
 module printbed(printBedSize) {
     size = heatedBedSize(printBedSize);
