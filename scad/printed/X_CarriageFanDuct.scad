@@ -23,11 +23,12 @@ module Fan_Duct_stl() {
 module Fan_Duct_Right_stl() {
     stl("Fan_Duct_Right")
         color(pp2_colour)
-            mirror([1, 0, 0])
-                fanDuct();
+            translate([26, 0, 0])
+                mirror([1, 0, 0])
+                    fanDuct(jetOffset = -0.5);
 }
 
-module fanDuct() {
+module fanDuct(jetOffset=0) {
     blower_type = BL30x10;
     blowerSize = blower_size(blower_type);
 
@@ -76,7 +77,7 @@ module fanDuct() {
 
         jetEndSize = [5, 2, 2];
         jetStartSize = [16, 2, 2];
-        translate([13, -8, 0])
+        translate([12.5 + jetOffset, -8, 0])
             #hull() {
                 translate([-jetEndSize.x/2, 6 + printHeadHotendOffset().x, -21])
                     cube(jetEndSize);
