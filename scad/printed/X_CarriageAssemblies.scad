@@ -158,7 +158,8 @@ assembly("X_Carriage", big=true, ngb=true) {
         hotEndPartCoolingFan(xCarriageType, hotend_type, blower_type);
 
     explode([-20, 0, -10], true)
-        blowerTranslate(xCarriageType, hotend_type, blower_type)
+        translate([0, -1.5, 0])
+        blowerTranslate(xCarriageType, hotend_type, blower_type, left=false)
             rotate([-90, 0, 0]) {
                 stl_colour(pp2_colour)
                     Fan_Duct_stl();
