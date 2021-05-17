@@ -14,7 +14,7 @@ use <CorkDamper.scad>
 extruder_spring  = ["spring", 8, 0.9, 21, 10, 1, false, 0, "silver"];
 extruder_pulley  = ["pulley", "EP", 16, 9.35, GT2x6, 3.5, 8, 9.5, 5, 8, 0.5, 0, 0, false, 0];
 
-function extruderBowdenOffset() = [18, 4.25, 30];
+function extruderBowdenOffset() = [18, 4.5, 30];
 function extruderBaseSize() = [42, 42, 4];
 function extruderFilamentOffset() = [extruderBowdenOffset().y, extruderBaseSize().y / 2, extruderBowdenOffset().x];
 
