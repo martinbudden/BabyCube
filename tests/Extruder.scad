@@ -22,10 +22,10 @@ module ExtruderOffset_test() {
             NEMA_screw_positions(NEMA_type)
                 circle(r=M3_clearance_radius);
         }
-    markerSize = [1, 8, 15];
-    translate([-markerSize.x/2+4, -size.y/2])
+    markerSize = [1, 8, 18];
+    translate([-markerSize.x/2-4.5, -size.y/2])
         rounded_cube_xy(markerSize, 0);
-    translate([-markerSize.x/2-4.5, size.y/2-markerSize.y])
+    translate([-markerSize.x/2+5, size.y/2-markerSize.y-0.5])
         rounded_cube_xy(markerSize, 0);
 }
 
