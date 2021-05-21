@@ -25,9 +25,9 @@ module boltHole(diameter, length, horizontal = false, rotate = 0, chamfer = 0, t
             poly_cylinder(r = diameter/2, h = length + 2*eps, twist = _twist(diameter/2, twist));
 }
 
-module boltHoleCounterbore(screw_type, length, boreDepth=undef, boltHeadTolerance=0, horizontal=false, cnc=false) {
-    boltHole(2*screw_head_radius(screw_type) + boltHeadTolerance, is_undef(boreDepth) ? screw_head_height(screw_type) : boreDepth, horizontal=horizontal, cnc=cnc);
-    boltHole(2*screw_clearance_radius(screw_type), length, horizontal=horizontal, cnc=cnc);
+module boltHoleCounterbore(screw_type, length, boreDepth=undef, boltHeadTolerance=0, horizontal=false, chamfer=0, cnc=false) {
+    boltHole(2*screw_head_radius(screw_type) + boltHeadTolerance, is_undef(boreDepth) ? screw_head_height(screw_type) : boreDepth, horizontal=horizontal, chamfer=chamfer, chamfer_both_ends=false, cnc=cnc);
+    boltHole(2*screw_clearance_radius(screw_type), length, horizontal, chamfer=chamfer, cnc=cnc);
 }
 
 module boltHoleHangingCounterbore(screw_type, length, boreDepth = undef, boltHeadTolerance = 0) {
@@ -114,8 +114,8 @@ module boltPolyholeM4Countersunk(length, offset=0) {
         screw_polysink(M4_cs_cap_screw, 2*length + 2*eps);
 }
 
-module boltHoleM4CounterboreButtonhead(length, boreDepth=undef, boltHeadTolerance = 0.4, horizontal=false, cnc=false) {
-    boltHoleCounterbore(M4_dome_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance, horizontal=horizontal, cnc=cnc);
+module boltHoleM4CounterboreButtonhead(length, boreDepth=undef, boltHeadTolerance = 0.4, horizontal=false, chamfer=0.5, cnc=false) {
+    boltHoleCounterbore(M4_dome_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance, horizontal=horizontal, chamfer=0.5, cnc=cnc);
 }
 
 module boltHoleM4HangingCounterboreButtonhead(length, boreDepth, boltHeadTolerance = 0.4) {
