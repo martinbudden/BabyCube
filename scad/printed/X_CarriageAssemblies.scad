@@ -65,14 +65,14 @@ assembly("X_Carriage_Front", big=true) {
                     Belt_Tidy_hardware(_beltWidth);
                 }
 
-        translate([12, (size.y + beltInsetFront())/2, beltOffsetZ - coreXYSeparation().z/2]) {
+        translate([12, (size.y + beltInsetFront(xCarriageType))/2, beltOffsetZ - coreXYSeparation().z/2]) {
             explode([0, -10, 0])
                 stl_colour(pp3_colour)
                     Belt_Tensioner_stl();
             Belt_Tensioner_hardware(_beltWidth);
         }
 
-        translate([size.x - 12, (size.y + beltInsetFront())/2, beltOffsetZ + coreXYSeparation().z/2])
+        translate([size.x - 12, (size.y + beltInsetFront(xCarriageType))/2, beltOffsetZ + coreXYSeparation().z/2])
             rotate(180) {
                 explode([0, 10, 0])
                     stl_colour(pp3_colour)
@@ -107,9 +107,9 @@ module xCarriageAssembly(xCarriageType, beltOffsetZ, coreXYSeparationZ) {
     size = xCarriageBackSize(xCarriageType, _beltWidth);
     hotend_type = 0;
 
-    //translate([-size.x/2-eps, carriage_size(xCarriageType).y/2-beltInsetBack()+xCarriageBackSize(xCarriageType).y, beltOffsetZ + coreXYSeparationZ/2]) {
+    //translate([-size.x/2-eps, carriage_size(xCarriageType).y/2 - beltInsetBack(xCarriageType) + xCarriageBackSize(xCarriageType).y, beltOffsetZ + coreXYSeparationZ/2]) {
     //!!TODO fix magic number 5
-    translate([-size.x/2 - 1, carriage_size(xCarriageType).y/2 - beltInsetBack() + xCarriageBackSize(xCarriageType).y, beltOffsetZ - 5]) {
+    translate([-size.x/2 - 1, carriage_size(xCarriageType).y/2 - beltInsetBack(xCarriageType) + xCarriageBackSize(xCarriageType).y, beltOffsetZ - 5]) {
         rotate([0, 90, 180])
             explode(10, true) {
                 stl_colour(pp2_colour)
