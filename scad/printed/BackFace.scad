@@ -192,7 +192,7 @@ module backFaceUpperBrackets(NEMA_width) {
         }
         backFaceUpperSKBracketHolePositions()
             translate_z(-_backPlateThickness)
-                boltPolyholeM5Countersunk(_backPlateThickness);
+                boltPolyholeM5Countersunk(_backPlateThickness, sink=0.25);
         backFaceTopHolePositions()
             rotate([90, 0, 0])
                 boltHoleM3Tap(8+10, horizontal = true, chamfer_both_ends = false);
@@ -243,7 +243,7 @@ module backFaceLowerBrackets(NEMA_type) {
         difference() {
             rounded_cube_xy([eX+2*eSizeX, Z_MotorMountHeight(NEMA_type), _backPlateThickness], r=1);
             backFaceLowerSKBracketHolePositions()
-                boltPolyholeM5Countersunk(_backPlateThickness);
+                boltPolyholeM5Countersunk(_backPlateThickness, sink=0.25);
         }
     translate([zRodOffsetX + _zRodSeparation/2, 0, _zLeadScrewOffset])
         rotate([-90, -90, 0])

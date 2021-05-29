@@ -56,7 +56,7 @@ module leftFace(NEMA_type) {
             XY_MotorUpright(NEMA_type, left=true);
         }
         switchShroudHolePositions()
-            boltPolyholeM3Countersunk(eSizeXBase);
+            boltPolyholeM3Countersunk(eSizeXBase, sink=0.25);
         translate(rockerPosition(rocker_type()))
             rotate([0, -90, 0])
                 rocker_hole(rocker_type(), eSizeY, rounded = false);

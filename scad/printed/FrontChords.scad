@@ -36,7 +36,7 @@ module Front_Upper_Chord_stl() {
                         }
                     for (x = [overlap/2, size.x - overlap/2], y = idlerBracketTopSizeY()/2)
                         translate([x + (eX + 2*eSizeX - size.x)/2, y, 0])
-                            boltPolyholeM3Countersunk(cutoutHeight);
+                            boltPolyholeM3Countersunk(cutoutHeight, sink=0.25);
                     translate([0, size.y, 0])
                         rotate([90, 0, 0])
                             topFaceFrontHolePositions(_topPlateThickness)
@@ -83,7 +83,7 @@ module frontLowerChord() {
                     boltHoleM3Tap(8, horizontal = true, rotate = -90, chamfer_both_ends = false);
         for (x = [overlap/2, size.x - overlap/2], y = [5, size.y/2, size.y - 5])
             translate([x + (eX + 2*eSizeX - size.x)/2, y, 0])
-                boltPolyholeM3Countersunk(cutoutHeight);
+                boltPolyholeM3Countersunk(cutoutHeight, sink=0.25);
     }
 }
 

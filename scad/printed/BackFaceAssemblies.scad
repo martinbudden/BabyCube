@@ -42,9 +42,9 @@ module backFace(zNEMA_type) {
         }
         // add the bolt holes for attachment to the left and right faces
         backFaceAllHolePositions(-_backPlateThickness)
-            boltPolyholeM3Countersunk(2*_backPlateThickness + 1);
+            boltPolyholeM3Countersunk(2*_backPlateThickness + 1, sink=0.25);
         backFaceBracketHolePositions(-_backPlateThickness)
-            boltPolyholeM3Countersunk(2*_backPlateThickness + 1);
+            boltPolyholeM3Countersunk(2*_backPlateThickness + 1, sink=0.25);
         // add the bolt holes for attachment to the base
         /*backFaceBaseHolePositions()
             rotate([-90, 180, 0])
