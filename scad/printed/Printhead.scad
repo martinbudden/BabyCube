@@ -24,7 +24,7 @@ grooveMountFillet = 1;
 function grooveMountSize(xCarriageType, hotend_type, blower_type) = [hotendOffset(xCarriageType, hotend_type).x + xCarriageBackSize(xCarriageType).x/2, blower_size(blower_type).x + 6.25, 12];
 function grooveMountOffsetX(hotend_type) = hotend_type == 0 ? 0 : 4;
 grooveMountClampOffsetX = 0.5;
-function grooveMountClampSize(xCarriageType, hotend_type, blower_type) = [grooveMountSize(xCarriageType, hotend_type, blower_type).y - 2*grooveMountFillet - grooveMountClampOffsetX, 12, 17];
+function grooveMountClampSize(xCarriageType, hotend_type, blower_type) = [grooveMountSize(xCarriageType, hotend_type, blower_type).y - 2*grooveMountFillet - grooveMountClampOffsetX, 12, 17+5];//!!+5 is temporary for M3x30 bolts, run out of M3xx25
 
 module hotEndHolderToRight(xCarriageType,, hotend_type, left=true) {
     rotate(left ? 0 : 180)
@@ -37,7 +37,8 @@ module hotEndHolder(xCarriageType, hotend_type, blower_type, hotendOffsetZ=0, le
     offsetY = 0; // to avoid clashing with fan
     hotendOffset = hotendOffset(xCarriageType, hotend_type) + [0, 0, hotendOffsetZ];
     grooveMountSize = grooveMountSize(xCarriageType, hotend_type, blower_type);
-    blowerMountSize = [3, grooveMountSize.y, blower_size(blower_type).x + 9];
+    blowerMountOffsetY = 1;
+    blowerMountSize = [3, grooveMountSize.y + blowerMountOffsetY, blower_size(blower_type).x + 9];
 
     difference() {
         mirror([left ? 0 : 1, 0, 0])
@@ -58,7 +59,8 @@ module hotEndHolder(xCarriageType, hotend_type, blower_type, hotendOffsetZ=0, le
                         translate_z(-30)
                             rounded_cube_yz([grooveMountSize.x - 7, grooveMountSize.y, 2], 0.75);
                     translate_z(-blowerMountSize.z + 2*blowerMountFillet) {
-                        rounded_cube_yz(blowerMountSize, blowerMountFillet);
+                        translate([0, -blowerMountOffsetY, 0])
+                            rounded_cube_yz(blowerMountSize, blowerMountFillet);
                         // add tab for fan duct bolt.
                         fanDuctTab = false;
                         if (fanDuctTab) {
