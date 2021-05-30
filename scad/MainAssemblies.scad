@@ -33,7 +33,7 @@ module staged_assembly(name, big, ngb) {
         children();
 }
 
-//! Bolt the left face and the left feet to the base.
+//! Bolt the Left_Face and the left feet to the base.
 //
 module Stage_1_assembly()
 staged_assembly("Stage_1", big=true, ngb=true) {
@@ -56,7 +56,7 @@ staged_assembly("Stage_1", big=true, ngb=true) {
                 boltM3Buttonhead(8);
 }
 
-//! Bolt the right face and the right feet to the base.
+//! Bolt the Right_Face and the right feet to the base.
 //
 module Stage_2_assembly()
 staged_assembly("Stage_2", big=true, ngb=true) {
@@ -78,7 +78,7 @@ staged_assembly("Stage_2", big=true, ngb=true) {
                 boltM3Buttonhead(8);
 }
 
-//! Add the back face and bolt it to the left and right faces and the base.
+//! Add the Back_Face and bolt it to the left and right faces and the base.
 //
 module Stage_3_assembly()
 staged_assembly("Stage_3", big=true, ngb=true) {
@@ -107,7 +107,7 @@ staged_assembly("Stage_3", big=true, ngb=true) {
 }
 
 
-//!Bolt the BabyCube nameplate and the display housing to the front of the frame.
+//!Bolt the BabyCube nameplate and the Display_Housing to the front of the frame.
 //
 module Stage_4_assembly()
 staged_assembly("Stage_4", big=true, ngb=true) {
@@ -134,7 +134,7 @@ staged_assembly("Stage_4", big=true, ngb=true) {
                 boltM3Buttonhead(10);
 }
 
-//! Add the Top Face.
+//! Add the Top_Face.
 //
 module Stage_5_assembly()
 staged_assembly("Stage_5", big=true, ngb=true) {
@@ -148,8 +148,8 @@ staged_assembly("Stage_5", big=true, ngb=true) {
     }
 }
 
-//!1. Add the printhead.
-//!2. Thread the the bolts in the pattern shown.
+//!1. Add the Print_head.
+//!2. Thread the belts in the pattern shown.
 //!3. Adjust the belts tension.
 //
 module Stage_6_assembly()

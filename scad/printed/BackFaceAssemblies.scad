@@ -57,8 +57,7 @@ module backFace(zNEMA_type) {
     }
 }
 
-//!1. Attach the SK brackets to the back face. Note the orientation of the bolts: the top grub screws should face inward and the bottom grub screws should face outward. This allows access after the BabyCube is fully assembled.
-//!2. Place the cork damper on the stepper motor and attach the stepper motor to the back face. Note the orientation of the JST socket.
+//! Attach the SK brackets to the back face. Note the orientation of the tightening bolts: the top tightening bolts should face inward and the bottom tightening bolts should face outward. This allows access after the BabyCube is fully assembled.
 module Back_Face_Stage_1_assembly()
 assembly("Back_Face_Stage_1", big=true, ngb=true) {
 
@@ -67,7 +66,7 @@ assembly("Back_Face_Stage_1", big=true, ngb=true) {
             stl_colour(pp2_colour)
                 Back_Face_stl();
             backFaceUpperBracketsHardware(_backPlateThickness, counterSunk=true);
-            backFaceLowerBracketsHardware(zNEMA_type(), _backPlateThickness, counterSunk=true);
+            backFaceLowerBracketsHardware(_backPlateThickness, counterSunk=true);
         }
     // create backface for NEMA_motors with integrated leadscrew, if integrated leadscrew not already specified
     if (!is_list(NEMA_shaft_length(zNEMA_type())))
@@ -76,9 +75,9 @@ assembly("Back_Face_Stage_1", big=true, ngb=true) {
 }
 
 
-//! Slide the linear rods through the SK brackets and the printbed bearings.
-//! Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on the rods.
-//
+//!1. Slide the linear rods through the SK brackets and the printbed bearings.
+//!2. Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on the rods.
+//!3. Place the cork damper on the stepper motor and thread the lead screw through the leadnut and attach the stepper motor to the back face. Note the orientation of the JST socket.
 module Back_Face_assembly()
 assembly("Back_Face", big=true) {
     Back_Face_Stage_1_assembly();
@@ -98,6 +97,7 @@ assembly("Back_Face", big=true) {
             else
                 Print_bed_3_point_printed_assembly();
         }
+    backFaceMotorMountHardware(zNEMA_type());
 }
 
 module Back_Face_CF_dxf() {
@@ -147,7 +147,7 @@ assembly("Back_Face_CF_Stage_1", big=true) {
         rotate([90, 0, 0]) {
             Back_Face_CF();
             backFaceUpperBracketsHardware(_backPlateCFThickness, counterSunk=false);
-            backFaceLowerBracketsHardware(zNEMA_type(), _backPlateCFThickness, counterSunk=false);
+            backFaceLowerBracketsHardware(_backPlateCFThickness, counterSunk=false);
             Z_MotorMountHolePositions(zNEMA_type())
                 vflip()
                     translate_z(_backPlateCFThickness)
@@ -182,4 +182,5 @@ assembly("Back_Face_CF", big=true) {
             else
                 Print_bed_3_point_printed_assembly();
         }
+    backFaceMotorMountHardware(zNEMA_type());
 }

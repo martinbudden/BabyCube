@@ -268,10 +268,7 @@ module backFaceLowerBrackets(NEMA_type) {
             fillet(5, rectSize.z);
 }
 
-module backFaceLowerBracketsHardware(NEMA_type, backPlateThickness, counterSunk=true) {
-    assert(is_list(NEMA_type));
-
-    stepper_motor_cable(150);
+module backFaceLowerBracketsHardware(backPlateThickness, counterSunk=true) {
     explode(20, true)
         translate([zRodOffsetX, sk_size(SK_type).z/2, 0])
             for (x = [0, _zRodSeparation]) {
@@ -290,6 +287,12 @@ module backFaceLowerBracketsHardware(NEMA_type, backPlateThickness, counterSunk=
                             nut(M5_nut, nyloc = true);
                     }
             }
+}
+
+module backFaceMotorMountHardware(NEMA_type) {
+    assert(is_list(NEMA_type));
+
+    stepper_motor_cable(150);
     translate([zRodOffsetX + _zRodSeparation/2, 0, _zLeadScrewOffset])
         rotate([-90, -90, 0])
             Z_MotorMountHardware(NEMA_type);

@@ -78,10 +78,12 @@ module leftFaceHardware(rocker=true) {
 }
 
 //!
-//!1. Bolt the motor to the left face. Note orientation of the JST connector.
+//!1. Place the cork damper on the stepper motor and bolt the motor to the frame.
+//! Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
+//! Note orientation of the JST connector.
 //!2. Secure the motor wires with zip ties.
 //!3. Bolt the two front idler pulleys with washers to the frame.
-//!4. Attach the wires to the switch and bolt the switch shroud to the left face.
+//!4. Attach the wires to the switch and bolt the Switch_Shroud to the left face.
 module Left_Face_assembly() pose(a=[55, 0, 25 + 50])
 assembly("Left_Face", big=true) {
 
@@ -119,7 +121,9 @@ module rightFaceStage1Assembly() {
                 }
 }
 
-//!1. Place the cork damper on the stepper motor and attach the motor to the frame.
+//!1. Place the cork damper on the stepper motor and bolt the motor to the frame.
+//! Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
+//! Note orientation of the JST connector.
 //!2. Attach the toothed idler pulleys to the frame, separated by the washers as shown.
 //!3. Thread the zip ties through the frame, but do not tighten them yet, since the extruder motor cable will also go through the zip ties.
 module Right_Face_Stage_1_assembly() pose(a=[55, 0, 25 + 280])
@@ -158,7 +162,7 @@ module rightFaceHardware() {
 }
 
 //!1. Attach the extruder gear to the stepper motor.
-//!2. Place the cork damper on the stepper motor and attach the motor through the frame to the extruder.
+//!2. Place the cork damper on the stepper motor and attach the motor through the frame to the extruder. Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
 //!3. Secure the cables for both motors with the zip ties.
 module Right_Face_assembly()
 assembly("Right_Face") {

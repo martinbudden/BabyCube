@@ -75,7 +75,7 @@ assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
 //!
 //! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not accessible.  
 //! Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a washer under
-//! each pulley, but not on top of the each pulley.
+//! each of the upper pulleys, but not on top of those pulleys.
 //!
 //! Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16 of a turn)
 //! so they run freely.

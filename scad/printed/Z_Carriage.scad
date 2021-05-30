@@ -205,7 +205,7 @@ module Z_Carriage_stl() {
             zCarriage(_printBedSize);
 }
 
-//! Slide the linear bearings into the Z Carriage.
+//! Slide the linear bearings into the Z_Carriage.
 //!
 //! Affix the leadscrew nut.
 module Z_Carriage_assembly()

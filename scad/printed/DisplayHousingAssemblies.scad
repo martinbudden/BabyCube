@@ -99,7 +99,7 @@ assembly("Display_Housing_CF", big=true) {
     displayHousingAssembly();
 }
 
-//! 1. Bolt the Display_Cover_assembly to the Display_Housing_Bracket.
+//! 1. Bolt the Display_Cover assembly to the Display_Housing_Bracket.
 //! 2. Bolt the Display_Housing_Bracket to the Front_Lower_Chord.
 module Display_Housing_assembly()
 assembly("Display_Housing", big=true) {
