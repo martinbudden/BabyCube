@@ -29,6 +29,6 @@ __carriagePositionY = $t > 1  ? yPos($t) : yPosAnimate($t);
 function carriagePosition() = [__carriagePositionX, __carriagePositionY];
 
 // Z-axis
-function zPos(t) = t==2 ? _zMin : t==7 ? (_zMin + _zMax)/2 - 15 : _zMax;
+function zPos(t) = t==2 ? (_zMin + _zMax)/2 - 15 : t==7 ? _zMin : _zMax;
 function zPosAnimate(t) = _zMax - t*10;
 function bedHeight() = $t > 1 ? zPos($t) : zPosAnimate($t);
