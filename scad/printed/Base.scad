@@ -7,7 +7,7 @@ use <NopSCADlib/vitamins/box_section.scad>
 include <NopSCADlib/vitamins/iecs.scad>
 include <NopSCADlib/vitamins/pcbs.scad>
 include <NopSCADlib/vitamins/pillar.scad>
-include <NopSCADlib/vitamins/sheets.scad>
+use <NopSCADlib/vitamins/sheet.scad>
 
 use <../utils/HolePositions.scad>
 

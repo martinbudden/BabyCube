@@ -24,7 +24,7 @@ use <../scad/Parameters_CoreXY.scad>
 include <../scad/Parameters_Main.scad>
 
 
-NEMA_type = xyNEMA_type();
+NEMA_type = xyMotorType();
 
 //$explode = 1;
 //$pose = 1;

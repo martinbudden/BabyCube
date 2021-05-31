@@ -6,8 +6,8 @@ include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/sheets.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
-use <../utils/HolePositions.scad>
 use <../utils/carriageTypes.scad>
+use <../utils/HolePositions.scad>
 use <../utils/X_Rail.scad>
 
 use <TopFace.scad>

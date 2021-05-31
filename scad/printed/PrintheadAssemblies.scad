@@ -38,7 +38,7 @@ assembly("Print_head", big=true) {
         rotate([90, 0, -90]) {
             explode(-40, true) {
                 stl_colour(pp2_colour)
-                    if (_blower_type == 30)
+                    if (blower_size(blower_type).x == 30)
                         Hotend_Clamp_stl();
                     else
                         Hotend_Clamp_40_stl();

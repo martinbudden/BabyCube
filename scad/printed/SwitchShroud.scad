@@ -1,8 +1,8 @@
 include <../global_defs.scad>
 
 include <NopSCADlib/core.scad>
-include <NopSCADlib/vitamins/wire.scad>
 use <NopSCADlib/utils/fillet.scad>
+use <NopSCADlib/vitamins/wire.scad>
 
 use <../vitamins/bolts.scad>
 use <../vitamins/XT_Connectors.scad>

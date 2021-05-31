@@ -1,7 +1,7 @@
 include <target.scad>
 
 _cubeName = "BabyCube";
-_blower_type = 30;
+_blowerDescriptor = "BL30x10";
 
 // the base, top, and side plates, back plate is defined in variant
 _basePlateThickness = 3;
@@ -39,10 +39,10 @@ _cornerHoleInset = 20;
 _webThickness = 4;
 _fillet = 1;
 
-_xyNEMA_width = _xyNemaType == "14" ? 35.2 : 42.3;
+_xyNEMA_width = _xyMotorDescriptor == "NEMA14" ? 35.2 : 42.3;
 _xyMotorBracketThickness = 6;
 
-_zNEMA_width = _zNemaType == "14" || _zNemaType == "14L" ? 35.2 : 42.3;
+_zNEMA_width = _zMotorDescriptor == "NEMA14" || _zMotorDescriptor == "NEMA14L" ? 35.2 : 42.3;
 _corkDamperThickness = 2;
 
 // Z rods

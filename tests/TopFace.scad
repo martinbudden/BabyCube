@@ -45,9 +45,9 @@ module Top_Face_test() {
     //topFaceSideCutouts();
     //topFaceBackCutouts();
     *translate_z(eZ)
-        topFaceCover(xyNEMA_type());
+        topFaceCover(xyMotorType());
     *translate_z(eZ + eps)
-        topFaceInterlock(xyNEMA_type());
+        topFaceInterlock(xyMotorType());
 
     //Top_Face_Stage_1_assembly();
     //Top_Face_Stage_2_assembly();

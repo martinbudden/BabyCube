@@ -14,10 +14,10 @@ include <../scad/Parameters_Main.scad>
 //$pose = 1;
 module Z_MotorMount_test() {
     //let($preview=false)
-    //Z_MotorMount(zNEMA_type());
+    //Z_MotorMount(zMotorType());
     vflip()
         Z_Motor_Mount_stl();
-    Z_MotorMountHardware(zNEMA_type());
+    Z_MotorMountHardware(zMotorType());
 }
 
 if ($preview)

@@ -2,6 +2,7 @@ include <../global_defs.scad>
 
 include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/rockers.scad>
+include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../utils/carriageTypes.scad>
 
@@ -16,9 +17,6 @@ use <XY_MotorMount.scad>
 
 use <../Parameters_CoreXY.scad>
 include <../Parameters_Main.scad>
-
-
-NEMA_type = xyNEMA_type();
 
 
 module Left_Face_stl() {
@@ -51,7 +49,7 @@ module Right_Face_NEMA_17_stl() {
 module leftFaceAssembly() {
     translate([-eps, 0, 0])
         rotate([90, 0, 90]) {
-            if (_xyNemaType=="14") {
+            if (_xyMotorDescriptor=="NEMA14") {
                 Left_Face_stl();
                 *hidden()
                     Left_Face_NEMA_17_stl();
@@ -63,9 +61,9 @@ module leftFaceAssembly() {
         }
 }
 
-module leftFaceHardware(rocker=true) {
+module leftFaceHardware(NEMA_type, rocker=true) {
     rotate([90, 0, 90]) {
-        XY_IdlerBracketHardware(coreXYPosBL(_xyNEMA_width, yCarriageType()));
+        XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), yCarriageType()));
         XY_MotorUprightHardware(NEMA_type, left=true);
         stepper_motor_cable(400);
         if (!exploded())
@@ -89,7 +87,7 @@ assembly("Left_Face", big=true) {
 
     stl_colour(pp1_colour)
         leftFaceAssembly();
-    leftFaceHardware();
+    leftFaceHardware(xyMotorType());
     explode([25, 0, 0])
         Switch_Shroud_assembly();
     Switch_Shroud_bolts();
@@ -110,7 +108,7 @@ module rightFaceStage1Assembly() {
     translate([eX + 2 * eSizeX + eps, 0, 0])
         rotate([90, 0, 90])
             hflip()
-                if (_xyNemaType=="14") {
+                if (_xyMotorDescriptor=="NEMA14") {
                     Right_Face_stl();
                     *hidden()
                         Right_Face_NEMA_17_stl();
@@ -134,7 +132,7 @@ assembly("Right_Face_Stage_1", big=true, ngb=true) {
     else
         stl_colour(pp1_colour)
             rightFaceStage1Assembly();
-    rightFaceHardware();
+    rightFaceHardware(xyMotorType());
 }
 
 module rightFaceAssembly(NEMA_width) {
@@ -144,11 +142,11 @@ module rightFaceAssembly(NEMA_width) {
         rightFaceExtruderZipTies(NEMA_width);
     translate(extruderPosition(NEMA_width))
         rotate([90, 0, 90])
-            Extruder_MK10_Dual_Pulley(extruderNEMA_type(), extruderMotorOffsetZ(), corkDamperThickness=_corkDamperThickness);
+            Extruder_MK10_Dual_Pulley(extruderMotorType(), extruderMotorOffsetZ(), corkDamperThickness=_corkDamperThickness);
 }
 
 
-module rightFaceHardware() {
+module rightFaceHardware(NEMA_type) {
     translate([eX + 2*eSizeX, 0, 0])
         rotate([90, 0, 90])
             vflip()

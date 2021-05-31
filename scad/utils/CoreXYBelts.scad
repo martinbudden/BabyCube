@@ -9,6 +9,8 @@ include <../Parameters_Main.scad>
 
 
 module CoreXYBelts(carriagePosition, x_gap=10, show_pulleys=false) {
+    assert(is_list(carriagePosition) && len(carriagePosition) == 2);
+
     coreXY_belts(coreXY_type(),
         carriagePosition = carriagePosition + [coreXYPosBL(_xyNEMA_width).x, 0],
         coreXYPosBL = coreXYPosBL(_xyNEMA_width, yCarriageType()),

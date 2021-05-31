@@ -10,15 +10,15 @@ _chordLengths = [220, 220, 220];
 
 eSizeX = 8;
 
-_xyNemaType = "14";
-_zNemaType = "17_34L";
+_xyMotorDescriptor = "NEMA14";
+_zMotorDescriptor = "NEMA17_34L150";
 
 // set _fullLengthYRail to add end cutouts for Y rail
 _fullLengthYRail = false;
 _xRailLength = 150;
 _yRailLength = 200;
-_xCarriageType = "9C";
-_yCarriageType = "9C";
+_xCarriageDescriptor = "MGN9C";
+_yCarriageDescriptor = "MGN9C";
 _beltWidth = 6;
 
 _printBedSize = 120;

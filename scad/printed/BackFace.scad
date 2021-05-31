@@ -3,16 +3,17 @@ include <../global_defs.scad>
 include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/rod.scad>
 include <NopSCADlib/vitamins/rails.scad>
-include <NopSCADlib/vitamins/sheets.scad>
 include <NopSCADlib/vitamins/sk_brackets.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
+use <NopSCADlib/vitamins/wire.scad>
 
 use <../utils/bezierTube.scad>
+use <../utils/carriageTypes.scad>
 use <../utils/cutouts.scad>
 use <../utils/diagonal.scad>
 use <../utils/HolePositions.scad>
 use <../utils/PrintHeadOffsets.scad>
-use <../utils/carriageTypes.scad>
+include <../utils/motorTypes.scad>
 
 use <../vitamins/bolts.scad>
 use <../vitamins/cables.scad>
@@ -117,7 +118,7 @@ module printheadWiring() {
 
 
 module backFaceBare(NEMA_type) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
 
     cutoutSize = [2, 4, eZ + 2*eps];
     zipTieCutoutSize = [10, 4, (_backPlateThickness + eps)*2];
@@ -237,7 +238,7 @@ module backFaceLowerSKBracketHolePositions() {
 }
 
 module backFaceLowerBrackets(NEMA_type) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
 
     translate_z(-_backPlateThickness)
         difference() {
@@ -251,7 +252,7 @@ module backFaceLowerBrackets(NEMA_type) {
 
     backLowerChordSizeY = 20;
     fillet = 1;
-    rectSize = [(eX-Z_MotorMountSize(NEMA_type).y+5)/2, 10, reinforcementThickness];
+    rectSize = [(eX - Z_MotorMountSize(NEMA_type).y + 5)/2, 10, reinforcementThickness];
     for (x = [eSizeXBase, eX + eSizeX - rectSize.x])
         translate([x, backLowerChordSizeY, 0])
             rounded_cube_xy(rectSize - [2, 0, 0], fillet);
@@ -290,7 +291,7 @@ module backFaceLowerBracketsHardware(backPlateThickness, counterSunk=true) {
 }
 
 module backFaceMotorMountHardware(NEMA_type) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
 
     stepper_motor_cable(150);
     translate([zRodOffsetX + _zRodSeparation/2, 0, _zLeadScrewOffset])
