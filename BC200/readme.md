@@ -421,7 +421,7 @@ to attach them as shown in the diagram.
 
 The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not accessible.  
 Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a washer under
-each pulley, but not on top of the each pulley.
+each of the upper pulleys, but not on top of those pulleys.
 
 Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16 of a turn)
 so they run freely.
@@ -536,7 +536,7 @@ Attach the knob to the display.
 
 ![Display_Housing_assembly](assemblies/Display_Housing_assembly.png)
 
-1. Bolt the Display_Cover_assembly to the Display_Housing_Bracket.
+1. Bolt the Display_Cover assembly to the Display_Housing_Bracket.
 2. Bolt the Display_Housing_Bracket to the Front_Lower_Chord.
 
 ![Display_Housing_assembled](assemblies/Display_Housing_assembled.png)
@@ -570,7 +570,7 @@ Attach the knob to the display.
 
 ![Z_Carriage_assembly](assemblies/Z_Carriage_assembly.png)
 
-Slide the linear bearings into the Z Carriage.
+Slide the linear bearings into the Z_Carriage.
 
 Affix the leadscrew nut.
 
@@ -628,14 +628,9 @@ Affix the leadscrew nut.
 
 |Qty|Description|
 |---:|:----------|
-|4| Bolt M3 buttonhead x 12mm|
 |8| Bolt M5 countersunk x 16mm|
-|1| Cork damper NEMA 17|
-|1| Leadscrew 8mm x 150mm|
 |8| Nut M5 nyloc|
 |4| SK12 shaft support bracket|
-|1| Stepper motor NEMA17 x 34mm|
-|1| Stepper motor cable, 150mm|
 
 
 ### 3D Printed parts
@@ -650,8 +645,7 @@ Affix the leadscrew nut.
 
 ![Back_Face_Stage_1_assembly](assemblies/Back_Face_Stage_1_assembly.png)
 
-1. Attach the SK brackets to the back face. Note the orientation of the bolts: the top grub screws should face inward and the bottom grub screws should face outward. This allows access after the BabyCube is fully assembled.
-2. Place the cork damper on the stepper motor and attach the stepper motor to the back face. Note the orientation of the JST socket.
+Attach the SK brackets to the back face. Note the orientation of the tightening bolts: the top tightening bolts should face inward and the bottom tightening bolts should face outward. This allows access after the BabyCube is fully assembled.
 
 ![Back_Face_Stage_1_assembled](assemblies/Back_Face_Stage_1_assembled.png)
 
@@ -667,7 +661,12 @@ Affix the leadscrew nut.
 
 |Qty|Description|
 |---:|:----------|
+|4| Bolt M3 buttonhead x 12mm|
+|1| Cork damper NEMA 17|
+|1| Leadscrew 8mm x 150mm|
 |2| Linear rod 12mm x 200mm|
+|1| Stepper motor NEMA17 x 34mm|
+|1| Stepper motor cable, 150mm|
 
 
 ### Sub-assemblies
@@ -682,8 +681,9 @@ Affix the leadscrew nut.
 
 ![Back_Face_assembly](assemblies/Back_Face_assembly.png)
 
-Slide the linear rods through the SK brackets and the printbed bearings.
-Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on the rods.
+1. Slide the linear rods through the SK brackets and the printbed bearings.
+2. Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on the rods.
+3. Place the cork damper on the stepper motor and thread the lead screw through the leadnut and attach the stepper motor to the back face. Note the orientation of the JST socket.
 
 ![Back_Face_assembled](assemblies/Back_Face_assembled.png)
 
@@ -722,7 +722,9 @@ Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on t
 
 ![Right_Face_Stage_1_assembly](assemblies/Right_Face_Stage_1_assembly.png)
 
-1. Place the cork damper on the stepper motor and attach the motor to the frame.
+1. Place the cork damper on the stepper motor and bolt the motor to the frame.
+Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
+Note orientation of the JST connector.
 2. Attach the toothed idler pulleys to the frame, separated by the washers as shown.
 3. Thread the zip ties through the frame, but do not tighten them yet, since the extruder motor cable will also go through the zip ties.
 
@@ -760,7 +762,7 @@ Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on t
 ![Right_Face_assembly](assemblies/Right_Face_assembly.png)
 
 1. Attach the extruder gear to the stepper motor.
-2. Place the cork damper on the stepper motor and attach the motor through the frame to the extruder.
+2. Place the cork damper on the stepper motor and attach the motor through the frame to the extruder. Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
 3. Secure the cables for both motors with the zip ties.
 
 ![Right_Face_assembled](assemblies/Right_Face_assembled.png)
@@ -811,8 +813,9 @@ Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on t
 
 ![Base_assembly](assemblies/Base_assembly.png)
 
-1. Attach the Base_Template to the aluminium sheet and use it to drill out the holes. The base template has 2mm holes marked out for a pilot hole.
+1. Attach the Base_Template to the aluminium sheet and use it to drill out the holes. The base template has 2mm holes marked out for pilot holes.
 Once you have drilled these re-drill the holes with a 3mm bit. Note that the Base_Template has holes marked for the BTT E3 Mini V2, the BTT E3 Turbo and the BTT STL 1.4 boards - choose the appropriate holes for your board.
+If you are unable to source an aluminium sheet, it is possible to print and use the Base.stl file, but using and aluminium plate is much prefered.
 2. Attach the PSU_Supports to the base plate with double sided tape.
 3. Bolt the PSU_Bracket to the base plate.
 4. Attach the PSU to the base plate with the velcro straps.
@@ -855,7 +858,7 @@ Once you have drilled these re-drill the holes with a 3mm bit. Note that the Bas
 
 ![Switch_Shroud_assembly](assemblies/Switch_Shroud_assembly.png)
 
-1. Place the XT60 connectors through the Switch_Shroud and use the Switch_Shroud_Clamp to keep them in place.
+Place the XT60 connectors through the Switch_Shroud and bolt on the Switch_Shroud_Clamp to keep them in place.
 
 ![Switch_Shroud_assembled](assemblies/Switch_Shroud_assembled.png)
 
@@ -906,10 +909,12 @@ Once you have drilled these re-drill the holes with a 3mm bit. Note that the Bas
 ![Left_Face_assembly](assemblies/Left_Face_assembly.png)
 
 
-1. Bolt the motor to the left face. Note orientation of the JST connector.
+1. Place the cork damper on the stepper motor and bolt the motor to the frame.
+Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
+Note orientation of the JST connector.
 2. Secure the motor wires with zip ties.
 3. Bolt the two front idler pulleys with washers to the frame.
-4. Attach the wires to the switch and bolt the switch shroud to the left face.
+4. Attach the wires to the switch and bolt the Switch_Shroud to the left face.
 
 ![Left_Face_assembled](assemblies/Left_Face_assembled.png)
 
@@ -949,7 +954,7 @@ Once you have drilled these re-drill the holes with a 3mm bit. Note that the Bas
 
 ![Stage_1_assembly](assemblies/Stage_1_assembly.png)
 
-Bolt the left face and the left feet to the base.
+Bolt the Left_Face and the left feet to the base.
 
 ![Stage_1_assembled](assemblies/Stage_1_assembled.png)
 
@@ -989,7 +994,7 @@ Bolt the left face and the left feet to the base.
 
 ![Stage_2_assembly](assemblies/Stage_2_assembly.png)
 
-Bolt the right face and the right feet to the base.
+Bolt the Right_Face and the right feet to the base.
 
 ![Stage_2_assembled](assemblies/Stage_2_assembled.png)
 
@@ -1023,7 +1028,7 @@ Bolt the right face and the right feet to the base.
 
 ![Stage_3_assembly](assemblies/Stage_3_assembly.png)
 
-Add the back face and bolt it to the left and right faces and the base.
+Add the Back_Face and bolt it to the left and right faces and the base.
 
 ![Stage_3_assembled](assemblies/Stage_3_assembled.png)
 
@@ -1063,7 +1068,7 @@ Add the back face and bolt it to the left and right faces and the base.
 
 ![Stage_4_assembly](assemblies/Stage_4_assembly.png)
 
-Bolt the BabyCube nameplate and the display housing to the front of the frame.
+Bolt the BabyCube nameplate and the Display_Housing to the front of the frame.
 
 ![Stage_4_assembled](assemblies/Stage_4_assembled.png)
 
@@ -1094,7 +1099,7 @@ Bolt the BabyCube nameplate and the display housing to the front of the frame.
 
 ![Stage_5_assembly](assemblies/Stage_5_assembly.png)
 
-Add the Top Face.
+Add the Top_Face.
 
 ![Stage_5_assembled](assemblies/Stage_5_assembled.png)
 
@@ -1129,8 +1134,8 @@ Add the Top Face.
 
 ![Stage_6_assembly](assemblies/Stage_6_assembly.png)
 
-1. Add the printhead.
-2. Thread the the bolts in the pattern shown.
+1. Add the Print_head.
+2. Thread the belts in the pattern shown.
 3. Adjust the belts tension.
 
 ![Stage_6_assembled](assemblies/Stage_6_assembled.png)
