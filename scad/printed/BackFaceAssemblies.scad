@@ -84,12 +84,14 @@ assembly("Back_Face", big=true) {
 
     zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
     translate([0, eY + 2*eSizeY, 0])
-        rotate([90, 0, 0])
+        rotate([90, 0, 0]) {
             explode([0, 150, 0])
                 for (x = [zRodOffsetX, zRodOffsetX + _zRodSeparation])
                     translate([x, _zRodLength/2, _zRodOffsetY])
                         rotate([90, 0, 0])
                             rod(d=_zRodDiameter, l=_zRodLength);
+            backFaceMotorMountHardware(zMotorType());
+        }
     explode(50)
         translate_z(bedHeight()) {
             if (_printBedSize == 100)
@@ -97,9 +99,6 @@ assembly("Back_Face", big=true) {
             else
                 Print_bed_3_point_printed_assembly();
         }
-    translate([0, eY + 2*eSizeY + eps, 0])
-        rotate([90, 0, 0])
-            backFaceMotorMountHardware(zMotorType());
 }
 
 module Back_Face_CF_dxf() {
@@ -171,12 +170,14 @@ assembly("Back_Face_CF", big=true) {
 
     zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
     translate([0, eY + 2*eSizeY, 0])
-        rotate([90, 0, 0])
+        rotate([90, 0, 0]) {
             explode([0, 150, 0])
                 for (x = [zRodOffsetX, zRodOffsetX + _zRodSeparation])
                     translate([x, _zRodLength/2, _zRodOffsetY])
                         rotate([90, 0, 0])
                             rod(d=_zRodDiameter, l=_zRodLength);
+            backFaceMotorMountHardware(zMotorType());
+        }
     explode(50)
         translate_z(bedHeight()) {
             if (_printBedSize == 100)
@@ -184,5 +185,4 @@ assembly("Back_Face_CF", big=true) {
             else
                 Print_bed_3_point_printed_assembly();
         }
-    backFaceMotorMountHardware(zMotorType());
 }
