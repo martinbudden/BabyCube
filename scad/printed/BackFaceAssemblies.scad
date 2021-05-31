@@ -24,7 +24,7 @@ include <../Parameters_Main.scad>
 module Back_Face_stl() {
     stl("Back_Face")
         color(pp2_colour)
-            backFace(zNEMA_type());
+            backFace(zMotorType());
 }
 
 module Back_Face_NEMA_17_40_stl() {
@@ -69,7 +69,7 @@ assembly("Back_Face_Stage_1", big=true, ngb=true) {
             backFaceLowerBracketsHardware(_backPlateThickness, counterSunk=true);
         }
     // create backface for NEMA_motors with integrated leadscrew, if integrated leadscrew not already specified
-    if (!is_list(NEMA_shaft_length(zNEMA_type())))
+    if (!is_list(NEMA_shaft_length(zMotorType())))
         hidden()
             Back_Face_NEMA_17_40_stl();
 }
@@ -99,7 +99,7 @@ assembly("Back_Face", big=true) {
         }
     translate([0, eY + 2*eSizeY + eps, 0])
         rotate([90, 0, 0])
-            backFaceMotorMountHardware(zNEMA_type());
+            backFaceMotorMountHardware(zMotorType());
 }
 
 module Back_Face_CF_dxf() {
@@ -121,7 +121,7 @@ module Back_Face_CF_dxf() {
                 backFaceLowerSKBracketHolePositions()
                     circle(r=M5_clearance_radius);
                 railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
-                Z_MotorMountHolePositions(zNEMA_type())
+                Z_MotorMountHolePositions(zMotorType())
                     circle(r=M3_clearance_radius);
                 // cutouts for zipties
                 zipTiePositions()
@@ -150,7 +150,7 @@ assembly("Back_Face_CF_Stage_1", big=true) {
             Back_Face_CF();
             backFaceUpperBracketsHardware(_backPlateCFThickness, counterSunk=false);
             backFaceLowerBracketsHardware(_backPlateCFThickness, counterSunk=false);
-            Z_MotorMountHolePositions(zNEMA_type())
+            Z_MotorMountHolePositions(zMotorType())
                 vflip()
                     translate_z(_backPlateCFThickness)
                         boltM3Buttonhead(12);
@@ -184,5 +184,5 @@ assembly("Back_Face_CF", big=true) {
             else
                 Print_bed_3_point_printed_assembly();
         }
-    backFaceMotorMountHardware(zNEMA_type());
+    backFaceMotorMountHardware(zMotorType());
 }

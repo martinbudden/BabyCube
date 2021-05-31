@@ -6,9 +6,10 @@ use <NopSCADlib/utils/rounded_triangle.scad>
 use <NopSCADlib/vitamins/rod.scad>
 include <NopSCADlib/vitamins/shaft_couplings.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
-include <NopSCADlib/vitamins/wire.scad>
+use <NopSCADlib/vitamins/wire.scad>
 
 use <../utils/HolePositions.scad>
+include <../utils/motorTypes.scad>
 
 use <../vitamins/bolts.scad>
 use <../vitamins/CorkDamper.scad>
@@ -17,25 +18,15 @@ use <../vitamins/leadscrew.scad>
 include <../Parameters_Main.scad>
 
 
-// pancake with short shaft
-//                                        corner  body    boss    boss          shaft
-//                          side, length, radius, radius, radius, depth, shaft, length,      holes, cap heights
-NEMA17_20  = ["NEMA17_20",  42.3,   20,   53.6/2, 25,     11,     2,     5,     20.5,        31,    [10,    8]];
-NEMA17_34L = ["NEMA17_34L", 42.3,   34,   53.6/2, 25,     11,     2,     8,     [150, 8, 2], 31,    [8,     8]];
-NEMA17_40L = ["NEMA17_40L", 42.3,   40,   53.6/2, 25,     11,     2,     8,     [150, 8, 2], 31,    [8,     8]];
-NEMA14_L5  = ["NEMA14_L5",  35.2,   36,   46.4/2, 21,     11,     2,     5,     [150, 5, 2], 26,    [8,     8]];
+//                                              corner  body    boss    boss          shaft
+//                                side  length  radius  radius  radius  depth  shaft  length       holes  cap heights
+NEMA17_20 =     ["NEMA17_20",     42.3,   20,   53.6/2, 25,     11,     2,     5,     20.5,        31,    [10,    8]];
+NEMA17_34L150 = ["NEMA17_34L150", 42.3,   34,   53.6/2, 25,     11,     2,     8,     [150, 8, 2], 31,    [8,     8]];
+NEMA17_40L150 = ["NEMA17_40L150", 42.3,   40,   53.6/2, 25,     11,     2,     8,     [150, 8, 2], 31,    [8,     8]];
+NEMA14_L150 =   ["NEMA14_L150",   35.2,   36,   46.4/2, 21,     11,     2,     5,     [150, 5, 2], 26,    [8,     8]];
 
 
-function zNEMA_type() =
-    _zNemaType == "14" ? NEMA14 :
-    _zNemaType == "14_L" ? NEMA14_L :
-    _zNemaType == "17_20" ? NEMA17_20 :
-    _zNemaType == "17_27" ? NEMA17P :
-    _zNemaType == "17_34" ? NEMA17S :
-    _zNemaType == "17_40" ? NEMA17M :
-    _zNemaType == "17_34L" ? NEMA17_34L :
-    _zNemaType == "17_40L" ? NEMA17_40L :
-    undef;
+function zMotorType() = motorType(_zMotorDescriptor);
 
 function NEMA17_34L() = NEMA17_34L;
 function NEMA17_40L() = NEMA17_40L;
@@ -45,14 +36,14 @@ module Z_Motor_Mount_stl() {
     stl("Z_Motor_Mount")
         color(pp1_colour)
             vflip()
-                Z_MotorMount(zNEMA_type(), cf=true);
+                Z_MotorMount(zMotorType(), cf=true);
 }
 
 /*
 module NEMA_MotorWithIntegratedLeadScrew(NEMA_type, leadScrewLength, leadScrewDiameter=8) {
     vitamin(str("NEMA_MotorWithIntegratedLeadScrew(", NEMA_type, "): Stepper motor NEMA14 with integrated ", leadScrewLength, "mm lead screw"));
 
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
 
     not_on_bom()
         if (is_list(NEMA_shaft_length(NEMA_type)))
@@ -88,7 +79,7 @@ module Z_MotorMountHolePositions(NEMA_type) {
 }
 
 module Z_MotorMount(NEMA_type, topPlateThickness = zMotorMountTopPlateThickness, corkDamperThickness = _corkDamperThickness, cf = false) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
 
     NEMA_width = NEMA_width(NEMA_type);
 

@@ -7,7 +7,7 @@ include <NopSCADlib/vitamins/bearing_blocks.scad>
 include <NopSCADlib/vitamins/extrusions.scad>
 include <NopSCADlib/vitamins/leadnuts.scad>
 include <NopSCADlib/vitamins/screws.scad>
-include <NopSCADlib/vitamins/sheets.scad>
+use <NopSCADlib/vitamins/sheet.scad>
 
 use <../vitamins/bolts.scad>
 

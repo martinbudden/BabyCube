@@ -7,9 +7,10 @@ include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/sheets.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
+use <../utils/carriageTypes.scad>
 use <../utils/cutouts.scad>
 use <../utils/HolePositions.scad>
-use <../utils/carriageTypes.scad>
+include <../utils/motorTypes.scad>
 
 use <../vitamins/bolts.scad>
 
@@ -42,7 +43,7 @@ module topFaceCF(NEMA_type) {
 }
 
 module topFaceCover(NEMA_type) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
     assert(_variant != "BC200CF"); // cover not used for CF, and won't draw properly if _variant erroneously set
 
     NEMA_width = NEMA_width(NEMA_type);
@@ -95,7 +96,7 @@ module topFaceWiringCutout(NEMA_width) {
 }
 
 module topFaceInterlock(NEMA_type, cnc = false) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
 
     insetY = 3;
     size = [eX + 2*eSizeX, eY + 2*eSizeY + insetY, yRailSupportThickness()];
@@ -124,7 +125,7 @@ module topFaceInterlock(NEMA_type, cnc = false) {
 }
 
 module motorAccessHolePositions(NEMA_type, n = 3) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
 
     NEMA_width = NEMA_width(NEMA_type);
     for (x = [coreXYPosBL(NEMA_width, yCarriageType()).x + coreXY_drive_pulley_x_alignment(coreXY_type()), coreXYPosTR(NEMA_width, yCarriageType()).x - coreXY_drive_pulley_x_alignment(coreXY_type())])
@@ -143,7 +144,7 @@ module motorAccessHolePositions(NEMA_type, n = 3) {
 }
 
 module topFaceInterlockCutouts(NEMA_type, railHoleRadius = M3_clearance_radius, cnc = false) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
 
     NEMA_width = NEMA_width(NEMA_type);
     insetX = 3;

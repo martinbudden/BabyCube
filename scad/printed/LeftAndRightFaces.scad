@@ -4,11 +4,13 @@ include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 include <NopSCADlib/vitamins/rockers.scad>
+use <NopSCADlib/vitamins/wire.scad>
 
-use <../utils/diagonal.scad>
-use <../utils/cutouts.scad>
-use <../utils/HolePositions.scad>
 use <../utils/carriageTypes.scad>
+use <../utils/cutouts.scad>
+use <../utils/diagonal.scad>
+use <../utils/HolePositions.scad>
+include <../utils/motorTypes.scad>
 
 use <../vitamins/bolts.scad>
 use <../vitamins/inserts.scad>
@@ -21,9 +23,7 @@ use <../Parameters_CoreXY.scad>
 include <../Parameters_Main.scad>
 
 
-NEMA_type = _xyNemaType == 14 ? NEMA14T() : NEMA17M;
-
-function extruderNEMA_type() = NEMA17M;
+function extruderMotorType() = NEMA17M;
 
 backBoltLength = 8;
 
@@ -44,7 +44,7 @@ function spoolHolderPosition() = [eX + 2*eSizeX, 24, eZ - 75];
 function frontReinforcementThickness() = 3;
 
 module leftFace(NEMA_type) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
 
     difference() {
         union() {
@@ -68,7 +68,7 @@ module leftFace(NEMA_type) {
 }
 
 module rightFace(NEMA_type) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
 
     // orient the right face for printing
     rotate(180)
@@ -126,7 +126,7 @@ module antiShearBracing(NEMA_width) {
 }
 
 module webbingLeft(NEMA_type) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
     left = true;
     idlerBracketSize = idlerBracketSize(coreXYPosBL(NEMA_width));
@@ -185,7 +185,7 @@ module spoolHolderCutout(NEMA_width, cnc=false) {
 }
 
 module webbingRight(NEMA_type) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
     left = false;
     idlerBracketSize = idlerBracketSize(coreXYPosBL(NEMA_width));
@@ -212,9 +212,9 @@ module webbingRight(NEMA_type) {
                     sideFaceBackTabs();
             }
             translate([extruderPosition.y, extruderPosition.z]) {
-                poly_circle(r = NEMA_boss_radius(extruderNEMA_type()) + 0.25);
+                poly_circle(r = NEMA_boss_radius(extruderMotorType()) + 0.25);
                 // extruder motor bolt holes
-                NEMA_screw_positions(extruderNEMA_type())
+                NEMA_screw_positions(extruderMotorType())
                     poly_circle(r = M3_clearance_radius);
             }
             spoolHolderCutout(NEMA_width);
@@ -354,7 +354,7 @@ module frontConnector() {
 
 //use coordinate frame of flat frame
 module frame(NEMA_type, left=true) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
 
     idlerUpright(NEMA_width, left);

@@ -38,9 +38,9 @@ module Right_Face_test() {
     //Right_Face_Stage_1_assembly();
     //Left_Face_assembly();
 
-    //webbingRight(xyNEMA_type());
+    //webbingRight(xyMotorType());
     //frame(NEMA_type, left=false);
-    //XY_MotorUpright(xyNEMA_type(), left=false);
+    //XY_MotorUpright(xyMotorType(), left=false);
     //bowdenTube();
     //hotEndWiring();
 

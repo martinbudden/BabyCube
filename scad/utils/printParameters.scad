@@ -30,9 +30,9 @@ module echoPrintSize() {
     echo(Variant = _variant);
     echo(Print_size = [_xMax-_xMin, _yMax-_yMin, _zMax-_zMin]);
     echo(Sizes = [eX + 2*eSizeX, eY + 2*eSizeY, eZ]);
-    echo(Motors = _xyNemaType, _zNemaType);
+    echo(Motors = _xyMotorDescriptor, _zMotorDescriptor);
     echo(Rails = _xRailLength, _yRailLength);
-    echo(Carriages = _xCarriageType, _yCarriageType);
+    echo(Carriages = _xCarriageDescriptor, _yCarriageDescriptor);
     echo(Rods  = _zRodDiameter, _zRodLength);
     echo(Leadscrew  = _zLeadScrewLength);
     echo(_zRodOffsetY = _zRodOffsetY);

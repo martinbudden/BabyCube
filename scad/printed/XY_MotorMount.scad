@@ -9,6 +9,7 @@ include <NopSCADlib/vitamins/pulleys.scad>
 
 use <../utils/carriageTypes.scad>
 use <../utils/HolePositions.scad>
+include <../utils/motorTypes.scad>
 
 use <../vitamins/bolts.scad>
 use <../vitamins/CorkDamper.scad>
@@ -20,13 +21,11 @@ include <../Parameters_Main.scad>
 // NEMA 14 with longer shaft, to ensure clearances
 //NEMA14= ["NEMA14",   35.2, 36,     46.4/2, 21,     11,     2,     5,     21,          26,    [8,     8]];
 NEMA14T = ["NEMA14T",   35.2, 36,     46.4/2, 21,     11,     2,     5,     24,          26,    [8,     8]];
-function NEMA14T() = NEMA14;
+function NEMA14T() = NEMA14T;
 
-NEMA_type = _xyNemaType == "14" ? NEMA14T() : NEMA17M;
-
-function xyNEMA_type() =
-    _xyNemaType == "14" ? NEMA14T :
-    _xyNemaType == "17" ? NEMA17M :
+function xyMotorType() =
+    _xyMotorDescriptor == "NEMA14" ? NEMA14T :
+    _xyMotorDescriptor == "NEMA17" ? NEMA17M :
     undef;
 
 
@@ -56,6 +55,7 @@ function xyMotorPosition(NEMA_width, left) = [
 ];*/
 
 module XY_Motor_Mount_Left_stl() {
+    NEMA_type = xyMotorType();
     NEMA_width = NEMA_width(NEMA_type);
 
     stl("XY_Motor_Mount_Left")
@@ -64,6 +64,7 @@ module XY_Motor_Mount_Left_stl() {
 }
 
 module XY_Motor_Mount_Right_stl() {
+    NEMA_type = xyMotorType();
     NEMA_width = NEMA_width(NEMA_type);
 
     stl("XY_Motor_Mount_Right")
@@ -76,6 +77,7 @@ module XY_Motor_Mount_Right_stl() {
 module XY_Motor_Mount_Left_assembly()
 assembly("XY_MotorMount_Left", big=true, ngb=true) {
 
+    NEMA_type = xyMotorType();
     translate([-eps, 0, 0])
         rotate([90, 0, 90])
             XY_MotorPosition(NEMA14T(), left=true) {
@@ -88,6 +90,7 @@ assembly("XY_MotorMount_Left", big=true, ngb=true) {
 module XY_Motor_Mount_Right_assembly()
 assembly("XY_Motor_Mount_Right", big=true, ngb=true) {
 
+    NEMA_type = xyMotorType();
     translate([eX + 2 * eSizeX + eps - _sidePlateThickness, 0, 0])
         rotate([90, 0, 90])
             XY_MotorPosition(NEMA14T(), left=false)
@@ -100,7 +103,7 @@ assembly("XY_Motor_Mount_Right", big=true, ngb=true) {
 }
 
 module XY_MotorPosition(NEMA_type, left=true) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
 
     NEMA_width = NEMA_width(NEMA_type);
 
@@ -111,7 +114,7 @@ module XY_MotorPosition(NEMA_type, left=true) {
 }
                 //render_if(!$preview, convexity=10)
 module XY_MotorUpright(NEMA_type, left=true) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
 
     translate(xyMotorPosition(NEMA_width, left))
@@ -121,7 +124,7 @@ module XY_MotorUpright(NEMA_type, left=true) {
 }
 
 module XY_MotorUprightHardware(NEMA_type, left=true) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
 
     translate(xyMotorPosition(NEMA_width, left))
@@ -130,7 +133,7 @@ module XY_MotorUprightHardware(NEMA_type, left=true) {
 }
 
 module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness, offset=0, cf=false) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
     assert(offset >= yRailSupportThickness());
 
     NEMA_width = NEMA_width(NEMA_type);
@@ -204,7 +207,7 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
 }
 
 module XY_MotorMountHardware(NEMA_type, basePlateThickness=basePlateThickness, corkDamperThickness=_corkDamperThickness) {
-    assert(is_list(NEMA_type));
+    assert(isNEMAType(NEMA_type));
 
     pulley_type = GT2x20um_pulley;
     rotate(-90)
