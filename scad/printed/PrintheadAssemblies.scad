@@ -19,9 +19,9 @@ use <../Parameters_CoreXY.scad>
 include <../Parameters_Main.scad>
 
 
-function hotendClampOffset(xCarriageType, hotend_type=0) =  [hotendOffset(xCarriageType, hotend_type).x, 18 + xCarriageBackOffsetY(xCarriageType) + grooveMountOffsetX(hotend_type), printHeadHotendOffset(hotend_type).z];
+function hotendClampOffset(xCarriageType, hotend_type=0) =  [hotendOffset(xCarriageType, hotend_type).x, 18 + xCarriageBackOffsetY(xCarriageType) + grooveMountOffsetX(hotend_type), hotendOffset(xCarriageType, hotend_type).z];
 grooveMountFillet = 1;
-function grooveMountClampSize(blower_type, hotend_type) = [grooveMountSize(blower_type, hotend_type).y - 2*grooveMountFillet - grooveMountClampOffsetX(), 12, 17+5];//!!+5 is temporary for M3x30 bolts, run out of M3xx25
+function grooveMountClampSize(blower_type, hotend_type) = [grooveMountSize(blower_type, hotend_type).y - 2*grooveMountFillet - grooveMountClampOffsetX(), 12, 17];
 
 //!1. Assemble the E3D hotend, including fan, thermistor cartridge and heater cartridge.
 //!2. Use the Hotend_Clamp to attach the hotend to the X_Carriage.
@@ -35,7 +35,8 @@ assembly("Print_head", big=true) {
 
     X_Carriage_assembly();
 
-    hotEndHolderAlign(xCarriageType, hotend_type, hotendOffsetZ(), left=true) {
+    hotendOffset = hotendOffset(xCarriageType, hotend_type);
+    hotEndHolderAlign(xCarriageType, hotendOffset, left=true) {
         explode([20, 0, 0])
             hotEndHolderHardware(xCarriageType, hotend_type);
 
