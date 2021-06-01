@@ -9,7 +9,6 @@ include <NopSCADlib/vitamins/hot_ends.scad>
 include <NopSCADlib/vitamins/rails.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
-use <../utils/PrintheadOffsets.scad>
 use <../utils/ziptieCutout.scad>
 
 use <../vitamins/bolts.scad>
@@ -17,24 +16,20 @@ use <../vitamins/bolts.scad>
 use <X_Carriage.scad>
 
 
-function hotendOffset(xCarriageType, hotend_type=0) = printHeadHotendOffset(hotend_type) + [-xCarriageBackSize(xCarriageType).x/2, xCarriageBackOffsetY(xCarriageType), 0];
 grooveMountHoleOffsets = [13.5, -12];
 function grooveMountOffsetX(hotend_type) = hotend_type == 0 ? 0 : 4;
 function grooveMountClampOffsetX() = 0.5;
 
-module hotEndHolderAlign(xCarriageType, hotend_type, hotendOffsetZ, left=true) {
+module hotEndHolderAlign(xCarriageType, hotendOffset, left=true) {
     assert(left == true || left == false);
-    hotendOffset = hotendOffset(xCarriageType, hotend_type);
-
     rotate(left ? 0 : 180)
-        translate([0, left ? 0 : -2*hotendOffset.y, hotendOffsetZ])
+        translate([0, left ? 0 : -2*hotendOffset.y, 0])
             children();
 }
 
-module hotEndHolder(xCarriageType, grooveMountSize, hotend_type, blower_type, hotendOffsetZ=0, left=true) {
+module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, blower_type, left=true) {
     fillet = 1.5;
     offsetY = 0; // to avoid clashing with fan
-    hotendOffset = hotendOffset(xCarriageType, hotend_type) + [0, 0, hotendOffsetZ];
     blowerMountOffsetY = 1;
     blowerMountSize = [3, grooveMountSize.y + blowerMountOffsetY, blower_size(blower_type).x + 9];
 
@@ -86,16 +81,15 @@ module hotEndHolder(xCarriageType, grooveMountSize, hotend_type, blower_type, ho
                         boltHoleM3Tap(8, horizontal=true, chamfer_both_ends=false);*/
         // bolt holes for blower
         rotate(left ? 0 : 180)
-            translate([0, left ? 0 : -2*hotendOffset.y, 0])
-        translate_z(hotendOffsetZ)
-            blowerTranslate(xCarriageType, grooveMountSize, hotend_type, blower_type, blowerMountSize.x, left) {
-                blower_hole_positions(blower_type)
-                    boltHoleM2Tap(blowerMountSize.x);
-                rotate([-90, 0, 0])
-                    fanDuctHolePositions()
-                        rotate([90, 0, 0])
-                            boltHoleM2Tap(blowerMountSize.x);
-            }
+            translate([0, left ? 0 : -2*hotendOffset.y, hotendOffset.z])
+                blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type, blowerMountSize.x, left) {
+                    blower_hole_positions(blower_type)
+                        boltHoleM2Tap(blowerMountSize.x);
+                    rotate([-90, 0, 0])
+                        fanDuctHolePositions()
+                            rotate([90, 0, 0])
+                                boltHoleM2Tap(blowerMountSize.x);
+                }
 
         rotate(left ? 0 : 180)
             translate([0, left ? 0 : -2*hotendOffset.y, 0])
@@ -143,18 +137,16 @@ module fanDuctHolePositions(z=0) {
             children();
 }
 
-module blowerTranslate(xCarriageType, grooveMountSize, hotend_type, blower_type, z=0, left=true) {
-    hotendOffset = hotendOffset(xCarriageType, hotend_type);
-
+module blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type, z=0, left=true) {
     translate([hotendOffset.x - grooveMountSize.x + z,
-                 xCarriageBackOffsetY(xCarriageType) + (left ? 0.5 : 2) + blower_length(blower_type) + grooveMountOffsetX(hotend_type),
-                 hotendOffset.z - blower_size(blower_type).x - grooveMountSize.z/2])
+                 xCarriageBackOffsetY(xCarriageType) + (left ? 0.5 : 2) + blower_length(blower_type),
+                 -blower_size(blower_type).x - grooveMountSize.z/2])
             rotate([90, 0, -90])
                 children();
 }
 
-module partCoolingFan(xCarriageType, grooveMountSize, hotend_type, blower_type, left) {
-    blowerTranslate(xCarriageType, grooveMountSize, hotend_type, blower_type, left=left) {
+module partCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower_type, left) {
+    blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type, left=left) {
         blower(blower_type);
         blower_hole_positions(blower_type)
             translate_z(blower_lug(blower_type))
@@ -162,12 +154,11 @@ module partCoolingFan(xCarriageType, grooveMountSize, hotend_type, blower_type, 
     }
 }
 
-module hotEndPartCoolingFan(xCarriageType, grooveMountSize, hotend_type, blower_type, hotendOffsetZ, left=true) {
-    hotendOffset = hotendOffset(xCarriageType, hotend_type);
-
-    hotEndHolderAlign(xCarriageType, hotend_type, 0, left)
-        if (blower_size(blower_type).x < 40)
-            partCoolingFan(xCarriageType, grooveMountSize, hotend_type, blower_type, left);
+module hotEndPartCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower_type, left=true) {
+    hotEndHolderAlign(xCarriageType, hotendOffset, left)
+        translate_z(hotendOffset.z)
+            if (blower_size(blower_type).x < 40)
+                partCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower_type, left);
     if (!exploded())
         mirror([left ? 0 : 1, 0, 0])
             translate([hotendOffset.x - grooveMountSize.x + 1.5, hotendOffset.y - blower_size(blower_type).y/2 + 2, hotendOffset.z])

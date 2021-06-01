@@ -4,31 +4,14 @@ include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/blowers.scad>
 
-use <../utils/PrintheadOffsets.scad>
-
 use <../vitamins/bolts.scad>
 
 use <Printhead.scad>
-use <X_Carriage.scad>
 
 
 fanDuctTabThickness = 2;
 
-module Fan_Duct_stl() {
-    stl("Fan_Duct")
-        color(pp2_colour)
-            fanDuct();
-}
-
-module Fan_Duct_Right_stl() {
-    stl("Fan_Duct_Right")
-        color(pp2_colour)
-            translate([26, 0, 0])
-                mirror([1, 0, 0])
-                    fanDuct(jetOffset = -0.5);
-}
-
-module fanDuct(jetOffset=0) {
+module fanDuct(printHeadHotendOffsetX, jetOffset=0) {
     blower_type = BL30x10;
     blowerSize = blower_size(blower_type);
 
@@ -79,7 +62,7 @@ module fanDuct(jetOffset=0) {
         jetStartSize = [16, 2, 2];
         translate([12.5 + jetOffset, -8, 0])
             #hull() {
-                translate([-jetEndSize.x/2, 6 + printHeadHotendOffset().x, -21])
+                translate([-jetEndSize.x/2, 6 + printHeadHotendOffsetX, -21])
                     cube(jetEndSize);
                 translate([-jetStartSize.x/2, 0, -13])
                     cube(jetStartSize);
