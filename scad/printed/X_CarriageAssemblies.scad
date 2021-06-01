@@ -21,6 +21,7 @@ include <../Parameters_Main.scad>
 
 
 function hotendOffsetZ() = 0;
+function grooveMountSize(blower_type, hotend_type=0) = [printHeadHotendOffset(hotend_type).x, blower_size(blower_type).x + 6.25, 12];
 function blower_type() = is_undef(_blowerDescriptor) || _blowerDescriptor == "BL30x10" ? BL30x10 : BL40x10;
 
 module X_Carriage_Front_stl() {
@@ -131,12 +132,13 @@ module X_Carriage_stl() {
     xCarriageType = xCarriageType();
     blower_type = blower_type();
     hotend_type = 0;
+    grooveMountSize = grooveMountSize(blower_type, hotend_type);
 
     stl("X_Carriage")
         color(pp1_colour)
             rotate([0, -90, 0]) {
                 xCarriageBack(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z);
-                hotEndHolder(xCarriageType, hotend_type, blower_type, hotendOffsetZ(), left=true);
+                hotEndHolder(xCarriageType, grooveMountSize, hotend_type, blower_type, hotendOffsetZ(), left=true);
             }
 }
 
@@ -156,12 +158,14 @@ assembly("X_Carriage", big=true, ngb=true) {
 
     xCarriageAssembly(xCarriageType, beltOffsetZ(), coreXYSeparation().z);
 
+    grooveMountSize = grooveMountSize(blower_type, hotend_type);
+
     explode([-20, 0, 10], true)
-        hotEndPartCoolingFan(xCarriageType, hotend_type, blower_type, hotendOffsetZ());
+        hotEndPartCoolingFan(xCarriageType, grooveMountSize, hotend_type, blower_type, hotendOffsetZ());
 
     explode([-20, 0, -10], true)
         translate([0, -1.5, hotendOffsetZ()])
-            blowerTranslate(xCarriageType, hotend_type, blower_type, left=false)
+            blowerTranslate(xCarriageType, grooveMountSize, hotend_type, blower_type, left=false)
                 rotate([-90, 0, 0]) {
                     stl_colour(pp2_colour)
                         Fan_Duct_stl();
