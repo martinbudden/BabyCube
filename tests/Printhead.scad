@@ -36,16 +36,14 @@ module Printhead_test() {
         //printheadWiring();
     }
     //X_Carriage_assembly();
+    let($hide_bolts=true) Print_head_assembly();
     //hotEndHolderHardware(xCarriageType);
-    let($hide_bolts=true)
-    Print_head_assembly();
     //Fan_Duct_stl();
     //X_Carriage_stl();
     //Hotend_Clamp_stl();
-    //Hotend_Clamp_hardware(xCarriageType, 0, BL30x10);
+    //Hotend_Clamp_hardware(xCarriageType, BL30x10);
     //grooveMountClamp(xCarriageType, 0, BL30x10);
     //grooveMountClampHardware();
-    //hotEndHolder(xCarriageType());
     //Hotend_Strain_Relief_Clamp_stl();
 }
 
