@@ -18,7 +18,7 @@ use <X_Carriage.scad>
 
 
 function hotendOffset(xCarriageType, hotend_type=0) = printHeadHotendOffset(hotend_type) + [-xCarriageBackSize(xCarriageType).x/2, xCarriageBackOffsetY(xCarriageType), 0];
-function hotendClampOffset(xCarriageType, hotend_type=0) =  [hotendOffset(xCarriageType, hotend_type).x, 18+xCarriageBackOffsetY(xCarriageType)+grooveMountOffsetX(hotend_type), hotendOffset(xCarriageType, hotend_type).z];
+function hotendClampOffset(xCarriageType, hotend_type=0) =  [hotendOffset(xCarriageType, hotend_type).x, 18 + xCarriageBackOffsetY(xCarriageType) + grooveMountOffsetX(hotend_type), printHeadHotendOffset(hotend_type).z];
 grooveMountHoleOffsets = [13.5, -12];
 grooveMountFillet = 1;
 function grooveMountSize(xCarriageType, hotend_type, blower_type) = [hotendOffset(xCarriageType, hotend_type).x + xCarriageBackSize(xCarriageType).x/2, blower_size(blower_type).x + 6.25, 12];
@@ -26,9 +26,12 @@ function grooveMountOffsetX(hotend_type) = hotend_type == 0 ? 0 : 4;
 grooveMountClampOffsetX = 0.5;
 function grooveMountClampSize(xCarriageType, hotend_type, blower_type) = [grooveMountSize(xCarriageType, hotend_type, blower_type).y - 2*grooveMountFillet - grooveMountClampOffsetX, 12, 17+5];//!!+5 is temporary for M3x30 bolts, run out of M3xx25
 
-module hotEndHolderToRight(xCarriageType,, hotend_type, left=true) {
+module hotEndHolderAlign(xCarriageType, hotend_type, hotendOffsetZ, left=true) {
+    assert(left == true || left == false);
+    hotendOffset = hotendOffset(xCarriageType, hotend_type);
+
     rotate(left ? 0 : 180)
-        translate([0, left ? 0 : -2*hotendOffset(xCarriageType, hotend_type).y, 0])
+        translate([0, left ? 0 : -2*hotendOffset.y, hotendOffsetZ])
             children();
 }
 
@@ -43,7 +46,7 @@ module hotEndHolder(xCarriageType, hotend_type, blower_type, hotendOffsetZ=0, le
     difference() {
         mirror([left ? 0 : 1, 0, 0])
         union() {
-            translate([-xCarriageBackSize(xCarriageType).x/2, 3+carriage_size(xCarriageType).y/2, hotendOffset.z - grooveMountSize.z/2]) {
+            translate([-xCarriageBackSize(xCarriageType).x/2, 3 + carriage_size(xCarriageType).y/2, hotendOffset.z - grooveMountSize.z/2]) {
                 translate([0, -fillet, 0])
                     rounded_cube_yz(grooveMountSize + [0, fillet, 0], fillet);
                 translate([0, 2, 0]) {
@@ -107,18 +110,18 @@ module hotEndHolder(xCarriageType, hotend_type, blower_type, hotendOffsetZ=0, le
             rotate([-90, 0, 0])
                 grooveMountCutout(grooveMountSize.z);
             for (y = grooveMountHoleOffsets)
-                translate([0, y - 1.5 + grooveMountOffsetX(hotend_type), 0])
+                translate([0, y + grooveMountOffsetX(hotend_type) - (left ? 1.5 : 0), 0])
                     rotate([0, -90, 0])
                         boltHoleM3Tap(10);
         }
     }
 }
 
-module hotEndPartCoolingFan(xCarriageType, hotend_type, blower_type, left=true) {
+module hotEndPartCoolingFan(xCarriageType, hotend_type, blower_type, hotendOffsetZ, left=true) {
     hotendOffset = hotendOffset(xCarriageType, hotend_type);
     grooveMountSize = grooveMountSize(xCarriageType, hotend_type, blower_type);
 
-    hotEndHolderToRight(xCarriageType, hotend_type, left)
+    hotEndHolderAlign(xCarriageType, hotend_type, 0, left)
         if (blower_size(blower_type).x < 40)
             partCoolingFan(xCarriageType, hotend_type, blower_type, left);
     if (!exploded())
@@ -207,6 +210,7 @@ function hotendStrainReliefClampHoleSpacing() = 12;
 
 module grooveMountClamp(xCarriageType, hotend_type, blower_type) {
     size = grooveMountClampSize(xCarriageType, hotend_type, blower_type);
+echo(gSize=size);
     //hotendOffset = hotendOffset(xCarriageType, hotend_type) - [xCarriageBackSize(xCarriageType).x/2, 0, 0];
     fillet = 1.5;
     supportSize = [20, 12, 8];
