@@ -84,12 +84,13 @@ module Y_Carriage_Brace_Right_stl() {
 
 module yCarriageLeftAssembly(NEMA_width) {
 
+    yCarriageType = yCarriageType();
     railOffset = yRailOffset(NEMA_width);
     plainIdler = coreXY_plain_idler(coreXY_type());
     toothedIdler = coreXY_toothed_idler(coreXY_type());
     pulleyStackHeight = pulleyStackHeight(pulley_height(plainIdler));
 
-    translate([railOffset.x, carriagePosition().y, railOffset.z - carriage_height(yCarriageType())])
+    translate([railOffset.x, carriagePosition().y, railOffset.z - carriage_height(yCarriageType)])
         rotate([180, 0, 0]) {
             stl_colour(pp2_colour)
                 Y_Carriage_Left_stl();
@@ -98,18 +99,19 @@ module yCarriageLeftAssembly(NEMA_width) {
                     explode(4*yCarriageExplodeFactor())
                         stl_colour(pp1_colour)
                             Y_Carriage_Brace_Left_stl();
-            Y_Carriage_hardware(yCarriageType(), plainIdler, toothedIdler, _beltWidth, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=true);
+            Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, _beltWidth, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=true);
         }
 }
 
 module yCarriageRightAssembly(NEMA_width) {
 
+    yCarriageType = yCarriageType();
     railOffset = yRailOffset(NEMA_width);
     plainIdler = coreXY_plain_idler(coreXY_type());
     toothedIdler = coreXY_toothed_idler(coreXY_type());
     pulleyStackHeight = pulleyStackHeight(pulley_height(plainIdler));
 
-    translate([eX + 2*eSizeX - railOffset.x, carriagePosition().y, railOffset.z - carriage_height(yCarriageType())])
+    translate([eX + 2*eSizeX - railOffset.x, carriagePosition().y, railOffset.z - carriage_height(yCarriageType)])
         rotate([180, 0, 180]) {
             stl_colour(pp2_colour)
                 Y_Carriage_Right_stl();
@@ -118,6 +120,6 @@ module yCarriageRightAssembly(NEMA_width) {
                     explode(4*yCarriageExplodeFactor())
                         stl_colour(pp1_colour)
                             Y_Carriage_Brace_Right_stl();
-            Y_Carriage_hardware(yCarriageType(), plainIdler, toothedIdler, _beltWidth, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=false);
+            Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, _beltWidth, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=false);
         }
 }

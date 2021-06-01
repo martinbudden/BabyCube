@@ -204,8 +204,9 @@ module yCarriageBolts(yCarriageType, thickness) {
 }
 
 module pulleyStack(pulley, explode=0) {
-    translate_z(-washer_thickness(M3_washer) - pulley_height(pulley)/2)
-        washer(M3_washer)
+    washer = pulley_bore(pulley) == 3 ? M3_washer : M5_washer;
+    translate_z(-washer_thickness(washer) - pulley_height(pulley)/2)
+        washer(washer)
             explode(explode)
                 pulley(pulley);
     if ($children)
@@ -214,6 +215,7 @@ module pulleyStack(pulley, explode=0) {
 }
 
 module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, beltWidth, thickness, yCarriageBraceThickness, pulleyOffset, left) {
+    washer = pulley_bore(plainIdler) == 3 ? M3_washer : M5_washer;
     blockSizeX = yCarriageBlockSizeX(yCarriageType);
     explode = yCarriageExplodeFactor();
 
@@ -228,26 +230,26 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, beltWidth, thic
                 explode(6*explode, true)
                     boltM3Caphead(screw_shorter_than(thickness + 2*pulleyStackHeight(plainIdlerHeight) + yCarriageBraceThickness));
             } else {
-                translate_z(yCarriageBraceThickness + washer_thickness(M3_washer))
+                translate_z(yCarriageBraceThickness + washer_thickness(washer))
                     explode(4*explode, true)
                         boltM3Caphead(screw_shorter_than(thickness + pulleyStackHeight(plainIdlerHeight) + yCarriageBraceThickness));
                 if (yCarriageBraceThickness)
                     explode(3*explode)
-                        washer(M3_washer);
+                        washer(washer);
             }
     }
 
     translate(toothedPulleyPos(left, toothedIdlerHeight, pulleyOffset, thickness, yCarriageBraceThickness)) {
         explode(left? explode : 5*explode, true)
             pulleyStack(toothedIdler, explode=explode);
-        translate_z(pulley_height(GT2x16_plain_idler)/2)
+        translate_z(pulley_height(plainIdler)/2)
             if (left) {
-                translate_z(yCarriageBraceThickness + washer_thickness(M3_washer))
+                translate_z(yCarriageBraceThickness + washer_thickness(washer))
                     explode(4*explode, true)
                         boltM3Caphead(screw_shorter_than(thickness + pulleyStackHeight(toothedIdlerHeight) + yCarriageBraceThickness));
                 if (yCarriageBraceThickness)
                     explode(3*explode)
-                        washer(M3_washer);
+                        washer(washer);
             } else {
                 explode(6*explode, true)
                     boltM3Caphead(screw_shorter_than(thickness + 2*pulleyStackHeight(toothedIdlerHeight) + yCarriageBraceThickness));
