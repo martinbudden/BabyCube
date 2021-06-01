@@ -133,7 +133,7 @@ module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, t
                 translate_z(-size.z + topThickness)
                     xCarriageBottom(xCarriageType);
             } // end union
-            #translate([-size.x/2 - eps, carriage_size(xCarriageType).y/2 - beltInsetBack(undef) + xCarriageBackSize(xCarriageType, beltWidth).y, beltOffsetZ]) {
+            translate([-size.x/2 - eps, carriage_size(xCarriageType).y/2 - beltInsetBack(undef) + xCarriageBackSize(xCarriageType, beltWidth).y, beltOffsetZ]) {
                 for (z = [clampHoleSpacing(beltWidth)/2, -clampHoleSpacing(beltWidth)/2])
                     translate_z(z - coreXYSeparationZ/2)
                         rotate([90, 0, 90])
