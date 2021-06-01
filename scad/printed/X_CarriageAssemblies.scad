@@ -20,6 +20,7 @@ use <../Parameters_CoreXY.scad>
 include <../Parameters_Main.scad>
 
 
+function hotendOffsetZ() = 0;
 function blower_type() = is_undef(_blowerDescriptor) || _blowerDescriptor == "BL30x10" ? BL30x10 : BL40x10;
 
 module X_Carriage_Front_stl() {
@@ -83,7 +84,7 @@ assembly("X_Carriage_Front", big=true) {
 }
 
 module xCarriageFrontAssemblyBolts(xCarriageType, beltWidth) {
-    assert(is_list(xCarriageType));
+    assert(isCarriageType(xCarriageType));
 
     size = xCarriageFrontSize(xCarriageType, beltWidth);
 
@@ -135,7 +136,7 @@ module X_Carriage_stl() {
         color(pp1_colour)
             rotate([0, -90, 0]) {
                 xCarriageBack(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z);
-                hotEndHolder(xCarriageType, hotend_type, blower_type);
+                hotEndHolder(xCarriageType, hotend_type, blower_type, hotendOffsetZ(), left=true);
             }
 }
 
@@ -154,22 +155,24 @@ assembly("X_Carriage", big=true, ngb=true) {
             X_Carriage_stl();
 
     xCarriageAssembly(xCarriageType, beltOffsetZ(), coreXYSeparation().z);
+
     explode([-20, 0, 10], true)
-        hotEndPartCoolingFan(xCarriageType, hotend_type, blower_type);
+        hotEndPartCoolingFan(xCarriageType, hotend_type, blower_type, hotendOffsetZ());
 
     explode([-20, 0, -10], true)
-        translate([0, -1.5, 0])
-        blowerTranslate(xCarriageType, hotend_type, blower_type, left=false)
-            rotate([-90, 0, 0]) {
-                stl_colour(pp2_colour)
-                    Fan_Duct_stl();
-                Fan_Duct_hardware(xCarriageType, hotend_type);
-            }
+        translate([0, -1.5, hotendOffsetZ()])
+            blowerTranslate(xCarriageType, hotend_type, blower_type, left=false)
+                rotate([-90, 0, 0]) {
+                    stl_colour(pp2_colour)
+                        Fan_Duct_stl();
+                    Fan_Duct_hardware(xCarriageType, hotend_type);
+                }
 }
 
 module Belt_Tidy_stl() {
     stl("Belt_Tidy")
-        beltTidy(_beltWidth);
+        color(pp2_colour)
+            beltTidy(_beltWidth);
 }
 
 module Belt_Clamp_stl() {

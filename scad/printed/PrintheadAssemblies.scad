@@ -31,44 +31,48 @@ assembly("Print_head", big=true) {
 
     X_Carriage_assembly();
 
-    explode([20, 0, 0])
-        hotEndHolderHardware(xCarriageType, hotend_type);
+    hotEndHolderAlign(xCarriageType, hotend_type, hotendOffsetZ(), left=true) {
+        explode([20, 0, 0])
+            hotEndHolderHardware(xCarriageType, hotend_type);
 
-    translate(hotendClampOffset(xCarriageType, hotend_type))
-        rotate([90, 0, -90]) {
-            explode(-40, true) {
-                stl_colour(pp2_colour)
-                    if (blower_size(blower_type).x == 30)
-                        Hotend_Clamp_stl();
-                    else
-                        Hotend_Clamp_40_stl();
-                Hotend_Clamp_hardware(xCarriageType, hotend_type, blower_type);
+        translate(hotendClampOffset(xCarriageType, hotend_type))
+            rotate([90, 0, -90]) {
+                explode(-40, true) {
+                    stl_colour(pp2_colour)
+                        if (blower_size(blower_type).x == 30)
+                            Hotend_Clamp_stl();
+                        else
+                            Hotend_Clamp_40_stl();
+                    Hotend_Clamp_hardware(xCarriageType, hotend_type, blower_type);
+                }
+                explode(-60, true)
+                    translate([0, grooveMountClampStrainReliefOffset(), -grooveMountClampSize(xCarriageType, hotend_type, blower_type).z - 5])
+                        vflip() {
+                            stl_colour(pp1_colour)
+                                Hotend_Strain_Relief_Clamp_stl();
+                            Hotend_Strain_Relief_Clamp_hardware();
+                        }
             }
-            explode(-60, true)
-                translate([0, grooveMountClampStrainReliefOffset(), -grooveMountClampSize(xCarriageType, hotend_type, blower_type).z - 5])
-                    vflip() {
-                        stl_colour(pp1_colour)
-                            Hotend_Strain_Relief_Clamp_stl();
-                        Hotend_Strain_Relief_Clamp_hardware();
-                    }
-        }
+    }
 }
 
 module fullPrinthead(rotate=0) {
+    xCarriageType = xCarriageType();
+
     xRailCarriagePosition()
         rotate(rotate) {// for debug, to see belts better
             explode([0, -20, 0], true) {
                 X_Carriage_Front_assembly();
-                xCarriageFrontAssemblyBolts(xCarriageType(), _beltWidth);
+                xCarriageFrontAssemblyBolts(xCarriageType, _beltWidth);
             }
             Print_head_assembly();
-            xCarriageTopBolts(xCarriageType());
+            xCarriageTopBolts(xCarriageType);
             if (!exploded())
-                xCarriageBeltFragments(xCarriageType(), coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
+                xCarriageBeltFragments(xCarriageType, coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
         }
 }
 
-module hotEndHolderHardware(xCarriageType, hotend_type) {
+module hotEndHolderHardware(xCarriageType, hotend_type = 0) {
     hotendOffset = hotendOffset(xCarriageType, hotend_type);
 
     translate(hotendOffset)
