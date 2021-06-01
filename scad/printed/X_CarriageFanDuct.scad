@@ -92,12 +92,3 @@ module Fan_Duct_hardware(xCarriageType, hotend_type) {
         rotate([90, 0, 0])
             boltM2Caphead(6);
 }
-
-/*module fanDuctTranslate(xCarriageType, hotend_type) {
-    hotendOffset = hotendOffset(xCarriageType);
-    grooveMountSize = grooveMountSize(xCarriageType, hotend_type, blower_type);
-
-    translate([hotendOffset.x - grooveMountSize.x, hotendOffset.y + grooveMountOffsetX(hotend_type), 3 - grooveMountSize.z/2 - 38])
-        rotate([90, 0, 90])
-            children();
-}*/
