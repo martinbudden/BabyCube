@@ -213,10 +213,7 @@ module yCarriageBrace(yCarriageType, yCarriageBraceThickness, pulleyOffset, hole
         difference() {
             translate([-blockSizeX/2, left ? -5 : -size.y/2, 0])
                 rounded_cube_xy(size, 1.5);
-            for (x = [-blockSizeX/2 + 4, 23])
-                translate([x, 0, 0])
-                    boltHole(holeRadius*2, size.z);
-            for (x = [0, 12.25])
+            for (x = [0, 12.25, -blockSizeX/2 + 4, 23])
                 translate([x, 0, 0])
                     boltHole(holeRadius*2, size.z);
         }
