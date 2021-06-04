@@ -17,6 +17,12 @@
 //!
 //!I recommend using a 0.6mm nozzle for printing all the parts, but especially the for the large parts.
 //!
+//!### Parts in proximity to heat sources
+//!
+//!A number of parts are in proximity with heat sources, namely the hotend, the heated bed and the motors. Ideally these should be
+//!printed in ABS, but I have used PETG with some success.  These parts are insulated from direct contact with the heat sources, by
+//!O-rings and cork underlay (for the heated bed) and by cork dampers (for the motors). These insulators should not be omitted from the build.
+//!
 //!### Small parts
 //!
 //!For dimensional accuracy the small parts need to be printed with a layer height of 0.25mm and a first layer height of 0.25mm.
