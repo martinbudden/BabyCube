@@ -55,7 +55,14 @@ module printSurface(printBedSize, thickness) {
 module corkUnderlay(size, printBedSize) {
     vitamin(str("corkUnderlay(", size, "): Cork underlay ", size.x, "mm x ", size.y, "mm x ", size.z, "mm"));
     color("tan")
-        drilledBed(size, printBedSize);
+        render(convexity=2)
+            difference() {
+                drilledBed(size, printBedSize);
+                if (printBedSize == 120)
+                    for (i = heatedBedHoles(printBedSize, 4))
+                        translate(i - [0, 0, eps])
+                            rounded_cube_xy([10, 10, size.z + 2*eps], 1, xy_center=true);
+            }
 
     if ($children)
         translate_z(size.z)
@@ -99,7 +106,7 @@ module printbed(printBedSize) {
 
     // this is heated bed with leadscrew at [0, 0] and top of print surface at z=0
     translate([0, size.y/2 + heatedBedOffset(printBedSize).y, heatedBedOffset().z]) {
-        explode(10, true) {
+        explode(10, true)
             corkUnderlay([size.x + 5, size.y + 5, underlayThickness], printBedSize)
                 explode(10, true)
                     heatedBed(printBedSize)
@@ -107,13 +114,12 @@ module printbed(printBedSize) {
                             magneticBase(printBedSize, magneticBaseThickness)
                                 explode(10)
                                     printSurface(printBedSize, printSurfaceThickness);
-        }
-        oRingThickness = 2;
         for (i = heatedBedHoles(printBedSize))
             translate(i) {
                 translate_z(size.z + oRingThickness + (printBedSize==100 ? underlayThickness + magneticBaseThickness : 0)) {
                     explode(70)
                         boltM3Countersunk(16);
+                    oRingThickness = 2;
                     translate_z(-oRingThickness/2)
                         explode(50)
                             O_ring(3, oRingThickness);

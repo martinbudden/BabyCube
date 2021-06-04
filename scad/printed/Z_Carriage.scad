@@ -40,9 +40,9 @@ function heatedBedHoleOffset(printBedSize) =
 // Y offset is from leadscrew
 function heatedBedOffset(printBedSize) = [0, printBedSize==120 ? 12 : 22, 0];
 
-function heatedBedHoles(printBedSize) =
+function heatedBedHoles(printBedSize, _holeOffset=undef) =
     let(size = heatedBedSize(printBedSize),
-        holeOffset = heatedBedHoleOffset(printBedSize))
+        holeOffset = is_undef(_holeOffset) ? heatedBedHoleOffset(printBedSize) : _holeOffset)
     (printBedSize == 120 ?
         [
             [  0, -(size.y/2 - holeOffset), 0 ],
