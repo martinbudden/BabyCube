@@ -176,9 +176,11 @@ module Z_Carriage_cable_ties(printBedSize) {
 }
 
 module zCarriage_hardware() {
+    brassColor = "#B5A642";
     explode(-20, true) {
         *translate_z(-leadnut_flange_t(leadnut)) {
-            leadnut(leadnut);
+            color(brassColor)
+                leadnut(leadnut);
             translate_z(-leadnut_flange_t(leadnut))
                 leadnut_screw_positions(leadnut)
                     vflip()
@@ -186,7 +188,8 @@ module zCarriage_hardware() {
         }
         translate_z(baseThickness - leadnutInset) {
             explode(50)
-                leadnut(leadnut);
+                color(brassColor)
+                    leadnut(leadnut);
             explode(80)
                 leadnut_screw_positions(leadnut)
                     screw(leadnut_screw(leadnut), 8);

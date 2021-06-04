@@ -362,8 +362,8 @@ assembly("Print_bed_3_point_printed") {
                     explode(40, true)
                         boltM3Countersunk(12);
                 oRingThickness = 2;
-                color("firebrick")
-                    explode(10)
+                explode(10)
+                    color("firebrick")
                         translate_z(oRingThickness/2) {
                                 O_ring(3, oRingThickness);
                             translate_z(oRingThickness)
