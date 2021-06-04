@@ -13,10 +13,13 @@ and feet, but excluding the spool holder, Bowden tube and hotend wiring) is abou
 
 Although the BabyCube is small and has a 3D printed frame, it is not a toy. It is an engineered machine capable of producing high quality prints.
 
-
 ## Assembly instructions
 
 The assembly instructions and the BOM (parts list) are [here](BC200/readme.md). The STL files are [here](BC200/stls).
+
+I plan to make a series of YouTube videos giving build instructions, when I have done so I will post a link here.
+
+If you would like to build a larger printer, you may be interested in the BaybyCube's larger sibling, the [MaybeCube](https://github.com/martinbudden/MaybeCube)
 
 ## Design Goals
 
@@ -69,7 +72,10 @@ Further design goals:
 
 ## Variants
 
-The standard variant of the BabyCube uses a BigTreeTech SKR Mini E3 v2.0 controller, however it is also possible to use
+The standard variant of the BabyCube uses and OpenBuilds 100 x 100 mm heated bed, however it is also possible to use a 120 x 120 x 6 mm
+aluminium tooling plate with a heating pad, see [printbed 120](PRINTBED120/readme.md).
+
+The standard variant uses a BigTreeTech SKR Mini E3 v2.0 controller, however it is also possible to use
 the BigTreeTech SKR v1.4 (and Turbo) and BigTreeTech E3 Turbo controllers.
 
 The standard variant uses an E3D v6 hotend, but other groovemount based hotends could be used.
