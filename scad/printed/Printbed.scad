@@ -129,6 +129,9 @@ module printbed(printBedSize) {
     }
 }
 
+//! This is the standard variant of the print bed, using an OpenBuilds 100mm heated bed. There is also a version using
+//! a 120 x 120 x 6 mm aluminium tooling plate, see [printbed 120](../../PRINTBED120/readme.md).
+//!
 //!1. Prepare the the cork underlay by cutting it to size, making a cutout for the heated bed wiring, and drilling holes for the bolts.
 //!2. Prepare the heated bed by soldering on the wires and sticking on the magnetic base. Drill bolt holes in the magnetic base.
 //!3. Place the cork underlay on the Z_Carriage and place the heated bed on top.
