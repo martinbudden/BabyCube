@@ -25,7 +25,7 @@ use <../scad/utils/X_Rail.scad>
 
 use <../scad/vitamins/bolts.scad>
 
-use <../scad/MainAssemblies.scad>
+use <../scad/MainAssembly.scad>
 
 include <../scad/Parameters_Main.scad>
 
