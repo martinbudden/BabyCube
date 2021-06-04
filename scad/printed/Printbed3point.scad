@@ -227,13 +227,13 @@ module Printbed_Frame_stl() {
                     translate([_zRodSeparation/2, 0, eSize - scsSize.z/2])
                         rotate(-90)
                             scs_bearing_block_hole_positions_x(scs_type)
-                                vflip()
-                                    boltHoleM3Tap(15);
+                                rotate([180, 0, 180])
+                                    boltHoleM3Tap(15, horizontal=true);
                     translate([-_zRodSeparation/2, 0, eSize - scsSize.z/2])
                         rotate(90)
                             scs_bearing_block_hole_positions_x(scs_type)
-                                vflip()
-                                    boltHoleM3Tap(15);
+                                rotate([180, 0, 180])
+                                    boltHoleM3Tap(15, horizontal=true);
                 }
         }
 }
