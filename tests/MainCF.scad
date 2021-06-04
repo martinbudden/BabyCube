@@ -11,9 +11,8 @@ use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
 use <../scad/utils/printParameters.scad>
 use <../scad/utils/printParameters.scad>
 
-use <../scad/Main.scad>
-use <../scad/MainAssemblies.scad>
-use <../scad/MainAssembliesCF.scad>
+use <../scad/MainAssembly.scad>
+use <../scad/MainAssemblyCF.scad>
 
 include <../scad/Parameters_Main.scad>
 
