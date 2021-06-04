@@ -13,10 +13,11 @@ include <../scad/Parameters_Main.scad>
 //$pose = 1;
 module Printbed_test() {
     //Heated_Bed_dxf();
-    Print_bed_assembly();
+    //Print_bed_assembly();
     //Printbed_Frame_stl();
     //Print_bed_3_point_assembly();
-    //Print_bed_3_point_printed_assembly();
+    //Print_bed_3_point_printed_stage_1_assembly();
+    Print_bed_3_point_printed_assembly();
     //printbed(100);
     //hflip() zCarriage(100);
     *translate_z(-11.5)
