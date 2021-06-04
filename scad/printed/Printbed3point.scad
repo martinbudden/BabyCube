@@ -228,12 +228,12 @@ module Printbed_Frame_stl() {
                         rotate(-90)
                             scs_bearing_block_hole_positions_x(scs_type)
                                 rotate([180, 0, 180])
-                                    boltHoleM3Tap(15, horizontal=true);
+                                    boltHoleM3Tap(15, horizontal=true, chamfer_both_ends=false);
                     translate([-_zRodSeparation/2, 0, eSize - scsSize.z/2])
                         rotate(90)
                             scs_bearing_block_hole_positions_x(scs_type)
                                 rotate([180, 0, 180])
-                                    boltHoleM3Tap(15, horizontal=true);
+                                    boltHoleM3Tap(15, horizontal=true, chamfer_both_ends=false);
                 }
         }
 }
