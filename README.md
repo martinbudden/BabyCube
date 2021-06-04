@@ -13,8 +13,7 @@ and feet, but excluding the spool holder, Bowden tube and hotend wiring) is abou
 
 Although the BabyCube is small and has a 3D printed frame, it is not a toy. It is an engineered machine capable of producing high quality prints.
 
-[![paypal](https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif)]
-(https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GKXAEZGTQ9ED4)
+[![paypal](https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GKXAEZGTQ9ED4)
 
 
 ## Assembly instructions
