@@ -122,7 +122,8 @@ module printbed(printBedSize) {
                     oRingThickness = 2;
                     translate_z(-oRingThickness/2)
                         explode(50)
-                            O_ring(3, oRingThickness);
+                            color("firebrick")
+                                O_ring(3, oRingThickness);
                 }
             }
     }
