@@ -190,13 +190,11 @@ module Printbed_Frame_stl() {
                     rotate(180)
                         fillet(5, eSize);
             }
+
             crossPieceSize = [_zRodSeparation - scsSize.y - 2 - armSize.x, 10, 5];
             translate([-crossPieceSize.x/2, armSize.y/2, eSize])
                 vflip()
                     zCarriageCrossPiece(crossPieceSize, armSize.x);
-                    translate([crossPieceSize.x/2, crossPieceSize.y/2, crossPieceSize.z])
-                        rotate(90)
-                            cable_tie(cable_r=3, thickness=1);
 
             render(convexity=8)
                 difference() {
