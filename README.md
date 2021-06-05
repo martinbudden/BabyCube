@@ -8,6 +8,8 @@ The **BabyCube** is a small 3D-printed CoreXY 3D printer with a linear rails mot
 
 The BabyCube has a print volume of approximately 100mm by 75mm by 60mm.
 
+The BOM cost is approximately £290 with a genuine E3D hotend, this does not include the cost of filament for printing parts, see [spreadsheet](documents/BabyCube200_BOM.ods). Price is current for May 2021.
+
 The dimensions of the cube are 220mm by 204mm by 203mm, and the enclosing volume (including the display, extruder,
 and feet, but excluding the spool holder, Bowden tube and hotend wiring) is about 248mm by 272mm by 211mm.
 
@@ -15,11 +17,20 @@ Although the BabyCube is small and has a 3D printed frame, it is not a toy. It i
 
 ## Assembly instructions
 
-The assembly instructions and the BOM (parts list) are [here](BC200/readme.md). The STL files are [here](BC200/stls).
+The assembly instructions and the BOM (parts list) are [here](BC200/readme.md). The STL files are [here](BC200/stls). Please read all the build instructions before you begin assembly.
 
 I plan to make a series of YouTube videos giving build instructions, when I have done so I will post a link here.
 
 If you would like to build a larger printer, you may be interested in the BaybyCube's larger sibling, the [MaybeCube](https://github.com/martinbudden/MaybeCube)
+
+## Key Features
+
+1. Small portable quality CoreXY 3D printer with all parts integrated inside the frame (no external power brick)
+2. Capable of printing high quality prints
+3. Linear rails and NEMA 14 stepper motors used for CoreXY motion system
+4. Standard (40mm long) NEMA 17 stepper motors used for the extruder and the Z axis.
+5. Quiet operation
+6. Sensorless homing on all axes
 
 ## Design Goals
 
@@ -40,6 +51,7 @@ Further design goals:
     * Clean wiring. Include the wiring in the design, rather than add it as an afterthought.
 3. **Require minimal tools for assembly**
     * Assembly can essentially be completed using just hex keys.
+    * Use self tapping holes rather than threaded inserts, they are just as strong - see [CNC Kitchen's video](https://www.youtube.com/watch?v=iR6OBlSzp7I)
     * Some small files are useful cleaning up printed parts, and optionally an M3 tap (and tap wrench) can be used to start self-tapping holes.
     * A drill with 2mm and 3mm bits is required to drill the holes in the aluminium base, but a 3D printed base can be used instead.
 4. **Require minimal rework of printed parts**
