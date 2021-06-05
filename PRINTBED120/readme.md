@@ -7,6 +7,8 @@ This is a alternative print bed for the BabyCube. It uses the same 120 x 120 x 6
 
 ![Print Bed 3 Point Printed Assembly](assemblies/Print_bed_3_point_printed_assembled.png)
 
+![printbed120](../pictures/printbed120_1000.jpg)
+
 <span></span>
 
 ---
@@ -41,8 +43,8 @@ This is a alternative print bed for the BabyCube. It uses the same 120 x 120 x 6
 |   .  |   1  |    1  |  Magnetic base 120mm x 120mm |
 |   .  |   9  |    9  |  O-ring nitrile 3mm x 2mm |
 |   2  |   .  |    2  |  SCS12UU bearing block |
-|   1  |   1  |    2  |  Ziptie 2.5mm x 100mm min length |
-|  16  |  17  |   33  | Total vitamins count |
+|   .  |   1  |    1  |  Ziptie 2.5mm x 100mm min length |
+|  15  |  17  |   32  | Total vitamins count |
 |      |      |       | **3D printed parts** |
 |   1  |   .  |    1  | Printbed_Frame.stl |
 |   1  |   .  |    1  | Total 3D printed parts count |
@@ -64,7 +66,6 @@ This is a alternative print bed for the BabyCube. It uses the same 120 x 120 x 6
 |4| Bolt M5 countersunk x 12mm|
 |1| Leadscrew nut 8 x 2|
 |2| SCS12UU bearing block|
-|1| Ziptie 2.5mm x 100mm min length|
 
 
 ### 3D Printed parts
