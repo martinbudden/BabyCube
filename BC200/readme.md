@@ -52,6 +52,12 @@ The printed parts can be divided into two classes, the "large parts" (ie the lef
 
 I recommend using a 0.6mm nozzle for printing all the parts, but especially the for the large parts.
 
+### Parts in proximity to heat sources
+
+A number of parts are in proximity with heat sources, namely the hotend, the heated bed and the motors. Ideally these should be
+printed in ABS, but I have used PETG with some success.  These parts are insulated from direct contact with the heat sources, by
+O-rings and cork underlay (for the heated bed) and by cork dampers (for the motors). These insulators should not be omitted from the build.
+
 ### Small parts
 
 For dimensional accuracy the small parts need to be printed with a layer height of 0.25mm and a first layer height of 0.25mm.
@@ -98,6 +104,35 @@ with homing.
 2. I strongly recommend using an aluminium baseplate, but if you have difficulty sourcing this, or cutting it to size, a 3D printed
 baseplate can be used instead.
 
+
+## Configuring the printer
+
+There are a number of features that are important to consider when configuring the printer.
+
+### Sensorless homing
+
+Configuring sensorless homing on the X and Y axes is done in the standard way. Sensorless homing on the Z-axis must be set up to
+home at the bottom of the Z-axis - so that homing does not cause the print head to crash into the print bed.
+
+### Power management
+
+The steady state power usage of the BabyCube during printing is about 40W, well within the capabilities of the 120W power supply.
+However peak power usage must be managed so as not to exceed this.
+
+1. Use PID temperature control (not bang-bang) for the heated bed. In Marlin this means defining `PIDTEMPBED` in `configuration.h`
+2. In the printer start gcode in your slicer, do not set all the heating going at once, instead use a phased approach
+   1. Use `M104 S160` to start the hotend heating without waiting
+   2. Home the X and Y axes
+   3. Home the Z axis
+   4. Use `M400` to wait for the motors to stop
+   5. Use `M140 S{first_layer_bed_temperature[0]}` to set the first layer bed temperature
+   6. Use `M109 S{first_layer_temperature[0]}` to set the temperature for nozzle 0 and wait
+
+This avoids having all the motors and both heaters on during startup. Once the hotend and heated bed have warmed up, their power
+usage decreases (since they use PID controllers, and power usage is (mostly) proportional (that's the P in PID) to the difference
+between the actual heater temperature and the target temperature).
+
+Example printer startup gcode for PrusaSlicer is [here](../../documents/PrinterStart.gcode).
 
 
 <span></span>
@@ -177,8 +212,7 @@ baseplate can be used instead.
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Female - not shown |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male - not shown |
-|   1  |   .  |   .  |   .  |   2  |   .  |   5  |   .  |   5  |   .  |   13  |  Ziptie 2.5mm x 100mm min length |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   4  |    4  |  Ziptie 2.5mm x 100mm min length |
+|   1  |   .  |   .  |   .  |   2  |   .  |   5  |   .  |   5  |   4  |   17  |  Ziptie 2.5mm x 100mm min length |
 |  19  |   8  |  54  |  13  |  21  |  30  |  26  |  20  |  36  |  58  |  285  | Total vitamins count |
 |      |      |      |      |      |      |      |      |      |      |       | **3D printed parts** |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  | Back_Face.stl |
@@ -608,6 +642,9 @@ Affix the leadscrew nut.
 ### Assembly instructions
 
 ![Print_bed_assembly](assemblies/Print_bed_assembly.png)
+
+This is the standard variant of the print bed, using an OpenBuilds 100mm heated bed. There is also a version using
+a 120 x 120 x 6 mm aluminium tooling plate, see [printbed 120](../../PRINTBED120/readme.md).
 
 1. Prepare the the cork underlay by cutting it to size, making a cutout for the heated bed wiring, and drilling holes for the bolts.
 2. Prepare the heated bed by soldering on the wires and sticking on the magnetic base. Drill bolt holes in the magnetic base.
