@@ -84,11 +84,9 @@ Further design goals:
 
 ## Variants
 
-The standard variant of the BabyCube uses and OpenBuilds 100 x 100 mm heated bed, however it is also possible to use a 120 x 120 x 6 mm
-aluminium tooling plate with a heating pad, see [printbed 120](PRINTBED120/readme.md).
+The standard variant of the BabyCube uses and OpenBuilds 100 x 100 mm heated bed, however it is also possible to use a 120 x 120 x 6 mm aluminium tooling plate with a heating pad, see [printbed 120](PRINTBED120/readme.md).
 
-The standard variant uses a BigTreeTech SKR Mini E3 v2.0 controller, however it is also possible to use
-the BigTreeTech SKR v1.4 (and Turbo) and BigTreeTech E3 Turbo controllers.
+The standard variant uses a BigTreeTech SKR Mini E3 v2.0 controller, however it is also possible to use the BigTreeTech SKR v1.4 (and Turbo) and BigTreeTech E3 Turbo controllers.
 
 The standard variant uses an E3D v6 hotend, but other groovemount based hotends could be used.
 
