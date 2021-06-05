@@ -197,11 +197,3 @@ module Fan_Duct_stl() {
         color(pp2_colour)
             fanDuct(printHeadHotendOffset().x);
 }
-
-module Fan_Duct_Right_stl() {
-    stl("Fan_Duct_Right")
-        color(pp2_colour)
-            translate([26, 0, 0])
-                mirror([1, 0, 0])
-                    fanDuct(printHeadHotendOffset().x, jetOffset = -0.5);
-}
