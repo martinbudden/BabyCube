@@ -70,6 +70,35 @@
 //!baseplate can be used instead.
 //!
 //!
+//!## Configuring the printer
+//!
+//!There are a number of features that are important to consider when configuring the printer.
+//!
+//!### Sensorless homing
+//!
+//!Configuring sensorless homing on the X and Y axes is done in the standard way. Sensorless homing on the Z-axis must be set up to
+//!home at the bottom of the Z-axis - so that homing does not cause the print head to crash into the print bed.
+//!
+//!### Power management
+//!
+//!The steady state power usage of the BabyCube during printing is about 40W, well within the capabilities of the 120W power supply.
+//!However peak power usage must be managed so as not to exceed this.
+//!
+//!1. Use PID temperature control (not bang-bang) for the heated bed. In Marlin this means defining `PIDTEMPBED` in `configuration.h`
+//!2. In the printer start gcode in your slicer, do not set all the heating going at once, instead use a phased approach
+//!    1. Use `M104 S160` to start the hotend heating without waiting
+//!    2. Home the X and Y axes
+//!    3. Home the Z axis
+//!    4. Use `M400` to wait for the motors to stop
+//!    5. Use `M140 S{first_layer_bed_temperature[0]}` to set the first layer bed temperature
+//!    6. Use `M109 S{first_layer_temperature[0]}` to set the temperature for nozzle 0 and wait
+//!
+//!This avoids having all the motors and both heaters on during startup. Once the hotend and heated bed have warmed up, their power
+//!usage decreases (since they use PID controllers, and power usage is (mostly) proportional (that's the P in PID) to the difference
+//!between the actual heater temperature and the target temperature).
+//!
+//!Example printer startup gcode for PrusaSlicer is [here](../../documents/PrinterStart.gcode).
+//!
 include <global_defs.scad>
 
 include <NopSCADlib/core.scad>
