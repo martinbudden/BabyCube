@@ -26,8 +26,8 @@ function grooveMountClampSize(blower_type, hotend_type) = [grooveMountSize(blowe
 //!1. Assemble the E3D hotend, including fan, thermistor cartridge and heater cartridge.
 //!2. Use the Hotend_Clamp to attach the hotend to the X_Carriage.
 //!3. Collect the wires together and attach to the X_Carriage using the Hotend_Strain_Relief_Clamp.
-module Print_head_assembly()
-assembly("Print_head", big=true) {
+module Printhead_assembly()
+assembly("Printhead", big=true) {
 
     xCarriageType = xCarriageType();
     blower_type = blower_type();
@@ -70,7 +70,7 @@ module fullPrinthead(rotate=0) {
                 X_Carriage_Front_assembly();
                 xCarriageFrontAssemblyBolts(xCarriageType, _beltWidth);
             }
-            Print_head_assembly();
+            Printhead_assembly();
             xCarriageTopBolts(xCarriageType);
             if (!exploded())
                 xCarriageBeltFragments(xCarriageType, coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
