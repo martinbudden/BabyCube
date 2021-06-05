@@ -30,7 +30,7 @@ module MainCF_test() {
     //Top_Face_CF_assembly();
     //Front_Face_CF_assembly();
     //Stage_5_CF_assembly();
-    FinalAssemblyCF();
+    BC200CF_assembly();
 }
 
 if ($preview)
