@@ -20,7 +20,7 @@ detail that someone with a good understanding of 3D printers can build the BabyC
 1. [Parts list](#Parts_list)
 
 1. [X_Carriage assembly](#X_Carriage_assembly)
-1. [Print_head assembly](#Print_head_assembly)
+1. [Printhead assembly](#Printhead_assembly)
 1. [X_Carriage_Front assembly](#X_Carriage_Front_assembly)
 1. [Top_Face_Stage_1 assembly](#Top_Face_Stage_1_assembly)
 1. [Top_Face_Stage_2 assembly](#Top_Face_Stage_2_assembly)
@@ -144,7 +144,7 @@ Example printer startup gcode for PrusaSlicer is [here](../../documents/PrinterS
 ## Parts list
 
 
-| <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Head</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">X Carriage Front</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Top Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Display Housing</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Back Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Right Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Base</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Left Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Main</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">TOTALS</span> |  |
+| <span style="writing-mode: vertical-rl; text-orientation: mixed;">Printhead</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">X Carriage Front</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Top Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Display Housing</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Back Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Right Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Base</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Left Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Main</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">TOTALS</span> |  |
 |-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|------:|:---|
 |      |      |      |      |      |      |      |      |      |      |       | **Vitamins** |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |  Aluminium box section 12mm x 8mm x 1mm, length 85mm |
@@ -289,9 +289,9 @@ Example printer startup gcode for PrusaSlicer is [here](../../documents/PrinterS
 [Top](#TOP)
 
 ---
-<a name="Print_head_assembly"></a>
+<a name="Printhead_assembly"></a>
 
-## Print_head assembly
+## Printhead assembly
 
 ### Vitamins
 
@@ -323,13 +323,13 @@ Example printer startup gcode for PrusaSlicer is [here](../../documents/PrinterS
 
 ### Assembly instructions
 
-![Print_head_assembly](assemblies/Print_head_assembly.png)
+![Printhead_assembly](assemblies/Printhead_assembly.png)
 
 1. Assemble the E3D hotend, including fan, thermistor cartridge and heater cartridge.
 2. Use the Hotend_Clamp to attach the hotend to the X_Carriage.
 3. Collect the wires together and attach to the X_Carriage using the Hotend_Strain_Relief_Clamp.
 
-![Print_head_assembled](assemblies/Print_head_assembled.png)
+![Printhead_assembled](assemblies/Printhead_assembled.png)
 
 <span></span>
 [Top](#TOP)
@@ -1161,9 +1161,9 @@ Add the Top_Face.
 
 ### Sub-assemblies
 
-| 1 x Print_head_assembly | 1 x Stage_5_assembly | 1 x X_Carriage_Front_assembly |
+| 1 x Printhead_assembly | 1 x Stage_5_assembly | 1 x X_Carriage_Front_assembly |
 |---|---|---|
-| ![Print_head_assembled](assemblies/Print_head_assembled_tn.png) | ![Stage_5_assembled](assemblies/Stage_5_assembled_tn.png) | ![X_Carriage_Front_assembled](assemblies/X_Carriage_Front_assembled_tn.png) 
+| ![Printhead_assembled](assemblies/Printhead_assembled_tn.png) | ![Stage_5_assembled](assemblies/Stage_5_assembled_tn.png) | ![X_Carriage_Front_assembled](assemblies/X_Carriage_Front_assembled_tn.png) 
 
 
 
@@ -1171,7 +1171,7 @@ Add the Top_Face.
 
 ![Stage_6_assembly](assemblies/Stage_6_assembly.png)
 
-1. Add the Print_head.
+1. Add the Printhead.
 2. Thread the belts in the pattern shown.
 3. Adjust the belts tension.
 
