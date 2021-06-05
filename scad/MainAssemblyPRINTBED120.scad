@@ -4,6 +4,8 @@
 //![Voron0](https://vorondesign.com/voron0).
 //!
 //!![Print Bed 3 Point Printed Assembly](assemblies/Print_bed_3_point_printed_assembled.png)
+//!
+//!![printbed120](../pictures/printbed120_1000.jpg)
 //
 include <NopSCADlib/core.scad>
 
