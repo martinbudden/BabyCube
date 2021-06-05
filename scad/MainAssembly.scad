@@ -249,7 +249,7 @@ staged_assembly("Stage_5", big=true, ngb=true) {
     }
 }
 
-//!1. Add the Print_head.
+//!1. Add the Printhead.
 //!2. Thread the belts in the pattern shown.
 //!3. Adjust the belts tension.
 //

@@ -36,7 +36,7 @@ module Printhead_test() {
         //printheadWiring();
     }
     //X_Carriage_assembly();
-    let($hide_bolts=true) Print_head_assembly();
+    let($hide_bolts=true) Printhead_assembly();
     //hotEndHolderHardware(xCarriageType);
     //Fan_Duct_stl();
     //X_Carriage_stl();

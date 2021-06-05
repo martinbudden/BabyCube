@@ -177,7 +177,7 @@ assembly("Top_Face_with_Printhead", big=true) {
     xRailCarriagePosition()
         rotate(0) {// for debug, to see belts better
             X_Carriage_Front_assembly();
-            Print_head_assembly();
+            Printhead_assembly();
             xCarriageTopBolts(xCarriageType());
         }
 }
