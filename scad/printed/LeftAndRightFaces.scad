@@ -423,7 +423,7 @@ module frame(NEMA_type, left=true) {
 function extruderZipTiePositions() = [10, 48];
 function motorUprightZipTiePositions() = [30, middleWebOffsetZ() - 18];
 function idlerUprightZipTiePositions() = [middleWebOffsetZ() - 20];
-function bottomChordZipTiePositions(left) = left ? [eY/2, eY/2 + eSizeY + 30, eY + 2*eSizeY - 30] : [eY + 2*eSizeY - 30];
+function bottomChordZipTiePositions(left) = left ? [eY/2 + eSizeY + 30, eY + 2*eSizeY - 30] : [eY + 2*eSizeY - 30];
 
 module zipTieCutout() {
     cutoutSize = [5, 4, 2];
