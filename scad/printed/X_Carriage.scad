@@ -41,7 +41,7 @@ function xCarriageTopHolePositions(xCarriageType) = [4, xCarriageFrontSize(xCarr
 function xCarriageBottomHolePositions(xCarriageType) = [xCarriageType == MGN9C_carriage? 4 : 10, xCarriageFrontSize(xCarriageType).x - 4];
 
 
-module xCarriageTop(xCarriageType) {
+module xCarriageTop(xCarriageType, reflected=false, strainRelief=false) {
     assert(is_list(xCarriageType));
 
     extraY = xCarriageFrontOffsetY(xCarriageType) - carriage_size(xCarriageType).y/2 - xCarriageFrontSize(xCarriageType).y;
@@ -50,17 +50,27 @@ module xCarriageTop(xCarriageType) {
     size =  [xCarriageBackSize(xCarriageType).x, extraY + carriageSize.y + xCarriageBackSize(xCarriageType).y, topThickness];
 
     difference() {
-        translate([0, -extraY - carriageSize.y, 0])
+        translate([0, -extraY - carriageSize.y, 0]) {
             rounded_cube_yz(size, fillet);
+            tabSize = [15, 5, 25];
+            if (strainRelief)
+                translate([reflected ? size.x - tabSize.x : 0, size.y - tabSize.y, size.z - 2*fillet])
+                    difference() {
+                        rounded_cube_yz(tabSize, fillet);
+                        for (x = [tabSize.x/2 - 4, tabSize.x/2 + 4], z = [5+2, 15+2])
+                            translate([x-1, -eps, z])
+                                cube([2, tabSize.y + 2*eps, 4]);
+                    }
+        }
         // insert holes  to connect to the front
         for (x = xCarriageTopHolePositions(xCarriageType))
             translate([x, -extraY - carriageSize.y, size.z/2])
                 rotate([-90, -90, 0])
-                    boltHoleM3TapOrInsert(8, horizontal=true, chamfer_both_ends=false);
+                    boltHoleM3TapOrInsert(8, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
         // bolt holes to connect to to the rail carriage
         translate([size.x/2, -carriageOffsetY, -carriage_height(xCarriageType)])
             carriage_hole_positions(xCarriageType)
-                boltHoleM3(size.z, horizontal=true, rotate=-90);
+                boltHoleM3(size.z, horizontal=true, rotate=(reflected ? 90 : -90));
     }
 }
 
@@ -104,7 +114,7 @@ module xCarriageBottom(xCarriageType) {
     }*/
 }
 
-module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, toolheadHoles=false) {
+module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, toolheadHoles=false, reflected=false, strainRelief=false) {
     assert(is_list(xCarriageType));
 
     size = xCarriageBackSize(xCarriageType, beltWidth);
@@ -128,7 +138,7 @@ module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, t
                             fillet(fillet, baseSize.x);
                 }
                 // top
-                xCarriageTop(xCarriageType);
+                xCarriageTop(xCarriageType, reflected, strainRelief);
                 // base
                 translate_z(-size.z + topThickness)
                     xCarriageBottom(xCarriageType);
