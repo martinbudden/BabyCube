@@ -18,9 +18,10 @@ use <../Parameters_Positions.scad>
 include <../Parameters_Main.scad>
 
 
-module bowdenTube() {
+module bowdenTube(extraZ=120) {
     explode(120)
-        bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition().x + eSizeX - 6 - xCarriageFrontSize(xCarriageType()).x/2, carriagePosition().y + xCarriageBackOffsetY(xCarriageType()), eZ] + printheadBowdenOffset(), color="white");
+        color("white")
+            bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition().x + eSizeX - 6 - xCarriageFrontSize(xCarriageType()).x/2, carriagePosition().y + xCarriageBackOffsetY(xCarriageType()), eZ] + printheadBowdenOffset(), ptfeTube=true, extraZ=extraZ);
 }
 
 module faceRightSpoolHolder() {

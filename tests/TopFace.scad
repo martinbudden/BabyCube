@@ -8,6 +8,7 @@ include <NopSCADlib/vitamins/stepper_motors.scad>
 use <../scad/printed/BackFace.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
 use <../scad/printed/Base.scad>
+use <../scad/printed/Extras.scad>
 use <../scad/printed/FrontChords.scad>
 use <../scad/printed/LeftAndRightFaces.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
@@ -63,6 +64,7 @@ module Top_Face_test() {
 
     //Left_Face_assembly();
     //Right_Face_assembly();
+    //bowdenTube();
 
     //Back_Face_Stage_1_assembly();
     //Back_Face_assembly();
