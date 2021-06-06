@@ -111,7 +111,8 @@ module printheadWiring() {
         endPos + [0, 0, 50],
         endPos,
     ];
-    bezierTube2(p, color=grey(20), tubeRadius=printheadWireRadius());
+    color(grey(20))
+        bezierTube2(p, tubeRadius=printheadWireRadius());
 
 }
 
