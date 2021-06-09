@@ -190,7 +190,7 @@ Example printer startup gcode for PrusaSlicer is [here](../../documents/PrinterS
 |   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |  Nut M5 nyloc |
 |   .  |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |    4  |  O-ring nitrile 3mm x 2mm |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  OpenBuilds mini heated bed 100mm x 100mm |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  PTFE tube 229 mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  PTFE tube 295 mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   5  |   .  |   .  |    5  |  Pillar hex nylon F/F M3x12 |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Print surface 100mm x 100mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   2  |   .  |   2  |   .  |    6  |  Pulley GT2 idler 16 teeth |
@@ -212,8 +212,8 @@ Example printer startup gcode for PrusaSlicer is [here](../../documents/PrinterS
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Female - not shown |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male - not shown |
-|   1  |   .  |   .  |   .  |   2  |   .  |   5  |   .  |   5  |   4  |   17  |  Ziptie 2.5mm x 100mm min length |
-|  19  |   8  |  54  |  13  |  21  |  30  |  26  |  20  |  36  |  58  |  285  | Total vitamins count |
+|   1  |   .  |   .  |   .  |   2  |   .  |   5  |   .  |   4  |   4  |   16  |  Ziptie 2.5mm x 100mm min length |
+|  19  |   8  |  54  |  13  |  21  |  30  |  26  |  20  |  35  |  58  |  284  | Total vitamins count |
 |      |      |      |      |      |      |      |      |      |      |       | **3D printed parts** |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  | Back_Face.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | Base.stl |
@@ -922,7 +922,7 @@ Place the XT60 connectors through the Switch_Shroud and bolt on the Switch_Shrou
 |1| Stepper motor NEMA14 x 36mm|
 |1| Stepper motor cable, 400mm|
 |6| Washer  M3|
-|5| Ziptie 2.5mm x 100mm min length|
+|4| Ziptie 2.5mm x 100mm min length|
 
 
 ### 3D Printed parts
@@ -1189,7 +1189,7 @@ Add the Top_Face.
 
 |Qty|Description|
 |---:|:----------|
-|1| PTFE tube 229 mm|
+|1| PTFE tube 295 mm|
 
 
 ### 3D Printed parts
