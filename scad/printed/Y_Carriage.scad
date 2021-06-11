@@ -175,7 +175,7 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
             }
         } // end union
         tongueBoltPositions()
-            boltHole(rail_hole(xRailType) < 3 ? 2*M2_tap_radius : 2*M3_tap_radius, thickness, cnc=cnc);
+            boltHole(rail_hole(xRailType) < 3 ? 2*M2_tap_radius : 2*M3_tap_radius, thickness, twist=3, cnc=cnc);
         translate_z(thickness - carriage_height(yCarriageType))
             rotate(90)
                 carriage_hole_positions(yCarriageType)
