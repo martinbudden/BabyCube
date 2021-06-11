@@ -65,8 +65,8 @@ module boltHoleM2p5Tap(length, horizontal = false, rotate = 0, chamfer = 0.5, tw
 
 // M3 bolt holes
 
-module boltHoleM3(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = undef, chamfer_both_ends = true) {
-    boltHole(M3_clearance_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends);
+module boltHoleM3(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = undef, chamfer_both_ends = true, cnc=false) {
+    boltHole(M3_clearance_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends, cnc = cnc);
 }
 
 module boltHoleM3Tap(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = undef, chamfer_both_ends = true, cnc=false) {
