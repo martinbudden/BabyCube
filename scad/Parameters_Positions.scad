@@ -19,16 +19,14 @@ _zMax = eZ - (_printBedSize == 100 ? 60.65 : 81);
 // X-axis
 function xPos(t) = t==-1 ? 0 : t==2 ? (_xMin + _xMax)/2 : t==3 ? _xMin : t==4 ? _xMax : t==5 ? _xMax : t==6 ? _xMin : _xMax;
 function xPosAnimate(t) = eX/2 + t*100;
-__carriagePositionX = $t > 1 ? xPos($t) : xPosAnimate($t);
 
 // Y-axis
 function yPos(t) = t==-1 ? 0 : t==2 ? (_yMin + _yMax)/2 : t==3 ? _yMin : t==4 ? _yMin : _yMax;
 function yPosAnimate(t) = eY/2 + t*100;
-__carriagePositionY = $t > 1  ? yPos($t) : yPosAnimate($t);
 
-function carriagePosition() = [__carriagePositionX, __carriagePositionY];
+function carriagePosition(t=undef) = [is_undef(t) ? ($t > 1  ? xPos($t) : xPosAnimate($t)) : xPos(t), is_undef(t) ? ($t > 1  ? yPos($t) : yPosAnimate($t)) : yPos(t)];
 
 // Z-axis
 function zPos(t) = t==2 ? (_zMin + _zMax)/2 - 15 : t==7 ? _zMin : _zMax;
 function zPosAnimate(t) = _zMax - t*10;
-function bedHeight() = $t > 1 ? zPos($t) : zPosAnimate($t);
+function bedHeight(t=undef) = is_undef(t) ? ($t > 1 ? zPos($t) : zPosAnimate($t)) : zPos(t);
