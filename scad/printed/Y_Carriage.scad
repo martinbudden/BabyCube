@@ -140,7 +140,7 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
                 }
             } else {
                 if (left) {
-                    size = [22.1, 10, h];
+                    size = [24.1, 10, h];
                     translate([plainPulleyPos.x - 5, -3.5, 0])
                         rounded_cube_xy(size, 1.5);
                     if (yCarriageBraceThickness) {
@@ -153,12 +153,12 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
                     translate([toothedPulleyPos.x - 3.25, -size.y/2, 0])
                         rounded_cube_xy(size, 1.5);
                     if (yCarriageBraceThickness) {
-                        size2 = [9.1, 10.25, h];
+                        size2 = [10.1, 10.25, h];
                         translate([plainPulleyPos.x + 7, -3.25, 0])
                             rounded_cube_xy(size2, 1.5);
                         size3 = [8.5, size.y, h];
                         translate([-blockSize.x/2, -size3.y/2, 0])
-                            rounded_cube_xy(size2, 1.5);
+                            rounded_cube_xy(size3, 1.5);
                     }
                 }
                 /*size = [8.5, tongueSize.y, h];
@@ -175,7 +175,7 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
             }
         } // end union
         tongueBoltPositions()
-            boltHole(rail_hole(xRailType) < 3 ? 2*M2_tap_radius : 2*M3_tap_radius, thickness, twist=3, cnc=cnc);
+            boltHole(rail_hole(xRailType) < 3 ? 2*M2_tap_radius : 2*M3_tap_radius, thickness + (left ? 5 : 0), twist=3, cnc=cnc);
         translate_z(thickness - carriage_height(yCarriageType))
             rotate(90)
                 carriage_hole_positions(yCarriageType)
@@ -209,7 +209,7 @@ module yCarriageBrace(yCarriageType, yCarriageBraceThickness, pulleyOffset, hole
                     boltHole(holeRadius*2, size.z);
         }
     } else {
-        size = left ? [44.75, 10 + 3.25/2, yCarriageBraceThickness] : [46.75 - 3, 14, yCarriageBraceThickness];
+        size = left ? [46.75, 10 + 3.25/2, yCarriageBraceThickness] : [47.75 - 3, 14, yCarriageBraceThickness];
         difference() {
             translate([-blockSizeX/2, left ? -5 : -size.y/2, 0])
                 rounded_cube_xy(size, 1.5);
