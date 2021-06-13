@@ -139,7 +139,7 @@ module X_Carriage_stl() {
         color(pp1_colour)
             rotate([0, -90, 0]) {
                 xCarriageBack(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z);
-                hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, blower_type, left=true);
+                hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, blower_type, baffle=true, left=true);
             }
 }
 
