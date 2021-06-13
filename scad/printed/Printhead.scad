@@ -27,7 +27,7 @@ module hotEndHolderAlign(xCarriageType, hotendOffset, left=true) {
             children();
 }
 
-module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, blower_type, left=true) {
+module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, blower_type, baffle=true, left=true) {
     fillet = 1.5;
     offsetY = 0; // to avoid clashing with fan
     blowerMountOffsetY = 1;
@@ -48,7 +48,7 @@ module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, b
                 }
                 blowerMountFillet = 1.5;
                 if (blower_size(blower_type).x < 40) {
-                    if (hotend_type == 0)
+                    if (baffle)
                         translate_z(-30)
                             rounded_cube_yz([grooveMountSize.x - 7, grooveMountSize.y, 2], 0.75);
                     translate_z(-blowerMountSize.z + 2*blowerMountFillet) {
