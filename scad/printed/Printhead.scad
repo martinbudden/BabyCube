@@ -46,11 +46,16 @@ module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, b
                     rotate([0, 90, 0])
                         fillet(1.5, grooveMountSize.x);
                 }
+                baffleOffsetZ = 30;
+                baffleSize = [grooveMountSize.x - 7, grooveMountSize.y, 2];
+                // fillet to improve airflow
+                translate([blowerMountSize.x, 2, -baffleOffsetZ])
+                    fillet(baffleSize.x - blowerMountSize.x+5, baffleOffsetZ);
                 blowerMountFillet = 1.5;
                 if (blower_size(blower_type).x < 40) {
                     if (baffle)
-                        translate_z(-30)
-                            rounded_cube_yz([grooveMountSize.x - 7, grooveMountSize.y, 2], 0.75);
+                        translate_z(-baffleOffsetZ)
+                            rounded_cube_yz(baffleSize, 0.75);
                     translate_z(-blowerMountSize.z + 2*blowerMountFillet) {
                         translate([0, -blowerMountOffsetY, 0])
                             rounded_cube_yz(blowerMountSize, blowerMountFillet);
@@ -82,12 +87,13 @@ module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, b
         // bolt holes for blower
         rotate(left ? 0 : 180)
             translate([0, left ? 0 : -2*hotendOffset.y, hotendOffset.z])
-                blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type, blowerMountSize.x, left) {
+                blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type, 0*blowerMountSize.x, left) {
                     blower_hole_positions(blower_type)
-                        boltHoleM2Tap(blowerMountSize.x);
+                        vflip()
+                        boltHoleM2Tap(blowerMountSize.x + 5);
                     rotate([-90, 0, 0])
                         fanDuctHolePositions()
-                            rotate([90, 0, 0])
+                            rotate([90, 0, 180])
                                 boltHoleM2Tap(blowerMountSize.x);
                 }
 
