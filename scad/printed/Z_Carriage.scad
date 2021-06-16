@@ -5,7 +5,7 @@ use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/utils/rounded_triangle.scad>
 include <NopSCADlib/vitamins/leadnuts.scad>
 include <NopSCADlib/vitamins/linear_bearings.scad>
-include <NopSCADlib/vitamins/o_ring.scad>
+use <NopSCADlib/vitamins/o_ring.scad>
 include <NopSCADlib/vitamins/rod.scad>
 include <NopSCADlib/vitamins/shaft_couplings.scad>
 use <NopSCADlib/vitamins/wire.scad>

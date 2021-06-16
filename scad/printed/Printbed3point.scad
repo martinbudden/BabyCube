@@ -6,6 +6,7 @@ use <NopSCADlib/utils/rounded_triangle.scad>
 include <NopSCADlib/vitamins/bearing_blocks.scad>
 include <NopSCADlib/vitamins/extrusions.scad>
 include <NopSCADlib/vitamins/leadnuts.scad>
+use <NopSCADlib/vitamins/o_ring.scad>
 include <NopSCADlib/vitamins/screws.scad>
 use <NopSCADlib/vitamins/sheet.scad>
 use <NopSCADlib/vitamins/wire.scad>

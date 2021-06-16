@@ -71,7 +71,7 @@ module displayHousing(display_type, displayBracketBackThickness, sideSizeZ=10) {
     size = displayHousingSize(display_type);
 
     fillet = 2;
-    color("skyblue")
+    color("SkyBlue")
     render_if(useCounterbore())
     difference() {
         displayHousingBase(display_type, fillet);
@@ -162,7 +162,7 @@ module displayHousingBase(display_type, fillet=2, testLayer=0) {
                 circle(r = 4);
     }
 
-    if (testLayer == 0 || testLayer == 1) color("skyblue")
+    if (testLayer == 0 || testLayer == 1) color("SkyBlue")
     translate_z(-apertureLayerHeight())
         linear_extrude(apertureLayerHeight())
             difference() {
@@ -178,7 +178,7 @@ module displayHousingBase(display_type, fillet=2, testLayer=0) {
                 controlCutouts(display_type);
             }
 
-    if (testLayer == 0 || testLayer == 2) color("red")
+    if (testLayer == 0 || testLayer == 2) color("Red")
     linear_extrude(baseLayerHeight)
         difference() {
             rounded_square([size.x, size.y], fillet, center = true);
@@ -186,14 +186,14 @@ module displayHousingBase(display_type, fillet=2, testLayer=0) {
             controlCutouts(display_type);
         }
 
-    if (testLayer == 0 || testLayer == 3) color("blue")
+    if (testLayer == 0 || testLayer == 3) color("Blue")
     translate_z(baseLayerHeight)
         linear_extrude(totalHeight - solderLayerHeight - baseLayerHeight)
             difference() {
                 rounded_square([size.x, size.y], fillet, center = true);
                 displayHousingFrontCutouts(display_type);
             }
-    if (testLayer == 0 || testLayer == 4) color("yellow")
+    if (testLayer == 0 || testLayer == 4) color("Yellow")
     translate_z(totalHeight - solderLayerHeight)
         linear_extrude(solderLayerHeight)
             difference() {

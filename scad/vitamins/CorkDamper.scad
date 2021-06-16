@@ -6,7 +6,7 @@ module corkDamper(NEMA_type, thickness) {
     if (thickness)
         vitamin(str(": Cork damper ", NEMA_hole_pitch(NEMA_type)==31 ? "NEMA 17" : "NEMA 14" ));
 
-    color("tan")
+    color("Tan")
         linear_extrude(thickness) {
             difference() {
                 rounded_square([NEMA_width(NEMA_type), NEMA_width(NEMA_type)], 1, center=true);

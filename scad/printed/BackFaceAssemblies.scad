@@ -68,7 +68,7 @@ assembly("Back_Face_Stage_1", big=true, ngb=true) {
             backFaceUpperBracketsHardware(_backPlateThickness, counterSunk=true);
             backFaceLowerBracketsHardware(_backPlateThickness, counterSunk=true);
         }
-    // create backface for NEMA_motors with integrated leadscrew, if integrated leadscrew not already specified
+    // create back face for NEMA_motors with integrated leadscrew, if integrated leadscrew not already specified
     if (!is_list(NEMA_shaft_length(zMotorType())))
         hidden()
             Back_Face_NEMA_17_40_stl();

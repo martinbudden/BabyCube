@@ -91,7 +91,7 @@ module xCarriageTopBolts(xCarriageType) {
                     _threadedInsertM3();
 }
 
-module xCarriageBottom(xCarriageType) {
+module xCarriageBottom(xCarriageType, reflected=false) {
     assert(is_list(xCarriageType));
 
     extraY = xCarriageFrontOffsetY(xCarriageType) - carriage_size(xCarriageType).y/2 - xCarriageFrontSize(xCarriageType).y;
@@ -104,7 +104,7 @@ module xCarriageBottom(xCarriageType) {
             for (x = xCarriageBottomHolePositions(xCarriageType))
                 translate([x, 0, size.z/2])
                     rotate([-90, -90, 0])
-                        boltHoleM3TapOrInsert(14, horizontal=true, chamfer_both_ends=false);
+                        boltHoleM3TapOrInsert(14, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
         }
     /*if ($preview && _useInsertsForXCarriage) {
         for (x = xCarriageBottomHolePositions(xCarriageType))
@@ -141,7 +141,7 @@ module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, t
                 xCarriageTop(xCarriageType, reflected, strainRelief);
                 // base
                 translate_z(-size.z + topThickness)
-                    xCarriageBottom(xCarriageType);
+                    xCarriageBottom(xCarriageType, reflected);
             } // end union
             translate([-size.x/2 - eps, carriage_size(xCarriageType).y/2 - beltInsetBack(undef) + xCarriageBackSize(xCarriageType, beltWidth).y, beltOffsetZ]) {
                 for (z = [clampHoleSpacing(beltWidth)/2, -clampHoleSpacing(beltWidth)/2])

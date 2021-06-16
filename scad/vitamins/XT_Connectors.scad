@@ -59,7 +59,7 @@ module XT60Female() {
         color(boltColorBrass)
             translate([0, i, sizeZ/2])
                 tube(or=or, ir=ir, h=sizeZ);
-    color("red")
+    color("Red")
         translate([0, -cOffset, sizeZ/2])
             vflip()
                 cylinder(r=ir, h=30);

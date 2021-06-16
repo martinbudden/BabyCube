@@ -20,7 +20,7 @@ include <../Parameters_Main.scad>
 
 module bowdenTube(extraZ=120) {
     explode(120)
-        color("white")
+        color("White")
             bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition().x + eSizeX - 6 - xCarriageFrontSize(xCarriageType()).x/2, carriagePosition().y + xCarriageBackOffsetY(xCarriageType()), eZ] + printheadBowdenOffset(), ptfeTube=true, extraZ=extraZ);
 }
 
