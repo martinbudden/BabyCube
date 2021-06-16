@@ -123,8 +123,8 @@ module Right_Face_CF() {
 
 
 module xyMotorMountHolePositions(NEMA_width, left) {
-    xymp = xyMotorPosition(NEMA_width, left);
-    translate([eY + 2*eSizeY - 4, xymp.y +3 ]) {
+    xyPos = xyMotorPosition(NEMA_width, left);
+    translate([eY + 2*eSizeY - 4, xyPos.y +3 ]) {
         children();
         translate([0, 18])
             children();

@@ -116,9 +116,9 @@ module E3Dv6plusFan() {
     fan_type = fan30x10;
     translate_z(-36)
         rotate(180) {
-            vitamin(str("E3D_V6_Fan_Duct(): ", "E3D V6 Fan Duct"));
+            //vitamin(str("E3D_V6_Fan_Duct(): ", "E3D V6 Fan Duct"));
             rotate([90, 0, 0])
-                color("skyblue")
+                color("SkyBlue")
                     import("../stlimport/E3D_V6_6_Duct.stl");
             translate([-20, 0, 15])
                 rotate([0, 90, 0]) {
@@ -128,7 +128,7 @@ module E3Dv6plusFan() {
                             translate(i * fan_hole_pitch(fan_type) + [0, 0, fan_depth(fan_type) / 2]) {
                                 not_on_bom()
                                     boltM3Panhead(16);
-                                vitamin(str(": M3 self tapping screw x 16mm"));
+                                //vitamin(str(": M3 self tapping screw x 16mm"));
                             }
                 }
         }

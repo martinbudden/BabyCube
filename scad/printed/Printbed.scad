@@ -1,6 +1,7 @@
 include <../global_defs.scad>
 
 include <NopSCADlib/core.scad>
+use <NopSCADlib/vitamins/o_ring.scad>
 
 use <../vitamins/bolts.scad>
 
@@ -54,7 +55,7 @@ module printSurface(printBedSize, thickness) {
 
 module corkUnderlay(size, printBedSize) {
     vitamin(str("corkUnderlay(", size, "): Cork underlay ", size.x, "mm x ", size.y, "mm x ", size.z, "mm"));
-    color("tan")
+    color("Tan")
         render(convexity=2)
             difference() {
                 drilledBed(size, printBedSize);

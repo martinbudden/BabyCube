@@ -8,7 +8,7 @@ use <../scad/printed/FrontChords.scad>
 
 
 module BTT_SKR_V1_4_TURBO_test() {
-    *color("skyblue")
+    *color("Skyblue")
         translate([-389.23, -147.9])
             import("../scad/stlimport/BTT_SKR_V1_4_TURBO.stl");
 
