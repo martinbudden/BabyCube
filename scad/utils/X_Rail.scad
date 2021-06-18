@@ -12,10 +12,10 @@ use <../Parameters_Positions.scad>
 include <../Parameters_Main.scad>
 
 
-module xRailCarriagePosition() {
+module xRailCarriagePosition(t=undef) {
     translate([
-        carriagePosition().x + yRailOffset(_xyNEMA_width).x,
-        carriagePosition().y,
+        carriagePosition(t).x + yRailOffset(_xyNEMA_width).x,
+        carriagePosition(t).y,
         eZ - yRailSupportThickness()
         ])
         children();
