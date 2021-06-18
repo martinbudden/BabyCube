@@ -1,4 +1,3 @@
-
 include <../global_defs.scad>
 
 include <NopSCADlib/core.scad>
@@ -10,6 +9,7 @@ use <../utils/PrintheadOffsets.scad>
 use <../utils/X_rail.scad>
 
 use <../vitamins/bolts.scad>
+include <../vitamins/pcbs.scad>
 
 use <Printhead.scad>
 use <X_Carriage.scad>
@@ -61,20 +61,36 @@ assembly("Printhead", big=true) {
     }
 }
 
-module fullPrinthead(rotate=0) {
+module fullPrinthead(rotate=0, explode=0, t= undef, accelerometer=false) {
     xCarriageType = xCarriageType();
 
-    xRailCarriagePosition()
-        rotate(rotate) {// for debug, to see belts better
-            explode([0, -20, 0], true) {
-                X_Carriage_Front_assembly();
-                xCarriageFrontAssemblyBolts(xCarriageType, _beltWidth);
+    xRailCarriagePosition(t)
+        explode(explode, true)
+            rotate(rotate) {// for debug, to see belts better
+                explode([0, -20, 0], true) {
+                    X_Carriage_Front_assembly();
+                    xCarriageFrontAssemblyBolts(xCarriageType, _beltWidth);
+                }
+                Printhead_assembly();
+                xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk);
+                if (accelerometer)
+                    explode(50, true)
+                        translate(accelerometerOffset() + [0, 0, 1])
+                            rotate(180) {
+                                pcb = ADXL345;
+                                pcb(pcb);
+                                pcb_hole_positions(pcb) {
+                                    translate_z(pcb_size(pcb).z)
+                                        boltM3Caphead(10);
+                                    explode(-5)
+                                        vflip()
+                                            washer(M3_washer)
+                                                washer(M3_washer);
+                                }
+                            }
+                if (!exploded())
+                    xCarriageBeltFragments(xCarriageType, coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
             }
-            Printhead_assembly();
-            xCarriageTopBolts(xCarriageType);
-            if (!exploded())
-                xCarriageBeltFragments(xCarriageType, coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
-        }
 }
 
 module hotEndHolderHardware(xCarriageType, hotend_type = 0) {

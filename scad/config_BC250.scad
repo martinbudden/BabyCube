@@ -18,6 +18,7 @@ _fullLengthYRail = true;
 _xRailLength = 200;
 _yRailLength = 250;
 _xCarriageDescriptor = "MGN9C";
+_xCarriageCountersunk = true;
 _yCarriageDescriptor = "MGN9C";
 _beltWidth = 6;
 

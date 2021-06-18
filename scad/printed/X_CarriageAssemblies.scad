@@ -10,6 +10,7 @@ use <../utils/carriageTypes.scad>
 use <../utils/PrintheadOffsets.scad>
 
 use <../vitamins/bolts.scad>
+include <../vitamins/pcbs.scad>
 
 use <Printhead.scad>
 use <X_Carriage.scad>
@@ -23,6 +24,7 @@ include <../Parameters_Main.scad>
 function hotendOffset(xCarriageType, hotend_type=0) = printHeadHotendOffset(hotend_type) + [-xCarriageBackSize(xCarriageType).x/2, xCarriageBackOffsetY(xCarriageType), 0];
 function grooveMountSize(blower_type, hotend_type=0) = [printHeadHotendOffset(hotend_type).x, blower_size(blower_type).x + 6.25, 12];
 function blower_type() = is_undef(_blowerDescriptor) || _blowerDescriptor == "BL30x10" ? BL30x10 : BL40x10;
+function accelerometerOffset() = [0, 3, 8];
 
 module X_Carriage_Front_stl() {
     xCarriageType = xCarriageType();
@@ -138,7 +140,14 @@ module X_Carriage_stl() {
     stl("X_Carriage")
         color(pp1_colour)
             rotate([0, -90, 0]) {
-                xCarriageBack(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z);
+                difference() {
+                    xCarriageBack(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z, strainRelief=true, countersunk=_xCarriageCountersunk ? 4 : 0);
+                    translate(accelerometerOffset())
+                        rotate(180)
+                            pcb_hole_positions(ADXL345)
+                                vflip()
+                                    boltHoleM3Tap(8, horizontal=true, rotate=-90);
+                }
                 hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, blower_type, baffle=true, left=true);
             }
 }

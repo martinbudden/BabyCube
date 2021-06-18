@@ -39,7 +39,8 @@ module CoreXY() {
     XY_Motor_Mount_Left_assembly();
     XY_Motor_Mount_Right_assembly();
     xRail(xCarriageType(), _xRailLength);
-    //let($hide_bolts=true) fullPrinthead(rotate=180);
+    //let($hide_bolts=true)
+    fullPrinthead(rotate=0, accelerometer=true);
     xRailCarriagePosition()
         rotate(0) {// rotate 180 to make it easier to see belts
             *rotate([0, 90, 0])

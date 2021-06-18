@@ -41,7 +41,7 @@ function xCarriageTopHolePositions(xCarriageType) = [4, xCarriageFrontSize(xCarr
 function xCarriageBottomHolePositions(xCarriageType) = [xCarriageType == MGN9C_carriage? 4 : 10, xCarriageFrontSize(xCarriageType).x - 4];
 
 
-module xCarriageTop(xCarriageType, reflected=false, strainRelief=false) {
+module xCarriageTop(xCarriageType, reflected=false, strainRelief=false, countersunk=4) {
     assert(is_list(xCarriageType));
 
     extraY = xCarriageFrontOffsetY(xCarriageType) - carriage_size(xCarriageType).y/2 - xCarriageFrontSize(xCarriageType).y;
@@ -52,7 +52,7 @@ module xCarriageTop(xCarriageType, reflected=false, strainRelief=false) {
     difference() {
         translate([0, -extraY - carriageSize.y, 0]) {
             rounded_cube_yz(size, fillet);
-            tabSize = [15, 5, 25];
+            tabSize = [15, carriageSize.y > 20 ? 5 : 4, 25]; // ensure room for bolt heads
             if (strainRelief)
                 translate([reflected ? size.x - tabSize.x : 0, size.y - tabSize.y, size.z - 2*fillet])
                     difference() {
@@ -68,21 +68,34 @@ module xCarriageTop(xCarriageType, reflected=false, strainRelief=false) {
                 rotate([-90, -90, 0])
                     boltHoleM3TapOrInsert(8, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
         // bolt holes to connect to to the rail carriage
-        translate([size.x/2, -carriageOffsetY, -carriage_height(xCarriageType)])
-            carriage_hole_positions(xCarriageType)
+        translate([size.x/2, -carriageOffsetY, -carriage_height(xCarriageType)]) {
+            carriage_hole_positions(xCarriageType) {
                 boltHoleM3(size.z, horizontal=true, rotate=(reflected ? 90 : -90));
+                if (countersunk == 4) // cut the countersink
+                    translate_z(size.z)
+                        vflip()
+                            boltHoleM3(size.z, horizontal=true, rotate=(reflected ? 90 : -90), chamfer=3.2, chamfer_both_ends=false);
+            }
+            if (countersunk == 1)
+                translate([carriage_pitch_x(xCarriageType) / 2, -carriage_pitch_y(xCarriageType) / 2, size.z + carriage_height(xCarriageType)])
+                    vflip()
+                        boltHoleM3(size.z, horizontal=true, rotate=(reflected ? 90 : -90), chamfer=3.2, chamfer_both_ends=false);
+        }
     }
 }
 
-module xCarriageTopBolts(xCarriageType) {
+module xCarriageTopBolts(xCarriageType, countersunk = true) {
     assert(is_list(xCarriageType));
 
     // depth of holes in MGN9 and MGN12 carriages is approx 5mm. so 4.5mm leaves room for error
     carriageHoleDepth = 4.5;
 
-    translate_z(topThickness - carriage_height(xCarriageType))
+    translate_z(topThickness - carriage_height(xCarriageType) + eps)
         carriage_hole_positions(xCarriageType)
-            boltM3Buttonhead(screw_shorter_than(topThickness + carriageHoleDepth));
+            if (countersunk)
+                boltM3Countersunk(screw_shorter_than(topThickness + carriageHoleDepth));
+            else
+                boltM3Buttonhead(screw_shorter_than(topThickness + carriageHoleDepth));
 
     if (_useInsertsForXCarriage)
         for (x = xCarriageTopHolePositions(xCarriageType))
@@ -114,7 +127,7 @@ module xCarriageBottom(xCarriageType, reflected=false) {
     }*/
 }
 
-module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, toolheadHoles=false, reflected=false, strainRelief=false) {
+module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, toolheadHoles=false, reflected=false, strainRelief=false, countersunk=0) {
     assert(is_list(xCarriageType));
 
     size = xCarriageBackSize(xCarriageType, beltWidth);
@@ -138,7 +151,7 @@ module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, t
                             fillet(fillet, baseSize.x);
                 }
                 // top
-                xCarriageTop(xCarriageType, reflected, strainRelief);
+                xCarriageTop(xCarriageType, reflected, strainRelief, countersunk);
                 // base
                 translate_z(-size.z + topThickness)
                     xCarriageBottom(xCarriageType, reflected);
