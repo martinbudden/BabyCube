@@ -156,7 +156,7 @@ Example printer startup gcode for PrusaSlicer is [here](../../documents/PrinterS
 |   4  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M2 caphead x  6mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |    2  |  Bolt M3 buttonhead x  8mm |
 |   4  |   6  |   .  |   .  |   .  |   .  |   .  |   2  |   1  |   6  |   19  |  Bolt M3 buttonhead x 10mm |
-|   2  |   .  |   .  |   .  |   .  |   4  |   4  |   .  |   4  |  24  |   38  |  Bolt M3 buttonhead x 12mm |
+|   2  |   .  |   .  |   .  |   .  |   4  |   4  |   .  |   4  |  20  |   34  |  Bolt M3 buttonhead x 12mm |
 |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 buttonhead x 16mm |
 |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 buttonhead x 25mm |
 |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   5  |   .  |   .  |    9  |  Bolt M3 caphead x  6mm |
@@ -167,14 +167,13 @@ Example printer startup gcode for PrusaSlicer is [here](../../documents/PrinterS
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 caphead x 25mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   6  |    6  |  Bolt M3 countersunk x  6mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |  12  |   14  |  Bolt M3 countersunk x 10mm |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |    2  |  Bolt M3 countersunk x 12mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   4  |    6  |  Bolt M3 countersunk x 12mm |
 |   .  |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   2  |   .  |    6  |  Bolt M3 countersunk x 16mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |  Bolt M3 countersunk x 30mm |
 |   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |  Bolt M5 countersunk x 16mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |  Cork damper NEMA 14 |
 |   .  |   .  |   .  |   .  |   .  |   1  |   1  |   .  |   .  |   .  |    2  |  Cork damper NEMA 17 |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Cork underlay 105mm x 105mm x 3mm |
-|   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  E3D V6 Fan Duct |
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  Fan 30mm x 10mm |
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  Hot end E3D V6 direct 1.75mm |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |  Leadscrew 8mm x 150mm |
@@ -184,7 +183,6 @@ Example printer startup gcode for PrusaSlicer is [here](../../documents/PrinterS
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Linear rail MGN9 x 200mm |
 |   .  |   .  |   3  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    3  |  Linear rail carriage MGN9C |
 |   .  |   .  |   .  |   .  |   .  |   2  |   .  |   .  |   .  |   .  |    2  |  Linear rod 12mm x 200mm |
-|   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  M3 self tapping screw x 16mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |  MK10 Dual Pulley Extruder |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Magnetic base 100mm x 100mm |
 |   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |  Nut M5 nyloc |
@@ -213,7 +211,7 @@ Example printer startup gcode for PrusaSlicer is [here](../../documents/PrinterS
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male - not shown |
 |   1  |   .  |   .  |   .  |   2  |   .  |   5  |   .  |   4  |   4  |   16  |  Ziptie 2.5mm x 100mm min length |
-|  19  |   8  |  54  |  13  |  21  |  30  |  26  |  20  |  35  |  58  |  284  | Total vitamins count |
+|  16  |   8  |  54  |  13  |  21  |  30  |  26  |  20  |  35  |  58  |  281  | Total vitamins count |
 |      |      |      |      |      |      |      |      |      |      |       | **3D printed parts** |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  | Back_Face.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | Base.stl |
@@ -299,10 +297,8 @@ Example printer startup gcode for PrusaSlicer is [here](../../documents/PrinterS
 |---:|:----------|
 |2| Bolt M3 buttonhead x 12mm|
 |2| Bolt M3 buttonhead x 25mm|
-|1| E3D V6 Fan Duct|
 |1| Fan 30mm x 10mm|
 |1| Hot end E3D V6 direct 1.75mm|
-|2| M3 self tapping screw x 16mm|
 
 
 ### 3D Printed parts
@@ -852,7 +848,7 @@ Note orientation of the JST connector.
 
 1. Attach the Base_Template to the aluminium sheet and use it to drill out the holes. The base template has 2mm holes marked out for pilot holes.
 Once you have drilled these re-drill the holes with a 3mm bit. Note that the Base_Template has holes marked for the BTT E3 Mini V2, the BTT E3 Turbo and the BTT STL 1.4 boards - choose the appropriate holes for your board.
-If you are unable to source an aluminium sheet, it is possible to print and use the Base.stl file, but using and aluminium plate is much prefered.
+If you are unable to source an aluminium sheet, it is possible to print and use the Base.stl file, but using and aluminium plate is much preferred.
 2. Attach the PSU_Supports to the base plate with double sided tape.
 3. Bolt the PSU_Bracket to the base plate.
 4. Attach the PSU to the base plate with the velcro straps.
@@ -1155,7 +1151,8 @@ Add the Top_Face.
 |1| Belt GT2 x 6mm x 728mm|
 |1| Belt GT2 x 6mm x 728mm|
 |2| Bolt M3 buttonhead x 10mm|
-|6| Bolt M3 buttonhead x 12mm|
+|2| Bolt M3 buttonhead x 12mm|
+|4| Bolt M3 countersunk x 12mm|
 |1| Spiral wrap, 500mm|
 
 
