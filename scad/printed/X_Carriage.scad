@@ -92,10 +92,7 @@ module xCarriageTopBolts(xCarriageType, countersunk = true) {
 
     translate_z(topThickness - carriage_height(xCarriageType) + eps)
         carriage_hole_positions(xCarriageType)
-            if (countersunk)
-                boltM3Countersunk(screw_shorter_than(topThickness + carriageHoleDepth));
-            else
-                boltM3Buttonhead(screw_shorter_than(topThickness + carriageHoleDepth));
+            bolt(countersunk ? M3_cs_cap_screw : M3_dome_screw, screw_shorter_than(topThickness + carriageHoleDepth));
 
     if (_useInsertsForXCarriage)
         for (x = xCarriageTopHolePositions(xCarriageType))
@@ -306,9 +303,9 @@ module xCarriageBeltFragments(xCarriageType, beltType, beltOffsetZ, coreXYSepara
                 beltFragment(xCarriageType, beltType, upperBeltColor);
 }
 
-module boltHoleM3TapOrInsert(length, useInsert = false, horizontal = false, rotate = 0, chamfer = 0.5, twist = undef, chamfer_both_ends = false) {
+module boltHoleM3TapOrInsert(length, useInsert = false, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = false, twist = undef) {
     if (useInsert)
-        insert_hole(F1BM3, horizontal = horizontal);
+        insert_hole(F1BM3, horizontal=horizontal);
     else
-        boltHole(M3_tap_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends);
+        boltHole(M3_tap_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, twist=twist);
 }

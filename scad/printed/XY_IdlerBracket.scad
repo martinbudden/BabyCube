@@ -77,7 +77,7 @@ module XY_IdlerBracketCutouts(coreXYPosBL) {
     translate([coreXYPosBL.y, coreXYPosBL.z, coreXYPosBL.x])
         translate([0, separation, 0])
             rotate([-90, 180, 0])
-                boltHoleM3TapOrInsert(sizeY, horizontal = true);
+                boltHoleM3TapOrInsert(sizeY, horizontal=true);
 }
 
 module idlerBracketHolePositions(size, separation) {
@@ -101,7 +101,7 @@ module idlerBracket(coreXYPosBL, NEMA_width, offset=0) {
             rounded_cube_xy(size - [0, 0, _sidePlateThickness], fillet);
             rotate([-90, 180, 0])
                 translate(boltPos)
-                    boltHoleM3(size.y, horizontal = true, chamfer = 1);
+                    boltHoleM3(size.y, horizontal=true, chamfer=1);
         }
     overlap = faceConnectorOverlap();
     topSize = [size.x, idlerBracketTopSizeY(), overlap + idlerBracketTopSizeZ() - _sidePlateThickness];
@@ -113,10 +113,10 @@ module idlerBracket(coreXYPosBL, NEMA_width, offset=0) {
                 cube([cutoutDepth + 2*eps, topSize.y+2*eps, overlap+eps]);
         translate([cutoutDepth, topSize.y/2, topSize.z - overlap/2])
             rotate([0, 90, 0])
-                boltHoleM3Tap(topSize.x - cutoutDepth, horizontal = true, chamfer_both_ends = true, rotate = 90);
+                boltHoleM3Tap(topSize.x - cutoutDepth, horizontal=true, rotate=90, chamfer_both_ends=true);
         rotate([-90, 180, 0])
             translate(boltPos)
-                boltHoleM3TapOrInsert(topSize.y - 2, horizontal = true, chamfer_both_ends = false);
+                boltHoleM3TapOrInsert(topSize.y - 2, horizontal=true, chamfer_both_ends=false);
     }
     // base
     translate([0, -2*separation - size.y + 2*fillet, 0])

@@ -324,9 +324,10 @@ module frameLower(NEMA_width, left=true, offset=0, cf=false) {
             rotate([90, 0, 180])
                 // !! changing bolthole length can cause STL file to become invalid
                 // try setting bolt length to eSizeZ -1 to fix.
-                //boltHoleM3TapOrInsert(eSizeZ - 2, horizontal = true);
-                //boltHoleM3TapOrInsert(eSizeZ, horizontal = true, chamfer_both_ends=true);
-                translate_z(-eps) poly_cylinder(r=M3_tap_radius, h=eSizeZ-2, sides=6);
+                //boltHoleM3TapOrInsert(eSizeZ - 2, horizontal=true);
+                //boltHoleM3TapOrInsert(eSizeZ, horizontal=true, chamfer_both_ends=true);
+                translate_z(-eps)
+                    poly_cylinder(r=M3_tap_radius, h=eSizeZ - 2, sides=6);
     }
     translate([eY + eSizeY, eSizeZ, offset])
         rotate(90)
