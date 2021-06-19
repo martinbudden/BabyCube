@@ -23,9 +23,9 @@ module _threadedInsertM3() {
     if ($preview&&is_undef($hide_bolts)) color(boltColorBrass) insert(F1BM3);
 }
 
-module boltHoleM3TapOrInsert(length, useInsert = false, horizontal = false, rotate = 0, chamfer = 0.5, twist = undef, chamfer_both_ends = false) {
+module boltHoleM3TapOrInsert(length, useInsert = false, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = false, twist = undef) {
     if (useInsert)
-        insert_hole(F1BM3, horizontal = horizontal);
+        insert_hole(F1BM3, horizontal=horizontal);
     else
-        boltHole(M3_tap_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends);
+        boltHole(M3_tap_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, twist=twist);
 }

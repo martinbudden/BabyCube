@@ -11,7 +11,7 @@ function _twist(radius, twist) = $preview ? 0 : is_undef(twist) ? (radius > M3_t
 
 // bolt holes
 
-module boltHole(diameter, length, horizontal = false, rotate = 0, chamfer = 0, twist = 0, chamfer_both_ends = true, cnc=false) {
+module boltHole(diameter, length, horizontal = false, rotate = 0, chamfer = 0, chamfer_both_ends = true, cnc = false, twist = 0) {
     //echo(twist=twist);
     //echo(_twist=_twist(diameter/2, twist));
     translate_z(-eps)
@@ -25,7 +25,7 @@ module boltHole(diameter, length, horizontal = false, rotate = 0, chamfer = 0, t
             poly_cylinder(r = diameter/2, h = length + 2*eps, twist = _twist(diameter/2, twist));
 }
 
-module boltHoleCounterbore(screw_type, length, boreDepth=undef, boltHeadTolerance=0, horizontal=false, chamfer=0, cnc=false) {
+module boltHoleCounterbore(screw_type, length, boreDepth = undef, boltHeadTolerance = 0, horizontal = false, chamfer = 0, cnc = false) {
     boltHole(2*screw_head_radius(screw_type) + boltHeadTolerance, is_undef(boreDepth) ? screw_head_height(screw_type) : boreDepth, horizontal=horizontal, chamfer=chamfer, chamfer_both_ends=false, cnc=cnc);
     boltHole(2*screw_clearance_radius(screw_type), length, horizontal, chamfer=chamfer, cnc=cnc);
 }
@@ -43,45 +43,45 @@ module boltHoleHangingCounterboreTap(screw_type, length) {
 
 // M2 bolt holes
 
-module boltHoleM2(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = undef, chamfer_both_ends = true) {
-    boltHole(M2_clearance_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends);
+module boltHoleM2(length, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = true, cnc = false, twist = undef) {
+    boltHole(M2_clearance_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
-module boltHoleM2Tap(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = undef, chamfer_both_ends = true, cnc=false) {
-    boltHole(M2_tap_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends, cnc=cnc);
+module boltHoleM2Tap(length, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = true, cnc = false, twist = undef) {
+    boltHole(M2_tap_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
 
 // M2p5 bolt holes
 
-module boltHoleM2p5(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = undef, chamfer_both_ends = true) {
-    boltHole(M2p5_clearance_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends);
+module boltHoleM2p5(length, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = true, cnc = false, twist = undef) {
+    boltHole(M2p5_clearance_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
-module boltHoleM2p5Tap(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = undef, chamfer_both_ends = true, cnc=false) {
-    boltHole(M2_tap_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends, cnc = cnc);
+module boltHoleM2p5Tap(length, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = true, cnc = false, twist = undef) {
+    boltHole(M2_tap_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
 
 // M3 bolt holes
 
-module boltHoleM3(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = undef, chamfer_both_ends = true, cnc=false) {
-    boltHole(M3_clearance_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends, cnc = cnc);
+module boltHoleM3(length, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = true, cnc = false, twist = undef) {
+    boltHole(M3_clearance_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
-module boltHoleM3Tap(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = undef, chamfer_both_ends = true, cnc=false) {
-    boltHole(M3_tap_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends, cnc = cnc);
+module boltHoleM3Tap(length, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = true, cnc = false, twist = undef) {
+    boltHole(M3_tap_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
 module boltPolyholeM3Countersunk(length, sink = 0) {
     screw_polysink(M3_cs_cap_screw, 2*length + 2*eps, sink = sink);
 }
 
-module boltHoleM3Counterbore(length, boreDepth=undef, boltHeadTolerance = 0, horizontal=false, cnc=false) {
+module boltHoleM3Counterbore(length, boreDepth = undef, boltHeadTolerance = 0, horizontal = false, cnc = false) {
     boltHoleCounterbore(M3_cap_screw, length, boreDepth, boltHeadTolerance, horizontal=horizontal, cnc=cnc);
 }
 
-module boltHoleM3CounterboreButtonhead(length, boreDepth=undef, boltHeadTolerance = 0.4, horizontal=false, cnc=false) {
+module boltHoleM3CounterboreButtonhead(length, boreDepth = undef, boltHeadTolerance = 0.4, horizontal = false, cnc = false) {
     boltHoleCounterbore(M3_dome_screw, length, boreDepth, boltHeadTolerance, horizontal=horizontal, cnc=cnc);
 }
 
@@ -89,7 +89,7 @@ module boltHoleM3HangingCounterbore(length) {
     boltHoleHangingCounterbore(M3_cap_screw, length);
 }
 
-module boltHoleM3HangingCounterbore(length, boreDepth=undef, boltHeadTolerance = 0) {
+module boltHoleM3HangingCounterbore(length, boreDepth = undef, boltHeadTolerance = 0) {
     boltHoleHangingCounterbore(M3_cap_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance);
 }
 
@@ -100,19 +100,19 @@ module boltHoleM3HangingCounterboreTap(length) {
 
 // M4 bolt holes
 
-module boltHoleM4(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = 0, chamfer_both_ends = true) {
-    boltHole(M4_clearance_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends);
+module boltHoleM4(length, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = true, cnc = false, twist = undef) {
+    boltHole(M4_clearance_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
-module boltHoleM4Tap(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = 0, chamfer_both_ends = true) {
-    boltHole(M4_tap_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends);
+module boltHoleM4Tap(length, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = true, cnc = false, twist = undef) {
+    boltHole(M4_tap_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
 module boltPolyholeM4Countersunk(length, sink = 0) {
     screw_polysink(M4_cs_cap_screw, 2*length + 2*eps, sink = sink);
 }
 
-module boltHoleM4CounterboreButtonhead(length, boreDepth=undef, boltHeadTolerance = 0.4, horizontal=false, chamfer=0.5, cnc=false) {
+module boltHoleM4CounterboreButtonhead(length, boreDepth = undef, boltHeadTolerance = 0.4, horizontal = false, chamfer = 0.5, cnc = false) {
     boltHoleCounterbore(M4_dome_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance, horizontal=horizontal, chamfer=0.5, cnc=cnc);
 }
 
@@ -123,12 +123,12 @@ module boltHoleM4HangingCounterboreButtonhead(length, boreDepth, boltHeadToleran
 
 // M5 bolt holes
 
-module boltHoleM5(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = 0, chamfer_both_ends = true) {
-    boltHole(M5_clearance_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends);
+module boltHoleM5(length, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = true, cnc = false, twist = undef) {
+    boltHole(M5_clearance_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
-module boltHoleM5Tap(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = 0, chamfer_both_ends = true) {
-    boltHole(M5_tap_radius*2, length, horizontal, rotate, chamfer, twist, chamfer_both_ends = chamfer_both_ends);
+module boltHoleM5Tap(length, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = true, cnc = false, twist = undef) {
+    boltHole(M5_tap_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
 module boltPolyholeM5Countersunk(length, sink = 0) {
@@ -138,11 +138,11 @@ module boltPolyholeM5Countersunk(length, sink = 0) {
 
 // M6 bolt holes
 
-module boltHoleM6(length, horizontal = false, rotate = 0, chamfer = 0.5, twist = 0, chamfer_both_ends = true) {
-    boltHole(M6_clearance_radius*2, length=length, horizontal=horizontal, rotate=rotate, chamfer=chamfer, twist=twist, chamfer_both_ends = chamfer_both_ends);
+module boltHoleM6(length, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = true, cnc = false, twist = undef) {
+    boltHole(M6_clearance_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
-module boltHoleM6Counterbore(length, boreDepth=undef, boltHeadTolerance = 0, cnc=false) {
+module boltHoleM6Counterbore(length, boreDepth = undef, boltHeadTolerance = 0, cnc = false) {
     boltHoleCounterbore(M6_cap_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance, cnc=cnc);
 }
 
@@ -169,7 +169,7 @@ module boltM3Caphead(length) {
     bolt(M3_cap_screw, length);
 }
 
-module boltM3Countersunk(length, boreDepth=undef) {
+module boltM3Countersunk(length, boreDepth = undef) {
     translate_z(is_undef(boreDepth) ? 0 : boreDepth)
         bolt(M3_cs_cap_screw, length);
 }
@@ -187,7 +187,7 @@ module boltM4Caphead(length) {
     bolt(M4_cap_screw, length);
 }
 
-module boltM4Countersunk(length, boreDepth=undef) {
+module boltM4Countersunk(length, boreDepth = undef) {
     translate_z(is_undef(boreDepth) ? 0 : boreDepth)
         bolt(M4_cs_cap_screw, length);
 }
@@ -201,7 +201,7 @@ module boltM5Caphead(length) {
     bolt(M5_cap_screw, length);
 }
 
-module boltM5Countersunk(length, boreDepth=undef) {
+module boltM5Countersunk(length, boreDepth = undef) {
     translate_z(is_undef(boreDepth)  ? 0 : boreDepth)
         bolt(M5_cs_cap_screw, length);
 }
