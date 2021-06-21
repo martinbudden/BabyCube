@@ -83,6 +83,8 @@ E
 C
 #define HOMING_BUMP_MM      { 0, 0, 0 }       // (mm) Backoff from endstops after first bump
 E
+#define HOME_Y_BEFORE_X                       // If G28 contains XY home Y before X
+E
 #define STATUS_MESSAGE_SCROLLING
 E
 #define LCD_SET_PROGRESS_MANUALLY
