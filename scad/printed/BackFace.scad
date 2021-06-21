@@ -160,7 +160,7 @@ module backFaceBare(NEMA_type) {
             }
             // cutouts for zipties
             zipTiePositions()
-                rounded_cube_xy(zipTieCutoutSize, r=0.5, xy_center=true, z_center=true);
+                rounded_cube_xy(zipTieCutoutSize, r=1, xy_center=true, z_center=true);
         }
     }
 
