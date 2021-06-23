@@ -141,7 +141,7 @@ module X_Carriage_stl() {
         color(pp1_colour)
             rotate([0, -90, 0]) {
                 difference() {
-                    xCarriageBack(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z, strainRelief=true, countersunk=_xCarriageCountersunk ? 4 : 0);
+                    xCarriageBack(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z, strainRelief=false, countersunk=_xCarriageCountersunk ? 4 : 0);
                     translate(accelerometerOffset())
                         rotate(180)
                             pcb_hole_positions(ADXL345)
