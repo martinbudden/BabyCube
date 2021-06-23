@@ -197,15 +197,14 @@ module frontLowerChordSKR_1_4(headless=false) {
         }
 
         frontLowerChordSKR_1_4_cutout(display_type);
-        translate([(eX + 2*eSizeX - cutoutSize.x)/2, 8, -eps])
-            mirror([0, 1, 0])
-                rotate([90, 0, 0])
-                    pcbPosition(pcb_type)
-                        pcb_screw_positions(pcb_type) {
-                            boltHoleM3Tap(cutoutOffset.y, horizontal = true);
-                            // add an access hole for the bolts
-                            translate_z(cutoutSize.y + cutoutOffset.y)
-                                boltHoleM3(frontLowerChordSize().y - (cutoutSize.y + cutoutOffset.y), horizontal = true);
-                        }
+        mirror([0, 1, 0])
+            rotate([90, 0, 0])
+                pcbPosition(pcb_type)
+                    pcb_screw_positions(pcb_type) {
+                        boltHoleM3Tap(cutoutOffset.y, horizontal = true);
+                        // add an access hole for the bolts
+                        translate_z(cutoutSize.y + cutoutOffset.y)
+                            boltHoleM3(frontLowerChordSize().y - (cutoutSize.y + cutoutOffset.y), horizontal = true);
+                    }
     }
 }
