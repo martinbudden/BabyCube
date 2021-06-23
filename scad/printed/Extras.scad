@@ -45,5 +45,5 @@ module faceRightSpool() {
 module Spool_Holder_stl() {
     stl("Spool_Holder")
         color(pp2_colour)
-            spoolHolder(bracketSize=[eSizeX, 30, 20], offsetX=spoolOffset().x, innerFillet=5);
+            spoolHolder(spoolHolderBracketSize(), offsetX=spoolOffset().x, innerFillet=5);
 }

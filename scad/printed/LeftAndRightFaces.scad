@@ -42,6 +42,8 @@ function extruderMotorOffsetZ() = upperWebThickness;
 function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - 2*NEMA_width + 2*35.2 - 40 - motorClearance().y, eZ - 73];
 function spoolHolderPosition() = [eX + 2*eSizeX, 24, eZ - 75];
 function frontReinforcementThickness() = 3;
+function spoolHolderBracketSize() = [eSizeX, 30, 20];
+
 
 module leftFace(NEMA_type) {
     assert(isNEMAType(NEMA_type));
@@ -225,6 +227,8 @@ module webbingRight(NEMA_type) {
     offset = 22.5;
     translate([0, middleWebOffsetZ(), 0])
         rounded_cube_xy([extruderPosition.y - offset - eSizeY + innerFillet, spoolHolderPosition().z - middleWebOffsetZ(), eSizeX], innerFillet);
+    translate([idlerBracketSize.x + spoolHolderBracketSize().z + 0.5, middleWebOffsetZ(), 0])
+        rounded_cube_xy([10, spoolHolderPosition().z - middleWebOffsetZ(), eSizeX + 5], 2);
     translate([extruderPosition.y - offset - eSizeY + innerFillet, middleWebOffsetZ() + eSizeZ, 0])
         fillet(innerFillet, eSizeX);
     translate([idlerBracketSize.x, spoolHolderPosition().z, 0])
