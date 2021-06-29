@@ -197,7 +197,7 @@ module grooveMountCutout(length) {
 function grooveMountClampStrainReliefOffset() = 7;
 function hotendStrainReliefClampHoleSpacing() = 12;
 
-module grooveMountClamp(size, hotend_type = 0) {
+module grooveMountClamp(size, hotend_type = 0, strainRelief = true) {
     fillet = 1.5;
     supportSize = [20, 12, 8];
 
@@ -205,23 +205,25 @@ module grooveMountClamp(size, hotend_type = 0) {
         union() {
             translate([-size.x/2 - grooveMountClampOffsetX()/2 + 1, -size.y/2, -size.z])
                 rounded_cube_xy(size, fillet);
-            translate([-supportSize.x/2, 0, -size.z]) {
-                rounded_cube_xy(supportSize, fillet);
-                translate([0, size.y/2, 0])
-                    rotate(90)
+            if (strainRelief)
+                translate([-supportSize.x/2, 0, -size.z]) {
+                    rounded_cube_xy(supportSize, fillet);
+                    translate([0, size.y/2, 0])
+                        rotate(90)
+                            fillet(2, supportSize.z);
+                    translate([supportSize.x, size.y/2, 0])
                         fillet(2, supportSize.z);
-                translate([supportSize.x, size.y/2, 0])
-                    fillet(2, supportSize.z);
-            }
+                }
         }
         translate([grooveMountOffsetX(hotend_type), 0, 0])
             grooveMountCutout(size.y);
         for (x = grooveMountHoleOffsets)
             translate([x, 0, -size.z])
                 boltHoleM3(size.z, twist=3);
-        for (x = [hotendStrainReliefClampHoleSpacing()/2, -hotendStrainReliefClampHoleSpacing()/2])
-            translate([x, grooveMountClampStrainReliefOffset(), -size.z])
-                boltHoleM3Tap(6);
+        if (strainRelief)
+            for (x = [hotendStrainReliefClampHoleSpacing()/2, -hotendStrainReliefClampHoleSpacing()/2])
+                translate([x, grooveMountClampStrainReliefOffset(), -size.z])
+                    boltHoleM3Tap(6);
     }
 }
 
