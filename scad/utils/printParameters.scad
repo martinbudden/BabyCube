@@ -5,13 +5,6 @@ include <NopSCADlib/core.scad>
 include <../Parameters_Main.scad>
 include <../Parameters_Positions.scad>
 
-/*
-Note, layer height ranges:
-0.4 : [  0.11,   0.34  ], at ew : [ 0.44, 0.68 ]
-0.5 : [  0.1375, 0.425 ], at ew : [ 0.55, 0.85 ]
-0.6 : [  0.165,  0.51  ], at ew : [ 0.66, 1.02 ]
-0.8 : [  0.22,   0.68  ], at ew : [ 0.88, 1.36 ]
-*/
 module echoPrintParameters() {
     //assert(extrusion_width >= 1.1*nozzle, "extrusion_width too small for nozzle");
     //assert(extrusion_width <= 1.7*nozzle, "extrusion_width too large for nozzle");
