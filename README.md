@@ -6,7 +6,7 @@ The **BabyCube** is a small 3D-printed CoreXY 3D printer with a linear rails mot
 
 ![BabyCube](pictures/babycube200_1000.jpg)
 
-The BabyCube has a print volume of approximately 100mm by 75mm by 60mm.
+The BabyCube has a print volume of approximately 90mm by 80mm by 60mm.
 
 The BOM cost is approximately £290 with a genuine E3D hotend, this does not include the cost of filament for printing parts, see [spreadsheet](documents/BabyCube200_BOM.ods). Price is current for May 2021.
 
