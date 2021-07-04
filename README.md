@@ -21,7 +21,7 @@ The assembly instructions and the BOM (parts list) are [here](BC200/readme.md). 
 
 I plan to make a series of YouTube videos giving build instructions, when I have done so I will post a link here.
 
-If you would like to build a larger printer, you may be interested in the BaybyCube's larger sibling, the [MaybeCube](https://github.com/martinbudden/MaybeCube)
+If you would like to build a larger printer, you may be interested in the BabyCube's larger sibling, the [MaybeCube](https://github.com/martinbudden/MaybeCube)
 
 ## Key Features
 
