@@ -10,7 +10,6 @@ use <../utils/carriageTypes.scad>
 use <../utils/PrintheadOffsets.scad>
 
 use <../vitamins/bolts.scad>
-include <../vitamins/pcbs.scad>
 
 use <Printhead.scad>
 use <X_Carriage.scad>
@@ -86,48 +85,25 @@ assembly("X_Carriage_Front", big=true) {
     }
 }
 
-module xCarriageFrontAssemblyBolts(xCarriageType, beltWidth) {
-    assert(isCarriageType(xCarriageType));
-
-    size = xCarriageFrontSize(xCarriageType, beltWidth);
-
-    translate([-size.x/2, -xCarriageFrontOffsetY(xCarriageType), 0]) {
-        // holes at the top to connect to the printhead
-        for (x = xCarriageTopHolePositions(xCarriageType))
-            translate([x, 0, xCarriageTopThickness()/2])
-                rotate([90, 90, 0])
-                    boltM3Buttonhead(10);
-        // holes at the bottom to connect to the printhead
-        for (x = xCarriageBottomHolePositions(xCarriageType))
-            translate([x, 0, -size.z + xCarriageTopThickness() + xCarriageBaseThickness()/2])
-                rotate([90, 90, 0])
-                    boltM3Buttonhead(12);
-    }
-}
-
-module xCarriageAssembly(xCarriageType, beltOffsetZ, coreXYSeparationZ) {
+module xCarriageBeltClamps(xCarriageType) {
     assert(is_list(xCarriageType));
 
     size = xCarriageBackSize(xCarriageType, _beltWidth);
-    hotend_type = 0;
 
-    //translate([-size.x/2-eps, carriage_size(xCarriageType).y/2 - beltInsetBack(xCarriageType) + xCarriageBackSize(xCarriageType).y, beltOffsetZ + coreXYSeparationZ/2]) {
-    //!!TODO fix magic number 5
-    translate([-size.x/2 - 1, carriage_size(xCarriageType).y/2 - beltInsetBack(xCarriageType) + xCarriageBackSize(xCarriageType).y, beltOffsetZ - 5]) {
+    translate([-size.x/2 - 1, 0, -coreXYSeparation().z/2])
         rotate([0, 90, 180])
             explode(10, true) {
                 stl_colour(pp2_colour)
                     Belt_Clamp_stl();
                 Belt_Clamp_hardware(_beltWidth);
             }
-        translate([size.x + 2, 0, coreXYSeparationZ])
-            rotate([0, 90, 0])
-                explode(10, true) {
-                    stl_colour(pp2_colour)
-                        Belt_Clamp_stl();
-                    Belt_Clamp_hardware(_beltWidth);
-                }
-    }
+    translate([size.x/2 + 1, 0, coreXYSeparation().z/2])
+        rotate([0, 90, 0])
+            explode(10, true) {
+                stl_colour(pp2_colour)
+                    Belt_Clamp_stl();
+                Belt_Clamp_hardware(_beltWidth);
+            }
 }
 
 module X_Carriage_stl() {
@@ -140,14 +116,7 @@ module X_Carriage_stl() {
     stl("X_Carriage")
         color(pp1_colour)
             rotate([0, -90, 0]) {
-                difference() {
-                    xCarriageBack(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z, strainRelief=false, countersunk=_xCarriageCountersunk ? 4 : 0);
-                    translate(accelerometerOffset())
-                        rotate(180)
-                            pcb_hole_positions(ADXL345)
-                                vflip()
-                                    boltHoleM3Tap(8, horizontal=true, rotate=-90);
-                }
+                xCarriageBack(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z, strainRelief=false, countersunk=_xCarriageCountersunk ? 4 : 0, accelerometerOffset = accelerometerOffset());
                 hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, blower_type, baffle=true, left=true);
             }
 }
@@ -167,15 +136,16 @@ assembly("X_Carriage", big=true, ngb=true) {
         stl_colour(pp1_colour)
             X_Carriage_stl();
 
-    xCarriageAssembly(xCarriageType, beltOffsetZ(), coreXYSeparation().z);
+    translate([0, carriage_size(xCarriageType).y/2 + xCarriageBackSize(xCarriageType).y - beltInsetBack(xCarriageType), beltOffsetZ()])
+        xCarriageBeltClamps(xCarriageType);
 
     grooveMountSize = grooveMountSize(blower_type, hotend_type);
 
     explode([-20, 0, 10], true)
         hotEndPartCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower_type, left=true);
     explode([-20, 0, -10], true)
-        translate([0, -1.5, hotendOffset.z])
-            blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type, left=false)
+        hotEndHolderAlign(hotendOffset, left=true)
+            blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type)
                 rotate([-90, 0, 0]) {
                     stl_colour(pp2_colour)
                         Fan_Duct_stl();
