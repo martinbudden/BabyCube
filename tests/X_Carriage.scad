@@ -26,7 +26,7 @@ module X_Carriage_test() {
     //Fan_Duct_stl();
     //rotate([0, 90, 0]) X_Carriage_Front_stl();
     X_Carriage_Front_assembly();
-    xCarriageFrontAssemblyBolts(xCarriageType(), _beltWidth);
+    xCarriageFrontBolts(xCarriageType(), _beltWidth);
 
     //let($preview=false)
     *translate([-xCarriageBackSize(xCarriageType).x/2, carriage_size(xCarriageType).y/2, 0])

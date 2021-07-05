@@ -32,36 +32,31 @@ assembly("Printhead", big=true) {
     xCarriageType = xCarriageType();
     blower_type = blower_type();
     hotend_type = 0;
+    hotendOffset = hotendOffset(xCarriageType, hotend_type);
 
     X_Carriage_assembly();
 
-    hotendOffset = hotendOffset(xCarriageType, hotend_type);
-    hotEndHolderAlign(xCarriageType, hotendOffset, left=true) {
-        explode([20, 0, 0])
-            hotEndHolderHardware(xCarriageType, hotend_type);
+    explode([20, 0, 0])
+        hotEndHolderHardware(xCarriageType, hotend_type);
 
-        translate(hotendClampOffset(xCarriageType, hotend_type))
-            rotate([90, 0, -90]) {
-                explode(-40, true) {
-                    stl_colour(pp2_colour)
-                        if (blower_size(blower_type).x == 30)
-                            Hotend_Clamp_stl();
-                        else
-                            Hotend_Clamp_40_stl();
-                    Hotend_Clamp_hardware(xCarriageType, blower_type, hotend_type);
-                }
-                explode(-60, true)
-                    translate([0, grooveMountClampStrainReliefOffset(), -grooveMountClampSize(blower_type, hotend_type).z - 5])
-                        vflip() {
-                            stl_colour(pp1_colour)
-                                Hotend_Strain_Relief_Clamp_stl();
-                            Hotend_Strain_Relief_Clamp_hardware();
-                        }
+    translate(hotendClampOffset(xCarriageType, hotend_type))
+        rotate([90, 0, -90]) {
+            explode(-40, true) {
+                stl_colour(pp2_colour)
+                    Hotend_Clamp_stl();
+                Hotend_Clamp_hardware(xCarriageType, blower_type, hotend_type);
             }
-    }
+            explode(-60, true)
+                translate([0, grooveMountClampStrainReliefOffset(), -grooveMountClampSize(blower_type, hotend_type).z - 5])
+                    vflip() {
+                        stl_colour(pp1_colour)
+                            Hotend_Strain_Relief_Clamp_stl();
+                        Hotend_Strain_Relief_Clamp_hardware();
+                    }
+        }
 }
 
-module fullPrinthead(rotate=0, explode=0, t= undef, accelerometer=false) {
+module fullPrinthead(rotate=0, explode=0, t=undef, accelerometer=false) {
     xCarriageType = xCarriageType();
 
     xRailCarriagePosition(t)
@@ -69,7 +64,7 @@ module fullPrinthead(rotate=0, explode=0, t= undef, accelerometer=false) {
             rotate(rotate) {// for debug, to see belts better
                 explode([0, -20, 0], true) {
                     X_Carriage_Front_assembly();
-                    xCarriageFrontAssemblyBolts(xCarriageType, _beltWidth);
+                    xCarriageFrontBolts(xCarriageType, _beltWidth);
                 }
                 Printhead_assembly();
                 xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk);
@@ -125,19 +120,15 @@ module Hotend_Strain_Relief_Clamp_hardware() {
 }
 
 module Hotend_Clamp_stl() {
-    blower_type = BL30x10;
-
     stl("Hotend_Clamp")
         color(pp2_colour)
-            grooveMountClamp(grooveMountClampSize(blower_type));
+            grooveMountClamp(grooveMountClampSize(BL30x10));
 }
 
 module Hotend_Clamp_40_stl() {
-    blower_type = BL40x10;
-
     stl("Hotend_Clamp")
         color(pp2_colour)
-            grooveMountClamp(grooveMountClampSize(blower_type));
+            grooveMountClamp(grooveMountClampSize(BL40x10));
 }
 
 module Hotend_Clamp_hardware(xCarriageType, blower_type, hotend_type) {
