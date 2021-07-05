@@ -124,7 +124,7 @@ module rightFaceStage1Assembly() {
 //! Note orientation of the JST connector.
 //!2. Attach the toothed idler pulleys to the frame, separated by the washers as shown.
 //!3. Thread the zip ties through the frame, but do not tighten them yet, since the extruder motor cable will also go through the zip ties.
-module Right_Face_Stage_1_assembly() pose(a=[55, 0, 25 + 280])
+module Right_Face_Stage_1_assembly() pose(a=[55, 0, 25 + 260])
 assembly("Right_Face_Stage_1", big=true, ngb=true) {
 
     if (_useInsertsForFaces)
