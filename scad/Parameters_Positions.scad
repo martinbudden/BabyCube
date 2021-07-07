@@ -9,8 +9,8 @@ _xMin = 33;// limited by part cooling fan hitting belts, Y_Carriage endstop set 
 _xMax = eX - 2*eSizeX - 52; // for E3D hotend, limited by hotend fan hitting belts (replace -10 by -4.5 for non-E3D)
 _yMin = 30.85; // limited by Y carriage hitting idler and X carriage front bolts hitting top face
 _yMax = eY - 67;
-_zMin = _printBedSize == 100 ? 77.35 : 59.5;
-_zMax = eZ - (_printBedSize == 100 ? 60.65 : 81);
+_zMin = _printBedSize == 100 ? 77.35 : _useCNC ? 63.5 : 59.5;
+_zMax = eZ - (_printBedSize == 100 ? 60.65 : _useCNC ? 59.5 : 81);
 
 // note values of _zRodSeparation (for zRodOffsetX) and heatedBedOffset
 

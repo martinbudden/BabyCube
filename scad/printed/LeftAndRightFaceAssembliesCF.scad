@@ -26,12 +26,12 @@ include <../Parameters_Main.scad>
 
 
 module Left_Face_Lower_Joiner_stl() {
-    NEMA_type = xyMotorType();
+    NEMA_width = NEMA_width(xyMotorType());
 
     stl("Left_Face_Lower_Joiner")
         color(pp1_colour)
             difference() {
-                frameLower(NEMA_width(NEMA_type), left=true, offset=_sidePlateThickness);
+                frameLower(NEMA_width, left=true, offset=_sidePlateThickness);
                 lowerSideJoinerHolePositions(_sidePlateThickness)
                     boltHoleM3Tap(eSizeXBase-_sidePlateThickness);
             }
@@ -48,14 +48,14 @@ module Left_Face_Upper_Joiner_stl() {
 }
 
 module Right_Face_Lower_Joiner_stl() {
-    NEMA_type = xyMotorType();
+    NEMA_width = NEMA_width(xyMotorType());
 
     stl("Right_Face_Lower_Joiner")
         color(pp1_colour)
             rotate(180)
                 mirror([0, 1, 0])
                     difference() {
-                        frameLower(NEMA_width(NEMA_type), left=false, offset=_sidePlateThickness);
+                        frameLower(NEMA_width, left=false, offset=_sidePlateThickness);
                         lowerSideJoinerHolePositions(_sidePlateThickness)
                             boltHoleM3Tap(eSizeXBase-_sidePlateThickness);
                     }
@@ -95,7 +95,7 @@ module topBoltHolder() {
 
 module Left_Face_CF_dxf() {
     dxf("Left_Face_CF")
-        leftFaceCF(NEMA14T());
+        leftFaceCF(NEMA_width(NEMA14));
 }
 
 CF3Red = CF3;//[ "CF3",       "Sheet carbon fiber",      3, [1, 0, 0],                false,  5,  5,  [0.5, 0, 0] ];
@@ -110,7 +110,7 @@ module Left_Face_CF() {
 
 module Right_Face_CF_dxf() {
     dxf("Right_Face_CF")
-        rightFaceCF(NEMA14T());
+        rightFaceCF(NEMA_width(NEMA14));
 }
 
 module Right_Face_CF() {
@@ -133,12 +133,9 @@ module xyMotorMountHolePositions(NEMA_width, left) {
     }
 }
 
-module leftFaceCF(NEMA_type) {
-    assert(isNEMAType(NEMA_type));
-
+module leftFaceCF(NEMA_width) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
 
-    NEMA_width = NEMA_width(NEMA_type);
     difference() {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2]) {
@@ -162,12 +159,9 @@ module leftFaceCF(NEMA_type) {
     }
 }
 
-module rightFaceCF(NEMA_type) {
-    assert(isNEMAType(NEMA_type));
-
+module rightFaceCF(NEMA_width) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
 
-    NEMA_width = NEMA_width(NEMA_type);
     difference() {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2]) {
@@ -203,7 +197,8 @@ assembly("Left_Face_CF", big=true) {
     translate([-eps, 0, 0])
         rotate([90, 0, 90]) {
             Left_Face_CF();
-            Left_Face_Lower_Joiner_stl();
+            stl_colour(pp1_colour)
+                Left_Face_Lower_Joiner_stl();
             lowerSideJoinerHolePositions()
                 vflip()
                     boltM3Buttonhead(screw_shorter_than(topBoltHolderSize().z + _sidePlateThickness));
@@ -213,14 +208,15 @@ assembly("Left_Face_CF", big=true) {
             xyMotorMountHolePositions(_xyNEMA_width, left=true)
                 vflip()
                     boltM3Buttonhead(10);
-            Left_Face_Upper_Joiner_stl();
+            stl_colour(pp1_colour)
+                Left_Face_Upper_Joiner_stl();
             upperSideJoinerHolePositions()
                 vflip()
                     boltM3Buttonhead(8);
         }
     XY_Motor_Mount_Left_assembly();
     XY_Idler_Bracket_Left_assembly();
-    leftFaceHardware(xyMotorType(), rocker=false);
+    leftFaceHardware(xyMotorType(), motor=false, rocker=false);
 }
 
 module Right_Face_CF_assembly() pose(a=[55, 0, 25 + 50])
@@ -239,12 +235,14 @@ assembly("Right_Face_CF", big=true) {
                 boltM3Buttonhead(8);
         }
         rotate([90, 0, -90]) {
-            Right_Face_Lower_Joiner_stl();
-            Right_Face_Upper_Joiner_stl();
+            stl_colour(pp1_colour)
+                Right_Face_Lower_Joiner_stl();
+            stl_colour(pp1_colour)
+                Right_Face_Upper_Joiner_stl();
         }
     }
     XY_Motor_Mount_Right_assembly();
     XY_Idler_Bracket_Right_assembly();
-    rightFaceHardware(xyMotorType());
+    rightFaceHardware(xyMotorType(), motor=false);
     rightFaceAssembly(_xyNEMA_width);
 }

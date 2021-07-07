@@ -155,6 +155,8 @@ module CF_FinalAssembly() {
         fullPrinthead();
     *if (!exploded())
         printheadWiring();
+    if (!exploded())
+        CoreXYBelts(carriagePosition());
 }
 
 
