@@ -49,7 +49,7 @@ module Right_Face_NEMA_17_stl() {
 module leftFaceAssembly() {
     translate([-eps, 0, 0])
         rotate([90, 0, 90]) {
-            if (_xyMotorDescriptor=="NEMA14") {
+            if (_xyMotorDescriptor == "NEMA14") {
                 Left_Face_stl();
                 *hidden()
                     Left_Face_NEMA_17_stl();
@@ -61,18 +61,18 @@ module leftFaceAssembly() {
         }
 }
 
-module leftFaceHardware(NEMA_type, motor=true, rocker=true) {
+module leftFaceHardware(NEMA_type, cnc=false, rocker=true) {
     rotate([90, 0, 90]) {
-        XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), yCarriageType()));
-        if (motor)
+        if (!cnc) {
+            XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), yCarriageType()));
             XY_MotorUprightHardware(NEMA_type, left=true);
-        stepper_motor_cable(400);
-        if (!exploded())
-            leftAndRightFaceZipTies(left=true);
-        if (rocker)
             translate(rockerPosition(rocker_type()))
                 rotate([0, -90, 0])
                     rocker(rocker_type(), "red");
+        }
+        stepper_motor_cable(400);
+        if (!exploded())
+            leftAndRightFaceZipTies(left=true);
     }
 }
 
@@ -94,30 +94,18 @@ assembly("Left_Face", big=true) {
     Switch_Shroud_bolts();
 }
 
-module Right_Face_with_Inserts_assembly() pose(a=[55, 0, 25 + 180])
-assembly("Right_Face_with_Inserts", big=true) {
-    stl_colour(pp1_colour)
-        rightFacePart1Assembly();
-    translate([eX + 2 * eSizeX + eps, 0, 0])
-        rotate([90, 0, 90])
-            vflip()
-                mirror([0, 1, 0])
-                    XY_IdlerBracketThreadedInsert(coreXYPosBL(NEMA_width));
-}
-
 module rightFaceStage1Assembly() {
     translate([eX + 2 * eSizeX + eps, 0, 0])
-        rotate([90, 0, 90])
-            hflip()
-                if (_xyMotorDescriptor=="NEMA14") {
-                    Right_Face_stl();
-                    *hidden()
-                        Right_Face_NEMA_17_stl();
-                } else {
+        rotate([90, 0, -90])
+            if (_xyMotorDescriptor=="NEMA14") {
+                Right_Face_stl();
+                *hidden()
                     Right_Face_NEMA_17_stl();
-                    *hidden()
-                        Right_Face_stl();
-                }
+            } else {
+                Right_Face_NEMA_17_stl();
+                *hidden()
+                    Right_Face_stl();
+            }
 }
 
 //!1. Place the cork damper on the stepper motor and bolt the motor to the frame.
@@ -128,11 +116,8 @@ module rightFaceStage1Assembly() {
 module Right_Face_Stage_1_assembly() pose(a=[55, 0, 25 + 260])
 assembly("Right_Face_Stage_1", big=true, ngb=true) {
 
-    if (_useInsertsForFaces)
-        Right_Face_with_Inserts_assembly();
-    else
-        stl_colour(pp1_colour)
-            rightFaceStage1Assembly();
+    stl_colour(pp1_colour)
+        rightFaceStage1Assembly();
     rightFaceHardware(xyMotorType());
 }
 
@@ -147,18 +132,18 @@ module rightFaceAssembly(NEMA_width) {
 }
 
 
-module rightFaceHardware(NEMA_type, motor=true) {
+module rightFaceHardware(NEMA_type, cnc=false) {
     translate([eX + 2*eSizeX, 0, 0])
-        rotate([90, 0, 90])
-            vflip()
-                mirror([0, 1, 0]) {
-                    XY_IdlerBracketHardware(coreXYPosBL(_xyNEMA_width, yCarriageType()));
-                    if (motor)
-                        XY_MotorUprightHardware(NEMA_type, left=false);
-                    stepper_motor_cable(400);
-                    if (!exploded())
-                        leftAndRightFaceZipTies(left=false);
+        rotate([-90, 0, 90])
+            mirror([0, 1, 0]) {
+                if (!cnc) {
+                    XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), yCarriageType()));
+                    XY_MotorUprightHardware(NEMA_type, left=false);
                 }
+                stepper_motor_cable(400);
+                if (!exploded())
+                    leftAndRightFaceZipTies(left=false);
+            }
 }
 
 //!1. Attach the extruder gear to the stepper motor.
