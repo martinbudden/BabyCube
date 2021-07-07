@@ -61,10 +61,11 @@ module leftFaceAssembly() {
         }
 }
 
-module leftFaceHardware(NEMA_type, rocker=true) {
+module leftFaceHardware(NEMA_type, motor=true, rocker=true) {
     rotate([90, 0, 90]) {
         XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), yCarriageType()));
-        XY_MotorUprightHardware(NEMA_type, left=true);
+        if (motor)
+            XY_MotorUprightHardware(NEMA_type, left=true);
         stepper_motor_cable(400);
         if (!exploded())
             leftAndRightFaceZipTies(left=true);
@@ -146,13 +147,14 @@ module rightFaceAssembly(NEMA_width) {
 }
 
 
-module rightFaceHardware(NEMA_type) {
+module rightFaceHardware(NEMA_type, motor=true) {
     translate([eX + 2*eSizeX, 0, 0])
         rotate([90, 0, 90])
             vflip()
                 mirror([0, 1, 0]) {
                     XY_IdlerBracketHardware(coreXYPosBL(_xyNEMA_width, yCarriageType()));
-                    XY_MotorUprightHardware(NEMA_type, left=false);
+                    if (motor)
+                        XY_MotorUprightHardware(NEMA_type, left=false);
                     stepper_motor_cable(400);
                     if (!exploded())
                         leftAndRightFaceZipTies(left=false);
