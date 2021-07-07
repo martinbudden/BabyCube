@@ -1,12 +1,9 @@
 # Marlin Configuration
 
-D - Disable
-E - Enable
-C - Change
+D - Disable, ie place `//` at the start of a line<br>
+E - Enable, ie delete the `//` at the start of a line<br>
+C - Change<br>
 E&C - Enable and Change
-
-Disable by placing `//` at the start of a line.
-Enable by deleting `//` at the start of a line.
 
 ## Configuration.h
 
@@ -31,7 +28,7 @@ C
 #define Z_DRIVER_TYPE  TMC2209
 #define E0_DRIVER_TYPE TMC2209
 C
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 3200, 136 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 136 }
 D
 //#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 E
@@ -47,8 +44,8 @@ C
 #define Y_BED_SIZE 75
 
 C
-#define X_MIN_POS -7
-#define Y_MIN_POS -1
+#define X_MIN_POS -12
+#define Y_MIN_POS 0
 #define Z_MAX_POS 60
 E
 #define AUTO_BED_LEVELING_3POINT
@@ -73,15 +70,17 @@ E
 ## Configuration_adv.h
 
 ```h
-#define FAN_MAX_PWM 157    // To run 12V fan at 19.5V, 12/19.5*255=157
+#define FAN_MAX_PWM 157  // To run 12V fan at 19.5V, 12/19.5*255=157
 C
 #define E0_AUTO_FAN_PIN FAN1_PIN
 C
-#define EXTRUDER_AUTO_FAN_SPEED 157    // To run 12V fan at 19.5V, 12/19.5*255=157
+#define EXTRUDER_AUTO_FAN_SPEED 150  // To run 12V fan at 19.5V, 12/19.5*255=157, set to 150, just below max speed to reduce noise
 E
-#define SENSORLESS_BACKOFF_MM  { 2, 2 }       // (mm) Backoff from endstops before sensorless homing
+#define SENSORLESS_BACKOFF_MM  { 2, 2, 0 }       // (mm) Backoff from endstops before sensorless homing
 C
 #define HOMING_BUMP_MM      { 0, 0, 0 }       // (mm) Backoff from endstops after first bump
+C
+#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }    // (mm) Backoff from endstops after homing
 E
 #define HOME_Y_BEFORE_X                       // If G28 contains XY home Y before X
 E
