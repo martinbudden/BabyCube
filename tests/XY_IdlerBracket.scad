@@ -4,7 +4,6 @@ include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../scad/printed/XY_IdlerBracket.scad>
-use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 
 use <../scad/utils/CoreXYBelts.scad>
 
@@ -27,8 +26,6 @@ module XY_IdlerBracket_test() {
     XY_Idler_Bracket_Left_assembly();
     //XY_Idler_Bracket_Right_stl();
     XY_Idler_Bracket_Right_assembly();
-    //Left_Face_assembly();
-    //Right_Face_assembly();
 }
 
 if ($preview)
