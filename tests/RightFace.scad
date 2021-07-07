@@ -27,11 +27,13 @@ module Right_Face_test() {
     echoPrintParameters();
     //CoreXYBelts(carriagePosition(), x_gap=16);
 
-    Right_Face_assembly();
+    if (_useCNC)
+        Right_Face_CF_assembly();
+    else
+        Right_Face_assembly();
     faceRightSpoolHolder();
     faceRightSpool();
     bowdenTube();
-    //Right_Face_CF_assembly();
     //Right_Face_stl();
     //Right_Face_NEMA_17_stl();
 
