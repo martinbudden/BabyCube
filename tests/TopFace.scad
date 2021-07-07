@@ -52,7 +52,7 @@ module Top_Face_test() {
 
     //Top_Face_Stage_1_assembly();
     //Top_Face_Stage_2_assembly();
-    if (_variant == "BC200CF")
+    if (_useCNC)
         Top_Face_CF_assembly();
     else
         Top_Face_assembly();

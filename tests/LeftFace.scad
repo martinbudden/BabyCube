@@ -33,8 +33,10 @@ module Left_Face_test() {
     //CoreXYBelts(carriagePosition());
 
     //zipTieCutout();
-    Left_Face_assembly();
-    //Left_Face_CF_assembly();
+    if (_useCNC)
+        Left_Face_CF_assembly();
+    else
+        Left_Face_assembly();
     *rotate([90, 0, 90]) hflip()
         Switch_Shroud_stl();
     //Right_Face_assembly();

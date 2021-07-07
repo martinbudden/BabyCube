@@ -20,8 +20,10 @@ module Back_Face_test() {
     //translate_z(bedHeight()) Print_bed_3_point_assembly();
     //translate_z(bedHeight()) Print_bed_assembly();
     //translate_z(_zMin) Print_bed_3_point_printed_assembly();
-    Back_Face_assembly();
-    //Back_Face_CF_assembly();
+    if (_useCNC)
+        Back_Face_CF_assembly();
+    else
+        Back_Face_assembly();
     *let($preview=false)
         Back_Face_stl();
     //Back_Face_CF();
