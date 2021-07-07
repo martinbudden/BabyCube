@@ -22,4 +22,4 @@ _xCarriageCountersunk = true;
 _yCarriageDescriptor = "MGN9C";
 _beltWidth = 6;
 
-_printBedSize = 100;
+_printBedSize = 120;
