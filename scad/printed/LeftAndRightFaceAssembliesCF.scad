@@ -52,25 +52,23 @@ module Right_Face_Lower_Joiner_stl() {
 
     stl("Right_Face_Lower_Joiner")
         color(pp1_colour)
-            rotate(180)
-                mirror([0, 1, 0])
-                    difference() {
-                        frameLower(NEMA_width, left=false, offset=_sidePlateThickness);
-                        lowerSideJoinerHolePositions(_sidePlateThickness)
-                            boltHoleM3Tap(eSizeXBase-_sidePlateThickness);
-                    }
+            mirror([0, 1, 0])
+                difference() {
+                    frameLower(NEMA_width, left=false, offset=_sidePlateThickness);
+                    lowerSideJoinerHolePositions(_sidePlateThickness)
+                        boltHoleM3Tap(eSizeXBase-_sidePlateThickness);
+                }
 }
 
 module Right_Face_Upper_Joiner_stl() {
     stl("Right_Face_Upper_Joiner")
         color(pp1_colour)
-            rotate(180)
-                mirror([0, 1, 0])
-                    difference() {
-                        topBoltHolder();
-                        upperSideJoinerHolePositions(_sidePlateThickness)
-                            boltHoleM3Tap(topBoltHolderSize().z);
-                    }
+            mirror([0, 1, 0])
+                difference() {
+                    topBoltHolder();
+                    upperSideJoinerHolePositions(_sidePlateThickness)
+                        boltHoleM3Tap(topBoltHolderSize().z);
+                }
 }
 
 module topBoltHolder() {
@@ -124,7 +122,7 @@ module Right_Face_CF() {
 
 module xyMotorMountHolePositions(NEMA_width, left) {
     xyPos = xyMotorPosition(NEMA_width, left);
-    translate([eY + 2*eSizeY - 4, xyPos.y +3 ]) {
+    translate([eY + 2*eSizeY - 4, xyPos.y + 3]) {
         children();
         translate([0, 18])
             children();
@@ -197,8 +195,12 @@ assembly("Left_Face_CF", big=true) {
     translate([-eps, 0, 0])
         rotate([90, 0, 90]) {
             Left_Face_CF();
-            stl_colour(pp1_colour)
-                Left_Face_Lower_Joiner_stl();
+            explode(20) {
+                stl_colour(pp1_colour)
+                    Left_Face_Lower_Joiner_stl();
+                stl_colour(pp1_colour)
+                    Left_Face_Upper_Joiner_stl();
+            }
             lowerSideJoinerHolePositions()
                 vflip()
                     boltM3Buttonhead(screw_shorter_than(topBoltHolderSize().z + _sidePlateThickness));
@@ -208,15 +210,15 @@ assembly("Left_Face_CF", big=true) {
             xyMotorMountHolePositions(_xyNEMA_width, left=true)
                 vflip()
                     boltM3Buttonhead(10);
-            stl_colour(pp1_colour)
-                Left_Face_Upper_Joiner_stl();
             upperSideJoinerHolePositions()
                 vflip()
                     boltM3Buttonhead(8);
         }
-    XY_Motor_Mount_Left_assembly();
-    XY_Idler_Bracket_Left_assembly();
-    leftFaceHardware(xyMotorType(), motor=false, rocker=false);
+    explode([20, 0, 0]) {
+        XY_Motor_Mount_Left_assembly();
+        XY_Idler_Bracket_Left_assembly();
+    }
+    leftFaceHardware(xyMotorType(), cnc=true);
 }
 
 module Right_Face_CF_assembly() pose(a=[55, 0, 25 + 50])
@@ -234,15 +236,18 @@ assembly("Right_Face_CF", big=true) {
             upperSideJoinerHolePositions()
                 boltM3Buttonhead(8);
         }
-        rotate([90, 0, -90]) {
-            stl_colour(pp1_colour)
-                Right_Face_Lower_Joiner_stl();
-            stl_colour(pp1_colour)
-                Right_Face_Upper_Joiner_stl();
-        }
+        explode([-20, 0, 0])
+            rotate([-90, 0, 90]) {
+                stl_colour(pp1_colour)
+                    Right_Face_Lower_Joiner_stl();
+                stl_colour(pp1_colour)
+                    Right_Face_Upper_Joiner_stl();
+            }
     }
-    XY_Motor_Mount_Right_assembly();
-    XY_Idler_Bracket_Right_assembly();
-    rightFaceHardware(xyMotorType(), motor=false);
+    explode([-20, 0, 0]) {
+        XY_Motor_Mount_Right_assembly();
+        XY_Idler_Bracket_Right_assembly();
+    }
+    rightFaceHardware(xyMotorType(), cnc=true);
     rightFaceAssembly(_xyNEMA_width);
 }
