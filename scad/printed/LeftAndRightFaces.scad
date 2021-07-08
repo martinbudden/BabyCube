@@ -42,7 +42,7 @@ function extruderMotorOffsetZ() = upperWebThickness;
 function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - 2*NEMA_width + 2*35.2 - 40 - motorClearance().y, eZ - 73];
 function spoolHolderPosition() = [eX + 2*eSizeX, 24, eZ - 75];
 function frontReinforcementThickness() = 3;
-function spoolHolderBracketSize() = [eSizeX, 30, 20];
+function spoolHolderBracketSize(cf=false) = [cf ? 3 : eSizeX, 30, 20];
 
 
 module leftFace(NEMA_type) {

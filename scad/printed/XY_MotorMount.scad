@@ -34,9 +34,9 @@ pulleyOffset = pulley_height(GT2x20ob_pulley) - pulley_hub_length(GT2x20ob_pulle
 
 //function motorUprightThickness() = eSizeY - 5;
 
-function XY_MotorMountSize(NEMA_width, basePlateThickness=basePlateThickness) = [
+function XY_MotorMountSize(NEMA_width, basePlateThickness=basePlateThickness, cf=false) = [
     floor(NEMA_width) + motorClearance().x - _sidePlateThickness,
-    NEMA_width + motorClearance().y + 1.5,
+    NEMA_width + motorClearance().y + 1.5 + (cf ? 2 : 0),
     basePlateThickness
 ];
 
@@ -132,12 +132,23 @@ module XY_MotorUprightHardware(NEMA_type, left=true) {
             XY_MotorMountHardware(NEMA_type, basePlateThickness);
 }
 
+function xyMotorMountHolePositions(sizeY) = [ [-4, 0], [-sizeY + 4, 0], [-4, 18] ];
+
+module xyMotorMountHolePositions(NEMA_width, left) {
+    xyPos = xyMotorPosition(NEMA_width, left);
+    size = XY_MotorMountSize(NEMA_width, cf=true);
+    translate([eY + 2*eSizeY, xyPos.y + 3])
+        for (pos = xyMotorMountHolePositions(size.y))
+            translate(pos)
+                children();
+}
+
 module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness, offset=0, cf=false) {
     assert(isNEMAType(NEMA_type));
     assert(offset >= yRailSupportThickness());
 
     NEMA_width = NEMA_width(NEMA_type);
-    size = XY_MotorMountSize(NEMA_width);
+    size = XY_MotorMountSize(NEMA_width, cf=cf);
     fillet = _fillet;
     braceWidth = 3;
     braceHeight = offset - yRailSupportThickness();
@@ -180,15 +191,11 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
                 rotate([180, 0, 90])
                     boltHoleM3(basePlateThickness, horizontal = !cf);
 
-        translate([-NEMA_width/2 - motorClearance().x + _sidePlateThickness,NEMA_width/2 + motorClearance().y, basePlateThickness/2]) {
-            for (y = [-4, -size.y+4])
-                translate([0, y, 0])
-                    rotate([0, 90, 0])
+        translate([-NEMA_width/2 - motorClearance().x + _sidePlateThickness,NEMA_width/2 + motorClearance().y, basePlateThickness/2])
+            rotate([90, 0, 90])
+                for (pos = xyMotorMountHolePositions(size.y))
+                    translate(pos)
                         boltHoleM3Tap(10, horizontal=true, chamfer_both_ends=false, rotate=90);
-            translate([0, -4, 18])
-                rotate([0, 90, 0])
-                    boltHoleM3Tap(10, horizontal=true, chamfer_both_ends=false, rotate=90);
-        }
 
         translate([-NEMA_width/2-motorClearance().x + _sidePlateThickness, NEMA_width/2 + motorClearance().y - backBraceThickness, 0]) {
                         translate([_backFaceHoleInset - _sidePlateThickness, 0, offset - (eZ - backFaceHolePositions()[2])])
