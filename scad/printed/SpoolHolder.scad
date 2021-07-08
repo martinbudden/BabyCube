@@ -66,33 +66,31 @@ module spoolHolderBracket(size, bracketThickness, topThickness, innerFillet) {
 module spoolHolder(bracketSize, offsetX, innerFillet) {
     bracketThickness = 5;
     capPosX = offsetX - bracketThickness;
-    size = [capPosX + 80, 20, 20];
+    size = [capPosX + 80, 20, bracketSize.z];
     clampThickness = 8;
 
-    translate([0, -bracketSize.y, -size.z/2]) {
-        translate([-bracketSize.x - bracketThickness, 0, 0])
+    translate_z(-size.z/2) {
+        translate([-bracketSize.x - bracketThickness, -bracketSize.y, 0])
             spoolHolderBracket(bracketSize, bracketThickness, clampThickness, innerFillet);
-        translate([0, bracketSize.y, 0])
-            cube([size.x, bracketThickness, size.z]);
-        translate([capPosX, bracketSize.y + bracketThickness, bracketSize.z/2])
+        cube([size.x, bracketThickness, size.z]);
+        cube([capPosX, clampThickness, size.z]);
+        translate([capPosX, bracketThickness, size.z/2])
             rotate([0, 90, 0])
                 spoolHolderCap(size.z, size.x - capPosX);
-        translate([0, bracketSize.y, 0]) {
-            cube([capPosX, clampThickness, size.z]);
-            translate([capPosX, clampThickness, 0])
-                rotate(90)
-                    fillet(2, size.z);
-        }
-        translate([bracketThickness, bracketSize.y, size.z])
+        translate([capPosX, clampThickness, 0])
+            rotate(90)
+                fillet(2, size.z);
+        translate([bracketThickness, 0, size.z])
             rotate([180, 0, 0])
                 right_triangle(size.x - bracketThickness, bracketSize.y, size.z, center=false);
         endHeight = 20;
         for (x = [capPosX, size.x - bracketThickness]) {
-            translate([x, bracketSize.y + bracketThickness, 0])
+            translate([x, bracketThickness, 0]) {
                 cube([bracketThickness, endHeight, size.z]);
-            translate([x, bracketSize.y + bracketThickness + endHeight, size.z/2])
-                rotate([0, 90, 0])
-                    spoolHolderEndCap(size.z, bracketThickness);
+                translate([0, endHeight, size.z/2])
+                    rotate([0, 90, 0])
+                        spoolHolderEndCap(size.z, bracketThickness);
+            }
         }
     }
 }
