@@ -158,6 +158,14 @@ module backFaceAllHolePositions(z=0) {
         children();
 }
 
+// front face
+module frontFaceHolePositions(z=0) {
+    size = [eX + 2*eSizeX, eZ];
+    for (x = [30, size.x - 30])
+        translate([x, size.y - 15.5, z])
+            children();
+}
+
 // top face
 module topFaceFrontHolePositions(z=0) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
@@ -176,7 +184,6 @@ module topFaceBackHolePositions(z=0) {
 
 module backFaceTopHolePositions(z=0) {
     size = [eX + 2*eSizeX, eZ];
-    //for (x = [size.x/2 - topBackHoleOffset.x, size.x/2 + topBackHoleOffset.x ])
     for (x = topFaceBackHolePositions())
         translate([x, eZ - _topPlateThickness, topFaceBackHolePositionOffsetY()])
             children();

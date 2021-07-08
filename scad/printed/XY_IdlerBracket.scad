@@ -105,7 +105,6 @@ module idlerBracket(coreXYPosBL, NEMA_width, offset=0) {
     separation = coreXYSeparation().z;
 
     boltPos = [-coreXYPosBL.y + offset, coreXYPosBL.x - _sidePlateThickness, 0];
-    //baseLength = eZ - coreXYPosBL.z + separation + size.y - yRailSupportSize(NEMA_width).y;
     cutout = offset ? false : true;
 
     translate([0, -2*separation + yCarriageBraceThickness() - size.y])
@@ -122,7 +121,7 @@ module idlerBracket(coreXYPosBL, NEMA_width, offset=0) {
         cutoutDepth = cutout ? faceConnectorOverlapHeight() : 0;
         if (cutout)
             translate([-eps, -eps, topSize.z - overlap])
-                cube([cutoutDepth + 2*eps, topSize.y+2*eps, overlap+eps]);
+                cube([cutoutDepth + 2*eps, topSize.y + 2*eps, overlap + eps]);
         translate([cutoutDepth, topSize.y/2, topSize.z - overlap/2])
             rotate([0, 90, 0])
                 boltHoleM3Tap(topSize.x - cutoutDepth, horizontal=true, rotate=90, chamfer_both_ends=true);
@@ -157,7 +156,7 @@ module XY_IdlerBracketHardware(coreXYPosBL) {
         rotate([-90, 0, 0]) {
             translate([boltPos.x, -boltPos.y, -separation - size.y - 1])
                 vflip()
-                    boltM3Countersunk(screw_shorter_than(2*(separation + size.y)));
+                    boltM3Countersunk(screw_shorter_than(2*separation + idlerBracketTopSizeY() + size.y));
             for (z = [0, -separation])
                 translate([boltPos.x, -boltPos.y, z + yCarriageBraceThickness()/2])
                     explode([-40, 0, 0], true)
