@@ -24,12 +24,15 @@ module bowdenTube(extraZ=120) {
             bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition().x + eSizeX - 6 - xCarriageFrontSize(xCarriageType()).x/2, carriagePosition().y + xCarriageBackOffsetY(xCarriageType()), eZ] + printheadBowdenOffset(), ptfeTube=true, extraZ=extraZ);
 }
 
-module faceRightSpoolHolder() {
+module faceRightSpoolHolder(cf=false) {
     explode([75, 0, 100])
         translate(spoolHolderPosition())
             rotate([90, 0, 0])
                 stl_colour(pp2_colour)
-                    Spool_Holder_stl();
+                    if (cf)
+                        Spool_Holder_CF_stl();
+                    else
+                        Spool_Holder_stl();
 }
 
 module faceRightSpool() {
@@ -45,5 +48,11 @@ module faceRightSpool() {
 module Spool_Holder_stl() {
     stl("Spool_Holder")
         color(pp2_colour)
-            spoolHolder(spoolHolderBracketSize(), offsetX=spoolOffset().x, innerFillet=5);
+            spoolHolder(spoolHolderBracketSize(cf=false), offsetX=spoolOffset().x, innerFillet=5);
+}
+
+module Spool_Holder_CF_stl() {
+    stl("Spool_Holder_CF")
+        color(pp2_colour)
+            spoolHolder(spoolHolderBracketSize(cf=true), offsetX=spoolOffset().x, innerFillet=5);
 }
