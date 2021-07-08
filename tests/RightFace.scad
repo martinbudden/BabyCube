@@ -4,6 +4,7 @@ include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../scad/printed/BackFace.scad>
+use <../scad/printed/Base.scad>
 use <../scad/printed/Extras.scad>
 use <../scad/printed/LeftAndRightFaces.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
@@ -31,8 +32,8 @@ module Right_Face_test() {
         Right_Face_CF_assembly();
     else
         Right_Face_assembly();
-    faceRightSpoolHolder();
-    faceRightSpool();
+    faceRightSpoolHolder(cf=_useCNC);
+    //faceRightSpool();
     bowdenTube();
     //Right_Face_stl();
     //Right_Face_NEMA_17_stl();
@@ -46,6 +47,7 @@ module Right_Face_test() {
     //bowdenTube();
     //hotEndWiring();
 
+    //Base_assembly();
     //Back_Face();
     *translate([-eY-eSizeY, 0, eX+2*eSizeX])
         rotate([0, 90, 0])
