@@ -33,6 +33,8 @@ module Front_Face_CF_dxf() {
                 translate([insetX, 50])
                     rounded_square([size.x - 2*insetX, eZ - insetY - 50], 3, center=false);
                 backFaceSideCutouts(cnc=true, plateThickness=_frontPlateCFThickness, dogBoneThickness=0);
+                frontFaceHolePositions()
+                    circle(r = M3_clearance_radius);
                 translate([rockerPosition(rocker_type()).z, rockerPosition(rocker_type()).y])
                     rocker_hole(rocker_type(), 0, rounded = false);
 
@@ -68,6 +70,8 @@ assembly("Front_Face_CF") {
         Front_Face_CF();
         translate([rockerPosition(rocker_type()).z, rockerPosition(rocker_type()).y])
             rocker(rocker_type(), "red");
+        frontFaceHolePositions()
+            boltM3Buttonhead(12);
     }
     explode([0, -30, 0], true) {
         Display_Housing_CF_assembly();
