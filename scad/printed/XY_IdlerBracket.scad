@@ -80,10 +80,22 @@ module XY_IdlerBracketCutouts(coreXYPosBL) {
                 boltHoleM3TapOrInsert(sizeY, horizontal=true);
 }
 
-module idlerBracketHolePositions(size, separation) {
-    baseSize = [size.x, separation+2*size.y, 5];
-    for (y = [size.y + 3, baseSize.y - size.y - 3])
-        translate([size.x/2, y-separation-size.y, 0])
+module idlerBracketHolePositions(coreXYPosBL, offset) {
+    size = idlerBracketSize(coreXYPosBL) - [offset, 0, 0];
+    separation = coreXYSeparation().z;
+    if (offset) {
+        translate([0, -2*separation + yCarriageBraceThickness() - size.y])
+            translate([size.x/2, size.y/2, 0])
+                children();
+        translate([size.x/2, idlerBracketTopSizeY()/2, 0])
+            children();
+    }
+}
+
+module xyIdlerBracketHolePositions(NEMA_width) {
+    coreXYPosBL = coreXYPosBL(NEMA_width);
+    translate([3, coreXYPosBL.z + 10, 0])
+        idlerBracketHolePositions(coreXYPosBL, _sidePlateThickness)
             children();
 }
 
@@ -93,7 +105,7 @@ module idlerBracket(coreXYPosBL, NEMA_width, offset=0) {
     separation = coreXYSeparation().z;
 
     boltPos = [-coreXYPosBL.y + offset, coreXYPosBL.x - _sidePlateThickness, 0];
-    baseLength = eZ - coreXYPosBL.z + separation + size.y - yRailSupportSize(NEMA_width).y;
+    //baseLength = eZ - coreXYPosBL.z + separation + size.y - yRailSupportSize(NEMA_width).y;
     cutout = offset ? false : true;
 
     translate([0, -2*separation + yCarriageBraceThickness() - size.y])
@@ -124,17 +136,15 @@ module idlerBracket(coreXYPosBL, NEMA_width, offset=0) {
 }
 
 module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0) {
-    //size = idlerBracketSize(coreXYPosBL) - [offset, 0, 0];
-    //separation = coreXYSeparation().z;
+    size = idlerBracketSize(coreXYPosBL) - [offset, 0, 0];
 
     //boltPos = [coreXYPosBL.y - offset, 0, coreXYPosBL.x - _sidePlateThickness];
     //baseLength = eZ - coreXYPosBL.z + separation + size.y - yRailSupportSize(NEMA_width).y;
     translate([offset, -yCarriageBraceThickness()/2, _sidePlateThickness])
         difference() {
             idlerBracket(coreXYPosBL, NEMA_width, offset);
-        *if (offset) //!!TODO correct hole positions
-            idlerBracketHolePositions(size, separation)
-                boltHoleM3(5);
+            idlerBracketHolePositions(coreXYPosBL, offset)
+                boltHoleM3Tap(12);
     }
 }
 

@@ -33,7 +33,7 @@ module Left_Face_Lower_Joiner_stl() {
             difference() {
                 frameLower(NEMA_width, left=true, offset=_sidePlateThickness);
                 lowerSideJoinerHolePositions(_sidePlateThickness)
-                    boltHoleM3Tap(eSizeXBase-_sidePlateThickness);
+                    boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
             }
 }
 
@@ -56,7 +56,7 @@ module Right_Face_Lower_Joiner_stl() {
                 difference() {
                     frameLower(NEMA_width, left=false, offset=_sidePlateThickness);
                     lowerSideJoinerHolePositions(_sidePlateThickness)
-                        boltHoleM3Tap(eSizeXBase-_sidePlateThickness);
+                        boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
                 }
 }
 
@@ -119,18 +119,6 @@ module Right_Face_CF() {
             Right_Face_CF_dxf();
 }
 
-
-module xyMotorMountHolePositions(NEMA_width, left) {
-    xyPos = xyMotorPosition(NEMA_width, left);
-    translate([eY + 2*eSizeY - 4, xyPos.y + 3]) {
-        children();
-        translate([0, 18])
-            children();
-        translate([-38.6, 0])
-            children();
-    }
-}
-
 module leftFaceCF(NEMA_width) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
 
@@ -152,6 +140,8 @@ module leftFaceCF(NEMA_width) {
             backSideJoinerHolePositions()
                 circle(r = M3_clearance_radius);
             xyMotorMountHolePositions(NEMA_width, left=true)
+                circle(r = M3_clearance_radius);
+            xyIdlerBracketHolePositions(NEMA_width)
                 circle(r = M3_clearance_radius);
         }
     }
@@ -184,6 +174,8 @@ module rightFaceCF(NEMA_width) {
                 circle(r = M3_clearance_radius);
             xyMotorMountHolePositions(NEMA_width, left=false)
                 circle(r = M3_clearance_radius);
+            xyIdlerBracketHolePositions(NEMA_width)
+                circle(r = M3_clearance_radius);
         }
     }
 }
@@ -204,15 +196,18 @@ assembly("Left_Face_CF", big=true) {
             lowerSideJoinerHolePositions()
                 vflip()
                     boltM3Buttonhead(screw_shorter_than(topBoltHolderSize().z + _sidePlateThickness));
+            upperSideJoinerHolePositions()
+                vflip()
+                    boltM3Buttonhead(8);
             backSideJoinerHolePositions()
                 vflip()
                     boltM3Buttonhead(10);
             xyMotorMountHolePositions(_xyNEMA_width, left=true)
                 vflip()
                     boltM3Buttonhead(10);
-            upperSideJoinerHolePositions()
+            xyIdlerBracketHolePositions(_xyNEMA_width)
                 vflip()
-                    boltM3Buttonhead(8);
+                    boltM3Buttonhead(12);
         }
     explode([20, 0, 0]) {
         XY_Motor_Mount_Left_assembly();
@@ -229,12 +224,14 @@ assembly("Right_Face_CF", big=true) {
             Right_Face_CF();
             lowerSideJoinerHolePositions()
                 boltM3Buttonhead(screw_shorter_than(topBoltHolderSize().z + _sidePlateThickness));
+            upperSideJoinerHolePositions()
+                boltM3Buttonhead(8);
             backSideJoinerHolePositions()
                 boltM3Buttonhead(10);
             xyMotorMountHolePositions(_xyNEMA_width, left=false)
                 boltM3Buttonhead(10);
-            upperSideJoinerHolePositions()
-                boltM3Buttonhead(8);
+            xyIdlerBracketHolePositions(_xyNEMA_width)
+                boltM3Buttonhead(12);
         }
         explode([-20, 0, 0])
             rotate([-90, 0, 90]) {
