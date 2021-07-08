@@ -40,7 +40,7 @@ function rocker_type() = small_rocker;
 function rockerPosition(rocker_type) = [0, rocker_height(rocker_type)/2 + frontLowerChordSize().y + 3, eSizeX + eps + rocker_slot_w(rocker_type)/2];
 function extruderMotorOffsetZ() = upperWebThickness;
 function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - 2*NEMA_width + 2*35.2 - 40 - motorClearance().y, eZ - 73];
-function spoolHolderPosition() = [eX + 2*eSizeX, 24, eZ - 75];
+function spoolHolderPosition(cf=false) = [eX + 2*eSizeX, cf ? 25 : 24, eZ - 75];
 function frontReinforcementThickness() = 3;
 function spoolHolderBracketSize(cf=false) = [cf ? 3 : eSizeX, 30, 20];
 

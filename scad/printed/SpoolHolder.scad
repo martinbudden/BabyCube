@@ -67,7 +67,7 @@ module spoolHolder(bracketSize, offsetX, innerFillet) {
     bracketThickness = 5;
     capPosX = offsetX - bracketThickness;
     size = [capPosX + 80, 20, 20];
-    clampThickness = 10;
+    clampThickness = 8;
 
     translate([0, -bracketSize.y, -size.z/2]) {
         translate([-bracketSize.x - bracketThickness, 0, 0])

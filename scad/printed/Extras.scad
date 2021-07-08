@@ -26,7 +26,7 @@ module bowdenTube(extraZ=120) {
 
 module faceRightSpoolHolder(cf=false) {
     explode([75, 0, 100])
-        translate(spoolHolderPosition())
+        translate(spoolHolderPosition(cf))
             rotate([90, 0, 0])
                 stl_colour(pp2_colour)
                     if (cf)

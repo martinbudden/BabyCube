@@ -153,6 +153,8 @@ module rightFaceCF(NEMA_width) {
     difference() {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2]) {
+            translate([eSizeY + 20, eSizeZ])
+                rounded_square([eY - 20 - 40, 30], 5, center=false);
             sideFaceMotorCutout(left=false, NEMA_width=NEMA_width, cnc=true);
             sideFaceTopDogbones(cnc=true);
             translate([_backPlateCFThickness, 0])
