@@ -45,8 +45,8 @@ module Left_Face_test() {
         Left_Face_stl();
     //leftFace(NEMA_type);
     //translate([(eY + 2*eSizeY + _backPlateCFThickness)/2, eZ/2])
-    //leftFaceCF(NEMA_type);
-    //rightFaceCF(NEMA_type);
+    //leftFaceCF(NEMA_width(NEMA_type));
+    //rightFaceCF(NEMA_width(NEMA_type));
     //Left_Face();
     //Right_Face();
     //leftFaceSideCutouts(NEMA_width(NEMA_type), cnc=true);
