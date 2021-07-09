@@ -452,11 +452,14 @@ module zipTieCutout() {
                     cube(cutoutSize + [eps, 0, 0]);
                 translate([cutoutSize.x - cutoutSize.z, 0, 0])
                     cube([cutoutSize.z, cutoutSize.y, cutoutSize.z + cutoutDepth + 2*eps]);
+                translate([cutoutSize.x - cutoutSize.z + eps, -eps, cutoutSize.y - cutoutSize.z - eps])
+                    rotate([90, 0, 180])
+                        right_triangle(1.5, 1.5, cutoutSize.y + 2*eps, center=false);
             }
             // add a fillet to make it easier to insert the ziptie
             translate([cutoutSize.x + eps, -eps, -eps])
                 rotate([90, 0, 180])
-                    fillet(2, cutoutSize.y + 2*eps); // rounded fillet seems to work better than triangular one
+                    fillet(3, cutoutSize.y + 2*eps); // rounded fillet seems to work better than triangular one
                     //right_triangle(1, 1, cutoutSize.y + 2*eps, center=false);
         }
     }
