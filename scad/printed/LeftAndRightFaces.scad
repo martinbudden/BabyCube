@@ -106,21 +106,20 @@ module rightFace(NEMA_type) {
 
 module sideFaceMotorCutout(left, NEMA_width, cnc=false) {
     cutoutHeight = NEMA_width < 40 ? 40 : 50;
-    translate([coreXYPosTR(NEMA_width).y, xyMotorPositionYBase(NEMA_width, left) - coreXYSeparation().z/2 - _xyMotorBracketThickness, 0])
+    translate([coreXYPosTR(NEMA_width).y, xyMotorPosition(NEMA_width, left).y, 0])
         motorCutout([NEMA_width + 3, cutoutHeight, cnc ? 0 : _webThickness], upperFillet);
 }
 
 module motorCutout(size, upperFillet) {
     lowerFillet = 3;
     if (size.z == 0)
-        translate([-size.x/2, -size.y + 0.75]) {
+        translate([-size.x/2, -size.y]) {
             translate([0, lowerFillet*2])
                 rounded_square([size.x, size.y - lowerFillet*2], upperFillet, center=false);
             rounded_square([size.x, size.y - lowerFillet*2 - 1], lowerFillet, center=false);
         }
     else
-        // !!TODO fix this magic number 0.75
-        translate([-size.x/2, -size.y + 0.75, -2*eps]) {
+        translate([-size.x/2, -size.y, -2*eps]) {
             translate([0, lowerFillet*2])
                 rounded_cube_xy([size.x, size.y - lowerFillet*2, size.z + 4*eps], upperFillet);
             rounded_cube_xy([size.x, size.y - lowerFillet*2 - 1, size.z + 4*eps], lowerFillet);
