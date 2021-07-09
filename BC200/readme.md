@@ -182,7 +182,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |  12  |   14  |  Bolt M3 countersunk x 10mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   4  |    6  |  Bolt M3 countersunk x 12mm |
 |   .  |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   2  |   .  |    6  |  Bolt M3 countersunk x 16mm |
-|   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |  Bolt M3 countersunk x 30mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |  Bolt M3 countersunk x 35mm |
 |   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |  Bolt M5 countersunk x 16mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |  Cork damper NEMA 14 |
 |   .  |   .  |   .  |   .  |   .  |   1  |   1  |   .  |   .  |   .  |    2  |  Cork damper NEMA 17 |
@@ -746,7 +746,7 @@ Attach the SK brackets to the back face. Note the orientation of the tightening 
 |Qty|Description|
 |---:|:----------|
 |4| Bolt M3 buttonhead x 12mm|
-|1| Bolt M3 countersunk x 30mm|
+|1| Bolt M3 countersunk x 35mm|
 |1| Cork damper NEMA 14|
 |2| Pulley GT2 idler 16 teeth|
 |1| Pulley GT2UM 20 teeth|
@@ -923,7 +923,7 @@ Place the XT60 connectors through the Switch_Shroud and bolt on the Switch_Shrou
 |4| Bolt M3 buttonhead x 12mm|
 |2| Bolt M3 countersunk x 12mm|
 |2| Bolt M3 countersunk x 16mm|
-|1| Bolt M3 countersunk x 30mm|
+|1| Bolt M3 countersunk x 35mm|
 |1| Cork damper NEMA 14|
 |2| Pulley GT2 idler 16 teeth|
 |1| Pulley GT2UM 20 teeth|
