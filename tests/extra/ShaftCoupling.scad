@@ -10,6 +10,6 @@ module ShaftCoupling_test() {
     Shaft_Coupling_8x5_stl();
 }
 
-//if ($preview)
+if ($preview)
     ShaftCoupling_test();
 //Z_Spacer_stl();

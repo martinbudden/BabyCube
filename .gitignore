@@ -18,10 +18,17 @@ times.txt
 scad/target.scad
 scad/bom.scad
 
-tests.html
-tests.md
-tests/*
+tests.*
+tests/*.*
+tests/bom
+tests/deps
+tests/png/*
 !tests/*.scad
+!tests/extra/*.scad
+# change to !, except for diffs, once released
+//!tests.md
+//!tests/png/*.png
+tests/png/*_diff.png
 
 PRINTBED120/assemblies/*
 PRINTBED120/bom/
