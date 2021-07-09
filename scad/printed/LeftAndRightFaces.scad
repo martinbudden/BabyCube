@@ -59,9 +59,19 @@ module leftFace(NEMA_type) {
         }
         switchShroudHolePositions()
             boltPolyholeM3Countersunk(eSizeXBase, sink=0.25);
-        translate(rockerPosition(rocker_type()))
-            rotate([0, -90, 0])
-                rocker_hole(rocker_type(), eSizeY, rounded = false);
+        translate(rockerPosition(rocker_type())) {
+            rockerHoleSize = [frontReinforcementThickness() + 2*eps, rocker_slot_h(rocker_type()), rocker_slot_w(rocker_type())];
+            translate([-eps, -rockerHoleSize.y/2, -rockerHoleSize.z/2]) {
+                cube(rockerHoleSize);
+                // add cutout to avoid bridging bug in slic3r/PrusaSlicer/SuperSlicer
+                translate([rockerHoleSize.x/2, 0, rockerHoleSize.z - eps]) {
+                    //cube([rockerHoleSize.x/2, rockerHoleSize.y, 0.5 + eps]);
+                    translate([rockerHoleSize.x/2, 0, 0])
+                        rotate([90, 0, 180])
+                            right_triangle(rockerHoleSize.x/2, 1 + eps, rockerHoleSize.y, center=false);
+                }
+            }
+        }
         /*translate([0, eZ - _topPlateThickness, eX + 2*eSizeX])
             rotate([90, 90, 0])
                 topFaceSideHolePositions()
