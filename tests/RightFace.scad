@@ -34,7 +34,7 @@ module Right_Face_test() {
         Right_Face_assembly();
     faceRightSpoolHolder(cf=_useCNC);
     //faceRightSpool();
-    bowdenTube();
+    //bowdenTube();
     //Right_Face_stl();
     //Right_Face_NEMA_17_stl();
 
