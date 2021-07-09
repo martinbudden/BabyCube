@@ -259,7 +259,7 @@ motorUprightWidth = max(10, eSizeY); // make sure at least 10 wide, to accept in
 
 module motorUpright(NEMA_width, left) {
 
-    uprightTopZ = coreXYPosBL(NEMA_width, yCarriageType()).z - (left ? 0 : coreXYSeparation().z);
+    uprightTopZ = coreXYPosBL(NEMA_width, yCarriageType()).z - (left ? coreXYSeparation().z : 0);
     uprightPosZ = middleWebOffsetZ() + eSizeZ - 2*fillet;
     upperFillet =1.5;
     translate([eY + 2*eSizeY - motorClearance().y + upperFillet, uprightPosZ, 0])
