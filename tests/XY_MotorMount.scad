@@ -22,7 +22,9 @@ module XY_MotorMount_test() {
     //XY_MotorMount(NEMA_type, left, basePlateThickness = 5, offset = basePlateThickness+eZ-coreXYPosBL(NEMA_width(NEMA_type)).z+(left?0:coreXYSeparation().z));
     //XY_MotorMountHardware(NEMA_type);
     XY_Motor_Mount_Left_stl();
-    XY_Motor_Mount_Right_stl();
+    translate([50, 0, 0])
+        rotate(180)
+            XY_Motor_Mount_Right_stl();
 }
 
 if ($preview)

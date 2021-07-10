@@ -43,7 +43,7 @@ function XY_MotorMountSize(NEMA_width, basePlateThickness=basePlateThickness, cf
 function xyMotorPosition(NEMA_width, left) = [
     eX + 2*eSizeX - coreXYPosTR(NEMA_width).x + coreXY_drive_pulley_x_alignment(coreXY_type()),
     coreXYPosTR(NEMA_width).y,
-    coreXYPosBL(NEMA_width, yCarriageType()).z - (left ? coreXYSeparation().z/2 : -coreXYSeparation().z/2) - pulleyOffset - motorClearance().z,
+    coreXYPosBL(NEMA_width, yCarriageType()).z - motorClearance().z - pulleyOffset - (left ? coreXYSeparation().z/2 : -coreXYSeparation().z/2)
 ];
 
 
@@ -68,9 +68,8 @@ module XY_Motor_Mount_Right_stl() {
 
     stl("XY_Motor_Mount_Right")
         color(pp1_colour)
-            translate([NEMA_width + 1, 0, 0])
-                mirror([0, 1, 0])
-                    XY_MotorMount(NEMA_type, left=false, basePlateThickness=basePlateThickness, offset=eZ - xyMotorPosition(NEMA_width, left=false).z, cf=true);
+            mirror([0, 1, 0])
+                XY_MotorMount(NEMA_type, left=false, basePlateThickness=basePlateThickness, offset=eZ - xyMotorPosition(NEMA_width, left=false).z, cf=true);
 }
 
 module XY_Motor_Mount_Left_assembly()
@@ -94,14 +93,13 @@ assembly("XY_Motor_Mount_Right", big=true, ngb=true) {
     NEMA_type = xyMotorType();
     NEMA_width = NEMA_width(NEMA_type);
 
-    translate([eX + 2 * eSizeX + eps - _sidePlateThickness, 0, 0])
+    translate([eX + 2 * eSizeX - NEMA_width - _sidePlateThickness - 1, 0, 0])
         rotate([90, 0, 90])
             XY_MotorPosition(NEMA_width, left=false)
                 rotate(180) {
                     stl_colour(pp1_colour)
                         XY_Motor_Mount_Right_stl();
-                    translate([NEMA_width + 1, 0, 0])
-                        XY_MotorMountHardware(NEMA_type);
+                    XY_MotorMountHardware(NEMA_type);
                 }
 }
 
@@ -111,7 +109,7 @@ module XY_MotorPosition(NEMA_width, left=true) {
         translate(xyMotorPosition(NEMA_width, left))
             children();
 }
-                //render_if(!$preview, convexity=10)
+
 module XY_MotorUpright(NEMA_type, left=true) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
