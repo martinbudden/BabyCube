@@ -144,7 +144,7 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
 
     NEMA_width = NEMA_width(NEMA_type);
     size = XY_MotorMountSize(NEMA_width, cf=cf);
-    fillet = _fillet;
+    fillet = 1.5;
     braceWidth = 3;
     braceHeight = offset - yRailSupportThickness();
     backBraceThickness = 8;

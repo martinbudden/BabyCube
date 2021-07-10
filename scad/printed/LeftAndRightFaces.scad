@@ -148,8 +148,8 @@ module webbingLeft(NEMA_type) {
             fillet(innerFillet, upperWebThickness);
 
     // shroud for switch
-    translate([fillet, 0, 0])
-        cube([switchShroudSizeX - fillet, middleWebOffsetZ(), _webThickness]);
+    translate([eSizeX - fillet, 0, 0])
+        cube([switchShroudSizeX - eSizeX + fillet, middleWebOffsetZ(), _webThickness]);
     *translate([switchShroudSizeX, eSizeZ, 0]) // not needed, since covered by diagonal
         fillet(innerFillet, _webThickness);
     translate([switchShroudSizeX, middleWebOffsetZ(), 0])
@@ -161,13 +161,13 @@ module webbingLeft(NEMA_type) {
         difference() {
             union() {
                 translate(uprightPos)
-                    square([eY + 2*eSizeY - uprightPos.x, eZ - yRailSupportThickness() - middleWebOffsetZ() -cnc_bit_r]);
+                    square([eY + 2*eSizeY - uprightPos.x, eZ - yRailSupportThickness() - middleWebOffsetZ() - cnc_bit_r]);
                 antiShearBracing(NEMA_width);
                 translate([uprightPos.x, eZ - antiShearSize.y])
                     rotate(180)
                         fillet(innerFillet);
                 // idler upright
-                rounded_square([eSizeY, eZ - eSizeZ + fillet], 3, center=false);
+                rounded_square([eSizeY, eZ - eSizeZ + fillet], 1.5, center=false);
                 translate([0, middleWebOffsetZ(), 0])
                     rounded_square([idlerBracketSize.x, eZ - middleWebOffsetZ() - _topPlateThickness], fillet, center=false);
                 if (_sideTabs)
@@ -257,13 +257,12 @@ module webbingRight(NEMA_type) {
 motorUprightWidth = max(10, eSizeY); // make sure at least 10 wide, to accept inserts
 
 module motorUpright(NEMA_width, left) {
-
     //uprightTopZ = coreXYPosBL(NEMA_width, yCarriageType()).z - (left ? coreXYSeparation().z : 0);
     uprightTopZ = xyMotorPosition(NEMA_width, left).z + 2*fillet;
     uprightPosZ = middleWebOffsetZ() + eSizeZ - 2*fillet;
     upperFillet = 1.5;
     translate([eY + 2*eSizeY - motorClearance().y + upperFillet, uprightPosZ, 0])
-        cube([motorClearance().y - upperFillet, uprightTopZ - uprightPosZ, eSizeX]);
+        cube([motorClearance().y - upperFillet, uprightTopZ - uprightPosZ, eSizeXBase]);
 }
 
 module idlerUpright(NEMA_width, left) {
@@ -281,13 +280,14 @@ module idlerUpright(NEMA_width, left) {
     translate([0, middleWebOffsetZ(), 0])
         rounded_cube_xy([idlerBracketSize.x, eZ - middleWebOffsetZ() - _topPlateThickness, eSizeX], fillet);
     // idler upright reinforcement to stop front face shear
-    rounded_cube_xy([frontReinforcementThickness(), coreXYPosBL(NEMA_width, yCarriageType()).z - coreXYSeparation().z/2 - idlerBracketSize.y, idlerBracketSize.z], fillet);
-    translate([frontReinforcementThickness(), coreXYPosBL(NEMA_width, yCarriageType()).z - idlerBracketSize.x-1.5, 0])
+    translate([0, eSizeZ, 0])
+        rounded_cube_xy([frontReinforcementThickness(), coreXYPosBL(NEMA_width, yCarriageType()).z - coreXYSeparation().z/2 - idlerBracketSize.y - eSizeZ, idlerBracketSize.z], fillet);
+    translate([frontReinforcementThickness(), coreXYPosBL(NEMA_width, yCarriageType()).z - idlerBracketSize.x - 2, 0])
         rotate(270)
-            fillet(fillet, idlerBracketSize.z);
-    translate([0, eZ -eSizeZ-2*fillet, 0]) {
-        rounded_cube_xy([idlerBracketSize.x, eSizeZ + 2*fillet - _topPlateThickness, _backFaceHoleInset + 4], fillet);
-        rounded_cube_xy([_backPlateThickness, eSizeZ + 2*fillet, _backFaceHoleInset + 4], fillet);
+            fillet(1.5, idlerBracketSize.z);
+    translate([0, eZ - eSizeZ - 5, 0]) {
+        rounded_cube_xy([idlerBracketSize.x, eSizeZ + 5 - _topPlateThickness, _backFaceHoleInset + 4], fillet);
+        rounded_cube_xy([_backPlateThickness, eSizeZ + 5, _backFaceHoleInset + 4], fillet);
     }
 }
 
@@ -319,6 +319,7 @@ module frameLower(NEMA_width, left=true, offset=0, cf=false) {
     difference() {
         // bottom chord
         union() {
+            fillet = 1.5;
             translate([offset, 0, offset])
                 rounded_cube_xy([eY + 2*eSizeY - offset, eSizeZ, eSizeXBase - offset], fillet);
             translate([eY + 2*eSizeY - 10, 0, offset])
@@ -354,12 +355,14 @@ module frontConnector() {
     overlapHeight = faceConnectorOverlapHeight();
     size = [eSizeY, frontLowerChordSize().y, idlerBracketSize(coreXYPosBL(_xyNEMA_width)).z + overlap];
 
+    fillet = 1.5;
     difference() {
         translate_z(_sidePlateThickness)
-            rounded_cube_xy(size - [0, 0, _sidePlateThickness], fillet);
-            translate([-eps, -eps, size.z - overlap])
-                cube([overlapHeight, size.y + 2*eps, overlap + 2*eps]);
-
+            union() {
+                rounded_cube_xy([size.x, size.y, size.z - _sidePlateThickness - overlap], fillet);
+                translate([overlapHeight, 0, 0])
+                    rounded_cube_xy([size.x - overlapHeight, size.y, size.z - _sidePlateThickness], fillet);
+            }
             for (y = [5, size.y/2, size.y - 5])
                 translate([size.x, y, size.z - overlap/2])
                     rotate([90, 0, -90])
