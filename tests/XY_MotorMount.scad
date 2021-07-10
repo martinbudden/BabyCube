@@ -17,7 +17,6 @@ NEMA_type = xyMotorType();
 //$pose = 1;
 module XY_MotorMount_test() {
     left = true;
-    echo(xyMotorPositionYBase=xyMotorPositionYBase());
     echo(XY_MotorMountSize=XY_MotorMountSize(NEMA_width(NEMA_type)));
     //XY_MotorUpright(NEMA_type, left);
     //XY_MotorMount(NEMA_type, left, basePlateThickness = 5, offset = basePlateThickness+eZ-coreXYPosBL(NEMA_width(NEMA_type)).z+(left?0:coreXYSeparation().z));
