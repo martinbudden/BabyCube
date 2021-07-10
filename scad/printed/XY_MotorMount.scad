@@ -40,11 +40,10 @@ function XY_MotorMountSize(NEMA_width, basePlateThickness=basePlateThickness, cf
     basePlateThickness
 ];
 
-function xyMotorPositionYBase(NEMA_width, left) = coreXYPosBL(NEMA_width, yCarriageType()).z + (left ? -coreXYSeparation().z/2 : coreXYSeparation().z/2);
 function xyMotorPosition(NEMA_width, left) = [
+    eX + 2*eSizeX - coreXYPosTR(NEMA_width).x + coreXY_drive_pulley_x_alignment(coreXY_type()),
     coreXYPosTR(NEMA_width).y,
-    xyMotorPositionYBase(NEMA_width, left) - pulleyOffset - motorClearance().z,
-    eX + 2*eSizeX - coreXYPosTR(NEMA_width).x + coreXY_drive_pulley_x_alignment(coreXY_type())
+    coreXYPosBL(NEMA_width, yCarriageType()).z - (left ? coreXYSeparation().z/2 : -coreXYSeparation().z/2) - pulleyOffset - motorClearance().z,
 ];
 
 
@@ -60,7 +59,7 @@ module XY_Motor_Mount_Left_stl() {
 
     stl("XY_Motor_Mount_Left")
         color(pp1_colour)
-            XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness, offset=eZ - xyMotorPosition(NEMA_width, left=true).y, cf=true);
+            XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness, offset=eZ - xyMotorPosition(NEMA_width, left=true).z, cf=true);
 }
 
 module XY_Motor_Mount_Right_stl() {
@@ -71,7 +70,7 @@ module XY_Motor_Mount_Right_stl() {
         color(pp1_colour)
             translate([NEMA_width + 1, 0, 0])
                 mirror([0, 1, 0])
-                    XY_MotorMount(NEMA_type, left=false, basePlateThickness=basePlateThickness, offset=eZ - xyMotorPosition(NEMA_width, left=false).y, cf=true);
+                    XY_MotorMount(NEMA_type, left=false, basePlateThickness=basePlateThickness, offset=eZ - xyMotorPosition(NEMA_width, left=false).z, cf=true);
 }
 
 module XY_Motor_Mount_Left_assembly()
@@ -108,8 +107,8 @@ assembly("XY_Motor_Mount_Right", big=true, ngb=true) {
 
 module XY_MotorPosition(NEMA_width, left=true) {
     //offset = eZ - coreXYPosBL(NEMA_width, yCarriageType()).z + basePlateThickness + (left ? 0 : coreXYSeparation().z);
-    translate(xyMotorPosition(NEMA_width, left))
-        rotate([-90, -90, 0])
+    rotate([-90, -90, 0])
+        translate(xyMotorPosition(NEMA_width, left))
             children();
 }
                 //render_if(!$preview, convexity=10)
@@ -117,27 +116,25 @@ module XY_MotorUpright(NEMA_type, left=true) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
 
-    translate(xyMotorPosition(NEMA_width, left))
-        rotate([-90, -90, 0])
-            //render_if(!$preview, convexity=10)
-                XY_MotorMount(NEMA_type, left, basePlateThickness, eZ-xyMotorPosition(NEMA_width, left).y);
+    XY_MotorPosition(NEMA_width, left)
+        //render_if(!$preview, convexity=10)
+            XY_MotorMount(NEMA_type, left, basePlateThickness, eZ - xyMotorPosition(NEMA_width, left).z);
 }
 
 module XY_MotorUprightHardware(NEMA_type, left=true) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
 
-    translate(xyMotorPosition(NEMA_width, left))
-        rotate([-90, -90, 0])
-            XY_MotorMountHardware(NEMA_type, basePlateThickness);
+    XY_MotorPosition(NEMA_width, left)
+        XY_MotorMountHardware(NEMA_type, basePlateThickness);
 }
 
 function xyMotorMountHolePositions(sizeY) = [ [-4, 0], [-sizeY + 4, 0], [-4, 18] ];
 
 module xyMotorMountHolePositions(NEMA_width, left) {
-    xyPos = xyMotorPosition(NEMA_width, left);
+    zPos = xyMotorPosition(NEMA_width, left).z;
     size = XY_MotorMountSize(NEMA_width, cf=true);
-    translate([eY + 2*eSizeY, xyPos.y + 3])
+    translate([eY + 2*eSizeY, zPos + 3])
         for (pos = xyMotorMountHolePositions(size.y))
             translate(pos)
                 children();

@@ -106,7 +106,7 @@ module rightFace(NEMA_type) {
 
 module sideFaceMotorCutout(left, NEMA_width, cnc=false) {
     cutoutHeight = NEMA_width < 40 ? 40 : 50;
-    translate([coreXYPosTR(NEMA_width).y, xyMotorPosition(NEMA_width, left).y, 0])
+    translate([coreXYPosTR(NEMA_width).y, xyMotorPosition(NEMA_width, left).z, 0])
         motorCutout([NEMA_width + 3, cutoutHeight, cnc ? 0 : _webThickness], upperFillet);
 }
 
@@ -258,9 +258,10 @@ motorUprightWidth = max(10, eSizeY); // make sure at least 10 wide, to accept in
 
 module motorUpright(NEMA_width, left) {
 
-    uprightTopZ = coreXYPosBL(NEMA_width, yCarriageType()).z - (left ? coreXYSeparation().z : 0);
+    //uprightTopZ = coreXYPosBL(NEMA_width, yCarriageType()).z - (left ? coreXYSeparation().z : 0);
+    uprightTopZ = xyMotorPosition(NEMA_width, left).z + 2*fillet;
     uprightPosZ = middleWebOffsetZ() + eSizeZ - 2*fillet;
-    upperFillet =1.5;
+    upperFillet = 1.5;
     translate([eY + 2*eSizeY - motorClearance().y + upperFillet, uprightPosZ, 0])
         cube([motorClearance().y - upperFillet, uprightTopZ - uprightPosZ, eSizeX]);
 }
@@ -393,18 +394,30 @@ module frame(NEMA_type, left=true) {
                 cube([eY + eSizeY+eps, eSizeZ, eSizeX]);
         }
         sideFaceTopHolePositions()
-            //boltHoleM3Tap(topBoltHolderSize().y - 1, horizontal=true);
             boltHoleM3Tap(topBoltHolderSize().y, horizontal=true, chamfer_both_ends=true);
         faceConnectorHolePositions()
             rotate([90, 0, 180])
                 boltHoleM3TapOrInsert(backBoltLength, _useInsertsForFaces, horizontal=true);
-        // add some holes to access the motor bolts
-        translate([coreXYPosTR(NEMA_width).y, eZ - yRailSupportThickness()+eps, coreXYPosBL(NEMA_width).x + coreXY_drive_pulley_x_alignment(coreXY_type())])
-            rotate([-90, -90, 0])
-                NEMA_screw_positions(NEMA_type)
+        // add a holes to access a motor bolt
+        translate([coreXYPosTR(NEMA_width).y, eZ - yRailSupportThickness() + eps, coreXYPosBL(NEMA_width).x + coreXY_drive_pulley_x_alignment(coreXY_type())])
+            rotate([-90, 90, 0])
+                NEMA_screw_positions(NEMA_type, n=1)
                     rotate([180, 0, 90])
-                        translate([-M3_clearance_radius, -2.6, 0])
-                            cube([2*M3_clearance_radius, 5, 10]);
+                        translate([-M3_clearance_radius, -2.6, 0]) {
+                            size = [2*M3_clearance_radius, 5, 8 + 2*eps];
+                            cube(size);
+                            rotate([-90, 180, 0])
+                                fillet(fillet, size.y);
+                            translate([size.x, 0, 0])
+                                rotate([-90, -90, 0])
+                                    fillet(fillet, size.y);
+                            translate([size.x, 0, size.z])
+                                rotate([-90, 0, 0])
+                                    fillet(fillet, size.y);
+                            translate([0, 0, size.z])
+                                rotate([-90, 90, 0])
+                                    fillet(fillet, size.y);
+                        }
         // middle chord
         if (!left)// add cutouts for extruder motor wires
             for (y = extruderZipTiePositions())
