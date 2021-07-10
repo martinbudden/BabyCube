@@ -19,6 +19,8 @@ Although the BabyCube is small and has a 3D printed frame, it is not a toy. It i
 
 The assembly instructions and the BOM (parts list) are [here](BC200/readme.md). The STL files are [here](BC200/stls). Please read all the build instructions before you begin assembly.
 
+A video overview of the features of BabyCube is [here](https://www.youtube.com/watch?v=HpjnHnVyvj4).
+
 I plan to make a series of YouTube videos giving build instructions, when I have done so I will post a link here.
 
 If you would like to build a larger printer, you may be interested in the BabyCube's larger sibling, the [MaybeCube](https://github.com/martinbudden/MaybeCube)
