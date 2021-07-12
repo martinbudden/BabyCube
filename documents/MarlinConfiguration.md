@@ -70,6 +70,19 @@ E
 ## Configuration_adv.h
 
 ```h
+C
+#define PID_EXTRUSION_SCALING
+C
+#define THERMAL_PROTECTION_PERIOD 60        // Seconds
+C
+#define THERMAL_PROTECTION_HYSTERESIS 10     // Degrees Celsius
+C
+#define WATCH_TEMP_PERIOD  30               // Seconds
+C
+#define THERMAL_PROTECTION_BED_PERIOD        60 // Seconds
+C
+#define THERMAL_PROTECTION_BED_HYSTERESIS     10 // Degrees Celsius
+C
 #define FAN_MAX_PWM 157  // To run 12V fan at 19.5V, 12/19.5*255=157
 C
 #define E0_AUTO_FAN_PIN FAN1_PIN
