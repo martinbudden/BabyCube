@@ -1,26 +1,27 @@
-; PRINTER_START_GCODE_begin
-; Set brush wiping macro
-G810 G60 S1 | G1 X245 F6000 | G1 X235 | G1 X245 | G1 R1 | M400 ; store location, wipe, recall location, wait for movement to finish
-M150 R255 ; LED to red indicates heating up
-M140 S[first_layer_bed_temperature] ; set heated bed temperature and don't wait
-M104 S[first_layer_temperature] ; set hotend temperature and don't wait
-G21 ; set units to millimeters
-G90 ; use absolute coordinates
-G28 ; home all axes
-; M900 K0.25 ; linear advance
-M420 S1 ; set mesh bed leveling
-G1 Z5 F5000 ; lift nozzle
-G1 X10 Y5
-G1 Z0.05 ; move nozzle close to bed
-M109 S[first_layer_temperature] ; set temperature and wait
-; G4 P120000 ; wait another 120 seconds for nozzle length to stabilise
-G4 P20000 ; wait another 20 seconds for nozzle length to stabilise
-M150 R255 U255 B255 ; LED to white
-G92 E0 ; reset extruder
-M83 ; use relative distances for extrusion
-G1 Z0.25
-G1 X130 E25 ; purge hotend, move 120 mm while extruding, started at X10
-G1 E-2  ;retract the filament a bit before lifting the nozzle, to release some of the pressure
-G1 Z0.5 E-5; lift nozzle a bit and retract more filament
-G1 X140 E7 ; push back some of the retracted filament ready to start print
-; PRINTER_START_GCODE_end
+;PRINTER_START_GCODE_begin
+;M150 R255 ;LED to red indicates heating up
+M104 S160 ;set hotend temperature to 160 and don't wait
+G21 ;set units to millimeters
+G90 ;use absolute coordinates for all axes
+G28 Y ;home Y
+G1 Y2
+G28 X ;home X
+G1 X-3
+G1 F600
+G91 ;relative positioning
+G1 Z2 ;z up 2
+G90 ;absolute positioning
+G28 Z ;home Z
+G1 Z5
+{if filament_type[0]=="PETG"}G92 Z4.95 ;set Z=4.95 for PETG{endif}
+G1 Z0.2 ;move nozzle close to bed, so filament does not ooze while hotend is being heated
+M400 ;finish moves
+M140 S{first_layer_bed_temperature[0]} ;set heated bed temperature and don't wait, do this after homing to reduce peak power requirement
+M109 S{first_layer_temperature[0]} ;set temperature for nozzle 0 and wait
+G4 P10000 ;wait another 10 seconds for temperature to stabilise
+;M150 R255 U255 B255 ;LED to white
+G1 Z{layer_height+z_offset} ;set Z height for purge strip
+G92 E0 ;reset extruder
+M83 ;use relative distances for extrusion
+G1 Y42 E10 F1800 ;purge hotend, move 40 mm while extruding, started at Y0
+;PRINTER_START_GCODE_end
