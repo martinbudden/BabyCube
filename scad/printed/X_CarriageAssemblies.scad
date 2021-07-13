@@ -116,7 +116,7 @@ module X_Carriage_stl() {
     stl("X_Carriage")
         color(pp1_colour)
             rotate([0, -90, 0]) {
-                xCarriageBack(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z, strainRelief=false, countersunk=_xCarriageCountersunk ? 4 : 0, accelerometerOffset = accelerometerOffset());
+                xCarriageBack(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z, clamps=true, strainRelief=false, countersunk=_xCarriageCountersunk ? 4 : 0, accelerometerOffset = accelerometerOffset());
                 hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, blower_type, baffle=true, left=true);
             }
 }
