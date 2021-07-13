@@ -41,7 +41,6 @@ detail that someone with a good understanding of 3D printers can build the BabyC
 1. [Stage_3 assembly](#Stage_3_assembly)
 1. [Stage_4 assembly](#Stage_4_assembly)
 1. [Stage_5 assembly](#Stage_5_assembly)
-1. [Stage_6 assembly](#Stage_6_assembly)
 1. [Main assembly](#main_assembly)
 
 
@@ -976,13 +975,13 @@ Note orientation of the JST connector.
 
 |Qty|Description|
 |---:|:----------|
-|1| Bolt M3 buttonhead x  8mm|
-|4| Bolt M3 buttonhead x 12mm|
+|2| Bolt M3 buttonhead x  8mm|
+|8| Bolt M3 buttonhead x 12mm|
 
 
 ### 3D Printed parts
 
-| 2 x Foot_LShaped_8mm.stl |
+| 4 x Foot_LShaped_8mm.stl |
 |---|
 | ![Foot_LShaped_8mm.stl](stls/Foot_LShaped_8mm.png) 
 
@@ -990,9 +989,9 @@ Note orientation of the JST connector.
 
 ### Sub-assemblies
 
-| 1 x Base_assembly | 1 x Left_Face_assembly |
-|---|---|
-| ![Base_assembled](assemblies/Base_assembled_tn.png) | ![Left_Face_assembled](assemblies/Left_Face_assembled_tn.png) 
+| 1 x Base_assembly | 1 x Left_Face_assembly | 1 x Right_Face_assembly |
+|---|---|---|
+| ![Base_assembled](assemblies/Base_assembled_tn.png) | ![Left_Face_assembled](assemblies/Left_Face_assembled_tn.png) | ![Right_Face_assembled](assemblies/Right_Face_assembled_tn.png) 
 
 
 
@@ -1000,7 +999,8 @@ Note orientation of the JST connector.
 
 ![Stage_1_assembly](assemblies/Stage_1_assembly.png)
 
-Bolt the Left_Face and the left feet to the base.
+1. Bolt the Left_Face and the left feet to the base.
+2. Bolt the Right_Face and the right feet to the base.
 
 ![Stage_1_assembled](assemblies/Stage_1_assembled.png)
 
@@ -1016,23 +1016,17 @@ Bolt the Left_Face and the left feet to the base.
 
 |Qty|Description|
 |---:|:----------|
-|1| Bolt M3 buttonhead x  8mm|
-|4| Bolt M3 buttonhead x 12mm|
-
-
-### 3D Printed parts
-
-| 2 x Foot_LShaped_8mm.stl |
-|---|
-| ![Foot_LShaped_8mm.stl](stls/Foot_LShaped_8mm.png) 
-
+|2| Bolt M3 buttonhead x 10mm|
+|6| Bolt M3 countersunk x  6mm|
+|4| Bolt M3 countersunk x 10mm|
+|4| Ziptie 2.5mm x 100mm min length|
 
 
 ### Sub-assemblies
 
-| 1 x Right_Face_assembly | 1 x Stage_1_assembly |
+| 1 x Back_Face_assembly | 1 x Stage_1_assembly |
 |---|---|
-| ![Right_Face_assembled](assemblies/Right_Face_assembled_tn.png) | ![Stage_1_assembled](assemblies/Stage_1_assembled_tn.png) 
+| ![Back_Face_assembled](assemblies/Back_Face_assembled_tn.png) | ![Stage_1_assembled](assemblies/Stage_1_assembled_tn.png) 
 
 
 
@@ -1040,7 +1034,7 @@ Bolt the Left_Face and the left feet to the base.
 
 ![Stage_2_assembly](assemblies/Stage_2_assembly.png)
 
-Bolt the Right_Face and the right feet to the base.
+Add the Back_Face and bolt it to the left and right faces and the base.
 
 ![Stage_2_assembled](assemblies/Stage_2_assembled.png)
 
@@ -1051,40 +1045,6 @@ Bolt the Right_Face and the right feet to the base.
 <a name="Stage_3_assembly"></a>
 
 ## Stage_3 assembly
-
-### Vitamins
-
-|Qty|Description|
-|---:|:----------|
-|2| Bolt M3 buttonhead x 10mm|
-|6| Bolt M3 countersunk x  6mm|
-|4| Bolt M3 countersunk x 10mm|
-|4| Ziptie 2.5mm x 100mm min length|
-
-
-### Sub-assemblies
-
-| 1 x Back_Face_assembly | 1 x Stage_2_assembly |
-|---|---|
-| ![Back_Face_assembled](assemblies/Back_Face_assembled_tn.png) | ![Stage_2_assembled](assemblies/Stage_2_assembled_tn.png) 
-
-
-
-### Assembly instructions
-
-![Stage_3_assembly](assemblies/Stage_3_assembly.png)
-
-Add the Back_Face and bolt it to the left and right faces and the base.
-
-![Stage_3_assembled](assemblies/Stage_3_assembled.png)
-
-<span></span>
-[Top](#TOP)
-
----
-<a name="Stage_4_assembly"></a>
-
-## Stage_4 assembly
 
 ### Vitamins
 
@@ -1104,9 +1064,40 @@ Add the Back_Face and bolt it to the left and right faces and the base.
 
 ### Sub-assemblies
 
-| 1 x Display_Housing_assembly | 1 x Stage_3_assembly |
+| 1 x Display_Housing_assembly | 1 x Stage_2_assembly |
 |---|---|
-| ![Display_Housing_assembled](assemblies/Display_Housing_assembled_tn.png) | ![Stage_3_assembled](assemblies/Stage_3_assembled_tn.png) 
+| ![Display_Housing_assembled](assemblies/Display_Housing_assembled_tn.png) | ![Stage_2_assembled](assemblies/Stage_2_assembled_tn.png) 
+
+
+
+### Assembly instructions
+
+![Stage_3_assembly](assemblies/Stage_3_assembly.png)
+
+Bolt the BabyCube nameplate and the Display_Housing to the front of the frame.
+
+![Stage_3_assembled](assemblies/Stage_3_assembled.png)
+
+<span></span>
+[Top](#TOP)
+
+---
+<a name="Stage_4_assembly"></a>
+
+## Stage_4 assembly
+
+### Vitamins
+
+|Qty|Description|
+|---:|:----------|
+|10| Bolt M3 buttonhead x 12mm|
+
+
+### Sub-assemblies
+
+| 1 x Stage_3_assembly | 1 x Top_Face_assembly |
+|---|---|
+| ![Stage_3_assembled](assemblies/Stage_3_assembled_tn.png) | ![Top_Face_assembled](assemblies/Top_Face_assembled_tn.png) 
 
 
 
@@ -1114,7 +1105,7 @@ Add the Back_Face and bolt it to the left and right faces and the base.
 
 ![Stage_4_assembly](assemblies/Stage_4_assembly.png)
 
-Bolt the BabyCube nameplate and the Display_Housing to the front of the frame.
+Add the Top_Face.
 
 ![Stage_4_assembled](assemblies/Stage_4_assembled.png)
 
@@ -1130,37 +1121,6 @@ Bolt the BabyCube nameplate and the Display_Housing to the front of the frame.
 
 |Qty|Description|
 |---:|:----------|
-|10| Bolt M3 buttonhead x 12mm|
-
-
-### Sub-assemblies
-
-| 1 x Stage_4_assembly | 1 x Top_Face_assembly |
-|---|---|
-| ![Stage_4_assembled](assemblies/Stage_4_assembled_tn.png) | ![Top_Face_assembled](assemblies/Top_Face_assembled_tn.png) 
-
-
-
-### Assembly instructions
-
-![Stage_5_assembly](assemblies/Stage_5_assembly.png)
-
-Add the Top_Face.
-
-![Stage_5_assembled](assemblies/Stage_5_assembled.png)
-
-<span></span>
-[Top](#TOP)
-
----
-<a name="Stage_6_assembly"></a>
-
-## Stage_6 assembly
-
-### Vitamins
-
-|Qty|Description|
-|---:|:----------|
 |1| Belt GT2 x 6mm x 728mm|
 |1| Belt GT2 x 6mm x 728mm|
 |2| Bolt M3 buttonhead x 10mm|
@@ -1171,21 +1131,21 @@ Add the Top_Face.
 
 ### Sub-assemblies
 
-| 1 x Printhead_assembly | 1 x Stage_5_assembly | 1 x X_Carriage_Front_assembly |
+| 1 x Printhead_assembly | 1 x Stage_4_assembly | 1 x X_Carriage_Front_assembly |
 |---|---|---|
-| ![Printhead_assembled](assemblies/Printhead_assembled_tn.png) | ![Stage_5_assembled](assemblies/Stage_5_assembled_tn.png) | ![X_Carriage_Front_assembled](assemblies/X_Carriage_Front_assembled_tn.png) 
+| ![Printhead_assembled](assemblies/Printhead_assembled_tn.png) | ![Stage_4_assembled](assemblies/Stage_4_assembled_tn.png) | ![X_Carriage_Front_assembled](assemblies/X_Carriage_Front_assembled_tn.png) 
 
 
 
 ### Assembly instructions
 
-![Stage_6_assembly](assemblies/Stage_6_assembly.png)
+![Stage_5_assembly](assemblies/Stage_5_assembly.png)
 
 1. Add the Printhead.
 2. Thread the belts in the pattern shown.
 3. Adjust the belts tension.
 
-![Stage_6_assembled](assemblies/Stage_6_assembled.png)
+![Stage_5_assembled](assemblies/Stage_5_assembled.png)
 
 <span></span>
 [Top](#TOP)
@@ -1212,9 +1172,9 @@ Add the Top_Face.
 
 ### Sub-assemblies
 
-| 1 x Stage_6_assembly |
+| 1 x Stage_5_assembly |
 |---|
-| ![Stage_6_assembled](assemblies/Stage_6_assembled_tn.png) 
+| ![Stage_5_assembled](assemblies/Stage_5_assembled_tn.png) 
 
 
 
