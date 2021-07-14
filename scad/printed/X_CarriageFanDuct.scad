@@ -11,7 +11,7 @@ use <Printhead.scad>
 
 fanDuctTabThickness = 2;
 
-module fanDuct(printHeadHotendOffsetX, jetOffset=0) {
+module fanDuct(printHeadHotendOffsetX, jetOffset=0, chimneySizeZ = 14) {
     blower_type = BL30x10;
     blowerSize = blower_size(blower_type);
 
@@ -24,7 +24,7 @@ module fanDuct(printHeadHotendOffsetX, jetOffset=0) {
     difference() {
         fillet = 2;
         offsetX = 1;
-        chimneySize = [exit + wallLeft + wallRight - offsetX, blowerSize.z, 14];
+        chimneySize = [exit + wallLeft + wallRight - offsetX, blowerSize.z, chimneySizeZ];
         chimneyTopSize = [exit, blowerSize.z - base - top, chimneySize.z + 2];
         union() {
             translate([0, -chimneySize.y, -chimneySize.z]) {
@@ -60,7 +60,7 @@ module fanDuct(printHeadHotendOffsetX, jetOffset=0) {
 
         jetEndSize = [5, 2, 2];
         jetStartSize = [16, 2, 2];
-        translate([12.5 + jetOffset, -8, 0])
+        translate([12.5 + jetOffset, -8, 14 - chimneySize.z])
             #hull() {
                 translate([-jetEndSize.x/2, 6+2 + printHeadHotendOffsetX, -21-1])
                     cube(jetEndSize);
