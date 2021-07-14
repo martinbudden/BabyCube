@@ -43,7 +43,7 @@ function xCarriageTopHolePositions(xCarriageType, offset=4) = [offset, xCarriage
 function xCarriageBottomHolePositions(xCarriageType, offset=4) = [offset, xCarriageFrontSize(xCarriageType).x - offset];
 
 
-module xCarriageTop(xCarriageType, reflected=false, clamps=true, strainRelief=false, countersunk=4, accelerometerOffset=undef) {
+module xCarriageTop(xCarriageType, reflected=false, clamps=true, strainRelief=false, countersunk=4, holeOffset=[4,0], accelerometerOffset=undef) {
     assert(is_list(xCarriageType));
 
     extraY = xCarriageFrontOffsetY(xCarriageType) - carriage_size(xCarriageType).y/2 - xCarriageFrontSize(xCarriageType).y;
@@ -55,8 +55,8 @@ module xCarriageTop(xCarriageType, reflected=false, clamps=true, strainRelief=fa
         translate([0, xCarriageBackSize(xCarriageType).y - size.y, 0])
             rounded_cube_yz(size, fillet);
         // insert holes  to connect to the front
-        for (x = xCarriageTopHolePositions(xCarriageType))
-            translate([x, xCarriageBackSize(xCarriageType).y - size.y, size.z/2])
+        for (x = xCarriageTopHolePositions(xCarriageType, holeOffset.x))
+            translate([x, xCarriageBackSize(xCarriageType).y - size.y, size.z/2 + holeOffset.y])
                 rotate([-90, -90, 0])
                     boltHoleM3TapOrInsert(12, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
         // bolt holes to connect to to the rail carriage
@@ -110,7 +110,7 @@ module xCarriageTopBolts(xCarriageType, countersunk = true) {
                     _threadedInsertM3();
 }
 
-module xCarriageBottom(xCarriageType, reflected=false) {
+module xCarriageBottom(xCarriageType, reflected=false, holeOffset=[4,0]) {
     assert(is_list(xCarriageType));
 
     extraY = xCarriageFrontOffsetY(xCarriageType) - carriage_size(xCarriageType).y/2 - xCarriageFrontSize(xCarriageType).y;
@@ -120,8 +120,8 @@ module xCarriageBottom(xCarriageType, reflected=false) {
             rounded_cube_yz(size, fillet);
 
             // insert holes to connect to the front
-            for (x = xCarriageBottomHolePositions(xCarriageType))
-                translate([x, 0, size.z/2])
+            for (x = xCarriageBottomHolePositions(xCarriageType, holeOffset.x))
+                translate([x, 0, size.z/2 + holeOffset.y])
                     rotate([-90, -90, 0])
                         boltHoleM3TapOrInsert(14, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
         }
@@ -133,7 +133,7 @@ module xCarriageBottom(xCarriageType, reflected=false) {
     }*/
 }
 
-module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, toolheadHoles=false, reflected=false, clamps=!true, strainRelief=false, countersunk=0, accelerometerOffset=undef) {
+module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, toolheadHoles=false, reflected=false, clamps=!true, strainRelief=false, countersunk=0, offsetT=[4, 0], offsetB=[4,0], accelerometerOffset=undef) {
     assert(is_list(xCarriageType));
 
     size = xCarriageBackSize(xCarriageType, beltWidth);
@@ -167,10 +167,10 @@ module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, t
                                 fillet(internalFillet, baseSize.x);
                 }
                 // top
-                xCarriageTop(xCarriageType, reflected, clamps, strainRelief, countersunk, accelerometerOffset);
+                xCarriageTop(xCarriageType, reflected, clamps, strainRelief, countersunk, offsetT, accelerometerOffset);
                 // base
                 translate_z(-size.z + topThickness)
-                    xCarriageBottom(xCarriageType, reflected);
+                    xCarriageBottom(xCarriageType, reflected, offsetB);
             } // end union
         if (clamps)
             translate([-size.x/2 - eps, carriage_size(xCarriageType).y/2 - beltInsetBack(undef) + xCarriageBackSize(xCarriageType, beltWidth).y, beltOffsetZ]) {
@@ -284,21 +284,21 @@ module xCarriageFront(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ) 
     }
 }
 
-module xCarriageFrontBolts(xCarriageType, beltWidth, topBoltLength=10, bottomBoltLength=12, countersunk=false) {
+module xCarriageFrontBolts(xCarriageType, beltWidth, topBoltLength=10, bottomBoltLength=12, countersunk=false, offsetT=[4 ,0], offsetB=[4, 0]) {
     size = xCarriageFrontSize(xCarriageType, beltWidth);
 
     translate([-size.x/2, -xCarriageFrontOffsetY(xCarriageType), 0]) {
         // holes at the top to connect to the xCarriage
-        for (x = xCarriageTopHolePositions(xCarriageType))
-            translate([x, 0, xCarriageTopThickness()/2])
+        for (x = xCarriageTopHolePositions(xCarriageType, offsetT.x))
+            translate([x, 0, xCarriageTopThickness()/2 + offsetT.y])
                 rotate([90, 90, 0])
                     if (countersunk)
                         boltM3Countersunk(topBoltLength);
                     else
                         boltM3Buttonhead(topBoltLength);
         // holes at the bottom to connect to the xCarriage
-        for (x = xCarriageBottomHolePositions(xCarriageType))
-            translate([x, 0, -size.z + xCarriageTopThickness() + xCarriageBaseThickness()/2])
+        for (x = xCarriageBottomHolePositions(xCarriageType, offsetB.x))
+            translate([x, 0, -size.z + xCarriageTopThickness() + xCarriageBaseThickness()/2 + offsetB.y])
                 rotate([90, 90, 0])
                     if (countersunk)
                         boltM3Countersunk(bottomBoltLength);
