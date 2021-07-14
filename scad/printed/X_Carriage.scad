@@ -284,7 +284,7 @@ module xCarriageFront(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ) 
     }
 }
 
-module xCarriageFrontBolts(xCarriageType, beltWidth, topBoltLength=10, bottomBoltLength=12) {
+module xCarriageFrontBolts(xCarriageType, beltWidth, topBoltLength=10, bottomBoltLength=12, countersunk=false) {
     size = xCarriageFrontSize(xCarriageType, beltWidth);
 
     translate([-size.x/2, -xCarriageFrontOffsetY(xCarriageType), 0]) {
@@ -292,12 +292,18 @@ module xCarriageFrontBolts(xCarriageType, beltWidth, topBoltLength=10, bottomBol
         for (x = xCarriageTopHolePositions(xCarriageType))
             translate([x, 0, xCarriageTopThickness()/2])
                 rotate([90, 90, 0])
-                    boltM3Buttonhead(topBoltLength);
+                    if (countersunk)
+                        boltM3Countersunk(topBoltLength);
+                    else
+                        boltM3Buttonhead(topBoltLength);
         // holes at the bottom to connect to the xCarriage
         for (x = xCarriageBottomHolePositions(xCarriageType))
             translate([x, 0, -size.z + xCarriageTopThickness() + xCarriageBaseThickness()/2])
                 rotate([90, 90, 0])
-                    boltM3Buttonhead(bottomBoltLength);
+                    if (countersunk)
+                        boltM3Countersunk(bottomBoltLength);
+                    else
+                        boltM3Buttonhead(bottomBoltLength);
     }
 }
 
