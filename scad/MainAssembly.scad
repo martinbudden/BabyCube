@@ -33,7 +33,8 @@ module staged_assembly(name, big, ngb) {
         children();
 }
 
-//! Bolt the Left_Face and the left feet to the base.
+//!1. Bolt the Left_Face and the left feet to the base.
+//!2. Bolt the Right_Face and the right feet to the base.
 //
 module Stage_1_assembly()
 staged_assembly("Stage_1", big=true, ngb=true) {
@@ -54,14 +55,6 @@ staged_assembly("Stage_1", big=true, ngb=true) {
         baseLeftHolePositions(-_basePlateThickness)
             vflip()
                 boltM3Buttonhead(8);
-}
-
-//! Bolt the Right_Face and the right feet to the base.
-//
-module Stage_2_assembly()
-staged_assembly("Stage_2", big=true, ngb=true) {
-
-    Stage_1_assembly();
 
     explode([100, 50, 0])
         Right_Face_assembly();
@@ -80,10 +73,10 @@ staged_assembly("Stage_2", big=true, ngb=true) {
 
 //! Add the Back_Face and bolt it to the left and right faces and the base.
 //
-module Stage_3_assembly()
-staged_assembly("Stage_3", big=true, ngb=true) {
+module Stage_2_assembly()
+staged_assembly("Stage_2", big=true, ngb=true) {
 
-    Stage_2_assembly();
+    Stage_1_assembly();
 
     explode([0, 200, 0], true) {
         Back_Face_assembly();
@@ -109,10 +102,10 @@ staged_assembly("Stage_3", big=true, ngb=true) {
 
 //!Bolt the BabyCube nameplate and the Display_Housing to the front of the frame.
 //
-module Stage_4_assembly()
-staged_assembly("Stage_4", big=true, ngb=true) {
+module Stage_3_assembly()
+staged_assembly("Stage_3", big=true, ngb=true) {
 
-    Stage_3_assembly();
+    Stage_2_assembly();
 
     explode([0, -20, 0], true) {
         translate_z(eZ)
@@ -136,10 +129,10 @@ staged_assembly("Stage_4", big=true, ngb=true) {
 
 //! Add the Top_Face.
 //
-module Stage_5_assembly()
-staged_assembly("Stage_5", big=true, ngb=true) {
+module Stage_4_assembly()
+staged_assembly("Stage_4", big=true, ngb=true) {
 
-    Stage_4_assembly();
+    Stage_3_assembly();
 
     explode(50, true) {
         Top_Face_assembly();
@@ -152,10 +145,10 @@ staged_assembly("Stage_5", big=true, ngb=true) {
 //!2. Thread the belts in the pattern shown.
 //!3. Adjust the belts tension.
 //
-module Stage_6_assembly()
-staged_assembly("Stage_6", big=true, ngb=true) {
+module Stage_5_assembly()
+staged_assembly("Stage_5", big=true, ngb=true) {
 
-    Stage_5_assembly();
+    Stage_4_assembly();
 
     explode(100)
         CoreXYBelts(carriagePosition());
@@ -170,7 +163,7 @@ module FinalAssembly() {
         Left_Face_stl();
         Right_Face_stl();
     } else {
-        Stage_6_assembly();
+        Stage_5_assembly();
 
         bowdenTube();
         faceRightSpoolHolder();
