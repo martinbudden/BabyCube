@@ -38,9 +38,9 @@ function xCarriageFrontSize(xCarriageType, beltWidth) =  [max(carriage_size(xCar
 function xCarriageBackSize(xCarriageType, beltWidth) = [xCarriageFrontSize(xCarriageType, beltWidth).x, 5, xCarriageFrontSize(xCarriageType, beltWidth).z];
 function xCarriageFrontOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageFrontSize(xCarriageType).y + 2;
 function xCarriageBackOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageBackSize(xCarriageType).y;
-function xCarriageTopHolePositions(xCarriageType) = [4, xCarriageFrontSize(xCarriageType).x - 4];
+function xCarriageTopHolePositions(xCarriageType, offset=4) = [offset, xCarriageFrontSize(xCarriageType).x - offset];
 //function xCarriageBottomHolePositions(xCarriageType) = [xCarriageType == MGN9C_carriage? 4 : 10, xCarriageFrontSize(xCarriageType).x - 4];
-function xCarriageBottomHolePositions(xCarriageType) = [4, xCarriageFrontSize(xCarriageType).x - 4];
+function xCarriageBottomHolePositions(xCarriageType, offset=4) = [offset, xCarriageFrontSize(xCarriageType).x - offset];
 
 
 module xCarriageTop(xCarriageType, reflected=false, clamps=true, strainRelief=false, countersunk=4, accelerometerOffset=undef) {
