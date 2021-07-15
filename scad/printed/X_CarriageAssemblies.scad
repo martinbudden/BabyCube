@@ -88,16 +88,16 @@ assembly("X_Carriage_Front", big=true) {
 module xCarriageBeltClamps(xCarriageType) {
     assert(is_list(xCarriageType));
 
-    size = xCarriageBackSize(xCarriageType, _beltWidth);
+    sizeX = xCarriageBackSize(xCarriageType, _beltWidth).x;
 
-    translate([-size.x/2 - 1, 0, -coreXYSeparation().z/2])
+    translate([-sizeX/2 - 1, 0, -coreXYSeparation().z/2])
         rotate([0, 90, 180])
             explode(10, true) {
                 stl_colour(pp2_colour)
                     Belt_Clamp_stl();
                 Belt_Clamp_hardware(_beltWidth);
             }
-    translate([size.x/2 + 1, 0, coreXYSeparation().z/2])
+    translate([sizeX/2 + 1, 0, coreXYSeparation().z/2])
         rotate([0, 90, 0])
             explode(10, true) {
                 stl_colour(pp2_colour)

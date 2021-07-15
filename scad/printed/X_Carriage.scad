@@ -34,8 +34,9 @@ function beltInsetBack(xCarriageType) = is_undef(xCarriageType) ? 4.5 : xCarriag
 
 function xCarriageTopThickness() = 8;
 function xCarriageBaseThickness() = 8;
-function xCarriageFrontSize(xCarriageType, beltWidth) =  [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x), xCarriageFrontSize.y, xCarriageFrontSize.z + carriage_height(xCarriageType) + topThickness + (!is_undef(beltWidth) && beltWidth == 9 ? 4.5 : 0)]; //has the belt tensioners
-function xCarriageBackSize(xCarriageType, beltWidth) = [xCarriageFrontSize(xCarriageType, beltWidth).x, 5, xCarriageFrontSize(xCarriageType, beltWidth).z];
+//function xCarriageFrontSize(xCarriageType, beltWidth, clamps) =  [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x), xCarriageFrontSize.y, (xCarriageType[0] == "MGN12H" ? 36 : xCarriageFrontSize.z) + carriage_height(xCarriageType) + topThickness + (!is_undef(beltWidth) && beltWidth == 9 ? 4.5 : 0)]; //has the belt tensioners
+function xCarriageFrontSize(xCarriageType, beltWidth, clamps) =  [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x), xCarriageFrontSize.y, (clamps==false ? 36 : xCarriageFrontSize.z) + carriage_height(xCarriageType) + topThickness + (!is_undef(beltWidth) && beltWidth == 9 ? 4.5 : 0)]; //has the belt tensioners
+function xCarriageBackSize(xCarriageType, beltWidth, clamps) = [xCarriageFrontSize(xCarriageType, beltWidth, clamps).x, 5, xCarriageFrontSize(xCarriageType, beltWidth, clamps).z];
 function xCarriageFrontOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageFrontSize(xCarriageType).y + 2;
 function xCarriageBackOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageBackSize(xCarriageType).y;
 function xCarriageTopHolePositions(xCarriageType, offset=4) = [offset, xCarriageFrontSize(xCarriageType).x - offset];
@@ -110,33 +111,26 @@ module xCarriageTopBolts(xCarriageType, countersunk = true) {
                     _threadedInsertM3();
 }
 
-module xCarriageBottom(xCarriageType, reflected=false, holeOffset=[4,0]) {
+module xCarriageBottom(xCarriageType, reflected=false, clamps=false, holeOffset=[4,0]) {
     assert(is_list(xCarriageType));
 
     extraY = xCarriageFrontOffsetY(xCarriageType) - carriage_size(xCarriageType).y/2 - xCarriageFrontSize(xCarriageType).y;
-    size =  [xCarriageBackSize(xCarriageType).x, extraY + carriage_size(xCarriageType).y + xCarriageBackSize(xCarriageType).y - beltInsetFront(xCarriageType), baseThickness];
+    size =  [xCarriageBackSize(xCarriageType).x, clamps ? extraY + carriage_size(xCarriageType).y + xCarriageBackSize(xCarriageType).y - beltInsetFront(xCarriageType) : 13.5, baseThickness];
     translate([0, -size.y + xCarriageBackSize(xCarriageType).y, 0])
         difference() {
             rounded_cube_yz(size, fillet);
-
             // insert holes to connect to the front
             for (x = xCarriageBottomHolePositions(xCarriageType, holeOffset.x))
                 translate([x, 0, size.z/2 + holeOffset.y])
                     rotate([-90, -90, 0])
-                        boltHoleM3TapOrInsert(14, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
+                        boltHoleM3TapOrInsert(xCarriageType[0] == clamps ? 14 : 12, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
         }
-    /*if ($preview && _useInsertsForXCarriage) {
-        for (x = xCarriageBottomHolePositions(xCarriageType))
-            translate([x, -carriage_size(xCarriageType).y + beltInsetBack(xCarriageType), size.z/2])
-                rotate([90, 90, 0])
-                    _threadedInsertM3();
-    }*/
 }
 
-module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, toolheadHoles=false, reflected=false, clamps=!true, strainRelief=false, countersunk=0, offsetT=[4, 0], offsetB=[4,0], accelerometerOffset=undef) {
+module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, toolheadHoles=false, reflected=false, clamps=true, strainRelief=false, countersunk=0, offsetT=[4, 0], offsetB=[4,0], accelerometerOffset=undef) {
     assert(is_list(xCarriageType));
 
-    size = xCarriageBackSize(xCarriageType, beltWidth);
+    size = xCarriageBackSize(xCarriageType, beltWidth, clamps);
     internalFillet = 1.5;
 
     // the back has clamps for the two belts and attaches to the hotend
@@ -170,7 +164,7 @@ module xCarriageBack(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, t
                 xCarriageTop(xCarriageType, reflected, clamps, strainRelief, countersunk, offsetT, accelerometerOffset);
                 // base
                 translate_z(-size.z + topThickness)
-                    xCarriageBottom(xCarriageType, reflected, offsetB);
+                    xCarriageBottom(xCarriageType, reflected, clamps, offsetB);
             } // end union
         if (clamps)
             translate([-size.x/2 - eps, carriage_size(xCarriageType).y/2 - beltInsetBack(undef) + xCarriageBackSize(xCarriageType, beltWidth).y, beltOffsetZ]) {

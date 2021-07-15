@@ -31,7 +31,7 @@ module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, b
     fillet = 1.5;
     offsetY = 0; // to avoid clashing with fan
     blowerMountOffsetY = 1;
-    blowerMountSize = [3, grooveMountSize.y + blowerMountOffsetY, blower_size(blower_type).x + 9];
+    blowerMountSize = [3, grooveMountSize.y + blowerMountOffsetY, blower_size(blower_type).x + (xCarriageType[0] == "MGN9C" ? 9 : 5.5)];
 
     difference() {
         mirror([left ? 0 : 1, 0, 0])
@@ -50,7 +50,7 @@ module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, b
                 baffleSize = [grooveMountSize.x - 7, grooveMountSize.y, 2];
                 // fillet to improve airflow
                 translate([blowerMountSize.x, 2, -baffleOffsetZ])
-                    fillet(baffleSize.x - blowerMountSize.x+5, baffleOffsetZ);
+                    fillet(baffleSize.x - blowerMountSize.x + 5, baffleOffsetZ);
                 blowerMountFillet = 1.5;
                 if (blower_size(blower_type).x < 40) {
                     if (baffle)
@@ -75,7 +75,7 @@ module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, b
             }
         }
         mirror([left ? 0 : 1, 0, 0])
-        translate([-xCarriageBackSize(xCarriageType).x/2, hotendOffset.y - blower_size(blower_type).y/2 + 2, hotendOffset.z])
+        translate([-xCarriageBackSize(xCarriageType).x/2, hotendOffset.y - blower_size(blower_type).y/2 + 2, hotendOffset.z + 1])
             rotate([90, 0, -90])
                 zipTieFullCutout(10);
         // holes for the strain relief clamp
@@ -90,11 +90,11 @@ module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, b
                 blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type) {
                     blower_hole_positions(blower_type)
                         vflip()
-                        boltHoleM2Tap(blowerMountSize.x + 5);
+                            boltHoleM2Tap(blowerMountSize.x + 2);
                     rotate([-90, 0, 0])
                         fanDuctHolePositions()
                             rotate([90, 0, 180])
-                                boltHoleM2Tap(blowerMountSize.x);
+                                boltHoleM2Tap(blowerMountSize.x + 2);
                 }
 
         rotate(left ? 0 : 180)
@@ -144,9 +144,10 @@ module fanDuctHolePositions(z=0) {
 }
 
 module blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type, z=0) {
+    isMGN9C = xCarriageType[0] == "MGN9C";
     translate([ hotendOffset.x - grooveMountSize.x + z,
-                xCarriageBackOffsetY(xCarriageType) + blower_length(blower_type) + 0.5,
-                -blower_size(blower_type).x - grooveMountSize.z/2 ])
+                xCarriageBackOffsetY(xCarriageType) + blower_length(blower_type) + (isMGN9C ? 0.5 : 2),
+                -blower_size(blower_type).x - grooveMountSize.z/2 + (isMGN9C ? 0 : 3)])
             rotate([90, 0, -90])
                 children();
 }
@@ -166,7 +167,7 @@ module hotEndPartCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower
             partCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower_type);
     if (!exploded())
         mirror([left ? 0 : 1, 0, 0])
-            translate([hotendOffset.x - grooveMountSize.x + 1.5, hotendOffset.y - blower_size(blower_type).y/2 + 2, hotendOffset.z])
+            translate([hotendOffset.x - grooveMountSize.x + 1.5, hotendOffset.y - blower_size(blower_type).y/2 + 2, hotendOffset.z + 1])
                 rotate([90, 90, -90])
                     cable_tie(cable_r=3, thickness=1);
 }
