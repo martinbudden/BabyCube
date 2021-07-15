@@ -90,11 +90,11 @@ module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, b
                 blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type) {
                     blower_hole_positions(blower_type)
                         vflip()
-                            boltHoleM2Tap(blowerMountSize.x + 2);
+                            boltHoleM2Tap(blowerMountSize.x + 4);
                     rotate([-90, 0, 0])
                         fanDuctHolePositions()
                             rotate([90, 0, 180])
-                                boltHoleM2Tap(blowerMountSize.x + 2);
+                                boltHoleM2Tap(blowerMountSize.x + 6);
                 }
 
         rotate(left ? 0 : 180)
