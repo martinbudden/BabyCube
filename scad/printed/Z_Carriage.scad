@@ -94,7 +94,7 @@ module zCarriage(printBedSize, testing=false) {
     supportSize = [_zRodSeparation, tubeDiameter + 4, baseThickness];
 
     //echo("zc hbo", heatedBedOffset());
-    //echo("zc ym, dd", _yMax, eY+2*eSizeY- heatedBedOffset().y - _zLeadScrewOffset);
+    //echo("zc ym, dd", _yMax, eY + 2*eSizeY- heatedBedOffset().y - _zLeadScrewOffset);
 
     difference() {
         union() {
@@ -143,20 +143,20 @@ module zCarriage(printBedSize, testing=false) {
                 poly_cylinder(r=bearing_dia(bearing_type)/2, h=bearing_length(bearing_type) + 2*eps);
                 cut = 1.5;
                 rotate(x < 0 ? -90 : -90)
-                    translate([0, -cut/2, 0*(layer_height+eps)])
-                        cube([supportSize.y/2+eps, cut, bearing_length(bearing_type) + 2*eps]);
+                    translate([0, -cut/2, 0*(layer_height + eps)])
+                        cube([supportSize.y/2 + eps, cut, bearing_length(bearing_type) + 2*eps]);
             }
         translate_z(-eps) {
             //echo("leadnut_od, coupling_od", leadnut_od(leadnut), sc_diameter(SC_5x8_rigid));
             //grubScrewClearance = 1.0;
-            //poly_cylinder(r = sc_diameter(SC_5x8_rigid)/2 + grubScrewClearance, h = supportSize.z+2*eps);
+            //poly_cylinder(r = sc_diameter(SC_5x8_rigid)/2 + grubScrewClearance, h = supportSize.z + 2*eps);
             poly_cylinder(r = leadnut_od(leadnut)/2, h = supportSize.z + 2*eps);
             translate_z(supportSize.z - leadnutInset)
                 poly_cylinder(r = leadnut_flange_dia(leadnut)/2, h = leadnutInset + 2*eps);
             translate_z(-supportSize.z/2)
                 leadnut_screw_positions(leadnut)
                     rotate(27) // rotate the poly cylinders to give a bit more clearance from the center hole
-                        poly_cylinder(r=screw_pilot_hole(leadnut_screw(leadnut)), h=supportSize.z+2);
+                        poly_cylinder(r=screw_pilot_hole(leadnut_screw(leadnut)), h=supportSize.z + 2);
         }
         translate([0, heatedBedSize(printBedSize).y/2 + heatedBedOffset(printBedSize).y, 0])
             for (i = heatedBedHoles(printBedSize) )

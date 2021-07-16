@@ -33,7 +33,7 @@ SK_type = _zRodDiameter == 8 ? SK8 : _zRodDiameter == 10 ? SK10 : SK12;
 
 innerFillet = 5;
 reinforcementThickness = 5;
-//upperChordSize = [backUpperChordSize().x, backUpperChordSize().y+3, backUpperChordSize().z];
+//upperChordSize = [backUpperChordSize().x, backUpperChordSize().y + 3, backUpperChordSize().z];
 //upperChordSize = [backUpperChordSize().x, sk_size(SK_type).z + _topPlateThickness + 8, backUpperChordSize().z-2];
 upperChordSize = [eSizeY, sk_size(SK_type).z + _topPlateThickness + 8, eX + 2*eSizeX - 54];
 zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
@@ -197,7 +197,7 @@ module backFaceUpperBrackets(NEMA_width) {
                 boltPolyholeM5Countersunk(_backPlateThickness, sink=0.25);
         backFaceTopHolePositions()
             rotate([90, 0, 0])
-                boltHoleM3Tap(8+10, horizontal = true, chamfer_both_ends = false);
+                boltHoleM3Tap(8 + 10, horizontal = true, chamfer_both_ends = false);
 
         railsCutout(NEMA_width, yRailOffset(NEMA_width));
     }
@@ -243,7 +243,7 @@ module backFaceLowerBrackets(NEMA_type) {
 
     translate_z(-_backPlateThickness)
         difference() {
-            rounded_cube_xy([eX+2*eSizeX, Z_MotorMountHeight(NEMA_type), _backPlateThickness], r=1);
+            rounded_cube_xy([eX + 2*eSizeX, Z_MotorMountHeight(NEMA_type), _backPlateThickness], r=1);
             backFaceLowerSKBracketHolePositions()
                 boltPolyholeM5Countersunk(_backPlateThickness, sink=0.25);
         }

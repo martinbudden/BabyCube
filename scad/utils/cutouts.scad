@@ -82,7 +82,7 @@ module sideFaceTopDogbones(cnc=false, plateThickness = _topPlateThickness) {
     xStep = 20;
     dogboneSize = [xStep, plateThickness*2, 0];
 
-    for (x = [xStep : xStep*2 : eY+2*eSizeY],
+    for (x = [xStep : xStep*2 : eY + 2*eSizeY],
          y = [eZ])
             translate([x, y, 0])
                 edgeCutout_y(dogboneSize, cnc);
@@ -150,7 +150,7 @@ module sideFaceBackTabs(cnc=false) {
 }
 
 module sideFaceSideDogbones(cnc=false, plateThickness = _sidePlateThickness) {
-    dogboneSize = [plateThickness*2, 20+_tabTolerance, 3+2*eps];
+    dogboneSize = [plateThickness*2, 20+_tabTolerance, 3 + 2*eps];
     yStep = 20;
 
     if (_sideTabs)

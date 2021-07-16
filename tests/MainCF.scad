@@ -41,6 +41,6 @@ if ($preview)
 
 
 module center() {
-    translate([-(2*eSizeX+eX)/2, -(2*eSizeY+eY)/2, -eZ/2])
+    translate([-(2*eSizeX + eX)/2, -(2*eSizeY + eY)/2, -eZ/2])
         children();
 }

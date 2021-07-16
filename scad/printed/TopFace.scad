@@ -154,7 +154,7 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius = M3_clearance_radius, 
     cutoutX = 2 * floor(yRailSupportSize(NEMA_width).z/2) + cutoutXExtra;
     cutoutFrontY = cutoutFront - insetY;
     cutoutBackY = cutoutBack - _backPlateThickness + insetY;
-    cutoutSize = [size.x - 2*cutoutX, size.y -cutoutFrontY-cutoutBackY, size.z+2*eps];
+    cutoutSize = [size.x - 2*cutoutX, size.y -cutoutFrontY-cutoutBackY, size.z + 2*eps];
 
     translate([(size.x - cutoutSize.x)/2, cutoutFrontY + insetY])
         rounded_square([cutoutSize.x, cutoutSize.y], 4, center = false);

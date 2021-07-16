@@ -93,7 +93,7 @@ module heatedBed(printBedSize) {
                 if (printBedSize == 120)
                     for (i = heatedBedHoles(printBedSize))
                         translate(i)
-                            translate_z(2+eps)
+                            translate_z(2 + eps)
                                 cylinder(d=6, h=4);
             }
 

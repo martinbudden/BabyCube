@@ -75,7 +75,7 @@ module Left_Face_test() {
         rotate([90, 0, 180])
             Front_Upper_Chord_stl();
 /*
-    translate([0, eY+eSizeY, 0])
+    translate([0, eY + eSizeY, 0])
         rotate([90, 0, 0]) {
             backFaceBare();
             backFaceBrackets();

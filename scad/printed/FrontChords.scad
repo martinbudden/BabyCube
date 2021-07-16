@@ -179,13 +179,13 @@ module frontLowerChordSKR_1_4(headless=false) {
             // cutout for USB
             usbPos = pcb_component_position(pcb_type, "usb_B");
             usbCutoutSize = [14, 12, 2];
-            translate([-eX/2 - eSizeX - usbPos.x - usbCutoutSize.x/2, pcbOffsetFromBase()+1, cutoutOffset.z-1])
+            translate([-eX/2 - eSizeX - usbPos.x - usbCutoutSize.x/2, pcbOffsetFromBase() + 1, cutoutOffset.z-1])
                 rounded_cube_xy(usbCutoutSize, 1);
 
             // cutout for tfCard
             tfCardPos = pcb_component_position(pcb_type, "uSD");
             tfCardCutoutSize = [16, 3, 2];
-            translate([-eX/2 - eSizeX - tfCardPos.x - tfCardCutoutSize.x/2, pcbOffsetFromBase()+1, cutoutOffset.z-1])
+            translate([-eX/2 - eSizeX - tfCardPos.x - tfCardCutoutSize.x/2, pcbOffsetFromBase() + 1, cutoutOffset.z-1])
                 rounded_cube_xy(tfCardCutoutSize, 1);
 
         } else {

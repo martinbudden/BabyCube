@@ -41,6 +41,6 @@ module position(a = [55, 0, 25], t = [0, 0, 0], d = undef) {
 }
 
 if ($preview)
-    //position([55+19, 0, 25-15])
+    //position([55 + 19, 0, 25 - 15])
     translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2])
         Main_test();

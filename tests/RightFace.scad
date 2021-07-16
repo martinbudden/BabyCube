@@ -49,7 +49,7 @@ module Right_Face_test() {
 
     //Base_assembly();
     //Back_Face();
-    *translate([-eY-eSizeY, 0, eX+2*eSizeX])
+    *translate([-eY-eSizeY, 0, eX + 2*eSizeX])
         rotate([0, 90, 0])
             Back_Face_stl();
 }
