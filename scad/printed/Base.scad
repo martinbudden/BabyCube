@@ -167,7 +167,7 @@ module baseAssembly() {
 
 module baseLeftFeet(hardware=false) {
     footHeight = 8;
-    for (i = [ [0, 0, -_basePlateThickness - footHeight, 0], [0, eY+2*eSizeY, -_basePlateThickness - footHeight, 270] ])
+    for (i = [ [0, 0, -_basePlateThickness - footHeight, 0], [0, eY + 2*eSizeY, -_basePlateThickness - footHeight, 270] ])
         translate([i.x, i.y, i.z])
             rotate(i[3])
                 vflip()
@@ -338,8 +338,8 @@ module pcb_back_screw_positions(type, yCutoff = 0) {
    }
 }
 
-M3x10_nylon_hex_pillar = ["M3x10_nylon_hex_pillar", "hex nylon", 3, 10, 6/cos(30), 6/cos(30),  6, 6,  grey(20),   grey(20),  -5, -5+eps];
-M3x12_nylon_hex_pillar = ["M3x12_nylon_hex_pillar", "hex nylon", 3, 12, 6/cos(30), 6/cos(30),  6, 6,  grey(20),   grey(20),  -6, -6+eps];
+M3x10_nylon_hex_pillar = ["M3x10_nylon_hex_pillar", "hex nylon", 3, 10, 6/cos(30), 6/cos(30),  6, 6,  grey(20),   grey(20),  -5, -5 + eps];
+M3x12_nylon_hex_pillar = ["M3x12_nylon_hex_pillar", "hex nylon", 3, 12, 6/cos(30), 6/cos(30),  6, 6,  grey(20),   grey(20),  -6, -6 + eps];
 
 module pcbAssembly(pcbType, alignRight = false) {
 

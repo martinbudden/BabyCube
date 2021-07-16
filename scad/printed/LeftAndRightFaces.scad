@@ -188,7 +188,7 @@ module spoolHolderCutout(NEMA_width, cnc=false) {
 
     width = (extruderPosition(NEMA_width).y - XY_MotorMountSize(NEMA_width).y)/2;
     if (cnc)
-        translate([eSizeY+5, spoolHolderPosition().z])
+        translate([eSizeY + 5, spoolHolderPosition().z])
             rounded_square([50, eZ - antiShearSize.y - spoolHolderPosition().z], innerFillet, center=false);
     else
         translate([idlerBracketSize(coreXYPosBL(NEMA_width)).x, spoolHolderPosition().z])
@@ -271,7 +271,7 @@ module idlerUpright(NEMA_width, left) {
         if (!left)
             // cutouts for zipties
             for (y = idlerUprightZipTiePositions())
-                translate([eSizeY, y, eSizeX+eps])
+                translate([eSizeY, y, eSizeX + eps])
                     rotate([0, 90, 0])
                         zipTieCutout();
     }
@@ -332,7 +332,7 @@ module frameLower(NEMA_width, left=true, offset=0, cf=false) {
             rotate([90, 0, -90])
                 boltHoleM3Tap(10, horizontal = !cf, chamfer_both_ends=false);
         for (x = bottomChordZipTiePositions(left))
-            translate([x, eSizeY+eps, eSizeX + 2])
+            translate([x, eSizeY + eps, eSizeX + 2])
                 rotate(-90)
                     zipTieCutout();
         lowerChordHolePositions()
@@ -394,7 +394,7 @@ module frame(NEMA_type, left=true) {
             frontConnector();
             // middle chord
             translate([0, middleWebOffsetZ(), 0])
-                cube([eY + eSizeY+eps, eSizeZ, eSizeX]);
+                cube([eY + eSizeY + eps, eSizeZ, eSizeX]);
         }
         sideFaceTopHolePositions()
             boltHoleM3Tap(topBoltHolderSize().y, horizontal=true, chamfer_both_ends=true);
@@ -501,7 +501,7 @@ module rightFaceExtruderZipTies(NEMA_width) {
 
 module rightFaceIdlerUprightZipTies() {
     for (y = idlerUprightZipTiePositions())
-        translate([eSizeY, y, eSizeX+eps])
+        translate([eSizeY, y, eSizeX + eps])
             rotate([0, 0, -90])
                 cable_tie(cable_r = 3, thickness = 3);
 }

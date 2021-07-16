@@ -43,13 +43,13 @@ module Back_Face_test() {
     //backFaceCableTies();
     //printheadWiring();
     /*
-    *translate([0, eY+eSizeY, 0])
+    *translate([0, eY + eSizeY, 0])
         rotate([90, 0, 0]) {
             backFaceBare();
             *backFaceTopBrackets();
             *backFaceBottomBrackets(NEMA17Slim);
         }
-    *translate([-eX/2-eSizeX, -eY, 0])
+    *translate([-eX/2 - eSizeX, -eY, 0])
         //let($preview=false)
         {
             Left_Face_assembly();

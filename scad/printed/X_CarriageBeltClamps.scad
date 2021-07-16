@@ -65,9 +65,9 @@ module beltTensioner(beltWidth) {
                 cylinder(d=size.y, h=size.z, center=true);
             cube(size, center=true);
         }
-        translate([-size.x/2, -size.y/2, -size.z/2-eps])
+        translate([-size.x/2, -size.y/2, -size.z/2 - eps])
             fillet(0.5, size.z + 2*eps);
-        translate([-size.x/2, size.y/2, -size.z/2-eps])
+        translate([-size.x/2, size.y/2, -size.z/2 - eps])
             rotate(-90)
                 fillet(0.5, size.z + 2*eps);
         translate([-size.x/2 - eps, 0, 0])

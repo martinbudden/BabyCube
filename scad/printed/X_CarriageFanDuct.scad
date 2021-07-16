@@ -62,7 +62,7 @@ module fanDuct(printHeadHotendOffsetX, jetOffset=0, chimneySizeZ = 14) {
         jetStartSize = [16, 2, 2];
         translate([12.5 + jetOffset, -8, 14 - chimneySize.z])
             #hull() {
-                translate([-jetEndSize.x/2, 6+2 + printHeadHotendOffsetX, -21-1])
+                translate([-jetEndSize.x/2, 6 + 2 + printHeadHotendOffsetX, -21-1])
                     cube(jetEndSize);
                 translate([-jetStartSize.x/2, 0, -13])
                     cube(jetStartSize);

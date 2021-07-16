@@ -193,7 +193,7 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
                         translate(pos)
                             boltHoleM3Tap(10, horizontal=true, chamfer_both_ends=false);
 
-        translate([-NEMA_width/2-motorClearance().x + _sidePlateThickness, NEMA_width/2 + motorClearance().y - backBraceThickness, 0]) {
+        translate([-NEMA_width/2 - motorClearance().x + _sidePlateThickness, NEMA_width/2 + motorClearance().y - backBraceThickness, 0]) {
                         translate([_backFaceHoleInset - _sidePlateThickness, 0, offset - (eZ - backFaceHolePositions()[2])])
                             rotate([90, 0, 180])
                                 boltHoleM3Tap(backBraceThickness, horizontal=true, rotate = cf ? 0 : 90);

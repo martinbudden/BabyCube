@@ -104,8 +104,8 @@ module XT60Male() {
                         }
                         h = 10;
                         translate_z(-cRadius+h/2) {
-                            cube([2*cRadius+1, 0.25, h], center=true);
-                            cube([0.25, 2*cRadius+1, h], center=true);
+                            cube([2*cRadius + 1, 0.25, h], center=true);
+                            cube([0.25, 2*cRadius + 1, h], center=true);
                         }
                     }
                 }
@@ -157,7 +157,7 @@ module XT60FemaleHolder() {
             square([XT60MaleCutoutSize.x, XT60MaleCutoutSize.y] + tolerance, center=true);
         }
         translate_z(XT60FemaleCutoutSize.z*0)
-            rounded_cube_xy([XT60FemaleCutoutSize.x, XT60FemaleCutoutSize.y, 9.5-coverThickness-XT60FemaleCutoutSize.z]+[tolerance.x, tolerance.y, 0], xy_center=true);
+            rounded_cube_xy([XT60FemaleCutoutSize.x, XT60FemaleCutoutSize.y, 9.5 - coverThickness-XT60FemaleCutoutSize.z]+[tolerance.x, tolerance.y, 0], xy_center=true);
     }
     // add a cover to stop the XT60 pushing through
     translate_z(size.z-coverThickness) linear_extrude(coverThickness) difference() {

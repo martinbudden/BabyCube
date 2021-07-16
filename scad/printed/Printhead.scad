@@ -184,12 +184,12 @@ module grooveMountCutout(length) {
         for (m = [0, 1])
             mirror([0, 0, m]) {
                 translate_z(-neckLength/2 - eps)
-                    poly_cylinder(r = innerRadius, h = neckLength+2*eps);
+                    poly_cylinder(r = innerRadius, h = neckLength + 2*eps);
                 translate_z(neckLength/2 - chamfer)
                     cylinder(r1 = innerRadius, r2 = innerRadius + chamfer, h = chamfer + eps);
                 translate_z(neckLength/2)
                     poly_cylinder(r = outerRadius, h = endLength);
-                translate_z(length/2-chamfer)
+                translate_z(length/2 - chamfer)
                     cylinder(r1 = outerRadius, r2 = outerRadius + chamfer, h=chamfer + eps);
             }
 }

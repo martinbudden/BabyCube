@@ -205,7 +205,7 @@ module Printbed_Frame_stl() {
                             difference() {
                                 union() {
                                     squareSize = [_zRodSeparation - 2*scs_hole_offset(scs_type)-2*fillet - 0*armSize.x, 55];
-                                    translate([-squareSize.x/2, -scsSize.x/2-1, 0]) {
+                                    translate([-squareSize.x/2, -scsSize.x/2 - 1, 0]) {
                                         //translate([-fillet, 0])
                                             square(squareSize, center=false);
                                         translate([armSize.x - fillet, squareSize.y])

@@ -60,9 +60,9 @@ module knob(d, h) {
         rotate(45) {
             markOffset = 6;
             translate([markOffset, -0.5, 0])
-                cube([d/2-markOffset-ringThickness/2, 1, ringThickness+eps]);
+                cube([d/2 - markOffset-ringThickness/2, 1, ringThickness + eps]);
             translate([markOffset, 0, 0])
-                cylinder(d = 1, h = ringThickness+eps);
+                cylinder(d = 1, h = ringThickness + eps);
         }
     }
 }
@@ -113,7 +113,7 @@ module displayHousingFrontCutouts(display_type, cutoutComponents = true) {
         rb = display_ribbon(display_type);
         if(rb) {
             rbSize = [rb[1].x - rb[0].x, rb[1].y - rb[0].y];
-            translate([-(display_size.x + fillet)/2-rbSize.x, rb[0].y - fillet/2])
+            translate([-(display_size.x + fillet)/2 - rbSize.x, rb[0].y - fillet/2])
                 rounded_square([rbSize.x + 2*fillet, rbSize.y + fillet], fillet, center = false);
         }
     }
@@ -283,7 +283,7 @@ module displayHousingSides(display_type, sideSizeZ, fillet=2) {
 
             // cutout for USB
             translate([0, usb_APos.y, sideSizeZ/2 + pcbSize.z]) {
-                cutoutSize = [sideThickness+2, 22, sideSizeZ];
+                cutoutSize = [sideThickness + 2, 22, sideSizeZ];
                 translate([-(pcbSize.x + cutoutSize.x)/2, 0, 0])
                     cube(cutoutSize, center=true);
 

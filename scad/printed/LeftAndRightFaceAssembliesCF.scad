@@ -69,7 +69,7 @@ module Right_Face_Lower_Joiner_stl() {
                     translate([_sidePlateThickness, 0, _sidePlateThickness])
                         rounded_cube_xy([eSizeY, eZ - 70, eSizeXBase - _sidePlateThickness], _fillet);
                     frontSideJoinerHolePositions(_sidePlateThickness)
-                        boltHoleM3Tap(eSizeXBase - _sidePlateThickness+2);
+                        boltHoleM3Tap(eSizeXBase - _sidePlateThickness + 2);
                 }
             }
 }

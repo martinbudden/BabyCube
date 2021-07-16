@@ -67,7 +67,7 @@ module Switch_Shroud_stl() {
                     *translate([size.x-sideThickness, 0, eSizeXBase])
                         rounded_cube_xy([sideThickness, eSizeZ+fillet, size.z-eSizeXBase+_webThickness], fillet);
                     translate([size.x - sideThickness, XT60_offset-fillet-1, _webThickness])
-                        rounded_cube_xy([sideThickness, size.y - XT60_offset+1, size.z], fillet);
+                        rounded_cube_xy([sideThickness, size.y - XT60_offset + 1, size.z], fillet);
                     translate([size.x - XT60FemaleHolderSize().z, eSizeZ, _webThickness])
                         cube([XT60FemaleHolderSize().z, XT60_offset - eSizeZ, 2]);
                     translate([size.x - XT60MaleHolderSize().z, eSizeZ, _webThickness])
@@ -134,7 +134,7 @@ module Switch_Shroud_stl() {
                 translate([frontReinforcementThickness(), sizeN.y])
                     rotate(270)
                         fillet(fillet, sizeN.z + 2*eps);
-                translate([frontReinforcementThickness()+ size.x - XT60MaleHolderSize().z, eSizeZ + XT60MaleHolderSize().x + XT60HolderOffsetY, -insideThickness+eps])
+                translate([frontReinforcementThickness()+ size.x - XT60MaleHolderSize().z, eSizeZ + XT60MaleHolderSize().x + XT60HolderOffsetY, -insideThickness + eps])
                     rotate(270)
                         fillet(1, sizeN.z);
                 translate([sizeN.x-eSizeY - 10, eSizeZ+XT60HolderOffsetY+XT60MaleHolderSize().x, size.z])

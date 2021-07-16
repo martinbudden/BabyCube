@@ -147,7 +147,7 @@ module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17, motorOffsetZ = 3, motorRota
                                         fillet(3, size.z + 2*eps);
                                     translate([0, size.y, -eps])
                                         rotate(270)
-                                            fillet(3, size.z+2*eps);
+                                            fillet(3, size.z + 2*eps);
                                 }
                                 translate([size.x, size.y - 1, 0])
                                     right_triangle(3, 1, 12, center=false);

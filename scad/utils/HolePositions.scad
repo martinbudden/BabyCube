@@ -95,7 +95,7 @@ module baseLeftHolePositions(z=0) {
 module baseRightHolePositions(z=0) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
     translate([size.x/2, size.y/2, z])
-        for (x = [size.x/2-_baseBoltHoleInset.x],
+        for (x = [size.x/2 - _baseBoltHoleInset.x],
              y=[0]) //y = [(size.y-eSizeY)/6, -(size.y-eSizeY)/6])
             translate([x, y, 0])
                 rotate(-90)
@@ -192,7 +192,7 @@ module backFaceTopHolePositions(z=0) {
 module topFaceSideHolePositions(z=0) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
     for (x = [topFaceSideHolePositionOffset(), size.x - topFaceSideHolePositionOffset()],
-         //y = concat(topFaceMidSideHolePositions(), [eSizeY, eY+eSizeY]))
+         //y = concat(topFaceMidSideHolePositions(), [eSizeY, eY + eSizeY]))
          y = topFaceSideHolePositions()
         )
         translate([x, y, z])

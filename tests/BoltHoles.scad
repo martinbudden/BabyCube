@@ -28,7 +28,7 @@ module BoltHole_test() {
     //baseRightFeet();
     BaseAL();
     //translate_z(eZ) color(pp3_colour) topFaceCover(NEMA_type);
-    //translate_z(eZ+eps) color(pp3_colour) topFaceInterlock(NEMA_type);
+    //translate_z(eZ + eps) color(pp3_colour) topFaceInterlock(NEMA_type);
     Top_Face_assembly();
 
     //Top_Face_assembly();
@@ -52,11 +52,11 @@ module BoltHole_test() {
     }
 
     // right face
-    translate([eX + 2*eSizeX+eps, 0, 0])
+    translate([eX + 2*eSizeX + eps, 0, 0])
         rotate([90, 0, 90])
             hflip()
                 Right_Face_stl();
-    translate([eX+2*eSizeX, 0, 0])
+    translate([eX + 2*eSizeX, 0, 0])
         rotate([90, 0, 90])
             mirror([0, 0, 1]) {
                 lowerChordHolePositions()
@@ -68,7 +68,7 @@ module BoltHole_test() {
             }
 
     // back face
-    translate([0, eY+2*eSizeY, 0])
+    translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0])
             backFaceBaseHolePositions()
                  rotate([90, 0, 0])
