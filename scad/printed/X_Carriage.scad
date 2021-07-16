@@ -94,14 +94,25 @@ module xCarriageTop(xCarriageType, reflected=false, clamps=true, strainRelief=fa
     }
 }
 
-module xCarriageTopBolts(xCarriageType, countersunk = true) {
+module xCarriageHolePositions(xCarriageType, positions=undef) {
+    x_pitch = carriage_pitch_x(xCarriageType);
+    y_pitch = carriage_pitch_y(xCarriageType);
+
+    positions = is_undef(positions) ? [ [-1, -1], [-1, 1], [1, -1], [1, 1] ] : positions;
+    for(i = positions)
+        if(i.x < 0 || x_pitch)
+            translate([i.x * x_pitch / 2, i.y * y_pitch / 2, carriage_height(xCarriageType)])
+                children();
+}
+
+module xCarriageTopBolts(xCarriageType, countersunk = true, positions=undef) {
     assert(is_list(xCarriageType));
 
     // depth of holes in MGN9 and MGN12 carriages is approx 5mm. so 4.5mm leaves room for error
     carriageHoleDepth = 4.5;
 
     translate_z(topThickness - carriage_height(xCarriageType) + eps)
-        carriage_hole_positions(xCarriageType)
+        xCarriageHolePositions(xCarriageType, positions)
             bolt(countersunk ? M3_cs_cap_screw : M3_dome_screw, screw_shorter_than(topThickness + carriageHoleDepth));
 
     if (_useInsertsForXCarriage)
@@ -278,8 +289,8 @@ module xCarriageFront(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ) 
     }
 }
 
-module xCarriageFrontBolts(xCarriageType, beltWidth, topBoltLength=10, bottomBoltLength=12, countersunk=false, offsetT=[4 ,0], offsetB=[4, 0]) {
-    size = xCarriageFrontSize(xCarriageType, beltWidth);
+module xCarriageFrontBolts(xCarriageType, beltWidth, clamps=true, topBoltLength=10, bottomBoltLength=12, countersunk=false, offsetT=[4 ,0], offsetB=[4, 0]) {
+    size = xCarriageFrontSize(xCarriageType, beltWidth, clamps);
 
     translate([-size.x/2, -xCarriageFrontOffsetY(xCarriageType), 0]) {
         // holes at the top to connect to the xCarriage
