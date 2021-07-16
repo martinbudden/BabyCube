@@ -23,6 +23,7 @@ tests/*.*
 tests/bom
 tests/deps
 tests/png/*
+tests/tmp
 !tests/*.scad
 !tests/extra/*.scad
 # change to !, except for diffs, once released
