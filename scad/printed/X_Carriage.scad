@@ -1,6 +1,4 @@
 
-//include <../global_defs.scad>
-
 include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/core_xy.scad>
 use <NopSCADlib/utils/fillet.scad>
@@ -39,10 +37,14 @@ function xCarriageFrontSize(xCarriageType, beltWidth, clamps) =  [max(carriage_s
 function xCarriageBackSize(xCarriageType, beltWidth, clamps) = [xCarriageFrontSize(xCarriageType, beltWidth, clamps).x, 5, xCarriageFrontSize(xCarriageType, beltWidth, clamps).z];
 function xCarriageFrontOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageFrontSize(xCarriageType).y + 2;
 function xCarriageBackOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageBackSize(xCarriageType).y;
-function xCarriageTopHolePositions(xCarriageType, offset=4) = [offset, xCarriageFrontSize(xCarriageType).x - offset];
-//function xCarriageBottomHolePositions(xCarriageType) = [xCarriageType == MGN9C_carriage? 4 : 10, xCarriageFrontSize(xCarriageType).x - 4];
-function xCarriageBottomHolePositions(xCarriageType, offset=4) = [offset, xCarriageFrontSize(xCarriageType).x - offset];
+//function xCarriageTopHolePositions(xCarriageType, offset=4) = [offset, xCarriageFrontSize(xCarriageType).x - offset];
+////function xCarriageBottomHolePositions(xCarriageType) = [xCarriageType == MGN9C_carriage? 4 : 10, xCarriageFrontSize(xCarriageType).x - 4];
+//function xCarriageBottomHolePositions(xCarriageType, offset=4) = [offset, xCarriageFrontSize(xCarriageType).x - offset];
 
+function xCarriageHolePositions(sizeX, spacing) = [(sizeX - spacing)/2, (sizeX + spacing)/2];
+evaHoleSeparationTop = 34;
+function xCarriageHoleSeparationTop(xCarriageType) = xCarriageType[0] == "MGN9C" ? 22 : evaHoleSeparationTop; //45.4 - 8
+function xCarriageHoleSeparationBottom(xCarriageType) = xCarriageType[0] == "MGN9C" ? 22 : 38;//37.4; //45.4 - 8
 
 module xCarriageTop(xCarriageType, reflected=false, clamps=true, strainRelief=false, countersunk=4, holeOffset=[4,0], accelerometerOffset=undef) {
     assert(is_list(xCarriageType));
@@ -56,11 +58,13 @@ module xCarriageTop(xCarriageType, reflected=false, clamps=true, strainRelief=fa
         translate([0, xCarriageBackSize(xCarriageType).y - size.y, 0])
             rounded_cube_yz(size, fillet);
         // insert holes  to connect to the front
-        for (x = xCarriageTopHolePositions(xCarriageType, holeOffset.x))
+        holeSeparation = xCarriageHoleSeparationTop(xCarriageType);
+        for (x = xCarriageHolePositions(size.x, holeSeparation))
+        //for (x = xCarriageTopHolePositions(xCarriageType, holeOffset.x))
             translate([x, xCarriageBackSize(xCarriageType).y - size.y, size.z/2 + holeOffset.y])
                 rotate([-90, -90, 0])
                     boltHoleM3TapOrInsert(12, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
-        // bolt holes to connect to to the rail carriage
+        // bolt holes to connect to to the MGN carriage
         translate([size.x/2, -carriageSize.y/2, -carriage_height(xCarriageType)]) {
             carriage_hole_positions(xCarriageType) {
                 boltHoleM3(size.z, horizontal=true, rotate=(reflected ? 90 : -90));
@@ -94,7 +98,7 @@ module xCarriageTop(xCarriageType, reflected=false, clamps=true, strainRelief=fa
     }
 }
 
-module xCarriageHolePositions(xCarriageType, positions=undef) {
+module MGNCarriageHolePositions(xCarriageType, positions=undef) {
     x_pitch = carriage_pitch_x(xCarriageType);
     y_pitch = carriage_pitch_y(xCarriageType);
 
@@ -112,7 +116,7 @@ module xCarriageTopBolts(xCarriageType, countersunk = true, positions=undef) {
     carriageHoleDepth = 4.5;
 
     translate_z(topThickness - carriage_height(xCarriageType) + eps)
-        xCarriageHolePositions(xCarriageType, positions)
+        MGNCarriageHolePositions(xCarriageType, positions)
             bolt(countersunk ? M3_cs_cap_screw : M3_dome_screw, screw_shorter_than(topThickness + carriageHoleDepth));
 
     if (_useInsertsForXCarriage)
@@ -131,7 +135,9 @@ module xCarriageBottom(xCarriageType, reflected=false, clamps=false, holeOffset=
         difference() {
             rounded_cube_yz(size, fillet);
             // insert holes to connect to the front
-            for (x = xCarriageBottomHolePositions(xCarriageType, holeOffset.x))
+            holeSeparation = xCarriageHoleSeparationBottom(xCarriageType);
+            for (x = xCarriageHolePositions(size.x, holeSeparation))
+            //for (x = xCarriageBottomHolePositions(xCarriageType, holeOffset.x))
                 translate([x, 0, size.z/2 + holeOffset.y])
                     rotate([-90, -90, 0])
                         boltHoleM3TapOrInsert(xCarriageType[0] == clamps ? 14 : 12, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
@@ -259,12 +265,14 @@ module xCarriageFront(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ) 
                     rotate([-90, -90, 0])
                         boltHoleM3TapOrInsert(size.y + beltInsetFront(xCarriageType), horizontal=true, chamfer_both_ends=true);
             // holes at the top to connect to the printhead
-            for (x = xCarriageTopHolePositions(xCarriageType))
+            for (x = xCarriageHolePositions(size.x, xCarriageHoleSeparationTop(xCarriageType)))
+            //for (x = xCarriageTopHolePositions(xCarriageType))
                 translate([x, size.y, -baseOffset + size.z - topThickness/2])
                     rotate([90, 90, 0])
                         boltHoleM3(size.y, horizontal=true);
             // holes at the bottom to connect to the printhead
-            for (x = xCarriageBottomHolePositions(xCarriageType))
+            for (x = xCarriageHolePositions(size.x, xCarriageHoleSeparationBottom(xCarriageType)))
+            //for (x = xCarriageBottomHolePositions(xCarriageType))
                 translate([x, size.y + beltInsetFront(xCarriageType), -baseOffset + baseThickness/2])
                     rotate([90, 90, 0])
                         boltHoleM3(size.y + beltInsetFront(xCarriageType), horizontal=true);
@@ -294,7 +302,8 @@ module xCarriageFrontBolts(xCarriageType, beltWidth, clamps=true, topBoltLength=
 
     translate([-size.x/2, -xCarriageFrontOffsetY(xCarriageType), 0]) {
         // holes at the top to connect to the xCarriage
-        for (x = xCarriageTopHolePositions(xCarriageType, offsetT.x))
+        for (x = xCarriageHolePositions(size.x, xCarriageHoleSeparationTop(xCarriageType)))
+        //for (x = xCarriageTopHolePositions(xCarriageType, offsetT.x))
             translate([x, 0, xCarriageTopThickness()/2 + offsetT.y])
                 rotate([90, 90, 0])
                     if (countersunk)
@@ -302,7 +311,8 @@ module xCarriageFrontBolts(xCarriageType, beltWidth, clamps=true, topBoltLength=
                     else
                         boltM3Buttonhead(topBoltLength);
         // holes at the bottom to connect to the xCarriage
-        for (x = xCarriageBottomHolePositions(xCarriageType, offsetB.x))
+        for (x = xCarriageHolePositions(size.x, xCarriageHoleSeparationBottom(xCarriageType)))
+        //for (x = xCarriageBottomHolePositions(xCarriageType, offsetB.x))
             translate([x, 0, -size.z + xCarriageTopThickness() + xCarriageBaseThickness()/2 + offsetB.y])
                 rotate([90, 90, 0])
                     if (countersunk)

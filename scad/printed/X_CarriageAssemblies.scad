@@ -13,6 +13,7 @@ use <../vitamins/bolts.scad>
 
 use <Printhead.scad>
 use <X_Carriage.scad>
+use <X_CarriageBeltAttachment.scad>
 use <X_CarriageBeltClamps.scad>
 use <X_CarriageFanDuct.scad>
 
@@ -112,6 +113,7 @@ module X_Carriage_stl() {
     hotend_type = 0;
     grooveMountSize = grooveMountSize(blower_type, hotend_type);
     hotendOffset = hotendOffset(xCarriageType, hotend_type);
+    holeSeparation = 22;
 
     stl("X_Carriage")
         color(pp1_colour)
@@ -151,6 +153,23 @@ assembly("X_Carriage", big=true, ngb=true) {
                         Fan_Duct_stl();
                     Fan_Duct_hardware(xCarriageType, hotend_type);
                 }
+}
+
+module X_Carriage_Belt_Side_MGN9C_stl() {
+    xCarriageType = MGN9C_carriage;
+
+    // orientate for printing
+    stl("X_Carriage_Belt_Side_MGN9C")
+        color(pp4_colour)
+            rotate([90, 0, 0])
+                xCarriageFrontBeltAttachment(xCarriageType, _beltWidth, beltOffsetZ(), coreXYSeparation().z, accelerometerOffset());
+}
+
+module X_Carriage_Belt_Side_MGN9C_assembly()
+assembly("X_Carriage_Belt_Side_MGN9C", big=true) {
+    rotate([-90, 0, 0])
+        stl_colour(pp4_colour)
+            X_Carriage_Belt_Side_MGN9C_stl();
 }
 
 module Belt_Tidy_stl() {
