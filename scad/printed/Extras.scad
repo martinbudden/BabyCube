@@ -42,7 +42,7 @@ module faceRightSpool() {
             translate([0.1 + spool_width(spool)/2 + spool_rim_thickness(spool), 0, -spool_hub_bore(spool)/2])
                 rotate([0, 90, 0])
                     not_on_bom()
-                        spool(spool, 46, "deepskyblue", 1.75);
+                        spool(spool, 46, "red", 1.75);
 }
 
 module Spool_Holder_stl() {
