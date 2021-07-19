@@ -135,9 +135,9 @@ module X_Carriage_Belt_Clamp_hardware() {
 
 module xCarriageBeltAttachment(sizeZ, endCube=true) {
     size = xCarriageBeltAttachmentSize(sizeZ) - [0, toothHeight, 0];
-    cutoutSize = [xCarriageBeltTensionerSize().z + 0.55, xCarriageBeltTensionerSize().y + 0.75];
-    assert(cutoutSize==[7.75, 10.75]);
-    endCubeSize = [9, 8, 12];
+    cutoutSize = [xCarriageBeltTensionerSize().z + 0.55, xCarriageBeltTensionerSize().y + 0.4];
+    //assert(cutoutSize==[7.75, 10.75]);
+    endCubeSize = [9, 5, 12];
     toothCount = floor(size.z/2) - 1;
 
     difference() {
