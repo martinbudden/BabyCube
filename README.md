@@ -30,7 +30,7 @@ If you would like to build a larger printer, you may be interested in the BabyCu
 1. Small portable quality CoreXY 3D printer with all parts integrated inside the frame (no external power brick)
 2. Capable of printing high quality prints
 3. Linear rails and NEMA 14 stepper motors used for CoreXY motion system
-4. Standard (40mm long) NEMA 17 stepper motors used for the extruder and the Z axis.
+4. NEMA 17 stepper motors used for the extruder and the Z axis
 5. Quiet operation
 6. Sensorless homing on all axes
 
