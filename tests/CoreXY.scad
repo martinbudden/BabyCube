@@ -52,8 +52,9 @@ module CoreXY() {
 }
 
 if ($preview)
-    translate_z(-coreXYPosBL(_xyNEMA_width).z)
-        CoreXY();
+    rotate(-90 + 30)
+        translate([-eX/2, -eY/2, -coreXYPosBL(_xyNEMA_width).z])
+            CoreXY();
 
 
 /*
