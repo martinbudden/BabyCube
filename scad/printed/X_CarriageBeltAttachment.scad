@@ -12,14 +12,14 @@ include <../vitamins/pcbs.scad>
 function xCarriageBeltTensionerSize(sizeX=0) = [sizeX, 10, 7.2];
 
 function xCarriageBottomOffsetZ() = 40.8;
-function xCarriageHoleOffsetTop() = [5.65, -1]; // for alignment with EVA
+function xCarriageHoleOffsetTop() = -1;//[5.65, -1]; // for alignment with EVA
 //function xCarriageHoleOffsetTop() = [4, 0];
 //function xCarriageHoleOffsetBottom() = [9.7, 4.5]; // for alignment with EVA
 //function xCarriageHoleOffsetBottom() = [9.7, 0];
-function xCarriageHoleOffsetBottom() = [4, 0];
+//function xCarriageHoleOffsetBottom() = [4, 0];
 evaHoleOffsetBottom = 9.7;
 evaHoleSeparationBottom = 26;
-function xCarriageBeltAttachmentSize(sizeZ=0) = [24, 18, sizeZ];
+function xCarriageBeltAttachmentSize(sizeZ=0) = [20, 18, sizeZ];
 // actual dimensions for belt are thickness:1.4, toothHeight:0.75
 toothHeight = 0.8;//0.75;
 function xCarriageBeltClampHoleSeparation() = 12;
@@ -107,14 +107,14 @@ module xCarriageBeltTensioner(sizeX) {
     }
 }
 
-module X_Carriage_Belt_Tensioner_hardware(offset=0) {
+module X_Carriage_Belt_Tensioner_hardware(boltLength=40, offset=0) {
     size = xCarriageBeltTensionerSize();
     offsetY = 4.5;
     translate([offset + 22.7, (size.y + offsetY)/2, size.z/2])
         rotate([90, 0, 90])
             explode(10, true)
                 washer(M3_washer)
-                    boltM3Caphead(40);
+                    boltM3Caphead(boltLength);
 }
 
 module xCarriageBeltClampPositions(sizeZ) {
@@ -125,15 +125,18 @@ module xCarriageBeltClampPositions(sizeZ) {
 }
 
 module X_Carriage_Belt_Clamp_hardware() {
-    size = [xCarriageBeltAttachmentSize().x - 0.5, 6, 4.5];
+    size = [xCarriageBeltAttachmentSize().x, 6, 4.5];
 
-    for (x = [0, xCarriageBeltClampHoleSeparation()])
+    *for (x = [0, xCarriageBeltClampHoleSeparation()])
         translate([x + 3.2, 0, 0])
             vflip()
                 boltM3Buttonhead(10);
+    translate([size.x/2 + 1.25, 0, 0])
+        vflip()
+            boltM3Buttonhead(8);
 }
 
-module xCarriageBeltAttachment(sizeZ, endCube=true) {
+module xCarriageBeltAttachment(sizeZ, endCube=!true) {
     size = xCarriageBeltAttachmentSize(sizeZ) - [0, toothHeight, 0];
     cutoutSize = [xCarriageBeltTensionerSize().z + 0.55, xCarriageBeltTensionerSize().y + 0.4];
     //assert(cutoutSize==[7.75, 10.75]);
@@ -182,12 +185,12 @@ module xCarriageBeltAttachment(sizeZ, endCube=true) {
     }
 }
 
-module xCarriageFrontBeltAttachment(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ, accelerometerOffset=undef) {
+module xCarriageBeltSide(xCarriageType, size, accelerometerOffset=undef, countersunk=true, topHoleOffset=0) {
     assert(is_list(xCarriageType));
 
-    size = xCarriageFrontSize(xCarriageType, beltWidth, clamps=false);
     carriageSize = carriage_size(xCarriageType);
-    sizeExtra = [0, (carriageSize.z >= 13 ? 1 : -1), 0];
+    isMGN12 = carriageSize.z >= 13;
+    sizeExtra = [0, (isMGN12 ? 1 : -1), 0];
     tolerance = 0.05;
     topSize = [size.x, size.y + carriageSize.y/2 + 2 - tolerance, xCarriageTopThickness()];
     baseThickness = xCarriageBaseThickness();
@@ -200,7 +203,7 @@ module xCarriageFrontBeltAttachment(xCarriageType, beltWidth, beltOffsetZ, coreX
         difference () {
             translate_z(-baseOffset)
                 union() {
-                    translate([size.x, xCarriageFrontOffsetY(xCarriageType) - 13, size.z - 49])//-size.z + 20.5 + baseOffset])
+                    translate([size.x, xCarriageFrontOffsetY(xCarriageType) - 13, size.z - (isMGN12 ? 49: 45)])//-size.z + 20.5 + baseOffset])
                         rotate([0, 90, 90])
                             xCarriageBeltAttachment(size.x);
                     rounded_cube_xz(size + sizeExtra, fillet);
@@ -210,7 +213,7 @@ module xCarriageFrontBeltAttachment(xCarriageType, beltWidth, beltOffsetZ, coreX
                     rounded_cube_xz([size.x, beltAttachmentSizeY, baseThickness], fillet);
                     translate_z(fillet + 0.25)
                         cube([size.x, beltAttachmentSizeY, baseThickness - fillet], fillet);
-                    if (size.x > 30)
+                    if (isMGN12)
                         rounded_cube_xz([size.x, size.y + 2.6, baseThickness + xCarriageBeltAttachmentSize().x], fillet);
                 } // end union
             translate([0, size.y + sizeExtra.y, -49 + topSize.z + xCarriageBeltAttachmentSize().x]) {
@@ -221,7 +224,7 @@ module xCarriageFrontBeltAttachment(xCarriageType, beltWidth, beltOffsetZ, coreX
                         fillet(1, 20.5 - sizeExtra.y + eps);
             }
             // bolt holes to connect to to the MGN carriage
-            translate([size.x/2, xCarriageFrontOffsetY(xCarriageType), -carriage_height(xCarriageType)]) {
+            translate([size.x/2 + topHoleOffset, xCarriageFrontOffsetY(xCarriageType), -carriage_height(xCarriageType)]) {
                 carriage_hole_positions(xCarriageType) {
                     boltHoleM3(topSize.z, horizontal=true);
                     // cut the countersink
@@ -236,27 +239,33 @@ module xCarriageFrontBeltAttachment(xCarriageType, beltWidth, beltOffsetZ, coreX
                                 vflip()
                                     boltHoleM3Tap(8, horizontal=true);
             }
-            // holes at the top to connect to the printhead
+            // holes at the top to connect to the hotend side
             for (x = xCarriageHolePositions(size.x, xCarriageHoleSeparationTop(xCarriageType)))
-                translate([x, 0, -baseOffset + size.z - topSize.z/2 + xCarriageHoleOffsetTop().y])
+                translate([x + topHoleOffset, 0, -baseOffset + size.z - topSize.z/2 + (isMGN12 ? xCarriageHoleOffsetTop() : 0)])
                     rotate([-90, 0, 0])
-                        boltPolyholeM3Countersunk(topSize.y);
+                        if (countersunk)
+                            boltPolyholeM3Countersunk(topSize.y);
+                        else
+                            boltHoleM3(topSize.y);
             /*for (x = xCarriageTopHolePositions(xCarriageType, xCarriageHoleOffsetTop().x))
                 translate([x, 0, -baseOffset + size.z - topSize.z/2 + xCarriageHoleOffsetTop().y])
                     rotate([-90, 0, 0])
                         boltPolyholeM3Countersunk(topSize.y);
                         //boltHoleM3(topSize.y, twist=4);*/
-            // holes at the bottom to connect to the printhead
+            // holes at the bottom to connect to the hotend side
             for (x = xCarriageHolePositions(size.x, xCarriageHoleSeparationBottom(xCarriageType)))
-               translate([x, 0, -baseOffset + baseThickness/2 + xCarriageHoleOffsetBottom().y])
+               translate([x + topHoleOffset, 0, -baseOffset + baseThickness/2])
                     rotate([-90, 0, 0])
-                        boltPolyholeM3Countersunk(beltAttachmentSizeY);
+                        if (countersunk)
+                            boltPolyholeM3Countersunk(beltAttachmentSizeY);
+                        else
+                            boltHoleM3(beltAttachmentSizeY);
             /*for (x = xCarriageBottomHolePositions(xCarriageType, xCarriageHoleOffsetBottom().x))
                 translate([x, 0, -baseOffset + baseThickness/2 + xCarriageHoleOffsetBottom().y])
                     rotate([-90, 0, 0])
                         boltPolyholeM3Countersunk(beltAttachmentSizeY);
                         //boltHoleM3(size.y + beltInsetFront(xCarriageType), twist=4,cnc=true);*/
-            if (carriageSize.z >= 13) {
+            if (isMGN12) {
                 // EVA compatible boltholes
                 for (x = xCarriageHolePositions(size.x, evaHoleSeparationBottom))
                     translate([x, 0, -baseOffset + baseThickness/2])
@@ -273,8 +282,7 @@ module xCarriageFrontBeltAttachment(xCarriageType, beltWidth, beltOffsetZ, coreX
     }
 }
 
-module xCarriageFrontBeltAttachmentPositions(xCarriageType, beltWidth) {
-    size = xCarriageFrontSize(xCarriageType, beltWidth, clamps=false);
+module xCarriageBeltSideClampPositions(xCarriageType, size) {
     translate([-size.x/2, size.z/2, -xCarriageBottomOffsetZ()])
         explode([0, 10, 0], true)
             xCarriageBeltClampPositions(size.x)
