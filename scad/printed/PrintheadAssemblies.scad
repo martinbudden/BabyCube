@@ -35,6 +35,7 @@ assembly("Printhead", big=true) {
     hotendOffset = hotendOffset(xCarriageType, hotend_type);
 
     X_Carriage_assembly();
+    //X_Carriage_Groovemount_MGN9C_assembly();
 
     explode([20, 0, 0])
         hotEndHolderHardware(xCarriageType, hotend_type);
@@ -64,7 +65,8 @@ module fullPrinthead(rotate=0, explode=0, t=undef, accelerometer=false) {
             rotate(rotate) {// for debug, to see belts better
                 explode([0, -20, 0], true) {
                     X_Carriage_Front_assembly();
-                    xCarriageFrontBolts(xCarriageType, _beltWidth);
+                    //X_Carriage_Belt_Side_MGN9C_assembly();
+                    xCarriageFrontBolts(xCarriageType, xCarriageFrontSize(xCarriageType, _beltWidth, clamps=true));
                 }
                 Printhead_assembly();
                 xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk);
