@@ -131,8 +131,9 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
                         rounded_cube_xy([blockSize.x, blockSize.y - topInset, blockSize.z], fillet);
                         *rounded_cube_xy([blockSize.x + endstopX, blockSize.y/2 - topInset, blockSize.z], fillet);
                         rounded_cube_xy([blockSize.x + endstopX, sizeY, blockSize.z], fillet);
-                        *translate([blockSize.x, sizeY, 0])
-                            fillet(isMGN9C(yCarriageType) ? 2 : 4, blockSize.z);
+                        if (isMGN9C(yCarriageType))
+                            translate([blockSize.x, sizeY, 0])
+                                fillet(2, blockSize.z);
                     }
                 }
             }
