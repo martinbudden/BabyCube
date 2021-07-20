@@ -24,6 +24,10 @@ function counterBore(thickness) = screw_head_height(M3_cap_screw) + max(thicknes
 function yCarriageBlockSizeX(yCarriageType) = carriage_width(yCarriageType) + 4;
 function yCarriageExplodeFactor() = 5;
 
+function boltOffSetMGN9(left) = left ? 14 : 14;
+function boltOffsetMGN12(left) = left ? 22 : 23;
+
+
 
 module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength, thickness, chamfer, yCarriageBraceThickness, blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset, topInset=0, left, cnc=false) {
     assert(is_list(yCarriageType));
@@ -40,7 +44,7 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
     blockSize = [yCarriageBlockSizeX(yCarriageType) + 2*blockOffset.x, carriage_length(yCarriageType) + 1 + 2*blockOffset.y, thickness];
     rightInset = topInset == 0 ? 0 : 2;
     railFirstHoleOffset = railFirstHoleOffset(xRailType, xRailLength);
-    tongueSize = [tongueOffset + railFirstHoleOffset + rail_pitch(xRailType) + rail_width(xRailType)/2 + 0.5, rail_width(xRailType) + 2, thickness - chamfer];
+    tongueSize = [tongueOffset + railFirstHoleOffset + rail_pitch(xRailType) + rail_width(xRailType)/2 + 0.5, rail_width(xRailType) + 2, 7];//thickness - chamfer];
 
     module tongueBoltPositions() {
         translate([tongueOffset + xRailLength/2, 0, 0])
@@ -111,13 +115,24 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
                 // inset the block to avoid possible interference with the idler pulleys
                 rounded_cube_xy([blockSize.x + endstopX, blockSize.y/2, blockSize.z - 1], fillet);
                 if (left) {
-                    rounded_cube_xy([blockSize.x + endstopX, blockSize.y/2 - topInset, blockSize.z], fillet);
+                    *rounded_cube_xy([blockSize.x + endstopX, blockSize.y/2 - topInset, blockSize.z], fillet);
+                    sizeY = blockSize.y/2 + tongueSize.y/2 + blockOffset.y - topInset;
+                    translate([0, blockSize.y/2 - sizeY, 0]) {
+                        rounded_cube_xy([blockSize.x + endstopX, sizeY, blockSize.z], fillet);
+                        translate([blockSize.x, 0, 0])
+                            rotate(270)
+                                fillet(isMGN9C(yCarriageType) ? 2 : 4, blockSize.z);
+                    }
                     translate([0, -blockSize.y/2, 0])
                         rounded_cube_xy([blockSize.x, blockSize.y - topInset, blockSize.z], fillet);
                 } else {
                     translate([0, topInset, 0]) {
+                        sizeY = blockSize.y/2 + tongueSize.y/2 + blockOffset.y - topInset;
                         rounded_cube_xy([blockSize.x, blockSize.y - topInset, blockSize.z], fillet);
-                        rounded_cube_xy([blockSize.x + endstopX, blockSize.y/2 - topInset, blockSize.z], fillet);
+                        *rounded_cube_xy([blockSize.x + endstopX, blockSize.y/2 - topInset, blockSize.z], fillet);
+                        rounded_cube_xy([blockSize.x + endstopX, sizeY, blockSize.z], fillet);
+                        *translate([blockSize.x, sizeY, 0])
+                            fillet(isMGN9C(yCarriageType) ? 2 : 4, blockSize.z);
                     }
                 }
             }
@@ -140,7 +155,7 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
                 }
             } else {
                 if (left) {
-                    size = [24.1, 10, h];
+                    size = [18, 10, h];
                     translate([plainPulleyPos.x - 5, -3.5, 0])
                         rounded_cube_xy(size, 1.5);
                     if (yCarriageBraceThickness) {
@@ -184,8 +199,8 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
         holeDiameter = beltWidth == 6 ? 2*M3_tap_radius : 2*M5_tap_radius;
         translate([left ? toothedPulleyPos.x : plainPulleyPos.x, toothedPulleyPos.y, 0])
             boltHole(holeDiameter, thickness, twist=5, cnc=cnc);
-        boltXPositionsLeft = isMGN9C(yCarriageType) ? [plainPulleyPos.x, plainPulleyPos.x + 14] : [plainPulleyPos.x, -blockSize.x/2 + 4, 23];
-        boltXPositionsRight = isMGN9C(yCarriageType) ? [toothedPulleyPos.x, plainPulleyPos.x + 14] : [toothedPulleyPos.x, -blockSize.x/2 + 4, 23];
+        boltXPositionsLeft = isMGN9C(yCarriageType) ? [plainPulleyPos.x, plainPulleyPos.x + boltOffsetMGN9(left=true)] : [plainPulleyPos.x, -blockSize.x/2 + 4, boltOffsetMGN12(left=true)];
+        boltXPositionsRight = isMGN9C(yCarriageType) ? [toothedPulleyPos.x, plainPulleyPos.x + boltOffsetMGN9(left=false)] : [toothedPulleyPos.x, -blockSize.x/2 + 4, boltOffsetMGN12(left=false)];
         if (left)
             for (x = boltXPositionsLeft)
                 translate([x, 0, 0])
@@ -204,16 +219,16 @@ module yCarriageBrace(yCarriageType, yCarriageBraceThickness, pulleyOffset, hole
         difference() {
             translate([-4.5, left ? -size.y/2 : -4, 0])
                 rounded_cube_xy(size, left ? 3 : 1.5);
-            for (x = [pulleyOffset.x, 11.15, 11.15 + 14])
+            for (x = [pulleyOffset.x, 11.15, 11.15 + boltOffsetMGN9(left)])
                 translate([x, 0, 0])
                     boltHole(holeRadius*2, size.z);
         }
     } else {
-        size = left ? [46.75, 10 + 3.25/2, yCarriageBraceThickness] : [47.75 - 3, 14, yCarriageBraceThickness];
+        size = left ? [46.75-6.1, 10 + 3.25/2, yCarriageBraceThickness] : [47.75 - 3, 14, yCarriageBraceThickness];
         difference() {
             translate([-blockSizeX/2, left ? -5 : -size.y/2, 0])
                 rounded_cube_xy(size, 1.5);
-            for (x = [0, 12.25, -blockSizeX/2 + 4, 23])
+            for (x = [0, 12.25, -blockSizeX/2 + 4, boltOffsetMGN12(left)])
                 translate([x, 0, 0])
                     boltHole(holeRadius*2, size.z);
         }
@@ -292,8 +307,8 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, beltWidth, thic
     if (yCarriageBraceThickness) {
         plainPulleyPos = plainPulleyPos(left, plainIdlerHeight, pulleyOffset, thickness, yCarriageBraceThickness);
         boltXPositions = isMGN9C(yCarriageType)
-            ? [plainPulleyPos.x + 14]
-            : [-blockSizeX/2 + 4, 23];
+            ? [plainPulleyPos.x + boltOffsetMGN9(left)]
+            : [-blockSizeX/2 + 4, boltOffsetMGN12(left)];
         for (x = boltXPositions)
             translate([x, 0, thickness + pulleyStackHeight(plainIdlerHeight) + yCarriageBraceThickness])
                 explode(4*explode, true)
