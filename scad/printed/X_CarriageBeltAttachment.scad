@@ -136,7 +136,7 @@ module X_Carriage_Belt_Clamp_hardware() {
             boltM3Buttonhead(8);
 }
 
-module xCarriageBeltAttachment(sizeZ, endCube=!true) {
+module xCarriageBeltAttachment(sizeZ, extraX=0, endCube=true) {
     size = xCarriageBeltAttachmentSize(sizeZ) - [0, toothHeight, 0];
     cutoutSize = [xCarriageBeltTensionerSize().z + 0.55, xCarriageBeltTensionerSize().y + 0.4];
     //assert(cutoutSize==[7.75, 10.75]);
@@ -148,7 +148,12 @@ module xCarriageBeltAttachment(sizeZ, endCube=!true) {
             rotate([-90, 180, 0])
                 linear_extrude(size.z)
                     difference() {
-                        square([size.x, size.y]);
+                        union() {
+                            square([size.x, size.y]);
+                            if (extraX)
+                                translate([-extraX, 0])
+                                    square([extraX, size.y]);
+                        }
                         for (y = [0, 9.25])
                             translate([y + 0.5, 0.5])
                                 hull() {
@@ -171,7 +176,8 @@ module xCarriageBeltAttachment(sizeZ, endCube=!true) {
                     cube(endCubeSize);
             }
         }
-        for (x = [0, -xCarriageBeltClampHoleSeparation()], y = [3*size.z/10, 7*size.z/10])
+        //for (x = [0, -xCarriageBeltClampHoleSeparation()], y = [3*size.z/10, 7*size.z/10])
+        for (x = [0], y = [3*size.z/10, 7*size.z/10])
             translate([x - 8.8, y, size.y + toothHeight])
                 vflip()
                     boltHoleM3Tap(6);
@@ -185,7 +191,7 @@ module xCarriageBeltAttachment(sizeZ, endCube=!true) {
     }
 }
 
-module xCarriageBeltSide(xCarriageType, size, accelerometerOffset=undef, countersunk=true, topHoleOffset=0) {
+module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=undef, countersunk=true, topHoleOffset=0) {
     assert(is_list(xCarriageType));
 
     carriageSize = carriage_size(xCarriageType);
@@ -205,7 +211,7 @@ module xCarriageBeltSide(xCarriageType, size, accelerometerOffset=undef, counter
                 union() {
                     translate([size.x, xCarriageFrontOffsetY(xCarriageType) - 13, size.z - (isMGN12 ? 49: 45)])//-size.z + 20.5 + baseOffset])
                         rotate([0, 90, 90])
-                            xCarriageBeltAttachment(size.x);
+                            xCarriageBeltAttachment(size.x, extraX);
                     rounded_cube_xz(size + sizeExtra, fillet);
                     translate([0, 0, size.z - topSize.z])
                         rounded_cube_xz(topSize, fillet);
@@ -216,7 +222,7 @@ module xCarriageBeltSide(xCarriageType, size, accelerometerOffset=undef, counter
                     if (isMGN12)
                         rounded_cube_xz([size.x, size.y + 2.6, baseThickness + xCarriageBeltAttachmentSize().x], fillet);
                 } // end union
-            translate([0, size.y + sizeExtra.y, -49 + topSize.z + xCarriageBeltAttachmentSize().x]) {
+            translate([0, size.y + sizeExtra.y, topSize.z + xCarriageBeltAttachmentSize().x - (isMGN12 ? 49 : 45)]) {
                 rotate([-90, 0, 0])
                     fillet(1, 20.5 - sizeExtra.y + eps);
                 translate([size.x, 0, 0])
