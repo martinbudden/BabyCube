@@ -24,7 +24,7 @@ function counterBore(thickness) = screw_head_height(M3_cap_screw) + max(thicknes
 function yCarriageBlockSizeX(yCarriageType) = carriage_width(yCarriageType) + 4;
 function yCarriageExplodeFactor() = 5;
 
-function boltOffSetMGN9(left) = left ? 14 : 14;
+function boltOffsetMGN9(left) = 14;
 function boltOffsetMGN12(left) = left ? 22 : 23;
 
 
