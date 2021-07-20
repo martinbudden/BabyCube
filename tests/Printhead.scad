@@ -25,10 +25,11 @@ include <../scad/Parameters_Main.scad>
 module Printhead_test() {
     echoPrintSize();
     xCarriageType = xCarriageType();
+    echo(coreXYSeparation=coreXYSeparation());
 
     //let($hide_bolts=true)
-    *translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
-        fullPrinthead();
+    translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
+        fullPrinthead(accelerometer=true);
         CoreXYBelts(carriagePosition(), x_gap=2);
         xRail(xCarriageType(), _xRailLength);
         bowdenTube();
@@ -36,7 +37,7 @@ module Printhead_test() {
         //printheadWiring();
     }
     //X_Carriage_assembly();
-    let($hide_bolts=true) Printhead_assembly();
+    //let($hide_bolts=true) Printhead_assembly();
     //hotEndHolderHardware(xCarriageType);
     //Fan_Duct_stl();
     //X_Carriage_stl();
