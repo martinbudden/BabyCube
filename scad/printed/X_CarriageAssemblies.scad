@@ -217,7 +217,7 @@ module X_Carriage_Belt_Side_MGN9C_stl() {
         color(pp4_colour)
             translate([extraX/2, 0, 0])
                 rotate([90, 0, 0])
-                    xCarriageBeltSide(xCarriageType, size, accelerometerOffset(), countersunk=false, topHoleOffset=-extraX/2);
+                    xCarriageBeltSide(xCarriageType, size, extraX=4, accelerometerOffset=accelerometerOffset(), countersunk=false, topHoleOffset=-extraX/2);
 }
 
 module X_Carriage_Belt_Side_MGN9C_assembly()
