@@ -11,6 +11,8 @@ use <../scad/printed/FrontChords.scad>
 use <../scad/printed/Printbed.scad>
 use <../scad/printed/Printbed3point.scad>
 
+include <../scad/vitamins/pcbs.scad>
+
 include <../scad/Parameters_Main.scad>
 
 
@@ -24,6 +26,9 @@ module Base_test() {
     //Base_template_stl();
     //let($hide_pcb=true)
     Base_assembly();
+    //pcbAssembly(RPI3A_plus);
+    //pcbAssembly(RPI0);
+    //pcbAssembly(BTT_SKR_E3_TURBO);
     //Base_SKR_E3_Turbo_assembly();
     //Base_SKR_1_4_assembly();
     baseLeftFeet();
@@ -40,7 +45,7 @@ module Base_test() {
     //translate_z(_zMin) Print_bed_assembly();
     //Back_Face_Stage_1_assembly();
     *translate([0, eps, 2*eps]) {
-        Back_Face_assembly();
+        //Back_Face_assembly();
         //Right_Face_assembly();
         Left_Face_assembly();
     }

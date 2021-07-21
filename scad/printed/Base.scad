@@ -12,6 +12,7 @@ use <NopSCADlib/vitamins/sheet.scad>
 use <../utils/HolePositions.scad>
 
 use <../vitamins/bolts.scad>
+include <../vitamins/pcbs.scad>
 
 use <Foot.scad>
 include <../Parameters_Main.scad>
@@ -274,40 +275,45 @@ module PSU() {
             not_on_bom() iec(IEC_inlet);
 }
 
-module pcbPosition(pcbType, alignRight = false) {
+module pcbPosition(pcbType, alignRight=false) {
     pcbSize = pcb_size(pcbType);
-    skrMiniE3PcbSize = pcb_size(BTT_SKR_MINI_E3_V2_0);
-    skrE3TurboPcbSize = pcb_size(BTT_SKR_E3_TURBO);
-    raspberryPi0PcbSize = pcb_size(RPI0);
-    raspberryPi4PcbSize = pcb_size(RPI4);
-    skrV1_4Size = pcb_size(BTT_SKR_V1_4_TURBO);
 
-    if (pcbType == BTT_SKR_MINI_E3_V2_0) // || pcbType == BTT_TF_CLOUD_V1_0)
-        translate([alignRight ? eX + 2*eSizeX - skrMiniE3PcbSize.x/2 - eSizeXBase - 2 : (eX + 2*eSizeX)/2, skrMiniE3PcbSize.y/2 + eSizeY + 1, 0])
+    if (pcbType == BTT_SKR_MINI_E3_V2_0) {// || pcbType == BTT_TF_CLOUD_V1_0)
+        translate([alignRight ? eX + 2*eSizeX - pcbSize.x/2 - eSizeXBase - 2 : (eX + 2*eSizeX)/2, pcbSize.y/2 + eSizeY + 1, 0])
             if (pcbType == BTT_SKR_MINI_E3_V2_0)
                 children();
             else
-                translate([skrMiniE3PcbSize.x/2 + pcbSize.x/2 + 1, 25, 0])
+                translate([pcbSize.x + 1, 25, 0])
                     children();
-    else if (pcbType == BTT_SKR_V1_4_TURBO) // || pcbType == BTT_RRF_WIFI_V1_0)
-        translate([(eX + 2*eSizeX)/2, skrV1_4Size.y/2 + 1, 0]) // y offset of 1 allows front lower chord to be filled in for headless mode
+    } else if (pcbType == BTT_SKR_E3_TURBO) {
+        translate([(eX + 2*eSizeX)/2, 40, 0])
+            children();
+    } else if (pcbType == BTT_SKR_V1_4_TURBO) {// || pcbType == BTT_RRF_WIFI_V1_0)
+        translate([(eX + 2*eSizeX)/2, pcbSize.y/2 + 1, 0]) // y offset of 1 allows front lower chord to be filled in for headless mode
             if (pcbType == BTT_SKR_V1_4_TURBO)
                 children();
             else
-                translate([skrV1_4Size.x/2 + pcbSize.y/2 + 1, 0, 0])
+                translate([pcbSize.x/2 + pcbSize.y/2 + 1, 0, 0])
                     rotate(90)
                         children();
-    else if (pcbType == BTT_SKR_E3_TURBO)
-        translate([(eX + 2*eSizeX)/2, 40, 0])
-            children();
-    else if (pcbType == RPI0)
-        translate([eX + 2*eSizeX - eSizeXBase - 10 - raspberryPi0PcbSize.y/2, raspberryPi0PcbSize.x/2 + eSizeY + 5])
+    } else if (pcbType == RPI0) {
+        translate([40 + 26 + pcbSize.y/2, pcbSize.x/2 + eSizeY])
+        //translate([eX + 2*eSizeX - eSizeXBase - 10 - pcbSize.y/2, pcbSize.x/2 + eSizeY + 5])
+            rotate(-90)
+                children();
+    } else if (pcbType == RPI3) {
+        translate([40 + pcbSize.y/2, pcbSize.x/2 + eSizeY])
             rotate(90)
                 children();
-    else if (pcbType == RPI4)
-        translate([eX + 2*eSizeX - eSizeXBase - raspberryPi4PcbSize.y/2, raspberryPi4PcbSize.x/2 + eSizeY + 5])
+    } else if (pcbType == RPI3A_plus) {
+        translate([40 + pcbSize.y/2, pcbSize.x/2 + eSizeY])
+            rotate(-90)
+                children();
+    } else if (pcbType == RPI4) {
+        translate([eX + 2*eSizeX - eSizeXBase - pcbSize.y/2, pcbSize.x/2 + eSizeY + 5])
             rotate(90)
                 children();
+    }
 }
 
 module pcb_front_screw_positions(type) {
@@ -341,7 +347,7 @@ module pcb_back_screw_positions(type, yCutoff = 0) {
 M3x10_nylon_hex_pillar = ["M3x10_nylon_hex_pillar", "hex nylon", 3, 10, 6/cos(30), 6/cos(30),  6, 6,  grey(20),   grey(20),  -5, -5 + eps];
 M3x12_nylon_hex_pillar = ["M3x12_nylon_hex_pillar", "hex nylon", 3, 12, 6/cos(30), 6/cos(30),  6, 6,  grey(20),   grey(20),  -6, -6 + eps];
 
-module pcbAssembly(pcbType, alignRight = false) {
+module pcbAssembly(pcbType, alignRight=false) {
 
     if (is_undef($hide_pcb) || $hide_pcb == false)
     translate_z(pcbOffsetFromBase()) {
@@ -354,12 +360,6 @@ module pcbAssembly(pcbType, alignRight = false) {
             pcbPosition(BTT_RRF_WIFI_V1_0)
                 pcb(BTT_RRF_WIFI_V1_0);
 
-        *if (pcbType == BTT_SKR_MINI_E3_V2_0)
-            pcbPosition(BTT_TF_CLOUD_V1_0, alignRight)
-                pcb(BTT_TF_CLOUD_V1_0);
-
-        *pcbPosition(RPI0)
-            pcb(RPI0);
         //pcbPosition(RPI4)
         //    pcb(RPI4);
 
@@ -378,8 +378,8 @@ module pcbAssembly(pcbType, alignRight = false) {
                             vflip()
                                 boltM3Caphead(8);
                     }
-            } else if (pcbType == BTT_SKR_MINI_E3_V2_0 || pcbType == BTT_SKR_E3_TURBO) {
-                pcb_screw_positions(pcbType) {
+            } else {
+                pcb_screw_positions(pcbType)
                     translate_z(-pcbOffsetFromBase()) {
                         explode(10)
                             pillar(M3x12_nylon_hex_pillar);
@@ -388,19 +388,20 @@ module pcbAssembly(pcbType, alignRight = false) {
                                 explode(20, true)
                                     boltM3Caphead(8);
                     }
-                }
-                tubeHeight = 12;
-                explode(10)
-                    translate_z(-tubeHeight/2) {
-                        translate(pcb_component_position(pcbType, "-block"))
-                            rotate([0, 90, 0])
-                                box_section(AL12x8x1, 85);
-                /*tubeLength = 25;
-                explode(10)
-                    translate([-5 + tubeLength/2, 5 - tubeSize/2, 0])
-                        translate(pcb_component_position(pcbType, "-block", 1))
-                            rotate([0, -90, 0])
-                                box_section(AL12x12x1, tubeLength);*/
+                if (pcbType == BTT_SKR_MINI_E3_V2_0 || pcbType == BTT_SKR_E3_TURBO) {
+                    tubeHeight = 12;
+                    explode(10)
+                        translate_z(-tubeHeight/2) {
+                            translate(pcb_component_position(pcbType, "-block"))
+                                rotate([0, 90, 0])
+                                    box_section(AL12x8x1, 85);
+                        /*tubeLength = 25;
+                        explode(10)
+                            translate([-5 + tubeLength/2, 5 - tubeSize/2, 0])
+                                translate(pcb_component_position(pcbType, "-block", 1))
+                                    rotate([0, -90, 0])
+                                        box_section(AL12x12x1, tubeLength);*/
+                        }
                 }
             }
         }
