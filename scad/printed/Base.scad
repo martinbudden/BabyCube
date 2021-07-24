@@ -42,7 +42,7 @@ module Base_stl() {
         }
 }
 
-module Base_Template_stl() {
+module Base_Template_stl(pcb=undef) {
     size = [eX + 2*eSizeX + _backPlateOutset.x, eY + 2*eSizeY + _backPlateOutset.y, 1];
 
     stl("Base_Template")
@@ -51,12 +51,12 @@ module Base_Template_stl() {
                 linear_extrude(size.z)
                     difference() {
                         rounded_square([size.x, size.y], 1.5, center = false);
-                        baseCutouts(radius=1);
+                        baseCutouts(radius=1, pcb=pcb);
                     }
         }
 }
 
-module BaseAL_dxf() {
+module BaseAL_dxf(pcb=undef) {
     size = [eX + 2*eSizeX + _backPlateOutset.x, eY + 2*eSizeY + _backPlateOutset.y, _basePlateThickness];
 
     dxf("BaseAL")
@@ -64,36 +64,37 @@ module BaseAL_dxf() {
             difference() {
                 sheet_2D(AL3, size.x, size.y, 1);
                 translate([-size.x/2, -size.y/2])
-                    baseCutouts(cncSides=0);
+                    baseCutouts(cncSides=0, pcb=pcb);
             }
 }
 
-module BaseAL() {
+module BaseAL(pcb=undef) {
     size = [eX + 2*eSizeX + _backPlateOutset.x, eY + 2*eSizeY + _backPlateOutset.y, _basePlateThickness];
 
     translate([size.x/2, size.y/2, -size.z/2])
         render_2D_sheet(AL3, w=size.x, d=size.y)
-            BaseAL_dxf();
+            BaseAL_dxf(pcb);
 }
 
-module baseCutouts(cncSides = undef, radius=M3_clearance_radius) {
+module baseCutouts(cncSides = undef, radius=M3_clearance_radius, pcb=undef) {
     baseAllHolePositions()
         poly_circle(radius, sides=cncSides);
 
-    // add bolt holes for both SKR_MINI_E3 and SKR_V1_4_TURBO
-    pcbPosition(BTT_SKR_MINI_E3_V2_0)
-        pcb_screw_positions(BTT_SKR_MINI_E3_V2_0)
-            poly_circle(radius, sides=cncSides);
-    pcbPosition(BTT_SKR_E3_TURBO)
+    if (is_undef(pcb) || pcb==BTT_SKR_MINI_E3_V2_0)
+        pcbPosition(BTT_SKR_MINI_E3_V2_0)
+            pcb_screw_positions(BTT_SKR_MINI_E3_V2_0)
+                poly_circle(radius, sides=cncSides);
+
+    if (is_undef(pcb) || pcb==BTT_SKR_E3_TURBO)
         pcb_back_screw_positions(BTT_SKR_E3_TURBO, -30)
             poly_circle(radius, sides=cncSides);
 
-    pcbPosition(BTT_SKR_V1_4_TURBO)
+    if (is_undef(pcb) || pcb==BTT_SKR_V1_4_TURBO)
         pcb_back_screw_positions(BTT_SKR_V1_4_TURBO)
             poly_circle(radius, sides=cncSides);
 
-    pcbPosition(RPI0)
-        pcb_screw_positions(RPI0)
+    pcbPosition(RPI3Aplus)
+        pcb_screw_positions(RPI3Aplus)
             poly_circle(radius, sides=cncSides);
 
     *pcbPosition(BTT_RRF_WIFI_V1_0)
@@ -122,7 +123,8 @@ module Base_assembly()
 assembly("Base", big=true) {
 
     pcbAssembly(BTT_SKR_MINI_E3_V2_0);
-    baseAssembly();
+    pcbAssembly(RPI3Aplus);
+    baseAssembly(BTT_SKR_MINI_E3_V2_0);
 }
 
 module Base_SKR_E3_Turbo_assembly()
@@ -139,8 +141,8 @@ assembly("Base_SKR_1_4", big=true) {
     baseAssembly();
 }
 
-module baseAssembly() {
-    BaseAL();
+module baseAssembly(pcb=undef) {
+    BaseAL(pcb=pcb);
     hidden() Base_stl();
     hidden() Base_Template_stl();
 
@@ -275,11 +277,11 @@ module PSU() {
             not_on_bom() iec(IEC_inlet);
 }
 
-module pcbPosition(pcbType, alignRight=false) {
+module pcbPosition(pcbType, alignRight=true) {
     pcbSize = pcb_size(pcbType);
 
     if (pcbType == BTT_SKR_MINI_E3_V2_0) {// || pcbType == BTT_TF_CLOUD_V1_0)
-        translate([alignRight ? eX + 2*eSizeX - pcbSize.x/2 - eSizeXBase - 2 : (eX + 2*eSizeX)/2, pcbSize.y/2 + eSizeY + 1, 0])
+        translate([alignRight ? eX + 2*eSizeX - pcbSize.x/2 - eSizeXBase - 2.5 : (eX + 2*eSizeX)/2, pcbSize.y/2 + eSizeY + 2, 0])
             if (pcbType == BTT_SKR_MINI_E3_V2_0)
                 children();
             else
@@ -297,16 +299,16 @@ module pcbPosition(pcbType, alignRight=false) {
                     rotate(90)
                         children();
     } else if (pcbType == RPI0) {
-        translate([40 + 26 + pcbSize.y/2, pcbSize.x/2 + eSizeY])
+        translate([40 + 26 + pcbSize.y/2, pcbSize.x/2 + eSizeY + 2])
         //translate([eX + 2*eSizeX - eSizeXBase - 10 - pcbSize.y/2, pcbSize.x/2 + eSizeY + 5])
             rotate(-90)
                 children();
     } else if (pcbType == RPI3) {
-        translate([40 + pcbSize.y/2, pcbSize.x/2 + eSizeY])
+        translate([40 + pcbSize.y/2, pcbSize.x/2 + eSizeY + 2])
             rotate(90)
                 children();
-    } else if (pcbType == RPI3A_plus) {
-        translate([40 + pcbSize.y/2, pcbSize.x/2 + eSizeY])
+    } else if (pcbType == RPI3Aplus) {
+        translate([40 + pcbSize.y/2, pcbSize.x/2 + eSizeY + 2])
             rotate(-90)
                 children();
     } else if (pcbType == RPI4) {
@@ -347,7 +349,7 @@ module pcb_back_screw_positions(type, yCutoff = 0) {
 M3x10_nylon_hex_pillar = ["M3x10_nylon_hex_pillar", "hex nylon", 3, 10, 6/cos(30), 6/cos(30),  6, 6,  grey(20),   grey(20),  -5, -5 + eps];
 M3x12_nylon_hex_pillar = ["M3x12_nylon_hex_pillar", "hex nylon", 3, 12, 6/cos(30), 6/cos(30),  6, 6,  grey(20),   grey(20),  -6, -6 + eps];
 
-module pcbAssembly(pcbType, alignRight=false) {
+module pcbAssembly(pcbType, alignRight=true) {
 
     if (is_undef($hide_pcb) || $hide_pcb == false)
     translate_z(pcbOffsetFromBase()) {
