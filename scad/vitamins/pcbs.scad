@@ -18,7 +18,7 @@ ADXL345  = [
     [inch(0.1)/2, inch(0.1)/2, 8, 1], // 8x1 grid of holes
 ];
 
-RPI3A_plus =  ["RPI3A+", "Raspberry Pi 3A+",
+RPI3Aplus =  ["RPI3A+", "Raspberry Pi 3A+",
     65, 56, 1.4, // size
     3, // corner radius
     2.75, // mounting hole diameter
