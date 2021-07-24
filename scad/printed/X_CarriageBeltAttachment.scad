@@ -22,7 +22,7 @@ evaHoleSeparationBottom = 26;
 function xCarriageBeltAttachmentSize(sizeZ=0) = [20, 18, sizeZ];
 // actual dimensions for belt are thickness:1.4, toothHeight:0.75
 toothHeight = 0.8;//0.75;
-function xCarriageBeltClampHoleSeparation() = 12;
+function xCarriageBeltClampHoleSeparation() = 16;
 
 
 module GT2Teeth(sizeZ, toothCount, horizontal=false) {
@@ -117,26 +117,33 @@ module X_Carriage_Belt_Tensioner_hardware(boltLength=40, offset=0) {
                     boltM3Caphead(boltLength);
 }
 
-module xCarriageBeltClampPositions(sizeZ) {
-    rotate([90, 90, 0])
-        for (y = [3*sizeZ/10, 7*sizeZ/10])
-            translate([-xCarriageBeltAttachmentSize().x, y, 18.5])
-                children();
+module xCarriageBeltClamp(size, holeSeparation=xCarriageBeltClampHoleSeparation(), countersunk=false) {
+    translate([0, -size.y/2, 0])
+        difference() {
+            fillet = 1;
+            rounded_cube_xy(size, fillet);
+            for (y = [-holeSeparation/2, holeSeparation/2])
+                translate([size.x/2 + 1.25, y + size.y/2, 0])
+                    if (countersunk)
+                        boltPolyholeM3Countersunk(size.z);
+                    else
+                        boltHoleM3(size.z, twist=4);
+        }
 }
 
-module X_Carriage_Belt_Clamp_hardware() {
+module X_Carriage_Belt_Clamp_hardware(boltLength=10, countersunk=false) {
     size = [xCarriageBeltAttachmentSize().x, 6, 4.5];
 
-    *for (x = [0, xCarriageBeltClampHoleSeparation()])
-        translate([x + 3.2, 0, 0])
+    for (y = [-xCarriageBeltClampHoleSeparation()/2, xCarriageBeltClampHoleSeparation()/2])
+        translate([size.x/2 + 1.25, y, 0])
             vflip()
-                boltM3Buttonhead(10);
-    translate([size.x/2 + 1.25, 0, 0])
-        vflip()
-            boltM3Buttonhead(8);
+                if (countersunk)
+                    boltM3Countersunk(boltLength);
+                else
+                    boltM3Buttonhead(boltLength);
 }
 
-module xCarriageBeltAttachment(sizeZ, extraX=0, endCube=true) {
+module xCarriageBeltAttachment(sizeZ, extraX=0, endCube=true, holeSeparation=15) {
     size = xCarriageBeltAttachmentSize(sizeZ) - [0, toothHeight, 0];
     cutoutSize = [xCarriageBeltTensionerSize().z + 0.55, xCarriageBeltTensionerSize().y + 0.4];
     //assert(cutoutSize==[7.75, 10.75]);
@@ -176,8 +183,7 @@ module xCarriageBeltAttachment(sizeZ, extraX=0, endCube=true) {
                     cube(endCubeSize);
             }
         }
-        //for (x = [0, -xCarriageBeltClampHoleSeparation()], y = [3*size.z/10, 7*size.z/10])
-        for (x = [0], y = [3*size.z/10, 7*size.z/10])
+        for (x = [0], y = [(size.z - xCarriageBeltClampHoleSeparation())/2, (size.z + xCarriageBeltClampHoleSeparation())/2])
             translate([x - 8.8, y, size.y + toothHeight])
                 vflip()
                     boltHoleM3Tap(6);
@@ -288,9 +294,16 @@ module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=unde
     }
 }
 
-module xCarriageBeltSideClampPositions(xCarriageType, size) {
+module xCarriageBeltSideClampPosition(sizeZ) {
+    rotate([90, 90, 0])
+        //for (y = [3*sizeZ/10, 7*sizeZ/10])
+        translate([-xCarriageBeltAttachmentSize().x, sizeZ/2, 18.5])
+            children();
+}
+
+module xCarriageBeltClampPosition(xCarriageType, size) {
     translate([-size.x/2, size.z/2, -xCarriageBottomOffsetZ()])
         explode([0, 10, 0], true)
-            xCarriageBeltClampPositions(size.x)
+            xCarriageBeltSideClampPosition(size.x)
                 children();
 }

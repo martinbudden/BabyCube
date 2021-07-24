@@ -3,6 +3,7 @@ include <../global_defs.scad>
 include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/blowers.scad>
 include <NopSCADlib/vitamins/rails.scad>
+use <NopSCADlib/vitamins/wire.scad>
 
 use <../utils/carriageTypes.scad>
 use <../utils/PrintheadOffsets.scad>
@@ -23,19 +24,11 @@ function hotendClampOffset(xCarriageType, hotend_type=0) =  [hotendOffset(xCarri
 grooveMountFillet = 1;
 function grooveMountClampSize(blower_type, hotend_type) = [grooveMountSize(blower_type, hotend_type).y - 2*grooveMountFillet - grooveMountClampOffsetX(), 12, 17];
 
-//!1. Assemble the E3D hotend, including fan, thermistor cartridge and heater cartridge.
-//!2. Use the Hotend_Clamp to attach the hotend to the X_Carriage.
-//!3. Collect the wires together and attach to the X_Carriage using the Hotend_Strain_Relief_Clamp.
-module Printhead_assembly()
-assembly("Printhead", big=true) {
-
+module printheadAssembly() {
     xCarriageType = xCarriageType();
     blower_type = blower_type();
     hotend_type = 0;
     hotendOffset = hotendOffset(xCarriageType, hotend_type);
-
-    X_Carriage_assembly();
-    //X_Carriage_Groovemount_MGN9C_assembly();
 
     explode([20, 0, 0])
         hotEndHolderHardware(xCarriageType, hotend_type);
@@ -57,6 +50,51 @@ assembly("Printhead", big=true) {
         }
 }
 
+//!1. Assemble the E3D hotend, including fan, thermistor cartridge and heater cartridge.
+//!2. Use the Hotend_Clamp to attach the hotend to the X_Carriage.
+//!3. Collect the wires together and attach to the X_Carriage using the Hotend_Strain_Relief_Clamp.
+module Printhead_assembly()
+assembly("Printhead", big=true) {
+    X_Carriage_assembly();
+    printheadAssembly();
+}
+
+module Printhead_E3DV6_MGN9C_assembly() pose(a=[55, 0, 25 + 180])
+assembly("Printhead_E3DV6_MGN12H", big=true) {
+
+    X_Carriage_Groovemount_MGN9C_assembly();
+    printheadAssembly();
+}
+
+module printheadBeltSide(rotate=0, explode=0, t=undef) {
+    xCarriageType = xCarriageType();
+
+    xRailCarriagePosition(t)
+        explode(explode, true)
+            rotate(rotate) {// for debug, to see belts better
+                explode([0, -20, 0], true)
+                    X_Carriage_Belt_Side_MGN9C_assembly();
+                xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, -1], [-1, -1] ]);
+                xCarriageBeltClampAssembly(xCarriageType);
+            }
+}
+
+module printheadHotendSide(rotate=0, clamps=false, explode=0, t=undef, accelerometer=false) {
+    xCarriageType = xCarriageType();
+
+    xRailCarriagePosition(t)
+        explode(explode, true)
+            rotate(rotate) {// for debug, to see belts better
+                *explode([0, -20, 0], true)
+                    xCarriageFrontBolts(xCarriageType, xCarriageFrontSize(xCarriageType, _beltWidth, clamps), topBoltLength=30, bottomBoltLength=30, countersunk=true, offsetT=xCarriageHoleOffsetTop());
+                Printhead_E3DV6_MGN9C_assembly();
+                xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, 1], [-1, 1] ]);
+                if (accelerometer)
+                    explode(50, true)
+                        printheadAccelerometerAssembly();
+            }
+}
+
 module fullPrinthead(rotate=0, explode=0, t=undef, accelerometer=false) {
     xCarriageType = xCarriageType();
 
@@ -65,7 +103,6 @@ module fullPrinthead(rotate=0, explode=0, t=undef, accelerometer=false) {
             rotate(rotate) {// for debug, to see belts better
                 explode([0, -20, 0], true) {
                     X_Carriage_Front_assembly();
-                    //X_Carriage_Belt_Side_MGN9C_assembly();
                     xCarriageFrontBolts(xCarriageType, xCarriageFrontSize(xCarriageType, _beltWidth, clamps=true));
                 }
                 Printhead_assembly();
