@@ -283,10 +283,7 @@ module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=unde
                     translate([x, 0, -baseOffset + baseThickness/2])
                         rotate([-90, 0, 0])
                             boltHoleM3Tap(8, twist=4);
-                // add bolt holes to allow tooling to be attached, eg second printhead
-                holeSeparation = 20;
-                XChangeOffset = 4;
-                translate([size.x/2, -6.5 + xCarriageFrontOffsetY(xCarriageType), size.z - baseOffset - holeSeparation/2 - XChangeOffset - holeSeparation])
+                translate([size.x/2, -6.5 + xCarriageFrontOffsetY(xCarriageType), topSize.z - size.z/2])
                     rotate([90, 0, 0])
                         carriage_hole_positions(MGN12H_carriage)
                             vflip()
