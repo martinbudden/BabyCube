@@ -171,8 +171,8 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   2  |   .  |   .  |   .  |   .  |   4  |   4  |   .  |   4  |  20  |   34  |  Bolt M3 buttonhead x 12mm |
 |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 buttonhead x 16mm |
 |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 buttonhead x 25mm |
-|   .  |   .  |   .  |   4  |   .  |   .  |   .  |   5  |   .  |   .  |    9  |  Bolt M3 caphead x  6mm |
-|   .  |   .  |  26  |   .  |   4  |   .  |   .  |   5  |   .  |   .  |   35  |  Bolt M3 caphead x  8mm |
+|   .  |   .  |   .  |   4  |   .  |   .  |   .  |   9  |   .  |   .  |   13  |  Bolt M3 caphead x  6mm |
+|   .  |   .  |  26  |   .  |   4  |   .  |   .  |   9  |   .  |   .  |   39  |  Bolt M3 caphead x  8mm |
 |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 caphead x 10mm |
 |   .  |   .  |   4  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    8  |  Bolt M3 caphead x 16mm |
 |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 caphead x 20mm |
@@ -197,15 +197,17 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   .  |   .  |   2  |   .  |   .  |   .  |   .  |    2  |  Linear rod 12mm x 200mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |  MK10 Dual Pulley Extruder |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Magnetic base 100mm x 100mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |  Micro SD card |
 |   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |  Nut M5 nyloc |
 |   .  |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |    4  |  O-ring nitrile 3mm x 2mm |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  OpenBuilds mini heated bed 100mm x 100mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  PTFE tube 295 mm |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   5  |   .  |   .  |    5  |  Pillar hex nylon F/F M3x12 |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   9  |   .  |   .  |    9  |  Pillar hex nylon F/F M3x12 |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Print surface 100mm x 100mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   2  |   .  |   2  |   .  |    6  |  Pulley GT2 idler 16 teeth |
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Pulley GT2 idler smooth 9.63mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |  Pulley GT2UM 20 teeth |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |  Raspberry Pi 3A+ |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  Rocker Switch PRASA1-16F-BB0BW |
 |   .  |   .  |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |    4  |  SK12 shaft support bracket |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  Spiral wrap, 500mm |
@@ -223,7 +225,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male - not shown |
 |   1  |   .  |   .  |   .  |   2  |   .  |   5  |   .  |   4  |   4  |   16  |  Ziptie 2.5mm x 100mm min length |
-|  16  |   8  |  54  |  13  |  21  |  30  |  26  |  20  |  35  |  58  |  281  | Total vitamins count |
+|  16  |   8  |  54  |  13  |  21  |  30  |  26  |  34  |  35  |  58  |  295  | Total vitamins count |
 |      |      |      |      |      |      |      |      |      |      |       | **3D printed parts** |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  | Back_Face.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | Base.stl |
@@ -828,9 +830,11 @@ Note orientation of the JST connector.
 |1| Aluminium sheet 220mm x 204mm x 3mm|
 |1| BigTreeTech SKR Mini E3 v2.0|
 |2| Bolt M3 buttonhead x 10mm|
-|5| Bolt M3 caphead x  6mm|
-|5| Bolt M3 caphead x  8mm|
-|5| Pillar hex nylon F/F M3x12|
+|9| Bolt M3 caphead x  6mm|
+|9| Bolt M3 caphead x  8mm|
+|1| Micro SD card|
+|9| Pillar hex nylon F/F M3x12|
+|1| Raspberry Pi 3A+|
 
 
 ### 3D Printed parts
