@@ -143,9 +143,9 @@ module X_Carriage_Belt_Clamp_hardware(boltLength=10, countersunk=false) {
                     boltM3Buttonhead(boltLength);
 }
 
-module xCarriageBeltAttachment(sizeZ, extraX=0, endCube=true, holeSeparation=15) {
+module xCarriageBeltAttachment(sizeZ, extraX=0, endCube=true) {
     size = xCarriageBeltAttachmentSize(sizeZ) - [0, toothHeight, 0];
-    cutoutSize = [xCarriageBeltTensionerSize().z + 0.55, xCarriageBeltTensionerSize().y + 0.4];
+    cutoutSize = [xCarriageBeltTensionerSize().z + 0.55, xCarriageBeltTensionerSize().y + 0.6];
     //assert(cutoutSize==[7.75, 10.75]);
     endCubeSize = [9, 5, 12];
     toothCount = floor(size.z/2) - 1;
@@ -284,7 +284,9 @@ module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=unde
                         rotate([-90, 0, 0])
                             boltHoleM3Tap(8, twist=4);
                 // add bolt holes to allow tooling to be attached, eg second printhead
-                translate([size.x/2, -6.5 + xCarriageFrontOffsetY(xCarriageType), topSize.z - size.z/2])
+                holeSeparation = 20;
+                XChangeOffset = 4;
+                translate([size.x/2, -6.5 + xCarriageFrontOffsetY(xCarriageType), size.z - baseOffset - holeSeparation/2 - XChangeOffset - holeSeparation])
                     rotate([90, 0, 0])
                         carriage_hole_positions(MGN12H_carriage)
                             vflip()
