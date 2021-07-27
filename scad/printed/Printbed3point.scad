@@ -240,6 +240,8 @@ module Printbed_Frame_stl() {
 module Printbed_Bracket_stl() {
     scsSize = scs_size(scs_type);
     cubeSize = [_zRodSeparation - scsSize.y - 2, 25, 5];
+    armSize = [10, (floor(heatedBedSize.y/50) + 1)*50, eSize];
+    frameOffsetX = _zRodSeparation/2  - scsSize.y/2 - 1;
 
     stl("Printbed_Bracket")
         color(pp1_colour) {
@@ -251,7 +253,7 @@ module Printbed_Bracket_stl() {
                         circle(r=M3_tap_radius);
                 }
             translate_z(-eSize)
-                printBed3pointFrameSideBrackets();
+                printBed3pointFrameSideBrackets(armSize, frameOffsetX);
         }
 }
 
