@@ -59,10 +59,10 @@ module corkUnderlay(size, printBedSize) {
         render(convexity=2)
             difference() {
                 drilledBed(size, printBedSize);
-                if (printBedSize == 120)
-                    for (i = heatedBedHoles(printBedSize, 4))
-                        translate(i - [0, 0, eps])
-                            rounded_cube_xy([10, 10, size.z + 2*eps], 1, xy_center=true);
+                cutoutSize = printBedSize == 120 ? 10 : 12;
+                for (i = heatedBedHoles(printBedSize, printBedSize == 120 ? 4 : 2))
+                    translate(i - [0, 0, eps])
+                        rounded_cube_xy([cutoutSize, cutoutSize, size.z + 2*eps], 1, xy_center=true);
             }
 
     if ($children)
@@ -105,26 +105,41 @@ module heatedBed(printBedSize) {
 module printbed(printBedSize) {
     size = heatedBedSize(printBedSize);
 
+    levelingOffset = 1;
     // this is heated bed with leadscrew at [0, 0] and top of print surface at z=0
     translate([0, size.y/2 + heatedBedOffset(printBedSize).y, heatedBedOffset().z]) {
         explode(10, true)
             corkUnderlay([size.x + 5, size.y + 5, underlayThickness], printBedSize)
-                explode(10, true)
-                    heatedBed(printBedSize)
-                        explode(10, true)
-                            magneticBase(printBedSize, magneticBaseThickness)
-                                explode(10)
-                                    printSurface(printBedSize, printSurfaceThickness);
+                translate_z(levelingOffset)
+                    explode(10, true)
+                        heatedBed(printBedSize)
+                            explode(10, true)
+                                magneticBase(printBedSize, magneticBaseThickness)
+                                    explode(10)
+                                        printSurface(printBedSize, printSurfaceThickness);
+        oRingThickness = 2;
+        washerThickness = washer_thickness(M3_washer);
         for (i = heatedBedHoles(printBedSize))
             translate(i) {
-                translate_z(size.z + oRingThickness + (printBedSize==100 ? underlayThickness + magneticBaseThickness : 0)) {
-                    explode(70)
-                        boltM3Countersunk(16);
-                    oRingThickness = 2;
-                    translate_z(-oRingThickness/2)
-                        explode(50)
-                            color("firebrick")
-                                O_ring(3, oRingThickness);
+                translate_z((printBedSize==100 ?  levelingOffset + underlayThickness + magneticBaseThickness + printSurfaceThickness + 2*washerThickness: size.z + oRingThickness)) {
+                    explode(60, true) {
+                        boltM3Caphead(16);
+                        translate_z(-washerThickness)
+                            washer(M3_washer);
+                    }
+                    translate_z(-magneticBaseThickness - printSurfaceThickness - 2*washerThickness)
+                        explode(10, true) {
+                            translate_z(-oRingThickness/2)
+                                color("firebrick")
+                                    O_ring(4, oRingThickness);
+                            explode(-5)
+                                translate_z(-oRingThickness - washerThickness/2)
+                                    washer(M3_washer);
+                            explode(-10)
+                            translate_z(-oRingThickness - 2*washerThickness)
+                                color("firebrick")
+                                    O_ring(4, oRingThickness);
+                        }
                 }
             }
     }
@@ -133,20 +148,22 @@ module printbed(printBedSize) {
 //! This is the standard variant of the print bed, using an OpenBuilds 100mm heated bed. There is also a version using
 //! a 120 x 120 x 6 mm aluminium tooling plate, see [printbed 120](../../PRINTBED120/readme.md).
 //!
-//!1. Prepare the the cork underlay by cutting it to size, making a cutout for the heated bed wiring, and drilling holes for the bolts.
-//!2. Prepare the heated bed by soldering on the wires and sticking on the magnetic base. Drill bolt holes in the magnetic base.
-//!3. Place the cork underlay on the Z_Carriage and place the heated bed on top.
-//!4. Secure the heated bed to the Z_Carriage, using the bolts and O-rings. Note that the O-rings help thermally insulate the heated bed from the Z_Carriage.
+//!1. Prepare the the cork underlay by cutting it to size, making a cutout for the heated bed wiring, and making cutouts for the bolts and O-rings.
+//!2. Prepare the magnetic base by drilling holes for the bolts.
+//!3. Prepare the heated bed by soldering on the wires and sticking on the magnetic base. Drill bolt holes in the magnetic base.
+//!4. Place the cork underlay on the Z_Carriage and place the heated bed on top.
+//!5. Secure the heated bed to the Z_Carriage, using the bolts and O-rings. The O-rings allow for bed leveling and help thermally insulate
+//!the heated bed from the Z_Carriage.
+//!6. Secure the heated bed wiring to the underside of the printbed using zipties.
 module Print_bed_assembly()
 assembly("Print_bed") {
 
     translate([eX/2 + eSizeX, eY + 2*eSizeY - _zLeadScrewOffset, 0]) // this moves it to the back face
         rotate(180)
-            translate_z(-heatedBedSize(_printBedSize).z - underlayThickness - printSurfaceThickness- magneticBaseThickness){// ) {
+            translate_z(-heatedBedSize(_printBedSize).z - underlayThickness - printSurfaceThickness- magneticBaseThickness) {
                 Z_Carriage_assembly();
-
+                printbed(_printBedSize);
                 if (!exploded())
                     Z_Carriage_cable_ties(_printBedSize);
-                    printbed(_printBedSize);
             }
 }
