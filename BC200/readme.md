@@ -174,13 +174,13 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   9  |   .  |   .  |   13  |  Bolt M3 caphead x  6mm |
 |   .  |   .  |  26  |   .  |   4  |   .  |   .  |   9  |   .  |   .  |   39  |  Bolt M3 caphead x  8mm |
 |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 caphead x 10mm |
-|   .  |   .  |   4  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    8  |  Bolt M3 caphead x 16mm |
+|   .  |   .  |   4  |   4  |   4  |   .  |   .  |   .  |   .  |   .  |   12  |  Bolt M3 caphead x 16mm |
 |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 caphead x 20mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 caphead x 25mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   6  |    6  |  Bolt M3 countersunk x  6mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |  12  |   14  |  Bolt M3 countersunk x 10mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   4  |    6  |  Bolt M3 countersunk x 12mm |
-|   .  |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   2  |   .  |    6  |  Bolt M3 countersunk x 16mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |    2  |  Bolt M3 countersunk x 16mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |  Bolt M3 countersunk x 35mm |
 |   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |  Bolt M5 countersunk x 16mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |  Cork damper NEMA 14 |
@@ -199,7 +199,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Magnetic base 100mm x 100mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |  Micro SD card |
 |   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |  Nut M5 nyloc |
-|   .  |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |    4  |  O-ring nitrile 3mm x 2mm |
+|   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |   .  |    8  |  O-ring nitrile 4mm x 2mm |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  OpenBuilds mini heated bed 100mm x 100mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  PTFE tube 295 mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   9  |   .  |   .  |    9  |  Pillar hex nylon F/F M3x12 |
@@ -217,7 +217,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |  Stepper motor NEMA17 x 40mm |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |  Stepper motor cable, 150mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |   1  |   .  |    3  |  Stepper motor cable, 400mm |
-|   .  |   .  |   6  |   .  |   .  |   .  |   6  |   .  |   6  |   .  |   18  |  Washer  M3 |
+|   .  |   .  |   6  |   .  |   8  |   .  |   6  |   .  |   6  |   .  |   26  |  Washer  M3 |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |    2  |  Wire black 12SWG, length 100mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |    2  |  Wire red 12SWG, length 100mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Female |
@@ -225,7 +225,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male - not shown |
 |   1  |   .  |   .  |   .  |   2  |   .  |   5  |   .  |   4  |   4  |   16  |  Ziptie 2.5mm x 100mm min length |
-|  16  |   8  |  54  |  13  |  21  |  30  |  26  |  34  |  35  |  58  |  295  | Total vitamins count |
+|  16  |   8  |  54  |  13  |  33  |  30  |  26  |  34  |  35  |  58  |  307  | Total vitamins count |
 |      |      |      |      |      |      |      |      |      |      |       | **3D printed parts** |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  | Back_Face.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | Base.stl |
@@ -632,12 +632,13 @@ Affix the leadscrew nut.
 
 |Qty|Description|
 |---:|:----------|
-|4| Bolt M3 countersunk x 16mm|
+|4| Bolt M3 caphead x 16mm|
 |1| Cork underlay 105mm x 105mm x 3mm|
 |1| Magnetic base 100mm x 100mm|
-|4| O-ring nitrile 3mm x 2mm|
+|8| O-ring nitrile 4mm x 2mm|
 |1| OpenBuilds mini heated bed 100mm x 100mm|
 |1| Print surface 100mm x 100mm|
+|8| Washer  M3|
 |2| Ziptie 2.5mm x 100mm min length|
 
 
@@ -656,10 +657,13 @@ Affix the leadscrew nut.
 This is the standard variant of the print bed, using an OpenBuilds 100mm heated bed. There is also a version using
 a 120 x 120 x 6 mm aluminium tooling plate, see [printbed 120](../../PRINTBED120/readme.md).
 
-1. Prepare the the cork underlay by cutting it to size, making a cutout for the heated bed wiring, and drilling holes for the bolts.
-2. Prepare the heated bed by soldering on the wires and sticking on the magnetic base. Drill bolt holes in the magnetic base.
-3. Place the cork underlay on the Z_Carriage and place the heated bed on top.
-4. Secure the heated bed to the Z_Carriage, using the bolts and O-rings. Note that the O-rings help thermally insulate the heated bed from the Z_Carriage.
+1. Prepare the the cork underlay by cutting it to size, making a cutout for the heated bed wiring, and making cutouts for the bolts and O-rings.
+2. Prepare the magnetic base by drilling holes for the bolts.
+3. Prepare the heated bed by soldering on the wires and sticking on the magnetic base. Drill bolt holes in the magnetic base.
+4. Place the cork underlay on the Z_Carriage and place the heated bed on top.
+5. Secure the heated bed to the Z_Carriage, using the bolts and O-rings. The O-rings allow for bed leveling and help thermally insulate
+the heated bed from the Z_Carriage.
+6. Secure the heated bed wiring to the underside of the printbed using zipties.
 
 ![Print_bed_assembled](assemblies/Print_bed_assembled.png)
 
