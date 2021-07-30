@@ -93,8 +93,8 @@ module baseCutouts(cncSides = undef, radius=M3_clearance_radius, pcb=undef) {
         pcb_back_screw_positions(BTT_SKR_V1_4_TURBO)
             poly_circle(radius, sides=cncSides);
 
-    pcbPosition(RPI3Aplus)
-        pcb_screw_positions(RPI3Aplus)
+    pcbPosition(RPI3A_plus)
+        pcb_screw_positions(RPI3A_plus)
             poly_circle(radius, sides=cncSides);
 
     *pcbPosition(BTT_RRF_WIFI_V1_0)
@@ -123,7 +123,7 @@ module Base_assembly()
 assembly("Base", big=true) {
 
     pcbAssembly(BTT_SKR_MINI_E3_V2_0);
-    pcbAssembly(RPI3Aplus);
+    pcbAssembly(RPI3A_plus);
     baseAssembly(BTT_SKR_MINI_E3_V2_0);
 }
 
@@ -307,7 +307,7 @@ module pcbPosition(pcbType, alignRight=true) {
         translate([40 + pcbSize.y/2, pcbSize.x/2 + eSizeY + 2])
             rotate(90)
                 children();
-    } else if (pcbType == RPI3Aplus) {
+    } else if (pcbType == RPI3A_plus) {
         translate([40 + pcbSize.y/2, pcbSize.x/2 + eSizeY + 2])
             rotate(-90)
                 children();

@@ -27,7 +27,7 @@ module Base_test() {
     //Base_template_stl();
     //let($hide_pcb=true)
     Base_assembly();
-    //pcbAssembly(RPI3Aplus);
+    //pcbAssembly(RPI3A_plus);
     //pcbAssembly(RPI0);
     //pcbAssembly(BTT_SKR_MINI_E3_V2_0);
     //pcbAssembly(BTT_SKR_E3_TURBO);
