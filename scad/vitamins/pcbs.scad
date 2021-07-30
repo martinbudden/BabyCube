@@ -18,7 +18,7 @@ ADXL345  = [
     [inch(0.1)/2, inch(0.1)/2, 8, 1], // 8x1 grid of holes
 ];
 
-RPI3Aplus =  ["RPI3A+", "Raspberry Pi 3A+",
+RPI3A_plus =  ["RPI3A+", "Raspberry Pi 3A+",
     65, 56, 1.4, // size
     3, // corner radius
     2.75, // mounting hole diameter
@@ -31,11 +31,8 @@ RPI3Aplus =  ["RPI3A+", "Raspberry Pi 3A+",
     ],
     [ // components
         [32.5, -3.5,   0, "2p54header", 20, 2],
-        [27,   -24.6,  0, "chip",       14, 14, 1],
-        [60,   -22.3,  0, "chip",       9, 9, 0.6],
-        //[-8.5,  10.25, 0, "rj45"],
-        //[-6.5,  29,    0, "usb_Ax2"],
-        //[-6.5,  47,    0, "usb_Ax2"],
+        [27,   -24.6,  0, "chip",       14, 14, 1, silver*0.8], 
+        [-6.5, -23.6,  0, "usb_A"],
         [53.5,   6,  -90, "jack"],
         [32,   4.4,  -90, "hdmi"],
         [10.6,   2,  -90, "usb_uA"],
