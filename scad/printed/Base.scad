@@ -309,7 +309,7 @@ module pcbPosition(pcbType, alignRight=true) {
                 children();
     } else if (pcbType == RPI3A_plus) {
         translate([40 + pcbSize.y/2, pcbSize.x/2 + eSizeY + 2])
-            rotate(-90)
+            rotate(90)
                 children();
     } else if (pcbType == RPI4) {
         translate([eX + 2*eSizeX - eSizeXBase - pcbSize.y/2, pcbSize.x/2 + eSizeY + 5])
