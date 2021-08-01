@@ -17,13 +17,15 @@ Although the BabyCube is small and has a 3D printed frame, it is not a toy. It i
 
 ## Assembly instructions
 
-The assembly instructions and the BOM (parts list) are [here](BC200/readme.md). The STL files are [here](BC200/stls). Please read all the build instructions before you begin assembly.
+The assembly instructions and the BOM (parts list) are [here](BC200/readme.md). Please read all the build instructions before you begin assembly.
+
+The STL files are on [thingiverse](https://www.thingiverse.com/thing:4911835).
 
 A video overview of the features of BabyCube is [here](https://www.youtube.com/watch?v=HpjnHnVyvj4).
 
 I plan to make a series of YouTube videos giving build instructions, when I have done so I will post a link here.
 
-If you would like to build a larger printer, you may be interested in the BabyCube's larger sibling, the [MaybeCube](https://github.com/martinbudden/MaybeCube)
+If you would like to build a bigger printer, you may be interested in the BabyCube's larger sibling, the [MaybeCube](https://github.com/martinbudden/MaybeCube)
 
 ## Key Features
 
@@ -40,6 +42,7 @@ The primary design goal was to produce a small 3D printer with a printable frame
 200mm by 200mm by 200mm, and a target print volume of approximately 75mm by 75mm by 75mm.
 
 The aim was that BabyCube could be printed on "standard" size printers, that is printers with a bed size of approximately 220mm by 220mm, such as the Ender 3 (print volume 220mm by 220mm by 250mm) and the Prusa i3 (print volume 250mm by 210mm by 210mm).
+
 I printed my BabyCube on a BIQU B1 (which is similar to an Ender 3).
 
 Further design goals:
