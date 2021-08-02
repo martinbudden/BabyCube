@@ -21,11 +21,10 @@ module xRailCarriagePosition(t=undef) {
         children();
 }
 
-module xRail(xCarriageType, xRailLength) {
+module xRail(xCarriageType, xRailLength, carriagePosition=carriagePosition()) {
     assert(is_list(xCarriageType));
     xRailType = carriage_rail(xCarriageType);
     assert(is_list(xRailType));
-    carriagePosition = carriagePosition();
 
     translate([eSizeX + eX/2, carriagePosition.y, eZ - yRailSupportThickness() - carriage_height(yCarriageType())]) {
         railOffsetX = yRailOffset(_xyNEMA_width).x;
