@@ -44,7 +44,7 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
     blockSize = [yCarriageBlockSizeX(yCarriageType) + 2*blockOffset.x, carriage_length(yCarriageType) + 1 + 2*blockOffset.y, thickness];
     rightInset = topInset == 0 ? 0 : 2;
     railFirstHoleOffset = railFirstHoleOffset(xRailType, xRailLength);
-    tongueSize = [tongueOffset + railFirstHoleOffset + rail_pitch(xRailType) + rail_width(xRailType)/2 + 0.5, rail_width(xRailType) + 2, isMGN9C(yCarriageType) ? thickness - chamfer : 7];
+    tongueSize = [tongueOffset + railFirstHoleOffset + rail_pitch(xRailType) + rail_width(xRailType)/2 + 0.5, rail_width(xRailType) + 2, isMGN9C(yCarriageType) ? 6.5 - chamfer : 7];
 
     module tongueBoltPositions() {
         translate([tongueOffset + xRailLength/2, 0, 0])
@@ -144,14 +144,25 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
                     size = [22.5, 7, h];
                     translate([plainPulleyPos.x - 3.25, -size.y/2, 0])
                         rounded_cube_xy(size, 3);
+                    translate([blockSize.x/2 + endstopX, size.y/2, 0])
+                        fillet(1.5, thickness);
+                    translate([blockSize.x/2, -size.y/2, 0])
+                        rotate(270)
+                            fillet(1.5, thickness);
                 } else {
                     size = [8.5, 15, h];
                     translate([toothedPulleyPos.x - 3.25, -size.y/2, 0])
                         rounded_cube_xy(size, 1.5);
                     if (yCarriageBraceThickness) {
                         size2 = [11, 9.5, h];
-                        translate([11.75 + 14 + 4.75 -size2.x, 3.5 - size.y/2, 0])
+                        translate([11.75 + 14 + 4.75 - size2.x, 3.5 - size.y/2, 0]) {
                             rounded_cube_xy(size2, 1.5);
+                            translate([-4.5, 0, 0])
+                                cube([6, size2.y, thickness]);
+                        }
+                        translate([blockSize.x/2 + endstopX, 3.5 -size.y/2, 0])
+                            rotate(270)
+                                fillet(1.5, thickness);
                     }
                 }
             } else {
@@ -191,7 +202,7 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
             }
         } // end union
         tongueBoltPositions()
-            boltHole(rail_hole(xRailType) < 3 ? 2*M2_tap_radius : 2*M3_tap_radius, thickness + (left ? 5 : 0), twist=3, cnc=cnc);
+            boltHole(rail_hole(xRailType) < 3 ? 2*M2_tap_radius : 2*M3_tap_radius, thickness + (left ? 5 : -0.5), twist=3, cnc=cnc);
         translate_z(thickness - carriage_height(yCarriageType))
             rotate(90)
                 carriage_hole_positions(yCarriageType)
