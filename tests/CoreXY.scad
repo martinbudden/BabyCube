@@ -24,24 +24,30 @@ use <../scad/Parameters_Positions.scad>
 include <../scad/Parameters_Main.scad>
 
 
+t=2;
+
 module CoreXY() {
 
     echo(coreXY_drive_pulley_x_offset=coreXY_drive_pulley_x_alignment(coreXY_type()));
     echo(coreXYSeparation=coreXYSeparation());
 
     CoreXYBelts(carriagePosition());
-    yCarriageLeftAssembly(_xyNEMA_width);
-    yCarriageRightAssembly(_xyNEMA_width);
+    translate([0, carriagePosition(t).y - carriagePosition().y, 0])
+        yCarriageLeftAssembly(_xyNEMA_width);
+    translate([0, carriagePosition(t).y - carriagePosition().y, 0])
+        yCarriageRightAssembly(_xyNEMA_width);
     XY_Idler_Bracket_Left_assembly();
     XY_Idler_Bracket_Right_assembly();
     //XY_Idler_Left_assembly();
     //XY_Idler_Right_assembly();
     XY_Motor_Mount_Left_assembly();
     XY_Motor_Mount_Right_assembly();
-    xRail(xCarriageType(), _xRailLength);
+    xRail(xCarriageType(), _xRailLength, carriagePosition=carriagePosition(t));
     //let($hide_bolts=true)
-    fullPrinthead(rotate=0, accelerometer=true);
-    xRailCarriagePosition()
+    printheadBeltSide(t=t);
+    printheadHotendSide(t=t);
+    //fullPrinthead(rotate=0, accelerometer=true);
+    *xRailCarriagePosition()
         rotate(0) {// rotate 180 to make it easier to see belts
             *rotate([0, 90, 0])
                 X_Carriage_stl();
