@@ -143,7 +143,7 @@ module X_Carriage_Belt_Clamp_hardware(boltLength=10, countersunk=false) {
                     boltM3Buttonhead(boltLength);
 }
 
-module xCarriageBeltAttachment(sizeZ, extraX=0, boltCutout=false, endCube=!true) {
+module xCarriageBeltAttachment(sizeZ, extraX=0, boltCutout=false, endCube=true) {
     size = xCarriageBeltAttachmentSize(sizeZ) - [0, toothHeight, 0];
     cutoutSize = [xCarriageBeltTensionerSize().z + 0.55, xCarriageBeltTensionerSize().y + 0.6];
     //assert(cutoutSize==[7.75, 10.75]);
