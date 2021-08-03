@@ -26,9 +26,9 @@ tests/png/*
 tests/tmp
 !tests/*.scad
 !tests/extra/*.scad
-# change to !, except for diffs, once released
-//!tests.md
-//!tests/png/*.png
+# change to !, except for _diff, once released
+#!tests.md
+#!tests/png/*.png
 tests/png/*_diff.png
 
 PRINTBED120/assemblies/*
@@ -37,15 +37,15 @@ PRINTBED120/dxfs/*
 PRINTBED120/stls/*
 PRINTBED120/tmp/
 PRINTBED120/*.html
-# change to !, except for diffs, once released
+# change to !, except for _diff, .stl, and .dxf, once released
 !PRINTBED120/readme.md
 !PRINTBED120/assemblies/main_assembled.png
 !PRINTBED120/assemblies/*.png
 PRINTBED120/assemblies/*_diff.png
-!PRINTBED120/dxfs/*.dxf
+#!PRINTBED120/dxfs/*.dxf
 !PRINTBED120/dxfs/*.png
 PRINTBED120/dxfs/*_diff.png
-!PRINTBED120/stls/*.stl
+#!PRINTBED120/stls/*.stl
 !PRINTBED120/stls/*.png
 PRINTBED120/stls/*_diff.png
 
@@ -55,15 +55,15 @@ BC200/dxfs/*
 BC200/stls/*
 BC200/tmp/
 BC200/*.html
-# change to !, except for diffs, once released
+# change to !, except for _diff, .stl, and .dxf, once released
 !BC200/readme.md
 !BC200/assemblies/main_assembled.png
 !BC200/assemblies/*.png
 BC200/assemblies/*_diff.png
-!BC200/dxfs/*.dxf
+#!BC200/dxfs/*.dxf
 !BC200/dxfs/*.png
 BC200/dxfs/*_diff.png
-!BC200/stls/*.stl
+#!BC200/stls/*.stl
 !BC200/stls/*.png
 BC200/stls/*_diff.png
 
@@ -74,7 +74,7 @@ BC200CF/dxfs/*
 BC200CF/stls/*
 BC200CF/tmp/
 BC200CF/*.html
-# change to !, except for diffs, once released
+# change to !, except for _diff, .stl, and .dxf, once released
 BC200CF/readme.md
 !BC200CF/assemblies/main_assembly.png
 !BC200CF/assemblies/main_assembled.png
@@ -94,7 +94,7 @@ BC220/dxfs/*
 BC220/stls/*
 BC220/tmp/
 BC220/*.html
-# change to !, except for diffs, once released
+# change to !, except for _diff, .stl, and .dxf, once released
 BC220/readme.md
 BC220/assemblies/main_assembled.png
 #!BC220/assemblies/*.png
