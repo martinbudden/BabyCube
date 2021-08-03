@@ -65,7 +65,7 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
         }
     }
 
-    module tongue(left) {
+    module tongue(tongueSize, left) {
         // add rail_width/2 to tongueSize.x to give a bit of extra length to the tongue for wider rails
         translate([0, -tongueSize.y/2, 0])
             chamfered_rounded_cube(tongueSize, fillet, chamfer);
@@ -137,7 +137,7 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
                     }
                 }
             }
-            tongue(left);
+            tongue(tongueSize, left);
             h = thickness + pulleyStackHeight(plainIdlerHeight);
             if (isMGN9C(yCarriageType)) {
                 if (left) {
@@ -180,9 +180,10 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
                     translate([toothedPulleyPos.x - 3.25, -size.y/2, 0])
                         rounded_cube_xy(size, 1.5);
                     if (yCarriageBraceThickness) {
-                        size2 = [10.1, 10.25, h];
-                        translate([plainPulleyPos.x + 7, -3.25, 0])
+                        size2 = [9.9, 10.25, h];
+                        translate([plainPulleyPos.x + 7, tongueSize.y/2 - size2.y, 0])
                             rounded_cube_xy(size2, 1.5);
+                        tongue([size2.x + 3.65 + blockSize.x/2, tongueSize.y, thickness], left);
                         size3 = [8.5, size.y, h];
                         translate([-blockSize.x/2, -size3.y/2, 0])
                             rounded_cube_xy(size3, 1.5);
@@ -202,7 +203,7 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
             }
         } // end union
         tongueBoltPositions()
-            boltHole(rail_hole(xRailType) < 3 ? 2*M2_tap_radius : 2*M3_tap_radius, thickness + (left ? 5 : -0.5), twist=3, cnc=cnc);
+            boltHole(rail_hole(xRailType) < 3 ? 2*M2_tap_radius : 2*M3_tap_radius, thickness + (left ? 5 : 0), twist=4, cnc=cnc);
         translate_z(thickness - carriage_height(yCarriageType))
             rotate(90)
                 carriage_hole_positions(yCarriageType)
@@ -236,7 +237,7 @@ module yCarriageBrace(yCarriageType, thickness, pulleyOffset, holeRadius, left) 
                     boltHole(holeRadius*2, size.z, twist=4);
         }
     } else {
-        size = left ? [46.75 - 6.1, 10 + 3.25/2, thickness] : [47.75 - 3, 14, thickness];
+        size = left ? [46.75 - 6.1, 10 + 3.25/2, thickness] : [47.75 - 3.2, 14, thickness];
         difference() {
             translate([-blockSizeX/2, left ? -5 : -size.y/2, 0])
                 rounded_cube_xy(size, 1.5);
