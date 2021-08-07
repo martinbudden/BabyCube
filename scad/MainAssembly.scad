@@ -162,14 +162,15 @@ staged_assembly("Stage_5", big=true, ngb=true) {
 }
 
 module FinalAssembly() {
-    if ($target == "BC200_test") {
-        Left_Face_stl();
-        Right_Face_stl();
-    } else {
-        Stage_5_assembly();
+    translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2])
+        if ($target == "BC200_test") {
+            Left_Face_stl();
+            Right_Face_stl();
+        } else {
+            Stage_5_assembly();
 
-        bowdenTube();
-        faceRightSpoolHolder();
-        faceRightSpool();
-    }
+            bowdenTube();
+            faceRightSpoolHolder();
+            faceRightSpool();
+        }
 }

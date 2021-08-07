@@ -126,5 +126,4 @@ assembly("main", big=true) {
 }
 
 if ($preview)
-    translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2])
-        main_assembly();
+    main_assembly();
