@@ -229,19 +229,20 @@ module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=unde
                         rotate([0, 90, 90])
                             xCarriageBeltAttachment(size.x, extraX, boltCutout=true);
                     rounded_cube_xz(size + sizeExtra, fillet);
-                    if (!isMGN12) {
-                        offsetZ = 29.5;
-                        translate_z(offsetZ)
-                            rounded_cube_xz([size.x, size.y, size.z - offsetZ], fillet);
-                    }
                     translate([0, 0, size.z - topSize.z])
                         rounded_cube_xz(topSize, fillet);
                     insetHeight = 8 + 2*fillet;//size.z - railCarriageGap - topSize.z - carriage_size(xCarriageType).z + carriage_clearance(xCarriageType);
                     rounded_cube_xz([size.x, beltAttachmentSizeY, baseThickness], fillet);
                     translate_z(fillet + 0.25)
                         cube([size.x, beltAttachmentSizeY, baseThickness - fillet], fillet);
-                    if (isMGN12)
+                    if (isMGN12) {
                         rounded_cube_xz([size.x, beltAttachmentOffsetY, baseThickness + xCarriageBeltAttachmentSize().x], fillet);
+                    } else {
+                        offsetZ = 29.5;
+                        translate_z(offsetZ)
+                            rounded_cube_xz([size.x, size.y, size.z - offsetZ], fillet);
+                    }
+
                 } // end union
             translate([0, size.y + sizeExtra.y, topSize.z + xCarriageBeltAttachmentSize().x - (isMGN12 ? 49 : 45)]) {
                 rotate([-90, 0, 0])
