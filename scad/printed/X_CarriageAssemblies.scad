@@ -32,14 +32,14 @@ xCarriageBeltTensionerSizeX = 23;
 module X_Carriage_Belt_Side_MGN9C_stl() {
     xCarriageType = MGN9C_carriage;
     extraX = xCarriageBeltAttachmentMGN9CExtraX();
-    size = xCarriageFrontSize(xCarriageType, _beltWidth, clamps=false) + [extraX, 1, 3];
+    size = xCarriageFrontSize(xCarriageType, _beltWidth, clamps=false) + [extraX, 0, 3];
 
     // orientate for printing
     stl("X_Carriage_Belt_Side_MGN9C")
         color(pp4_colour)
             translate([extraX/2, 0, 0])
                 rotate([90, 0, 0])
-                    xCarriageBeltSide(xCarriageType, size, extraX=4, accelerometerOffset=accelerometerOffset(), countersunk=false, topHoleOffset=-extraX/2);
+                    xCarriageBeltSide(xCarriageType, size, extraX=4, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2);
 }
 
 //!Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the
