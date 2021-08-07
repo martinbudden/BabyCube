@@ -170,7 +170,6 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   4  |   6  |   .  |   .  |   .  |   .  |   .  |   2  |   1  |   6  |   19  |  Bolt M3 buttonhead x 10mm |
 |   2  |   .  |   .  |   .  |   .  |   4  |   4  |   .  |   4  |  20  |   34  |  Bolt M3 buttonhead x 12mm |
 |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 buttonhead x 16mm |
-|   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 buttonhead x 25mm |
 |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   9  |   .  |   .  |   13  |  Bolt M3 caphead x  6mm |
 |   .  |   .  |  26  |   .  |   4  |   .  |   .  |   9  |   .  |   .  |   39  |  Bolt M3 caphead x  8mm |
 |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 caphead x 10mm |
@@ -181,6 +180,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |  12  |   14  |  Bolt M3 countersunk x 10mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   4  |    6  |  Bolt M3 countersunk x 12mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |    2  |  Bolt M3 countersunk x 16mm |
+|   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 countersunk x 25mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |  Bolt M3 countersunk x 35mm |
 |   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |  Bolt M5 countersunk x 16mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |  Cork damper NEMA 14 |
@@ -310,7 +310,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |Qty|Description|
 |---:|:----------|
 |2| Bolt M3 buttonhead x 12mm|
-|2| Bolt M3 buttonhead x 25mm|
+|2| Bolt M3 countersunk x 25mm|
 |1| Fan 30mm x 10mm|
 |1| Hot end E3D V6 direct 1.75mm|
 
