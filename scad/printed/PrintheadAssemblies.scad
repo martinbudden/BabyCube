@@ -14,6 +14,7 @@ include <../vitamins/pcbs.scad>
 
 use <Printhead.scad>
 use <X_Carriage.scad>
+use <X_CarriageBeltAttachment.scad>
 use <X_CarriageAssemblies.scad>
 
 use <../Parameters_CoreXY.scad>
@@ -22,7 +23,7 @@ include <../Parameters_Main.scad>
 
 function hotendClampOffset(xCarriageType, hotend_type=0) =  [hotendOffset(xCarriageType, hotend_type).x, 18 + xCarriageBackOffsetY(xCarriageType) + grooveMountOffsetX(hotend_type), hotendOffset(xCarriageType, hotend_type).z];
 grooveMountFillet = 1;
-function grooveMountClampSize(blower_type, hotend_type) = [grooveMountSize(blower_type, hotend_type).y - 2*grooveMountFillet - grooveMountClampOffsetX(), 12, 17];
+function grooveMountClampSize(blower_type, hotend_type) = [grooveMountSize(blower_type, hotend_type).y - 2*grooveMountFillet - grooveMountClampOffsetX(), 12, 15];
 
 module printheadAssembly() {
     xCarriageType = xCarriageType();
@@ -38,7 +39,7 @@ module printheadAssembly() {
             explode(-40, true) {
                 stl_colour(pp2_colour)
                     Hotend_Clamp_stl();
-                Hotend_Clamp_hardware(xCarriageType, blower_type, hotend_type);
+                Hotend_Clamp_hardware(xCarriageType, blower_type, hotend_type, countersunk=true);
             }
             explode(-60, true)
                 translate([0, grooveMountClampStrainReliefOffset(), -grooveMountClampSize(blower_type, hotend_type).z - 5])
@@ -55,12 +56,13 @@ module printheadAssembly() {
 //!3. Collect the wires together and attach to the X_Carriage using the Hotend_Strain_Relief_Clamp.
 module Printhead_assembly()
 assembly("Printhead", big=true) {
+
     X_Carriage_assembly();
     printheadAssembly();
 }
 
 module Printhead_E3DV6_MGN9C_assembly() pose(a=[55, 0, 25 + 180])
-assembly("Printhead_E3DV6_MGN12H", big=true) {
+assembly("Printhead_E3DV6_MGN9C", big=true) {
 
     X_Carriage_Groovemount_MGN9C_assembly();
     printheadAssembly();
@@ -79,19 +81,17 @@ module printheadBeltSide(rotate=0, explode=0, t=undef) {
             }
 }
 
-module printheadHotendSide(rotate=0, clamps=false, explode=0, t=undef, accelerometer=false) {
+module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false) {
     xCarriageType = xCarriageType();
+    xCarriageFrontSize = xCarriageFrontSize(xCarriageType, _beltWidth, clamps=false) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 3];
 
     xRailCarriagePosition(t)
         explode(explode, true)
             rotate(rotate) {// for debug, to see belts better
-                *explode([0, -20, 0], true)
-                    xCarriageFrontBolts(xCarriageType, xCarriageFrontSize(xCarriageType, _beltWidth, clamps), topBoltLength=30, bottomBoltLength=30, countersunk=true, offsetT=xCarriageHoleOffsetTop());
+                explode([0, -20, 0], true)
+                    xCarriageFrontBolts(xCarriageType, xCarriageFrontSize, topBoltLength=30, bottomBoltLength=30, countersunk=true);
                 Printhead_E3DV6_MGN9C_assembly();
                 xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, 1], [-1, 1] ]);
-                if (accelerometer)
-                    explode(50, true)
-                        printheadAccelerometerAssembly();
             }
 }
 
@@ -109,22 +109,26 @@ module fullPrinthead(rotate=0, explode=0, t=undef, accelerometer=false) {
                 xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk);
                 if (accelerometer)
                     explode(50, true)
-                        translate(accelerometerOffset() + [0, 0, 1])
-                            rotate(180) {
-                                pcb = ADXL345;
-                                pcb(pcb);
-                                pcb_hole_positions(pcb) {
-                                    translate_z(pcb_size(pcb).z)
-                                        boltM3Caphead(10);
-                                    explode(-5)
-                                        vflip()
-                                            washer(M3_washer)
-                                                washer(M3_washer);
-                                }
-                            }
+                        printheadAccelerometerAssembly();
                 if (!exploded())
                     xCarriageBeltFragments(xCarriageType, coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
             }
+}
+
+module printheadAccelerometerAssembly() {
+    translate(accelerometerOffset() + [0, 0, 1])
+        rotate(180) {
+            pcb = ADXL345;
+            pcb(pcb);
+            pcb_hole_positions(pcb) {
+                translate_z(pcb_size(pcb).z)
+                    boltM3Caphead(10);
+                explode(-5)
+                    vflip()
+                        washer(M3_washer)
+                            washer(M3_washer);
+            }
+        }
 }
 
 module hotEndHolderHardware(xCarriageType, hotend_type = 0) {
@@ -161,7 +165,7 @@ module Hotend_Strain_Relief_Clamp_hardware() {
 module Hotend_Clamp_stl() {
     stl("Hotend_Clamp")
         color(pp2_colour)
-            grooveMountClamp(grooveMountClampSize(BL30x10));
+            grooveMountClamp(grooveMountClampSize(BL30x10), strainRelief=true);
 }
 
 module Hotend_Clamp_40_stl() {
@@ -170,6 +174,6 @@ module Hotend_Clamp_40_stl() {
             grooveMountClamp(grooveMountClampSize(BL40x10));
 }
 
-module Hotend_Clamp_hardware(xCarriageType, blower_type, hotend_type) {
-    grooveMountClampHardware(grooveMountClampSize(blower_type, hotend_type));
+module Hotend_Clamp_hardware(xCarriageType, blower_type, hotend_type, countersunk=false) {
+    grooveMountClampHardware(grooveMountClampSize(blower_type, hotend_type), countersunk);
 }
