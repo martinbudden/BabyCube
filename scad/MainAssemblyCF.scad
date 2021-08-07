@@ -147,34 +147,38 @@ staged_assembly("Stage_5_CF", big=true, ngb=true) {
 }
 
 module CF_FinalAssembly() {
-    Stage_5_CF_assembly();
+    translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2]) {
+        Stage_5_CF_assembly();
 
-    explode(100, true)
-        CoreXYBelts(carriagePosition());
-    explode(100, true)
-        fullPrinthead();
-    *if (!exploded())
-        printheadWiring();
-    if (!exploded())
-        CoreXYBelts(carriagePosition());
+        explode(100, true)
+            CoreXYBelts(carriagePosition());
+        explode(100, true)
+            fullPrinthead();
+        *if (!exploded())
+            printheadWiring();
+        if (!exploded())
+            CoreXYBelts(carriagePosition());
+    }
 }
 
 
 module CF_DebugAssembly() {
-    explode = 75;
-    explode(explode + 25) {
-        Top_Face_CF_assembly();
-        fullPrinthead();
+    translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2]) {
+        explode = 75;
+        explode(explode + 25) {
+            Top_Face_CF_assembly();
+            fullPrinthead();
+        }
+        explode([0, explode, 0])
+            Back_Face_CF_assembly();
+        explode([0, -explode, 0])
+            Front_Face_CF_assembly();
+        explode([-explode, 0, 0])
+            Left_Face_CF_assembly();
+        explode([explode, 0, 0])
+            Right_Face_CF_assembly();
+        explode(-eps)
+            translate_z(-eps)
+                Base_assembly();
     }
-    explode([0, explode, 0])
-        Back_Face_CF_assembly();
-    explode([0, -explode, 0])
-        Front_Face_CF_assembly();
-    explode([-explode, 0, 0])
-        Left_Face_CF_assembly();
-    explode([explode, 0, 0])
-        Right_Face_CF_assembly();
-    explode(-eps)
-        translate_z(-eps)
-            Base_assembly();
 }
