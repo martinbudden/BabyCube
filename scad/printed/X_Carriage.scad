@@ -286,7 +286,7 @@ module xCarriageFront(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ) 
 module xCarriageFrontBolts(xCarriageType, size, topBoltLength=10, bottomBoltLength=12, countersunk=false, offsetT=0) {
     translate([-size.x/2, -xCarriageFrontOffsetY(xCarriageType), 0]) {
         // holes at the top to connect to the xCarriage
-        #for (x = xCarriageHolePositions(size.x, xCarriageHoleSeparationTop(xCarriageType)))
+        for (x = xCarriageHolePositions(size.x, xCarriageHoleSeparationTop(xCarriageType)))
         //for (x = xCarriageTopHolePositions(xCarriageType, offsetT.x))
             translate([x, 0, xCarriageTopThickness()/2 + offsetT])
                 rotate([90, 90, 0])
