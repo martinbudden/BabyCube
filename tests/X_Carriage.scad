@@ -41,7 +41,7 @@ module X_Carriage_test() {
     translate(hotendClampOffset(xCarriageType, hotend_type))
         rotate([90, 0, -90]) {
             Hotend_Clamp_stl();
-            Hotend_Clamp_hardware(xCarriageType, blower_type);
+            Hotend_Clamp_hardware(xCarriageType, blower_type, countersunk=true);
         }
 }
 
