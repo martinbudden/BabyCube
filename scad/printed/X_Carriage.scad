@@ -63,7 +63,7 @@ module xCarriageTop(xCarriageType, xCarriageBackSize, reflected=false, clamps=tr
         holeSeparation = xCarriageHoleSeparationTop(xCarriageType);
         for (x = xCarriageHolePositions(size.x, holeSeparation))
         //for (x = xCarriageTopHolePositions(xCarriageType, holeOffset.x))
-            translate([x, xCarriageBackSize.y - size.y, size.z/2 + holeOffset])
+            translate([x + topHoleOffset, xCarriageBackSize.y - size.y, size.z/2 + holeOffset])
                 rotate([-90, -90, 0])
                     boltHoleM3TapOrInsert(12, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
         // bolt holes to connect to to the MGN carriage
@@ -286,7 +286,7 @@ module xCarriageFront(xCarriageType, beltWidth, beltOffsetZ, coreXYSeparationZ) 
 module xCarriageFrontBolts(xCarriageType, size, topBoltLength=10, bottomBoltLength=12, countersunk=false, offsetT=0) {
     translate([-size.x/2, -xCarriageFrontOffsetY(xCarriageType), 0]) {
         // holes at the top to connect to the xCarriage
-        for (x = xCarriageHolePositions(size.x, xCarriageHoleSeparationTop(xCarriageType)))
+        #for (x = xCarriageHolePositions(size.x, xCarriageHoleSeparationTop(xCarriageType)))
         //for (x = xCarriageTopHolePositions(xCarriageType, offsetT.x))
             translate([x, 0, xCarriageTopThickness()/2 + offsetT])
                 rotate([90, 90, 0])
