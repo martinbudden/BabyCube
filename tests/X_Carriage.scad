@@ -22,22 +22,20 @@ module X_Carriage_test() {
     hotend_type = 0;
 
     //rotate([0, 90, 0]) X_Carriage_stl();
-    X_Carriage_assembly();
-    //X_Carriage_Groovemount_MGN9C_assembly();
-    //Fan_Duct_stl();
+    //X_Carriage_assembly();
     //rotate([0, 90, 0]) X_Carriage_Front_stl();
-    X_Carriage_Front_assembly();
-    //X_Carriage_Belt_Side_MGN9C_assembly();
-    xCarriageFrontBolts(xCarriageType(), xCarriageFrontSize(xCarriageType, _beltWidth, clamps=true));
+    //X_Carriage_Front_assembly();
+    //xCarriageFrontBolts(xCarriageType(), xCarriageFrontSize(xCarriageType, _beltWidth, clamps=true));
+    X_Carriage_Belt_Side_MGN9C_assembly();
+    X_Carriage_Groovemount_MGN9C_assembly();
 
     //let($preview=false)
     *translate([-xCarriageBackSize(xCarriageType).x/2, carriage_size(xCarriageType).y/2, 0])
         xCarriageTop(xCarriageType);
     //xCarriageBack(xCarriageType, xCarriageBackSize(xCarriageType, _beltWidth, clamps=true), beltOffsetZ(), _beltWidth, coreXYSeparation().z);
     //xCarriageBottom(xCarriageType);
-    //Belt_Tensioner_stl();
-    //Belt_Clamp_stl();
-    //Belt_Tidy_stl();
+    //X_CarriageBelt_Tensioner_stl();
+    //X_Carriage_Belt_Clamp_stl();
     blower_type = BL30x10;
     hotEndHolderHardware(xCarriageType, hotend_type);
     translate(hotendClampOffset(xCarriageType, hotend_type))

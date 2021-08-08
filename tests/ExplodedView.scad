@@ -32,7 +32,9 @@ module Exploded_View_test() {
         Right_Face_assembly();
     explode([0, 0, 1.25*explode]) {
         Top_Face_assembly();
-        fullPrinthead();
+        //fullPrinthead();
+        printheadHotendSide(explode=100);
+        printheadBeltSide(explode=100);
     }
     explode([0, -explode, 0]) {
         translate_z(eZ)
