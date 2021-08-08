@@ -39,7 +39,7 @@ module X_Carriage_Belt_Side_MGN9C_stl() {
         color(pp4_colour)
             translate([extraX/2, 0, 0])
                 rotate([90, 0, 0])
-                    xCarriageBeltSide(xCarriageType, size, extraX=4, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2);
+                    xCarriageBeltSide(xCarriageType, size, extraX=extraX, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2);
 }
 
 //!Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the
@@ -82,7 +82,8 @@ module X_Carriage_Belt_Clamp_stl() {
 
     stl("X_Carriage_Belt_Clamp")
         color(pp2_colour)
-            xCarriageBeltClamp(size, countersunk=true);
+            vflip()
+                xCarriageBeltClamp(size, countersunk=true);
 }
 
 module xCarriageBeltClampAssembly(xCarriageType) {
@@ -90,7 +91,8 @@ module xCarriageBeltClampAssembly(xCarriageType) {
     translate([4, 0.3, 3.85])
         xCarriageBeltClampPosition(xCarriageType, size) {
             stl_colour(pp2_colour)
-                X_Carriage_Belt_Clamp_stl();
+                vflip()
+                    X_Carriage_Belt_Clamp_stl();
             X_Carriage_Belt_Clamp_hardware(countersunk=true);
         }
 }

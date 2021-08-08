@@ -211,7 +211,7 @@ module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=unde
 
     carriageSize = carriage_size(xCarriageType);
     isMGN12 = carriageSize.z >= 13;
-    sizeExtra = [0, (isMGN12 ? 1 : -2.5), 0];
+    sizeExtra = [0, (isMGN12 ? 2 : -2), 0];
     tolerance = 0.05;
     topSize = [size.x, size.y + carriageSize.y/2 + 2 - tolerance, xCarriageTopThickness()];
     baseThickness = xCarriageBaseThickness();
@@ -234,7 +234,7 @@ module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=unde
                     insetHeight = 8 + 2*fillet;//size.z - railCarriageGap - topSize.z - carriage_size(xCarriageType).z + carriage_clearance(xCarriageType);
                     rounded_cube_xz([size.x, beltAttachmentSizeY, baseThickness], fillet);
                     translate_z(fillet + 0.25)
-                        cube([size.x, beltAttachmentSizeY, baseThickness - fillet], fillet);
+                        cube([size.x, beltAttachmentSizeY, baseThickness - fillet + (isMGN12 ? 0 : 4)], fillet);
                     if (isMGN12) {
                         rounded_cube_xz([size.x, beltAttachmentOffsetY, baseThickness + xCarriageBeltAttachmentSize().x], fillet);
                     } else {
@@ -244,12 +244,12 @@ module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=unde
                     }
 
                 } // end union
-            translate([0, size.y + sizeExtra.y, topSize.z + xCarriageBeltAttachmentSize().x - (isMGN12 ? 49 : 45)]) {
+            translate([0, size.y + sizeExtra.y + beltAttachmentOffsetY, topSize.z + xCarriageBeltAttachmentSize().x - (isMGN12 ? 49 : 45)]) {
                 rotate([-90, 0, 0])
-                    fillet(1, 20.5 - sizeExtra.y + eps);
+                    fillet(1, 20.5 - sizeExtra.y - beltAttachmentOffsetY + eps);
                 translate([size.x, 0, 0])
                     rotate([-90, 90, 0])
-                        fillet(1, 20.5 - sizeExtra.y + eps);
+                        fillet(1, 20.5 - sizeExtra.y - beltAttachmentOffsetY + eps);
             }
             // bolt holes to connect to to the MGN carriage
             translate([size.x/2 + topHoleOffset, xCarriageFrontOffsetY(xCarriageType), -carriage_height(xCarriageType)]) {
