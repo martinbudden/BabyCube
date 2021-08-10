@@ -275,6 +275,11 @@ module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=unde
                             boltPolyholeM3Countersunk(topSize.y);
                         else
                             boltHoleM3(topSize.y);
+            // extra bolt hole to allow something to be attached to the carriage
+            if (!isMGN12)
+                translate([size.x/2 + topHoleOffset, 0, -baseOffset + size.z - topSize.z/2])
+                    rotate([-90, 0, 0])
+                        boltHoleM3Tap(8);
             /*for (x = xCarriageTopHolePositions(xCarriageType, xCarriageHoleOffsetTop().x))
                 translate([x, 0, -baseOffset + size.z - topSize.z/2 + xCarriageHoleOffsetTop().y])
                     rotate([-90, 0, 0])
@@ -288,6 +293,11 @@ module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=unde
                             boltPolyholeM3Countersunk(beltAttachmentSizeY);
                         else
                             boltHoleM3(beltAttachmentSizeY);
+            // extra bolt hole to allow something to be attached to the carriage
+            if (!isMGN12)
+                translate([size.x/2 + topHoleOffset, 0, -baseOffset + baseThickness/2])
+                    rotate([-90, 0, 0])
+                        boltHoleM3Tap(8);
             /*for (x = xCarriageBottomHolePositions(xCarriageType, xCarriageHoleOffsetBottom().x))
                 translate([x, 0, -baseOffset + baseThickness/2 + xCarriageHoleOffsetBottom().y])
                     rotate([-90, 0, 0])
