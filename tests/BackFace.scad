@@ -1,6 +1,7 @@
 //! Display the back face
 
 include <NopSCADlib/core.scad>
+include <NopSCADlib/vitamins/cameras.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../scad/printed/BackFace.scad>
@@ -9,6 +10,7 @@ use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/Printbed.scad>
 use <../scad/printed/Printbed3point.scad>
+use <../scad/printed/PrintheadAssemblies.scad>
 
 use <../scad/Parameters_Positions.scad>
 include <../scad/Parameters_Main.scad>
@@ -31,6 +33,9 @@ module Back_Face_test() {
     //Left_Face_assembly();
     //Right_Face_assembly();
     //Top_Face_assembly();
+    //printheadHotendSide();
+    //camera(rpi_camera_v2, fov_distance = eY/2);
+
     //Top_Face_CF_assembly();
 
 

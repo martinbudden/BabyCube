@@ -2,8 +2,11 @@ include <../global_defs.scad>
 
 include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/dogbones.scad>
+include <NopSCADlib/vitamins/cameras.scad>
 include <NopSCADlib/vitamins/sheets.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
+
+use <NopSCADlib/vitamins/pcb.scad>
 
 use <../utils/cutouts.scad>
 use <../utils/HolePositions.scad>
@@ -99,6 +102,10 @@ assembly("Back_Face", big=true) {
             else
                 Print_bed_3_point_printed_assembly();
         }
+    cameraType = rpi_camera_v1;
+    *translate([eX/2 + _zRodSeparation/4, eY + 2*eSizeY - 0*_backPlateThickness - camera_connector_size(cameraType).z - pcb_thickness(camera_pcb(cameraType)), eZ - 60])
+        rotate([90, -135, 0])
+            camera(cameraType);
 }
 
 module Back_Face_CF_dxf() {
