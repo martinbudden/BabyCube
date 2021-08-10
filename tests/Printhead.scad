@@ -33,7 +33,7 @@ module Printhead_test() {
         printheadBeltSide();
         printheadHotendSide();
         CoreXYBelts(carriagePosition(), x_gap=2);
-        xRail(xCarriageType(), _xRailLength);
+        xRail(carriagePosition(), xCarriageType(), _xRailLength);
         bowdenTube();
         //Back_Face_assembly();
         //printheadWiring();

@@ -128,7 +128,7 @@ assembly("Top_Face", big=true) {
     //hidden() Y_Carriage_Right_AL_dxf();
 
     explode(30, true)
-        xRail(xCarriageType(), _xRailLength);
+        xRail(carriagePosition(), xCarriageType(), _xRailLength);
 }
 
 module Top_Face_NEMA_17_assembly()
@@ -137,7 +137,7 @@ assembly("Top_Face_NEMA_17", big=true) {
     Top_Face_NEMA_17_Stage_2_assembly();
 
     explode(30, true)
-        xRail(xCarriageType(), _xRailLength);
+        xRail(carriagePosition(), xCarriageType(), _xRailLength);
 }
 
 
@@ -164,7 +164,7 @@ assembly("Top_Face_CF", big=true) {
     Top_Face_CF_Stage_2_assembly();
 
     explode(30, true)
-        xRail(xCarriageType(), _xRailLength);
+        xRail(carriagePosition(), xCarriageType(), _xRailLength);
 }
 
 
@@ -174,7 +174,7 @@ module Top_Face_with_Printhead_assembly()
 assembly("Top_Face_with_Printhead", big=true) {
     Top_Face_with_X_Rail_assembly();
 
-    xRailCarriagePosition()
+    xRailCarriagePosition(carriagePosition())
         rotate(0) {// for debug, to see belts better
             X_Carriage_Front_assembly();
             Printhead_assembly();

@@ -8,20 +8,19 @@ use <../vitamins/bolts.scad>
 use <carriageTypes.scad>
 
 use <../Parameters_CoreXY.scad>
-use <../Parameters_Positions.scad>
 include <../Parameters_Main.scad>
 
 
-module xRailCarriagePosition(t=undef) {
+module xRailCarriagePosition(carriagePosition) {
     translate([
-        carriagePosition(t).x + yRailOffset(_xyNEMA_width).x,
-        carriagePosition(t).y,
+        carriagePosition.x + yRailOffset(_xyNEMA_width).x,
+        carriagePosition.y,
         eZ - yRailSupportThickness()
         ])
         children();
 }
 
-module xRail(xCarriageType, xRailLength, carriagePosition=carriagePosition()) {
+module xRail(carriagePosition, xCarriageType, xRailLength) {
     assert(is_list(xCarriageType));
     xRailType = carriage_rail(xCarriageType);
     assert(is_list(xRailType));

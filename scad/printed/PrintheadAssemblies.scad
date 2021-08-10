@@ -18,6 +18,7 @@ use <X_CarriageBeltAttachment.scad>
 use <X_CarriageAssemblies.scad>
 
 use <../Parameters_CoreXY.scad>
+use <../Parameters_Positions.scad>
 include <../Parameters_Main.scad>
 
 
@@ -71,7 +72,7 @@ assembly("Printhead_E3DV6_MGN9C", big=true) {
 module printheadBeltSide(rotate=0, explode=0, t=undef) {
     xCarriageType = xCarriageType();
 
-    xRailCarriagePosition(t)
+    xRailCarriagePosition(carriagePosition(t))
         explode(explode, true)
             rotate(rotate) {// for debug, to see belts better
                 explode([0, -20, 0], true)
@@ -85,7 +86,7 @@ module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false) {
     xCarriageType = xCarriageType();
     xCarriageFrontSize = xCarriageFrontSize(xCarriageType, _beltWidth, clamps=false) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 3];
 
-    xRailCarriagePosition(t)
+    xRailCarriagePosition(carriagePosition(t))
         explode(explode, true)
             rotate(rotate) {// for debug, to see belts better
                 explode([0, -20, 0], true)
@@ -98,7 +99,7 @@ module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false) {
 module fullPrinthead(rotate=0, explode=0, t=undef, accelerometer=false) {
     xCarriageType = xCarriageType();
 
-    xRailCarriagePosition(t)
+    xRailCarriagePosition(carriagePosition(t))
         explode(explode, true)
             rotate(rotate) {// for debug, to see belts better
                 explode([0, -20, 0], true) {
