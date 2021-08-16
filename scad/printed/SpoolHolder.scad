@@ -51,7 +51,7 @@ module spoolHolderBracket(size, bracketThickness, topThickness, innerFillet) {
         linear_extrude(size.z)
             translate([0, size.y, 0])
                 difference() {
-                    square([size.x + 2*bracketThickness, topThickness]);
+                    square([size.x + bracketThickness, topThickness]);
                     translate([0, topThickness])
                         rotate(270)
                             fillet(1);
@@ -73,7 +73,8 @@ module spoolHolder(bracketSize, offsetX, innerFillet) {
         translate([-bracketSize.x - bracketThickness, -bracketSize.y, 0])
             spoolHolderBracket(bracketSize, bracketThickness, clampThickness, innerFillet);
         cube([size.x, bracketThickness, size.z]);
-        cube([capPosX, clampThickness, size.z]);
+        if (capPosX > 0)
+            cube([capPosX, clampThickness, size.z]);
         translate([capPosX, bracketThickness, size.z/2])
             rotate([0, 90, 0])
                 spoolHolderCap(size.z, size.x - capPosX);
