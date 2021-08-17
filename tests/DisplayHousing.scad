@@ -17,18 +17,18 @@ module DisplayHousing_test() {
     display_type = BTT_TFT35_V3_0();
 
     *translate_z(-1)
-    for (testLayer = [1, 2])
-    displayHousingBase(display_type, testLayer=testLayer);
+        for (testLayer = [1, 2])
+            displayHousingBase(display_type, testLayer=testLayer);
     //displayHousingBase(BigTreeTech_TFT35_E3_V3_0, fillet = 2);
-    *displayHousingAssembly();
-    *Display_Cover_assembly();
-    *Display_Housing_assembly();
+    //displayHousingAssembly();
+    //Display_Cover_assembly();
+    Display_Housing_assembly();
     *translate([120, 0, 0])
         Display_Housing_BTT_TFT35_E3_V3_0_assembly();
 
     *displayHousingLocate(displayHousingSize(display_type), angle=45)
         Display_Housing_stl();
-    rotate([90, 0, 0])
+    *rotate([90, 0, 0])
         Display_Housing_Bracket_stl();
 
     //pcbType = BTT_SKR_MINI_E3_V2_0;
