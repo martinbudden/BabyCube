@@ -1,6 +1,8 @@
 include <../global_defs.scad>
 
 include <NopSCADlib/core.scad>
+include <NopSCADlib/vitamins/cameras.scad>
+use <NopSCADlib/vitamins/pcb.scad>
 include <NopSCADlib/vitamins/rockers.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
@@ -92,6 +94,11 @@ assembly("Left_Face", big=true) {
     explode([25, 0, 0])
         Switch_Shroud_assembly();
     Switch_Shroud_bolts();
+    cameraType = rpi_camera_v1;
+    cameraPCBSize = pcb_size(camera_pcb(cameraType));
+    *translate([eSizeX + cameraPCBSize.x/2, eSizeY, 140])
+        rotate([-90, 180, -45])
+            camera(cameraType, fov=160, fov_distance=150);
 }
 
 module rightFaceStage1Assembly() {
