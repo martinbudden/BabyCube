@@ -53,8 +53,13 @@ module leftFace(NEMA_type) {
             frame(NEMA_type, left=true);
             webbingLeft(NEMA_type);
             NEMA_width = NEMA_width(NEMA_type);
-            translate([0, coreXYPosBL(NEMA_width, yCarriageType()).z + coreXYSeparation().z])
+            translate([0, coreXYPosBL(NEMA_width, yCarriageType()).z + coreXYSeparation().z, 0])
                 XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, 0);
+            // add a support for the camera
+            translate([0, coreXYPosBL(NEMA_width, yCarriageType()).z - coreXYSeparation().z, 0])
+                translate([3, -5, eSizeX])
+                    rotate([90, 0, 0])
+                        right_triangle(9, 9, 40);
             XY_MotorUpright(NEMA_type, left=true);
         }
         switchShroudHolePositions()
