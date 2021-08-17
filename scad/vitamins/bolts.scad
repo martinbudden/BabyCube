@@ -5,24 +5,20 @@ use <NopSCADlib/utils/hanging_hole.scad>
 
 // Utilities
 
-//function _twist(radius, twist) = radius > M3_tap_radius || $preview ? 0 : is_undef(twist) ? 0 : twist;
-function _twist(radius, twist) = $preview ? 0 : is_undef(twist) ? (radius > M3_tap_radius ? 0 : 3) : twist;
+function boltHoleTwist(radius, twist) = $preview ? 0 : is_undef(twist) ? (radius > M3_tap_radius ? 0 : 4) : twist;
 
 
 // bolt holes
 
 module boltHole(diameter, length, horizontal = false, rotate = 0, chamfer = 0, chamfer_both_ends = true, cnc = false, twist = 0) {
-    //echo(twist=twist);
-    //echo(_twist=_twist(diameter/2, twist));
     translate_z(-eps)
         if (cnc)
             cylinder(r = diameter/2, h = length + 2*eps);
         else if (horizontal)
             rotate(rotate)
                 teardrop(length + 2*eps, diameter/2, center=false, chamfer=chamfer, chamfer_both_ends = chamfer_both_ends);
-
         else
-            poly_cylinder(r = diameter/2, h = length + 2*eps, twist = _twist(diameter/2, twist));
+            poly_cylinder(r = diameter/2, h = length + 2*eps, twist = boltHoleTwist(diameter/2, twist));
 }
 
 module boltHoleCounterbore(screw_type, length, boreDepth = undef, boltHeadTolerance = 0, horizontal = false, chamfer = 0, cnc = false, twist=0) {
@@ -35,8 +31,8 @@ module boltHoleHangingCounterbore(screw_type, length, boreDepth = undef, boltHea
         poly_circle(r = screw_head_radius(screw_type) + boltHeadTolerance);
 }
 
-module boltHoleHangingCounterboreTap(screw_type, length) {
-    hanging_hole(screw_head_height(screw_type), ir = screw_pilot_hole(screw_type), h = length)
+module boltHoleHangingCounterboreTap(screw_type, length, boreDepth = undef, boltHeadTolerance = 0) {
+    hanging_hole(is_undef(boreDepth) ? screw_head_height(screw_type) : boreDepth, ir = screw_pilot_hole(screw_type), h = length)
         poly_circle(r = screw_head_radius(screw_type));
 }
 
@@ -85,16 +81,12 @@ module boltHoleM3CounterboreButtonhead(length, boreDepth = undef, boltHeadTolera
     boltHoleCounterbore(M3_dome_screw, length, boreDepth, boltHeadTolerance, horizontal=horizontal, cnc=cnc, twist=twist);
 }
 
-module boltHoleM3HangingCounterbore(length) {
-    boltHoleHangingCounterbore(M3_cap_screw, length);
-}
-
 module boltHoleM3HangingCounterbore(length, boreDepth = undef, boltHeadTolerance = 0) {
     boltHoleHangingCounterbore(M3_cap_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance);
 }
 
-module boltHoleM3HangingCounterboreTap(length) {
-    boltHoleHangingCounterboreTap(M3_cap_screw, length);
+module boltHoleM3HangingCounterboreTap(length, boreDepth = undef, boltHeadTolerance = 0) {
+    boltHoleHangingCounterboreTap(M3_cap_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance);
 }
 
 
@@ -116,7 +108,7 @@ module boltHoleM4CounterboreButtonhead(length, boreDepth = undef, boltHeadTolera
     boltHoleCounterbore(M4_dome_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance, horizontal=horizontal, chamfer=0.5, cnc=cnc, twist=twist);
 }
 
-module boltHoleM4HangingCounterboreButtonhead(length, boreDepth, boltHeadTolerance = 0.4) {
+module boltHoleM4HangingCounterboreButtonhead(length, boreDepth = undef, boltHeadTolerance = 0.4) {
     boltHoleHangingCounterbore(M4_dome_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance);
 }
 
