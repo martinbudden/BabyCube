@@ -133,7 +133,7 @@ module Front_Lower_Chord_SKR_1_4_Headless_stl() {
                 frontLowerChordSKR_1_4(headless = true);
 }
 
-function frontChordCutoutSize(display_type=BigTreeTech_TFT35v3_0)  = [displayHousingInnerWidth(display_type), 26, frontLowerChordSize().z + 2*eps];
+function frontChordCutoutSize(display_type=BigTreeTech_TFT35v3_0)  = [displayHousingInnerWidth(display_type) + 6, 26, frontLowerChordSize().z + 2*eps];
 //function lowerChordHeight() = idlerBracketSize(coreXYPosBL(_xyNEMA_width)).z;
 //function frontChordCutoutOffset(display_type=BigTreeTech_TFT35v3_0, headless=false) = [-lowerChordHeight() - (frontChordCutoutSize(display_type).x + frontLowerChordSize().z)/2, 8, -eps + (headless ? 1 : 0)];
 
