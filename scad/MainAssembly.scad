@@ -153,9 +153,8 @@ staged_assembly("Stage_5", big=true, ngb=true) {
     explode(100)
         CoreXYBelts(carriagePosition());
     explode(100, true) {
-        fullPrinthead();
-        //printheadBeltSide();
-        //printheadHotendSide();
+        //fullPrinthead();
+        printheadBeltSide();
     }
     if (!exploded())
         printheadWiring();
@@ -169,6 +168,7 @@ module FinalAssembly() {
         } else {
             Stage_5_assembly();
 
+            printheadHotendSide();
             bowdenTube();
             faceRightSpoolHolder();
             faceRightSpool();
