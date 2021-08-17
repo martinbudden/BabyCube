@@ -36,11 +36,12 @@ module Left_Face_test() {
     if (_useCNC)
         Left_Face_CF_assembly();
     else
-        Left_Face_assembly();
+        Left_Face_assembly(camera=!true);
     *rotate([90, 0, 90]) hflip()
         Switch_Shroud_stl();
     //Right_Face_assembly();
     //Right_Face_CF_assembly();
+    //Back_Face_assembly();
     *rotate([90, 0, 90])
         Left_Face_stl();
     //leftFace(NEMA_type);

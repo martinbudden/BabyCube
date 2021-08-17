@@ -78,6 +78,33 @@ module leftFaceHardware(NEMA_type, cnc=false, rocker=true) {
     }
 }
 
+rpi_camera_zero_pcb = ["", "",
+    5, 7, 1,
+    0, // corner radius
+    0, // mounting hole diameter
+    0, // pad around mounting hole
+    "green", // color
+    false, // true if parts should be separate BOM items
+    [], // hole positions
+    [
+        //[12,   3.25,  0, "-flat_flex", true],
+        //[-4.5, -5,    0, "smd_led", LED0603, "red"],
+        //[-5.5, -4,    0, "smd_res", RES0603, "1K2"],
+    ],
+    []];
+
+rpi_camera_zero = ["rpi_camera_zero", "Raspberry Pi Zero camera", rpi_camera_zero_pcb,
+    [0, 0],
+    [
+        [[8, 8, 3], 0],
+        [[0, 0, 4], 7.5 / 2],
+        [[0, 0, 5], 5.5 / 2, [1.5/2, 2/2, 0.5]],
+    ],
+    [0, 12+10 - 1.5 - 2.5], [8, 5, 1],
+    [54, 41] // FOV
+];
+
+
 //!
 //!1. Place the cork damper on the stepper motor and bolt the motor to the frame.
 //! Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
@@ -85,7 +112,7 @@ module leftFaceHardware(NEMA_type, cnc=false, rocker=true) {
 //!2. Secure the motor wires with zip ties.
 //!3. Bolt the two front idler pulleys with washers to the frame.
 //!4. Attach the wires to the switch and bolt the Switch_Shroud to the left face.
-module Left_Face_assembly() pose(a=[55, 0, 25 + 50])
+module Left_Face_assembly(camera=false, fov_distance=0) pose(a=[55, 0, 25 + 50])
 assembly("Left_Face", big=true) {
 
     stl_colour(pp1_colour)
@@ -94,11 +121,14 @@ assembly("Left_Face", big=true) {
     explode([25, 0, 0])
         Switch_Shroud_assembly();
     Switch_Shroud_bolts();
-    cameraType = rpi_camera_v1;
-    cameraPCBSize = pcb_size(camera_pcb(cameraType));
-    *translate([eSizeX + cameraPCBSize.x/2, eSizeY, 140])
-        rotate([-90, 180, -45])
-            camera(cameraType, fov=160, fov_distance=150);
+    if (camera) {
+        cameraType = rpi_camera_zero;
+        cameraPCBSize = pcb_size(camera_pcb(cameraType));
+        translate([eSizeX + cameraPCBSize.x/2, 3, 145])
+            rotate([-90, 0, -45])
+                translate_z(5)
+                camera(cameraType, fov=[160, 160], fov_distance=fov_distance);
+    }
 }
 
 module rightFaceStage1Assembly() {
