@@ -281,7 +281,7 @@ module pcbPosition(pcbType, alignRight=true) {
     pcbSize = pcb_size(pcbType);
 
     if (pcbType == BTT_SKR_MINI_E3_V2_0) {// || pcbType == BTT_TF_CLOUD_V1_0)
-        translate([alignRight ? eX + 2*eSizeX - pcbSize.x/2 - eSizeXBase - 2.5 : (eX + 2*eSizeX)/2, pcbSize.y/2 + eSizeY + 2, 0])
+        translate([alignRight ? eX + 2*eSizeX - pcbSize.x/2 - eSizeXBase - 8 : (eX + 2*eSizeX)/2, pcbSize.y/2 + eSizeY + 2, 0])
             if (pcbType == BTT_SKR_MINI_E3_V2_0)
                 children();
             else
@@ -308,8 +308,8 @@ module pcbPosition(pcbType, alignRight=true) {
             rotate(90)
                 children();
     } else if (pcbType == RPI3A_plus) {
-        translate([40 + pcbSize.y/2, pcbSize.x/2 + eSizeY + 2])
-            rotate(90)
+        translate([42 + pcbSize.y/2, pcbSize.x/2 + eSizeY + 7.25])
+            rotate(-90)
                 children();
     } else if (pcbType == RPI4) {
         translate([eX + 2*eSizeX - eSizeXBase - pcbSize.y/2, pcbSize.x/2 + eSizeY + 5])
