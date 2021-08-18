@@ -78,7 +78,7 @@ module Z_MotorMountHolePositions(NEMA_type) {
             children();
 }
 
-module Z_MotorMount(NEMA_type, topPlateThickness = zMotorMountTopPlateThickness, corkDamperThickness = _corkDamperThickness, cf = false) {
+module Z_MotorMount(NEMA_type, topPlateThickness = zMotorMountTopPlateThickness, corkDamperThickness=_corkDamperThickness, cf=false) {
     assert(isNEMAType(NEMA_type));
 
     NEMA_width = NEMA_width(NEMA_type);
@@ -162,7 +162,7 @@ module Z_MotorMount(NEMA_type, topPlateThickness = zMotorMountTopPlateThickness,
     }
 }
 
-module Z_MotorMountHardware(NEMA_type, topPlateThickness = zMotorMountTopPlateThickness, corkDamperThickness = _corkDamperThickness, cnc=false) {
+module Z_MotorMountHardware(NEMA_type, topPlateThickness=zMotorMountTopPlateThickness, corkDamperThickness=_corkDamperThickness, cnc=false) {
     height = Z_MotorMountHeightX(NEMA_type) - topPlateThickness;
 
     translate_z(height)

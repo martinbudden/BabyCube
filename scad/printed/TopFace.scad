@@ -143,7 +143,7 @@ module motorAccessHolePositions(NEMA_type, n = 3) {
                         children();
 }
 
-module topFaceInterlockCutouts(NEMA_type, railHoleRadius = M3_clearance_radius, cnc = false) {
+module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, cnc=false) {
     assert(isNEMAType(NEMA_type));
 
     NEMA_width = NEMA_width(NEMA_type);
@@ -157,7 +157,7 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius = M3_clearance_radius, 
     cutoutSize = [size.x - 2*cutoutX, size.y -cutoutFrontY-cutoutBackY, size.z + 2*eps];
 
     translate([(size.x - cutoutSize.x)/2, cutoutFrontY + insetY])
-        rounded_square([cutoutSize.x, cutoutSize.y], 4, center = false);
+        rounded_square([cutoutSize.x, cutoutSize.y], 4, center=false);
 
     topFaceRailHolePositions(NEMA_width)
         cutout_circle(railHoleRadius, cnc);

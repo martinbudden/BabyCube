@@ -49,7 +49,7 @@ module cutout_circle(r, cnc) {
 
 
 // base
-module baseLeftCornerHolePositions(z = 0) {
+module baseLeftCornerHolePositions(z=0) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
     for (x = [_cornerHoleInset],
          y = [_baseBoltHoleInset.y, size.y - _baseBoltHoleInset.y] )
@@ -63,7 +63,7 @@ module baseLeftCornerHolePositions(z = 0) {
                 children();
 }
 
-module baseRightCornerHolePositions(z = 0) {
+module baseRightCornerHolePositions(z=0) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
     for (x = [size.x - _cornerHoleInset],
          y = [_baseBoltHoleInset.y, size.y - _baseBoltHoleInset.y] )
@@ -77,7 +77,7 @@ module baseRightCornerHolePositions(z = 0) {
                 children();
 }
 
-module baseAllCornerHolePositions(z = 0) {
+module baseAllCornerHolePositions(z=0) {
     baseLeftCornerHolePositions(z)
         children();
     baseRightCornerHolePositions(z)
@@ -216,28 +216,28 @@ module topFaceAllHolePositions(z=0) {
         children();
 }
 
-module lowerSideJoinerHolePositions(z = 0) {
+module lowerSideJoinerHolePositions(z=0) {
     size = [eY + 2*eSizeY, eZ];
     for (x = lowerSideJoinerHolePositions(), y = [5])
         translate([x, y, z])
             children();
 }
 
-module upperSideJoinerHolePositions(z = 0) {
+module upperSideJoinerHolePositions(z=0) {
     size = [eY + 2*eSizeY, eZ];
     for (x = upperSideJoinerHolePositions(), y = [size.y - _topPlateThickness - topBoltHolderSize().y/2])
         translate([x, y, z])
             children();
 }
 
-module backSideJoinerHolePositions(z = 0) {
+module backSideJoinerHolePositions(z=0) {
     size = [eY + 2*eSizeY, eZ];
     for (x = [size.x - eSizeY/2], y = backSideJoinerHolePositions())
         translate([x, y, z])
             children();
 }
 
-module frontSideJoinerHolePositions(z = 0) {
+module frontSideJoinerHolePositions(z=0) {
     size = [eY + 2*eSizeY, eZ];
     for (x = [3 + eSizeY/2], y = frontSideJoinerHolePositions())
         translate([x, y, z])
@@ -257,7 +257,7 @@ module zLeadScrewHolePosition() {
 }
 
 // left and right faces
-module lowerChordHolePositions(z = _baseBoltHoleInset.x) {
+module lowerChordHolePositions(z=_baseBoltHoleInset.x) {
     // this should match baseLeftHolePositions and baseRightHolePositions
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
     for (y = [_cornerHoleInset, size.y/2, size.y - _cornerHoleInset])
@@ -265,7 +265,7 @@ module lowerChordHolePositions(z = _baseBoltHoleInset.x) {
             children();
 }
 
-module faceConnectorHolePositions(z = _cornerHoleInset) {
+module faceConnectorHolePositions(z=_cornerHoleInset) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
     for (y = [_baseBoltHoleInset.y, size.y -_baseBoltHoleInset.y] )
         translate([y, 0, z])

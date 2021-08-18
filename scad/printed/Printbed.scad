@@ -25,7 +25,7 @@ module drilledBed(size, printBedSize, holeRadius = M3_clearance_radius) {
         }
 }
 
-module magneticBase(printBedSize, thickness, holeRadius = M3_clearance_radius) {
+module magneticBase(printBedSize, thickness, holeRadius=M3_clearance_radius) {
     size = [heatedBedSize(printBedSize).x, heatedBedSize(printBedSize).y, thickness];
     vitamin(str("magneticBase(", size, "): Magnetic base ", size.x, "mm x ", size.y, "mm"));
 

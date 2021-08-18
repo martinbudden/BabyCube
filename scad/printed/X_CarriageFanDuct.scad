@@ -11,7 +11,7 @@ use <Printhead.scad>
 
 fanDuctTabThickness = 2;
 
-module fanDuct(printHeadHotendOffsetX, jetOffset=0, chimneySizeZ = 14) {
+module fanDuct(printHeadHotendOffsetX, jetOffset=0, chimneySizeZ=14) {
     blower_type = BL30x10;
     blowerSize = blower_size(blower_type);
 

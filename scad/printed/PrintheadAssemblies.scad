@@ -132,7 +132,7 @@ module printheadAccelerometerAssembly() {
         }
 }
 
-module hotEndHolderHardware(xCarriageType, hotend_type = 0) {
+module hotEndHolderHardware(xCarriageType, hotend_type=0) {
     hotendOffset = hotendOffset(xCarriageType, hotend_type);
 
     translate(hotendOffset)
