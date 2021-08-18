@@ -344,7 +344,7 @@ module xCarriageBeltFragments(xCarriageType, beltType, beltOffsetZ, coreXYSepara
                 beltFragment(xCarriageType, beltType, upperBeltColor);
 }
 
-module boltHoleM3TapOrInsert(length, useInsert = false, horizontal = false, rotate = 0, chamfer = 0.5, chamfer_both_ends = false, twist = undef) {
+module boltHoleM3TapOrInsert(length, useInsert=false, horizontal=false, rotate=0, chamfer=0.5, chamfer_both_ends=false, twist=undef) {
     if (useInsert)
         insert_hole(F1BM3, horizontal=horizontal);
     else

@@ -104,7 +104,7 @@ module displayHousingHardware(display_type) {
         }
 }
 
-module displayHousingFrontCutouts(display_type, cutoutComponents = true) {
+module displayHousingFrontCutouts(display_type, cutoutComponents=true) {
     display_size = display_size(display_type);
     fillet = 1;
 
@@ -353,7 +353,7 @@ module displayBracketHolePositionsCNC(display_type, angle=45) {
     [dhSize.x, triangleSize.y + displayBracketBackThickness, 5];
 */
 
-module displayHousingBracket(display_type, displayBracketBackThickness, angle, sideSizeZ=10, enclosed=false, legHeight = 0) {
+module displayHousingBracket(display_type, displayBracketBackThickness, angle, sideSizeZ=10, enclosed=false, legHeight=0) {
     assert(is_list(display_type));
     dhSize = displayHousingSize(display_type);
     fillet = legHeight == 0 ? 0 : 1;

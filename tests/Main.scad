@@ -30,7 +30,7 @@ module Main_test() {
     FinalAssembly();
 }
 
-module position(a = [55, 0, 25], t = [0, 0, 0], d = undef) {
+module position(a=[55, 0, 25], t=[0, 0, 0], d=undef) {
     rotate([55, 0, 25])
         translate_z(is_undef(d) ? 0 : 140 - d)
             rotate([-a.x, 0, 0])

@@ -7,7 +7,7 @@ use <NopSCADlib/utils/maths.scad>
 use <NopSCADlib/utils/bezier.scad>
 use <NopSCADlib/utils/tube.scad>
 
-module bezierTube(startPos, endPos, tubeRadius = 2, ptfeTube = false, extraZ = 50) {
+module bezierTube(startPos, endPos, tubeRadius=2, ptfeTube=false, extraZ=50) {
 
     pathEndPos = endPos-startPos;
     // assumes startPos.z < endPos.z
@@ -24,7 +24,7 @@ module bezierTube(startPos, endPos, tubeRadius = 2, ptfeTube = false, extraZ = 5
         sweep(path, circle_points(tubeRadius, $fn = 64));
 }
 
-module bezierTube2(path, tubeRadius = 2) {
+module bezierTube2(path, tubeRadius=2) {
 
     bPath = bezier_path(path, 150);
     sweep(bPath, circle_points(tubeRadius, $fn = 64));

@@ -332,7 +332,7 @@ module pcb_front_screw_positions(type) {
    }
 }
 
-module pcb_back_screw_positions(type, yCutoff = 0) {
+module pcb_back_screw_positions(type, yCutoff=0) {
     holes = pcb_holes(type);
 
     for ($i = [0 : 1 : len(holes) - 1]) {

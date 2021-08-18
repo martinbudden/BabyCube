@@ -33,7 +33,7 @@ module diagonalDown(rectSize, width, fillet, extend=false) {
     }
 }
 
-module diagonal(rectSize, width, fillet, extend = false) {
+module diagonal(rectSize, width, fillet, extend=false) {
     translate([rectSize.x, 0, 0])
         mirror([1, 0, 0])
             diagonalDown(rectSize, width, fillet, extend);
