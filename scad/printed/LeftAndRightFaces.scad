@@ -59,7 +59,7 @@ module leftFace(NEMA_type) {
             translate([0, coreXYPosBL(NEMA_width, yCarriageType()).z - coreXYSeparation().z, 0])
                 translate([3, -5, eSizeX])
                     rotate([90, 0, 0])
-                        right_triangle(9, 9, 40);
+                        right_triangle(9, 9, 20, center=false);
             XY_MotorUpright(NEMA_type, left=true);
         }
         switchShroudHolePositions()
