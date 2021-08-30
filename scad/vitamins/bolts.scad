@@ -151,9 +151,17 @@ module boltM2Caphead(length) {
     bolt(M2_cap_screw, length);
 }
 
+module boltM2Buttonhead(length) {
+    bolt(M2_dome_screw, length);
+}
+
 
 module boltM2p5Caphead(length) {
     bolt(M2p5_cap_screw, length);
+}
+
+module boltM2p5Buttonhead(length) {
+    bolt(M2p5_dome_screw, length);
 }
 
 
