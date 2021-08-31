@@ -63,11 +63,11 @@ module boltHoleM2p5Counterbore(length, boreDepth=undef, boltHeadTolerance=0, hor
 }
 
 module boltHoleM2p5CounterboreButtonhead(length, boreDepth=undef, boltHeadTolerance=0.4, horizontal=false, cnc=false, twist=0) {
-    boltHoleCounterbore(M2p5_pan_screw, length, boreDepth, boltHeadTolerance, horizontal=horizontal, cnc=cnc, twist=twist);
+    boltHoleCounterbore(M2p5_dome_screw, length, boreDepth, boltHeadTolerance, horizontal=horizontal, cnc=cnc, twist=twist);
 }
 
 module boltHoleM2p5HangingCounterboreButtonhead(length, boreDepth=undef, boltHeadTolerance=0) {
-    boltHoleHangingCounterbore(M2p5_pan_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance);
+    boltHoleHangingCounterbore(M2p5_dome_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance);
 }
 
 
