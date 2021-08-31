@@ -58,6 +58,18 @@ module boltHoleM2p5Tap(length, horizontal=false, rotate=0, chamfer=0.5, chamfer_
     boltHole(M2_tap_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
+module boltHoleM2p5Counterbore(length, boreDepth=undef, boltHeadTolerance=0, horizontal=false, cnc=false, twist=0) {
+    boltHoleCounterbore(M2p5_cap_screw, length, boreDepth, boltHeadTolerance, horizontal=horizontal, cnc=cnc, twist=twist);
+}
+
+module boltHoleM2p5CounterboreButtonhead(length, boreDepth=undef, boltHeadTolerance=0.4, horizontal=false, cnc=false, twist=0) {
+    boltHoleCounterbore(M2p5_pan_screw, length, boreDepth, boltHeadTolerance, horizontal=horizontal, cnc=cnc, twist=twist);
+}
+
+module boltHoleM2p5HangingCounterboreButtonhead(length, boreDepth=undef, boltHeadTolerance=0) {
+    boltHoleHangingCounterbore(M2p5_pan_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance);
+}
+
 
 // M3 bolt holes
 
