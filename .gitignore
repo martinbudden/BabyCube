@@ -49,6 +49,8 @@ PRINTBED120/dxfs/*_diff.png
 !PRINTBED120/stls/*.png
 PRINTBED120/stls/*_diff.png
 
+BC200NEMA17/
+
 BC200/assemblies/*
 BC200/bom/
 BC200/dxfs/*
