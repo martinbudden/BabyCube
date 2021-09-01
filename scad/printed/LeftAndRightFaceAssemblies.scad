@@ -53,12 +53,10 @@ module leftFaceAssembly() {
         rotate([90, 0, 90]) {
             if (_xyMotorDescriptor == "NEMA14") {
                 Left_Face_stl();
-                *hidden()
-                    Left_Face_NEMA_17_stl();
+                hidden() Left_Face_NEMA_17_stl();
             } else {
                 Left_Face_NEMA_17_stl();
-                *hidden()
-                    Left_Face_stl();
+                *hidden() Left_Face_stl();
             }
         }
 }
@@ -136,12 +134,10 @@ module rightFaceStage1Assembly() {
         rotate([90, 0, -90])
             if (_xyMotorDescriptor=="NEMA14") {
                 Right_Face_stl();
-                *hidden()
-                    Right_Face_NEMA_17_stl();
+                hidden() Right_Face_NEMA_17_stl();
             } else {
                 Right_Face_NEMA_17_stl();
-                *hidden()
-                    Right_Face_stl();
+                *hidden() Right_Face_stl();
             }
 }
 
