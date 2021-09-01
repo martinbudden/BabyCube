@@ -204,7 +204,7 @@ module zCarriage_hardware() {
 
 module Z_Carriage_stl() {
     stl("Z_Carriage")
-        color(pp3_colour)
+        color(pp4_colour)
             zCarriage(_printBedSize);
 }
 
@@ -214,7 +214,7 @@ module Z_Carriage_stl() {
 module Z_Carriage_assembly()
 assembly("Z_Carriage", big=true, ngb=true) {
      hflip() {
-        stl_colour(pp3_colour)
+        stl_colour(pp4_colour)
             Z_Carriage_stl();
         zCarriage_hardware();
     }
