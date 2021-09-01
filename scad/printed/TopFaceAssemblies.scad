@@ -124,6 +124,7 @@ module Top_Face_assembly()
 assembly("Top_Face", big=true) {
 
     Top_Face_Stage_2_assembly();
+    hidden() Top_Face_NEMA_17_stl();
     //hidden() Y_Carriage_Left_AL_dxf();
     //hidden() Y_Carriage_Right_AL_dxf();
 
@@ -131,6 +132,14 @@ assembly("Top_Face", big=true) {
         xRail(carriagePosition(), xCarriageType(), _xRailLength);
 }
 
+//!1. Turn the Top_Face into its normal orientation.
+//!2. Bolt the X-axis linear rail onto the Y carriages.
+//!3. Turn the Top_Face upside down again and place it on a flat surface.
+//!4. Align the left and right Y-axis linear rails. Do this by pushing the X-axis rail to the rear of the top face and tighten
+//!the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the top face, again
+//!tightening the corresponding bolts.
+//!5. Check that the carriages run smoothly on the Y-axis linear rails.
+//
 module Top_Face_NEMA_17_assembly()
 assembly("Top_Face_NEMA_17", big=true) {
 
