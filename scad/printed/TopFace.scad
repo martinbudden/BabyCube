@@ -116,7 +116,7 @@ module topFaceInterlock(NEMA_type, cnc = false) {
                         poly_circle(r = bb_diameter(bearingType)/2);
                     }
 
-    insetX = idlerBracketTopSizeZ() + (_fullLengthYRail ? 0 : 3);
+    insetX = idlerBracketTopSizeZ() + (_fullLengthYRail ? 0 : 3) + (_xyMotorDescriptor == "NEMA14" ? 0 : 3);
     endStopSize = [faceConnectorOverlap() - (_fullLengthYRail ? 0 : 3), 5, 8];
     for (x= [insetX, eX + 2*eSizeX - endStopSize.x - insetX],
         y = [faceConnectorOverlapHeight(), eY + 2*eSizeY - endStopSize.y - (_fullLengthYRail ? 0 : 8)])
@@ -209,13 +209,14 @@ module topFaceSideCutouts(cnc=false) {
 
 module topFaceFrontCutouts(cnc) {
     fillet = 1;
-    size = [eX + 2*eSizeX - 2*idlerBracketTopSizeZ(), _backPlateThickness + 2*fillet];
+    extraX = _xyMotorDescriptor == "NEMA14" ? 0 : 6;
+    size = [eX + 2*eSizeX - 2*idlerBracketTopSizeZ() - extraX, _backPlateThickness + 2*fillet];
 
     offsetX = (eX + 2*eSizeX - size.x)/2;
     if(!cnc)
         translate([offsetX, -2*fillet])
             rounded_square(size, 0, center=false);
-    cornerCutoutSize = [12, size.y];
+    cornerCutoutSize = [12 + extraX, size.y];
     for (x = [0, eX + 2*eSizeX - cornerCutoutSize.x])
         translate([x, -2*fillet])
             rounded_square(cornerCutoutSize, 1, center=false);
