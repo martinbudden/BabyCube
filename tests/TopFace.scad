@@ -50,15 +50,19 @@ module Top_Face_test() {
     *translate_z(eZ + eps)
         topFaceInterlock(xyMotorType());
 
-    //Top_Face_Stage_1_assembly();
-    //Top_Face_Stage_2_assembly();
-    if (_useCNC)
-        Top_Face_CF_assembly();
-    else
-        Top_Face_assembly();
-    //Top_Face_NEMA_17_Stage_1_assembly()
-    //Top_Face_NEMA_17_Stage_2_assembly();
-    //Top_Face_NEMA_17_assembly();
+    //let($hide_bolts=true)
+    if (_xyMotorDescriptor == "NEMA14") {
+        if (_useCNC)
+            Top_Face_CF_assembly();
+        else
+            Top_Face_assembly();
+        //Top_Face_Stage_1_assembly();
+        //Top_Face_Stage_2_assembly();
+    } else {
+        Top_Face_NEMA_17_assembly();
+        //Top_Face_NEMA_17_Stage_1_assembly()
+        //Top_Face_NEMA_17_Stage_2_assembly();
+    }
     //printheadWiring();
     //CoreXYBelts(carriagePosition());
 

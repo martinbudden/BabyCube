@@ -25,7 +25,6 @@ module X_Carriage_test() {
     //X_Carriage_assembly();
     //rotate([0, 90, 0]) X_Carriage_Front_stl();
     //X_Carriage_Front_assembly();
-    //xCarriageFrontBolts(xCarriageType(), xCarriageFrontSize(xCarriageType, _beltWidth, clamps=true));
     X_Carriage_Belt_Side_MGN9C_assembly();
     X_Carriage_Groovemount_MGN9C_assembly();
 
