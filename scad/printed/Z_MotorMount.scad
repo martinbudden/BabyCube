@@ -20,10 +20,10 @@ include <../Parameters_Main.scad>
 
 //                                              corner  body    boss    boss          shaft
 //                                side  length  radius  radius  radius  depth  shaft  length       holes  cap heights
-NEMA17_20 =     ["NEMA17_20",     42.3,   20,   53.6/2, 25,     11,     2,     5,     20.5,        31,    [10,    8]];
-NEMA17_34L150 = ["NEMA17_34L150", 42.3,   34,   53.6/2, 25,     11,     2,     8,     [150, 8, 2], 31,    [8,     8]];
-NEMA17_40L150 = ["NEMA17_40L150", 42.3,   40,   53.6/2, 25,     11,     2,     8,     [150, 8, 2], 31,    [8,     8]];
-NEMA14_L150 =   ["NEMA14_L150",   35.2,   36,   46.4/2, 21,     11,     2,     5,     [150, 5, 2], 26,    [8,     8]];
+NEMA17_20 =     ["NEMA17_20",     42.3,   20,   53.6/2, 25,     11,     2,     5,     20.5,        31,    [10,    8], 3,     false, false, 0,       0];
+NEMA17_34L150 = ["NEMA17_34L150", 42.3,   34,   53.6/2, 25,     11,     2,     8,     [150, 8, 2], 31,    [8,     8], 3,     false, false, 0,       0];
+NEMA17_40L150 = ["NEMA17_40L150", 42.3,   40,   53.6/2, 25,     11,     2,     8,     [150, 8, 2], 31,    [8,     8], 3,     false, false, 0,       0];
+NEMA14_L150 =   ["NEMA14_L150",   35.2,   36,   46.4/2, 21,     11,     2,     5,     [150, 5, 2], 26,    [8,     8], 3,     false, false, 0,       0];
 
 
 function zMotorType() = motorType(_zMotorDescriptor);
