@@ -39,7 +39,10 @@ upperFillet = 1.5;
 function rocker_type() = small_rocker;
 function rockerPosition(rocker_type) = [0, rocker_height(rocker_type)/2 + frontLowerChordSize().y + 3, eSizeX + eps + rocker_slot_w(rocker_type)/2];
 function extruderMotorOffsetZ() = upperWebThickness;
-function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - 2*NEMA_width + 2*35.2 - 40 - motorClearance().y, eZ - 73];
+//ECHO: extruderPosition14Y = 132
+//ECHO: extruderPosition17Y = 117.8
+//function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - 2*NEMA_width + 2*35.2 - 40 - motorClearance().y, eZ - 73];
+function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - motorClearance().y - NEMA_width - (NEMA_width < 40 ? 4.8 : 2.7), eZ - 73];
 function spoolHolderPosition(cf=false) = [eX + 2*eSizeX, cf ? 25 : 24, eZ - 75];
 function frontReinforcementThickness() = 3;
 function spoolHolderBracketSize(cf=false) = [cf ? 3 : eSizeX, 30, 20];
@@ -239,12 +242,13 @@ module webbingRight(NEMA_type) {
 
     // support for the spoolholder
     offset = 22.5;
-    translate([0, middleWebOffsetZ(), 0])
+    translate([0, middleWebOffsetZ(), 0]) {
         rounded_cube_xy([extruderPosition.y - offset - eSizeY + innerFillet, spoolHolderPosition().z - middleWebOffsetZ(), eSizeX], innerFillet);
-    translate([idlerBracketSize.x + spoolHolderBracketSize().z + 0.5, middleWebOffsetZ(), 0])
+        translate([extruderPosition.y - offset - eSizeY + innerFillet, eSizeZ, 0])
+            fillet(innerFillet, eSizeX);
+    }
+    translate([idlerBracketSize.x + spoolHolderBracketSize().z + 0.25, middleWebOffsetZ(), 0])
         rounded_cube_xy([10, spoolHolderPosition().z - middleWebOffsetZ(), eSizeX + 5], 2);
-    translate([extruderPosition.y - offset - eSizeY + innerFillet, middleWebOffsetZ() + eSizeZ, 0])
-        fillet(innerFillet, eSizeX);
     translate([idlerBracketSize.x, spoolHolderPosition().z, 0])
         fillet(innerFillet, eSizeX);
 
@@ -291,8 +295,9 @@ module idlerUpright(NEMA_width, left) {
         rotate(270)
             fillet(1.5, idlerBracketSize.z);
     translate([0, eZ - eSizeZ - 5, 0]) {
-        rounded_cube_xy([idlerBracketSize.x, eSizeZ + 5 - _topPlateThickness, _backFaceHoleInset + 4], fillet);
-        rounded_cube_xy([_backPlateThickness, eSizeZ + 5, _backFaceHoleInset + 4], fillet);
+        extraZ = _xyMotorDescriptor == "NEMA14" ? 4 : 10;
+        rounded_cube_xy([idlerBracketSize.x, eSizeZ + 5 - _topPlateThickness, _backFaceHoleInset + extraZ], fillet);
+        rounded_cube_xy([_backPlateThickness, eSizeZ + 5, _backFaceHoleInset + extraZ], fillet);
     }
 }
 

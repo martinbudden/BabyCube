@@ -135,7 +135,10 @@ staged_assembly("Stage_4", big=true, ngb=true) {
     Stage_3_assembly();
 
     explode(50, true) {
-        Top_Face_assembly();
+        if (_xyMotorDescriptor == "NEMA14")
+            Top_Face_assembly();
+        else
+            Top_Face_NEMA_17_assembly()
         topFaceAllHolePositions(eZ + _topPlateCoverThickness)
             boltM3Buttonhead(12);
     }

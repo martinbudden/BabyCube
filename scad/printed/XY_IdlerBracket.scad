@@ -43,6 +43,23 @@ module XY_Idler_Bracket_Right_stl() {
                 XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, _sidePlateThickness);
 }
 
+module XY_Idler_Bracket_Left_NEMA_17_stl() {
+    NEMA_width = NEMA_width(NEMA17);
+
+    stl("XY_Idler_Bracket_Left_NEMA_17")
+        color(pp1_colour)
+            XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, _sidePlateThickness);
+}
+
+module XY_Idler_Bracket_Right_NEMA_17_stl() {
+    NEMA_width = NEMA_width(NEMA17);
+
+    stl("XY_Idler_Bracket_Right_NEMA_17")
+        color(pp1_colour)
+            mirror([0, 1, 0])
+                XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, _sidePlateThickness);
+}
+
 module XY_Idler_Bracket_Left_assembly()
 assembly("XY_Idler_Bracket_Left", ngb=true) {
 
@@ -50,7 +67,10 @@ assembly("XY_Idler_Bracket_Left", ngb=true) {
     translate_z(coreXYPosBL(NEMA_width, yCarriageType()).z + coreXYSeparation().z)
         rotate([90, 0, 90])
             stl_colour(pp1_colour)
-                XY_Idler_Bracket_Left_stl();
+                if (_xyMotorDescriptor == "NEMA14")
+                    XY_Idler_Bracket_Left_stl();
+                else
+                    XY_Idler_Bracket_Left_NEMA_17_stl();
     rotate([90, 0, 90])
         XY_IdlerBracketHardware(coreXYPosBL(NEMA_width, yCarriageType()));
 }
@@ -62,7 +82,10 @@ assembly("XY_Idler_Right_Left", ngb=true) {
     translate([eX + 2*eSizeX, 0, coreXYPosBL(NEMA_width, yCarriageType()).z + coreXYSeparation().z])
         rotate([-90, 0, 90])
             stl_colour(pp1_colour)
-                XY_Idler_Bracket_Right_stl();
+                if (_xyMotorDescriptor == "NEMA14")
+                    XY_Idler_Bracket_Right_stl();
+                else
+                    XY_Idler_Bracket_Right_NEMA_17_stl();
     translate([eX + 2*eSizeX, 0, 0])
         rotate([90, 0, 90])
             vflip()

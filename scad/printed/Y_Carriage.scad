@@ -157,8 +157,8 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
                         size2 = [11, 9.5, h];
                         translate([11.75 + 14 + 4.75 - size2.x, 3.5 - size.y/2, 0]) {
                             rounded_cube_xy(size2, 1.5);
-                            translate([-4.5, 0, 0])
-                                cube([6, size2.y, thickness]);
+                            translate([-7.5, 0, 0])
+                                cube([9, size2.y, thickness]);
                         }
                         translate([blockSize.x/2 + endstopX, 3.5 -size.y/2, 0])
                             rotate(270)

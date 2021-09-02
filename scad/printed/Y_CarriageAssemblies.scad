@@ -5,6 +5,7 @@ include <NopSCADlib/core.scad>
 
 include <NopSCADlib/vitamins/pulleys.scad>
 include <NopSCADlib/vitamins/rails.scad>
+include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../utils/carriageTypes.scad>
 
@@ -22,52 +23,51 @@ function tongueOffset(NEMA_width=_xyNEMA_width) = (eX + 2*eSizeX - _xRailLength 
 
 topInset = 3.5;
 
+module yCarriage(NEMA_width, left, cnc=false) {
+    idlerHeight = pulley_height(coreXY_toothed_idler(coreXY_type()));
+    chamfer = 0;
+    blockOffsetX = topInset - 2.75;
+    endStopOffsetX = left ? 2.5 : 1;
+    tongueOffset = tongueOffset(NEMA_width);
+
+    assert(pulleyStackHeight(idlerHeight) + yCarriageBraceThickness() == coreXYSeparation().z);
+    Y_Carriage(yCarriageType(), idlerHeight, _beltWidth, xRailType(), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset(), topInset, left=left, cnc=cnc);
+}
 
 module Y_Carriage_Left_stl() {
-    idlerHeight = pulley_height(coreXY_toothed_idler(coreXY_type()));
-    pulleyStackHeight = pulleyStackHeight(idlerHeight);
-    assert(pulleyStackHeight + yCarriageBraceThickness() == coreXYSeparation().z);
-
-    blockOffsetX = topInset - 2.75;
-    chamfer = 0;
-    endStopOffsetX = 2.5;
-
     stl("Y_Carriage_Left")
         color(pp2_colour)
-            Y_Carriage(yCarriageType(), idlerHeight, _beltWidth, xRailType(), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetX, endStopOffsetX, tongueOffset(), pulleyOffset(), topInset, left=true, cnc=false);
+            yCarriage(NEMA_width = NEMA_width(NEMA14), left=true);
 }
 
 module Y_Carriage_Right_stl() {
-    idlerHeight = pulley_height(coreXY_toothed_idler(coreXY_type()));
-    blockOffsetX = topInset - 2.75;
-    chamfer = 0;
-    endStopOffsetX = 1;
-
     stl("Y_Carriage_Right")
         color(pp2_colour)
-            Y_Carriage(yCarriageType(), idlerHeight, _beltWidth, xRailType(), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetX, endStopOffsetX, tongueOffset(), pulleyOffset(), topInset, left=false, cnc=false);
+            yCarriage(NEMA_width = NEMA_width(NEMA14), left=false);
+}
+
+module Y_Carriage_Left_NEMA_17_stl() {
+    stl("Y_Carriage_Left_NEMA_17")
+        color(pp2_colour)
+            yCarriage(NEMA_width = NEMA_width(NEMA17), left=true);
+}
+
+module Y_Carriage_Right_NEMA_17_stl() {
+    stl("Y_Carriage_Right_NEMA_17")
+        color(pp2_colour)
+            yCarriage(NEMA_width = NEMA_width(NEMA17), left=false);
 }
 
 module Y_Carriage_Left_AL_dxf() {
-    idlerHeight = pulley_height(coreXY_toothed_idler(coreXY_type()));
-    blockOffsetX = topInset - 2.75;
-    chamfer = 0;
-    endStopOffsetX = 2.5;
-
     dxf("Y_Carriage_Left_AL")
         color(silver)
-            Y_Carriage(yCarriageType(), idlerHeight, _beltWidth, xRailType(), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetX, endStopOffsetX, tongueOffset(), pulleyOffset(), topInset, left=true, cnc=true);
+            yCarriage(NEMA_width = NEMA_width(NEMA14), left=true, cnc=true);
 }
 
 module Y_Carriage_Right_AL_dxf() {
-    idlerHeight = pulley_height(coreXY_toothed_idler(coreXY_type()));
-    blockOffsetX = topInset - 2.75;
-    chamfer = 0;
-    endStopOffsetX = 1;
-
     dxf("Y_Carriage_Right_AL")
         color(silver)
-            Y_Carriage(yCarriageType(), idlerHeight, _beltWidth, xRailType(), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetX, endStopOffsetX, tongueOffset(), pulleyOffset(), topInset, left=false, cnc=true);
+            yCarriage(NEMA_width = NEMA_width(NEMA14), left=true, cnc=true);
 }
 
 module Y_Carriage_Brace_Left_stl() {
@@ -97,7 +97,12 @@ module yCarriageLeftAssembly(NEMA_width) {
     translate([railOffset.x, carriagePosition().y, railOffset.z - carriage_height(yCarriageType)])
         rotate([180, 0, 0]) {
             stl_colour(pp2_colour)
-                Y_Carriage_Left_stl();
+                if (NEMA_width < 40) {
+                    Y_Carriage_Left_stl();
+                    hidden() Y_Carriage_Left_NEMA_17_stl();
+                } else {
+                    Y_Carriage_Left_NEMA_17_stl();
+                }
             if (yCarriageBraceThickness())
                 translate_z(yCarriageThickness() + pulleyStackHeight + eps)
                     explode(4*yCarriageExplodeFactor())
@@ -118,7 +123,12 @@ module yCarriageRightAssembly(NEMA_width) {
     translate([eX + 2*eSizeX - railOffset.x, carriagePosition().y, railOffset.z - carriage_height(yCarriageType)])
         rotate([180, 0, 180]) {
             stl_colour(pp2_colour)
-                Y_Carriage_Right_stl();
+                if (NEMA_width < 40) {
+                    Y_Carriage_Right_stl();
+                    hidden() Y_Carriage_Right_NEMA_17_stl();
+                } else {
+                    Y_Carriage_Right_NEMA_17_stl();
+                }
             if (yCarriageBraceThickness())
                 translate_z(yCarriageThickness() + pulleyStackHeight + 2*eps)
                     explode(4*yCarriageExplodeFactor())
