@@ -13,7 +13,7 @@ use <../utils/cutouts.scad>
 use <../utils/diagonal.scad>
 use <../utils/HolePositions.scad>
 use <../utils/PrintHeadOffsets.scad>
-include <../utils/motorTypes.scad>
+use <../utils/motorTypes.scad>
 
 use <../vitamins/bolts.scad>
 use <../vitamins/cables.scad>
