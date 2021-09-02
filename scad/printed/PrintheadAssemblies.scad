@@ -72,48 +72,50 @@ assembly("Printhead_E3DV6_MGN9C", big=true) {
 module printheadBeltSide(rotate=0, explode=0, t=undef) {
     xCarriageType = xCarriageType();
 
-    xRailCarriagePosition(carriagePosition(t))
-        explode(explode, true)
-            rotate(rotate) {// for debug, to see belts better
-                explode([0, -20, 0], true)
-                    X_Carriage_Belt_Side_MGN9C_assembly();
-                xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, -1], [-1, -1] ]);
-                xCarriageBeltClampAssembly(xCarriageType);
-            }
+    xRailCarriagePosition(carriagePosition(t), rotate)
+        explode(explode, true) {
+            explode([0, -20, 0], true)
+                X_Carriage_Belt_Side_MGN9C_assembly();
+            xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, -1], [-1, -1] ]);
+            xCarriageBeltClampAssembly(xCarriageType);
+        }
 }
 
 module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false) {
     xCarriageType = xCarriageType();
     xCarriageFrontSize = xCarriageFrontSize(xCarriageType, _beltWidth, clamps=false) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 3];
+    holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
+    holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
 
-    xRailCarriagePosition(carriagePosition(t))
-        explode(explode, true)
-            rotate(rotate) {// for debug, to see belts better
-                explode([0, -20, 0], true)
-                    xCarriageFrontBolts(xCarriageType, xCarriageFrontSize, topBoltLength=30, bottomBoltLength=30, countersunk=true);
-                Printhead_E3DV6_MGN9C_assembly();
-                xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, 1], [-1, 1] ]);
-            }
+    xRailCarriagePosition(carriagePosition(t), rotate)
+        explode(explode, true) {
+            explode([0, -20, 0], true)
+                xCarriageFrontBolts(xCarriageType, xCarriageFrontSize, topBoltLength=30, holeSeparationTop=holeSeparationTop, bottomBoltLength=30, holeSeparationBottom=holeSeparationBottom, countersunk=true);
+            Printhead_E3DV6_MGN9C_assembly();
+            xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, 1], [-1, 1] ]);
+        }
 }
 
 module fullPrinthead(rotate=0, explode=0, t=undef, accelerometer=false) {
     xCarriageType = xCarriageType();
+    holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
+    holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
 
-    xRailCarriagePosition(carriagePosition(t))
+    xRailCarriagePosition(carriagePosition(t), rotate) {
         explode(explode, true)
-            rotate(rotate) {// for debug, to see belts better
-                explode([0, -20, 0], true) {
-                    X_Carriage_Front_assembly();
-                    xCarriageFrontBolts(xCarriageType, xCarriageFrontSize(xCarriageType, _beltWidth, clamps=true));
-                }
-                Printhead_assembly();
-                xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk);
-                if (accelerometer)
-                    explode(50, true)
-                        printheadAccelerometerAssembly();
-                if (!exploded())
-                    xCarriageBeltFragments(xCarriageType, coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
+            explode([0, -20, 0], true) {
+                X_Carriage_Front_assembly();
+                xCarriageFrontSize = xCarriageFrontSize(xCarriageType, _beltWidth, clamps=true);
+                xCarriageFrontBolts(xCarriageType, xCarriageFrontSize, topBoltLength=30, holeSeparationTop=holeSeparationTop, bottomBoltLength=30, holeSeparationBottom=holeSeparationBottom, countersunk=true);
             }
+            Printhead_assembly();
+            xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk);
+            if (accelerometer)
+                explode(50, true)
+                    printheadAccelerometerAssembly();
+            if (!exploded())
+                xCarriageBeltFragments(xCarriageType, coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
+        }
 }
 
 module printheadAccelerometerAssembly() {
