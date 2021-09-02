@@ -206,7 +206,7 @@ module xCarriageBeltAttachment(sizeZ, extraX=0, boltCutout=false, endCube=true) 
     }
 }
 
-module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=undef, countersunk=true, topHoleOffset=0) {
+module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationBottom, extraX=0, accelerometerOffset=undef, countersunk=true, topHoleOffset=0) {
     assert(is_list(xCarriageType));
 
     carriageSize = carriage_size(xCarriageType);
@@ -268,7 +268,7 @@ module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=unde
                                     boltHoleM3Tap(8, horizontal=true);
             }
             // holes at the top to connect to the hotend side
-            for (x = xCarriageHolePositions(size.x, xCarriageHoleSeparationTop(xCarriageType)))
+            for (x = xCarriageHolePositions(size.x, holeSeparationTop))
                 translate([x + topHoleOffset, 0, -baseOffset + size.z - topSize.z/2 + (isMGN12 ? xCarriageHoleOffsetTop() : 0)])
                     rotate([-90, 0, 0])
                         if (countersunk)
@@ -286,7 +286,7 @@ module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=unde
                         boltPolyholeM3Countersunk(topSize.y);
                         //boltHoleM3(topSize.y, twist=4);*/
             // holes at the bottom to connect to the hotend side
-            for (x = xCarriageHolePositions(size.x, xCarriageHoleSeparationBottom(xCarriageType)))
+            for (x = xCarriageHolePositions(size.x, holeSeparationBottom))
                translate([x + topHoleOffset, 0, -baseOffset + baseThickness/2])
                     rotate([-90, 0, 0])
                         if (countersunk)
@@ -305,7 +305,7 @@ module xCarriageBeltSide(xCarriageType, size, extraX=0, accelerometerOffset=unde
                         //boltHoleM3(size.y + beltInsetFront(xCarriageType), twist=4,cnc=true);*/
             if (isMGN12) {
                 // EVA compatible boltholes
-                for (x = xCarriageHolePositions(size.x, evaHoleSeparationBottom))
+                *for (x = xCarriageHolePositions(size.x, evaHoleSeparationBottom))
                     translate([x, 0, -baseOffset + baseThickness/2])
                         rotate([-90, 0, 0])
                             boltHoleM3Tap(8, twist=4);
