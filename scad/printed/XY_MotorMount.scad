@@ -20,7 +20,7 @@ include <../Parameters_Main.scad>
 
 // NEMA 14 with longer shaft, to ensure clearances
 //NEMA14= ["NEMA14",   35.2, 36,     46.4/2, 21,     11,     2,     5,     21,          26,    [8,     8]];
-NEMA14T = ["NEMA14T",   35.2, 36,     46.4/2, 21,     11,     2,     5,     24,          26,    [8,     8]];
+NEMA14T = ["NEMA14T",   35.2, 36,     46.4/2, 21,     11,     2,     5,     24,          26,    [8,     8], 3,     false, false, 0,       0];
 function NEMA14T() = NEMA14T;
 
 function xyMotorType() =
@@ -54,7 +54,7 @@ function xyMotorPosition(NEMA_width, left) = [
 ];*/
 
 module XY_Motor_Mount_Left_stl() {
-    NEMA_type = xyMotorType();
+    NEMA_type = NEMA14T;
     NEMA_width = NEMA_width(NEMA_type);
 
     stl("XY_Motor_Mount_Left")
@@ -63,10 +63,29 @@ module XY_Motor_Mount_Left_stl() {
 }
 
 module XY_Motor_Mount_Right_stl() {
-    NEMA_type = xyMotorType();
+    NEMA_type = NEMA14T;
     NEMA_width = NEMA_width(NEMA_type);
 
     stl("XY_Motor_Mount_Right")
+        color(pp1_colour)
+            mirror([0, 1, 0])
+                XY_MotorMount(NEMA_type, left=false, basePlateThickness=basePlateThickness, offset=eZ - xyMotorPosition(NEMA_width, left=false).z, cf=true);
+}
+
+module XY_Motor_Mount_Left_NEMA_17_stl() {
+    NEMA_type = NEMA17M;
+    NEMA_width = NEMA_width(NEMA_type);
+
+    stl("XY_Motor_Mount_Left_NEMA_17")
+        color(pp1_colour)
+            XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness, offset=eZ - xyMotorPosition(NEMA_width, left=true).z, cf=true);
+}
+
+module XY_Motor_Mount_Right_NEMA_17_stl() {
+    NEMA_type = NEMA17M;
+    NEMA_width = NEMA_width(NEMA_type);
+
+    stl("XY_Motor_Mount_Right_NEMA_17")
         color(pp1_colour)
             mirror([0, 1, 0])
                 XY_MotorMount(NEMA_type, left=false, basePlateThickness=basePlateThickness, offset=eZ - xyMotorPosition(NEMA_width, left=false).z, cf=true);
@@ -82,7 +101,10 @@ assembly("XY_MotorMount_Left", big=true, ngb=true) {
         rotate([90, 0, 90])
             XY_MotorPosition(NEMA_width, left=true) {
                 stl_colour(pp1_colour)
-                    XY_Motor_Mount_Left_stl();
+                    if (_xyMotorDescriptor == "NEMA14")
+                        XY_Motor_Mount_Left_stl();
+                    else
+                        XY_Motor_Mount_Left_NEMA_17_stl();
                 XY_MotorMountHardware(NEMA_type);
             }
 }
@@ -98,7 +120,10 @@ assembly("XY_Motor_Mount_Right", big=true, ngb=true) {
             XY_MotorPosition(NEMA_width, left=false)
                 rotate(180) {
                     stl_colour(pp1_colour)
-                        XY_Motor_Mount_Right_stl();
+                        if (_xyMotorDescriptor == "NEMA14")
+                            XY_Motor_Mount_Right_stl();
+                        else
+                            XY_Motor_Mount_Right_NEMA_17_stl();
                     XY_MotorMountHardware(NEMA_type);
                 }
 }
