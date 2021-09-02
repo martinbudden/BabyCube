@@ -11,13 +11,14 @@ use <../Parameters_CoreXY.scad>
 include <../Parameters_Main.scad>
 
 
-module xRailCarriagePosition(carriagePosition) {
+module xRailCarriagePosition(carriagePosition, rotate=0) {
     translate([
         carriagePosition.x + yRailOffset(_xyNEMA_width).x,
         carriagePosition.y,
         eZ - yRailSupportThickness()
         ])
-        children();
+        rotate(rotate)
+            children();
 }
 
 module xRail(carriagePosition, xCarriageType, xRailLength) {
