@@ -12,13 +12,6 @@ include <../vitamins/pcbs.scad>
 function xCarriageBeltTensionerSize(sizeX=0) = [sizeX, 10, 7.2];
 
 function xCarriageBottomOffsetZ() = 40.8;
-function xCarriageHoleOffsetTop() = -1;//[5.65, -1]; // for alignment with EVA
-//function xCarriageHoleOffsetTop() = [4, 0];
-//function xCarriageHoleOffsetBottom() = [9.7, 4.5]; // for alignment with EVA
-//function xCarriageHoleOffsetBottom() = [9.7, 0];
-//function xCarriageHoleOffsetBottom() = [4, 0];
-evaHoleOffsetBottom = 9.7;
-evaHoleSeparationBottom = 26;
 function xCarriageBeltAttachmentSize(sizeZ=0) = [20, 18.5, sizeZ];
 // actual dimensions for belt are thickness:1.4, toothHeight:0.75
 toothHeight = 0.8;//0.75;
@@ -206,7 +199,7 @@ module xCarriageBeltAttachment(sizeZ, extraX=0, boltCutout=false, endCube=true) 
     }
 }
 
-module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationBottom, extraX=0, accelerometerOffset=undef, countersunk=true, topHoleOffset=0) {
+module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationBottom, extraX=0, accelerometerOffset=undef, countersunk=true, topHoleOffset=0, offsetT=0) {
     assert(is_list(xCarriageType));
 
     carriageSize = carriage_size(xCarriageType);
@@ -269,7 +262,7 @@ module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationB
             }
             // holes at the top to connect to the hotend side
             for (x = xCarriageHolePositions(size.x, holeSeparationTop))
-                translate([x + topHoleOffset, 0, -baseOffset + size.z - topSize.z/2 + (isMGN12 ? xCarriageHoleOffsetTop() : 0)])
+                translate([x + topHoleOffset, 0, -baseOffset + size.z - topSize.z/2 + offsetT])
                     rotate([-90, 0, 0])
                         if (countersunk)
                             boltPolyholeM3Countersunk(topSize.y);
@@ -305,10 +298,10 @@ module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationB
                         //boltHoleM3(size.y + beltInsetFront(xCarriageType), twist=4,cnc=true);*/
             if (isMGN12) {
                 // EVA compatible boltholes
-                *for (x = xCarriageHolePositions(size.x, evaHoleSeparationBottom))
-                    translate([x, 0, -baseOffset + baseThickness/2])
-                        rotate([-90, 0, 0])
-                            boltHoleM3Tap(8, twist=4);
+                //for (x = xCarriageHolePositions(size.x, evaHoleSeparationBottom))
+                //    translate([x, 0, -baseOffset + baseThickness/2])
+                //        rotate([-90, 0, 0])
+                //            boltHoleM3Tap(8, twist=4);
                 translate([size.x/2, -6.5 + xCarriageFrontOffsetY(xCarriageType), topSize.z - size.z/2])
                     rotate([90, 0, 0])
                         carriage_hole_positions(MGN12H_carriage)
