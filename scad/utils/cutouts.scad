@@ -90,7 +90,7 @@ module sideFaceTopDogbones(cnc=false, plateThickness=_topPlateThickness) {
 
 module sideFaceBackDogBones(cnc=true, plateThickness=_sidePlateThickness) {
     yStep = 20;
-    dogboneSize = [3*2, yStep-_tabTolerance];
+    dogboneSize = [3*2, yStep - _tabTolerance];
 
     x = eY + 2*eSizeY;
     for (y = [yStep : yStep*2 : eZ])
@@ -133,10 +133,10 @@ module backFaceTopCutouts(cnc=false, plateThickness=_topPlateThickness, dogBoneT
             edgeCutout_y(dogboneSize, cnc);
 }
 
-module sideFaceBackTabs(cnc=false) {
+module sideFaceBackTabs() {
     yStep = 20;
     fillet = _fillet;
-    tabSize = [3*2, yStep-_tabTolerance];
+    tabSize = [3*2, yStep - _tabTolerance];
 
     x = eY + 2*eSizeY;
     translate([x - tabSize.x/2, 0])
@@ -149,6 +149,7 @@ module sideFaceBackTabs(cnc=false) {
             rounded_square([tabSize.x, tabSize.y/2], fillet);
 }
 
+/*!!TODO remove unused code
 module sideFaceSideDogbones(cnc=false, plateThickness=_sidePlateThickness) {
     dogboneSize = [plateThickness*2, 20+_tabTolerance, 3 + 2*eps];
     yStep = 20;
@@ -159,6 +160,7 @@ module sideFaceSideDogbones(cnc=false, plateThickness=_sidePlateThickness) {
                 translate([x, y, 0])
                     dogbone_rectangle_x(dogboneSize, xy_center=true, r=cnc ? cnc_bit_r : 0);
 }
+*/
 
 module railsCutout(NEMA_width, railOffset, cnc=false) {
     // add a cutout for the Y rail, since sometimes they are cut a bit long

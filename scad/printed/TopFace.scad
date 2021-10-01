@@ -95,7 +95,7 @@ module topFaceWiringCutout(NEMA_width) {
             fillet(fillet);
 }
 
-module topFaceInterlock(NEMA_type, cnc = false) {
+module topFaceInterlock(NEMA_type) {
     assert(isNEMAType(NEMA_type));
 
     insetY = 3;
@@ -105,7 +105,7 @@ module topFaceInterlock(NEMA_type, cnc = false) {
         linear_extrude(size.z)
             difference() {
                 rounded_square([size.x, size.y], _fillet, center = false);
-                topFaceInterlockCutouts(NEMA_type, M3_tap_radius, cnc);
+                topFaceInterlockCutouts(NEMA_type, M3_tap_radius);
             }
     if (!is_undef(bearingType))
         translate_z(-bb_width(bearingType))

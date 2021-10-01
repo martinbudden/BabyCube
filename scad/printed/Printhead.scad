@@ -5,7 +5,6 @@ use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/blowers.scad>
 include <NopSCADlib/vitamins/e3d.scad>
 include <NopSCADlib/vitamins/fans.scad>
-include <NopSCADlib/vitamins/hot_ends.scad>
 include <NopSCADlib/vitamins/rails.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
@@ -144,7 +143,7 @@ module E3Dv6plusFan() {
         }
     translate_z(3)
         rotate(180)
-            hot_end(E3Dv6, filament=1.75, naked=true, bowden=false);
+            e3d_hot_end(E3Dv6, filament=1.75, naked=true, bowden=false);
 }
 
 module fanDuctHolePositions(z=0) {

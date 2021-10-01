@@ -34,9 +34,9 @@ module Front_Face_CF_dxf() {
                     rounded_square([size.x - 2*insetX, eZ - insetY - 50], 3, center=false);
                 backFaceSideCutouts(cnc=true, plateThickness=_frontPlateCFThickness, dogBoneThickness=0);
                 frontFaceHolePositions()
-                    circle(r = M3_clearance_radius);
+                    circle(r=M3_clearance_radius);
                 translate([rockerPosition(rocker_type()).z, rockerPosition(rocker_type()).y])
-                    rocker_hole(rocker_type(), 0, rounded = false);
+                    rocker_hole(rocker_type(), 0, rounded=false);
 
                 display_type = BigTreeTech_TFT35v3_0;
                 /*cutoutSize = frontChordCutoutSize(display_type);
