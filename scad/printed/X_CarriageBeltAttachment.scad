@@ -136,6 +136,8 @@ module X_Carriage_Belt_Clamp_hardware(boltLength=10, countersunk=false) {
                     boltM3Buttonhead(boltLength);
 }
 
+function xCarriageBeltAttachmentCutoutOffset() = 0.5;
+
 module xCarriageBeltAttachment(sizeZ, extraX=0, boltCutout=false, endCube=true) {
     size = xCarriageBeltAttachmentSize(sizeZ) - [0, toothHeight, 0];
     cutoutSize = [xCarriageBeltTensionerSize().z + 0.55, xCarriageBeltTensionerSize().y + 0.6];
@@ -155,7 +157,7 @@ module xCarriageBeltAttachment(sizeZ, extraX=0, boltCutout=false, endCube=true) 
                                     square([extraX, size.y]);
                         }
                         for (y = [0, 9.25])
-                            translate([y + 0.5, 0.5])
+                            translate([y + 0.5, xCarriageBeltAttachmentCutoutOffset()])
                                 hull() {
                                     square([cutoutSize.x, cutoutSize.y - 1]);
                                     translate([1, 0])
@@ -199,6 +201,8 @@ module xCarriageBeltAttachment(sizeZ, extraX=0, boltCutout=false, endCube=true) 
     }
 }
 
+function beltAttachmentOffsetY() = 14;
+
 module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationBottom, extraX=0, accelerometerOffset=undef, countersunk=true, topHoleOffset=0, offsetT=0) {
     assert(is_list(xCarriageType));
 
@@ -211,7 +215,7 @@ module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationB
     baseOffset = size.z - topSize.z;
     railCarriageGap = 0.5;
     fillet = 1;
-    beltAttachmentOffsetY = xCarriageFrontOffsetY(xCarriageType) - 14;
+    beltAttachmentOffsetY = xCarriageFrontOffsetY(xCarriageType) - beltAttachmentOffsetY();
     beltAttachmentSizeY = xCarriageBeltAttachmentSize().y + beltAttachmentOffsetY;
 
     translate([-size.x/2, -xCarriageFrontOffsetY(xCarriageType), 0]) {

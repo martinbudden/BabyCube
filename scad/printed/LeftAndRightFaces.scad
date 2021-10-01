@@ -231,10 +231,10 @@ module webbingRight(NEMA_type) {
                     sideFaceBackTabs();
             }
             translate([extruderPosition.y, extruderPosition.z]) {
-                poly_circle(r = NEMA_boss_radius(extruderMotorType()) + 0.25);
+                poly_circle(r=NEMA_boss_radius(extruderMotorType()) + 0.25);
                 // extruder motor bolt holes
                 NEMA_screw_positions(extruderMotorType())
-                    poly_circle(r = M3_clearance_radius);
+                    poly_circle(r=M3_clearance_radius);
             }
             spoolHolderCutout(NEMA_width);
             sideFaceMotorCutout(left, NEMA_width, cnc=true);
