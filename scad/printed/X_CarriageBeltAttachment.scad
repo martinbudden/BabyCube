@@ -224,6 +224,7 @@ module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationB
                 union() {
                     translate([size.x, beltAttachmentOffsetY, size.z - (isMGN12 ? 49: 45)])//-size.z + 20.5 + baseOffset])
                         rotate([0, 90, 90])
+                            //translate([0, size.x, 0]) mirror([0, 1, 0])
                             xCarriageBeltAttachment(size.x, extraX, boltCutout=true);
                     rounded_cube_xz(size + sizeExtra, fillet);
                     translate([0, 0, size.z - topSize.z])
