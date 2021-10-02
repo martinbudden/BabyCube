@@ -1,7 +1,7 @@
 //! Display the housing for the BigTreeTech_TFT35_V3_0
 
 include <../scad/global_defs.scad>
-include <NopSCADlib/utils/core/core.scad>
+include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/displays.scad>
 include <NopSCADlib/vitamins/pcbs.scad>
 

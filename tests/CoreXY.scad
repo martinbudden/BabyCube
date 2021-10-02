@@ -91,7 +91,7 @@ module XY_Idler_Left_assembly()
 assembly("XY_Idler_Left") {
 
     rotate([90, 0, 90]) {
-        coreXYPosBL = coreXYPosBL(_xyNEMA_width, yCarriageType(_yCarriageDescriptor);
+        coreXYPosBL = coreXYPosBL(_xyNEMA_width, yCarriageType(_yCarriageDescriptor));
         XY_IdlerBracket(coreXYPosBL, _xyNEMA_width);
         XY_IdlerBracketHardware(coreXYPosBL);
     }
@@ -103,7 +103,7 @@ assembly("XY_Idler_Right") {
     translate([eX + 2*eSizeX, 0, 0])
         rotate([90, 0, 90])
             mirror([0, 0, 1]) {
-                coreXYPosBL = coreXYPosBL(_xyNEMA_width, yCarriageType(_yCarriageDescriptor);
+                coreXYPosBL = coreXYPosBL(_xyNEMA_width, yCarriageType(_yCarriageDescriptor));
                 XY_IdlerBracket(coreXYPosBL, _xyNEMA_width);
                 XY_IdlerBracketHardware(coreXYPosBL);
             }

@@ -3,14 +3,9 @@
 include <NopSCADlib/utils/core/core.scad>
 
 include <../scad/utils/printParameters.scad>
-include <../scad/utils/printParameters.scad>
 
 use <../scad/MainAssembly.scad>
 use <../scad/MainAssemblyCF.scad>
-use <../scad/printed/LeftAndRightFaceAssemblies.scad>
-use <../scad/printed/PrintheadAssemblies.scad>
-
-include <../scad/Parameters_Main.scad>
 
 
 //$explode = 1;

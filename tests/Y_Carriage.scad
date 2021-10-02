@@ -46,7 +46,7 @@ module Y_Carriage_test1() {
         if (yCarriageBraceThickness())
             translate_z(yCarriageThickness() + pulleyStackHeight(idlerHeight) + 2*eps)
                 Y_Carriage_Brace_Right_stl();
-        *translate_z(-carriage_height(yCarriageType)))
+        *translate_z(-carriage_height(yCarriageType))
             rotate(90)
                 carriage(yCarriageType);
     }
