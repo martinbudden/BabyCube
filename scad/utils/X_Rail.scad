@@ -1,6 +1,6 @@
 include <../global_defs.scad>
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/rails.scad>
 
 use <../vitamins/bolts.scad>

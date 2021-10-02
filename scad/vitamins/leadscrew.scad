@@ -1,4 +1,4 @@
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 use <NopSCADlib/utils/sweep.scad>
 
 leadscrewColor = grey(70);

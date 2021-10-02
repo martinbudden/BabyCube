@@ -1,6 +1,6 @@
 include <../global_defs.scad>
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 
 use <../Parameters_CoreXY.scad>
 include <../Parameters_Main.scad>

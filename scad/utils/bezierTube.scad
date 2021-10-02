@@ -1,6 +1,6 @@
 include <../global_defs.scad>
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 
 use <NopSCADlib/utils/sweep.scad>
 use <NopSCADlib/utils/maths.scad>
