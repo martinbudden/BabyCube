@@ -1,6 +1,6 @@
 include <../global_defs.scad>
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 use <NopSCADlib/utils/core_xy.scad>
 
 use <carriageTypes.scad>

@@ -1,16 +1,13 @@
 include <NopSCADlib/core.scad>
-use <NopSCADlib/utils/hanging_hole.scad>
+include <NopSCADlib/utils/hanging_hole.scad>
 
-
-
-// Utilities
-
-function boltHoleTwist(radius, twist) = $preview ? 0 : is_undef(twist) ? (radius > M3_tap_radius ? 0 : 4) : twist;
 
 
 // bolt holes
 
 module boltHole(diameter, length, horizontal=false, rotate=0, chamfer=0, chamfer_both_ends=true, cnc=false, twist=0) {
+    function boltHoleTwist(radius, twist) = $preview ? 0 : is_undef(twist) ? (radius > M3_tap_radius ? 0 : 4) : twist;
+
     translate_z(-eps)
         if (cnc)
             cylinder(r=diameter/2, h=length + 2*eps);

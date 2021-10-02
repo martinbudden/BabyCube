@@ -7,7 +7,7 @@
 //!
 //!![printbed120](../pictures/printbed120_1000.jpg)
 //
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 
 use <printed/Printbed3point.scad>
 

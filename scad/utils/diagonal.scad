@@ -1,4 +1,4 @@
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 
 module diagonalDown(rectSize, width, fillet, extend=false) {
     h = sqrt(rectSize.x * rectSize.x + rectSize.y * rectSize.y);

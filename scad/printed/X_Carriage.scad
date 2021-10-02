@@ -1,5 +1,5 @@
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 use <NopSCADlib/utils/core_xy.scad>
 use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/utils/hanging_hole.scad>

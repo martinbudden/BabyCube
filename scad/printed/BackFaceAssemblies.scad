@@ -1,6 +1,6 @@
 include <../global_defs.scad>
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 use <NopSCADlib/utils/dogbones.scad>
 include <NopSCADlib/vitamins/cameras.scad>
 include <NopSCADlib/vitamins/sheets.scad>

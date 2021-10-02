@@ -112,7 +112,7 @@
 //!
 //!The changes to `configuration.h` and `configuration_adv.h` are [here](../../documents/MarlinConfiguration.md).
 //!
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 
 use <MainAssembly.scad>
 

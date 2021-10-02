@@ -4,7 +4,7 @@
 //!
 //!![BC200CF Assembly](assemblies/BC200CF_assembled.png)
 //
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 
 use <MainAssemblyCF.scad>
 
