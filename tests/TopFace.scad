@@ -2,13 +2,13 @@
 
 include <../scad/global_defs.scad>
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../scad/printed/BackFace.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
 use <../scad/printed/Base.scad>
-use <../scad/printed/Extras.scad>
+include <../scad/printed/Extras.scad>
 use <../scad/printed/FrontChords.scad>
 use <../scad/printed/LeftAndRightFaces.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
@@ -18,10 +18,9 @@ use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 use <../scad/printed/XY_MotorMount.scad>
 
-use <../scad/utils/carriageTypes.scad>
 use <../scad/utils/CoreXYBelts.scad>
-use <../scad/utils/cutouts.scad>
-use <../scad/utils/printParameters.scad>
+include <../scad/utils/cutouts.scad>
+include <../scad/utils/printParameters.scad>
 use <../scad/utils/X_Rail.scad>
 
 use <../scad/vitamins/bolts.scad>
@@ -63,12 +62,12 @@ module Top_Face_test() {
         //Top_Face_NEMA_17_Stage_1_assembly()
         //Top_Face_NEMA_17_Stage_2_assembly();
     }
-    //printheadWiring();
+    //printheadWiring(carriagePosition());
     //CoreXYBelts(carriagePosition());
 
     //Left_Face_assembly();
     //Right_Face_assembly();
-    //bowdenTube();
+    //bowdenTube(carriagePosition());
 
     //Back_Face_Stage_1_assembly();
     //Back_Face_assembly();

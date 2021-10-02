@@ -3,7 +3,7 @@ include <../global_defs.scad>
 include <NopSCADlib/utils/core/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
 use <X_Carriage.scad>
 

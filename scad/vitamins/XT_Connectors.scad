@@ -1,5 +1,3 @@
-include <../global_defs.scad>
-
 include <NopSCADlib/utils/core/core.scad>
 use <NopSCADlib/utils/tube.scad>
 

@@ -7,7 +7,7 @@ include <NopSCADlib/vitamins/pulleys.scad>
 include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
-use <../utils/carriageTypes.scad>
+include <../utils/carriageTypes.scad>
 
 use <Y_Carriage.scad>
 
@@ -31,7 +31,7 @@ module yCarriage(NEMA_width, left, cnc=false) {
     tongueOffset = tongueOffset(NEMA_width);
 
     assert(pulleyStackHeight(idlerHeight) + yCarriageBraceThickness() == coreXYSeparation().z);
-    Y_Carriage(yCarriageType(), idlerHeight, _beltWidth, xRailType(), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset(), topInset, left=left, cnc=cnc);
+    Y_Carriage(yCarriageType(_yCarriageDescriptor), idlerHeight, _beltWidth, xRailType(_xCarriageDescriptor), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset(), topInset, left=left, cnc=cnc);
 }
 
 module Y_Carriage_Left_stl() {
@@ -75,7 +75,7 @@ module Y_Carriage_Brace_Left_stl() {
 
     stl("Y_Carriage_Brace_Left")
         color(pp1_colour)
-            yCarriageBrace(yCarriageType(), yCarriageBraceThickness(), pulleyOffset(), holeRadius, left=true);
+            yCarriageBrace(yCarriageType(_yCarriageDescriptor), yCarriageBraceThickness(), pulleyOffset(), holeRadius, left=true);
 }
 
 module Y_Carriage_Brace_Right_stl() {
@@ -83,12 +83,12 @@ module Y_Carriage_Brace_Right_stl() {
 
     stl("Y_Carriage_Brace_Right")
         color(pp1_colour)
-            yCarriageBrace(yCarriageType(), yCarriageBraceThickness(), pulleyOffset(), holeRadius, left=false);
+            yCarriageBrace(yCarriageType(_yCarriageDescriptor), yCarriageBraceThickness(), pulleyOffset(), holeRadius, left=false);
 }
 
 module yCarriageLeftAssembly(NEMA_width) {
 
-    yCarriageType = yCarriageType();
+    yCarriageType = yCarriageType(_yCarriageDescriptor);
     railOffset = yRailOffset(NEMA_width);
     plainIdler = coreXY_plain_idler(coreXY_type());
     toothedIdler = coreXY_toothed_idler(coreXY_type());
@@ -114,7 +114,7 @@ module yCarriageLeftAssembly(NEMA_width) {
 
 module yCarriageRightAssembly(NEMA_width) {
 
-    yCarriageType = yCarriageType();
+    yCarriageType = yCarriageType(_yCarriageDescriptor);
     railOffset = yRailOffset(NEMA_width);
     plainIdler = coreXY_plain_idler(coreXY_type());
     toothedIdler = coreXY_toothed_idler(coreXY_type());

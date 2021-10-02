@@ -4,15 +4,14 @@ include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/displays.scad>
 include <NopSCADlib/vitamins/pcbs.scad>
 
-use <../utils/HolePositions.scad>
+include <../utils/HolePositions.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
 use <Base.scad> // for pcb position
 use <DisplayHousing.scad>
 use <XY_IdlerBracket.scad>
 
-use <../Parameters_CoreXY.scad>
 include <../Parameters_Main.scad>
 
 

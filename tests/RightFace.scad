@@ -1,23 +1,20 @@
 //! Display the right face
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../scad/printed/BackFace.scad>
 use <../scad/printed/Base.scad>
-use <../scad/printed/Extras.scad>
+include <../scad/printed/Extras.scad>
 use <../scad/printed/LeftAndRightFaces.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
-use <../scad/printed/SpoolHolder.scad>
+include <../scad/printed/SpoolHolder.scad>
 use <../scad/printed/XY_MotorMount.scad>
 
-use <../scad/utils/printParameters.scad>
+include <../scad/utils/printParameters.scad>
 use <../scad/utils/CoreXYBelts.scad>
 
-use <../scad/vitamins/bolts.scad>
-
-use <../scad/Parameters_CoreXY.scad>
 include <../scad/Parameters_Main.scad>
 
 
@@ -34,7 +31,7 @@ module Right_Face_test() {
         Right_Face_assembly();
     faceRightSpoolHolder(cf=_useCNC);
     //faceRightSpool();
-    //bowdenTube();
+    //bowdenTube(carriagePosition());
     //Right_Face_stl();
     //Right_Face_NEMA_17_stl();
 
@@ -44,7 +41,7 @@ module Right_Face_test() {
     //webbingRight(xyMotorType());
     //frame(NEMA_type, left=false);
     //XY_MotorUpright(xyMotorType(), left=false);
-    //bowdenTube();
+    //bowdenTube(carriagePosition());
     //hotEndWiring();
 
     //Base_assembly();

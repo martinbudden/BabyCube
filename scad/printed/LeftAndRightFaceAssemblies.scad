@@ -6,10 +6,10 @@ use <NopSCADlib/vitamins/pcb.scad>
 include <NopSCADlib/vitamins/rockers.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
-use <../utils/carriageTypes.scad>
+include <../utils/carriageTypes.scad>
 
-use <../vitamins/bolts.scad>
-use <../vitamins/cables.scad>
+include <../vitamins/bolts.scad>
+include <../vitamins/cables.scad>
 use <../vitamins/extruder.scad>
 
 use <LeftAndRightFaces.scad>
@@ -64,7 +64,7 @@ module leftFaceAssembly() {
 module leftFaceHardware(NEMA_type, cnc=false, rocker=true) {
     rotate([90, 0, 90]) {
         if (!cnc) {
-            XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), yCarriageType()));
+            XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), yCarriageType(_yCarriageDescriptor)));
             XY_MotorUprightHardware(NEMA_type, left=true);
             translate(rockerPosition(rocker_type()))
                 rotate([0, -90, 0])
@@ -170,7 +170,7 @@ module rightFaceHardware(NEMA_type, cnc=false) {
         rotate([-90, 0, 90])
             mirror([0, 1, 0]) {
                 if (!cnc) {
-                    XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), yCarriageType()));
+                    XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), yCarriageType(_yCarriageDescriptor)));
                     XY_MotorUprightHardware(NEMA_type, left=false);
                 }
                 stepper_motor_cable(400);

@@ -2,12 +2,11 @@
 
 include <../scad/global_defs.scad>
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../scad/printed/XY_MotorMount.scad>
 
-use <../scad/Parameters_CoreXY.scad>
 include <../scad/Parameters_Main.scad>
 
 

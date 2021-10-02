@@ -1,6 +1,6 @@
 //! Display the switch shroud.
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 use <../scad/printed/SwitchShroud.scad>
 
 

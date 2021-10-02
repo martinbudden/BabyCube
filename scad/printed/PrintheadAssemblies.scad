@@ -5,19 +5,18 @@ include <NopSCADlib/vitamins/blowers.scad>
 include <NopSCADlib/vitamins/rails.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
-use <../utils/carriageTypes.scad>
-use <../utils/PrintheadOffsets.scad>
+include <../utils/carriageTypes.scad>
+include <../utils/PrintheadOffsets.scad>
 use <../utils/X_rail.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 include <../vitamins/pcbs.scad>
 
-use <Printhead.scad>
+include <Printhead.scad>
 use <X_Carriage.scad>
 use <X_CarriageBeltAttachment.scad>
 use <X_CarriageAssemblies.scad>
 
-use <../Parameters_CoreXY.scad>
 use <../Parameters_Positions.scad>
 include <../Parameters_Main.scad>
 
@@ -27,7 +26,7 @@ grooveMountFillet = 1;
 function grooveMountClampSize(blower_type, hotend_type) = [grooveMountSize(blower_type, hotend_type).y - 2*grooveMountFillet - grooveMountClampOffsetX(), 12, 15];
 
 module printheadAssembly() {
-    xCarriageType = xCarriageType();
+    xCarriageType = xCarriageType(_xCarriageDescriptor);
     blower_type = blower_type();
     hotend_type = 0;
     hotendOffset = hotendOffset(xCarriageType, hotend_type);
@@ -70,7 +69,7 @@ assembly("Printhead_E3DV6_MGN9C", big=true) {
 }
 
 module printheadBeltSide(rotate=0, explode=0, t=undef) {
-    xCarriageType = xCarriageType();
+    xCarriageType = xCarriageType(_xCarriageDescriptor);
 
     xRailCarriagePosition(carriagePosition(t), rotate)
         explode(explode, true) {
@@ -82,7 +81,7 @@ module printheadBeltSide(rotate=0, explode=0, t=undef) {
 }
 
 module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false) {
-    xCarriageType = xCarriageType();
+    xCarriageType = xCarriageType(_xCarriageDescriptor);
     xCarriageFrontSize = xCarriageFrontSize(xCarriageType, _beltWidth, clamps=false) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 3];
     holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
@@ -97,7 +96,7 @@ module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false) {
 }
 
 module fullPrinthead(rotate=0, explode=0, t=undef, accelerometer=false) {
-    xCarriageType = xCarriageType();
+    xCarriageType = xCarriageType(_xCarriageDescriptor);
     holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
 

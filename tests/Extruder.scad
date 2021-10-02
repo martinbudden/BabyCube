@@ -1,6 +1,6 @@
 //! Display the extruder
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../scad/vitamins/extruder.scad>

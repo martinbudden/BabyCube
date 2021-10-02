@@ -5,17 +5,17 @@ include <NopSCADlib/vitamins/pulleys.scad>
 include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
-use <../utils/carriageTypes.scad>
+include <../utils/carriageTypes.scad>
 
-use <../vitamins/bolts.scad>
-use <../vitamins/inserts.scad>
+include <../vitamins/bolts.scad>
+include <../vitamins/inserts.scad>
 
 use <../Parameters_CoreXY.scad>
 include <../Parameters_Main.scad>
 
 
 function yRailSupportSize(NEMA_width = _xyNEMA_width)
-    = [ eY + 2*eSizeY, yRailSupportThickness(), yRailOffset(NEMA_width).x + rail_width(yRailType())/2 + 1 ];
+    = [ eY + 2*eSizeY, yRailSupportThickness(), yRailOffset(NEMA_width).x + rail_width(yRailType(_yCarriageDescriptor))/2 + 1 ];
 
 function idlerBracketSize(coreXYPosBL=[0, 0, 0]) = [coreXYPosBL.y + 6, 6, floor(coreXYPosBL.x/2)*2 + 10];
 function idlerBracketTopSizeY() = 11;
@@ -64,7 +64,8 @@ module XY_Idler_Bracket_Left_assembly()
 assembly("XY_Idler_Bracket_Left", ngb=true) {
 
     NEMA_width = NEMA_width(NEMA14);
-    translate_z(coreXYPosBL(NEMA_width, yCarriageType()).z + coreXYSeparation().z)
+    yCarriageType = yCarriageType(_yCarriageDescriptor);
+    translate_z(coreXYPosBL(NEMA_width, yCarriageType).z + coreXYSeparation().z)
         rotate([90, 0, 90])
             stl_colour(pp1_colour)
                 if (_xyMotorDescriptor == "NEMA14")
@@ -72,14 +73,15 @@ assembly("XY_Idler_Bracket_Left", ngb=true) {
                 else
                     XY_Idler_Bracket_Left_NEMA_17_stl();
     rotate([90, 0, 90])
-        XY_IdlerBracketHardware(coreXYPosBL(NEMA_width, yCarriageType()));
+        XY_IdlerBracketHardware(coreXYPosBL(NEMA_width, yCarriageType));
 }
 
 module XY_Idler_Bracket_Right_assembly()
 assembly("XY_Idler_Right_Left", ngb=true) {
 
     NEMA_width = NEMA_width(NEMA14);
-    translate([eX + 2*eSizeX, 0, coreXYPosBL(NEMA_width, yCarriageType()).z + coreXYSeparation().z])
+    coreXYPosBL = coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor));
+    translate([eX + 2*eSizeX, 0, coreXYPosBL.z + coreXYSeparation().z])
         rotate([-90, 0, 90])
             stl_colour(pp1_colour)
                 if (_xyMotorDescriptor == "NEMA14")
@@ -90,7 +92,7 @@ assembly("XY_Idler_Right_Left", ngb=true) {
         rotate([90, 0, 90])
             vflip()
                 mirror([0, 1, 0])
-                    XY_IdlerBracketHardware(coreXYPosBL(NEMA_width, yCarriageType()));
+                    XY_IdlerBracketHardware(coreXYPosBL);
 }
 
 module XY_IdlerBracketCutouts(coreXYPosBL) {

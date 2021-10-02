@@ -6,15 +6,15 @@ use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/blowers.scad>
 include <NopSCADlib/vitamins/rails.scad>
 
-use <../utils/carriageTypes.scad>
-use <../utils/PrintheadOffsets.scad>
+include <../utils/carriageTypes.scad>
+include <../utils/PrintheadOffsets.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
-use <Printhead.scad>
+include <Printhead.scad>
 use <X_Carriage.scad>
 use <X_CarriageBeltAttachment.scad>
-use <X_CarriageBeltClamps.scad>
+include <X_CarriageBeltClamps.scad>
 use <X_CarriageFanDuct.scad>
 
 use <../Parameters_CoreXY.scad>
@@ -144,7 +144,7 @@ module X_Carriage_Groovemount_MGN9C_assembly() {
 }
 
 module X_Carriage_Front_stl() {
-    xCarriageType = xCarriageType();
+    xCarriageType = xCarriageType(_xCarriageDescriptor);
 
     // orientate for printing
     stl("X_Carriage_Front")
@@ -158,7 +158,7 @@ module X_Carriage_Front_stl() {
 module X_Carriage_Front_assembly()
 assembly("X_Carriage_Front", big=true) {
 
-    xCarriageType = xCarriageType();
+    xCarriageType = xCarriageType(_xCarriageDescriptor);
     size = xCarriageFrontSize(xCarriageType, _beltWidth, clamps=true);
     beltOffsetZ = beltOffsetZ();
 
@@ -225,7 +225,7 @@ module xCarriageBeltClamps(xCarriageType) {
 }
 
 module X_Carriage_stl() {
-    xCarriageType = xCarriageType();
+    xCarriageType = xCarriageType(_xCarriageDescriptor);
     blower_type = blower_type();
     hotend_type = 0;
     grooveMountSize = grooveMountSize(blower_type, hotend_type);
@@ -247,7 +247,7 @@ module X_Carriage_stl() {
 module X_Carriage_assembly()  pose(a=[55, 0, 25 + 290])
 assembly("X_Carriage", big=true, ngb=true) {
 
-    xCarriageType = xCarriageType();
+    xCarriageType = xCarriageType(_xCarriageDescriptor);
     blower_type = blower_type();
     hotend_type = 0;
     hotendOffset = hotendOffset(xCarriageType, hotend_type);

@@ -4,9 +4,9 @@ include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/blowers.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
-use <Printhead.scad>
+include <Printhead.scad>
 
 
 fanDuctTabThickness = 2;

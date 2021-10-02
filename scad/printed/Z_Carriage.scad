@@ -10,9 +10,9 @@ include <NopSCADlib/vitamins/rod.scad>
 include <NopSCADlib/vitamins/shaft_couplings.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
-use <../utils/ziptieCutout.scad>
+include <../utils/ziptieCutout.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
 include <../Parameters_Main.scad>
 

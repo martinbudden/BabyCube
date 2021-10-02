@@ -6,13 +6,12 @@ include <NopSCADlib/vitamins/rockers.scad>
 include <NopSCADlib/vitamins/sheets.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
-use <../utils/cutouts.scad>
-use <../utils/carriageTypes.scad>
-use <../utils/HolePositions.scad>
+include <../utils/cutouts.scad>
+include <../utils/HolePositions.scad>
 use <../utils/motorTypes.scad>
 
-use <../vitamins/bolts.scad>
-use <../vitamins/cables.scad>
+include <../vitamins/bolts.scad>
+include <../vitamins/cables.scad>
 use <../vitamins/extruder.scad>
 
 use <LeftAndRightFaces.scad>

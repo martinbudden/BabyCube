@@ -1,6 +1,6 @@
 //! Display the XY idler brackets
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../scad/printed/XY_IdlerBracket.scad>

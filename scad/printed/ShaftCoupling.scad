@@ -2,7 +2,7 @@ include <../global_defs.scad>
 
 include <NopSCADlib/utils/core/core.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
 
 module Shaft_Coupling_8x5_stl() {

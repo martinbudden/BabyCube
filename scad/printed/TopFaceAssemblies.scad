@@ -6,15 +6,14 @@ include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/sheets.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
-use <../utils/carriageTypes.scad>
-use <../utils/HolePositions.scad>
+include <../utils/carriageTypes.scad>
+include <../utils/HolePositions.scad>
 use <../utils/X_Rail.scad>
 
 use <TopFace.scad>
 use <Y_Carriage.scad>
 use <Y_CarriageAssemblies.scad>
 
-use <../Parameters_CoreXY.scad>
 use <../Parameters_Positions.scad>
 include <../Parameters_Main.scad>
 
@@ -129,7 +128,7 @@ assembly("Top_Face", big=true) {
     //hidden() Y_Carriage_Right_AL_dxf();
 
     explode(30, true)
-        xRail(carriagePosition(), xCarriageType(), _xRailLength);
+        xRail(carriagePosition(), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
 }
 
 //!1. Turn the Top_Face into its normal orientation.
@@ -146,7 +145,7 @@ assembly("Top_Face_NEMA_17", big=true) {
     Top_Face_NEMA_17_Stage_2_assembly();
 
     explode(30, true)
-        xRail(carriagePosition(), xCarriageType(), _xRailLength);
+        xRail(carriagePosition(), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
 }
 
 
@@ -173,7 +172,7 @@ assembly("Top_Face_CF", big=true) {
     Top_Face_CF_Stage_2_assembly();
 
     explode(30, true)
-        xRail(carriagePosition(), xCarriageType(), _xRailLength);
+        xRail(carriagePosition(), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
 }
 
 
@@ -187,13 +186,13 @@ assembly("Top_Face_with_Printhead", big=true) {
         rotate(0) {// for debug, to see belts better
             X_Carriage_Front_assembly();
             Printhead_assembly();
-            xCarriageTopBolts(xCarriageType());
+            xCarriageTopBolts(xCarriageType(_xCarriageDescriptor));
         }
 }
 */
 
 module topFaceAssembly(NEMA_width) {
-    yCarriageType = yCarriageType();
+    yCarriageType = yCarriageType(_yCarriageDescriptor);
     yRailType = carriage_rail(yCarriageType);
 
     railOffset = yRailOffset(NEMA_width);

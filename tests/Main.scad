@@ -1,9 +1,9 @@
 //! Display the main assembly
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 
-use <../scad/utils/printParameters.scad>
-use <../scad/utils/printParameters.scad>
+include <../scad/utils/printParameters.scad>
+include <../scad/utils/printParameters.scad>
 
 use <../scad/MainAssembly.scad>
 use <../scad/MainAssemblyCF.scad>

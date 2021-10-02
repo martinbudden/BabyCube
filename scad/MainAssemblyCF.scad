@@ -6,7 +6,7 @@ use <printed/BackFace.scad>
 use <printed/BackFaceAssemblies.scad>
 use <printed/Base.scad>
 use <printed/DisplayHousingAssemblies.scad>
-use <printed/Extras.scad>
+include <printed/Extras.scad>
 use <printed/FrontFace.scad>
 use <printed/LeftAndRightFaceAssemblies.scad>
 use <printed/LeftAndRightFaceAssembliesCF.scad>
@@ -15,8 +15,7 @@ use <printed/TopFaceAssemblies.scad>
 use <printed/X_CarriageAssemblies.scad>
 
 use <utils/CoreXYBelts.scad>
-use <utils/HolePositions.scad>
-use <utils/carriageTypes.scad>
+include <utils/HolePositions.scad>
 
 use <Parameters_Positions.scad>
 include <Parameters_Main.scad>
@@ -157,7 +156,7 @@ module CF_FinalAssembly() {
             printheadBeltSide();
             printheadHotendSide();
         *if (!exploded())
-            printheadWiring();
+            printheadWiring(carriagePosition());
         if (!exploded())
             CoreXYBelts(carriagePosition());
     }

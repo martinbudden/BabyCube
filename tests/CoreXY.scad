@@ -2,11 +2,11 @@
 
 include <../scad/global_defs.scad>
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 use <NopSCADlib/utils/core_xy.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
-use <../scad/utils/carriageTypes.scad>
+include <../scad/utils/carriageTypes.scad>
 use <../scad/utils/CoreXYBelts.scad>
 use <../scad/utils/X_rail.scad>
 
@@ -44,7 +44,7 @@ module CoreXY() {
     XY_Idler_Right_assembly();
     XY_Motor_Mount_Left_assembly();
     XY_Motor_Mount_Right_assembly();
-    xRail(carriagePosition(t), xCarriageType(), _xRailLength);
+    xRail(carriagePosition(t), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
     //let($hide_bolts=true)
     printheadBeltSide(t=t);
     printheadHotendSide(t=t);
@@ -54,7 +54,7 @@ module CoreXY() {
             X_Carriage_stl();
         X_Carriage_assembly();
         X_Carriage_Front_assembly();
-        xCarriageBeltFragments(xCarriageType(), coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
+        xCarriageBeltFragments(xCarriageType(_xCarriageDescriptor), coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
     }
 }
 
@@ -91,8 +91,9 @@ module XY_Idler_Left_assembly()
 assembly("XY_Idler_Left") {
 
     rotate([90, 0, 90]) {
-        XY_IdlerBracket(coreXYPosBL(_xyNEMA_width, yCarriageType()), _xyNEMA_width);
-        XY_IdlerBracketHardware(coreXYPosBL(_xyNEMA_width, yCarriageType()));
+        coreXYPosBL = coreXYPosBL(_xyNEMA_width, yCarriageType(_yCarriageDescriptor);
+        XY_IdlerBracket(coreXYPosBL, _xyNEMA_width);
+        XY_IdlerBracketHardware(coreXYPosBL);
     }
 }
 
@@ -102,7 +103,8 @@ assembly("XY_Idler_Right") {
     translate([eX + 2*eSizeX, 0, 0])
         rotate([90, 0, 90])
             mirror([0, 0, 1]) {
-                XY_IdlerBracket(coreXYPosBL(_xyNEMA_width, yCarriageType()), _xyNEMA_width);
-                XY_IdlerBracketHardware(coreXYPosBL(_xyNEMA_width, yCarriageType()));
+                coreXYPosBL = coreXYPosBL(_xyNEMA_width, yCarriageType(_yCarriageDescriptor);
+                XY_IdlerBracket(coreXYPosBL, _xyNEMA_width);
+                XY_IdlerBracketHardware(coreXYPosBL);
             }
 }

@@ -1,5 +1,3 @@
-include <../global_defs.scad>
-
 include <NopSCADlib/utils/core/core.scad>
 use <NopSCADlib/utils/dogbones.scad>
 use <NopSCADlib/utils/fillet.scad>
@@ -7,7 +5,6 @@ include <NopSCADlib/vitamins/rails.scad>
 
 include <../Parameters_Main.scad>
 
-use <carriageTypes.scad>
 
 module edgeCutout_x(size, cnc=false, center=false, xy_center=true, fillet=1, tolerance=_tabTolerance) {
     dogboneSize = size + [tolerance, 0, size.z == 0 ? 0 : 2*eps];
@@ -164,16 +161,16 @@ module sideFaceSideDogbones(cnc=false, plateThickness=_sidePlateThickness) {
 
 module railsCutout(NEMA_width, railOffset, cnc=false) {
     // add a cutout for the Y rail, since sometimes they are cut a bit long
-    rail_type = yRailType();
+    yRailType = yRailType(_yCarriageDescriptor);
     filletX = cnc ? 1.5 : 1;
     filletY = cnc ? 0.5 : 1;
     heightExtra = 10;
-    railCutoutSize = [rail_width(rail_type) + 2*filletX, rail_height(rail_type) + 2*filletY + heightExtra, _backPlateThickness - 1];
+    railCutoutSize = [rail_width(yRailType) + 2*filletX, rail_height(yRailType) + 2*filletY + heightExtra, _backPlateThickness - 1];
     for (x = [railOffset.x, eX + 2*eSizeX - railOffset.x])
         if (cnc)
             translate([x - railCutoutSize.x/2, railOffset.z - railCutoutSize.y + heightExtra])
                 rounded_square([railCutoutSize.x, railCutoutSize.y], filletX, center=false);
         else
-            translate([x, railOffset.z - rail_height(rail_type)/2 + heightExtra/2, -railCutoutSize.z + eps])
+            translate([x, railOffset.z - rail_height(yRailType)/2 + heightExtra/2, -railCutoutSize.z + eps])
                 rounded_cube_xy(railCutoutSize, filletX, xy_center=true);
 }
