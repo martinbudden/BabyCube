@@ -2,10 +2,11 @@ include <NopSCADlib/utils/core/core.scad>
 use <NopSCADlib/utils/core_xy.scad>
 use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/rails.scad>
+use <NopSCADlib/vitamins/pcb.scad>
 
 use <X_Carriage.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 include <../vitamins/pcbs.scad>
 
 

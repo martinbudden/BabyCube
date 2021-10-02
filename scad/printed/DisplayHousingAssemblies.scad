@@ -4,7 +4,7 @@ include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/displays.scad>
 include <NopSCADlib/vitamins/pcbs.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
 use <DisplayHousing.scad>
 use <FrontChords.scad>

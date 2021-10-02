@@ -8,12 +8,12 @@ include <NopSCADlib/vitamins/shaft_couplings.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
-use <../utils/HolePositions.scad>
+include <../utils/HolePositions.scad>
 include <../utils/motorTypes.scad>
 
-use <../vitamins/bolts.scad>
-use <../vitamins/CorkDamper.scad>
-use <../vitamins/leadscrew.scad>
+include <../vitamins/bolts.scad>
+include <../vitamins/CorkDamper.scad>
+include <../vitamins/leadscrew.scad>
 
 include <../Parameters_Main.scad>
 

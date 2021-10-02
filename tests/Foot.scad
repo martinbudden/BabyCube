@@ -1,8 +1,8 @@
 //! Display an L-shaped foot
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 
-use <../scad/printed/Foot.scad>
+include <../scad/printed/Foot.scad>
 
 
 //$explode = 1;

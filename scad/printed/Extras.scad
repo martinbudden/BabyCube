@@ -4,24 +4,24 @@ include <../global_defs.scad>
 include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/spools.scad>
 
-use <../utils/bezierTube.scad>
-use <../utils/carriageTypes.scad>
-use <../utils/PrintheadOffsets.scad>
+include <../utils/bezierTube.scad>
+include <../utils/carriageTypes.scad>
+include <../utils/PrintheadOffsets.scad>
 
 use <../vitamins/extruder.scad>
 
 use <LeftAndRightFaces.scad>
-use <SpoolHolder.scad>
+include <SpoolHolder.scad>
 use <X_Carriage.scad>
 
-use <../Parameters_Positions.scad>
 include <../Parameters_Main.scad>
 
 
-module bowdenTube(extraZ=120) {
+module bowdenTube(carriagePosition, extraZ=120) {
+    xCarriageType = xCarriageType(_xCarriageDescriptor);
     explode(120)
         color("White")
-            bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition().x + eSizeX - 6 - xCarriageFrontSize(xCarriageType()).x/2, carriagePosition().y + xCarriageBackOffsetY(xCarriageType()), eZ] + printheadBowdenOffset(), ptfeTube=true, extraZ=extraZ);
+            bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition.x + eSizeX - 6 - xCarriageFrontSize(xCarriageType).x/2, carriagePosition.y + xCarriageBackOffsetY(xCarriageType), eZ] + printheadBowdenOffset(), ptfeTube=true, extraZ=extraZ);
 }
 
 module faceRightSpoolHolder(cf=false) {

@@ -8,9 +8,9 @@ include <NopSCADlib/vitamins/fans.scad>
 include <NopSCADlib/vitamins/rails.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
-use <../utils/ziptieCutout.scad>
+include <../utils/ziptieCutout.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
 use <X_Carriage.scad>
 
@@ -88,7 +88,7 @@ module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, b
             rotate([90, 0, -90])
                 zipTieFullCutout(10);
         // holes for the strain relief clamp
-        /*translate([hotendOffset.x - grooveMountSize.x, xCarriageBackSize(xCarriageType()).x/2 - 2*fillet, hotendOffset.z - grooveMountSize.z/2])
+        /*translate([hotendOffset.x - grooveMountSize.x, xCarriageBackSize(xCarriageType(_xCarriageDescriptor)).x/2 - 2*fillet, hotendOffset.z - grooveMountSize.z/2])
             for (x = [4, 14])
                 translate([x, grooveMountSize.y, grooveMountSize.z/2])
                     rotate([90, 90, 0])

@@ -5,8 +5,9 @@ use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/utils/hanging_hole.scad>
 include <NopSCADlib/vitamins/belts.scad>
 include <NopSCADlib/vitamins/rails.scad>
+use <NopSCADlib/vitamins/pcb.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 include <../vitamins/pcbs.scad>
 
 

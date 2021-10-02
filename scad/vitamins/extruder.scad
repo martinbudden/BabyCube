@@ -9,7 +9,7 @@ include <NopSCADlib/vitamins/pulleys.scad>
 include <NopSCADlib/vitamins/springs.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
-use <CorkDamper.scad>
+include <CorkDamper.scad>
 
 extruder_spring  = ["spring", 8, 0.9, 21, 10, 1, false, 0, "silver"];
 extruder_pulley  = ["pulley", "EP", 16, 9.35, GT2x6, 3.5, 8, 9.5, 5, 8, 0.5, 0, 0, false, 0];

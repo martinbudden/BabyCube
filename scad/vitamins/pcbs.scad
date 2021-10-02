@@ -1,5 +1,4 @@
-include <NopSCADlib/core.scad>
-include <NopSCADlib/vitamins/pcbs.scad>
+include <NopSCADlib/utils/core/core.scad>
 
 
 ADXL345  = [
@@ -31,7 +30,7 @@ RPI3A_plus =  ["RPI3A+", "Raspberry Pi 3A+",
     ],
     [ // components
         [32.5, -3.5,   0, "2p54header", 20, 2],
-        [27,   -24.6,  0, "chip",       14, 14, 1, silver*0.8], 
+        [27,   -24.6,  0, "chip",       14, 14, 1, silver*0.8],
         [-6.5, -23.6,  0, "usb_A"],
         [53.5,   6,  -90, "jack"],
         [32,   4.4,  -90, "hdmi"],

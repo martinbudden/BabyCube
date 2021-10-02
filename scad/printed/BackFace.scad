@@ -8,22 +8,20 @@ include <NopSCADlib/vitamins/sk_brackets.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
-use <../utils/bezierTube.scad>
-use <../utils/carriageTypes.scad>
-use <../utils/cutouts.scad>
-use <../utils/diagonal.scad>
-use <../utils/HolePositions.scad>
-use <../utils/PrintHeadOffsets.scad>
-use <../utils/motorTypes.scad>
+include <../utils/bezierTube.scad>
+include <../utils/carriageTypes.scad>
+include <../utils/cutouts.scad>
+include <../utils/diagonal.scad>
+include <../utils/HolePositions.scad>
+include <../utils/PrintHeadOffsets.scad>
+include <../utils/motorTypes.scad>
 
-use <../vitamins/bolts.scad>
-use <../vitamins/cables.scad>
+include <../vitamins/bolts.scad>
+include <../vitamins/cables.scad>
 
 use <X_Carriage.scad>
-use <Z_MotorMount.scad>
+include <Z_MotorMount.scad>
 
-use <../Parameters_CoreXY.scad>
-use <../Parameters_Positions.scad>
 include <../Parameters_Main.scad>
 
 
@@ -71,10 +69,11 @@ module backFaceCableTies() {
                         cable_tie(cable_r=printheadWireRadius() + 0.5, thickness=_backPlateThickness);
 }
 
-module printheadWiring() {
+module printheadWiring(carriagePosition) {
     vitamin(str(": Spiral wrap, 500mm"));
 
-    endPos = [carriagePosition().x + eSizeX - 6 - xCarriageFrontSize(xCarriageType()).x/2, carriagePosition().y + xCarriageBackOffsetY(xCarriageType()), eZ] + printheadWiringOffset();
+    xCarriageType = xCarriageType(_xCarriageDescriptor);
+    endPos = [carriagePosition.x + eSizeX - 6 - xCarriageFrontSize(xCarriageType).x/2, carriagePosition.y + xCarriageBackOffsetY(xCarriageType), eZ] + printheadWiringOffset();
     zp = zipTiePositions;
     y = eY + 2*eSizeY - printheadWireRadius();
     p = [

@@ -4,7 +4,7 @@ include <NopSCADlib/utils/core/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 use <../vitamins/XT_Connectors.scad>
 
 use <LeftAndRightFaces.scad>

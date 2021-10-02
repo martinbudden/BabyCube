@@ -1,11 +1,7 @@
-include <../global_defs.scad>
-
 include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/rails.scad>
 
-use <../vitamins/bolts.scad>
-
-use <carriageTypes.scad>
+include <../vitamins/bolts.scad>
 
 use <../Parameters_CoreXY.scad>
 include <../Parameters_Main.scad>
@@ -21,12 +17,12 @@ module xRailCarriagePosition(carriagePosition, rotate=0) {
             children();
 }
 
-module xRail(carriagePosition, xCarriageType, xRailLength) {
+module xRail(carriagePosition, xCarriageType, xRailLength, yCarriageType) {
     assert(is_list(xCarriageType));
     xRailType = carriage_rail(xCarriageType);
     assert(is_list(xRailType));
 
-    translate([eSizeX + eX/2, carriagePosition.y, eZ - yRailSupportThickness() - carriage_height(yCarriageType())]) {
+    translate([eSizeX + eX/2, carriagePosition.y, eZ - yRailSupportThickness() - carriage_height(yCarriageType)]) {
         railOffsetX = yRailOffset(_xyNEMA_width).x;
         tongueOffset = (eX + 2*eSizeX - xRailLength -2*railOffsetX)/2;
         posX = carriagePosition.x - tongueOffset - xRailLength/2;

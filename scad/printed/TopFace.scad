@@ -7,16 +7,15 @@ include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/sheets.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
-use <../utils/carriageTypes.scad>
-use <../utils/cutouts.scad>
-use <../utils/HolePositions.scad>
+include <../utils/carriageTypes.scad>
+include <../utils/cutouts.scad>
+include <../utils/HolePositions.scad>
 include <../utils/motorTypes.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
 use <XY_IdlerBracket.scad>
 
-use <../Parameters_CoreXY.scad>
 include <../Parameters_Main.scad>
 
 
@@ -128,8 +127,9 @@ module motorAccessHolePositions(NEMA_type, n = 3) {
     assert(isNEMAType(NEMA_type));
 
     NEMA_width = NEMA_width(NEMA_type);
-    for (x = [coreXYPosBL(NEMA_width, yCarriageType()).x + coreXY_drive_pulley_x_alignment(coreXY_type()), coreXYPosTR(NEMA_width, yCarriageType()).x - coreXY_drive_pulley_x_alignment(coreXY_type())])
-        translate([x, coreXYPosTR(NEMA_width, yCarriageType()).y])
+    yCarriageType = yCarriageType(_yCarriageDescriptor);
+    for (x = [coreXYPosBL(NEMA_width, yCarriageType).x + coreXY_drive_pulley_x_alignment(coreXY_type()), coreXYPosTR(NEMA_width, yCarriageType).x - coreXY_drive_pulley_x_alignment(coreXY_type())])
+        translate([x, coreXYPosTR(NEMA_width, yCarriageType).y])
             if (x < eX/2)
                 NEMA_screw_positions(NEMA_type, n)
                     children();
@@ -188,10 +188,11 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, cn
 
 module topFaceRailHolePositions(NEMA_width) {
     railOffset = yRailOffset(NEMA_width);
+    yRailType = yRailType(_yCarriageDescriptor);
     for (x = [railOffset.x, eX + 2*eSizeX - railOffset.x])
         translate([x, railOffset.y, 0])
             rotate(90)
-                rail_hole_positions(yRailType(), _yRailLength, first = 0, screws = rail_holes(yRailType(), _yRailLength))
+                rail_hole_positions(yRailType, _yRailLength, first = 0, screws = rail_holes(yRailType, _yRailLength))
                     children();
 }
 

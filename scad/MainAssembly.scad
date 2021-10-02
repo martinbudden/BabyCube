@@ -6,14 +6,13 @@ use <printed/BackFace.scad>
 use <printed/BackFaceAssemblies.scad>
 use <printed/Base.scad>
 use <printed/DisplayHousingAssemblies.scad>
-use <printed/Extras.scad>
+include <printed/Extras.scad>
 use <printed/FrontChords.scad>
 use <printed/LeftAndRightFaceAssemblies.scad>
 use <printed/PrintheadAssemblies.scad>
 use <printed/TopFaceAssemblies.scad>
 use <printed/X_CarriageAssemblies.scad>
 
-use <utils/carriageTypes.scad>
 use <utils/CoreXYBelts.scad>
 use <utils/HolePositions.scad>
 
@@ -160,7 +159,7 @@ staged_assembly("Stage_5", big=true, ngb=true) {
         printheadBeltSide();
     }
     if (!exploded())
-        printheadWiring();
+        printheadWiring(carriagePosition());
 }
 
 module FinalAssembly() {
@@ -172,7 +171,7 @@ module FinalAssembly() {
             Stage_5_assembly();
 
             printheadHotendSide();
-            bowdenTube();
+            bowdenTube(carriagePosition());
             faceRightSpoolHolder();
             faceRightSpool();
         }

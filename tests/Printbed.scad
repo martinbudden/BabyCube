@@ -1,6 +1,6 @@
 //! Display the print bed
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 
 use <../scad/printed/Printbed.scad>
 use <../scad/printed/Printbed3point.scad>

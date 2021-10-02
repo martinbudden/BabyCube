@@ -1,8 +1,6 @@
 include <NopSCADlib/utils/core/core.scad>
 use <NopSCADlib/utils/sweep.scad>
 
-leadscrewColor = grey(70);
-
 module leadscrewX(diameter, length, p, center=true) {//! Draw a leadscrew with the specified length, diameter and pitch
     vitamin(str("leadscrewX(", diameter, ", ", length, ") : Leadscrew ", diameter, "mm x ", length, "mm"));
 
@@ -13,7 +11,7 @@ module leadscrewX(diameter, length, p, center=true) {//! Draw a leadscrew with t
         diameter <= 10 ? diameter - pitch - 0.5 :
         diameter - pitch - 0.75;
 
-    color(leadscrewColor) {
+    color(grey(70)) {
         cylinder(d=minorDiameter, h=length, center=center);
         translate_z((center ? -length/2 : 0) + pitch/4) { // additional pitch/4 elevation so thread does not protrude from bottom of rod
             // set up a square profile for the thread

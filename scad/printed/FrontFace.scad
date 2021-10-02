@@ -6,10 +6,10 @@ include <NopSCADlib/vitamins/displays.scad>
 include <NopSCADlib/vitamins/rockers.scad>
 include <NopSCADlib/vitamins/sheets.scad>
 
-use <../utils/cutouts.scad>
-use <../utils/HolePositions.scad>
+include <../utils/cutouts.scad>
+include <../utils/HolePositions.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
 use <DisplayHousing.scad>
 use <DisplayHousingAssemblies.scad>

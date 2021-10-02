@@ -11,7 +11,7 @@ include <NopSCADlib/vitamins/screws.scad>
 use <NopSCADlib/vitamins/sheet.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
 include <Printbed.scad>
 use <Z_carriage.scad>

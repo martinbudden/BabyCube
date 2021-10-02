@@ -1,7 +1,7 @@
 //! Display a shaft coupling
 
-include <NopSCADlib/core.scad>
-use <../scad/printed/ShaftCoupling.scad>
+include <NopSCADlib/utils/core/core.scad>
+include <../scad/printed/ShaftCoupling.scad>
 
 
 //$explode = 1;

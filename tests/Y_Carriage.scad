@@ -9,9 +9,8 @@ use <../scad/printed/Y_Carriage.scad>
 use <../scad/printed/Y_CarriageAssemblies.scad>
 
 use <../scad/utils/CoreXYBelts.scad>
-use <../scad/utils/carriageTypes.scad>
+include <../scad/utils/carriageTypes.scad>
 
-use <../scad/Parameters_CoreXY.scad>
 use <../scad/Parameters_Positions.scad>
 include <../scad/Parameters_Main.scad>
 
@@ -30,25 +29,26 @@ module Y_Carriage_test1() {
 
     //Y_Carriage_Left_AL_dxf();
     Y_Carriage_Left_stl();
-    //Y_Carriage_hardware(yCarriageType(), yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=true);
+    yCarriageType = yCarriageType(_yCarriageDescriptor);
+    //Y_Carriage_hardware(yCarriageType, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=true);
     idlerHeight = pulley_height(coreXY_toothed_idler(coreXY_type()));
     if (yCarriageBraceThickness())
         translate_z(yCarriageThickness() + pulleyStackHeight(idlerHeight) + eps)
             Y_Carriage_Brace_Left_stl();
-    *translate_z(-carriage_height(yCarriageType()))
+    *translate_z(-carriage_height(yCarriageType))
         rotate(90)
-            carriage(yCarriageType());
+            carriage(yCarriageType);
 
     translate([100, 0, 0]) rotate(180) {
         //Y_Carriage_Right_AL_dxf();
         Y_Carriage_Right_stl();
-        //Y_Carriage_hardware(yCarriageType(), yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=false);
+        //Y_Carriage_hardware(yCarriageType, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=false);
         if (yCarriageBraceThickness())
             translate_z(yCarriageThickness() + pulleyStackHeight(idlerHeight) + 2*eps)
                 Y_Carriage_Brace_Right_stl();
-        *translate_z(-carriage_height(yCarriageType()))
+        *translate_z(-carriage_height(yCarriageType)))
             rotate(90)
-                carriage(yCarriageType());
+                carriage(yCarriageType);
     }
 
     *translate([0, 80, 0]) {

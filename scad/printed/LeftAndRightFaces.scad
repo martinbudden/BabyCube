@@ -6,20 +6,19 @@ include <NopSCADlib/vitamins/stepper_motors.scad>
 include <NopSCADlib/vitamins/rockers.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
-use <../utils/carriageTypes.scad>
-use <../utils/cutouts.scad>
-use <../utils/diagonal.scad>
-use <../utils/HolePositions.scad>
+include <../utils/carriageTypes.scad>
+include <../utils/cutouts.scad>
+include <../utils/diagonal.scad>
+include <../utils/HolePositions.scad>
 include <../utils/motorTypes.scad>
 
-use <../vitamins/bolts.scad>
-use <../vitamins/inserts.scad>
+include <../vitamins/bolts.scad>
+include <../vitamins/inserts.scad>
 
 use <SwitchShroud.scad>
 use <XY_MotorMount.scad>
 use <XY_IdlerBracket.scad>
 
-use <../Parameters_CoreXY.scad>
 include <../Parameters_Main.scad>
 
 
@@ -56,10 +55,11 @@ module leftFace(NEMA_type) {
             frame(NEMA_type, left=true);
             webbingLeft(NEMA_type);
             NEMA_width = NEMA_width(NEMA_type);
-            translate([0, coreXYPosBL(NEMA_width, yCarriageType()).z + coreXYSeparation().z, 0])
+            coreXYPosBL = coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor));
+            translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
                 XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, 0);
             // add a support for the camera
-            translate([0, coreXYPosBL(NEMA_width, yCarriageType()).z - coreXYSeparation().z, 0])
+            translate([0, coreXYPosBL.z - coreXYSeparation().z, 0])
                 translate([3, -5, eSizeX])
                     rotate([90, 0, 0])
                         right_triangle(9, 9, 20, center=false);
@@ -98,8 +98,9 @@ module rightFace(NEMA_type) {
                     frame(NEMA_type, left=false);
                     webbingRight(NEMA_type);
                     NEMA_width = NEMA_width(NEMA_type);
-                    translate([0, coreXYPosBL(NEMA_width, yCarriageType()).z + coreXYSeparation().z, 0])
-                        XY_IdlerBracket(coreXYPosBL(NEMA_width, yCarriageType()), NEMA_width);
+                    coreXYPosBL = coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor));
+                    translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
+                        XY_IdlerBracket(coreXYPosBL, NEMA_width);
                     XY_MotorUpright(NEMA_type, left=false);
                 }
                 /*translate([0, eZ - _topPlateThickness, eX + 2*eSizeX])
@@ -266,7 +267,7 @@ module webbingRight(NEMA_type) {
 motorUprightWidth = max(10, eSizeY); // make sure at least 10 wide, to accept inserts
 
 module motorUpright(NEMA_width, left) {
-    //uprightTopZ = coreXYPosBL(NEMA_width, yCarriageType()).z - (left ? coreXYSeparation().z : 0);
+    //uprightTopZ = coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor)).z - (left ? coreXYSeparation().z : 0);
     uprightTopZ = xyMotorPosition(NEMA_width, left).z + 2*fillet;
     uprightPosZ = middleWebOffsetZ() + eSizeZ - 2*fillet;
     upperFillet = 1.5;
@@ -289,9 +290,10 @@ module idlerUpright(NEMA_width, left) {
     translate([0, middleWebOffsetZ(), 0])
         rounded_cube_xy([idlerBracketSize.x, eZ - middleWebOffsetZ() - _topPlateThickness, eSizeX], fillet);
     // idler upright reinforcement to stop front face shear
+    coreXYPosBL = coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor));
     translate([0, eSizeZ, 0])
-        rounded_cube_xy([frontReinforcementThickness(), coreXYPosBL(NEMA_width, yCarriageType()).z - coreXYSeparation().z/2 - idlerBracketSize.y - eSizeZ, idlerBracketSize.z], fillet);
-    translate([frontReinforcementThickness(), coreXYPosBL(NEMA_width, yCarriageType()).z - idlerBracketSize.x - 2, 0])
+        rounded_cube_xy([frontReinforcementThickness(), coreXYPosBL.z - coreXYSeparation().z/2 - idlerBracketSize.y - eSizeZ, idlerBracketSize.z], fillet);
+    translate([frontReinforcementThickness(), coreXYPosBL.z - idlerBracketSize.x - 2, 0])
         rotate(270)
             fillet(1.5, idlerBracketSize.z);
     translate([0, eZ - eSizeZ - 5, 0]) {

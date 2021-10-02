@@ -5,15 +5,15 @@ include <NopSCADlib/vitamins/blowers.scad>
 include <NopSCADlib/vitamins/rails.scad>
 
 use <../scad/printed/Base.scad>
-use <../scad/printed/Extras.scad>
-use <../scad/printed/Printhead.scad>
+include <../scad/printed/Extras.scad>
+include <../scad/printed/Printhead.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 
-use <../scad/utils/carriageTypes.scad>
+include <../scad/utils/carriageTypes.scad>
 use <../scad/utils/CoreXYBelts.scad>
-use <../scad/utils/printParameters.scad>
+include <../scad/utils/printParameters.scad>
 use <../scad/utils/X_rail.scad>
 
 use <../scad/Parameters_CoreXY.scad>
@@ -24,7 +24,7 @@ include <../scad/Parameters_Main.scad>
 //$pose = 1;
 module Printhead_test() {
     echoPrintSize();
-    xCarriageType = xCarriageType();
+    xCarriageType = xCarriageType(_xCarriageDescriptor);
     echo(coreXYSeparation=coreXYSeparation());
 
     //let($hide_bolts=true)
@@ -33,10 +33,10 @@ module Printhead_test() {
         printheadBeltSide();
         printheadHotendSide();
         CoreXYBelts(carriagePosition(), x_gap=2);
-        xRail(carriagePosition(), xCarriageType(), _xRailLength);
-        bowdenTube();
+        xRail(carriagePosition(), xCarriageType, _xRailLength, yCarriageType(_yCarriageDescriptor));
+        bowdenTube(carriagePosition());
         //Back_Face_assembly();
-        //printheadWiring();
+        //printheadWiring(carriagePosition());
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();

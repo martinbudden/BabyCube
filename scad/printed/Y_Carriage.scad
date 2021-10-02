@@ -8,7 +8,7 @@ include <NopSCADlib/vitamins/pulleys.scad>
 include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/screws.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
 
 function isMGN9C(carriageType) = carriageType[0] == MGN9C_carriage[0];

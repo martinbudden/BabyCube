@@ -1,6 +1,6 @@
 //! Display the front face
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 
 use <../scad/printed/FrontFace.scad>
 use <../scad/printed/FrontChords.scad>

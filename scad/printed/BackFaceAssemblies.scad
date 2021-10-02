@@ -8,16 +8,16 @@ include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <NopSCADlib/vitamins/pcb.scad>
 
-use <../utils/cutouts.scad>
-use <../utils/HolePositions.scad>
+include <../utils/cutouts.scad>
+include <../utils/HolePositions.scad>
 
-use <../vitamins/bolts.scad>
-use <../vitamins/cables.scad>
+include <../vitamins/bolts.scad>
+include <../vitamins/cables.scad>
 
 use <BackFace.scad>
 use <Printbed.scad>
 use <Printbed3point.scad>
-use <Z_MotorMount.scad>
+include <Z_MotorMount.scad>
 
 use <../Parameters_CoreXY.scad>
 use <../Parameters_Positions.scad>

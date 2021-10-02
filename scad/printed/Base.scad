@@ -9,12 +9,12 @@ include <NopSCADlib/vitamins/pcbs.scad>
 include <NopSCADlib/vitamins/pillar.scad>
 use <NopSCADlib/vitamins/sheet.scad>
 
-use <../utils/HolePositions.scad>
+include <../utils/HolePositions.scad>
 
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 include <../vitamins/pcbs.scad>
 
-use <Foot.scad>
+include <Foot.scad>
 include <../Parameters_Main.scad>
 
 

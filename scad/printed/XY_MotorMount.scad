@@ -7,14 +7,13 @@ include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 include <NopSCADlib/vitamins/pulleys.scad>
 
-use <../utils/carriageTypes.scad>
-use <../utils/HolePositions.scad>
+include <../utils/carriageTypes.scad>
+include <../utils/HolePositions.scad>
 include <../utils/motorTypes.scad>
 
-use <../vitamins/bolts.scad>
-use <../vitamins/CorkDamper.scad>
+include <../vitamins/bolts.scad>
+include <../vitamins/CorkDamper.scad>
 
-use <../Parameters_CoreXY.scad>
 include <../Parameters_Main.scad>
 
 
@@ -43,13 +42,13 @@ function XY_MotorMountSize(NEMA_width, basePlateThickness=basePlateThickness, cf
 function xyMotorPosition(NEMA_width, left) = [
     eX + 2*eSizeX - coreXYPosTR(NEMA_width).x + coreXY_drive_pulley_x_alignment(coreXY_type()),
     coreXYPosTR(NEMA_width).y,
-    coreXYPosBL(NEMA_width, yCarriageType()).z - motorClearance().z - pulleyOffset - (left ? coreXYSeparation().z/2 : -coreXYSeparation().z/2)
+    coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor)).z - motorClearance().z - pulleyOffset - (left ? coreXYSeparation().z/2 : -coreXYSeparation().z/2)
 ];
 
 
 /*function xyMotorPosition(NEMA_width, left) = [
     coreXYPosTR(NEMA_width).y,
-    coreXYPosBL(NEMA_width, yCarriageType()).z - pulleyOffset + (left ? -coreXYSeparation().z/2 : coreXYSeparation().z/2) - motorClearance().z,
+    coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor)).z - pulleyOffset + (left ? -coreXYSeparation().z/2 : coreXYSeparation().z/2) - motorClearance().z,
     eX + 2*eSizeX - coreXYPosTR(NEMA_width).x + coreXY_drive_pulley_x_alignment(coreXY_type())
 ];*/
 
@@ -129,7 +128,7 @@ assembly("XY_Motor_Mount_Right", big=true, ngb=true) {
 }
 
 module XY_MotorPosition(NEMA_width, left=true) {
-    //offset = eZ - coreXYPosBL(NEMA_width, yCarriageType()).z + basePlateThickness + (left ? 0 : coreXYSeparation().z);
+    //offset = eZ - coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor)).z + basePlateThickness + (left ? 0 : coreXYSeparation().z);
     rotate([-90, -90, 0])
         translate(xyMotorPosition(NEMA_width, left))
             children();
@@ -178,11 +177,12 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
     difference() {
         // baseplate for motor with cutouts
         union() {
+            yRailType = yRailType(_yCarriageDescriptor);
             translate([-NEMA_width/2 - motorClearance().x + _sidePlateThickness, NEMA_width/2 + motorClearance().y - size.y, 0]) {
                 if (cf) {
                     rounded_cube_xy(size + [0, offsetY*2, 0], fillet);
                     translate([0, size.y - backBraceThickness, 0]) {
-                        rounded_cube_xy([size.x, backBraceThickness, braceHeight - rail_height(yRailType()) - 1], fillet);
+                        rounded_cube_xy([size.x, backBraceThickness, braceHeight - rail_height(yRailType) - 1], fillet);
                         // small cube for back face boltholes
                         rounded_cube_xy([10, backBraceThickness, braceHeight], fillet);
                     }
@@ -191,7 +191,7 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
                     translate([0, size.y - backBraceThickness, 0]) {
                         rounded_cube_yz([NEMA_type == NEMA14T() ? size.x :  32.5 + motorClearance().x - _sidePlateThickness,
                                         backBraceThickness,
-                                        _fullLengthYRail ? braceHeight - rail_height(yRailType()) - 1 : braceHeight], fillet);
+                                        _fullLengthYRail ? braceHeight - rail_height(yRailType) - 1 : braceHeight], fillet);
                         if (NEMA_type == NEMA17M)
                             rounded_cube_yz([size.x, backBraceThickness, 18], fillet);
                         // small cube for back face boltholes

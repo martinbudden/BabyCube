@@ -1,6 +1,6 @@
 //! Display the main assembly in carbon fiber
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 
 use <../scad/printed/Base.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
@@ -8,8 +8,8 @@ use <../scad/printed/FrontFace.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
 
-use <../scad/utils/printParameters.scad>
-use <../scad/utils/printParameters.scad>
+include <../scad/utils/printParameters.scad>
+include <../scad/utils/printParameters.scad>
 
 use <../scad/Main.scad>
 use <../scad/MainCF.scad>

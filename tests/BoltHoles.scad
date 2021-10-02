@@ -1,6 +1,6 @@
 //! Display the the boltholes, to check if they meet
 
-include <NopSCADlib/core.scad>
+include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 include <NopSCADlib/vitamins/screws.scad>
 
@@ -12,7 +12,7 @@ use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/TopFace.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 
-use <../scad/utils/HolePositions.scad>
+include <../scad/utils/HolePositions.scad>
 
 use <../scad/vitamins/bolts.scad>
 

@@ -1,11 +1,6 @@
 //! Display the front chords
 
-use <../scad/printed/Base.scad>
 use <../scad/printed/FrontChords.scad>
-use <../scad/printed/XY_IdlerBracket.scad>
-
-use <../scad/Parameters_CoreXY.scad>
-include <../scad/Parameters_Main.scad>
 
 
 //$explode = 1;
