@@ -143,7 +143,7 @@ module xCarriageBeltAttachment(sizeZ, extraX=0, boltCutout=false, endCube=true) 
     size = xCarriageBeltAttachmentSize(sizeZ) - [0, toothHeight, 0];
     cutoutSize = [xCarriageBeltTensionerSize().z + 0.55, xCarriageBeltTensionerSize().y + 0.6];
     //assert(cutoutSize==[7.75, 10.75]);
-    endCubeSize = [9, 5, 12];
+    endCubeSize = [9, 4, 12];
     toothCount = floor(size.z/2) - 1;
 
     difference() {

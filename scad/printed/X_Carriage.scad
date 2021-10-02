@@ -47,7 +47,7 @@ function xCarriageHolePositions(sizeX, spacing) = [(sizeX - spacing)/2, (sizeX +
 evaHoleSeparationTop = 34;
 function xCarriageHoleSeparationTop(xCarriageType) = xCarriageType[0] == "MGN9C" ? 22 : evaHoleSeparationTop; //45.4 - 8
 function xCarriageHoleSeparationBottom(xCarriageType) = xCarriageType[0] == "MGN9C" ? 22 : 38;//34;//37.4; //45.4 - 8
-function xCarriageBeltAttachmentMGN9CExtraX() = 8;
+function xCarriageBeltAttachmentMGN9CExtraX() = 4;
 
 module xCarriageTop(xCarriageType, xCarriageBackSize, holeSeparationTop, reflected=false, clamps=true, strainRelief=false, countersunk=4, topHoleOffset=0, holeOffset=0, accelerometerOffset=undef) {
     assert(is_list(xCarriageType));
