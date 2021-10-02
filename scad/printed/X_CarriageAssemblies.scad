@@ -54,7 +54,7 @@ assembly("X_Carriage_Belt_Side_MGN9C") {
         stl_colour(pp4_colour)
             X_Carriage_Belt_Side_MGN9C_stl();
 
-    offset = xCarriageBeltTensionerSizeX - 0.5;
+    offset = xCarriageBeltTensionerSizeX - 8.5 + xCarriageBeltAttachmentMGN9CExtraX();
     boltLength = 30;
     translate([offset, -3.4, -27]) {
         rotate([0, 0, 180]) {
