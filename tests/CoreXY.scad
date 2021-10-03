@@ -92,7 +92,9 @@ assembly("XY_Idler_Left") {
 
     rotate([90, 0, 90]) {
         coreXYPosBL = coreXYPosBL(_xyNEMA_width, yCarriageType(_yCarriageDescriptor));
-        XY_IdlerBracket(coreXYPosBL, _xyNEMA_width);
+        translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
+            stl_colour(pp1_colour)
+                XY_IdlerBracket(coreXYPosBL, _xyNEMA_width);
         XY_IdlerBracketHardware(coreXYPosBL);
     }
 }
@@ -104,7 +106,9 @@ assembly("XY_Idler_Right") {
         rotate([90, 0, 90])
             mirror([0, 0, 1]) {
                 coreXYPosBL = coreXYPosBL(_xyNEMA_width, yCarriageType(_yCarriageDescriptor));
-                XY_IdlerBracket(coreXYPosBL, _xyNEMA_width);
+                translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
+                    stl_colour(pp1_colour)
+                        XY_IdlerBracket(coreXYPosBL, _xyNEMA_width);
                 XY_IdlerBracketHardware(coreXYPosBL);
             }
 }
