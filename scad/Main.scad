@@ -1,7 +1,7 @@
 //!# BabyCube Assembly Instructions
 //!
 //!These are the assembly instructions for the BabyCube. These instructions are not fully comprehensive, that is they do
-//!not show every small detail of the construction and in particular they do not show the wiring. However there is sufficient
+//!not show every small detail of the construction, and in particular they do not show the wiring. However there is sufficient
 //!detail that someone with a good understanding of 3D printers can build the BabyCube.
 //!
 //!![Main Assembly](assemblies/main_assembled.png)
@@ -20,7 +20,7 @@
 //!### Parts in proximity to heat sources
 //!
 //!A number of parts are in proximity with heat sources, namely the hotend, the heated bed and the motors. Ideally these should be
-//!printed in ABS, but I have used PETG with some success.  These parts are insulated from direct contact with the heat sources, by
+//!printed in ABS, but I have used successfully used PETG.  These parts are insulated from direct contact with the heat sources, by
 //!O-rings and cork underlay (for the heated bed) and by cork dampers (for the motors). These insulators should not be omitted from the build.
 //!
 //!### Small parts
@@ -45,9 +45,8 @@
 //!the second and third layers are structural layers).
 //!6. Grid infill at 30%. I find that honeycomb infill, although stronger, is more prone to warping. 30% is used to enable the
 //!part cooling fan to be switched off (see tips below).
-//!7. Brim width 3mm
-//!8. First layer speed 25mm/s
-//!9. If using a standard E3D v6 hotend (ie not a Volcano or other high-volume hotend) set the max volumetric speed to 14mm<sup>3</sup>/s for PLA, 11mm<sup>3</sup>/s for ABS,
+//!7. First layer speed 25mm/s
+//!8. If using a standard E3D v6 hotend (ie not a Volcano or other high-volume hotend) set the max volumetric speed to 14mm<sup>3</sup>/s for PLA, 11mm<sup>3</sup>/s for ABS,
 //! or 8mm<sup>3</sup>/s for PETG
 //!
 //!
@@ -58,7 +57,7 @@
 //!bridges for the motor mounts and switch mounts, since there are no overhangs and the small bolt holes bridge fine without part
 //!cooling.
 //!2. raise the temperature of the heated bed.
-//!3. increase the width of the brim
+//!3. add a brim
 //!
 //!
 //!## Part substitutions
