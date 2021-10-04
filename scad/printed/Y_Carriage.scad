@@ -37,7 +37,7 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
     plainIdlerHeight = idlerHeight;
     toothedIdlerHeight = idlerHeight;
 
-    fillet = 1.5;
+    fillet = isMGN9C(yCarriageType) ? 1.5 : 2.5;
     blockOffset = [0, blockOffsetX];
     assert(blockOffset.x == 0);
 
@@ -128,7 +128,13 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
                 } else {
                     translate([0, topInset, 0]) {
                         sizeY = blockSize.y/2 + tongueSize.y/2 + blockOffset.y - topInset;
-                        rounded_cube_xy([blockSize.x, blockSize.y - topInset, blockSize.z], fillet);
+                        difference() {
+                            rounded_cube_xy([blockSize.x, blockSize.y - topInset, blockSize.z], fillet);
+                            if (!isMGN9C(yCarriageType))
+                                translate([blockSize.x, blockSize.y, -eps])
+                                    rotate(180)
+                                        fillet(5, blockSize.z + 2*eps);
+                        }
                         *rounded_cube_xy([blockSize.x + endstopX, blockSize.y/2 - topInset, blockSize.z], fillet);
                         rounded_cube_xy([blockSize.x + endstopX, sizeY, blockSize.z], fillet);
                         if (isMGN9C(yCarriageType))
