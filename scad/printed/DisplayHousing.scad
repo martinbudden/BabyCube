@@ -52,17 +52,17 @@ module knob(d, h) {
     // knob
     ringThickness = 1;
     color(grey(20)) {
-        cylinder(d = d-ringThickness, h = h);
-        cylinder(d = d, h = h-ringThickness);
+        cylinder(d=d-ringThickness, h=h);
+        cylinder(d=d, h=h-ringThickness);
     }
     color(silver) translate_z(h-ringThickness) {
-        tube(or = d/2, ir = (d-ringThickness)/2, h = ringThickness, center = false);
+        tube(or=d/2, ir=(d-ringThickness)/2, h=ringThickness, center=false);
         rotate(45) {
             markOffset = 6;
             translate([markOffset, -0.5, 0])
                 cube([d/2 - markOffset-ringThickness/2, 1, ringThickness + eps]);
             translate([markOffset, 0, 0])
-                cylinder(d = 1, h = ringThickness + eps);
+                cylinder(d=1, h=ringThickness + eps);
         }
     }
 }
@@ -109,30 +109,30 @@ module displayHousingFrontCutouts(display_type, cutoutComponents=true) {
     fillet = 1;
 
     translate([-display_pcb_offset(display_type).x, -display_pcb_offset(display_type).y]) {
-        rounded_square([display_size.x + fillet, display_size.y + fillet], fillet, center = true);
+        rounded_square([display_size.x + fillet, display_size.y + fillet], fillet, center=true);
         rb = display_ribbon(display_type);
         if(rb) {
             rbSize = [rb[1].x - rb[0].x, rb[1].y - rb[0].y];
             translate([-(display_size.x + fillet)/2 - rbSize.x, rb[0].y - fillet/2])
-                rounded_square([rbSize.x + 2*fillet, rbSize.y + fillet], fillet, center = false);
+                rounded_square([rbSize.x + 2*fillet, rbSize.y + fillet], fillet, center=false);
         }
     }
 
     displayHousingHolePositions(display_type)
-        poly_circle(r = M3_clearance_radius);
+        poly_circle(r=M3_clearance_radius);
 
     if (cutoutComponents) {
         componentPosition(display_type, "-button_6mm")
-            rounded_square([7, 7], 1, center = true);
+            rounded_square([7, 7], 1, center=true);
         componentPosition(display_type, "-buzzer")
-            poly_circle(r = 5.5);
+            poly_circle(r=5.5);
         componentPosition(display_type, "buzzer")
-            rounded_square([12, 4], 1, center = true);
+            rounded_square([12, 4], 1, center=true);
         componentPosition(display_type, "-potentiometer")
-            rounded_square([13, 13], 1, center = true);
+            rounded_square([13, 13], 1, center=true);
         componentPosition(display_type, "pcb")
             translate(pcb_component_position(pcb_component(display_pcb(display_type), "pcb", 0)[5], "-potentiometer"))
-                rounded_square([30, 15], 1, center = true);
+                rounded_square([30, 15], 1, center=true);
     }
 }
 
@@ -142,47 +142,47 @@ module displayHousingBase(display_type, fillet=2, testLayer=0) {
 
     if (testLayer != 0) {
         echo(displayHousingSize=size);
-        echo(pcbSize = pcb_size(display_pcb(display_type)));
+        echo(pcbSize=pcb_size(display_pcb(display_type)));
         da = display_aperture(display_type);
-        echo(da = da);
-        echo(db = [-da[0].x + da[1].x, -da[0].y+da[1].y]);
+        echo(da=da);
+        echo(db=[-da[0].x + da[1].x, -da[0].y+da[1].y]);
     }
     baseLayerHeight = 0.5;
     solderLayerHeight = 2;
 
     module controlCutouts(display_type) {
         componentPosition(display_type, "-button_6mm")
-            poly_circle(r = 2.5);
+            poly_circle(r=2.5);
         componentPosition(display_type, "-buzzer")
-            circle(r = 1.5);
+            circle(r=1.5);
         componentPosition(display_type, "-potentiometer")
-            rounded_square([13, 13], 1, center = true);
+            rounded_square([13, 13], 1, center=true);
         componentPosition(display_type, "pcb")
             translate(pcb_component_position(pcb_component(display_pcb(display_type), "pcb", 0)[5], "-potentiometer"))
-                circle(r = 4);
+                circle(r=4);
     }
 
     if (testLayer == 0 || testLayer == 1) color("SkyBlue")
     translate_z(-apertureLayerHeight())
         linear_extrude(apertureLayerHeight())
             difference() {
-                rounded_square([size.x, size.y], fillet, center = true);
+                rounded_square([size.x, size.y], fillet, center=true);
 
                 aperture = display_aperture(display_type);
                 pcbOffset = display_pcb_offset(display_type);
                 apertureSize = [aperture[1].x - aperture[0].x + fillet, aperture[1].y - aperture[0].y + fillet];
                 translate([-pcbOffset.x + aperture[0].x - fillet/2, -pcbOffset.y + aperture[0].y - fillet/2])
-                    rounded_square(apertureSize, fillet, center = false);
+                    rounded_square(apertureSize, fillet, center=false);
                 displayHousingHolePositions(display_type)
-                    poly_circle(r = M3_clearance_radius);
+                    poly_circle(r=M3_clearance_radius);
                 controlCutouts(display_type);
             }
 
     if (testLayer == 0 || testLayer == 2) color("Red")
     linear_extrude(baseLayerHeight)
         difference() {
-            rounded_square([size.x, size.y], fillet, center = true);
-            displayHousingFrontCutouts(display_type, cutoutComponents = false);
+            rounded_square([size.x, size.y], fillet, center=true);
+            displayHousingFrontCutouts(display_type, cutoutComponents=false);
             controlCutouts(display_type);
         }
 
@@ -190,24 +190,24 @@ module displayHousingBase(display_type, fillet=2, testLayer=0) {
     translate_z(baseLayerHeight)
         linear_extrude(totalHeight - solderLayerHeight - baseLayerHeight)
             difference() {
-                rounded_square([size.x, size.y], fillet, center = true);
+                rounded_square([size.x, size.y], fillet, center=true);
                 displayHousingFrontCutouts(display_type);
             }
     if (testLayer == 0 || testLayer == 4) color("Yellow")
     translate_z(totalHeight - solderLayerHeight)
         linear_extrude(solderLayerHeight)
             difference() {
-                rounded_square([size.x, size.y], fillet, center = true);
+                rounded_square([size.x, size.y], fillet, center=true);
                 displayHousingFrontCutouts(display_type);
                 // additional cutouts to allow room for the soldering on the board
                 componentPosition(display_type, "-button_6mm")
-                    rounded_square([8, 14], 1, center = true);
+                    rounded_square([8, 14], 1, center=true);
                 componentPosition(display_type, "-buzzer")
-                    rounded_square([2, 14], 0.5, center = true);
+                    rounded_square([2, 14], 0.5, center=true);
                 offsetX = 1;
                 componentPosition(display_type, "-potentiometer")
                     translate([offsetX, 0, 0]) {
-                        rounded_square([17 + 2*offsetX, 16], 1, center = true);
+                        rounded_square([17 + 2*offsetX, 16], 1, center=true);
                         translate([7.5, 8]) {
                             rotate(90)
                                 fillet(2);
@@ -229,13 +229,13 @@ module displayHousingSides(display_type, sideSizeZ, fillet=2) {
     usb_APos = pcb_component_position(display_pcb(display_type), "usb_A");
 
     translate_z(display_thickness(display_type))
-        render(convexity = 2) difference() {
+        render(convexity=2) difference() {
             linear_extrude(sideSizeZ)
                 difference() {
-                    rounded_square([size.x, size.y], fillet, center = true);
-                    rounded_square([pcbSize.x + fillet, pcbSize.y + fillet], fillet, center = true);
+                    rounded_square([size.x, size.y], fillet, center=true);
+                    rounded_square([pcbSize.x + fillet, pcbSize.y + fillet], fillet, center=true);
                     displayHousingHolePositions(display_type)
-                        poly_circle(r = M3_clearance_radius);
+                        poly_circle(r=M3_clearance_radius);
                 }
 
             // cutout for the SD card
@@ -246,37 +246,37 @@ module displayHousingSides(display_type, sideSizeZ, fillet=2) {
                         cube(cutoutSize, center=true);
                         if (uSDPos.x < 0) // cut out the sliver between the uSD and the USB
                             translate([0, -cutoutSize.y/2, 0])
-                                cube([sideThickness + 2, 10, sideSizeZ], center = true);
+                                cube([sideThickness + 2, 10, sideSizeZ], center=true);
                     }
 
                     translate([-size.x/2, -cutoutSize.y/2, 0]) {
                         rotate(-90)
-                            fillet(1, sideSizeZ, center = true);
+                            fillet(1, sideSizeZ, center=true);
                         translate([sideThickness - 0.6, 0, 0])
                             rotate(180)
-                                fillet(1, sideSizeZ, center = true);
+                                fillet(1, sideSizeZ, center=true);
                     }
 
                     translate([-size.x/2, cutoutSize.y/2, 0]) {
-                        fillet(1, sideSizeZ, center = true);
+                        fillet(1, sideSizeZ, center=true);
                         translate([sideThickness - 0.6, 0, 0])
                             rotate(90)
-                                fillet(1, sideSizeZ, center = true);
+                                fillet(1, sideSizeZ, center=true);
                     }
 /*
                     translate([-sideThickness - pcbSize.x/2, -cutoutSize.y/2, 0])
                         rotate(-90)
-                            fillet(1, sideSizeZ, center = true);
+                            fillet(1, sideSizeZ, center=true);
                     translate([-sideThickness - pcbSize.x + (size.x - fillet)/2, -cutoutSize.y/2, 0])
                         rotate(180)
-                            fillet(1, sideSizeZ, center = true);
+                            fillet(1, sideSizeZ, center=true);
 
                     translate([-sideThickness - pcbSize.x/2, cutoutSize.y/2, 0])
                         rotate(0)
-                            fillet(1, sideSizeZ, center = true);
+                            fillet(1, sideSizeZ, center=true);
                     translate([-sideThickness - pcbSize.x + (size.x - fillet)/2, cutoutSize.y/2, 0])
                         rotate(90)
-                            fillet(1, sideSizeZ, center = true);
+                            fillet(1, sideSizeZ, center=true);
 */
                 }
             }
@@ -289,32 +289,32 @@ module displayHousingSides(display_type, sideSizeZ, fillet=2) {
 
                 translate([-size.x/2, -cutoutSize.y/2, 0]) {
                     rotate(-90)
-                        fillet(1, sideSizeZ, center = true);
+                        fillet(1, sideSizeZ, center=true);
                     translate([sideThickness - 0.6, 0, 0])
                         rotate(180)
-                            fillet(1, sideSizeZ, center = true);
+                            fillet(1, sideSizeZ, center=true);
                 }
 
                 translate([-size.x/2, cutoutSize.y/2, 0]) {
-                    fillet(1, sideSizeZ, center = true);
+                    fillet(1, sideSizeZ, center=true);
                     translate([sideThickness - 0.6, 0, 0])
                         rotate(90)
-                            fillet(1, sideSizeZ, center = true);
+                            fillet(1, sideSizeZ, center=true);
                 }
 /*
                 translate([-sideThickness - pcbSize.x/2, -cutoutSize.y/2, 0])
                     rotate(-90)
-                        fillet(1, sideSizeZ, center = true);
+                        fillet(1, sideSizeZ, center=true);
                 translate([-sideThickness - pcbSize.x + (size.x - fillet)/2, -cutoutSize.y/2, 0])
                     rotate(180)
-                        fillet(1, sideSizeZ, center = true);
+                        fillet(1, sideSizeZ, center=true);
 
                 translate([-sideThickness - pcbSize.x/2, cutoutSize.y/2, 0])
                     rotate(0)
-                        fillet(1, sideSizeZ, center = true);
+                        fillet(1, sideSizeZ, center=true);
                 translate([-sideThickness - pcbSize.x + (size.x - fillet)/2, cutoutSize.y/2, 0])
                     rotate(90)
-                        fillet(1, sideSizeZ, center = true);
+                        fillet(1, sideSizeZ, center=true);
 */
             }
         }

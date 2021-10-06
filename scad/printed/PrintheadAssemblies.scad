@@ -151,7 +151,7 @@ module Hotend_Strain_Relief_Clamp_stl() {
                     rounded_square([size.x, size.y], 1.5);
                     for (x = [-holeSpacing/2, holeSpacing/2])
                         translate([x, 0, 0])
-                            poly_circle(r = M3_clearance_radius);
+                            poly_circle(r=M3_clearance_radius);
                 }
 }
 

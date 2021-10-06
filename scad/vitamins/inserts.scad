@@ -20,7 +20,7 @@ module threadedHoleM3(length=0, tolerance=brassKnurlTolerance, useBrass5x5Knurl=
 
 module _threadedInsertM3() {
     boltColorBrass = "#B5A642";
-    if ($preview&&is_undef($hide_bolts)) color(boltColorBrass) insert(F1BM3);
+    if ($preview && is_undef($hide_bolts)) color(boltColorBrass) insert(F1BM3);
 }
 
 module boltHoleM3TapOrInsert(length, useInsert=false, horizontal=false, rotate=0, chamfer=0.5, chamfer_both_ends=false, twist=undef) {

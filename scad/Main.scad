@@ -119,7 +119,7 @@ use <MainAssembly.scad>
 //!2. Connect the Bowden tube.
 //!3. Add the spool holder.
 //!4. Calibrate the printer.
-module main_assembly() pose(a = [55 + 19, 0, 25 - 15])
+module main_assembly() pose(a=[55 + 19, 0, 25 - 15])
 assembly("main", big=true) {
     FinalAssembly();
 }

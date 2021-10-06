@@ -203,7 +203,7 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
         translate_z(-eps)
             rotate(-90)
                 if (cf)
-                    poly_cylinder(r = NEMA_boss_radius(NEMA_type) + 0.5, h = basePlateThickness + 2*eps);
+                    poly_cylinder(r=NEMA_boss_radius(NEMA_type) + 0.5, h = basePlateThickness + 2*eps);
                 else
                     teardrop(basePlateThickness + 2*eps, NEMA_boss_radius(NEMA_type) + 0.5, center=false, chamfer=0.5);
         translate_z(basePlateThickness)
