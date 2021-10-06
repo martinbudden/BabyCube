@@ -30,10 +30,10 @@ module spoolHolderCap(width, length) {
         }
 }
 
-module spoolHolderBracket(size, bracketThickness, topThickness, innerFillet) {
+module spoolHolderBracket(size, bracketThickness, topThickness, innerFillet, catchRadius) {
     interference = 1/16;// so there is some interference fit, to hold the bracket on tighter
     thickness = bracketThickness + interference;
-    linear_extrude(size.z) {
+    #linear_extrude(size.z) {
         difference() {
             square([thickness, size.y]);
             fillet(1);
@@ -42,9 +42,15 @@ module spoolHolderBracket(size, bracketThickness, topThickness, innerFillet) {
                     fillet(1);
         }
         translate([size.x + bracketThickness, 0, 0])
-            difference() {
+            if (catchRadius > 0) {
                 square([bracketThickness, size.y]);
-                fillet(1);
+                translate([0, catchRadius])
+                    circle(r=catchRadius);
+            } else {
+                difference() {
+                    square([bracketThickness, size.y]);
+                    fillet(1);
+                }
             }
     }
     difference() {
@@ -63,7 +69,7 @@ module spoolHolderBracket(size, bracketThickness, topThickness, innerFillet) {
     }
 }
 
-module spoolHolder(bracketSize, offsetX, innerFillet) {
+module spoolHolder(bracketSize, offsetX, innerFillet, catchRadius=0) {
     bracketThickness = 5;
     capPosX = offsetX - bracketThickness;
     size = [capPosX + 80, 20, bracketSize.z];
@@ -71,7 +77,7 @@ module spoolHolder(bracketSize, offsetX, innerFillet) {
 
     translate_z(-size.z/2) {
         translate([-bracketSize.x - bracketThickness, -bracketSize.y, 0])
-            spoolHolderBracket(bracketSize, bracketThickness, clampThickness, innerFillet);
+            spoolHolderBracket(bracketSize, bracketThickness, clampThickness, innerFillet, catchRadius);
         cube([size.x, bracketThickness, size.z]);
         if (capPosX > 0)
             cube([capPosX, clampThickness, size.z]);
