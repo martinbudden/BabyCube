@@ -33,7 +33,7 @@ module spoolHolderCap(width, length) {
 module spoolHolderBracket(size, bracketThickness, topThickness, innerFillet, catchRadius) {
     interference = 1/16;// so there is some interference fit, to hold the bracket on tighter
     thickness = bracketThickness + interference;
-    #linear_extrude(size.z) {
+    linear_extrude(size.z) {
         difference() {
             square([thickness, size.y]);
             fillet(1);
