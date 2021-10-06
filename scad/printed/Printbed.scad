@@ -21,7 +21,7 @@ module drilledBed(size, printBedSize, holeRadius = M3_clearance_radius) {
             rounded_square([size.x, size.y], 2, center=true);
             for (i = heatedBedHoles(printBedSize))
                 translate(i)
-                    circle(r = holeRadius);
+                    circle(r=holeRadius);
         }
 }
 

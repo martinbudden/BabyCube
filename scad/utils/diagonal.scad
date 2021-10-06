@@ -13,21 +13,21 @@ module diagonalDown(rectSize, width, fillet, extend=false) {
                 translate([0, 0])
                     square([fillet, fillet]);
                 translate([fillet, rectSize.y - offset.y])
-                    circle(r = fillet);
+                    circle(r=fillet);
                 translate([rectSize.x - offset.x, fillet])
-                    circle(r = fillet);
+                    circle(r=fillet);
             }
             hull() {
                 translate([rectSize.x-fillet, rectSize.y - fillet + (extend ? offset.y : 0)])
                     square([fillet, fillet]);
                 translate([rectSize.x-fillet, offset.y])
-                    circle(r = fillet);
+                    circle(r=fillet);
                 if (extend)
                     translate([fillet, rectSize.y - fillet + offset.y])
-                        circle(r = fillet);
+                        circle(r=fillet);
                 else
                     translate([offset.x, rectSize.y - fillet])
-                        circle(r = fillet);
+                        circle(r=fillet);
             }
         }
     }

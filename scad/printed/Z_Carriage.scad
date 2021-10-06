@@ -149,10 +149,10 @@ module zCarriage(printBedSize, testing=false) {
         translate_z(-eps) {
             //echo("leadnut_od, coupling_od", leadnut_od(leadnut), sc_diameter(SC_5x8_rigid));
             //grubScrewClearance = 1.0;
-            //poly_cylinder(r = sc_diameter(SC_5x8_rigid)/2 + grubScrewClearance, h = supportSize.z + 2*eps);
-            poly_cylinder(r = leadnut_od(leadnut)/2, h = supportSize.z + 2*eps);
+            //poly_cylinder(r=sc_diameter(SC_5x8_rigid)/2 + grubScrewClearance, h = supportSize.z + 2*eps);
+            poly_cylinder(r=leadnut_od(leadnut)/2, h = supportSize.z + 2*eps);
             translate_z(supportSize.z - leadnutInset)
-                poly_cylinder(r = leadnut_flange_dia(leadnut)/2, h = leadnutInset + 2*eps);
+                poly_cylinder(r=leadnut_flange_dia(leadnut)/2, h = leadnutInset + 2*eps);
             translate_z(-supportSize.z/2)
                 leadnut_screw_positions(leadnut)
                     rotate(27) // rotate the poly cylinders to give a bit more clearance from the center hole

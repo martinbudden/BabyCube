@@ -145,19 +145,19 @@ module leftFaceCF(NEMA_width) {
             translate([-eY - 2*eSizeY, 0])
                 sideFaceBackDogBones(cnc=true);
             switchShroudHolePositions()
-                circle(r = M3_clearance_radius);
+                circle(r=M3_clearance_radius);
             lowerSideJoinerHolePositions()
-                circle(r = M3_clearance_radius);
+                circle(r=M3_clearance_radius);
             upperSideJoinerHolePositions()
-                circle(r = M3_clearance_radius);
+                circle(r=M3_clearance_radius);
             backSideJoinerHolePositions()
-                circle(r = M3_clearance_radius);
+                circle(r=M3_clearance_radius);
             frontSideJoinerHolePositions()
-                circle(r = M3_clearance_radius);
+                circle(r=M3_clearance_radius);
             xyMotorMountHolePositions(NEMA_width, left=true)
-                circle(r = M3_clearance_radius);
+                circle(r=M3_clearance_radius);
             xyIdlerBracketHolePositions(NEMA_width)
-                circle(r = M3_clearance_radius);
+                circle(r=M3_clearance_radius);
         }
     }
 }
@@ -177,24 +177,24 @@ module rightFaceCF(NEMA_width) {
             translate([-eY - 2*eSizeY, 0])
                 sideFaceBackDogBones(cnc=true);
             translate([extruderPosition(NEMA_width).y, extruderPosition(NEMA_width).z]) {
-                circle(r = NEMA_boss_radius(extruderMotorType()) + 0.25);
+                circle(r=NEMA_boss_radius(extruderMotorType()) + 0.25);
                 // extruder motor bolt holes
                 NEMA_screw_positions(extruderMotorType())
-                    circle(r = M3_clearance_radius);
+                    circle(r=M3_clearance_radius);
             }
             spoolHolderCutout(NEMA_width, cnc=true);
             lowerSideJoinerHolePositions()
-                circle(r = M3_clearance_radius);
+                circle(r=M3_clearance_radius);
             upperSideJoinerHolePositions()
-                circle(r = M3_clearance_radius);
+                circle(r=M3_clearance_radius);
             backSideJoinerHolePositions()
-                circle(r = M3_clearance_radius);
+                circle(r=M3_clearance_radius);
             frontSideJoinerHolePositions()
-                circle(r = M3_clearance_radius);
+                circle(r=M3_clearance_radius);
             xyMotorMountHolePositions(NEMA_width, left=false)
-                circle(r = M3_clearance_radius);
+                circle(r=M3_clearance_radius);
             xyIdlerBracketHolePositions(NEMA_width)
-                circle(r = M3_clearance_radius);
+                circle(r=M3_clearance_radius);
         }
     }
 }

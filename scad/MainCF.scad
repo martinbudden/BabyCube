@@ -11,7 +11,7 @@ use <MainAssemblyCF.scad>
 //! Add the printhead
 //! Thread the belts
 //
-module BC200CF_assembly() pose(a = [55, 0, 25])
+module BC200CF_assembly() pose(a=[55, 0, 25])
 assembly("BC200CF", big=true) {
     //CF_FinalAssembly();
     CF_DebugAssembly();

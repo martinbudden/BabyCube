@@ -61,13 +61,13 @@ module topFaceCover(NEMA_type) {
                 translate([(size.x - cutoutSize.x)/2,  cutoutFrontY, -eps])
                     rounded_square([cutoutSize.x, cutoutSize.y], 4, center = false);
                 topFaceAllHolePositions()
-                    poly_circle(r = M3_clearance_radius);
+                    poly_circle(r=M3_clearance_radius);
                 motorAccessHolePositions(NEMA_type)
-                    poly_circle(r = M3_clearance_radius);
+                    poly_circle(r=M3_clearance_radius);
                 zRodHolePositions()
-                    poly_circle(r = _zRodDiameter/2 + 0.5);
+                    poly_circle(r=_zRodDiameter/2 + 0.5);
                 zLeadScrewHolePosition()
-                    poly_circle(r = _zLeadScrewDiameter/2 + 1);
+                    poly_circle(r=_zLeadScrewDiameter/2 + 1);
                 topFaceWiringCutout(NEMA_width);
             }
         topFaceRailHolePositions(NEMA_width)
@@ -111,8 +111,8 @@ module topFaceInterlock(NEMA_type) {
             linear_extrude(bb_width(bearingType) - size.z)
                 zLeadScrewHolePosition()
                     difference() {
-                        poly_circle(r = bb_diameter(bearingType)/2 + 3);
-                        poly_circle(r = bb_diameter(bearingType)/2);
+                        poly_circle(r=bb_diameter(bearingType)/2 + 3);
+                        poly_circle(r=bb_diameter(bearingType)/2);
                     }
 
     insetX = idlerBracketTopSizeZ() + (_fullLengthYRail ? 0 : 3) + (_xyMotorDescriptor == "NEMA14" ? 0 : 3);
@@ -173,9 +173,9 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, cn
 
     zLeadScrewHolePosition()
         if (is_undef(bearingType))
-            poly_circle(r = _zLeadScrewDiameter/2 + 1);
+            poly_circle(r=_zLeadScrewDiameter/2 + 1);
         else
-            poly_circle(r = bb_diameter(bearingType)/2);
+            poly_circle(r=bb_diameter(bearingType)/2);
 
     topFaceWiringCutout(NEMA_width);
 

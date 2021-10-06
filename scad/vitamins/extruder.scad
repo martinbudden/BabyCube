@@ -97,7 +97,7 @@ module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17, motorOffsetZ = 3, motorRota
                     }
                     translate([size.x/2 + springOffset.x, -eps, springOffset.z - baseSize.z])
                         rotate([-90, 0, 0])
-                            cylinder(r = M4_tap_radius, h = size.y + 2*eps);
+                            cylinder(r=M4_tap_radius, h = size.y + 2*eps);
 
                 }
             translate([springOffset.x, size.y, springOffset.z - baseSize.z])
@@ -206,8 +206,8 @@ module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17, motorOffsetZ = 3, motorRota
                     difference() {
                         rounded_square([baseSize.x, baseSize.y], 3);
                         NEMA_screw_positions(NEMA17)
-                            circle(r = M3_clearance_radius);
-                        circle(r = NEMA_boss_radius(NEMA17));
+                            circle(r=M3_clearance_radius);
+                        circle(r=NEMA_boss_radius(NEMA17));
                     }
                 }
                 translate([-motorholeOffset / 2, -motorholeOffset / 2, baseSize.z])

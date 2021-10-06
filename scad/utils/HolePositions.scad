@@ -40,9 +40,9 @@ function backFaceHolePositions() = [eSizeY/2 + 1, middleWebOffsetZ() + eSizeY/2,
 
 module cutout_circle(r, cnc) {
     if (cnc)
-        circle(r = r);
+        circle(r=r);
     else
-        poly_circle(r = r);
+        poly_circle(r=r);
 }
 
 
