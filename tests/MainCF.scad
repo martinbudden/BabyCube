@@ -9,7 +9,6 @@ use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
 
 include <../scad/utils/printParameters.scad>
-include <../scad/utils/printParameters.scad>
 
 use <../scad/Main.scad>
 use <../scad/MainCF.scad>
