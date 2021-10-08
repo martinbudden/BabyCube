@@ -6,6 +6,7 @@ include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 include <../utils/carriageTypes.scad>
+include <../utils/HolePositions.scad>
 
 include <../vitamins/bolts.scad>
 include <../vitamins/inserts.scad>
@@ -31,7 +32,7 @@ module XY_Idler_Bracket_Left_stl() {
 
     stl("XY_Idler_Bracket_Left")
         color(pp1_colour)
-            XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, _sidePlateThickness);
+            XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, _sidePlateThickness, useCNC=true);
 }
 
 module XY_Idler_Bracket_Right_stl() {
@@ -40,7 +41,7 @@ module XY_Idler_Bracket_Right_stl() {
     stl("XY_Idler_Bracket_Right")
         color(pp1_colour)
             mirror([0, 1, 0])
-                XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, _sidePlateThickness);
+                XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, _sidePlateThickness, useCNC=true);
 }
 
 module XY_Idler_Bracket_Left_NEMA_17_stl() {
@@ -48,7 +49,7 @@ module XY_Idler_Bracket_Left_NEMA_17_stl() {
 
     stl("XY_Idler_Bracket_Left_NEMA_17")
         color(pp1_colour)
-            XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, _sidePlateThickness);
+            XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, _sidePlateThickness, useCNC=true);
 }
 
 module XY_Idler_Bracket_Right_NEMA_17_stl() {
@@ -57,7 +58,7 @@ module XY_Idler_Bracket_Right_NEMA_17_stl() {
     stl("XY_Idler_Bracket_Right_NEMA_17")
         color(pp1_colour)
             mirror([0, 1, 0])
-                XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, _sidePlateThickness);
+                XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, _sidePlateThickness, useCNC=true);
 }
 
 module XY_Idler_Bracket_Left_assembly()
@@ -165,8 +166,8 @@ module idlerBracket(coreXYPosBL, NEMA_width, offset=0) {
         cube([size.x, 2*(separation + size.y), 5]);
 }
 
-module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0) {
-    size = idlerBracketSize(coreXYPosBL) - [offset, 0, 0];
+module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, useCNC=false) {
+    //size = idlerBracketSize(coreXYPosBL) - [offset, 0, 0];
 
     //boltPos = [coreXYPosBL.y - offset, 0, coreXYPosBL.x - _sidePlateThickness];
     //baseLength = eZ - coreXYPosBL.z + separation + size.y - yRailSupportSize(NEMA_width).y;
@@ -175,6 +176,23 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0) {
             idlerBracket(coreXYPosBL, NEMA_width, offset);
             idlerBracketHolePositions(coreXYPosBL, offset)
                 boltHoleM3Tap(12);
+    }
+    if (useCNC) {
+        size = [45, topBoltHolderSize().y, topBoltHolderSize().z];
+        fillet = 1;
+        offsetY = 9.5;
+        difference() {
+            translate([_frontPlateCFThickness, offsetY, _sidePlateThickness])
+                union() {
+                    rounded_cube_xy(size, _fillet);
+                    translate([0, -2*fillet, 0])
+                        rounded_cube_xy([3* fillet, size.y + 2* fillet, size.z], _fillet);
+                }
+            translate([0, size.y + offsetY, eX + 2*eSizeX])
+                rotate([90, 90, 0])
+                    topFaceSideHolePositions()
+                        boltHoleM3Tap(8, horizontal = true, rotate = 90, chamfer_both_ends = false);
+        }
     }
 }
 
