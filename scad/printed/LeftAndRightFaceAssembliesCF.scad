@@ -85,9 +85,10 @@ module Right_Face_Upper_Joiner_stl() {
 }
 
 module topBoltHolder() {
-    size = topBoltHolderSize() - [11, 0, 0];
+    offset = 70;
+    size = topBoltHolderSize() - [offset, 0, 0];
     difference() {
-        translate([_frontPlateCFThickness + 11, eZ - _topPlateThickness - size.y, _sidePlateThickness])
+        translate([_frontPlateCFThickness + offset, eZ - _topPlateThickness - size.y, _sidePlateThickness])
             rounded_cube_xy(size, _fillet);
         /*cutoutSize = [11, 1, size.z + 2*eps];
         translate([_frontPlateCFThickness, eZ - _topPlateThickness - size.y, _sidePlateThickness - eps]) {
