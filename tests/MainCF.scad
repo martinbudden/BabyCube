@@ -22,7 +22,7 @@ include <../scad/Parameters_Main.scad>
 //$pose = 1;
 module MainCF_test() {
     echoPrintSize();
-    echoPrintParameters();
+    //echoPrintParameters();
 
     //Base_assembly();
     //Back_Face_CF_assembly();
@@ -31,12 +31,12 @@ module MainCF_test() {
     //Top_Face_CF_assembly();
     //Front_Face_CF_assembly();
     //Stage_5_CF_assembly();
-    BC200CF_assembly();
+    //CF_DebugAssembly();
+    CF_FinalAssembly();
 }
 
 if ($preview)
-    translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2])
-        MainCF_test();
+    MainCF_test();
 
 
 module center() {

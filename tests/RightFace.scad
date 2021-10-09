@@ -22,7 +22,6 @@ include <../scad/Parameters_Main.scad>
 //$pose = 1;
 module Right_Face_test() {
     echoPrintSize();
-    echoPrintParameters();
     //CoreXYBelts(carriagePosition(), x_gap=16);
 
     if (_useCNC)
