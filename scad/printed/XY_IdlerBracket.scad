@@ -78,7 +78,7 @@ assembly("XY_Idler_Bracket_Left", ngb=true) {
 }
 
 module XY_Idler_Bracket_Right_assembly()
-assembly("XY_Idler_Right_Left", ngb=true) {
+assembly("XY_Idler_Bracket_Right", ngb=true) {
 
     NEMA_width = NEMA_width(NEMA14);
     coreXYPosBL = coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor));
@@ -185,13 +185,23 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, useCNC=false) {
             translate([_frontPlateCFThickness, offsetY, _sidePlateThickness])
                 union() {
                     rounded_cube_xy(size, _fillet);
-                    translate([0, -2*fillet, 0])
-                        rounded_cube_xy([3* fillet, size.y + 2* fillet, size.z], _fillet);
+                    size2 = [eSizeY, 4*fillet, size.z];
+                    translate([0, -size2.y + 2*fillet, 0])
+                        cube(size2);
+                    size3 = [eSizeY, 25, eSizeZ];
+                    translate([0, -size3.y - 30, 0])
+                        rounded_cube_xy(size3, 1.5);
                 }
+            translate([_sidePlateThickness, -eZ + 160.5, (eSizeX + _sidePlateThickness)/2])
+                rotate([0, 90, 0])
+                    boltHoleM3Tap(eSizeZ, horizontal=true, rotate=90, chamfer_both_ends=true);
             translate([0, size.y + offsetY, eX + 2*eSizeX])
                 rotate([90, 90, 0])
                     topFaceSideHolePositions()
                         boltHoleM3Tap(8, horizontal = true, rotate = 90, chamfer_both_ends = false);
+            translate([0, 30 - eZ - offsetY, 0])
+                upperSideJoinerHolePositions(_sidePlateThickness)
+                    boltHoleM3Tap(size.z);
         }
     }
 }
