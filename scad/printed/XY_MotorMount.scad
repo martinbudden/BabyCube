@@ -91,7 +91,7 @@ module XY_Motor_Mount_Right_NEMA_17_stl() {
 }
 
 module XY_Motor_Mount_Left_assembly()
-assembly("XY_MotorMount_Left", big=true, ngb=true) {
+assembly("XY_Motor_Mount_Left", big=true, ngb=true) {
 
     NEMA_type = xyMotorType();
     NEMA_width = NEMA_width(NEMA_type);
