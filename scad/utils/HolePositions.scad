@@ -31,7 +31,7 @@ function topFaceBackHolePositionOffsetY() = 4;
 function topFaceFrontHolePositionOffsetY() = 8;
 
 function upperSideJoinerHolePositions() = [ 40, 80, 120, 175 ];
-function lowerSideJoinerHolePositions() = [ 15, 55, 125, 185 ];
+function lowerSideJoinerHolePositions(left) = left ? [ 90, 185 ] : [ 30, 90, 185 ];
 function backSideJoinerHolePositions() =  [ 15, 55, 90 ];
 function frontSideJoinerHolePositions() = [ 15, 40, 120 ];
 
@@ -149,18 +149,36 @@ module backFaceHolePositions(left, z=0) {
                 children();
 }
 
-module backFaceAllHolePositions(z=0) {
+module backFaceAllHolePositions(z=0, cf=false) {
     backFaceHolePositions(left=true, z=z)
         children();
     backFaceHolePositions(left=false, z=z)
         children();
+    size = [eX + 2*eSizeX, eZ];
+    if (cf)
+        translate([size.x/2, size.y - _topPlateThickness - eSizeZ/2, z])
+            children();
 }
 
 // front face
+module frontFaceLowerHolePositions(z=0) {
+    size = [eX + 2*eSizeX, eZ];
+    for (x = [85, size.x - 85])
+        translate([x, 10/2, z])
+            children();
+}
+
 module frontFaceHolePositions(z=0) {
     size = [eX + 2*eSizeX, eZ];
     for (x = [30, size.x - 30])
         translate([x, size.y - 15.5, z])
+            children();
+    for (x = [85, size.x - 85])
+        translate([x, size.y - _topPlateThickness - eSizeZ/2, z])
+            children();
+    for (x = [(_sidePlateThickness + eSizeXBase)/2, size.x - (_sidePlateThickness + eSizeXBase)/2],
+         y = [20, 60, 100, 140])
+        translate([x, y, z])
             children();
 }
 
@@ -214,9 +232,9 @@ module topFaceAllHolePositions(z=0) {
         children();
 }
 
-module lowerSideJoinerHolePositions(z=0) {
+module lowerSideJoinerHolePositions(z=0, left=true) {
     size = [eY + 2*eSizeY, eZ];
-    for (x = lowerSideJoinerHolePositions(), y = [5])
+    for (x = lowerSideJoinerHolePositions(left), y = [5])
         translate([x, y, z])
             children();
 }

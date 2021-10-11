@@ -201,14 +201,26 @@ module topFaceAssembly(NEMA_width) {
         rotate([180, 0, 90])
             explode(20, true) {
                 rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
-                rail_screws(yRailType, _yRailLength, thickness = 5, index_screws = _useCNC ? 0 : 1);
+                translate_z(_useCNC ? 0.5 : 0) // so screws are not absolutely flush in drawing
+                    rail_screws(yRailType, _yRailLength, thickness = 5 + (_useCNC ? _topPlateThickness - 1 : 0), index_screws = _useCNC ? 0 : 1);
+                if (_useCNC)
+                    rail_hole_positions(yRailType, _yRailLength, 0)
+                        translate_z(-_topPlateThickness)
+                            vflip()
+                                nut_and_washer(M3_nut, true);
             }
 
     translate([eX + 2*eSizeX - railOffset.x, railOffset.y, railOffset.z])
         rotate([180, 0, 90])
             explode(20, true) {
                 rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
-                rail_screws(yRailType, _yRailLength, thickness = 5, index_screws = 0);
+                translate_z(_useCNC ? 0.5 : 0) // so screws are not absolutely flush in drawing
+                    rail_screws(yRailType, _yRailLength, thickness = 5 + (_useCNC ? _topPlateThickness - 1: 0), index_screws = 0);
+                if (_useCNC)
+                    rail_hole_positions(yRailType, _yRailLength, 0)
+                        translate_z(-_topPlateThickness)
+                            vflip()
+                                nut_and_washer(M3_nut, true);
             }
     *translate_z(eZ - bb_width(BB608)/2)
         zLeadScrewHolePosition()

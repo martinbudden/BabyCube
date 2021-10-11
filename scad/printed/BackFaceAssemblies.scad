@@ -117,7 +117,7 @@ module Back_Face_CF_dxf() {
                 backFaceSideCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0);
                 backFaceTopCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0);
                 // add the bolt holes for attachment to the left and right faces
-                backFaceAllHolePositions()
+                backFaceAllHolePositions(cf=true)
                     circle(r=M3_clearance_radius);
                 backFaceBracketHolePositions(-_backPlateThickness)
                     circle(r=M3_clearance_radius);

@@ -101,14 +101,14 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
         Back_Face_CF_assembly();
         translate([0, eY + 2*eSizeY, 0])
             rotate([90, 0, 0]) {
-                backFaceAllHolePositions(-_backPlateThickness)
+                backFaceAllHolePositions(-_backPlateThickness, cf=true)
                     vflip()
                         explode(50)
-                            boltM3Countersunk(6);
+                            boltM3Buttonhead(10);
                 backFaceBracketHolePositions(-_backPlateThickness)
                     vflip()
                         explode(50)
-                            boltM3Countersunk(10);
+                            boltM3Buttonhead(10);
             }
             baseBackHolePositions(-_basePlateThickness)
                 vflip()
@@ -126,8 +126,12 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
 
     Stage_3_CF_assembly();
 
-    explode([0, -100, 0])
+    explode([0, -100, 0], true) {
+        rotate([90, 0, 0])
+            frontFaceHolePositions()
+                boltM3Buttonhead(12);
         Front_Face_CF_assembly();
+    }
 }
 
 //! Add the Top Face

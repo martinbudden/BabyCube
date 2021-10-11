@@ -75,7 +75,7 @@ module Switch_Shroud_stl() {
                 }
                 // top
                 translate([frontReinforcementThickness(), size.y -topThickness, eSizeX])
-                        rounded_cube_xy([size.x, topThickness, size.z - _webThickness], fillet);
+                    rounded_cube_xy([size.x, topThickness, size.z - _webThickness - (_useCNC ? _sidePlateThickness : 0)], fillet);
                 translate([eSizeY, size.y - topThickness, _webThickness])
                     rounded_cube_xy([size.x-eSizeY, topThickness, eSizeX - _webThickness], fillet);
                 // bottom
@@ -167,14 +167,20 @@ module Switch_Shroud_hardware() {
     hidden() XT60Female();
 }
 
-module Switch_Shroud_bolts() {
+module Switch_Shroud_bolts(counterSunk=true) {
     rotate([90, 0, 90]) {
         switchShroudHolePositions(z=0, cutoff=-1)
             vflip()
-                boltM3Countersunk(16);
+                if (counterSunk)
+                    boltM3Countersunk(16);
+                else
+                    boltM3Buttonhead(16);
         switchShroudHolePositions(z=0, cutoff=1)
             vflip()
-                boltM3Countersunk(12);
+                if (counterSunk)
+                    boltM3Countersunk(12);
+                else
+                    boltM3Buttonhead(12);
     }
 }
 
