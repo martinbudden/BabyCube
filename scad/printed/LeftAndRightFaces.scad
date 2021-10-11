@@ -24,7 +24,7 @@ include <../Parameters_Main.scad>
 
 function extruderMotorType() = NEMA17M;
 
-backBoltLength = 8;
+backBoltLength = 9;
 
 
 fillet = _fillet;
@@ -303,7 +303,7 @@ module idlerUpright(NEMA_width, left) {
     }
 }
 
-module frameLower(NEMA_width, left=true, offset=0, cf=false) {
+module frameLower(NEMA_width, left=true, offset=0, cf=false, length=0) {
     translate([eY + 2*eSizeY - motorUprightWidth, 0, offset]) {
         difference() {
             size = [motorUprightWidth, middleWebOffsetZ(), eSizeXBase - offset];
@@ -332,8 +332,8 @@ module frameLower(NEMA_width, left=true, offset=0, cf=false) {
         // bottom chord
         union() {
             fillet = 1.5;
-            translate([offset, 0, offset])
-                rounded_cube_xy([eY + 2*eSizeY - offset, eSizeZ, eSizeXBase - offset], fillet);
+            translate([length == 0 ? offset : eY + 2*eSizeY - length, 0, offset])
+                rounded_cube_xy([length == 0 ? eY + 2*eSizeY - offset : length, eSizeZ, eSizeXBase - offset], fillet);
             translate([eY + 2*eSizeY - 10, 0, offset])
                 rounded_cube_xy([10, 20, 35 - offset], fillet); // 38 to match frontConnector size
         }

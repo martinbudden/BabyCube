@@ -132,16 +132,16 @@ module Front_Lower_Chord_SKR_1_4_Headless_stl() {
                 frontLowerChordSKR_1_4(headless = true);
 }
 
-function frontChordCutoutSize(display_type=BigTreeTech_TFT35v3_0)  = [displayHousingInnerWidth(display_type) + 6, 26, frontLowerChordSize().z + 2*eps];
+function frontChordCutoutSize(display_type=BigTreeTech_TFT35v3_0, cnc=false)  = [displayHousingInnerWidth(display_type) + 6, (cnc ? 24 : 26), frontLowerChordSize().z + 2*eps];
 //function lowerChordHeight() = idlerBracketSize(coreXYPosBL(_xyNEMA_width)).z;
 //function frontChordCutoutOffset(display_type=BigTreeTech_TFT35v3_0, headless=false) = [-lowerChordHeight() - (frontChordCutoutSize(display_type).x + frontLowerChordSize().z)/2, 8, -eps + (headless ? 1 : 0)];
 
 
 module frontLowerChordSKR_1_4_cutout(display_type, cnc=false) {
-    cutoutSize = frontChordCutoutSize(display_type);
+    cutoutSize = frontChordCutoutSize(display_type, cnc);
 
     if (cnc)
-        translate([(eX + 2*eSizeX - cutoutSize.x)/2, 8])
+        translate([(eX + 2*eSizeX - cutoutSize.x)/2, 10])
             rounded_square([cutoutSize.x, cutoutSize.y], 2, center=false);
     else
         translate([(eX + 2*eSizeX - cutoutSize.x)/2, 8, -eps])
