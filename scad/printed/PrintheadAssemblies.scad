@@ -86,7 +86,7 @@ module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false) {
     holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
 
-    xRailCarriagePosition(carriagePosition(t), rotate)
+    xRailCarriagePosition(carriagePosition(t), rotate=rotate)
         explode(explode, true) {
             explode([0, -20, 0], true)
                 xCarriageFrontBolts(xCarriageType, xCarriageFrontSize, topBoltLength=30, holeSeparationTop=holeSeparationTop, bottomBoltLength=30, holeSeparationBottom=holeSeparationBottom, countersunk=true);

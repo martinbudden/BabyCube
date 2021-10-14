@@ -80,7 +80,7 @@ assembly("Back_Face_Stage_1", big=true, ngb=true) {
 //!1. Slide the linear rods through the SK brackets and the printbed bearings.
 //!2. Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on the rods.
 //!3. Place the cork damper on the stepper motor and thread the lead screw through the leadnut and attach the stepper motor to the back face. Note the orientation of the JST socket.
-module Back_Face_assembly()
+module Back_Face_assembly(bedHeight=bedHeight())
 assembly("Back_Face", big=true) {
     Back_Face_Stage_1_assembly();
 
@@ -95,7 +95,7 @@ assembly("Back_Face", big=true) {
             backFaceMotorMountHardware(zMotorType());
         }
     explode(50)
-        translate_z(bedHeight()) {
+        translate_z(bedHeight) {
             if (_printBedSize == 100)
                 Print_bed_assembly();
             else
@@ -170,7 +170,7 @@ assembly("Back_Face_CF_Stage_1", big=true) {
         }
 }
 
-module Back_Face_CF_assembly()
+module Back_Face_CF_assembly(bedHeight=bedHeight())
 assembly("Back_Face_CF", big=true) {
     Back_Face_CF_Stage_1_assembly();
 
@@ -185,7 +185,7 @@ assembly("Back_Face_CF", big=true) {
             backFaceMotorMountHardware(zMotorType());
         }
     explode(50)
-        translate_z(bedHeight()) {
+        translate_z(bedHeight) {
             if (_printBedSize == 100)
                 Print_bed_assembly();
             else

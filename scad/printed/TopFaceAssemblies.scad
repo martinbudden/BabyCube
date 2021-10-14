@@ -48,14 +48,14 @@ module Top_Face_CF() {
 //! 1. Turn the Top_Face upside down and place it on a flat surface.
 //! 2. Bolt the rails to the top face. Note that the first and last bolts on the left rail are countersunk bolts and act as pilot bolts to ensure the rails are aligned precisely - they should be tightened before all the other bolts on the left side.
 //! 3. The bolts on the right side rail should be only loosely tightened - they will be fully tightened when the right rail is aligned when the X axis rail is added.
-module Top_Face_Stage_1_assembly()  pose(a=[55 + 180, 0, 25 + 310])
+module Top_Face_Stage_1_assembly(t=undef)  pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_Stage_1", big=true, ngb=true) {
 
     translate_z(eZ)
         vflip()
             stl_colour(pp3_colour)
                 Top_Face_stl();
-    topFaceAssembly(NEMA_width(NEMA14));
+    topFaceAssembly(NEMA_width(NEMA14), t);
 }
 
 module Top_Face_NEMA_17_Stage_1_assembly()  pose(a=[55 + 180, 0, 25 + 310])
@@ -78,14 +78,14 @@ assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
 //! Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16 of a turn)
 //! so they run freely.
 //
-module Top_Face_Stage_2_assembly() pose(a=[55 + 180, 0, 25 + 310])
+module Top_Face_Stage_2_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_Stage_2", big=true, ngb=true) {
 
-    Top_Face_Stage_1_assembly();
+    Top_Face_Stage_1_assembly(t);
 
     explode(-15, true) {
-        yCarriageLeftAssembly(NEMA_width(NEMA14));
-        yCarriageRightAssembly(NEMA_width(NEMA14));
+        yCarriageLeftAssembly(NEMA_width(NEMA14), t);
+        yCarriageRightAssembly(NEMA_width(NEMA14), t);
     }
 }
 
@@ -118,16 +118,16 @@ assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
 //!tightening the corresponding bolts.
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
 //
-module Top_Face_assembly()
+module Top_Face_assembly(t=undef)
 assembly("Top_Face", big=true) {
 
-    Top_Face_Stage_2_assembly();
+    Top_Face_Stage_2_assembly(t);
     hidden() Top_Face_NEMA_17_stl();
     //hidden() Y_Carriage_Left_AL_dxf();
     //hidden() Y_Carriage_Right_AL_dxf();
 
     explode(30, true)
-        xRail(carriagePosition(), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
+        xRail(carriagePosition(t), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
 }
 
 //!1. Turn the Top_Face into its normal orientation.
@@ -138,13 +138,13 @@ assembly("Top_Face", big=true) {
 //!tightening the corresponding bolts.
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
 //
-module Top_Face_NEMA_17_assembly()
+module Top_Face_NEMA_17_assembly(t=undef)
 assembly("Top_Face_NEMA_17", big=true) {
 
     Top_Face_NEMA_17_Stage_2_assembly();
 
     explode(30, true)
-        xRail(carriagePosition(), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
+        xRail(carriagePosition(t), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
 }
 
 
@@ -156,32 +156,32 @@ assembly("Top_Face_CF_Stage_1", big=true) {
     topFaceAssembly(NEMA_width(NEMA14));
 }
 
-module Top_Face_CF_Stage_2_assembly() pose(a=[55 + 180, 0, 25 + 310])
+module Top_Face_CF_Stage_2_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
 
     Top_Face_CF_Stage_1_assembly();
 
-    yCarriageLeftAssembly(NEMA_width(NEMA14));
-    yCarriageRightAssembly(NEMA_width(NEMA14));
+    yCarriageLeftAssembly(NEMA_width(NEMA14), t);
+    yCarriageRightAssembly(NEMA_width(NEMA14), t);
 }
 
-module Top_Face_CF_assembly()
+module Top_Face_CF_assembly(t=undef)
 assembly("Top_Face_CF", big=true) {
 
-    Top_Face_CF_Stage_2_assembly();
+    Top_Face_CF_Stage_2_assembly(t);
 
     explode(30, true)
-        xRail(carriagePosition(), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
+        xRail(carriagePosition(t), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
 }
 
 
 /*
 // used for debug
-module Top_Face_with_Printhead_assembly()
+module Top_Face_with_Printhead_assembly(t=undef)
 assembly("Top_Face_with_Printhead", big=true) {
     Top_Face_with_X_Rail_assembly();
 
-    xRailCarriagePosition(carriagePosition())
+    xRailCarriagePosition(carriagePosition(t))
         rotate(0) {// for debug, to see belts better
             X_Carriage_Front_assembly();
             Printhead_assembly();
@@ -190,12 +190,12 @@ assembly("Top_Face_with_Printhead", big=true) {
 }
 */
 
-module topFaceAssembly(NEMA_width) {
+module topFaceAssembly(NEMA_width, t=undef) {
     yCarriageType = yCarriageType(_yCarriageDescriptor);
     yRailType = carriage_rail(yCarriageType);
 
     railOffset = yRailOffset(NEMA_width);
-    posY = carriagePosition().y - _yRailLength/2 - (_fullLengthYRail ? 0 : eSizeY);
+    posY = carriagePosition(t).y - _yRailLength/2 - (_fullLengthYRail ? 0 : eSizeY);
 
     translate(railOffset)
         rotate([180, 0, 90])
