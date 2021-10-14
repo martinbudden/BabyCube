@@ -79,8 +79,8 @@ the second and third layers are structural layers).
 6. Grid infill at 30%. I find that honeycomb infill, although stronger, is more prone to warping. 30% is used to enable the
 part cooling fan to be switched off (see tips below).
 7. First layer speed 25mm/s
-8. If using a standard E3D v6 hotend (ie not a Volcano or other high-volume hotend) set the max volumetric speed to 14mm<sup>3</sup>/s for PLA, 11mm<sup>3</sup>/s for ABS,
-or 8mm<sup>3</sup>/s for PETG
+8. If using a standard E3D v6 hotend (ie not a Volcano or other high-volume hotend) set the max volumetric speed to 14mm<sup>3</sup>/s for PLA,
+11mm<sup>3</sup>/s for ABS, or 8mm<sup>3</sup>/s for PETG
 
 
 The large parts take up almost the full extent of the print bed and as a result can be prone to warping.
@@ -200,7 +200,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |  Nut M5 nyloc |
 |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |   .  |    8  |  O-ring nitrile 4mm x 2mm |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  OpenBuilds mini heated bed 100mm x 100mm |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  PTFE tube 295 mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  PTFE tube 291 mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   9  |   .  |   .  |    9  |  Pillar hex nylon F/F M3x12 |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Print surface 100mm x 100mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   2  |   .  |   2  |   .  |    6  |  Pulley GT2 idler 16 teeth |
@@ -1136,7 +1136,7 @@ Add the Top_Face.
 |---:|:----------|
 |2| Bolt M3 countersunk x 12mm|
 |4| Bolt M3 countersunk x 30mm|
-|1| PTFE tube 295 mm|
+|1| PTFE tube 291 mm|
 
 
 ### 3D Printed parts
