@@ -8,6 +8,7 @@ include <NopSCADlib/vitamins/stepper_motors.scad>
 
 include <../scad/utils/carriageTypes.scad>
 use <../scad/utils/CoreXYBelts.scad>
+use <../scad/utils/printParameters.scad>
 use <../scad/utils/X_rail.scad>
 
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
@@ -28,6 +29,7 @@ t=2;
 
 module CoreXY() {
 
+    echoPrintSize();
     echo(coreXY_drive_pulley_x_offset=coreXY_drive_pulley_x_alignment(coreXY_type()));
     echo(coreXYSeparation=coreXYSeparation());
 
@@ -59,7 +61,7 @@ module CoreXY() {
 }
 
 if ($preview)
-    rotate(-90 + 30)
+    rotate(t==2 ? -90 + 30 : 0)
         translate([-eX/2, -eY/2, -coreXYPosBL(_xyNEMA_width).z])
             CoreXY();
 

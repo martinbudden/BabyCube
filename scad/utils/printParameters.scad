@@ -20,6 +20,10 @@ module echoPrintParameters() {
 }
 
 module echoPrintSize() {
+    echo(Print_size = [_xMax-_xMin, _yMax-_yMin, _zMax-_zMin]);
+}
+
+module echoVariant() {
     echo(Variant = _variant);
     echo(Print_size = [_xMax-_xMin, _yMax-_yMin, _zMax-_zMin]);
     echo(Sizes = [eX + 2*eSizeX, eY + 2*eSizeY, eZ]);

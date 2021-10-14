@@ -11,6 +11,7 @@ use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/Printbed.scad>
 use <../scad/printed/Printbed3point.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
+use <../scad/utils/printParameters.scad>
 
 use <../scad/Parameters_Positions.scad>
 include <../scad/Parameters_Main.scad>
@@ -18,22 +19,25 @@ include <../scad/Parameters_Main.scad>
 //$explode = 1;
 //$pose = 1;
 module Back_Face_test() {
+    t = 2;
+    echoPrintSize();
     //Back_Face_Stage_1_assembly();
     //translate_z(bedHeight()) Print_bed_3_point_assembly();
     //translate_z(bedHeight()) Print_bed_assembly();
     //translate_z(_zMin) Print_bed_3_point_printed_assembly();
     if (_useCNC)
-        Back_Face_CF_assembly();
+        Back_Face_CF_assembly(bedHeight(t));
     else
-        Back_Face_assembly();
+        Back_Face_assembly(bedHeight(t));
     *let($preview=false)
         Back_Face_stl();
     //Back_Face_CF();
     //Back_Face_CF_dxf();
-    //Left_Face_assembly();
+    //Left_Face_assembly(switch=false);
     //Right_Face_assembly();
-    //Top_Face_assembly();
-    //printheadHotendSide();
+    //Top_Face_assembly(t);
+    //printheadBeltSide(t=t);
+    //printheadHotendSide(t=t);
     //camera(rpi_camera_v2, fov_distance = eY/2);
 
     //Top_Face_CF_assembly();
