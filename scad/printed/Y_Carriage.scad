@@ -9,6 +9,7 @@ include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/screws.scad>
 
 include <../vitamins/bolts.scad>
+include <../vitamins/inserts.scad>
 
 
 function isMGN9C(carriageType) = carriageType[0] == MGN9C_carriage[0];
@@ -23,13 +24,20 @@ function railFirstHoleOffset(type, length) = (length - (rail_holes(type, length)
 function counterBore(thickness) = screw_head_height(M3_cap_screw) + max(thickness - 9, 0);
 function yCarriageBlockSizeX(yCarriageType) = carriage_width(yCarriageType) + 4;
 function yCarriageExplodeFactor() = 5;
+function yCarriageTongueThickness(yCarriageType, chamfer=0) = isMGN9C(yCarriageType) ? 6.5 - chamfer : 7;
 
 function boltOffsetMGN9(left) = 13.5;
 function boltOffsetMGN12(left) = 22;
 
 leftSupportLength = 20;
 
-module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength, thickness, chamfer, yCarriageBraceThickness, blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset, topInset=0, left, cnc=false) {
+module yCarriageTongueBoltPositions(tongueOffset, xRailType, xRailLength) {
+    translate([tongueOffset + xRailLength/2, 0, 0])
+        rail_hole_positions(xRailType, xRailLength, screws=2, both_ends=false)
+            children();
+}
+
+module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength, thickness, chamfer, yCarriageBraceThickness, blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset, topInset=0, inserts=false, left, cnc=false) {
     assert(is_list(yCarriageType));
     assert(is_list(xRailType));
     assert(beltWidth == 6 || beltWidth == 9);
@@ -44,13 +52,7 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
     blockSize = [yCarriageBlockSizeX(yCarriageType) + 2*blockOffset.x, carriage_length(yCarriageType) + 1 + 2*blockOffset.y, thickness];
     rightInset = topInset == 0 ? 0 : 2;
     railFirstHoleOffset = railFirstHoleOffset(xRailType, xRailLength);
-    tongueSize = [tongueOffset + railFirstHoleOffset + rail_pitch(xRailType) + rail_width(xRailType)/2 + 0.5, rail_width(xRailType) + 2, isMGN9C(yCarriageType) ? 6.5 - chamfer : 7];
-
-    module tongueBoltPositions() {
-        translate([tongueOffset + xRailLength/2, 0, 0])
-            rail_hole_positions(xRailType, xRailLength, screws=2, both_ends=false)
-                children();
-    }
+    tongueSize = [tongueOffset + railFirstHoleOffset + rail_pitch(xRailType) + rail_width(xRailType)/2 + 0.5, rail_width(xRailType) + 2, yCarriageTongueThickness(yCarriageType, chamfer)];
 
     module chamfered_rounded_cube(size, fillet, chamfer) {
         hull() {
@@ -209,8 +211,13 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
                 }*/
             }
         } // end union
-        tongueBoltPositions()
-            boltHole(rail_hole(xRailType) < 3 ? 2*M2_tap_radius : 2*M3_tap_radius, thickness + (left ? 4 : 0), twist=4, cnc=cnc);
+        yCarriageTongueBoltPositions(tongueOffset, xRailType, xRailLength)
+            if (inserts)
+                translate_z(tongueSize.z)
+                    vflip()
+                        insertHoleM3(tongueSize.z);
+            else
+                boltHole(rail_hole(xRailType) < 3 ? 2*M2_tap_radius : 2*M3_tap_radius, thickness + (left ? 4 : 0), twist=4, cnc=cnc);
         translate_z(thickness - carriage_height(yCarriageType))
             rotate(90)
                 carriage_hole_positions(yCarriageType)
@@ -362,4 +369,10 @@ module Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, beltWidth, t
     yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, beltWidth, thickness, yCarriageBraceThickness, pulleyOffset, left);
     explode(15)
         yCarriageBolts(yCarriageType, thickness);
+}
+
+module Y_Carriage_inserts(yCarriageType, tongueOffset, xRailType, xRailLength, thickness) {
+    yCarriageTongueBoltPositions(tongueOffset, xRailType, xRailLength)
+        translate_z(thickness)
+            _threadedInsertM3();
 }
