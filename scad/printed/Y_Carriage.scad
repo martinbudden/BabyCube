@@ -37,7 +37,7 @@ module yCarriageTongueBoltPositions(tongueOffset, xRailType, xRailLength) {
             children();
 }
 
-module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength, thickness, chamfer, yCarriageBraceThickness, blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset, topInset=0, inserts=false, left, cnc=false) {
+module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength, thickness, chamfer, yCarriageBraceThickness, blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset, topInset=0, inserts=false, left=true, cnc=false) {
     assert(is_list(yCarriageType));
     assert(is_list(xRailType));
     assert(beltWidth == 6 || beltWidth == 9);
