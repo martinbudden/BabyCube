@@ -102,6 +102,17 @@ The standard variant uses a BigTreeTech TFT35 v3.0 display, however it should al
 
 I have started to look at developing a variant with a carbon fiber frame, however this is very much a [work in progress](concepts/readme.md).
 
+## Pictures
+
+![Front](pictures/BC_front.jpg)
+![Left](pictures/BC_left.jpg)
+![Back](pictures/BC_back.jpg)
+![Right with spool](pictures/BC_right_with_spool.jpg)
+![Right](pictures/BC_right.jpg)
+![Back](pictures/BC_back.jpg)
+![Top](pictures/BC_top.jpg)
+![Map](pictures/BC_map.jpg)
+
 ## License
 
 BabyCube is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Licence](https://creativecommons.org/licenses/by-nc-sa/4.0/)
