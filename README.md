@@ -109,7 +109,6 @@ I have started to look at developing a variant with a carbon fiber frame, howeve
 ![Back](pictures/BC_back.jpg)
 ![Right with spool](pictures/BC_right_with_spool.jpg)
 ![Right](pictures/BC_right.jpg)
-![Back](pictures/BC_back.jpg)
 ![Top](pictures/BC_top.jpg)
 ![Map](pictures/BC_map.jpg)
 
