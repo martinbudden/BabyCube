@@ -15,6 +15,9 @@ Thumbs.db
 times.txt
 
 .vscode/
+
+pictures/temp/
+
 scad/target.scad
 scad/bom.scad
 
