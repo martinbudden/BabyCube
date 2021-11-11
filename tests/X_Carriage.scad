@@ -31,10 +31,6 @@ module X_Carriage_test() {
     //let($preview=false)
     *translate([-xCarriageBackSize(xCarriageType).x/2, carriage_size(xCarriageType).y/2, 0])
         xCarriageTop(xCarriageType);
-    //xCarriageBack(xCarriageType, xCarriageBackSize(xCarriageType, _beltWidth, clamps=true), beltOffsetZ(), _beltWidth, coreXYSeparation().z);
-    //xCarriageBottom(xCarriageType);
-    //X_CarriageBelt_Tensioner_stl();
-    //X_Carriage_Belt_Clamp_stl();
     blower_type = BL30x10;
     hotEndHolderHardware(xCarriageType, hotend_type);
     translate(hotendClampOffset(xCarriageType, hotend_type))

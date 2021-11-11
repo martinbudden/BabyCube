@@ -19,6 +19,6 @@ _xRailLength = 150;
 _yRailLength = 200;
 _xCarriageDescriptor = "MGN9C";
 _yCarriageDescriptor = "MGN9C";
-_beltWidth = 6;
+_coreXYDescriptor = "GT2_20_16";
 
 _printBedSize = 100;

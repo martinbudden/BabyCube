@@ -32,7 +32,6 @@ module Exploded_View_test() {
         Right_Face_assembly();
     explode([0, 0, 1.25*explode]) {
         Top_Face_assembly();
-        //fullPrinthead();
         printheadHotendSide(explode=100);
         printheadBeltSide(explode=100);
     }
@@ -53,6 +52,6 @@ module Exploded_View_test() {
 }
 
 if ($preview)
-    rotate(-90 + 30)
+    rotate($vpr.z == 315 ? -90 + 30 : 0)
         translate([-eX/2, -eY/2, 0])
             Exploded_View_test();

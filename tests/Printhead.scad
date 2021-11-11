@@ -29,7 +29,6 @@ module Printhead_test() {
 
     //let($hide_bolts=true)
     translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
-        //fullPrinthead(accelerometer=true);
         printheadBeltSide();
         printheadHotendSide();
         CoreXYBelts(carriagePosition(), x_gap=2);

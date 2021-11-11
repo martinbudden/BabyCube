@@ -17,6 +17,7 @@ use <X_Carriage.scad>
 use <X_CarriageBeltAttachment.scad>
 use <X_CarriageAssemblies.scad>
 
+use <../Parameters_CoreXY.scad>
 use <../Parameters_Positions.scad>
 include <../Parameters_Main.scad>
 
@@ -51,6 +52,7 @@ module printheadAssembly() {
         }
 }
 
+/*
 //!1. Assemble the E3D hotend, including fan, thermistor cartridge and heater cartridge.
 //!2. Use the Hotend_Clamp to attach the hotend to the X_Carriage.
 //!3. Collect the wires together and attach to the X_Carriage using the Hotend_Strain_Relief_Clamp.
@@ -60,6 +62,7 @@ assembly("Printhead", big=true) {
     X_Carriage_assembly();
     printheadAssembly();
 }
+*/
 
 module Printhead_E3DV6_MGN9C_assembly() pose(a=[55, 0, 25 + 180])
 assembly("Printhead_E3DV6_MGN9C", big=true) {
@@ -82,7 +85,7 @@ module printheadBeltSide(rotate=0, explode=0, t=undef) {
 
 module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false) {
     xCarriageType = xCarriageType(_xCarriageDescriptor);
-    xCarriageFrontSize = xCarriageFrontSize(xCarriageType, _beltWidth, clamps=false) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 3];
+    xCarriageFrontSize = xCarriageFrontSize(xCarriageType, beltWidth()) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 3];
     holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
 
@@ -92,28 +95,6 @@ module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false) {
                 xCarriageFrontBolts(xCarriageType, xCarriageFrontSize, topBoltLength=30, holeSeparationTop=holeSeparationTop, bottomBoltLength=30, holeSeparationBottom=holeSeparationBottom, countersunk=true);
             Printhead_E3DV6_MGN9C_assembly();
             xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, 1], [-1, 1] ]);
-        }
-}
-
-module fullPrinthead(rotate=0, explode=0, t=undef, accelerometer=false) {
-    xCarriageType = xCarriageType(_xCarriageDescriptor);
-    holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
-    holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
-
-    xRailCarriagePosition(carriagePosition(t), rotate) {
-        explode(explode, true)
-            explode([0, -20, 0], true) {
-                X_Carriage_Front_assembly();
-                xCarriageFrontSize = xCarriageFrontSize(xCarriageType, _beltWidth, clamps=true);
-                xCarriageFrontBolts(xCarriageType, xCarriageFrontSize, topBoltLength=30, holeSeparationTop=holeSeparationTop, bottomBoltLength=30, holeSeparationBottom=holeSeparationBottom, countersunk=true);
-            }
-            Printhead_assembly();
-            xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk);
-            if (accelerometer)
-                explode(50, true)
-                    printheadAccelerometerAssembly();
-            if (!exploded())
-                xCarriageBeltFragments(xCarriageType, coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
         }
 }
 

@@ -36,7 +36,6 @@ module Top_Face_test() {
     echoPrintSize();
 
     //xRailCarriagePosition(carriagePosition()) Printhead_assembly();
-    //fullPrinthead();
     //CoreXYBelts(carriagePosition());
     //Top_Face_stl();
     //Top_Face();
