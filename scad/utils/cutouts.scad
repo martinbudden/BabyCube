@@ -161,7 +161,7 @@ module sideFaceSideDogbones(cnc=false, plateThickness=_sidePlateThickness) {
 
 module railsCutout(NEMA_width, railOffset, cnc=false) {
     // add a cutout for the Y rail, since sometimes they are cut a bit long
-    yRailType = yRailType(_yCarriageDescriptor);
+    yRailType = railType(_yCarriageDescriptor);
     filletX = cnc ? 1.5 : 1;
     filletY = cnc ? 0.5 : 1;
     heightExtra = 10;

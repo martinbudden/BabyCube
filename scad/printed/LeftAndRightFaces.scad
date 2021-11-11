@@ -55,7 +55,7 @@ module leftFace(NEMA_type) {
             frame(NEMA_type, left=true);
             webbingLeft(NEMA_type);
             NEMA_width = NEMA_width(NEMA_type);
-            coreXYPosBL = coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor));
+            coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
             translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
                 XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, 0);
             // add a support for the camera
@@ -98,7 +98,7 @@ module rightFace(NEMA_type) {
                     frame(NEMA_type, left=false);
                     webbingRight(NEMA_type);
                     NEMA_width = NEMA_width(NEMA_type);
-                    coreXYPosBL = coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor));
+                    coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
                     translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
                         XY_IdlerBracket(coreXYPosBL, NEMA_width);
                     XY_MotorUpright(NEMA_type, left=false);
@@ -267,7 +267,7 @@ module webbingRight(NEMA_type) {
 motorUprightWidth = max(10, eSizeY); // make sure at least 10 wide, to accept inserts
 
 module motorUpright(NEMA_width, left) {
-    //uprightTopZ = coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor)).z - (left ? coreXYSeparation().z : 0);
+    //uprightTopZ = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor)).z - (left ? coreXYSeparation().z : 0);
     uprightTopZ = xyMotorPosition(NEMA_width, left).z + 2*fillet;
     uprightPosZ = middleWebOffsetZ() + eSizeZ - 2*fillet;
     upperFillet = 1.5;
@@ -290,7 +290,7 @@ module idlerUpright(NEMA_width, left) {
     translate([0, middleWebOffsetZ(), 0])
         rounded_cube_xy([idlerBracketSize.x, eZ - middleWebOffsetZ() - _topPlateThickness, eSizeX], fillet);
     // idler upright reinforcement to stop front face shear
-    coreXYPosBL = coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor));
+    coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
     translate([0, eSizeZ, 0])
         rounded_cube_xy([frontReinforcementThickness(), coreXYPosBL.z - coreXYSeparation().z/2 - idlerBracketSize.y - eSizeZ, idlerBracketSize.z], fillet);
     translate([frontReinforcementThickness(), coreXYPosBL.z - idlerBracketSize.x - 2, 0])

@@ -27,7 +27,7 @@ grooveMountFillet = 1;
 function grooveMountClampSize(blower_type, hotend_type) = [grooveMountSize(blower_type, hotend_type).y - 2*grooveMountFillet - grooveMountClampOffsetX(), 12, 15];
 
 module printheadAssembly() {
-    xCarriageType = xCarriageType(_xCarriageDescriptor);
+    xCarriageType = carriageType(_xCarriageDescriptor);
     blower_type = blower_type();
     hotend_type = 0;
     hotendOffset = hotendOffset(xCarriageType, hotend_type);
@@ -72,7 +72,7 @@ assembly("Printhead_E3DV6_MGN9C", big=true) {
 }
 
 module printheadBeltSide(rotate=0, explode=0, t=undef) {
-    xCarriageType = xCarriageType(_xCarriageDescriptor);
+    xCarriageType = carriageType(_xCarriageDescriptor);
 
     xRailCarriagePosition(carriagePosition(t), rotate)
         explode(explode, true) {
@@ -84,7 +84,7 @@ module printheadBeltSide(rotate=0, explode=0, t=undef) {
 }
 
 module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false) {
-    xCarriageType = xCarriageType(_xCarriageDescriptor);
+    xCarriageType = carriageType(_xCarriageDescriptor);
     xCarriageFrontSize = xCarriageFrontSize(xCarriageType, beltWidth()) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 3];
     holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
