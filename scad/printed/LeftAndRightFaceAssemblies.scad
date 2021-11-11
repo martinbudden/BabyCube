@@ -17,8 +17,7 @@ use <SwitchShroud.scad>
 use <XY_IdlerBracket.scad>
 use <XY_MotorMount.scad>
 
-use <../Parameters_CoreXY.scad>
-include <../Parameters_Main.scad>
+include <../Parameters_CoreXY.scad>
 
 
 module Left_Face_stl() {

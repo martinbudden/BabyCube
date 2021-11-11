@@ -1,8 +1,7 @@
 //! Display the Y carriages
 
-include <NopSCADlib/core.scad>
-include <NopSCADlib/vitamins/pulleys.scad>
 include <NopSCADlib/vitamins/rails.scad>
+include <NopSCADlib/vitamins/pulleys.scad>
 
 use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/Y_Carriage.scad>

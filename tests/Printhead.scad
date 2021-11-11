@@ -1,8 +1,7 @@
 //! Display the print head
 
-include <NopSCADlib/core.scad>
-include <NopSCADlib/vitamins/blowers.scad>
 include <NopSCADlib/vitamins/rails.scad>
+include <NopSCADlib/vitamins/blowers.scad>
 
 use <../scad/printed/Base.scad>
 include <../scad/printed/Extras.scad>
@@ -16,8 +15,7 @@ use <../scad/utils/CoreXYBelts.scad>
 include <../scad/utils/printParameters.scad>
 use <../scad/utils/X_rail.scad>
 
-use <../scad/Parameters_CoreXY.scad>
-include <../scad/Parameters_Main.scad>
+include <../scad/Parameters_CoreXY.scad>
 
 
 //$explode = 1;

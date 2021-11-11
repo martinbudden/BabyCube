@@ -1,8 +1,5 @@
-include <NopSCADlib/core.scad>
-include <NopSCADlib/utils/core_xy.scad>
-include <NopSCADlib/vitamins/washers.scad>
-include <NopSCADlib/vitamins/pulleys.scad>
 include <NopSCADlib/vitamins/rails.scad>
+include <NopSCADlib/utils/core_xy.scad>
 
 include <Parameters_Main.scad>
 
@@ -34,11 +31,10 @@ function  coreXYSeparation() = [
 
 
 function motorClearance() = [ 2, 8, 0.5 ]; // y value was 6, changed to 8 for better carbon fiber variants, should hot affect print volume
-__idlerClearanceY = _useCNC ? 4 : 1;
 
 function coreXYPosBL(motorWidth, yCarriageType=MGN9C_carriage) = [
     is_undef(motorWidth) ? undef : motorWidth/2 - coreXY_drive_pulley_x_alignment( coreXY_type() ) + motorClearance().x,
-    pulley_flange_dia(GT2x16_toothed_idler)/2 + __idlerClearanceY,
+    pulley_flange_dia(GT2x16_toothed_idler)/2 + (_useCNC ? 4 : 1), // pulley flange + idlerClearanceY
     // choose Z so the belts align with the Y_Carriage pulleys
     is_undef(yCarriageType) ? 0 : eZ - coreXYSeparation().z - yRailSupportThickness() - yCarriageThickness() - carriage_height(yCarriageType) + yCarriageBraceThickness()/2
 ];

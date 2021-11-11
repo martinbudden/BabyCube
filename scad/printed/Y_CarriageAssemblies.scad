@@ -1,19 +1,16 @@
 
 include <../global_defs.scad>
 
-include <NopSCADlib/core.scad>
-
-include <NopSCADlib/vitamins/pulleys.scad>
 include <NopSCADlib/vitamins/rails.scad>
+include <NopSCADlib/vitamins/pulleys.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 include <../utils/carriageTypes.scad>
 
 use <Y_Carriage.scad>
 
-use <../Parameters_CoreXY.scad>
+include <../Parameters_CoreXY.scad>
 use <../Parameters_Positions.scad>
-include <../Parameters_Main.scad>
 
 
 //function pulleyOffset() = [-yRailShiftX(), 0, yCarriageThickness() - 6 + 1.25 + pulleyStackHeight()];

@@ -1,11 +1,10 @@
 include <../global_defs.scad>
 
-include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
-include <NopSCADlib/vitamins/blowers.scad>
 include <NopSCADlib/vitamins/e3d.scad>
 include <NopSCADlib/vitamins/fans.scad>
 include <NopSCADlib/vitamins/rails.scad>
+include <NopSCADlib/vitamins/blowers.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
 include <../utils/ziptieCutout.scad>

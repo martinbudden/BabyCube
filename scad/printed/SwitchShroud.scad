@@ -10,8 +10,7 @@ use <../vitamins/XT_Connectors.scad>
 use <LeftAndRightFaces.scad>
 use <XY_IdlerBracket.scad>
 
-include <../Parameters_Main.scad>
-use <../Parameters_CoreXY.scad>
+include <../Parameters_CoreXY.scad>
 
 
 module wire_swg(colour, length, swg)   //! Add SWG wire to the BOM

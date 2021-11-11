@@ -17,8 +17,7 @@ use <FrontChords.scad>
 use <LeftAndRightFaces.scad>
 use <XY_IdlerBracket.scad>
 
-use <../Parameters_CoreXY.scad>
-include <../Parameters_Main.scad>
+include <../Parameters_CoreXY.scad>
 
 
 module Front_Face_CF_dxf() {

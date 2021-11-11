@@ -2,8 +2,7 @@ include <NopSCADlib/utils/core/core.scad>
 use <NopSCADlib/utils/core_xy.scad>
 
 include <carriageTypes.scad>
-use <../Parameters_CoreXY.scad>
-include <../Parameters_Main.scad>
+include <../Parameters_CoreXY.scad>
 
 
 module CoreXYBelts(carriagePosition, x_gap=10, show_pulleys=false) {
