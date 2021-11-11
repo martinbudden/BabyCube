@@ -1,6 +1,6 @@
 //! Display the the spool holder
 
-use <../scad/printed/SpoolHolder.scad>
+include <../scad/printed/SpoolHolder.scad>
 
 //$explode = 1;
 //$pose = 1;
