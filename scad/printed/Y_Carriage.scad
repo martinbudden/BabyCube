@@ -1,12 +1,10 @@
 
 include <../global_defs.scad>
 
-include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 
-include <NopSCADlib/vitamins/pulleys.scad>
 include <NopSCADlib/vitamins/rails.scad>
-include <NopSCADlib/vitamins/screws.scad>
+include <NopSCADlib/vitamins/pulleys.scad>
 
 include <../vitamins/bolts.scad>
 include <../vitamins/inserts.scad>

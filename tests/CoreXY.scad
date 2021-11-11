@@ -20,9 +20,8 @@ use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 use <../scad/printed/Y_CarriageAssemblies.scad>
 
-use <../scad/Parameters_CoreXY.scad>
+include <../scad/Parameters_CoreXY.scad>
 use <../scad/Parameters_Positions.scad>
-include <../scad/Parameters_Main.scad>
 
 
 t=2;

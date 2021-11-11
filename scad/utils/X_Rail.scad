@@ -1,10 +1,8 @@
-include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/rails.scad>
 
 include <../vitamins/bolts.scad>
 
-use <../Parameters_CoreXY.scad>
-include <../Parameters_Main.scad>
+include <../Parameters_CoreXY.scad>
 
 
 module xRailCarriagePosition(carriagePosition, rotate=0) {

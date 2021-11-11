@@ -1,6 +1,5 @@
 include <../global_defs.scad>
 
-include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/ball_bearings.scad>
 include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/sheets.scad>

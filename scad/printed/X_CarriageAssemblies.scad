@@ -1,10 +1,9 @@
 
 include <../global_defs.scad>
 
-include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
-include <NopSCADlib/vitamins/blowers.scad>
 include <NopSCADlib/vitamins/rails.scad>
+include <NopSCADlib/vitamins/blowers.scad>
 
 include <../utils/carriageTypes.scad>
 include <../utils/PrintheadOffsets.scad>
@@ -16,8 +15,7 @@ use <X_Carriage.scad>
 use <X_CarriageBeltAttachment.scad>
 use <X_CarriageFanDuct.scad>
 
-use <../Parameters_CoreXY.scad>
-include <../Parameters_Main.scad>
+include <../Parameters_CoreXY.scad>
 
 //!!TODO - change hotendoffset.z to 1.5 for new X_Carriage with belt attachments
 function hotendOffset(xCarriageType, hotend_type=0) = printHeadHotendOffset(hotend_type) + [-xCarriageBackSize(xCarriageType).x/2, xCarriageBackOffsetY(xCarriageType), 0];
