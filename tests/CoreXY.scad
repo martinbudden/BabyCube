@@ -46,7 +46,7 @@ module CoreXY() {
     XY_Idler_Right_assembly();
     XY_Motor_Mount_Left_assembly();
     XY_Motor_Mount_Right_assembly();
-    xRail(carriagePosition(t), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
+    xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
     //let($hide_bolts=true)
     printheadBeltSide(t=t);
     printheadHotendSide(t=t);
@@ -55,7 +55,7 @@ module CoreXY() {
             X_Carriage_stl();
         X_Carriage_assembly();
         //X_Carriage_Front_assembly();
-        //xCarriageBeltFragments(xCarriageType(_xCarriageDescriptor), coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
+        //xCarriageBeltFragments(carriageType(_xCarriageDescriptor), coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
     }
 }
 
@@ -92,7 +92,7 @@ module XY_Idler_Left_assembly()
 assembly("XY_Idler_Left") {
 
     rotate([90, 0, 90]) {
-        coreXYPosBL = coreXYPosBL(_xyNEMA_width, yCarriageType(_yCarriageDescriptor));
+        coreXYPosBL = coreXYPosBL(_xyNEMA_width, carriageType(_yCarriageDescriptor));
         translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
             stl_colour(pp1_colour)
                 XY_IdlerBracket(coreXYPosBL, _xyNEMA_width);
@@ -106,7 +106,7 @@ assembly("XY_Idler_Right") {
     translate([eX + 2*eSizeX, 0, 0])
         rotate([90, 0, 90])
             mirror([0, 0, 1]) {
-                coreXYPosBL = coreXYPosBL(_xyNEMA_width, yCarriageType(_yCarriageDescriptor));
+                coreXYPosBL = coreXYPosBL(_xyNEMA_width, carriageType(_yCarriageDescriptor));
                 translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
                     stl_colour(pp1_colour)
                         XY_IdlerBracket(coreXYPosBL, _xyNEMA_width);

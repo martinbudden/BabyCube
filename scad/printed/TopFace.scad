@@ -127,7 +127,7 @@ module motorAccessHolePositions(NEMA_type, n = 3) {
     assert(isNEMAType(NEMA_type));
 
     NEMA_width = NEMA_width(NEMA_type);
-    yCarriageType = yCarriageType(_yCarriageDescriptor);
+    yCarriageType = carriageType(_yCarriageDescriptor);
     for (x = [coreXYPosBL(NEMA_width, yCarriageType).x + coreXY_drive_pulley_x_alignment(coreXY_type()), coreXYPosTR(NEMA_width, yCarriageType).x - coreXY_drive_pulley_x_alignment(coreXY_type())])
         translate([x, coreXYPosTR(NEMA_width, yCarriageType).y])
             if (x < eX/2)
@@ -188,7 +188,7 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, cn
 
 module topFaceRailHolePositions(NEMA_width) {
     railOffset = yRailOffset(NEMA_width);
-    yRailType = yRailType(_yCarriageDescriptor);
+    yRailType = railType(_yCarriageDescriptor);
     for (x = [railOffset.x, eX + 2*eSizeX - railOffset.x])
         translate([x, railOffset.y, 0])
             rotate(90)

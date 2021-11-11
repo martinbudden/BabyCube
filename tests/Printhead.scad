@@ -24,7 +24,7 @@ include <../scad/Parameters_Main.scad>
 //$pose = 1;
 module Printhead_test() {
     echoPrintSize();
-    xCarriageType = xCarriageType(_xCarriageDescriptor);
+    xCarriageType = carriageType(_xCarriageDescriptor);
     echo(coreXYSeparation=coreXYSeparation());
 
     //let($hide_bolts=true)
@@ -32,7 +32,7 @@ module Printhead_test() {
         printheadBeltSide();
         printheadHotendSide();
         CoreXYBelts(carriagePosition(), x_gap=2);
-        xRail(carriagePosition(), xCarriageType, _xRailLength, yCarriageType(_yCarriageDescriptor));
+        xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         bowdenTube(carriagePosition());
         //Back_Face_assembly();
         //printheadWiring(carriagePosition());

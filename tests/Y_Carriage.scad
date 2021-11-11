@@ -29,7 +29,7 @@ module Y_Carriage_test1() {
 
     //Y_Carriage_Left_AL_dxf();
     Y_Carriage_Left_stl();
-    yCarriageType = yCarriageType(_yCarriageDescriptor);
+    yCarriageType = carriageType(_yCarriageDescriptor);
     //Y_Carriage_hardware(yCarriageType, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=true);
     idlerHeight = pulley_height(coreXY_toothed_idler(coreXY_type()));
     if (yCarriageBraceThickness())

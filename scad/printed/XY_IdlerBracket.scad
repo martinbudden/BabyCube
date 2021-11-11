@@ -16,7 +16,7 @@ include <../Parameters_Main.scad>
 
 
 function yRailSupportSize(NEMA_width = _xyNEMA_width)
-    = [ eY + 2*eSizeY, yRailSupportThickness(), yRailOffset(NEMA_width).x + rail_width(yRailType(_yCarriageDescriptor))/2 + 1 ];
+    = [ eY + 2*eSizeY, yRailSupportThickness(), yRailOffset(NEMA_width).x + rail_width(railType(_yCarriageDescriptor))/2 + 1 ];
 
 function idlerBracketSize(coreXYPosBL=[0, 0, 0]) = [coreXYPosBL.y + 6, 6, floor(coreXYPosBL.x/2)*2 + 10];
 function idlerBracketTopSizeY() = 11;
@@ -65,7 +65,7 @@ module XY_Idler_Bracket_Left_assembly()
 assembly("XY_Idler_Bracket_Left", ngb=true) {
 
     NEMA_width = NEMA_width(NEMA14);
-    yCarriageType = yCarriageType(_yCarriageDescriptor);
+    yCarriageType = carriageType(_yCarriageDescriptor);
     translate_z(coreXYPosBL(NEMA_width, yCarriageType).z + coreXYSeparation().z)
         rotate([90, 0, 90])
             stl_colour(pp1_colour)
@@ -81,7 +81,7 @@ module XY_Idler_Bracket_Right_assembly()
 assembly("XY_Idler_Bracket_Right", ngb=true) {
 
     NEMA_width = NEMA_width(NEMA14);
-    coreXYPosBL = coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor));
+    coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
     translate([eX + 2*eSizeX, 0, coreXYPosBL.z + coreXYSeparation().z])
         rotate([-90, 0, 90])
             stl_colour(pp1_colour)

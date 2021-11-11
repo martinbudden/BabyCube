@@ -127,7 +127,7 @@ assembly("Top_Face", big=true) {
     //hidden() Y_Carriage_Right_AL_dxf();
 
     explode(30, true)
-        xRail(carriagePosition(t), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
+        xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
 }
 
 //!1. Turn the Top_Face into its normal orientation.
@@ -144,7 +144,7 @@ assembly("Top_Face_NEMA_17", big=true) {
     Top_Face_NEMA_17_Stage_2_assembly();
 
     explode(30, true)
-        xRail(carriagePosition(t), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
+        xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
 }
 
 
@@ -171,7 +171,7 @@ assembly("Top_Face_CF", big=true) {
     Top_Face_CF_Stage_2_assembly(t);
 
     explode(30, true)
-        xRail(carriagePosition(t), xCarriageType(_xCarriageDescriptor), _xRailLength, yCarriageType(_yCarriageDescriptor));
+        xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
 }
 
 
@@ -185,13 +185,13 @@ assembly("Top_Face_with_Printhead", big=true) {
         rotate(0) {// for debug, to see belts better
             X_Carriage_Front_assembly();
             Printhead_assembly();
-            xCarriageTopBolts(xCarriageType(_xCarriageDescriptor));
+            xCarriageTopBolts(carriageType(_xCarriageDescriptor));
         }
 }
 */
 
 module topFaceAssembly(NEMA_width, t=undef) {
-    yCarriageType = yCarriageType(_yCarriageDescriptor);
+    yCarriageType = carriageType(_yCarriageDescriptor);
     yRailType = carriage_rail(yCarriageType);
 
     railOffset = yRailOffset(NEMA_width);

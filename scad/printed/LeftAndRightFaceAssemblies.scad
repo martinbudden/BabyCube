@@ -64,7 +64,7 @@ module leftFaceAssembly() {
 module leftFaceHardware(NEMA_type, cnc=false, rocker=true) {
     rotate([90, 0, 90]) {
         if (!cnc) {
-            XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), yCarriageType(_yCarriageDescriptor)));
+            XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), carriageType(_yCarriageDescriptor)));
             XY_MotorUprightHardware(NEMA_type, left=true);
             translate(rockerPosition(rocker_type()))
                 rotate([0, -90, 0])
@@ -172,7 +172,7 @@ module rightFaceHardware(NEMA_type, cnc=false) {
         rotate([-90, 0, 90])
             mirror([0, 1, 0]) {
                 if (!cnc) {
-                    XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), yCarriageType(_yCarriageDescriptor)));
+                    XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), carriageType(_yCarriageDescriptor)));
                     XY_MotorUprightHardware(NEMA_type, left=false);
                 }
                 stepper_motor_cable(400);

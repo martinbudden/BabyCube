@@ -32,7 +32,7 @@ module yCarriage(NEMA_width, left, cnc=false) {
 
     assert(pulleyStackHeight(idlerHeight) + yCarriageBraceThickness() == coreXYSeparation().z);
     pulleyBore = 3;
-    Y_Carriage(yCarriageType(_yCarriageDescriptor), idlerHeight, pulleyBore, xRailType(_xCarriageDescriptor), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset(), topInset, left=left, cnc=cnc);
+    Y_Carriage(carriageType(_yCarriageDescriptor), idlerHeight, pulleyBore, railType(_xCarriageDescriptor), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset(), topInset, left=left, cnc=cnc);
 }
 
 module Y_Carriage_Left_stl() {
@@ -76,7 +76,7 @@ module Y_Carriage_Brace_Left_stl() {
 
     stl("Y_Carriage_Brace_Left")
         color(pp1_colour)
-            yCarriageBrace(yCarriageType(_yCarriageDescriptor), yCarriageBraceThickness(), pulleyOffset(), holeRadius, left=true);
+            yCarriageBrace(carriageType(_yCarriageDescriptor), yCarriageBraceThickness(), pulleyOffset(), holeRadius, left=true);
 }
 
 module Y_Carriage_Brace_Right_stl() {
@@ -84,12 +84,12 @@ module Y_Carriage_Brace_Right_stl() {
 
     stl("Y_Carriage_Brace_Right")
         color(pp1_colour)
-            yCarriageBrace(yCarriageType(_yCarriageDescriptor), yCarriageBraceThickness(), pulleyOffset(), holeRadius, left=false);
+            yCarriageBrace(carriageType(_yCarriageDescriptor), yCarriageBraceThickness(), pulleyOffset(), holeRadius, left=false);
 }
 
 module yCarriageLeftAssembly(NEMA_width, t=undef) {
 
-    yCarriageType = yCarriageType(_yCarriageDescriptor);
+    yCarriageType = carriageType(_yCarriageDescriptor);
     railOffset = yRailOffset(NEMA_width);
     plainIdler = coreXY_plain_idler(coreXY_type());
     toothedIdler = coreXY_toothed_idler(coreXY_type());
@@ -115,7 +115,7 @@ module yCarriageLeftAssembly(NEMA_width, t=undef) {
 
 module yCarriageRightAssembly(NEMA_width, t=undef) {
 
-    yCarriageType = yCarriageType(_yCarriageDescriptor);
+    yCarriageType = carriageType(_yCarriageDescriptor);
     railOffset = yRailOffset(NEMA_width);
     plainIdler = coreXY_plain_idler(coreXY_type());
     toothedIdler = coreXY_toothed_idler(coreXY_type());

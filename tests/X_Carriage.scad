@@ -18,7 +18,7 @@ module X_Carriage_test() {
     //echo(fho150=railFirstHoleOffset(MGN9, 150));
     //echo(fho200=railFirstHoleOffset(MGN9, 200));
 
-    xCarriageType = xCarriageType(_xCarriageDescriptor);
+    xCarriageType = carriageType(_xCarriageDescriptor);
     hotend_type = 0;
 
     //rotate([0, 90, 0]) X_Carriage_stl();

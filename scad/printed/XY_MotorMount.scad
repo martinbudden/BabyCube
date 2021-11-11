@@ -42,13 +42,13 @@ function XY_MotorMountSize(NEMA_width, basePlateThickness=basePlateThickness, cf
 function xyMotorPosition(NEMA_width, left) = [
     eX + 2*eSizeX - coreXYPosTR(NEMA_width).x + coreXY_drive_pulley_x_alignment(coreXY_type()),
     coreXYPosTR(NEMA_width).y,
-    coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor)).z - motorClearance().z - pulleyOffset - (left ? coreXYSeparation().z/2 : -coreXYSeparation().z/2)
+    coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor)).z - motorClearance().z - pulleyOffset - (left ? coreXYSeparation().z/2 : -coreXYSeparation().z/2)
 ];
 
 
 /*function xyMotorPosition(NEMA_width, left) = [
     coreXYPosTR(NEMA_width).y,
-    coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor)).z - pulleyOffset + (left ? -coreXYSeparation().z/2 : coreXYSeparation().z/2) - motorClearance().z,
+    coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor)).z - pulleyOffset + (left ? -coreXYSeparation().z/2 : coreXYSeparation().z/2) - motorClearance().z,
     eX + 2*eSizeX - coreXYPosTR(NEMA_width).x + coreXY_drive_pulley_x_alignment(coreXY_type())
 ];*/
 
@@ -128,7 +128,7 @@ assembly("XY_Motor_Mount_Right", big=true, ngb=true) {
 }
 
 module XY_MotorPosition(NEMA_width, left=true) {
-    //offset = eZ - coreXYPosBL(NEMA_width, yCarriageType(_yCarriageDescriptor)).z + basePlateThickness + (left ? 0 : coreXYSeparation().z);
+    //offset = eZ - coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor)).z + basePlateThickness + (left ? 0 : coreXYSeparation().z);
     rotate([-90, -90, 0])
         translate(xyMotorPosition(NEMA_width, left))
             children();
@@ -177,7 +177,7 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
     difference() {
         // baseplate for motor with cutouts
         union() {
-            yRailType = yRailType(_yCarriageDescriptor);
+            yRailType = railType(_yCarriageDescriptor);
             translate([-NEMA_width/2 - motorClearance().x + _sidePlateThickness, NEMA_width/2 + motorClearance().y - size.y, 0]) {
                 if (cf) {
                     rounded_cube_xy(size + [0, offsetY*2, 0], fillet);
