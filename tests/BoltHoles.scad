@@ -14,7 +14,7 @@ use <../scad/printed/TopFaceAssemblies.scad>
 
 include <../scad/utils/HolePositions.scad>
 
-use <../scad/vitamins/bolts.scad>
+include <../scad/vitamins/bolts.scad>
 
 include <../scad/Parameters_Main.scad>
 

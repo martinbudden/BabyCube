@@ -16,7 +16,7 @@ use <printed/X_CarriageAssemblies.scad>
 use <utils/CoreXYBelts.scad>
 use <utils/HolePositions.scad>
 
-use <vitamins/bolts.scad>
+include <vitamins/bolts.scad>
 
 use <Parameters_Positions.scad>
 include <Parameters_Main.scad>
