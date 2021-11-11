@@ -156,9 +156,8 @@ module CF_FinalAssembly() {
         explode(100, true)
             CoreXYBelts(carriagePosition());
         explode(100, true)
-            //fullPrinthead();
             printheadBeltSide();
-            printheadHotendSide();
+        printheadHotendSide();
         *if (!exploded())
             printheadWiring(carriagePosition());
         if (!exploded())
@@ -172,7 +171,6 @@ module CF_DebugAssembly() {
         explode = 75;
         explode(explode + 25) {
             Top_Face_CF_assembly();
-            //fullPrinthead();
             printheadBeltSide();
             printheadHotendSide();
         }

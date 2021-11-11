@@ -39,7 +39,7 @@ _cornerHoleInset = 20;
 _webThickness = 4;
 _fillet = 1;
 
-_xyNEMA_width = _xyMotorDescriptor == "NEMA14" ? 35.2 : 42.3;
+_xyNEMA_width = !is_undef(_xyMotorDescriptor) && _xyMotorDescriptor == "NEMA14" ? 35.2 : 42.3;
 _xyMotorBracketThickness = 6;
 
 _zNEMA_width = _zMotorDescriptor == "NEMA14" || _zMotorDescriptor == "NEMA14L" ? 35.2 : 42.3;

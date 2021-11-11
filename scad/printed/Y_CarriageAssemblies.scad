@@ -31,7 +31,8 @@ module yCarriage(NEMA_width, left, cnc=false) {
     tongueOffset = tongueOffset(NEMA_width);
 
     assert(pulleyStackHeight(idlerHeight) + yCarriageBraceThickness() == coreXYSeparation().z);
-    Y_Carriage(yCarriageType(_yCarriageDescriptor), idlerHeight, _beltWidth, xRailType(_xCarriageDescriptor), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset(), topInset, left=left, cnc=cnc);
+    pulleyBore = 3;
+    Y_Carriage(yCarriageType(_yCarriageDescriptor), idlerHeight, pulleyBore, xRailType(_xCarriageDescriptor), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset(), topInset, left=left, cnc=cnc);
 }
 
 module Y_Carriage_Left_stl() {
@@ -108,7 +109,7 @@ module yCarriageLeftAssembly(NEMA_width, t=undef) {
                     explode(4*yCarriageExplodeFactor())
                         stl_colour(pp1_colour)
                             Y_Carriage_Brace_Left_stl();
-            Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, _beltWidth, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=true);
+            Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=true);
         }
 }
 
@@ -134,6 +135,6 @@ module yCarriageRightAssembly(NEMA_width, t=undef) {
                     explode(4*yCarriageExplodeFactor())
                         stl_colour(pp1_colour)
                             Y_Carriage_Brace_Right_stl();
-            Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, _beltWidth, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=false);
+            Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), left=false);
         }
 }

@@ -50,18 +50,17 @@ module CoreXY() {
     //let($hide_bolts=true)
     printheadBeltSide(t=t);
     printheadHotendSide(t=t);
-    //fullPrinthead(rotate=0, accelerometer=true);
     *xRailCarriagePosition(carriagePosition(), rotate=0) {// rotate 180 to make it easier to see belts
         *rotate([0, 90, 0])
             X_Carriage_stl();
         X_Carriage_assembly();
-        X_Carriage_Front_assembly();
-        xCarriageBeltFragments(xCarriageType(_xCarriageDescriptor), coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
+        //X_Carriage_Front_assembly();
+        //xCarriageBeltFragments(xCarriageType(_xCarriageDescriptor), coreXY_belt(coreXY_type()), beltOffsetZ(), coreXYSeparation().z, coreXY_upper_belt_colour(coreXY_type()), coreXY_lower_belt_colour(coreXY_type()));
     }
 }
 
 if ($preview)
-    rotate(t==2 ? -90 + 30 : 0)
+    rotate($vpr.z == 315 ? -90 + 30 : 0)
         translate([-eX/2, -eY/2, -coreXYPosBL(_xyNEMA_width).z])
             CoreXY();
 

@@ -37,10 +37,10 @@ module yCarriageTongueBoltPositions(tongueOffset, xRailType, xRailLength) {
             children();
 }
 
-module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength, thickness, chamfer, yCarriageBraceThickness, blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset, topInset=0, inserts=false, left=true, cnc=false) {
+module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength, thickness, chamfer, yCarriageBraceThickness, blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset, topInset=0, inserts=false, left=true, cnc=false) {
     assert(is_list(yCarriageType));
     assert(is_list(xRailType));
-    assert(beltWidth == 6 || beltWidth == 9);
+    assert(pulleyBore == 3 || pulleyBore == 4 || pulleyBore == 5);
 
     plainIdlerHeight = idlerHeight;
     toothedIdlerHeight = idlerHeight;
@@ -225,7 +225,7 @@ module Y_Carriage(yCarriageType, idlerHeight, beltWidth, xRailType, xRailLength,
                 carriage_hole_positions(yCarriageType)
                     vflip()
                         boltHoleM3Counterbore(thickness, counterBore(thickness), cnc=cnc);
-        holeDiameter = beltWidth == 6 ? 2*M3_tap_radius : 2*M5_tap_radius;
+        holeDiameter = pulleyBore == 3 ? 2*M3_tap_radius : pulleyBore == 4 ? 2*M4_tap_radius : 2*M5_tap_radius;
         translate([left ? toothedPulleyPos.x : plainPulleyPos.x, toothedPulleyPos.y, 0])
             boltHole(holeDiameter, thickness, twist=4, cnc=cnc);
         if (isMGN9C(yCarriageType))
@@ -310,7 +310,7 @@ module pulleyStack(pulley, explode=0) {
             children();
 }
 
-module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, beltWidth, thickness, yCarriageBraceThickness, pulleyOffset, left) {
+module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCarriageBraceThickness, pulleyOffset, left) {
     washer = pulley_bore(plainIdler) == 3 ? M3_washer : M5_washer;
     bolt = pulley_bore(plainIdler) == 3 ? M3_cap_screw : M5_cap_screw;
     blockSizeX = yCarriageBlockSizeX(yCarriageType);
@@ -365,10 +365,10 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, beltWidth, thic
     }
 }
 
-module Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, beltWidth, thickness, yCarriageBraceThickness, pulleyOffset, left) {
+module Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, thickness, yCarriageBraceThickness, pulleyOffset, left) {
     assert(is_list(yCarriageType));
 
-    yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, beltWidth, thickness, yCarriageBraceThickness, pulleyOffset, left);
+    yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCarriageBraceThickness, pulleyOffset, left);
     explode(15)
         yCarriageBolts(yCarriageType, thickness);
 }

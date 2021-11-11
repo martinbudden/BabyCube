@@ -19,7 +19,6 @@ module Main_test() {
     //Stage_2_assembly();
     //Stage_3_assembly();
     //Stage_4_assembly();
-    //fullPrinthead();
     //Stage_5_assembly();
     //Stage_6_assembly();
     FinalAssembly();
@@ -37,6 +36,6 @@ module position(a=[55, 0, 25], t=[0, 0, 0], d=undef) {
 
 if ($preview)
     //position([55 + 19, 0, 25 - 15])
-    rotate(-90 + 30)
+    rotate($vpr.z == 315 ? -90 + 30 : 0)
         translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, 0])
             Main_test();
