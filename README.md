@@ -102,6 +102,16 @@ The standard variant uses a BigTreeTech TFT35 v3.0 display, however it should al
 
 I have started to look at developing a variant with a carbon fiber frame, however this is very much a [work in progress](concepts/readme.md).
 
+## Comparisons
+
+The following table compares the sizes and build volumes of various small 3D printers.
+
+Printer           | Build Volume | Nominal Dimensions
+------------------| -------------| -------------------
+BabyCube          | 90 x 80 x 60 | 200 x 220 x 210
+[Dice](https://www.instructables.com/DICE-a-Tiny-Rigid-and-Superfast-3D-printer/) | 90 x 75 x 80  | 200 x 200 x 200
+[Voron 0](https://vorondesign.com/voron0) | 120 x 120 x 120 | 230 x 230 x 280
+
 ## Pictures
 
 ![Front](pictures/BC_front.jpg)
