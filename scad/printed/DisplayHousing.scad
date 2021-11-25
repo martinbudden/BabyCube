@@ -3,8 +3,8 @@
 include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/utils/tube.scad>
-include <NopSCADlib/vitamins/displays.scad>
-include <NopSCADlib/vitamins/pcbs.scad>
+use <NopSCADlib/vitamins/display.scad>
+use <NopSCADlib/vitamins/pcb.scad>
 
 include <../vitamins/bolts.scad>
 

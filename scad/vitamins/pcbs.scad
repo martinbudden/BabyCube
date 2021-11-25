@@ -1,4 +1,4 @@
-include <NopSCADlib/utils/core/core.scad>
+include <NopSCADlib/utils/core/global.scad>
 
 
 ADXL345  = [
