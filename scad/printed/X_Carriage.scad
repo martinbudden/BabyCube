@@ -120,11 +120,12 @@ module xCarriageTopBolts(xCarriageType, countersunk = true, positions=undef) {
                     _threadedInsertM3();
 }
 
-module xCarriageBottom(xCarriageType, size, holeSeparation, reflected=false, clamps=false) {
+module xCarriageBottom(xCarriageType, size, beltWidth, holeSeparation, reflected=false) {
     assert(is_list(xCarriageType));
+    clamps = false;
 
     //extraY = xCarriageFrontOffsetY(xCarriageType) - carriage_size(xCarriageType).y/2 - xCarriageFrontSize(xCarriageType).y;
-    xCarriageBackSize = xCarriageBackSize(xCarriageType);
+    xCarriageBackSize = xCarriageBackSize(xCarriageType, beltWidth);
     //size =  [xCarriageBackSize.x, clamps ? xCarriageFrontOffsetExtraY + carriage_size(xCarriageType).y + xCarriageBackSize.y - beltInsetFront(xCarriageType) : 13.5, baseThickness];
     translate([0, -size.y + xCarriageBackSize.y, 0])
         difference() {
@@ -179,7 +180,7 @@ module xCarriageBack(xCarriageType, size, beltWidth, beltOffsetZ, coreXYSeparati
                 // base
                 xCarriageBottomSize =  [size.x, clamps ? xCarriageFrontOffsetExtraY + carriageSize.y + size.y - beltInsetFront(xCarriageType) : (carriageSize.z >= 13 ? 13.95 : 10.5), baseThickness];
                 translate_z(-size.z + topThickness)
-                    xCarriageBottom(xCarriageType, xCarriageBottomSize, holeSeparationBottom, reflected, clamps);
+                    xCarriageBottom(xCarriageType, xCarriageBottomSize, beltWidth, holeSeparationBottom, reflected);
             } // end union
         if (clamps)
             translate([-size.x/2 - eps, carriageSize.y/2 - beltInsetBack(undef) + size.y, beltOffsetZ]) {

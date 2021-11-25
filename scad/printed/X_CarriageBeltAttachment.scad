@@ -229,16 +229,15 @@ module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationB
                     rounded_cube_xz(size + sizeExtra, fillet);
                     translate([0, 0, size.z - topSize.z])
                         rounded_cube_xz(topSize, fillet);
-                    insetHeight = 8 + 2*fillet;//size.z - railCarriageGap - topSize.z - carriage_size(xCarriageType).z + carriage_clearance(xCarriageType);
                     rounded_cube_xz([size.x, beltAttachmentSizeY, baseThickness], fillet);
                     translate_z(fillet + 0.25)
-                        cube([size.x, beltAttachmentSizeY, baseThickness - fillet + (isMGN12 ? 0 : 4)], fillet);
+                        cube([size.x, beltAttachmentSizeY, baseThickness - fillet + (isMGN12 ? 0 : 1)], fillet);
                     if (isMGN12) {
                         rounded_cube_xz([size.x, beltAttachmentOffsetY, baseThickness + xCarriageBeltAttachmentSize().x], fillet);
                     } else {
-                        offsetZ = 29.5;
+                        offsetZ = 26.5;
                         translate_z(offsetZ)
-                            rounded_cube_xz([size.x, size.y, size.z - offsetZ], fillet);
+                            rounded_cube_xz([size.x, size.y + 1.5, size.z - offsetZ], fillet);
                     }
 
                 } // end union

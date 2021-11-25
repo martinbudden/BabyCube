@@ -83,7 +83,7 @@ module printheadBeltSide(rotate=0, explode=0, t=undef) {
 
 module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false) {
     xCarriageType = carriageType(_xCarriageDescriptor);
-    xCarriageFrontSize = xCarriageFrontSize(xCarriageType, beltWidth()) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 3];
+    xCarriageFrontSize = xCarriageFrontSize(xCarriageType, beltWidth()) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 0];
     holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
 

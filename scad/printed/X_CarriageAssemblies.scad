@@ -29,7 +29,7 @@ xCarriageBeltTensionerSizeX = 23;
 module X_Carriage_Belt_Side_MGN9C_stl() {
     xCarriageType = MGN9C_carriage;
     extraX = xCarriageBeltAttachmentMGN9CExtraX();
-    size = xCarriageFrontSize(xCarriageType, beltWidth()) + [extraX, 0, 3];
+    size = xCarriageFrontSize(xCarriageType, beltWidth()) + [extraX, 0, 0];
     holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
 
@@ -107,7 +107,7 @@ module X_Carriage_Groovemount_MGN9C_stl() {
     stl("X_Carriage_Groovemount_MGN9C")
         color(pp1_colour)
             rotate([0, -90, 0]) {
-                size = xCarriageBackSize(xCarriageType, beltWidth()) - [0, 0, 1.5];
+                size = xCarriageBackSize(xCarriageType, beltWidth());
                 xCarriageBack(xCarriageType, size, beltWidth(), beltOffsetZ(), coreXYSeparation().z, clamps=false, strainRelief=false, countersunk=_xCarriageCountersunk ? 4 : 0, topHoleOffset=-xCarriageBeltAttachmentMGN9CExtraX()/2, accelerometerOffset = accelerometerOffset());
                 hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, blower_type, baffle=true, left=true);
             }
