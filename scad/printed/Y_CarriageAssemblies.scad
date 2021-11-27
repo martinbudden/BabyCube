@@ -22,13 +22,13 @@ topInset = 3.5;
 
 module yCarriage(NEMA_width, left, cnc=false) {
     idlerHeight = pulley_height(coreXY_toothed_idler(coreXY_type()));
+    pulleyBore = pulley_bore(coreXY_toothed_idler(coreXY_type()));
     chamfer = 0;
     blockOffsetX = topInset - 2.75;
     endStopOffsetX = left ? 2.5 : 1;
     tongueOffset = tongueOffset(NEMA_width);
 
-    assert(pulleyStackHeight(idlerHeight) + yCarriageBraceThickness() == coreXYSeparation().z);
-    pulleyBore = 3;
+    assert(pulleyStackHeight(idlerHeight, pulleyBore) + yCarriageBraceThickness() == coreXYSeparation().z);
     Y_Carriage(carriageType(_yCarriageDescriptor), idlerHeight, pulleyBore, railType(_xCarriageDescriptor), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset(), pulleyOffset(), topInset, left=left, cnc=cnc);
 }
 
@@ -90,7 +90,7 @@ module yCarriageLeftAssembly(NEMA_width, t=undef) {
     railOffset = yRailOffset(NEMA_width);
     plainIdler = coreXY_plain_idler(coreXY_type());
     toothedIdler = coreXY_toothed_idler(coreXY_type());
-    pulleyStackHeight = pulleyStackHeight(pulley_height(plainIdler));
+    pulleyStackHeight = pulleyStackHeight(pulley_height(plainIdler), pulley_bore(plainIdler));
 
     translate([railOffset.x, carriagePosition(t).y, railOffset.z - carriage_height(yCarriageType)])
         rotate([180, 0, 0]) {
@@ -116,7 +116,7 @@ module yCarriageRightAssembly(NEMA_width, t=undef) {
     railOffset = yRailOffset(NEMA_width);
     plainIdler = coreXY_plain_idler(coreXY_type());
     toothedIdler = coreXY_toothed_idler(coreXY_type());
-    pulleyStackHeight = pulleyStackHeight(pulley_height(plainIdler));
+    pulleyStackHeight = pulleyStackHeight(pulley_height(plainIdler), pulley_bore(plainIdler));
 
     translate([eX + 2*eSizeX - railOffset.x, carriagePosition(t).y, railOffset.z - carriage_height(yCarriageType)])
         rotate([180, 0, 180]) {
