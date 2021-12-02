@@ -24,7 +24,6 @@ function beltInsetBack(xCarriageType) = is_undef(xCarriageType) ? 4.5 : xCarriag
 
 function xCarriageTopThickness() = 8;
 function xCarriageBaseThickness() = 8;
-//function xCarriageFrontSize(xCarriageType, beltWidth, clamps) =  [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x), xCarriageFrontSize.y, (xCarriageType[0] == "MGN12H" ? 36 : xCarriageFrontSize.z) + carriage_height(xCarriageType) + topThickness + (!is_undef(beltWidth) && beltWidth == 9 ? 4.5 : 0)]; //has the belt tensioners
 function xCarriageFrontSize(xCarriageType, beltWidth) =  [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x), xCarriageFrontSize.y, 36 + carriage_height(xCarriageType) + topThickness + (!is_undef(beltWidth) && beltWidth == 9 ? 4.5 : 0)]; //has the belt tensioners
 function xCarriageBackSize(xCarriageType, beltWidth) = [xCarriageFrontSize(xCarriageType, beltWidth).x, 5, xCarriageFrontSize(xCarriageType, beltWidth).z];
 xCarriageFrontOffsetExtraY = 2;
@@ -40,13 +39,13 @@ function xCarriageHoleSeparationTop(xCarriageType) = xCarriageType[0] == "MGN9C"
 function xCarriageHoleSeparationBottom(xCarriageType) = xCarriageType[0] == "MGN9C" ? 22 : 38;//34;//37.4; //45.4 - 8
 function xCarriageBeltAttachmentMGN9CExtraX() = 4;
 
-module xCarriageTop(xCarriageType, xCarriageBackSize, holeSeparationTop, reflected=false, clamps=true, strainRelief=false, countersunk=4, topHoleOffset=0, holeOffset=0, accelerometerOffset=undef) {
+module xCarriageTop(xCarriageType, xCarriageBackSize, holeSeparationTop, reflected=false, strainRelief=false, countersunk=4, topHoleOffset=0, holeOffset=0, accelerometerOffset=undef) {
     assert(is_list(xCarriageType));
 
     //extraY = xCarriageFrontOffsetY(xCarriageType) - carriage_size(xCarriageType).y/2 - xCarriageFrontSize(xCarriageType).y;
     carriageSize = carriage_size(xCarriageType);
     carriageOffsetY = carriageSize.y/2;
-    size =  [xCarriageBackSize.x + (!clamps && carriageSize.z < 13 ? xCarriageBeltAttachmentMGN9CExtraX() : 0), xCarriageBackSize.y + (clamps ? xCarriageFrontOffsetExtraY + carriageSize.y : carriageSize.y/2), topThickness];
+    size =  [xCarriageBackSize.x + (carriageSize.z < 13 ? xCarriageBeltAttachmentMGN9CExtraX() : 0), xCarriageBackSize.y + carriageSize.y/2, topThickness];
 
     difference() {
         translate([0, xCarriageBackSize.y - size.y, 0])
@@ -120,27 +119,22 @@ module xCarriageTopBolts(xCarriageType, countersunk = true, positions=undef) {
                     _threadedInsertM3();
 }
 
-module xCarriageBottom(xCarriageType, size, beltWidth, holeSeparation, reflected=false) {
+module xCarriageBottom(xCarriageType, xCarriageBackSize, holeSeparation, reflected=false) {
     assert(is_list(xCarriageType));
-    clamps = false;
 
-    //extraY = xCarriageFrontOffsetY(xCarriageType) - carriage_size(xCarriageType).y/2 - xCarriageFrontSize(xCarriageType).y;
-    xCarriageBackSize = xCarriageBackSize(xCarriageType, beltWidth);
-    //size =  [xCarriageBackSize.x, clamps ? xCarriageFrontOffsetExtraY + carriage_size(xCarriageType).y + xCarriageBackSize.y - beltInsetFront(xCarriageType) : 13.5, baseThickness];
+    size =  [xCarriageBackSize.x, carriage_size(xCarriageType).z >= 13 ? 13.95 : 10.5, baseThickness];
     translate([0, -size.y + xCarriageBackSize.y, 0])
         difference() {
             rounded_cube_yz(size, fillet);
             // insert holes to connect to the front
-            //holeSeparation = xCarriageHoleSeparationBottom(xCarriageType);
             for (x = xCarriageHolePositions(size.x, holeSeparation))
-            //for (x = xCarriageBottomHolePositions(xCarriageType, holeOffset.x))
                 translate([x, 0, size.z/2])
                     rotate([-90, -90, 0])
-                        boltHoleM3TapOrInsert(xCarriageType[0] == clamps ? 14 : 12, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
+                        boltHoleM3TapOrInsert(xCarriageType[0] == false ? 14 : 12, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
         }
 }
 
-module xCarriageBack(xCarriageType, size, beltWidth, beltOffsetZ, coreXYSeparationZ, toolheadHoles=false, reflected=false, clamps=false, strainRelief=false, countersunk=0, topHoleOffset=0, offsetT=0, accelerometerOffset=undef) {
+module xCarriageBack(xCarriageType, size, coreXYSeparationZ, toolheadHoles=false, reflected=false, strainRelief=false, countersunk=0, topHoleOffset=0, offsetT=0, accelerometerOffset=undef) {
     assert(is_list(xCarriageType));
     internalFillet = 1.5;
     carriageSize = carriage_size(xCarriageType);
@@ -148,9 +142,7 @@ module xCarriageBack(xCarriageType, size, beltWidth, beltOffsetZ, coreXYSeparati
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
     isMGN12 = carriageSize.z >= 13;
 
-    // the back has clamps for the two belts and attaches to the hotend
     baseSize = [size.x, carriageSize.y + size.y - 2*beltInsetBack(xCarriageType), baseThickness];
-    //topSize =  [size.x, carriageSize.y + size.y - 2*beltInsetBack(xCarriageType) + xCarriageFrontSize(xCarriageType, beltWidth).y, topThickness];
     difference() {
         translate([-size.x/2, carriageSize.y/2, 0])
             union() {
@@ -159,41 +151,15 @@ module xCarriageBack(xCarriageType, size, beltWidth, beltOffsetZ, coreXYSeparati
                 translate([0, railCarriageGap, 0])
                     rotate([-90, 0, -90])
                         fillet(fillet, baseSize.x);
-                if (clamps) {
-                    translate([0, railCarriageGap - beltInsetBack(xCarriageType), -size.z + baseThickness]) {
-                        rectSize1 = [size.x, 4.5 + 2*fillet, size.z - railCarriageGap - topThickness - carriageSize.z + carriage_clearance(xCarriageType)];
-                        rectSize2 = [size.x, beltInsetBack(xCarriageType) + 2*fillet, size.z - railCarriageGap - topThickness - carriageSize.z + carriage_clearance(xCarriageType) - 10];
-                        translate([0, beltInsetBack(xCarriageType)-4.5, 0])
-                            rounded_cube_yz(rectSize1, fillet);
-                        rounded_cube_yz(rectSize2, fillet);
-                        translate_z(baseThickness)
-                            rotate([-90, -90, -90])
-                                fillet(internalFillet, baseSize.x);
-                    }
-                } else {
-                        translate([0, railCarriageGap, -size.z + 2*baseThickness])
-                            rotate([-90, -90, -90])
-                                fillet(internalFillet, baseSize.x);
-                }
+                translate([0, railCarriageGap, -size.z + 2*baseThickness])
+                    rotate([-90, -90, -90])
+                        fillet(internalFillet, baseSize.x);
                 // top
-                xCarriageTop(xCarriageType, size, holeSeparationTop, reflected, clamps, strainRelief, countersunk, topHoleOffset, offsetT, accelerometerOffset);
+                xCarriageTop(xCarriageType, size, holeSeparationTop, reflected, strainRelief, countersunk, topHoleOffset, offsetT, accelerometerOffset);
                 // base
-                xCarriageBottomSize =  [size.x, clamps ? xCarriageFrontOffsetExtraY + carriageSize.y + size.y - beltInsetFront(xCarriageType) : (carriageSize.z >= 13 ? 13.95 : 10.5), baseThickness];
                 translate_z(-size.z + topThickness)
-                    xCarriageBottom(xCarriageType, xCarriageBottomSize, beltWidth, holeSeparationBottom, reflected);
+                    xCarriageBottom(xCarriageType, size, holeSeparationBottom, reflected);
             } // end union
-        if (clamps)
-            translate([-size.x/2 - eps, carriageSize.y/2 - beltInsetBack(undef) + size.y, beltOffsetZ]) {
-                for (z = [clampHoleSpacing(beltWidth)/2, -clampHoleSpacing(beltWidth)/2])
-                    translate_z(z - coreXYSeparationZ/2)
-                        rotate([90, 0, 90])
-                            boltHoleM3TapOrInsert(10);
-                translate([size.x + 2*eps, 0, 0])
-                    for (z = [clampHoleSpacing(beltWidth)/2, -clampHoleSpacing(beltWidth)/2])
-                        translate_z(z + coreXYSeparationZ/2)
-                            rotate([90, 0, -90])
-                                boltHoleM3TapOrInsert(10);
-            }
         if (toolheadHoles) {
             // using large carriage, so can support XChange toolhead
             translate([0, carriageSize.y/2 + size.y + eps, topThickness - 20]) {
