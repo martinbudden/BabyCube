@@ -215,10 +215,11 @@ module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationB
     baseOffset = size.z - topSize.z;
     railCarriageGap = 0.5;
     fillet = 1;
-    beltAttachmentOffsetY = xCarriageFrontOffsetY(xCarriageType) - beltAttachmentOffsetY();
+    xCarriageFrontOffsetY = xCarriageBeltSideOffsetY(xCarriageType, size.y);
+    beltAttachmentOffsetY = xCarriageFrontOffsetY - beltAttachmentOffsetY();
     beltAttachmentSizeY = xCarriageBeltAttachmentSize().y + beltAttachmentOffsetY;
 
-    translate([-size.x/2, -xCarriageFrontOffsetY(xCarriageType), 0]) {
+    translate([-size.x/2, -xCarriageFrontOffsetY, 0]) {
         difference () {
             translate_z(-baseOffset)
                 union() {
@@ -249,7 +250,7 @@ module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationB
                         fillet(1, 20.5 - sizeExtra.y - beltAttachmentOffsetY + eps);
             }
             // bolt holes to connect to to the MGN carriage
-            translate([size.x/2 + topHoleOffset, xCarriageFrontOffsetY(xCarriageType), -carriage_height(xCarriageType)]) {
+            translate([size.x/2 + topHoleOffset, xCarriageFrontOffsetY, -carriage_height(xCarriageType)]) {
                 carriage_hole_positions(xCarriageType) {
                     boltHoleM3(topSize.z, horizontal=true);
                     // cut the countersink
@@ -306,7 +307,7 @@ module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationB
                 //    translate([x, 0, -baseOffset + baseThickness/2])
                 //        rotate([-90, 0, 0])
                 //            boltHoleM3Tap(8, twist=4);
-                translate([size.x/2, -6.5 + xCarriageFrontOffsetY(xCarriageType), topSize.z - size.z/2])
+                translate([size.x/2, -6.5 + xCarriageFrontOffsetY, topSize.z - size.z/2])
                     rotate([90, 0, 0])
                         carriage_hole_positions(MGN12H_carriage)
                             vflip()

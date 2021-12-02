@@ -17,21 +17,14 @@ fillet = 1;
 
 topThickness = xCarriageTopThickness();
 baseThickness = xCarriageBaseThickness();
-xCarriageFrontSize = [30, 4, 40.5];
 railCarriageGap = 0.5;
 
 function beltInsetBack(xCarriageType) = is_undef(xCarriageType) ? 4.5 : xCarriageType == MGN12H_carriage ? 6.5 : 4.5;
 
 function xCarriageTopThickness() = 8;
 function xCarriageBaseThickness() = 8;
-function xCarriageFrontSize(xCarriageType, beltWidth) =  [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x), xCarriageFrontSize.y, 36 + carriage_height(xCarriageType) + topThickness + (!is_undef(beltWidth) && beltWidth == 9 ? 4.5 : 0)]; //has the belt tensioners
-function xCarriageBackSize(xCarriageType, beltWidth) = [xCarriageFrontSize(xCarriageType, beltWidth).x, 5, xCarriageFrontSize(xCarriageType, beltWidth).z];
 xCarriageFrontOffsetExtraY = 2;
-function xCarriageFrontOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageFrontSize(xCarriageType).y + xCarriageFrontOffsetExtraY;
-function xCarriageBackOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageBackSize(xCarriageType).y;
-//function xCarriageTopHolePositions(xCarriageType, offset=4) = [offset, xCarriageFrontSize(xCarriageType).x - offset];
-////function xCarriageBottomHolePositions(xCarriageType) = [xCarriageType == MGN9C_carriage? 4 : 10, xCarriageFrontSize(xCarriageType).x - 4];
-//function xCarriageBottomHolePositions(xCarriageType, offset=4) = [offset, xCarriageFrontSize(xCarriageType).x - offset];
+function xCarriageBeltSideOffsetY(xCarriageType, xCarriageFrontSizeY) = carriage_size(xCarriageType).y/2 + xCarriageFrontSizeY + xCarriageFrontOffsetExtraY;
 
 function xCarriageHolePositions(sizeX, spacing) = [(sizeX - spacing)/2, (sizeX + spacing)/2];
 evaHoleSeparationTop = 34;
@@ -42,7 +35,6 @@ function xCarriageBeltAttachmentMGN9CExtraX() = 4;
 module xCarriageTop(xCarriageType, xCarriageBackSize, holeSeparationTop, reflected=false, strainRelief=false, countersunk=4, topHoleOffset=0, holeOffset=0, accelerometerOffset=undef) {
     assert(is_list(xCarriageType));
 
-    //extraY = xCarriageFrontOffsetY(xCarriageType) - carriage_size(xCarriageType).y/2 - xCarriageFrontSize(xCarriageType).y;
     carriageSize = carriage_size(xCarriageType);
     carriageOffsetY = carriageSize.y/2;
     size =  [xCarriageBackSize.x + (carriageSize.z < 13 ? xCarriageBeltAttachmentMGN9CExtraX() : 0), xCarriageBackSize.y + carriageSize.y/2, topThickness];
@@ -183,7 +175,7 @@ module xCarriageBack(xCarriageType, size, coreXYSeparationZ, toolheadHoles=false
 
 
 module xCarriageFrontBolts(xCarriageType, size, topBoltLength=10, holeSeparationTop, bottomBoltLength=12, holeSeparationBottom, countersunk=false, offsetT=0) {
-    translate([-size.x/2, -xCarriageFrontOffsetY(xCarriageType), 0]) {
+    translate([-size.x/2, -xCarriageBeltSideOffsetY(xCarriageType, size.y), 0]) {
         // holes at the top to connect to the xCarriage
         for (x = xCarriageHolePositions(size.x, holeSeparationTop))
         //for (x = xCarriageTopHolePositions(xCarriageType, offsetT.x))
