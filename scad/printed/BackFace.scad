@@ -18,7 +18,7 @@ include <../utils/motorTypes.scad>
 include <../vitamins/bolts.scad>
 include <../vitamins/cables.scad>
 
-use <X_Carriage.scad>
+use <X_CarriageAssemblies.scad>
 include <Z_MotorMount.scad>
 
 include <../Parameters_Main.scad>
