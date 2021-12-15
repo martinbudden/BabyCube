@@ -166,7 +166,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   4  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M2 caphead x  6mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |    2  |  Bolt M3 buttonhead x  8mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   1  |   4  |    7  |  Bolt M3 buttonhead x 10mm |
-|   2  |   .  |   .  |   .  |   .  |   4  |   4  |   .  |   4  |   8  |   22  |  Bolt M3 buttonhead x 12mm |
+|   2  |   .  |   .  |   .  |   .  |   4  |   4  |   .  |   4  |  18  |   32  |  Bolt M3 buttonhead x 12mm |
 |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 buttonhead x 16mm |
 |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   9  |   .  |   .  |   13  |  Bolt M3 caphead x  6mm |
 |   .  |   .  |  26  |   .  |   4  |   .  |   .  |   9  |   .  |   .  |   39  |  Bolt M3 caphead x  8mm |
@@ -224,7 +224,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male - not shown |
 |   1  |   .  |   .  |   .  |   2  |   .  |   5  |   .  |   4  |   4  |   16  |  Ziptie 2.5mm x 100mm min length |
-|  12  |   4  |  54  |  13  |  33  |  30  |  26  |  34  |  35  |  50  |  291  | Total vitamins count |
+|  12  |   4  |  54  |  13  |  33  |  30  |  26  |  34  |  35  |  60  |  301  | Total vitamins count |
 |      |      |      |      |      |      |      |      |      |      |       | **3D printed parts** |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  | Back_Face.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | Base.stl |
@@ -1060,6 +1060,13 @@ Bolt the BabyCube nameplate and the Display_Housing to the front of the frame.
 <a name="Stage_4_assembly"></a>
 
 ## Stage_4 assembly
+
+### Vitamins
+
+|Qty|Description|
+|---:|:----------|
+|10| Bolt M3 buttonhead x 12mm|
+
 
 ### Sub-assemblies
 
