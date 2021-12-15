@@ -2,11 +2,11 @@
 
 The carbon fiber version of the BabyCube is very much a work in progress. Here's an illustration demonstrating proof of concept:
 
-![BabyCubeCF](BC200_CF_assembled.png)
+![BabyCubeCF](BC200CF_assembled.png)
 
 The exploded version:
 
-![BabyCubeCF exploded](BC200_CF_assembly.png)
+![BabyCubeCF exploded](BC200CF_assembly.png)
 
 ## License
 
