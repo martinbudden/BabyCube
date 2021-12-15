@@ -1,7 +1,7 @@
 //! Display a ADXL345 pcb
 
 include <NopSCADlib/core.scad>
-include <NopSCADlib/vitamins/pcbs.scad>
+use <NopSCADlib/vitamins/pcb.scad>
 
 include <../scad/vitamins/pcbs.scad>
 
