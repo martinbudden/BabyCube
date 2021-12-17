@@ -24,12 +24,12 @@ module yCarriage(NEMA_width, left, cnc=false) {
     idlerHeight = pulley_height(coreXY_toothed_idler(coreXY_type()));
     pulleyBore = pulley_bore(coreXY_toothed_idler(coreXY_type()));
     chamfer = 0;
-    blockOffsetX = topInset - 2.75;
+    blockOffsetY = topInset - 2.75;
     endStopOffsetX = left ? 2.5 : 1;
     tongueOffset = tongueOffset(NEMA_width);
 
     assert(pulleyStackHeight(idlerHeight, pulleyBore) + yCarriageBraceThickness() == coreXYSeparation().z);
-    Y_Carriage(carriageType(_yCarriageDescriptor), idlerHeight, pulleyBore, railType(_xCarriageDescriptor), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetX, endStopOffsetX, tongueOffset, pulleyOffset(), pulleyOffset(), topInset, left=left, cnc=cnc);
+    Y_Carriage(carriageType(_yCarriageDescriptor), idlerHeight, pulleyBore, railType(_xCarriageDescriptor), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetY, endStopOffsetX, tongueOffset, pulleyOffset(), pulleyOffset(), topInset, left=left, cnc=cnc);
 }
 
 module Y_Carriage_Left_stl() {
