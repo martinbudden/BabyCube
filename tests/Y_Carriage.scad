@@ -71,5 +71,7 @@ module Y_Carriage_test1() {
     }
 }
 
+//translate([-12, 0, 0]) Y_Carriage_Left_stl();
+//translate([-12, 40, 0]) Y_Carriage_Right_stl();
 if ($preview)
     Y_Carriage_test0();
