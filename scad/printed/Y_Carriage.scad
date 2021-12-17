@@ -226,36 +226,18 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
         holeDiameter = pulleyBore == 3 ? 2*M3_tap_radius : pulleyBore == 4 ? 2*M4_tap_radius : 2*M5_tap_radius;
         translate([left ? toothedPulleyPos.x : plainPulleyPos.x, toothedPulleyPos.y, 0])
             boltHole(holeDiameter, thickness, twist=4, cnc=cnc);
+        translate([left ? plainPulleyPos.x : toothedPulleyPos.x, 0, 0])
+            boltHole(holeDiameter, thickness + pulleyStackHeight(idlerHeight, pulleyBore), twist=4, cnc=cnc);
         if (isMGN9C(yCarriageType))
-            if (left) {
-                translate([plainPulleyPos.x, 0, 0])
-                    boltHole(holeDiameter, thickness + pulleyStackHeight(toothedIdlerHeight, pulleyBore), twist=4, cnc=cnc);
-                translate([plainPulleyPos.x + boltOffsetMGN9(left=true), 0, thickness + pulleyStackHeight(plainIdlerHeight, pulleyBore)])
+            for (x = [plainPulleyPos.x + boltOffsetMGN9(left)])
+                translate([x, 0, thickness + pulleyStackHeight(idlerHeight, pulleyBore)])
                     vflip()
                         boltHole(holeDiameter, 12, twist=4, cnc=cnc);
-            } else {
-                translate([toothedPulleyPos.x, 0, 0])
-                    boltHole(holeDiameter, thickness + pulleyStackHeight(plainIdlerHeight, pulleyBore), twist=4, cnc=cnc);
-                translate([plainPulleyPos.x + boltOffsetMGN9(left=false), 0, thickness + pulleyStackHeight(plainIdlerHeight, pulleyBore)])
-                    vflip()
-                        boltHole(holeDiameter, 12, twist=4, cnc=cnc);
-            }
         else
-            if (left) {
-                translate([plainPulleyPos.x, 0, 0])
-                    boltHole(holeDiameter, thickness + pulleyStackHeight(toothedIdlerHeight, pulleyBore), twist=4, cnc=cnc);
-                for (x = [plainPulleyPos.x, -blockSize.x/2 + 4, boltOffsetMGN12(left=true)])
-                    translate([x, 0, thickness + pulleyStackHeight(toothedIdlerHeight, pulleyBore)])
-                        vflip()
-                            boltHole(holeDiameter, 12, twist=4, cnc=cnc);
-            } else {
-                translate([toothedPulleyPos.x,  0, 0])
-                    boltHole(holeDiameter, thickness + pulleyStackHeight(plainIdlerHeight, pulleyBore), twist=4, cnc=cnc);
-                for (x = [-blockSize.x/2 + 4, boltOffsetMGN12(left=false)])
-                    translate([x, 0, thickness + pulleyStackHeight(plainIdlerHeight, pulleyBore)])
-                        vflip()
-                            boltHole(holeDiameter, 12, twist=4, cnc=cnc);
-            }
+            for (x = left ? [-blockSize.x/2 + 4, boltOffsetMGN12(left), plainPulleyPos.x] : [-blockSize.x/2 + 4, boltOffsetMGN12(left)])
+                translate([x, 0, thickness + pulleyStackHeight(idlerHeight, pulleyBore)])
+                    vflip()
+                        boltHole(holeDiameter, 12, twist=4, cnc=cnc);
     } // end difference
 }
 
