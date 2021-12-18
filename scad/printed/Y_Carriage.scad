@@ -175,11 +175,11 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
                 }
             } else {
                 if (left) {
-                    size = pulley25 ? [22, 12, h] : [18, 10, h];
-                    translate([plainPulleyPos.x - (pulley25 ? 4.5 : 5), 6.5 - size.y, 0])
+                    size = pulley25 ? [22, 12.5, h] : [18, 10, h];
+                    translate([plainPulleyPos.x - (pulley25 ? 4.5 : 5), tongueSize.y/2 - size.y, 0])
                         rounded_cube_xy(size, 1.5);
                     if (yCarriageBraceThickness) {
-                        size2 = [7.5 + blockOffset.x - (pulley25 ? 2.5 : 0), 12, h];
+                        size2 = [7.5 + blockOffset.x - (pulley25 ? 2.5 : 0), tongueSize.y, h];
                         translate([-blockSize.x/2 - blockOffset.x/2, -size2.y/2, 0])
                             rounded_cube_xy(size2, 1.5);
                         if (pulley25)
@@ -193,8 +193,8 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
                         size2 = [6.5, pulley25 ? 12 : 10.25, h];
                         translate([plainPulleyPos.x + (pulley25 ? 10.75 : 7), tongueSize.y/2 - size2.y, 0])
                             rounded_cube_xy(size2, 1.5);
-                        tongue([size2.x + blockSize.x/2 - blockOffset.x/2 + (pulley25 ? 10.40 : 3.65), tongueSize.y, thickness], left);
-                        size3 = [8.5 + blockOffset.x - (pulley25 ? 2.5 : 0), size.y, h];
+                        tongue([size2.x + blockSize.x/2 - blockOffset.x/2 + (pulley25 ? 10.40 : 3.65), tongueSize.y, thickness], left, 1.5);
+                        size3 = [8.5 + blockOffset.x - (pulley25 ? 2.5 : 0), tongueSize.y, h];
                         translate([-blockSize.x/2 - blockOffset.x/2, -size3.y/2, 0])
                             rounded_cube_xy(size3, 1.5);
                     }
@@ -259,8 +259,8 @@ module yCarriageBrace(yCarriageType, thickness, pulleyOffset, holeRadius, blockO
                     boltHole(holeRadius*2, size.z, twist=4);
         }
     } else {
-        size = left ? (is_undef(blockOffsetX) ? [40.65, 10 + 3.25/2, thickness] : [48.15 + blockOffsetX, 12, thickness])
-                    : (is_undef(blockOffsetX) ? [41.15, 14, thickness]          : [48.15 + blockOffsetX, 14, thickness]);
+        size = left ? (is_undef(blockOffsetX) ? [40.65, 12, thickness] : [48.15 + blockOffsetX, 12.5, thickness])
+                    : (is_undef(blockOffsetX) ? [41.15, 14, thickness] : [48.15 + blockOffsetX, 14, thickness]);
         blockSizeX = yCarriageBlockSizeX(yCarriageType);
         difference() {
             blockOffsetX = is_undef(blockOffsetX) ? 0 : blockOffsetX;
