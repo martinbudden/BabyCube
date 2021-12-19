@@ -20,28 +20,28 @@ include <../Parameters_CoreXY.scad>
 use <../Parameters_Positions.scad>
 
 
-function hotendClampOffset(xCarriageType, hotend_type=0) =  [hotendOffset(xCarriageType, hotend_type).x, 18 + xCarriageBackOffsetY(xCarriageType) + grooveMountOffsetX(hotend_type), hotendOffset(xCarriageType, hotend_type).z];
+function hotendClampOffset(xCarriageType, hotendDescriptor="E3DV6") =  [hotendOffset(xCarriageType, hotendDescriptor).x, 18 + xCarriageBackOffsetY(xCarriageType) + grooveMountOffsetX(hotendDescriptor), hotendOffset(xCarriageType, hotendDescriptor).z];
 grooveMountFillet = 1;
-function grooveMountClampSize(blower_type, hotend_type) = [grooveMountSize(blower_type, hotend_type).y - 2*grooveMountFillet - grooveMountClampOffsetX(), 12, 15];
+function grooveMountClampSize(blower_type, hotendDescriptor) = [grooveMountSize(blower_type, hotendDescriptor).y - 2*grooveMountFillet - grooveMountClampOffsetX(), 12, 15];
 
 module printheadAssembly() {
     xCarriageType = carriageType(_xCarriageDescriptor);
     blower_type = blower_type();
-    hotend_type = 0;
-    hotendOffset = hotendOffset(xCarriageType, hotend_type);
+    hotendDescriptor = "E3DV6";
+    hotendOffset = hotendOffset(xCarriageType, hotendDescriptor);
 
     explode([20, 0, 0])
-        hotEndHolderHardware(xCarriageType, hotend_type);
+        hotEndHolderHardware(xCarriageType, hotendDescriptor);
 
-    translate(hotendClampOffset(xCarriageType, hotend_type))
+    translate(hotendClampOffset(xCarriageType, hotendDescriptor))
         rotate([90, 0, -90]) {
             explode(-40, true) {
                 stl_colour(pp2_colour)
                     Hotend_Clamp_stl();
-                Hotend_Clamp_hardware(xCarriageType, blower_type, hotend_type, countersunk=true);
+                Hotend_Clamp_hardware(xCarriageType, blower_type, hotendDescriptor, countersunk=true);
             }
             explode(-60, true)
-                translate([0, grooveMountClampStrainReliefOffset(), -grooveMountClampSize(blower_type, hotend_type).z - 5])
+                translate([0, grooveMountClampStrainReliefOffset(), -grooveMountClampSize(blower_type, hotendDescriptor).z - 5])
                     vflip() {
                         stl_colour(pp1_colour)
                             Hotend_Strain_Relief_Clamp_stl();
@@ -112,8 +112,8 @@ module printheadAccelerometerAssembly() {
         }
 }
 
-module hotEndHolderHardware(xCarriageType, hotend_type=0) {
-    hotendOffset = hotendOffset(xCarriageType, hotend_type);
+module hotEndHolderHardware(xCarriageType, hotendDescriptor="E3DV6") {
+    hotendOffset = hotendOffset(xCarriageType, hotendDescriptor);
 
     translate(hotendOffset)
         E3Dv6plusFan();
@@ -155,6 +155,6 @@ module Hotend_Clamp_40_stl() {
             grooveMountClamp(grooveMountClampSize(BL40x10));
 }
 
-module Hotend_Clamp_hardware(xCarriageType, blower_type, hotend_type, countersunk=false) {
-    grooveMountClampHardware(grooveMountClampSize(blower_type, hotend_type), countersunk);
+module Hotend_Clamp_hardware(xCarriageType, blower_type, hotendDescriptor, countersunk=false) {
+    grooveMountClampHardware(grooveMountClampSize(blower_type, hotendDescriptor), countersunk);
 }

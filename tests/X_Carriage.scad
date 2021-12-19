@@ -19,7 +19,7 @@ module X_Carriage_test() {
     //echo(fho200=railFirstHoleOffset(MGN9, 200));
 
     xCarriageType = carriageType(_xCarriageDescriptor);
-    hotend_type = 0;
+    hotendDescriptor = "E3DV6";
 
     //rotate([0, 90, 0]) X_Carriage_stl();
     //X_Carriage_assembly();
@@ -32,8 +32,8 @@ module X_Carriage_test() {
     *translate([-xCarriageBackSize(xCarriageType).x/2, carriage_size(xCarriageType).y/2, 0])
         xCarriageTop(xCarriageType);
     blower_type = BL30x10;
-    hotEndHolderHardware(xCarriageType, hotend_type);
-    translate(hotendClampOffset(xCarriageType, hotend_type))
+    hotEndHolderHardware(xCarriageType, hotendDescriptor);
+    translate(hotendClampOffset(xCarriageType, hotendDescriptor))
         rotate([90, 0, -90]) {
             Hotend_Clamp_stl();
             Hotend_Clamp_hardware(xCarriageType, blower_type, countersunk=true);
