@@ -70,7 +70,7 @@ module fanDuct(printHeadHotendOffsetX, jetOffset=0, chimneySizeZ=14) {
     }
 }
 
-module Fan_Duct_hardware(xCarriageType, hotend_type) {
+module Fan_Duct_hardware(xCarriageType, hotendDescriptor) {
     fanDuctHolePositions(-fanDuctTabThickness)
         rotate([90, 0, 0])
             boltM2Caphead(6);

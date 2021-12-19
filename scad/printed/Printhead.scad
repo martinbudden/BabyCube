@@ -15,7 +15,7 @@ use <X_Carriage.scad>
 
 
 grooveMountHoleOffsets = [13.5, -12];
-function grooveMountOffsetX(hotend_type) = hotend_type == 0 ? 0 : 4;
+function grooveMountOffsetX(hotendDescriptor) = hotendDescriptor == "E3DV6" ? 0 : 4;
 function grooveMountClampOffsetX() = 0.5;
 
 module hotEndHolderAlign(hotendOffset, left) {
@@ -25,7 +25,7 @@ module hotEndHolderAlign(hotendOffset, left) {
             children();
 }
 
-module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, blower_type, baffle=true, left=true) {
+module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotendDescriptor, blower_type, baffle=true, left=true) {
     isMGN9C = xCarriageType[0] == "MGN9C";
     fillet = 1.5;
     offsetY = 0; // to avoid clashing with fan
@@ -113,7 +113,7 @@ module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotend_type, b
             rotate([-90, 0, 0])
                 grooveMountCutout(grooveMountSize.z);
             for (y = grooveMountHoleOffsets)
-                translate([0, y + grooveMountOffsetX(hotend_type) - (left ? 1.5 : 0), 0])
+                translate([0, y + grooveMountOffsetX(hotendDescriptor) - (left ? 1.5 : 0), 0])
                     rotate([0, -90, 0])
                         boltHoleM3Tap(10);
         }
@@ -205,7 +205,7 @@ module grooveMountCutout(length) {
 function grooveMountClampStrainReliefOffset() = 15;
 function hotendStrainReliefClampHoleSpacing() = 12;
 
-module grooveMountClamp(size, hotend_type=0, countersunk=true, strainRelief=false) {
+module grooveMountClamp(size, hotendDescriptor="E3DV6", countersunk=true, strainRelief=false) {
     fillet = 1.5;
     supportSize = [20, grooveMountClampStrainReliefOffset() + 5, 6];
 
@@ -223,7 +223,7 @@ module grooveMountClamp(size, hotend_type=0, countersunk=true, strainRelief=fals
                         fillet(2, supportSize.z);
                 }
         }
-        translate([grooveMountOffsetX(hotend_type), 0, 0])
+        translate([grooveMountOffsetX(hotendDescriptor), 0, 0])
             grooveMountCutout(size.y);
         for (x = grooveMountHoleOffsets)
             translate([x, 0, -size.z])
