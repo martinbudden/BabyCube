@@ -1,4 +1,4 @@
-//! Display the X carriage
+    //! Display the X carriage
 
 include <../scad/global_defs.scad>
 include <NopSCADlib/core.scad>
@@ -29,7 +29,7 @@ module X_Carriage_test() {
     X_Carriage_Groovemount_MGN9C_assembly();
 
     //let($preview=false)
-    *translate([-xCarriageBackSize(xCarriageType).x/2, carriage_size(xCarriageType).y/2, 0])
+    *translate([-xCarriageHotendSideSize(xCarriageType).x/2, carriage_size(xCarriageType).y/2, 0])
         xCarriageTop(xCarriageType);
     blower_type = BL30x10;
     hotEndHolderHardware(xCarriageType, hotendDescriptor);

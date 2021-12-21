@@ -20,11 +20,11 @@ include <../Parameters_CoreXY.scad>
 xCarriageFrontSize = [30, 4, 40.5];
 function xCarriageBeltSideSize(xCarriageType, beltWidth) =  [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x), xCarriageFrontSize.y, 36 + carriage_height(xCarriageType) + xCarriageTopThickness() + (!is_undef(beltWidth) && beltWidth == 9 ? 4.5 : 0)];
 function xCarriageHotendSideSize(xCarriageType, beltWidth) = [xCarriageBeltSideSize(xCarriageType, beltWidth).x, 5, xCarriageBeltSideSize(xCarriageType, beltWidth).z];
-function xCarriageBackOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageHotendSideSize(xCarriageType).y;
+function xCarriageHotendOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageHotendSideSize(xCarriageType).y;
 function xCarriageBeltAttachmentMGN9CExtraX() = 4;
 
 //!!TODO - change hotendoffset.z to 1.5 for new X_Carriage with belt attachments
-function hotendOffset(xCarriageType, hotendDescriptor="E3DV6") = printHeadHotendOffset(hotendDescriptor) + [-xCarriageHotendSideSize(xCarriageType).x/2, xCarriageBackOffsetY(xCarriageType), 0];
+function hotendOffset(xCarriageType, hotendDescriptor="E3DV6") = printHeadHotendOffset(hotendDescriptor) + [-xCarriageHotendSideSize(xCarriageType).x/2, xCarriageHotendOffsetY(xCarriageType), 0];
 function grooveMountSize(blower_type, hotendDescriptor="E3DV6") = [printHeadHotendOffset(hotendDescriptor).x, blower_size(blower_type).x + 6.25, 12];
 function blower_type() = is_undef(_blowerDescriptor) || _blowerDescriptor == "BL30x10" ? BL30x10 : BL40x10;
 function accelerometerOffset() = [0, 3, 8];

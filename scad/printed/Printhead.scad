@@ -154,7 +154,7 @@ module fanDuctHolePositions(z=0) {
 module blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type, z=0) {
     isMGN9C = xCarriageType[0] == "MGN9C";
     translate([ hotendOffset.x - grooveMountSize.x + z,
-                xCarriageBackOffsetY(xCarriageType) + blower_length(blower_type) + (isMGN9C ? 0.5 : 2),
+                xCarriageHotendOffsetY(xCarriageType) + blower_length(blower_type) + (isMGN9C ? 0.5 : 2),
                 -blower_size(blower_type).x - grooveMountSize.z/2 + (isMGN9C ? 0 : 3)])
             rotate([90, 0, -90])
                 children();
