@@ -6,6 +6,7 @@ include <Parameters_Main.scad>
 
 function coreXY_type() = _coreXYDescriptor == "GT2_20_16" ? coreXY_GT2_20_16 : coreXY_GT2_20_20;
 function beltWidth() = 6;
+function beltSeparation() = coreXYSeparation().z - beltWidth();
 
 
 function yRailSupportThickness() = 3; // was 8// needs to be at least 7.5 to clear the side bolt holes
