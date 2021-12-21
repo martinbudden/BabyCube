@@ -138,7 +138,7 @@ module X_Carriage_Belt_Clamp_hardware(boltLength=10, countersunk=false) {
 
 function xCarriageBeltAttachmentCutoutOffset() = 0.5;
 
-module xCarriageBeltAttachment(sizeZ, extraX=0, boltCutout=false, endCube=true) {
+module xCarriageBeltAttachment(sizeZ, extraOverlap=0, boltCutout=false, endCube=true) {
     size = xCarriageBeltAttachmentSize(sizeZ, beltSeparation) - [0, toothHeight, 0];
     cutoutSize = [xCarriageBeltTensionerSize().z + 0.55, xCarriageBeltTensionerSize().y + 0.6];
     //assert(cutoutSize==[7.75, 10.75]);
@@ -152,9 +152,9 @@ module xCarriageBeltAttachment(sizeZ, extraX=0, boltCutout=false, endCube=true) 
                     difference() {
                         union() {
                             square([size.x, size.y]);
-                            if (extraX)
-                                translate([-extraX, 0])
-                                    square([extraX, size.y]);
+                            if (extraOverlap)
+                                translate([-extraOverlap, 0])
+                                    square([extraOverlap, size.y]);
                         }
                         for (y = [0, beltWidth + beltSeparation + 0.75])
                             translate([y + 0.5, xCarriageBeltAttachmentCutoutOffset()])
@@ -203,7 +203,7 @@ module xCarriageBeltAttachment(sizeZ, extraX=0, boltCutout=false, endCube=true) 
 
 function beltAttachmentOffsetY() = 14;
 
-module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationBottom, extraX=0, accelerometerOffset=undef, countersunk=true, topHoleOffset=0, offsetT=0) {
+module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationBottom, extraOverlap=0, accelerometerOffset=undef, countersunk=true, topHoleOffset=0, offsetT=0) {
     assert(is_list(xCarriageType));
 
     carriageSize = carriage_size(xCarriageType);
@@ -226,7 +226,7 @@ module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationB
                     translate([size.x, beltAttachmentOffsetY, size.z - (isMGN12 ? 49: 45)])//-size.z + 20.5 + baseOffset])
                         rotate([0, 90, 90])
                             //translate([0, size.x, 0]) mirror([0, 1, 0])
-                            xCarriageBeltAttachment(size.x, extraX, boltCutout=true);
+                            xCarriageBeltAttachment(size.x, extraOverlap, boltCutout=true);
                     rounded_cube_xz(size + sizeExtra, fillet);
                     translate([0, 0, size.z - topSize.z])
                         rounded_cube_xz(topSize, fillet);
