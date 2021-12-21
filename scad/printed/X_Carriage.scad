@@ -30,20 +30,18 @@ function xCarriageHolePositions(sizeX, spacing) = [(sizeX - spacing)/2, (sizeX +
 evaHoleSeparationTop = 34;
 function xCarriageHoleSeparationTop(xCarriageType) = xCarriageType[0] == "MGN9C" ? 22 : evaHoleSeparationTop; //45.4 - 8
 function xCarriageHoleSeparationBottom(xCarriageType) = xCarriageType[0] == "MGN9C" ? 22 : 38;//34;//37.4; //45.4 - 8
-function xCarriageBeltAttachmentMGN9CExtraX() = 4;
 
-module xCarriageTop(xCarriageType, xCarriageBackSize, holeSeparationTop, reflected=false, strainRelief=false, countersunk=4, topHoleOffset=0, holeOffset=0, accelerometerOffset=undef) {
+module xCarriageTop(xCarriageType, xCarriageBackSize, holeSeparation, extraX=0, reflected=false, strainRelief=false, countersunk=4, topHoleOffset=0, holeOffset=0, accelerometerOffset=undef) {
     assert(is_list(xCarriageType));
 
     carriageSize = carriage_size(xCarriageType);
     carriageOffsetY = carriageSize.y/2;
-    size =  [xCarriageBackSize.x + (carriageSize.z < 13 ? xCarriageBeltAttachmentMGN9CExtraX() : 0), xCarriageBackSize.y + carriageSize.y/2, topThickness];
+    size =  [xCarriageBackSize.x + extraX, xCarriageBackSize.y + carriageSize.y/2, topThickness];
 
     difference() {
         translate([0, xCarriageBackSize.y - size.y, 0])
             rounded_cube_yz(size, fillet);
         // insert holes  to connect to the front
-        holeSeparation = xCarriageHoleSeparationTop(xCarriageType);
         for (x = xCarriageHolePositions(size.x, holeSeparation))
         //for (x = xCarriageTopHolePositions(xCarriageType, holeOffset.x))
             translate([x + topHoleOffset, xCarriageBackSize.y - size.y, size.z/2 + holeOffset])
@@ -126,7 +124,7 @@ module xCarriageBottom(xCarriageType, xCarriageBackSize, holeSeparation, reflect
         }
 }
 
-module xCarriageBack(xCarriageType, size, coreXYSeparationZ, toolheadHoles=false, reflected=false, strainRelief=false, countersunk=0, topHoleOffset=0, offsetT=0, accelerometerOffset=undef) {
+module xCarriageBack(xCarriageType, size, extraX=0, toolheadHoles=false, reflected=false, strainRelief=false, countersunk=0, topHoleOffset=0, offsetT=0, accelerometerOffset=undef) {
     assert(is_list(xCarriageType));
     internalFillet = 1.5;
     carriageSize = carriage_size(xCarriageType);
@@ -147,7 +145,7 @@ module xCarriageBack(xCarriageType, size, coreXYSeparationZ, toolheadHoles=false
                     rotate([-90, -90, -90])
                         fillet(internalFillet, baseSize.x);
                 // top
-                xCarriageTop(xCarriageType, size, holeSeparationTop, reflected, strainRelief, countersunk, topHoleOffset, offsetT, accelerometerOffset);
+                xCarriageTop(xCarriageType, size, holeSeparationTop, extraX, reflected, strainRelief, countersunk, topHoleOffset, offsetT, accelerometerOffset);
                 // base
                 translate_z(-size.z + topThickness)
                     xCarriageBottom(xCarriageType, size, holeSeparationBottom, reflected);

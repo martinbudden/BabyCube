@@ -21,6 +21,7 @@ xCarriageFrontSize = [30, 4, 40.5];
 function xCarriageFrontSize(xCarriageType, beltWidth) =  [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x), xCarriageFrontSize.y, 36 + carriage_height(xCarriageType) + xCarriageTopThickness() + (!is_undef(beltWidth) && beltWidth == 9 ? 4.5 : 0)]; //has the belt tensioners
 function xCarriageBackSize(xCarriageType, beltWidth) = [xCarriageFrontSize(xCarriageType, beltWidth).x, 5, xCarriageFrontSize(xCarriageType, beltWidth).z];
 function xCarriageBackOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageBackSize(xCarriageType).y;
+function xCarriageBeltAttachmentMGN9CExtraX() = 4;
 
 //!!TODO - change hotendoffset.z to 1.5 for new X_Carriage with belt attachments
 function hotendOffset(xCarriageType, hotendDescriptor="E3DV6") = printHeadHotendOffset(hotendDescriptor) + [-xCarriageBackSize(xCarriageType).x/2, xCarriageBackOffsetY(xCarriageType), 0];
@@ -109,12 +110,13 @@ module X_Carriage_Groovemount_MGN9C_stl() {
     grooveMountSize = grooveMountSize(blower_type, hotendDescriptor);
     hotendOffset = hotendOffset(xCarriageType, hotendDescriptor);
     holeSeparation = 22;
+    extraX = xCarriageBeltAttachmentMGN9CExtraX();
 
     stl("X_Carriage_Groovemount_MGN9C")
         color(pp1_colour)
             rotate([0, -90, 0]) {
                 size = xCarriageBackSize(xCarriageType, beltWidth());
-                xCarriageBack(xCarriageType, size, coreXYSeparation().z, strainRelief=false, countersunk=_xCarriageCountersunk ? 4 : 0, topHoleOffset=-xCarriageBeltAttachmentMGN9CExtraX()/2, accelerometerOffset = accelerometerOffset());
+                xCarriageBack(xCarriageType, size, extraX, strainRelief=false, countersunk=_xCarriageCountersunk ? 4 : 0, topHoleOffset=-xCarriageBeltAttachmentMGN9CExtraX()/2, accelerometerOffset = accelerometerOffset());
                 hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotendDescriptor, blower_type, baffle=true, left=true);
             }
 }
