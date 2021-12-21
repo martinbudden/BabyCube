@@ -124,7 +124,7 @@ module xCarriageBottom(xCarriageType, xCarriageBackSize, holeSeparation, reflect
         }
 }
 
-module xCarriageBack(xCarriageType, size, extraX=0, toolheadHoles=false, reflected=false, strainRelief=false, countersunk=0, topHoleOffset=0, offsetT=0, accelerometerOffset=undef) {
+module xCarriageBack(xCarriageType, size, extraX=0, toolheadHoles=false, HC=false, reflected=false, strainRelief=false, countersunk=0, topHoleOffset=0, offsetT=0, accelerometerOffset=undef) {
     assert(is_list(xCarriageType));
     internalFillet = 1.5;
     carriageSize = carriage_size(xCarriageType);
@@ -138,18 +138,30 @@ module xCarriageBack(xCarriageType, size, extraX=0, toolheadHoles=false, reflect
             union() {
                 translate([0, railCarriageGap, baseSize.z - size.z])
                     rounded_cube_yz([size.x, size.y - railCarriageGap, size.z], fillet);
-                translate([0, railCarriageGap, 0])
-                    rotate([-90, 0, -90])
-                        fillet(fillet, baseSize.x);
-                translate([0, railCarriageGap, -size.z + 2*baseThickness])
-                    rotate([-90, -90, -90])
-                        fillet(internalFillet, baseSize.x);
-                // top
-                xCarriageTop(xCarriageType, size, holeSeparationTop, extraX, reflected, strainRelief, countersunk, topHoleOffset, offsetT, accelerometerOffset);
-                // base
-                translate_z(-size.z + topThickness)
-                    xCarriageBottom(xCarriageType, size, holeSeparationBottom, reflected);
+                if (HC) {
+                    translate([0, railCarriageGap, 0])
+                        rotate([-90, 0, -90])
+                            fillet(fillet, baseSize.x);
+                    translate([0, railCarriageGap, -size.z + 2*baseThickness])
+                        rotate([-90, -90, -90])
+                            fillet(internalFillet, baseSize.x);
+                    // top
+                    xCarriageTop(xCarriageType, size, holeSeparationTop, extraX, reflected, strainRelief, countersunk, topHoleOffset, offsetT, accelerometerOffset);
+                    // base
+                    translate_z(-size.z + topThickness)
+                        xCarriageBottom(xCarriageType, size, holeSeparationBottom, reflected);
+                }
             } // end union
+        if (!HC) {
+            for (x = xCarriageHolePositions(size.x + extraX, holeSeparationTop))
+                translate([x + topHoleOffset - size.x/2, carriageSize.y/2 + railCarriageGap, topThickness/2 + offsetT])
+                    rotate([-90, -90, 0])
+                        boltHoleM3TapOrInsert(size.y - railCarriageGap, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
+            for (x = xCarriageHolePositions(size.x, holeSeparationBottom))
+                translate([x - size.x/2, carriageSize.y/2 + railCarriageGap, -size.z + topThickness + baseThickness/2])
+                    rotate([-90, -90, 0])
+                        boltHoleM3TapOrInsert(size.y - railCarriageGap, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
+        }
         if (toolheadHoles) {
             // using large carriage, so can support XChange toolhead
             translate([0, carriageSize.y/2 + size.y + eps, topThickness - 20]) {
@@ -172,7 +184,7 @@ module xCarriageBack(xCarriageType, size, extraX=0, toolheadHoles=false, reflect
 }
 
 
-module xCarriageFrontBolts(xCarriageType, size, topBoltLength=10, holeSeparationTop, bottomBoltLength=12, holeSeparationBottom, countersunk=false, offsetT=0) {
+module xCarriageBeltSideBolts(xCarriageType, size, topBoltLength=10, holeSeparationTop, bottomBoltLength=12, holeSeparationBottom, countersunk=false, offsetT=0) {
     translate([-size.x/2, -xCarriageBeltSideOffsetY(xCarriageType, size.y), 0]) {
         // holes at the top to connect to the xCarriage
         for (x = xCarriageHolePositions(size.x, holeSeparationTop))

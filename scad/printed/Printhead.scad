@@ -87,7 +87,7 @@ module hotEndHolder(xCarriageType, xCarriageBackSizeX, grooveMountSize, hotendOf
                 rotate([90, 0, -90])
                     zipTieFullCutout(10);
         // holes for the strain relief clamp
-        /*translate([hotendOffset.x - grooveMountSize.x, xCarriageBackSize(carriageType(_xCarriageDescriptor)).x/2 - 2*fillet, hotendOffset.z - grooveMountSize.z/2])
+        /*translate([hotendOffset.x - grooveMountSize.x, xCarriageHotendSideSize(carriageType(_xCarriageDescriptor)).x/2 - 2*fillet, hotendOffset.z - grooveMountSize.z/2])
             for (x = [4, 14])
                 translate([x, grooveMountSize.y, grooveMountSize.z/2])
                     rotate([90, 90, 0])
