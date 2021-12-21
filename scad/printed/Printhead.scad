@@ -25,7 +25,7 @@ module hotEndHolderAlign(hotendOffset, left) {
             children();
 }
 
-module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotendDescriptor, blower_type, baffle=true, left=true) {
+module hotEndHolder(xCarriageType, xCarriageBackSizeX, grooveMountSize, hotendOffset, hotendDescriptor, blower_type, baffle=true, left=true) {
     isMGN9C = xCarriageType[0] == "MGN9C";
     fillet = 1.5;
     offsetY = 0; // to avoid clashing with fan
@@ -35,7 +35,7 @@ module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotendDescript
     difference() {
         mirror([left ? 0 : 1, 0, 0])
         union() {
-            translate([-xCarriageBackSize(xCarriageType).x/2, 3 + carriage_size(xCarriageType).y/2, hotendOffset.z - grooveMountSize.z/2]) {
+            translate([-xCarriageBackSizeX/2, 3 + carriage_size(xCarriageType).y/2, hotendOffset.z - grooveMountSize.z/2]) {
                 translate([0, -fillet, 0])
                     rounded_cube_yz(grooveMountSize + [0, fillet, 0], fillet);
                 translate([0, 2, 0]) {
@@ -83,9 +83,9 @@ module hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotendDescript
             }
         }
         mirror([left ? 0 : 1, 0, 0])
-        translate([-xCarriageBackSize(xCarriageType).x/2, hotendOffset.y - blower_size(blower_type).y/2 + 2, hotendOffset.z + 1])
-            rotate([90, 0, -90])
-                zipTieFullCutout(10);
+            translate([-xCarriageBackSizeX/2, hotendOffset.y - blower_size(blower_type).y/2 + 2, hotendOffset.z + 1])
+                rotate([90, 0, -90])
+                    zipTieFullCutout(10);
         // holes for the strain relief clamp
         /*translate([hotendOffset.x - grooveMountSize.x, xCarriageBackSize(carriageType(_xCarriageDescriptor)).x/2 - 2*fillet, hotendOffset.z - grooveMountSize.z/2])
             for (x = [4, 14])

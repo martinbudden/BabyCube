@@ -9,12 +9,10 @@ include <../vitamins/bolts.scad>
 include <../vitamins/pcbs.scad>
 
 
-function xCarriageBeltTensionerSize(sizeX=0) = [sizeX, 10, 7.2];
+function xCarriageBeltTensionerSize(beltWidth, sizeX=0) = [sizeX, 10, beltWidth + 1.2];
 
 function xCarriageBottomOffsetZ() = 40.8;
-beltWidth = 6;
-beltSeparation = 2.5;
-function xCarriageBeltAttachmentSize(sizeZ=0, beltSeparation) = [20, 18.5, sizeZ];
+function xCarriageBeltAttachmentSize(beltWidth, beltSeparation, sizeZ=0) = [20+beltSeparation-4.5, 18.5, sizeZ];
 // actual dimensions for belt are thickness:1.4, toothHeight:0.75
 toothHeight = 0.8;//0.75;
 function xCarriageBeltClampHoleSeparation() = 16;
@@ -124,8 +122,8 @@ module xCarriageBeltClamp(size, holeSeparation=xCarriageBeltClampHoleSeparation(
         }
 }
 
-module X_Carriage_Belt_Clamp_hardware(boltLength=10, countersunk=false) {
-    size = [xCarriageBeltAttachmentSize(0, beltSeparation).x, 6, 4.5];
+module X_Carriage_Belt_Clamp_hardware(beltWidth, beltSeparation, boltLength=10, countersunk=false) {
+    size = [xCarriageBeltAttachmentSize(beltWidth, beltSeparation).x, 6, 4.5];
 
     for (y = [-xCarriageBeltClampHoleSeparation()/2, xCarriageBeltClampHoleSeparation()/2])
         translate([size.x/2 + 1.25, y, 0])
@@ -138,9 +136,9 @@ module X_Carriage_Belt_Clamp_hardware(boltLength=10, countersunk=false) {
 
 function xCarriageBeltAttachmentCutoutOffset() = 0.5;
 
-module xCarriageBeltAttachment(sizeZ, extraOverlap=0, boltCutout=false, endCube=true) {
-    size = xCarriageBeltAttachmentSize(sizeZ, beltSeparation) - [0, toothHeight, 0];
-    cutoutSize = [xCarriageBeltTensionerSize().z + 0.55, xCarriageBeltTensionerSize().y + 0.6];
+module xCarriageBeltAttachment(sizeZ, beltWidth, beltSeparation, extraOverlap=0, boltCutout=false, endCube=true) {
+    size = xCarriageBeltAttachmentSize(beltWidth, beltSeparation, sizeZ) - [0, toothHeight, 0];
+    cutoutSize = [xCarriageBeltTensionerSize(beltWidth).z + 0.55, xCarriageBeltTensionerSize(beltWidth).y + 0.6];
     //assert(cutoutSize==[7.75, 10.75]);
     endCubeSize = [9, 4, 12];
     toothCount = floor(size.z/2) - 1;
@@ -156,7 +154,7 @@ module xCarriageBeltAttachment(sizeZ, extraOverlap=0, boltCutout=false, endCube=
                                 translate([-extraOverlap, 0])
                                     square([extraOverlap, size.y]);
                         }
-                        for (y = [0, beltWidth + beltSeparation + 0.75])
+                        for (y = [0, beltWidth + beltSeparation + 0.75 - 2])
                             translate([y + 0.5, xCarriageBeltAttachmentCutoutOffset()])
                                 hull() {
                                     square([cutoutSize.x, cutoutSize.y - 1]);
@@ -168,7 +166,7 @@ module xCarriageBeltAttachment(sizeZ, extraOverlap=0, boltCutout=false, endCube=
                 rotate([90, 0, -90])
                     GT2Teeth(8*2 + 2.5, toothCount, horizontal=true);
             translate([-size.x, 0, size.y])
-                cube([xCarriageBeltAttachmentSize().x - 18, size.z, toothHeight]);
+                cube([2, size.z, toothHeight]);
             translate([-8.8 - 3/2, 0, size.y])
                 cube([3, size.z, toothHeight]);
             if (endCube) {
@@ -203,7 +201,7 @@ module xCarriageBeltAttachment(sizeZ, extraOverlap=0, boltCutout=false, endCube=
 
 function beltAttachmentOffsetY() = 14;
 
-module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationBottom, extraOverlap=0, accelerometerOffset=undef, countersunk=true, topHoleOffset=0, offsetT=0) {
+module xCarriageBeltSide(xCarriageType, size, beltWidth, beltSeparation, holeSeparationTop, holeSeparationBottom, extraOverlap=0, accelerometerOffset=undef, countersunk=true, topHoleOffset=0, offsetT=0) {
     assert(is_list(xCarriageType));
 
     carriageSize = carriage_size(xCarriageType);
@@ -216,17 +214,17 @@ module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationB
     fillet = 1;
     xCarriageFrontOffsetY = xCarriageBeltSideOffsetY(xCarriageType, size.y);
     beltAttachmentOffsetY = xCarriageFrontOffsetY - beltAttachmentOffsetY();
-    beltAttachmentSizeY = xCarriageBeltAttachmentSize(0, beltSeparation).y + beltAttachmentOffsetY;
-    beltAttachmentSizeX = xCarriageBeltAttachmentSize(0, beltSeparation).x;
+    beltAttachmentSizeY = xCarriageBeltAttachmentSize(beltWidth, beltSeparation).y + beltAttachmentOffsetY;
+    beltAttachmentSizeX = xCarriageBeltAttachmentSize(beltWidth, beltSeparation).x;
 
     translate([-size.x/2, -xCarriageFrontOffsetY, 0]) {
         difference () {
             translate_z(-baseOffset)
                 union() {
-                    translate([size.x, beltAttachmentOffsetY, size.z - (isMGN12 ? 49: 45)])//-size.z + 20.5 + baseOffset])
+                    translate([size.x, beltAttachmentOffsetY, size.z - (isMGN12 ? 49: 45)-beltSeparation + 4.5])//-size.z + 20.5 + baseOffset])
                         rotate([0, 90, 90])
                             //translate([0, size.x, 0]) mirror([0, 1, 0])
-                            xCarriageBeltAttachment(size.x, extraOverlap, boltCutout=true);
+                            xCarriageBeltAttachment(size.x, beltWidth, beltSeparation, extraOverlap, boltCutout=true);
                     rounded_cube_xz(size + sizeExtra, fillet);
                     translate([0, 0, size.z - topSize.z])
                         rounded_cube_xz(topSize, fillet);
@@ -317,16 +315,16 @@ module xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationB
     }
 }
 
-module xCarriageBeltSideClampPosition(sizeZ) {
+module xCarriageBeltSideClampPosition(beltWidth, beltSeparation, sizeZ) {
     rotate([90, 90, 0])
         //for (y = [3*sizeZ/10, 7*sizeZ/10])
-        translate([-xCarriageBeltAttachmentSize(0, beltSeparation).x, sizeZ/2, 18.5])
+        translate([-xCarriageBeltAttachmentSize(beltWidth, beltSeparation).x, sizeZ/2, 18.5])
             children();
 }
 
-module xCarriageBeltClampPosition(xCarriageType, size) {
+module xCarriageBeltClampPosition(xCarriageType, size, beltWidth, beltSeparation) {
     translate([-size.x/2, size.z/2, -xCarriageBottomOffsetZ()])
         explode([0, 10, 0], true)
-            xCarriageBeltSideClampPosition(size.x)
+            xCarriageBeltSideClampPosition(beltWidth, beltSeparation, size.x)
                 children();
 }

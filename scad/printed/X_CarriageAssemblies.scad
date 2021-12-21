@@ -44,7 +44,7 @@ module X_Carriage_Belt_Side_MGN9C_stl() {
         color(pp4_colour)
             translate([extraX/2, 0, 0])
                 rotate([90, 0, 0])
-                    xCarriageBeltSide(xCarriageType, size, holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2);
+                    xCarriageBeltSide(xCarriageType, size, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2);
 }
 
 //!Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the
@@ -57,7 +57,7 @@ assembly("X_Carriage_Belt_Side_MGN9C") {
         stl_colour(pp4_colour)
             X_Carriage_Belt_Side_MGN9C_stl();
 
-    beltTensionerSize = xCarriageBeltTensionerSize();
+    beltTensionerSize = xCarriageBeltTensionerSize(beltWidth());
     offset = xCarriageBeltTensionerSizeX - 8.5 + xCarriageBeltAttachmentMGN9CExtraX();
     boltLength = 30;
     translate([offset, -3.4, -27]) {
@@ -80,11 +80,11 @@ assembly("X_Carriage_Belt_Side_MGN9C") {
 module X_Carriage_Belt_Tensioner_stl() {
     stl("X_Carriage_Belt_Tensioner")
         color(pp2_colour)
-            xCarriageBeltTensioner(xCarriageBeltTensionerSize(xCarriageBeltTensionerSizeX));
+            xCarriageBeltTensioner(xCarriageBeltTensionerSize(beltWidth(), xCarriageBeltTensionerSizeX));
 }
 
 module X_Carriage_Belt_Clamp_stl() {
-    size = [xCarriageBeltAttachmentSize().x - 0.5, 25, 3.5];
+    size = [xCarriageBeltAttachmentSize(beltWidth(), beltSeparation()).x - 0.5, 25, 3.5];
 
     stl("X_Carriage_Belt_Clamp")
         color(pp2_colour)
@@ -95,11 +95,11 @@ module X_Carriage_Belt_Clamp_stl() {
 module xCarriageBeltClampAssembly(xCarriageType) {
     size = xCarriageFrontSize(xCarriageType, beltWidth());
     translate([4, 0.3, 3.85])
-        xCarriageBeltClampPosition(xCarriageType, size) {
+        xCarriageBeltClampPosition(xCarriageType, size, beltWidth(), beltSeparation()) {
             stl_colour(pp2_colour)
                 vflip()
                     X_Carriage_Belt_Clamp_stl();
-            X_Carriage_Belt_Clamp_hardware(countersunk=true);
+            X_Carriage_Belt_Clamp_hardware(beltWidth(), beltSeparation(), countersunk=true);
         }
 }
 
@@ -117,7 +117,7 @@ module X_Carriage_Groovemount_MGN9C_stl() {
             rotate([0, -90, 0]) {
                 size = xCarriageBackSize(xCarriageType, beltWidth());
                 xCarriageBack(xCarriageType, size, extraX, strainRelief=false, countersunk=_xCarriageCountersunk ? 4 : 0, topHoleOffset=-xCarriageBeltAttachmentMGN9CExtraX()/2, accelerometerOffset = accelerometerOffset());
-                hotEndHolder(xCarriageType, grooveMountSize, hotendOffset, hotendDescriptor, blower_type, baffle=true, left=true);
+                hotEndHolder(xCarriageType, xCarriageBackSize(xCarriageType).x, grooveMountSize, hotendOffset, hotendDescriptor, blower_type, baffle=true, left=true);
             }
 }
 
