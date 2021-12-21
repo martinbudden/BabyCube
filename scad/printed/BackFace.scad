@@ -72,7 +72,7 @@ module printheadWiring(carriagePosition) {
     vitamin(str(": Spiral wrap, 500mm"));
 
     xCarriageType = carriageType(_xCarriageDescriptor);
-    endPos = [carriagePosition.x + eSizeX - 6 - xCarriageFrontSize(xCarriageType).x/2, carriagePosition.y + xCarriageBackOffsetY(xCarriageType), eZ] + printheadWiringOffset();
+    endPos = [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + xCarriageBackOffsetY(xCarriageType), eZ] + printheadWiringOffset();
     zp = zipTiePositions;
     y = eY + 2*eSizeY - printheadWireRadius();
     p = [

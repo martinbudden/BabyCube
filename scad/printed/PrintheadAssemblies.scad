@@ -83,14 +83,14 @@ module printheadBeltSide(rotate=0, explode=0, t=undef) {
 
 module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false) {
     xCarriageType = carriageType(_xCarriageDescriptor);
-    xCarriageFrontSize = xCarriageFrontSize(xCarriageType, beltWidth()) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 0];
+    xCarriageBeltSideSize = xCarriageBeltSideSize(xCarriageType, beltWidth()) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 0];
     holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
 
     xRailCarriagePosition(carriagePosition(t), rotate=rotate)
         explode(explode, true) {
             explode([0, -20, 0], true)
-                xCarriageFrontBolts(xCarriageType, xCarriageFrontSize, topBoltLength=30, holeSeparationTop=holeSeparationTop, bottomBoltLength=30, holeSeparationBottom=holeSeparationBottom, countersunk=true);
+                xCarriageBeltSideBolts(xCarriageType, xCarriageBeltSideSize, topBoltLength=30, holeSeparationTop=holeSeparationTop, bottomBoltLength=30, holeSeparationBottom=holeSeparationBottom, countersunk=true);
             Printhead_E3DV6_MGN9C_assembly();
             xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, 1], [-1, 1] ]);
         }
