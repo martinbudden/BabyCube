@@ -116,7 +116,7 @@ module X_Carriage_Groovemount_MGN9C_stl() {
         color(pp1_colour)
             rotate([0, -90, 0]) {
                 size = xCarriageHotendSideSize(xCarriageType, beltWidth());
-                xCarriageBack(xCarriageType, size, extraX, HC=!true, strainRelief=false, countersunk=_xCarriageCountersunk ? 4 : 0, topHoleOffset=-xCarriageBeltAttachmentMGN9CExtraX()/2, accelerometerOffset = accelerometerOffset());
+                xCarriageBack(xCarriageType, size, extraX, HC=true, strainRelief=false, countersunk=_xCarriageCountersunk ? 4 : 0, topHoleOffset=-xCarriageBeltAttachmentMGN9CExtraX()/2, accelerometerOffset = accelerometerOffset());
                 hotEndHolder(xCarriageType, xCarriageHotendSideSize(xCarriageType).x, grooveMountSize, hotendOffset, hotendDescriptor, blower_type, baffle=true, left=true);
             }
 }
