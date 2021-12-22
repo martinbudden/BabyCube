@@ -1,4 +1,4 @@
-    //! Display the X carriage
+//! Display the X carriage
 
 include <../scad/global_defs.scad>
 include <NopSCADlib/core.scad>
