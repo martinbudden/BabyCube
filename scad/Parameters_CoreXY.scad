@@ -5,7 +5,7 @@ include <Parameters_Main.scad>
 
 
 function coreXY_type() = _coreXYDescriptor == "GT2_20_16" ? coreXY_GT2_20_16 : coreXY_GT2_20_20;
-function beltWidth() = 6;
+function beltWidth() = belt_width(coreXY_belt(coreXY_type()));
 function beltSeparation() = coreXYSeparation().z - beltWidth();
 
 
