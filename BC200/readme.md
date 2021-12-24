@@ -302,6 +302,10 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 
 ![Printhead_E3DV6_MGN9C_assembly](assemblies/Printhead_E3DV6_MGN9C_assembly.png)
 
+1. Assemble the E3D hotend, including fan, thermistor cartridge and heater cartridge.
+2. Use the Hotend_Clamp to attach the hotend to the X_Carriage.
+3. Collect the wires together and attach to the X_Carriage using the Hotend_Strain_Relief_Clamp.
+
 ![Printhead_E3DV6_MGN9C_assembled](assemblies/Printhead_E3DV6_MGN9C_assembled.png)
 
 <span></span>
@@ -1100,7 +1104,6 @@ Add the Top_Face.
 |1| Belt GT2 x 6mm x 728mm|
 |2| Bolt M3 countersunk x 10mm|
 |2| Bolt M3 countersunk x 12mm|
-|1| Spiral wrap, 500mm|
 
 
 ### 3D Printed parts
@@ -1144,6 +1147,7 @@ Add the Top_Face.
 |2| Bolt M3 countersunk x 12mm|
 |4| Bolt M3 countersunk x 30mm|
 |1| PTFE tube 291 mm|
+|1| Spiral wrap, 500mm|
 
 
 ### 3D Printed parts
