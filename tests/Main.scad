@@ -4,6 +4,7 @@ include <NopSCADlib/utils/core/core.scad>
 
 include <../scad/utils/printParameters.scad>
 
+use <../scad/Main.scad>
 use <../scad/MainAssembly.scad>
 use <../scad/MainAssemblyCF.scad>
 
@@ -20,8 +21,7 @@ module Main_test() {
     //Stage_3_assembly();
     //Stage_4_assembly();
     //Stage_5_assembly();
-    //Stage_6_assembly();
-    FinalAssembly();
+    main_assembly();
 }
 
 module position(a=[55, 0, 25], t=[0, 0, 0], d=undef) {

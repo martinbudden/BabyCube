@@ -1,5 +1,7 @@
 //! Display the the spool holder
 
+include <../scad/global_defs.scad>
+
 include <../scad/printed/SpoolHolder.scad>
 
 //$explode = 1;
@@ -7,7 +9,8 @@ include <../scad/printed/SpoolHolder.scad>
 module Spool_Holder_test() {
     eSize = 20;
     eSizeX = 8;
-    spoolHolder(bracketSize=[eSizeX, 30, 20], offsetX=spoolOffset().x, innerFillet=5);
+    color(pp2_colour)
+        spoolHolder(bracketSize=[eSizeX, 30, 20], offsetX=spoolOffset().x, innerFillet=5);
     //spoolHolder(bracketSize=[eSize, 2*eSize, 20], offsetX=17.5 + 3);
 }
 

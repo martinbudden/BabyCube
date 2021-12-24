@@ -12,7 +12,7 @@ include <../utils/carriageTypes.scad>
 include <../utils/cutouts.scad>
 include <../utils/diagonal.scad>
 include <../utils/HolePositions.scad>
-include <../utils/PrintHeadOffsets.scad>
+include <../utils/PrintheadOffsets.scad>
 include <../utils/motorTypes.scad>
 
 include <../vitamins/bolts.scad>
