@@ -16,7 +16,7 @@ use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/TopFace.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
-use <../scad/printed/XY_MotorMount.scad>
+use <../scad/printed/XY_Motors.scad>
 
 use <../scad/utils/CoreXYBelts.scad>
 include <../scad/utils/cutouts.scad>

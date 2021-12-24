@@ -16,7 +16,7 @@ include <../vitamins/bolts.scad>
 include <../vitamins/inserts.scad>
 
 use <SwitchShroud.scad>
-use <XY_MotorMount.scad>
+use <XY_Motors.scad>
 use <XY_IdlerBracket.scad>
 
 include <../Parameters_Main.scad>

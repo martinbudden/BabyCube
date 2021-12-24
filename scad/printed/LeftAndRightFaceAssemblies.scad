@@ -15,7 +15,7 @@ use <../vitamins/extruder.scad>
 use <LeftAndRightFaces.scad>
 use <SwitchShroud.scad>
 use <XY_IdlerBracket.scad>
-use <XY_MotorMount.scad>
+use <XY_Motors.scad>
 
 include <../Parameters_CoreXY.scad>
 
