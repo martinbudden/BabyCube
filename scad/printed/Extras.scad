@@ -19,30 +19,27 @@ include <../Parameters_Main.scad>
 
 module bowdenTube(carriagePosition, extraZ=120) {
     xCarriageType = carriageType(_xCarriageDescriptor);
-    explode(120)
-        color("White")
-            bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + xCarriageHotendOffsetY(xCarriageType), eZ] + printheadBowdenOffset(), ptfeTube=true, extraZ=extraZ);
+    color("White")
+        bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + xCarriageHotendOffsetY(xCarriageType), eZ] + printheadBowdenOffset(), ptfeTube=true, extraZ=extraZ);
 }
 
 module faceRightSpoolHolder(cf=false) {
-    explode([75, 0, 100])
-        translate(spoolHolderPosition(cf))
-            rotate([90, 0, 0])
-                stl_colour(pp2_colour)
-                    if (cf)
-                        Spool_Holder_CF_stl();
-                    else
-                        Spool_Holder_stl();
+    translate(spoolHolderPosition(cf))
+        rotate([90, 0, 0])
+            stl_colour(pp2_colour)
+                if (cf)
+                    Spool_Holder_CF_stl();
+                else
+                    Spool_Holder_stl();
 }
 
 module faceRightSpool() {
     spool = spool_200x60;
-    explode([150, 0, 0])
-        translate(spoolHolderPosition() + spoolOffset())
-            translate([0.1 + spool_width(spool)/2 + spool_rim_thickness(spool), 0, -spool_hub_bore(spool)/2])
-                rotate([0, 90, 0])
-                    not_on_bom()
-                        spool(spool, 46, "red", 1.75);
+    translate(spoolHolderPosition() + spoolOffset())
+        translate([0.1 + spool_width(spool)/2 + spool_rim_thickness(spool), 0, -spool_hub_bore(spool)/2])
+            rotate([0, 90, 0])
+                not_on_bom()
+                    spool(spool, 46, "red", 1.75);
 }
 
 module Spool_Holder_stl() {

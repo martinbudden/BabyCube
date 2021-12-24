@@ -157,8 +157,6 @@ staged_assembly("Stage_5", big=true, ngb=true) {
     explode(100, true) {
         printheadBeltSide();
     }
-    if (!exploded())
-        printheadWiring(carriagePosition());
 }
 
 module FinalAssembly() {
@@ -168,10 +166,15 @@ module FinalAssembly() {
             Right_Face_stl();
         } else {
             Stage_5_assembly();
-
-            printheadHotendSide();
-            bowdenTube(carriagePosition());
-            faceRightSpoolHolder();
-            faceRightSpool();
+            if (!exploded())
+                printheadWiring(carriagePosition());
+            explode(100, true)
+                printheadHotendSide();
+            explode(150)
+                bowdenTube(carriagePosition());
+            explode([75, 0, 100])
+                faceRightSpoolHolder();
+            explode([150, 0, 0])
+                faceRightSpool();
         }
 }

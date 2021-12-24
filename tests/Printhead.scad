@@ -31,7 +31,7 @@ module Printhead_test() {
         printheadHotendSide();
         CoreXYBelts(carriagePosition(), x_gap=2);
         xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
-        bowdenTube(carriagePosition());
+        //bowdenTube(carriagePosition());
         //Back_Face_assembly();
         //printheadWiring(carriagePosition());
     }
