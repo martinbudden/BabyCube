@@ -38,10 +38,10 @@ module xCarriageTop(xCarriageType, xCarriageBackSize, holeSeparation, extraX=0, 
     difference() {
         translate([0, xCarriageBackSize.y - size.y + railCarriageGap, 0])
             rounded_cube_yz(size, fillet);
-        // insert holes  to connect to the front
+        // bolt holes to connect to the belt side
         for (x = xCarriageHolePositions(size.x, holeSeparation))
         //for (x = xCarriageTopHolePositions(xCarriageType, holeOffset.x))
-            translate([x + topHoleOffset, xCarriageBackSize.y - size.y, size.z/2 + holeOffset])
+            translate([x + topHoleOffset, xCarriageBackSize.y - size.y + railCarriageGap, size.z/2 + holeOffset])
                 rotate([-90, -90, 0])
                     boltHoleM3TapOrInsert(12, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
         // bolt holes to connect to to the MGN carriage
@@ -118,7 +118,7 @@ module xCarriageBottom(xCarriageType, xCarriageBackSize, holeSeparation, reflect
     translate([0, -size.y + xCarriageBackSize.y + railCarriageGap, 0])
         difference() {
             rounded_cube_yz(size, fillet);
-            // insert holes to connect to the front
+            // bolt holes to connect to the belt side
             for (x = xCarriageHolePositions(size.x, holeSeparation))
                 translate([x, 0, size.z/2])
                     rotate([-90, -90, 0])
