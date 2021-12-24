@@ -154,16 +154,6 @@ module xCarriageBack(xCarriageType, size, extraX=0, holeSeparationTop, holeSepar
                         xCarriageBottom(xCarriageType, size, holeSeparationBottom, reflected);
                 }
             } // end union
-        if (!HC) {
-            for (x = xCarriageHolePositions(size.x + extraX, holeSeparationTop))
-                translate([x + topHoleOffset - size.x/2, carriageSize.y/2 + railCarriageGap, topThickness/2 + offsetT])
-                    rotate([-90, -90, 0])
-                        boltHoleM3TapOrInsert(size.y - railCarriageGap, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
-            for (x = xCarriageHolePositions(size.x, holeSeparationBottom))
-                translate([x - size.x/2, carriageSize.y/2 + railCarriageGap, -size.z + topThickness + baseThickness/2])
-                    rotate([-90, -90, 0])
-                        boltHoleM3TapOrInsert(size.y - railCarriageGap, horizontal=true, rotate=(reflected ? 180 : 0), chamfer_both_ends=false);
-        }
         if (toolheadHoles) {
             // using large carriage, so can support XChange toolhead
             translate([0, carriageSize.y/2 + size.y + eps, topThickness - 20]) {
