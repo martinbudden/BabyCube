@@ -51,9 +51,6 @@ module printheadAssembly() {
 }
 
 /*
-//!1. Assemble the E3D hotend, including fan, thermistor cartridge and heater cartridge.
-//!2. Use the Hotend_Clamp to attach the hotend to the X_Carriage.
-//!3. Collect the wires together and attach to the X_Carriage using the Hotend_Strain_Relief_Clamp.
 module Printhead_assembly()
 assembly("Printhead", big=true) {
 
@@ -62,6 +59,10 @@ assembly("Printhead", big=true) {
 }
 */
 
+//!1. Assemble the E3D hotend, including fan, thermistor cartridge and heater cartridge.
+//!2. Use the Hotend_Clamp to attach the hotend to the X_Carriage.
+//!3. Collect the wires together and attach to the X_Carriage using the Hotend_Strain_Relief_Clamp.
+//
 module Printhead_E3DV6_MGN9C_assembly() pose(a=[55, 0, 25 + 180])
 assembly("Printhead_E3DV6_MGN9C", big=true) {
 
