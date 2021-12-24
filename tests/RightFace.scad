@@ -10,7 +10,7 @@ use <../scad/printed/LeftAndRightFaces.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
 include <../scad/printed/SpoolHolder.scad>
-use <../scad/printed/XY_MotorMount.scad>
+use <../scad/printed/XY_Motors.scad>
 
 include <../scad/utils/printParameters.scad>
 use <../scad/utils/CoreXYBelts.scad>

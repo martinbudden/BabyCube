@@ -18,7 +18,7 @@ use <LeftAndRightFaces.scad>
 use <LeftAndRightFaceAssemblies.scad>
 use <SwitchShroud.scad>
 use <XY_IdlerBracket.scad>
-use <XY_MotorMount.scad>
+include <XY_MotorMountCF.scad>
 
 include <../Parameters_CoreXY.scad>
 
@@ -266,7 +266,7 @@ assembly("Left_Face_CF", big=true) {
                     boltM3Buttonhead(12);
         }
     explode([20, 0, 0]) {
-        XY_Motor_Mount_Left_assembly();
+        XY_Motor_Mount_Left_CF_assembly();
         XY_Idler_Bracket_Left_assembly();
     }
     leftFaceHardware(xyMotorType(), cnc=true);
@@ -303,7 +303,7 @@ assembly("Right_Face_CF", big=true) {
                 }
     }
     explode([-20, 0, 0]) {
-        XY_Motor_Mount_Right_assembly();
+        XY_Motor_Mount_Right_CF_assembly();
         XY_Idler_Bracket_Right_assembly();
     }
     rightFaceHardware(xyMotorType(), cnc=true);

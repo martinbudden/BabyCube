@@ -5,7 +5,7 @@ include <../scad/global_defs.scad>
 include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
-use <../scad/printed/XY_MotorMount.scad>
+use <../scad/printed/XY_Motors.scad>
 use <../scad/printed/LeftAndRightFaces.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
