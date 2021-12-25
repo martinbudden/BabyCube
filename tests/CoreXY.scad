@@ -15,7 +15,8 @@ use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/XY_IdlerBracket.scad>
-use <../scad/printed/XY_Motors.scad>
+include <../scad/printed/XY_Motors.scad>
+include <../scad/printed/XY_MotorMountCF.scad>
 use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 use <../scad/printed/Y_CarriageAssemblies.scad>
