@@ -1,3 +1,9 @@
+include <../global_defs.scad>
+
+include <NopSCADlib/utils/core/core.scad>
+include <../utils/motorTypes.scad>
+include <XY_Motors.scad>
+
 module XY_Motor_Mount_Left_stl() {
     NEMA_type = NEMA14T;
     NEMA_width = NEMA_width(NEMA_type);

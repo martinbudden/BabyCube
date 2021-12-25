@@ -8,7 +8,7 @@ include <NopSCADlib/vitamins/stepper_motors.scad>
 
 include <../utils/cutouts.scad>
 include <../utils/HolePositions.scad>
-use <../utils/motorTypes.scad>
+include <../utils/motorTypes.scad>
 
 include <../vitamins/bolts.scad>
 include <../vitamins/cables.scad>
@@ -18,6 +18,7 @@ use <LeftAndRightFaces.scad>
 use <LeftAndRightFaceAssemblies.scad>
 use <SwitchShroud.scad>
 use <XY_IdlerBracket.scad>
+include <XY_Motors.scad>
 include <XY_MotorMountCF.scad>
 
 include <../Parameters_CoreXY.scad>
