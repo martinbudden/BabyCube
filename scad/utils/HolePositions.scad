@@ -1,5 +1,3 @@
-include <NopSCADlib/utils/core/core.scad>
-
 include <../Parameters_CoreXY.scad>
 
 function middleWebOffsetZ() = eZ - 105;

@@ -15,10 +15,9 @@ use <../scad/printed/BackFace.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
 use <../scad/printed/FrontChords.scad>
 
-use <../scad/utils/CoreXYBelts.scad>
+include <../scad/utils/CoreXYBelts.scad>
 include <../scad/utils/printParameters.scad>
 
-include <../scad/Parameters_Main.scad>
 
 
 NEMA_type = xyMotorType();

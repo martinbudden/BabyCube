@@ -1,6 +1,7 @@
 //! Display the print head
 
-include <NopSCADlib/vitamins/rails.scad>
+include <../scad/utils/carriageTypes.scad>
+
 include <NopSCADlib/vitamins/blowers.scad>
 
 use <../scad/printed/Base.scad>
@@ -10,12 +11,10 @@ use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 
-include <../scad/utils/carriageTypes.scad>
-use <../scad/utils/CoreXYBelts.scad>
+include <../scad/utils/CoreXYBelts.scad>
 include <../scad/utils/printParameters.scad>
-use <../scad/utils/X_rail.scad>
+include <../scad/utils/X_rail.scad>
 
-include <../scad/Parameters_CoreXY.scad>
 
 
 //$explode = 1;

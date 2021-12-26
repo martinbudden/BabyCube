@@ -1,10 +1,3 @@
-include <NopSCADlib/vitamins/rails.scad>
-
-include <../vitamins/bolts.scad>
-
-include <../Parameters_CoreXY.scad>
-
-
 module xRailCarriagePosition(carriagePosition, rotate=0) {
     translate([
         carriagePosition.x + yRailOffset(_xyNEMA_width).x,

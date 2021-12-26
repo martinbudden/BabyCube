@@ -3,7 +3,6 @@
 include <../scad/global_defs.scad>
 
 include <NopSCADlib/utils/core/core.scad>
-include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../scad/printed/BackFace.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
@@ -18,16 +17,12 @@ use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 use <../scad/printed/XY_Motors.scad>
 
-use <../scad/utils/CoreXYBelts.scad>
-include <../scad/utils/cutouts.scad>
+//include <../scad/utils/CoreXYBelts.scad>
+//include <../scad/utils/cutouts.scad>
 include <../scad/utils/printParameters.scad>
-use <../scad/utils/X_Rail.scad>
-
-include <../scad/vitamins/bolts.scad>
+///include <../scad/utils/X_Rail.scad>
 
 use <../scad/MainAssembly.scad>
-
-include <../scad/Parameters_Main.scad>
 
 
 //$explode = 1;

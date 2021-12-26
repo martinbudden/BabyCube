@@ -1,9 +1,7 @@
-include <NopSCADlib/utils/core/core.scad>
-
 use <NopSCADlib/utils/sweep.scad>
 use <NopSCADlib/utils/maths.scad>
 use <NopSCADlib/utils/bezier.scad>
-use <NopSCADlib/utils/tube.scad>
+
 
 module bezierTube(startPos, endPos, tubeRadius=2, ptfeTube=false, extraZ=50) {
 
