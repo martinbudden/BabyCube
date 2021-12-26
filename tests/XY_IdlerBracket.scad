@@ -5,9 +5,8 @@ include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../scad/printed/XY_IdlerBracket.scad>
 
-use <../scad/utils/CoreXYBelts.scad>
+include <../scad/utils/CoreXYBelts.scad>
 
-include <../scad/Parameters_CoreXY.scad>
 use <../scad/Parameters_Positions.scad>
 
 

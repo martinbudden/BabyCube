@@ -7,9 +7,8 @@ use <NopSCADlib/utils/core_xy.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 include <../scad/utils/carriageTypes.scad>
-use <../scad/utils/CoreXYBelts.scad>
+include <../scad/utils/CoreXYBelts.scad>
 use <../scad/utils/printParameters.scad>
-use <../scad/utils/X_rail.scad>
 
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
@@ -21,7 +20,6 @@ use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 use <../scad/printed/Y_CarriageAssemblies.scad>
 
-include <../scad/Parameters_CoreXY.scad>
 use <../scad/Parameters_Positions.scad>
 
 

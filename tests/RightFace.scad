@@ -13,9 +13,8 @@ include <../scad/printed/SpoolHolder.scad>
 use <../scad/printed/XY_Motors.scad>
 
 include <../scad/utils/printParameters.scad>
-use <../scad/utils/CoreXYBelts.scad>
+include <../scad/utils/CoreXYBelts.scad>
 
-include <../scad/Parameters_Main.scad>
 
 
 //$explode = 1;

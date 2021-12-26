@@ -1,8 +1,9 @@
 include <../global_defs.scad>
 
+include <../vitamins/bolts.scad>
+
 use <NopSCADlib/utils/core_xy.scad>
 use <NopSCADlib/utils/fillet.scad>
-include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 include <NopSCADlib/vitamins/pulleys.scad>
 
@@ -10,7 +11,6 @@ include <../utils/carriageTypes.scad>
 include <../utils/HolePositions.scad>
 include <../utils/motorTypes.scad>
 
-include <../vitamins/bolts.scad>
 include <../vitamins/CorkDamper.scad>
 
 include <../Parameters_Main.scad>

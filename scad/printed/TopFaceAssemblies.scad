@@ -1,13 +1,12 @@
 include <../global_defs.scad>
 
 include <NopSCADlib/vitamins/ball_bearings.scad>
-include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/sheets.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 include <../utils/carriageTypes.scad>
 include <../utils/HolePositions.scad>
-use <../utils/X_Rail.scad>
+include <../utils/X_Rail.scad>
 
 use <TopFace.scad>
 use <Y_CarriageAssemblies.scad>

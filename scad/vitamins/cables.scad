@@ -1,6 +1,3 @@
-include <NopSCADlib/utils/core/core.scad>
-
-
 module stepper_motor_cable(length)
     vitamin(str(": Stepper motor cable, ", length, "mm"));
 

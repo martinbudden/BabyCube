@@ -1,8 +1,9 @@
 include <../global_defs.scad>
 
+include <../vitamins/bolts.scad>
+
 use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/rod.scad>
-include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/sk_brackets.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 use <NopSCADlib/vitamins/wire.scad>
@@ -15,7 +16,6 @@ include <../utils/HolePositions.scad>
 include <../utils/PrintheadOffsets.scad>
 include <../utils/motorTypes.scad>
 
-include <../vitamins/bolts.scad>
 include <../vitamins/cables.scad>
 
 use <X_CarriageAssemblies.scad>

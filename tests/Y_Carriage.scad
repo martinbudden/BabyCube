@@ -1,17 +1,15 @@
 //! Display the Y carriages
 
-include <NopSCADlib/vitamins/rails.scad>
+include <../scad/utils/carriageTypes.scad>
+
 include <NopSCADlib/vitamins/pulleys.scad>
 
-use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/Y_Carriage.scad>
 use <../scad/printed/Y_CarriageAssemblies.scad>
 
-use <../scad/utils/CoreXYBelts.scad>
-include <../scad/utils/carriageTypes.scad>
+include <../scad/utils/CoreXYBelts.scad>
 
 use <../scad/Parameters_Positions.scad>
-include <../scad/Parameters_Main.scad>
 
 
 //$explode = 1;

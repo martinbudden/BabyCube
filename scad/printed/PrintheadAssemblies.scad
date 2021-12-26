@@ -1,14 +1,13 @@
 include <../global_defs.scad>
 
-include <NopSCADlib/vitamins/rails.scad>
+include <../utils/carriageTypes.scad>
+
 include <NopSCADlib/vitamins/blowers.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
-include <../utils/carriageTypes.scad>
 include <../utils/PrintheadOffsets.scad>
-use <../utils/X_rail.scad>
+include <../utils/X_rail.scad>
 
-include <../vitamins/bolts.scad>
 include <../vitamins/pcbs.scad>
 
 include <Printhead.scad>

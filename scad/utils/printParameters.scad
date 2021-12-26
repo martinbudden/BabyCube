@@ -1,5 +1,3 @@
-include <../global_defs.scad>
-
 include <NopSCADlib/utils/core/core.scad>
 
 include <../Parameters_Main.scad>

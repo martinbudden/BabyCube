@@ -14,11 +14,10 @@ use <printed/PrintheadAssemblies.scad>
 use <printed/TopFaceAssemblies.scad>
 use <printed/X_CarriageAssemblies.scad>
 
-use <utils/CoreXYBelts.scad>
+include <utils/CoreXYBelts.scad>
 include <utils/HolePositions.scad>
 
 use <Parameters_Positions.scad>
-include <Parameters_Main.scad>
 
 
 staged_assembly = !true; // set this to false for faster builds during development
