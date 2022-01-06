@@ -13,7 +13,7 @@ function xCarriageBeltTensionerSize(beltWidth, sizeX=0) = [sizeX, 10, beltWidth 
 
 function xCarriageBottomOffsetZ() = 40.8;
 //function xCarriageBeltAttachmentSize(beltWidth, beltSeparation, sizeZ=0) = [20+beltSeparation-4.5, 18.5, sizeZ];
-function xCarriageBeltAttachmentSize(beltWidth, beltSeparation, sizeZ=0) = [(beltWidth + 1)*2 + beltSeparation + 2.5, 18.5, sizeZ];
+function xCarriageBeltAttachmentSize(beltWidth, beltSeparation, sizeZ=0) = [(beltWidth + 1)*2 + beltSeparation + 1.5, 18.5, sizeZ];
 // actual dimensions for belt are thickness:1.4, toothHeight:0.75
 toothHeight = 0.8;//0.75;
 function xCarriageBeltClampHoleSeparation() = 16;
@@ -140,10 +140,11 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, offsetY=0, boltC
     toothCount = floor(size.z/2) - 1;
     endCubeSize = [4, 9, 12];
     beltTensionerSize = xCarriageBeltTensionerSize(beltWidth);
-    cutoutSize = [beltTensionerSize.z + 0.55, beltTensionerSize.y + 0.6];
+    gapX = 0.6;
+    cutoutSize = [beltTensionerSize.z + gapX, beltTensionerSize.y + 0.65];
     //assert(cutoutSize==[7.75, 10.75]);
-    y1 = 0.5 + offsetY;
-    y2 = -0.75 + offsetY;
+    y1 = offsetY + 0.75 - gapX/2;
+    y2 = offsetY - 0.45 - gapX/2;
     gap = beltWidth + beltSeparation - cutoutSize.x - y1 + y2;
     midOffsetY = y1 + cutoutSize.x + gap/2;
     //midOffsetY2 = (beltWidth + beltSeparation + cutoutSize.x + y1 + y2)/2;
@@ -199,7 +200,7 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, offsetY=0, boltC
             translate([x, midOffsetY, size.y + toothHeight])
                 vflip()
                     boltHoleM3Tap(6);
-        translate([0, 4.2+1, 3.3]) {
+        translate([0, 4.35, 3.35]) {
             rotate([90, 0, 90])
                 boltHoleM3(endCubeSize.x, horizontal=true);
             translate([size.z, beltWidth + beltSeparation - (beltTensionerSize.z - beltWidth), 0])
@@ -314,7 +315,7 @@ module xCarriageBeltSide(xCarriageType, size, beltWidth, beltSeparation, holeSep
                translate([x + topHoleOffset, 0, -baseOffset + baseThickness/2])
                     rotate([-90, 0, 0])
                         if (countersunk)
-                            boltPolyholeM3Countersunk(pulley25 || !halfCarriage ? topSize.y : beltAttachmentPlusOffsetSizeY, sink=(pulley25 ? 1 : 0));
+                            boltPolyholeM3Countersunk(pulley25 || !halfCarriage ? topSize.y : beltAttachmentPlusOffsetSizeY, sink=(pulley25 ? 1 : 0.2));
                         else
                             boltHoleM3(pulley25 || !halfCarriage ? topSize.y : beltAttachmentPlusOffsetSizeY);
             /*for (x = xCarriageBottomHolePositions(xCarriageType, xCarriageHoleOffsetBottom().x))
