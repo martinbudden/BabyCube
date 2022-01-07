@@ -302,7 +302,7 @@ module xCarriageBeltSide(xCarriageType, size, beltWidth, beltSeparation, holeSep
                 translate([x + topHoleOffset, 0, -baseOffset + size.z - topSize.z/2 + offsetT])
                     rotate([-90, 0, 0])
                         if (countersunk)
-                            boltPolyholeM3Countersunk(topSize.y, sink=(pulley25 ? 1 : 0));
+                            boltPolyholeM3Countersunk(topSize.y, sink=(pulley25 ? 1 : 0.2));
                         else
                             boltHoleM3(topSize.y);
             /*for (x = xCarriageTopHolePositions(xCarriageType, xCarriageHoleOffsetTop().x))
