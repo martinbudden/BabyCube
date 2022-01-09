@@ -84,7 +84,7 @@ module hotEndHolder(xCarriageType, xCarriageBackSize, grooveMountSize, hotendOff
         mirror([left ? 0 : 1, 0, 0])
             translate([-xCarriageBackSize.x/2, hotendOffset.y - blower_size(blower_type).y/2 + 2, hotendOffset.z + 1])
                 rotate([90, 0, -90])
-                    zipTieFullCutout(10);
+                    zipTieFullCutout(size=[10, 5, 2.5]);
         // holes for the strain relief clamp
         /*translate([hotendOffset.x - grooveMountSize.x, xCarriageHotendSideSize(carriageType(_xCarriageDescriptor)).x/2 - 2*fillet, hotendOffset.z - grooveMountSize.z/2])
             for (x = [4, 14])

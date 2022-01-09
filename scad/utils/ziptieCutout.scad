@@ -1,26 +1,23 @@
 use <NopSCADlib/utils/fillet.scad>
 
-module zipTieFullCutout(length = 10) {
-    cutoutSize = [length, 5, 2];
-    cutoutDepth = 2;
-
-    translate([-cutoutSize.x/2, -cutoutSize.y/2, - cutoutSize.z - cutoutDepth]) {
+module zipTieFullCutout(size=[10, 5, 2], depth=2) {
+    translate([-size.x/2, -size.y/2, - size.z - depth]) {
         difference() {
             union() {
-                cube(cutoutSize);
-                translate([cutoutSize.x - cutoutSize.z, 0, 0])
-                    cube([cutoutSize.z, cutoutSize.y, cutoutSize.z + cutoutDepth + eps]);
+                cube(size);
+                translate([size.x - size.z, 0, 0])
+                    cube([size.z, size.y, size.z + depth + eps]);
                 translate([0, 0, 0])
-                    cube([cutoutSize.z, cutoutSize.y, cutoutSize.z + cutoutDepth + eps]);
+                    cube([size.z, size.y, size.z + depth + eps]);
             }
             // add a fillet to make it easier to insert the ziptie
-            translate([cutoutSize.x + eps, -eps, -eps])
+            translate([size.x + eps, -eps, -eps])
                 rotate([90, 0, 180])
-                    fillet(2, cutoutSize.y + 2*eps); // rounded fillet seems to work better than triangular one
-                    //right_triangle(1, 1, cutoutSize.y + 2*eps, center=false);
-            translate([0, cutoutSize.y + eps, -eps])
+                    fillet(2, size.y + 2*eps); // rounded fillet seems to work better than triangular one
+                    //right_triangle(1, 1, size.y + 2*eps, center=false);
+            translate([0, size.y + eps, -eps])
                 rotate([90, 0, 0])
-                    fillet(2, cutoutSize.y + 2*eps); // rounded fillet seems to work better than triangular one
+                    fillet(2, size.y + 2*eps); // rounded fillet seems to work better than triangular one
         }
     }
 }
