@@ -137,6 +137,7 @@ function xCarriageBeltAttachmentCutoutOffset() = 0.5;
 
 module xCarriageBeltAttachment(size, beltWidth, beltSeparation, offsetY=0, boltCutout=false, boltCutoutOffset=0, endCube=true) {
     size = size - [0, toothHeight, 0];
+    offsetZ = 18.5 - size.y - toothHeight;
     toothCount = floor(size.z/2) - 1;
     endCubeSize = [4, 9, 12];
     beltTensionerSize = xCarriageBeltTensionerSize(beltWidth);
@@ -149,6 +150,7 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, offsetY=0, boltC
     midOffsetY = y1 + cutoutSize.x + gap/2;
     //midOffsetY2 = (beltWidth + beltSeparation + cutoutSize.x + y1 + y2)/2;
 
+    translate_z(offsetZ)
     difference() {
         union() {
             rotate([90, 0, 90])
@@ -157,7 +159,7 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, offsetY=0, boltC
                     difference() {
                         square([size.x, size.y]);
                         for (y = [y1, beltWidth + beltSeparation + y2])
-                            translate([y, xCarriageBeltAttachmentCutoutOffset()])
+                            translate([y, xCarriageBeltAttachmentCutoutOffset() - offsetZ])
                                 hull() {
                                     square([cutoutSize.x, cutoutSize.y - 1]);
                                     translate([1, 0])
@@ -178,7 +180,7 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, offsetY=0, boltC
             translate([0, midOffsetY - (beltSeparation - 1)/2, size.y])
                 cube([size.z, beltSeparation - 1, toothHeight]);
             if (endCube) // optionally hide endCube for debugging
-                translate([0, offsetY - 0.25, 0]) {
+                translate([0, offsetY - 0.25, xCarriageBeltAttachmentCutoutOffset() - 0.5 - offsetZ]) {
                     cube(endCubeSize);
                     //translate([18.5, size.z - endCubeSize.y, 0])
                     translate([size.z - endCubeSize.x, beltWidth + beltSeparation - 1, 0])
@@ -200,7 +202,7 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, offsetY=0, boltC
             translate([x, midOffsetY, size.y + toothHeight])
                 vflip()
                     boltHoleM3Tap(6);
-        translate([0, 4.35, 3.35]) {
+        translate([0, 4.35, 3.35 - offsetZ + xCarriageBeltAttachmentCutoutOffset() - 0.5]) {
             rotate([90, 0, 90])
                 boltHoleM3(endCubeSize.x, horizontal=true);
             translate([size.z, beltWidth + beltSeparation - (beltTensionerSize.z - beltWidth), 0])
@@ -231,6 +233,7 @@ module xCarriageBeltSide(xCarriageType, size, beltWidth, beltSeparation, holeSep
     beltAttachmentOffsetY = xCarriageBeltSideOffsetY - beltAttachmentOffsetY();
     beltAttachmentSize = xCarriageBeltAttachmentSize(beltWidth, beltSeparation, size.x) + [0, 2*offsetY25, 0];
     beltAttachmentPlusOffsetSizeY = beltAttachmentSize.y + beltAttachmentOffsetY;
+    offsetZ = 18.5 - beltAttachmentSize.y;
 
     translate([-size.x/2, -xCarriageBeltSideOffsetY, 0]) {
         difference () {
@@ -249,7 +252,7 @@ module xCarriageBeltSide(xCarriageType, size, beltWidth, beltSeparation, holeSep
                         rounded_cube_xz(topSize, fillet);
                     rounded_cube_xz([size.x, beltAttachmentPlusOffsetSizeY, baseThickness], fillet);
                     translate_z(fillet + 0.25)
-                        cube([size.x, beltAttachmentPlusOffsetSizeY, baseThickness - fillet + (isMGN12 ? 0 : 1)], fillet);
+                        cube([size.x, beltAttachmentPlusOffsetSizeY + offsetZ, baseThickness - fillet + (isMGN12 ? 0 : 1)], fillet);
                     if (isMGN12) {
                         rounded_cube_xz([size.x, beltAttachmentOffsetY, baseThickness + beltAttachmentSize.x], fillet);
                         if (pulley25)
