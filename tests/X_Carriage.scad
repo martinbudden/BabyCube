@@ -26,6 +26,7 @@ module X_Carriage_test() {
     translate([xCarriageBeltAttachmentMGN9CExtraX()/2, 0, 0])
         xCarriageBeltClampAssembly(xCarriageType);
     X_Carriage_Groovemount_MGN9C_assembly();
+    translate_z(-carriage_height(MGN9C_carriage)) carriage(MGN9C_carriage);
 
     //let($preview=false)
     *translate([-xCarriageHotendSideSize(xCarriageType).x/2, carriage_size(xCarriageType).y/2, 0])
