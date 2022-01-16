@@ -65,7 +65,7 @@ assembly("X_Carriage_Belt_Side_MGN9C") {
     beltTensionerSize = xCarriageBeltTensionerSize(beltWidth());
     offset = xCarriageBeltTensionerSizeX - 8.5 + xCarriageBeltAttachmentMGN9CExtraX();
     boltLength = 30;
-    translate([offset, -3.4, -27]) {
+    translate([offset, -3.6, -27]) {
         rotate([0, 0, 180]) {
             explode([-40, 0, 0])
                 stl_colour(pp2_colour)
@@ -91,7 +91,7 @@ module X_Carriage_Belt_Tensioner_stl() {
 module X_Carriage_Belt_Clamp_stl() {
     stl("X_Carriage_Belt_Clamp")
         color(pp2_colour)
-            xCarriageBeltClamp(beltClampSize, offset=-0.75, countersunk=true);
+            xCarriageBeltClamp(beltClampSize, offset=-0.25, countersunk=true);
 }
 
 module xCarriageBeltClampAssembly(xCarriageType) {
@@ -100,7 +100,7 @@ module xCarriageBeltClampAssembly(xCarriageType) {
         rotate([-90, 180, 0]) {
             stl_colour(pp2_colour)
                 X_Carriage_Belt_Clamp_stl();
-            X_Carriage_Belt_Clamp_hardware(beltClampSize, offset=-0.75, countersunk=true);
+            X_Carriage_Belt_Clamp_hardware(beltClampSize, offset=-0.25, countersunk=true);
         }
 }
 
