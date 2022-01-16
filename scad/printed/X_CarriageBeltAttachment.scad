@@ -199,12 +199,12 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0,
             translate([x, midOffsetY, size.y + toothHeight])
                 vflip()
                     boltHoleM3Tap(6);
-        translate([0, cutoutOffsetY+4.35, 3.35 - 0.5 - offsetZ + cutoutOffsetZ]) {
+        translate([0, cutoutOffsetY + 4.35, 3.35 - 0.5 - offsetZ + cutoutOffsetZ]) {
             rotate([90, 0, 90])
-                boltHoleM2p5(endCubeSize.x, horizontal=true, cnc=true);
+                boltHoleM3(endCubeSize.x, horizontal=true);
             translate([size.z, beltWidth + beltSeparation - (beltTensionerSize.z - beltWidth), 0])
                 rotate([90, 0, -90])
-                    boltHoleM2p5(endCubeSize.x, horizontal=true, cnc=true);
+                    boltHoleM3(endCubeSize.x, horizontal=true);
         }
     }
 }
@@ -316,7 +316,7 @@ module xCarriageBeltSide(xCarriageType, size, beltWidth, beltSeparation, holeSep
                 translate([x, 0, -baseOffset + baseThickness/2 + xCarriageHoleOffsetBottom().y])
                     rotate([-90, 0, 0])
                         boltPolyholeM3Countersunk(beltAttachmentPlusOffsetSizeY);
-                        //boltHoleM3(size.y + beltInsetFront(xCarriageType), twist=4,cnc=true);*/
+                        //boltHoleM3(size.y + beltInsetFront(xCarriageType), twist=4, cnc=true);*/
             if (isMGN12) {
                 // EVA compatible boltholes
                 //for (x = xCarriageHolePositions(size.x, evaHoleSeparationBottom))
