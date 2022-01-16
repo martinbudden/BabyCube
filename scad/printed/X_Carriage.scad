@@ -114,7 +114,7 @@ module xCarriageTopBolts(xCarriageType, countersunk = true, positions=undef) {
 module xCarriageBottom(xCarriageType, xCarriageBackSize, holeSeparation, reflected=false) {
     assert(is_list(xCarriageType));
 
-    size =  [xCarriageBackSize.x, carriage_size(xCarriageType).z >= 13 ? 14.45 : 10.5, baseThickness];
+    size =  [xCarriageBackSize.x, carriage_size(xCarriageType).z >= 13 ? 14.45 : 10, baseThickness];
     translate([0, -size.y + xCarriageBackSize.y + railCarriageGap, 0])
         difference() {
             rounded_cube_yz(size, fillet);
