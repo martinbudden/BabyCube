@@ -16,6 +16,13 @@ times.txt
 
 .vscode/
 
+documents/*
+!documents/MarlinConfiguration.md
+!documents/klipper_btt_skr_mini_e3_v2.cfg
+!documents/BabyCube200_BOM.ods
+!documents/PrinterEnd.gcode
+!documents/PrinterStart.gcode
+
 pictures/temp/
 
 scad/target.scad
