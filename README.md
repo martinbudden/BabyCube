@@ -118,6 +118,11 @@ BabyCube          | 90 x 80 x 60 | 200 x 220 x 210
 | ----- | :------: | :-----------: |
 | Video | [![Overview](https://img.youtube.com/vi/HpjnHnVyvj4/0.jpg)](https://www.youtube.com/watch?v=HpjnHnVyvj4) | [![Speed benchy](https://img.youtube.com/vi/jGo57FBjNX4/0.jpg)](https://www.youtube.com/watch?v=jGo57FBjNX4) |
 
+## Input shaper test results
+
+![X-Axis](pictures/shaper_calibrate_x.png)
+![Y-Axis](pictures/shaper_calibrate_y.png)
+
 ## Pictures
 
 ![Front](pictures/BC_front.jpg)
