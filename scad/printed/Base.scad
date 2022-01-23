@@ -4,23 +4,29 @@ include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/utils/tube.scad>
 use <NopSCADlib/vitamins/box_section.scad>
+use <NopSCADlib/vitamins/psu.scad>
+use <NopSCADlib/vitamins/sheet.scad>
 include <NopSCADlib/vitamins/iecs.scad>
+include <NopSCADlib/vitamins/rockers.scad>
 include <NopSCADlib/vitamins/pcbs.scad>
 include <NopSCADlib/vitamins/pillar.scad>
-use <NopSCADlib/vitamins/sheet.scad>
 
 include <../utils/HolePositions.scad>
 
 include <../vitamins/bolts.scad>
 include <../vitamins/pcbs.scad>
+include <../vitamins/psus.scad>
 
 include <Foot.scad>
 include <../Parameters_Main.scad>
+//use <../../../MaybeCube/scad/printed/IEC_Housing.scad>
+//function iecHousingSize() = [70, 50, 42 + 3];
 
-
-function pcbOffsetFromBase() = eSizeZ + 2;
+function pcbOffsetFromBase() = eSizeZ + 2; // to allow clearance for removing SD card
+psuType = _psuDescriptor == "ASUS_FSKE_120W" ? ASUS_FSKE_120W_PSU : NG_CB_200W_24V;
 psuZOffset = 2.5;
 
+//AL3 = [ "AL3", "Aluminium sheet", 3, 1.05*silver, false];
 AL3 = [ "AL3", "Aluminium sheet", 3, silver, false];
 AL12x8x1 =  ["AL12x8x1",  "Aluminium box section 12mm x 8mm x 1mm",     [12, 8],  1, 0.5, silver, undef];
 
@@ -30,9 +36,9 @@ module Base_stl() {
 
     stl("Base")
         color(pp3_colour) {
-            psuPosition()
-                psuSupportPositions()
-                    psuSupport();
+            psuPosition(psuType)
+                psuSupportPositions(psuType)
+                    psuSupport(psuType);
             translate_z(-size.z)
                 linear_extrude(size.z)
                     difference() {
@@ -101,11 +107,18 @@ module baseCutouts(cncSides = undef, radius=M3_clearance_radius, pcb=undef) {
         pcb_screw_positions(BTT_RRF_WIFI_V1_0)
             poly_circle(radius, sides=cncSides);
 
-    psuPosition() {
-        psuHolePositions()
-            rounded_square([psuSupportHoleSize.x, radius < M3_clearance_radius? 2 : psuSupportHoleSize.y], 0.5);
-        psuBracketHolePositions()
-            poly_circle(M3_tap_radius, sides=cncSides);
+    if (psu_screw(psuType)) {
+        psuPosition(psuType)
+            psu_screw_positions(psuType, f_bottom)
+                poly_circle(M3_tap_radius, sides=cncSides);
+    } else {
+        psuPosition(psuType) {
+            psuSupportHoleSize = [21, -psuHoleInset.y*2]; // 21 wide for battery strap
+            psuHolePositions(psuType)
+                rounded_square([psuSupportHoleSize.x, radius < M3_clearance_radius? 2 : psuSupportHoleSize.y], 0.5);
+            psuBracketHolePositions(psuType)
+                poly_circle(M3_tap_radius, sides=cncSides);
+        }
     }
 }
 
@@ -146,23 +159,50 @@ module baseAssembly(pcb=undef) {
     hidden() Base_stl();
     hidden() Base_Template_stl();
 
-    psuPosition() {
-        explode(50)
-            translate_z(psuZOffset) // to allow wires to run underneath PSU
-                PSU();
-        explode(25)
-            psuSupportPositions()
-                stl_colour(pp1_colour)
-                    PSU_Support_stl();
-        explode([-20, 0, 25], true) {
-            psuBracketPosition()
-                stl_colour(pp1_colour)
-                    PSU_Bracket_stl();
-            psuBracketHolePositions()
-                translate_z(6)
-                    boltM3Buttonhead(10);
+        if (psu_screw(psuType)) {
+            psuPosition(psuType) {
+                psu(psuType);
+                psu_screw_positions(psuType, f_bottom)
+                    vflip()
+                        translate_z(3)
+                            bolt(psu_screw(psuType), 8);
+            }
+            //translate([eX + 2*eSizeX, 90 + 25, 14 + psu_size(psuType).z + 10]) {
+            *translate([eX + 2*eSizeX, 90 + 25, eSizeZ + iec_body_h(IEC_inlet)/2])
+                rotate([90, 0, 90])
+                    iec(IEC_inlet);
+            iecType = IEC_320_C14_switched_fused_inlet;
+            translate([eX + 2*eSizeX, eY + 2*eSizeY - eSizeY - 5 - iec_body_h(iecType)/2, eSizeZ/2 + iec_pitch(iecType)/2]) {
+            //translate([eX + 2*eSizeX, 90 + 25, eSizeZ/2 + iec_pitch(iecType)/2])
+                rotate([0, 90, 0]) {
+                    iec(iecType);
+                    translate([0, -12, 2 + eps])
+                        rotate(90)
+                            not_on_bom() no_explode()
+                                rocker(small_rocker, "red");
+                }
+            /*translate([-iecHousingSize().z, -iecHousingSize().x/2, -25])
+                rotate([90, 0, 90])
+                    IEC_Housing_Bevelled_stl();*/
+            }
+        } else {
+            psuPosition(psuType) {
+                explode(50)
+                    PSU();
+                explode(25)
+                    psuSupportPositions(psuType)
+                        stl_colour(pp1_colour)
+                            PSU_Support_stl();
+                explode([-20, 0, 25], true) {
+                    psuBracketPosition(psuType)
+                        stl_colour(pp1_colour)
+                            PSU_Bracket_stl();
+                    psuBracketHolePositions(psuType)
+                        translate_z(6)
+                            boltM3Buttonhead(10);
+                }
+            }
         }
-    }
 }
 
 
@@ -193,24 +233,33 @@ module baseRightFeet(hardware=false) {
 }
 
 //psuSize = [130, 58, 30];
-psuSize = [169, 65, 39];
+//psuSize = [169, 65, 39];
 psuHoleInset = [36, -1.25];
-psuSupportHoleSize = [21, -psuHoleInset.y*2]; // 21 wide for battery strap
 
-module psuPosition() {
-    translate([eX + 2*eSizeX - eSizeXBase - psuSize.x/2, eY + 2*eSizeY - psuSize.y/2 - 46, 0])
-        children();
+module psuPosition(psuType) {
+    psuSize = psu_size(psuType);
+    // [125.5, 121.5, 0];
+    //echo(p=[eX + 2*eSizeX - eSizeXBase - psuSize.x/2, eY + 2*eSizeY - psuSize.y/2 - 46, 0]);
+    if (psu_screw(psuType))
+        //translate([eX + 2*eSizeX - psuSize.x/2 - eSizeXBase, 90 + psuSize.y/2, 0])
+        translate([eX + 2*eSizeX - psuSize.x/2 - 15, 90 + psuSize.y/2, 0])
+            children();
+    else
+        translate([eX + 2*eSizeX - eSizeXBase - psuSize.x/2, eY + 2*eSizeY - psuSize.y/2 - 46, 0])
+            children();
 }
 
-module psuHolePositions() {
+module psuHolePositions(psuType) {
+    psuSize = psu_size(psuType);
     for (x = [psuSize.x/2 - psuHoleInset.x + 1, -psuSize.x/2 + psuHoleInset.x],
          y = [psuSize.y/2 - psuHoleInset.y, -psuSize.y/2 + psuHoleInset.y]
         )
-    translate([x, y])
+    translate([x, y, 0])
         children();
 }
 
-module psuSupportPositions() {
+module psuSupportPositions(psuType) {
+    psuSize = psu_size(psuType);
     for (x = [psuSize.x/2 - psuHoleInset.x + 1, -psuSize.x/2 + psuHoleInset.x],
          y = [0]
         )
@@ -218,13 +267,14 @@ module psuSupportPositions() {
         children();
 }
 
-module psuBracketPosition() {
+module psuBracketPosition(psuType) {
+    psuSize = psu_size(psuType);
     translate([-psuSize.x/2 - 10, 0])
         children();
 }
 
-module psuBracketHolePositions() {
-    psuBracketPosition()
+module psuBracketHolePositions(psuType) {
+    psuBracketPosition(psuType)
         for (y = [10, -10])
             translate([0, y])
                 children();
@@ -255,26 +305,29 @@ module PSU_Bracket_stl() {
 module PSU_Support_stl() {
     stl("PSU_Support")
         color(pp1_colour)
-            psuSupport();
+            psuSupport(psuType);
 }
 
-module psuSupport() {
+module psuSupport(psuType) {
+    psuSize = psu_size(psuType);
     rounded_cube_xy([20, psuSize.y, psuZOffset], 1, xy_center=true);
 }
 
 module PSU() {
-    color(grey(30))
-        difference() {
-            rounded_cube_xy(psuSize, 3, xy_center = true);
-            hull()
-                translate([psuSize.x/2 - 5 + 2*eps, 0, psuSize.z/2])
-                    rotate([90, 0, 90])
-                        not_on_bom() iec(IEC_inlet);
-        }
-
-    translate([psuSize.x/2 - 5, 0, psuSize.z/2])
-        rotate([90, 0, 90])
-            not_on_bom() iec(IEC_inlet);
+    psuSize = psu_size(psuType);
+    translate_z(psuZOffset) {// to allow wires to run underneath PSU
+        color(grey(30))
+            difference() {
+                rounded_cube_xy(psuSize, 3, xy_center = true);
+                hull()
+                    translate([psuSize.x/2 - 5 + 2*eps, 0, psuSize.z/2])
+                        rotate([90, 0, 90])
+                            not_on_bom() iec(IEC_inlet);
+            }
+        translate([psuSize.x/2 - 5, 0, psuSize.z/2])
+            rotate([90, 0, 90])
+                not_on_bom() iec(IEC_inlet);
+    }
 }
 
 module pcbPosition(pcbType, alignRight=true) {
