@@ -32,23 +32,26 @@ module Front_Face_CF_dxf() {
                 translate([insetX, 50])
                     rounded_square([size.x - 2*insetX, eZ - insetY - 50], 3, center=false);
                 backFaceSideCutouts(cnc=true, plateThickness=_frontPlateCFThickness, dogBoneThickness=0);
+                railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
                 frontFaceHolePositions()
                     circle(r=M3_clearance_radius);
                 frontFaceLowerHolePositions()
                     circle(r=M3_clearance_radius);
-                translate([rockerPosition(rocker_type()).z, rockerPosition(rocker_type()).y])
-                    rocker_hole(rocker_type(), 0, rounded=false);
+                if (_useFrontSwitch)
+                    translate([rockerPosition(rocker_type()).z, rockerPosition(rocker_type()).y])
+                        rocker_hole(rocker_type(), 0, rounded=false);
 
-                display_type = BigTreeTech_TFT35v3_0;
-                /*cutoutSize = frontChordCutoutSize(display_type);
-                cutoutOffset = frontChordCutoutOffset(display_type);
-                translate([size.x + cutoutOffset.x, cutoutOffset.y])
-                    rounded_square([cutoutSize.x, cutoutSize.y], 2, center = false);*/
-                translate([size.x/2, -1])
-                    displayBracketHolePositionsCNC(display_type)
-                        circle(r=M3_clearance_radius);
-                frontLowerChordSKR_1_4_cutout(display_type, cnc=true);
-                railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
+                if (_useFrontDisplay) {
+                    display_type = BigTreeTech_TFT35v3_0;
+                    /*cutoutSize = frontChordCutoutSize(display_type);
+                    cutoutOffset = frontChordCutoutOffset(display_type);
+                    translate([size.x + cutoutOffset.x, cutoutOffset.y])
+                        rounded_square([cutoutSize.x, cutoutSize.y], 2, center = false);*/
+                    translate([size.x/2, -1])
+                        displayBracketHolePositionsCNC(display_type)
+                            circle(r=M3_clearance_radius);
+                    frontLowerChordSKR_1_4_cutout(display_type, cnc=true);
+                }
             }
         }
 }
@@ -69,15 +72,17 @@ module Front_Face_CF_assembly()
 assembly("Front_Face_CF") {
     rotate([90, 0, 0]) {
         Front_Face_CF();
-        translate([rockerPosition(rocker_type()).z, rockerPosition(rocker_type()).y])
-            rocker(rocker_type(), "red");
+        if (_useFrontSwitch)
+            translate([rockerPosition(rocker_type()).z, rockerPosition(rocker_type()).y])
+                rocker(rocker_type(), "red");
     }
-    explode([0, -30, 0], true) {
-        Display_Housing_CF_assembly();
-        translate([eX/2 + eSizeX, -2, 0])
-            displayBracketHolePositions(BigTreeTech_TFT35v3_0)
-                vflip()
-                    explode(60)
-                        boltM3Buttonhead(10);
-    }
+    if (_useFrontSwitch)
+        explode([0, -30, 0], true) {
+            Display_Housing_CF_assembly();
+            translate([eX/2 + eSizeX, -2, 0])
+                displayBracketHolePositions(BigTreeTech_TFT35v3_0)
+                    vflip()
+                        explode(60)
+                            boltM3Buttonhead(10);
+        }
 }

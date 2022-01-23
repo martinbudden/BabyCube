@@ -28,9 +28,9 @@ function topFaceBackHolePositionOffsetY() = 4;
 function topFaceFrontHolePositionOffsetY() = 8;
 
 function upperSideJoinerHolePositions() = [ 40, 80, 120, 175 ];
-function lowerSideJoinerHolePositions(left) = left ? [ 90, 185 ] : [ 30, 90, 185 ];
+function lowerSideJoinerHolePositions(left) = left ? [ 50, 90, 190 ] : [ 30, 90, 190 ];
 function backSideJoinerHolePositions() =  [ 15, 55, 90 ];
-function frontSideJoinerHolePositions() = [ 15, 40, 120 ];
+function frontSideJoinerHolePositions() = [ 15, 40, 80, 120 ];
 
 function backFaceHolePositions() = [eSizeY/2 + 1, middleWebOffsetZ() + eSizeY/2, eZ - eSizeY/2 - _topPlateThickness];
 
