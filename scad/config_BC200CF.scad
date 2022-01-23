@@ -13,6 +13,8 @@ eSizeX = 10;
 _xyMotorDescriptor = "NEMA14";
 _zMotorDescriptor = "NEMA17_34L150";
 
+_psuDescriptor = "NG_CB_200W_24V";
+
 // set _fullLengthYRail to add end cutouts for Y rail
 _fullLengthYRail = true;
 _xRailLength = 150;
@@ -21,5 +23,8 @@ _xCarriageDescriptor = "MGN9C";
 _xCarriageCountersunk = true;
 _yCarriageDescriptor = "MGN9C";
 _coreXYDescriptor = "GT2_20_16";
+
+_useFrontDisplay = false;
+_useFrontSwitch = false;
 
 _printBedSize = 120;
