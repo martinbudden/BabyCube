@@ -1,7 +1,8 @@
 include <../global_defs.scad>
 
-include <NopSCADlib/utils/core/core.scad>
+include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
+include <NopSCADlib/vitamins/iecs.scad>
 include <NopSCADlib/vitamins/rockers.scad>
 include <NopSCADlib/vitamins/sheets.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
@@ -179,8 +180,9 @@ module leftFaceCF(NEMA_width) {
                 sideFaceBackDogBones(cnc=true);
             translate([-eY - 2*eSizeY, 0])
                 sideFaceBackDogBones(cnc=true);
-            switchShroudHolePositions()
-                circle(r=M3_clearance_radius);
+            if (_useFrontSwitch)
+                switchShroudHolePositions()
+                    circle(r=M3_clearance_radius);
             lowerSideJoinerHolePositions(left=true)
                 circle(r=M3_clearance_radius);
             upperSideJoinerHolePositions()
@@ -203,8 +205,21 @@ module rightFaceCF(NEMA_width) {
     difference() {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2]) {
-            translate([eSizeY + 20, eSizeZ])
-                rounded_square([eY - 20 - 40, 30], 5, center=false);
+            if (_psuDescriptor == "ASUS_FSKE_120W") {
+                translate([eSizeY + 35, eSizeZ])
+                    rounded_square([eY - 75, 30], 5, center=false);
+            } else {
+                translate([eSizeY + 35, eSizeZ])
+                    rounded_square([40, 15], 5, center=false);
+                iecType = IEC_320_C14_switched_fused_inlet;
+                cutoutSize = [48, 30];
+                translate([eY + 2*eSizeY - eSizeY - 5 - iec_body_h(iecType)/2, eSizeZ/2 + iec_pitch(iecType)/2]) {
+                    rounded_square(cutoutSize, 5, center=true);
+                    for(y = [-iec_pitch(iecType)/2, iec_pitch(iecType)/2])
+                        translate([0, y])
+                            circle(r=M3_clearance_radius);
+                }
+            }
             sideFaceMotorCutout(left=false, NEMA_width=NEMA_width, cnc=true);
             sideFaceTopDogbones(cnc=true);
             translate([_backPlateCFThickness, 0])
@@ -271,9 +286,11 @@ assembly("Left_Face_CF", big=true) {
         XY_Idler_Bracket_Left_assembly();
     }
     leftFaceHardware(xyMotorType(), cnc=true);
-    explode([25, 0, 0])
-        Switch_Shroud_assembly();
-    Switch_Shroud_bolts(counterSunk=false);
+    if (_useFrontSwitch) {
+        explode([25, 0, 0])
+            Switch_Shroud_assembly();
+        Switch_Shroud_bolts(counterSunk=false);
+    }
 }
 
 module Right_Face_CF_assembly() pose(a=[55, 0, 25 + 50])
