@@ -45,11 +45,11 @@ module Base_test() {
     }
     //translate_z(_zMin) Print_bed_3_point_printed_assembly();
     //translate_z(_zMin) Print_bed_assembly();
-    //Back_Face_Stage_1_assembly();
     *translate([0, eps, 2*eps]) {
         //Back_Face_assembly();
-        //Right_Face_assembly();
-        Left_Face_assembly();
+        Back_Face_Stage_1_assembly();
+        Right_Face_assembly();
+        //Left_Face_assembly();
     }
     //Front_Face_CF_assembly();
 
