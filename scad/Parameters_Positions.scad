@@ -7,7 +7,7 @@ $t = 2;
 
 _xMin = 43.1;// Limited by belt attachment hitting Y_Carriage. Was limited (at 33) by part cooling fan hitting belts, Y_Carriage endstop set to prevent this
 _xMax = eX - 2*eSizeX - 53.8; // . For E3D hotend, was limited (at -52) by hotend fan hitting belts
-_yMin = 30.85; // limited by Y carriage hitting idler (and previousy also by X carriage front bolts hitting top face)
+_yMin = _useCNC ? 33.85 : 30.85; // limited by Y carriage hitting idler (and previousy also by X carriage front bolts hitting top face)
 _yMax = eY - 67;
 _zMin = _printBedSize == 100 ? 77.35 : _useCNC ? 63.5 : 59.5;
 _zMax = eZ - (_printBedSize == 100 ? 61.4 : _useCNC ? 59.5 : 81);
