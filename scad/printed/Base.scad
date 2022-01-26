@@ -7,7 +7,7 @@ use <NopSCADlib/vitamins/box_section.scad>
 use <NopSCADlib/vitamins/psu.scad>
 use <NopSCADlib/vitamins/sheet.scad>
 include <NopSCADlib/vitamins/iecs.scad>
-include <NopSCADlib/vitamins/rockers.scad>
+//include <NopSCADlib/vitamins/rockers.scad>
 include <NopSCADlib/vitamins/pcbs.scad>
 include <NopSCADlib/vitamins/pillar.scad>
 
@@ -159,50 +159,52 @@ module baseAssembly(pcb=undef) {
     hidden() Base_stl();
     hidden() Base_Template_stl();
 
-        if (psu_screw(psuType)) {
+    if (psu_screw(psuType)) {
+        explode(50, true)
             psuPosition(psuType) {
                 psu(psuType);
                 psu_screw_positions(psuType, f_bottom)
                     vflip()
                         translate_z(3)
-                            bolt(psu_screw(psuType), 8);
+                            explode(25)
+                                bolt(psu_screw(psuType), 8);
+        }
+        //translate([eX + 2*eSizeX, 90 + 25, 14 + psu_size(psuType).z + 10]) {
+        *translate([eX + 2*eSizeX, 90 + 25, eSizeZ + iec_body_h(IEC_inlet)/2])
+            rotate([90, 0, 90])
+                iec(IEC_inlet);
+        //iecType = IEC_320_C14_switched_fused_inlet;
+        *translate([eX + 2*eSizeX, eY + 2*eSizeY - eSizeY - 5 - iec_body_h(iecType)/2, eSizeZ/2 + iec_pitch(iecType)/2]) {
+        //translate([eX + 2*eSizeX, 90 + 25, eSizeZ/2 + iec_pitch(iecType)/2])
+            rotate([0, 90, 0]) {
+                iec(iecType);
+                translate([0, -12, 2 + eps])
+                    rotate(90)
+                        not_on_bom() no_explode()
+                            rocker(small_rocker, "red");
             }
-            //translate([eX + 2*eSizeX, 90 + 25, 14 + psu_size(psuType).z + 10]) {
-            *translate([eX + 2*eSizeX, 90 + 25, eSizeZ + iec_body_h(IEC_inlet)/2])
-                rotate([90, 0, 90])
-                    iec(IEC_inlet);
-            iecType = IEC_320_C14_switched_fused_inlet;
-            translate([eX + 2*eSizeX, eY + 2*eSizeY - eSizeY - 5 - iec_body_h(iecType)/2, eSizeZ/2 + iec_pitch(iecType)/2]) {
-            //translate([eX + 2*eSizeX, 90 + 25, eSizeZ/2 + iec_pitch(iecType)/2])
-                rotate([0, 90, 0]) {
-                    iec(iecType);
-                    translate([0, -12, 2 + eps])
-                        rotate(90)
-                            not_on_bom() no_explode()
-                                rocker(small_rocker, "red");
-                }
-            /*translate([-iecHousingSize().z, -iecHousingSize().x/2, -25])
-                rotate([90, 0, 90])
-                    IEC_Housing_Bevelled_stl();*/
-            }
-        } else {
-            psuPosition(psuType) {
-                explode(50)
-                    PSU();
-                explode(25)
-                    psuSupportPositions(psuType)
-                        stl_colour(pp1_colour)
-                            PSU_Support_stl();
-                explode([-20, 0, 25], true) {
-                    psuBracketPosition(psuType)
-                        stl_colour(pp1_colour)
-                            PSU_Bracket_stl();
-                    psuBracketHolePositions(psuType)
-                        translate_z(6)
-                            boltM3Buttonhead(10);
-                }
+        /*translate([-iecHousingSize().z, -iecHousingSize().x/2, -25])
+            rotate([90, 0, 90])
+                IEC_Housing_Bevelled_stl();*/
+        }
+    } else {
+        psuPosition(psuType) {
+            explode(50)
+                PSU();
+            explode(25)
+                psuSupportPositions(psuType)
+                    stl_colour(pp1_colour)
+                        PSU_Support_stl();
+            explode([-20, 0, 25], true) {
+                psuBracketPosition(psuType)
+                    stl_colour(pp1_colour)
+                        PSU_Bracket_stl();
+                psuBracketHolePositions(psuType)
+                    translate_z(6)
+                        boltM3Buttonhead(10);
             }
         }
+    }
 }
 
 
@@ -334,7 +336,7 @@ module pcbPosition(pcbType, alignRight=true) {
     pcbSize = pcb_size(pcbType);
 
     if (pcbType == BTT_SKR_MINI_E3_V2_0) {// || pcbType == BTT_TF_CLOUD_V1_0)
-        translate([alignRight ? eX + 2*eSizeX - pcbSize.x/2 - eSizeXBase - 8 : (eX + 2*eSizeX)/2, pcbSize.y/2 + eSizeY + 2, 0])
+        translate([alignRight ? eX + 2*eSizeX - pcbSize.x/2 - (_useCNC ? 3 : eSizeXBase + 8) : (eX + 2*eSizeX)/2, pcbSize.y/2 + eSizeY + (_useCNC ? 4 : 2), 0])
             if (pcbType == BTT_SKR_MINI_E3_V2_0)
                 children();
             else
@@ -421,9 +423,10 @@ module pcbAssembly(pcbType, alignRight=true) {
         pcbPosition(pcbType, alignRight) {
             explode(20, true) {
                 pcb(pcbType);
+                // top side screws
                 pcb_screw_positions(pcbType)
                     translate_z(pcb_thickness(pcbType))
-                        boltM3Caphead(6);
+                        boltM3Caphead(pcbType != BTT_SKR_MINI_E3_V2_0 || $i != 4 ? 6 : 8);
             }
             if (pcbType == BTT_SKR_V1_4_TURBO) {
                 pcb_back_screw_positions(pcbType)
@@ -434,14 +437,17 @@ module pcbAssembly(pcbType, alignRight=true) {
                                 boltM3Caphead(8);
                     }
             } else {
+                // bottom side screws and pillars
                 pcb_screw_positions(pcbType)
-                    translate_z(-pcbOffsetFromBase()) {
-                        explode(10)
-                            pillar(M3x12_nylon_hex_pillar);
-                        translate_z(-_basePlateThickness)
-                            vflip()
-                                explode(20, true)
-                                    boltM3Caphead(8);
+                   translate_z(-pcbOffsetFromBase()) {
+                        if (pcbType != BTT_SKR_MINI_E3_V2_0 || $i != 4 ) {
+                            explode(10)
+                                pillar(M3x12_nylon_hex_pillar);
+                            translate_z(-_basePlateThickness)
+                                vflip()
+                                    explode(20, true)
+                                        boltM3Caphead(8);
+                        }
                     }
                 if (pcbType == BTT_SKR_MINI_E3_V2_0 || pcbType == BTT_SKR_E3_TURBO) {
                     tubeHeight = 12;

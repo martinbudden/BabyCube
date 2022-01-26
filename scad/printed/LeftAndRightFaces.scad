@@ -41,10 +41,10 @@ function extruderMotorOffsetZ() = upperWebThickness;
 //ECHO: extruderPosition14Y = 132
 //ECHO: extruderPosition17Y = 117.8
 //function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - 2*NEMA_width + 2*35.2 - 40 - motorClearance().y, eZ - 73];
-function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - motorClearance().y - NEMA_width - (NEMA_width < 40 ? 4.8 : 2.7), eZ - 73];
-function spoolHolderPosition(cf=false) = [eX + 2*eSizeX, cf ? 25 : 24, eZ - 75];
+function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - motorClearance().y - NEMA_width - (NEMA_width < 40 ? 3.8 : 2.7), eZ - 73];
+function spoolHolderPosition(cf=false) = [eX + 2*eSizeX, cf ? 27 : 24, eZ - 75];
 function frontReinforcementThickness() = 3;
-function spoolHolderBracketSize(cf=false) = [cf ? 3 : eSizeX, 30, 20];
+function spoolHolderBracketSize(cf=false) = [cf ? 3 : eSizeX, cf ? 25 : 30, 20];
 
 
 module leftFace(NEMA_type) {
@@ -197,8 +197,8 @@ module spoolHolderCutout(NEMA_width, cnc=false) {
 
     width = (extruderPosition(NEMA_width).y - XY_MotorMountSize(NEMA_width).y)/2;
     if (cnc)
-        translate([eSizeY + 5, spoolHolderPosition().z])
-            rounded_square([50, eZ - antiShearSize.y - spoolHolderPosition().z], innerFillet, center=false);
+        translate([spoolHolderPosition(cnc).y - spoolHolderBracketSize(cnc).z/2, spoolHolderPosition(cnc).z])
+            rounded_square([30, eZ - antiShearSize.y - spoolHolderPosition().z], innerFillet, center=false);
     else
         translate([idlerBracketSize(coreXYPosBL(NEMA_width)).x, spoolHolderPosition().z])
             rounded_square([extruderPosition(NEMA_width).y - width/2 - eSizeY-idlerBracketSize(coreXYPosBL(NEMA_width)).x, eZ - antiShearSize.y - spoolHolderPosition().z], innerFillet, center=false);

@@ -158,7 +158,7 @@ assembly("Right_Face_Stage_1", big=true, ngb=true) {
 module rightFaceAssembly(NEMA_width) {
 
     stepper_motor_cable(400); // cable to extruder motor
-    if (!exploded())
+    if (!exploded() && !_useCNC)
         rightFaceExtruderZipTies(NEMA_width);
     translate(extruderPosition(NEMA_width))
         rotate([90, 0, 90])
@@ -175,7 +175,7 @@ module rightFaceHardware(NEMA_type, cnc=false) {
                     XY_MotorUprightHardware(NEMA_type, left=false);
                 }
                 stepper_motor_cable(400);
-                if (!exploded())
+                if (!exploded() && !cnc)
                     leftAndRightFaceZipTies(left=false);
             }
 }

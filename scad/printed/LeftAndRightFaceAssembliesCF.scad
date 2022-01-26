@@ -95,7 +95,7 @@ module Right_Face_Lower_Joiner_Front_stl() {
                         rounded_cube_xy([eSizeY, eZ - 70, eSizeXBase - _sidePlateThickness], _fillet);
                         rounded_cube_xy([35, eSizeZ, eSizeXBase - _sidePlateThickness], _fillet);
                         translate([eSizeY, eSizeZ, 0])
-                            fillet(5, eSizeXBase - _sidePlateThickness);
+                            fillet(2, eSizeXBase - _sidePlateThickness);
                     }
                     frontSideJoinerHolePositions(_sidePlateThickness)
                         boltHoleM3Tap(eSizeXBase - _sidePlateThickness + 2);
@@ -199,6 +199,9 @@ module leftFaceCF(NEMA_width) {
     }
 }
 
+iecType = IEC_320_C14_switched_fused_inlet;
+iecPosition = [eX + 2*eSizeX, eY + 2*eSizeY - eSizeY - 1 - iec_body_h(iecType)/2, eSizeZ/2 + iec_pitch(iecType)/2];
+
 module rightFaceCF(NEMA_width) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
 
@@ -211,9 +214,8 @@ module rightFaceCF(NEMA_width) {
             } else {
                 translate([eSizeY + 35, eSizeZ])
                     rounded_square([40, 15], 5, center=false);
-                iecType = IEC_320_C14_switched_fused_inlet;
                 cutoutSize = [48, 30];
-                translate([eY + 2*eSizeY - eSizeY - 5 - iec_body_h(iecType)/2, eSizeZ/2 + iec_pitch(iecType)/2]) {
+                translate([iecPosition.y, iecPosition.z]) {
                     rounded_square(cutoutSize, 5, center=true);
                     for(y = [-iec_pitch(iecType)/2, iec_pitch(iecType)/2])
                         translate([0, y])
@@ -320,6 +322,14 @@ assembly("Right_Face_CF", big=true) {
                     Right_Face_Upper_Joiner_stl();
                 }
     }
+    translate(iecPosition)
+        rotate([0, 90, 0]) {
+            iec(iecType);
+            translate([0, -12, 2 + eps])
+                rotate(90)
+                    not_on_bom() no_explode()
+                        rocker(small_rocker, "red");
+        }
     explode([-20, 0, 0]) {
         XY_Motor_Mount_Right_CF_assembly();
         XY_Idler_Bracket_Right_assembly();
