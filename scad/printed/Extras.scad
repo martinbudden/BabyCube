@@ -33,9 +33,9 @@ module faceRightSpoolHolder(cf=false) {
                     Spool_Holder_stl();
 }
 
-module faceRightSpool() {
+module faceRightSpool(cf=false) {
     spool = spool_200x60;
-    translate(spoolHolderPosition() + spoolOffset())
+    translate(spoolHolderPosition(cf) + spoolOffset())
         translate([0.1 + spool_width(spool)/2 + spool_rim_thickness(spool), 0, -spool_hub_bore(spool)/2])
             rotate([0, 90, 0])
                 not_on_bom()
@@ -51,5 +51,5 @@ module Spool_Holder_stl() {
 module Spool_Holder_CF_stl() {
     stl("Spool_Holder_CF")
         color(pp2_colour)
-            spoolHolder(spoolHolderBracketSize(cf=true), offsetX=spoolOffset().x, innerFillet=5);
+            spoolHolder(spoolHolderBracketSize(cf=true), offsetX=spoolOffset().x, innerFillet=5, endHeight=18);
 }

@@ -23,6 +23,7 @@ include <../Parameters_CoreXY.scad>
 module Front_Face_CF_dxf() {
     size = [eX + 2*eSizeX, eZ];
     insetX = idlerBracketSize(coreXYPosBL(_xyNEMA_width)).z;
+    insetX2 = 10;
     insetY = 21;
 
     dxf("Front_Face_CF")
@@ -31,7 +32,16 @@ module Front_Face_CF_dxf() {
             translate([-size.x/2, -size.y/2]) {
                 translate([insetX, 50])
                     rounded_square([size.x - 2*insetX, eZ - insetY - 50], 3, center=false);
+                translate([insetX2, eZ - insetY - 20])
+                    rounded_square([size.x - 2*insetX2, 20], 2, center=false);
+                translate([insetX, eZ - insetY - 20])
+                    rotate(180)
+                        fillet(2);
+                translate([size.x - insetX, eZ - insetY - 20])
+                    rotate(270)
+                        fillet(2);
                 backFaceSideCutouts(cnc=true, plateThickness=_frontPlateCFThickness, dogBoneThickness=0);
+                backFaceTopCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0);
                 railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
                 frontFaceHolePositions()
                     circle(r=M3_clearance_radius);

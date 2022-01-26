@@ -96,7 +96,7 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
 
     Stage_2_CF_assembly();
 
-    explode([0, 200, 0]) {
+    explode([0, 200, 0], true) {
         Back_Face_CF_assembly();
         translate([0, eY + 2*eSizeY, 0])
             rotate([90, 0, 0]) {
@@ -152,15 +152,21 @@ module CF_FinalAssembly() {
     translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2]) {
         Stage_5_CF_assembly();
 
-        explode(100, true)
+        explode(150, true)
             CoreXYBelts(carriagePosition());
         explode(100, true)
             printheadBeltSide();
-        printheadHotendSide();
-        *if (!exploded())
-            printheadWiring(carriagePosition());
+        explode(100, true)
+            printheadHotendSide();
         if (!exploded())
-            CoreXYBelts(carriagePosition());
+            printheadWiring(carriagePosition());
+        //if (!exploded())
+        explode(150)
+            bowdenTube(carriagePosition());
+        explode([75, 0, 100])
+            faceRightSpoolHolder(cf=true);
+        explode([150, 0, 0])
+            faceRightSpool(cf=true);
     }
 }
 

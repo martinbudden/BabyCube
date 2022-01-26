@@ -31,12 +31,16 @@ module Top_Face_NEMA_17_stl() {
 
 module Top_Face_CF_dxf() {
     dxf("Top_Face_CF")
-        topFaceCF(NEMA14);
+        topFaceCF(NEMA14, extraY=_backPlateCFThickness);
 }
 
 module Top_Face_CF() {
-    size = [eX + 2*eSizeX, eY + 2*eSizeY];
-    insetY = _backPlateThickness-1;
+    extraY = _backPlateCFThickness;
+    echo(extraY=extraY);
+    size = [eX + 2*eSizeX, eY + 2*eSizeY + extraY];
+    echo(topSize=size);
+    //insetY = _backPlateThickness - 1;
+    insetY = 0;
 
     translate([size.x/2, size.y/2 + insetY, 0])
         render_2D_sheet(CF3, w=size.x, d=size.y)
