@@ -36,9 +36,7 @@ module Top_Face_CF_dxf() {
 
 module Top_Face_CF() {
     extraY = _backPlateCFThickness;
-    echo(extraY=extraY);
     size = [eX + 2*eSizeX, eY + 2*eSizeY + extraY];
-    echo(topSize=size);
     //insetY = _backPlateThickness - 1;
     insetY = 0;
 
