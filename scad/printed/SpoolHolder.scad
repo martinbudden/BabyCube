@@ -18,15 +18,19 @@ module spoolHolderEndCap(height, length) {
             }
 }
 
-module spoolHolderCap(width, length) {
-    r = 26; // to match standard spool internal radius
+module spoolHolderCap(width, length, spoolInternalRadius=26, offset=false) {
+    r = spoolInternalRadius; // to match standard spool internal radius
     x = sqrt(r*r + width*width/4);
     linear_extrude(length)
         difference() {
-            translate([0, -2*r + x])
+            translate(offset ? [width/2, -2*r + x + 8] : [0, -2*r + x + 0.5])
                 circle(r=r);
-            translate([-r, -2*r])
+            translate([-r + (offset ? width/2 : 0), -2*r])
                 square([2*r, 2*r]);
+            translate([width/2, 0])
+                square([r, 10]);
+            translate([-width/2 - r, 0])
+                square([r, 10]);
         }
 }
 
@@ -69,7 +73,7 @@ module spoolHolderBracket(size, bracketThickness, topThickness, innerFillet, cat
     }
 }
 
-module spoolHolder(bracketSize, offsetX, innerFillet, catchRadius=0) {
+module spoolHolder(bracketSize, offsetX, innerFillet, catchRadius=0, endHeight=20, spoolInternalRadius=26, capOffset=false) {
     bracketThickness = 5;
     capPosX = offsetX - bracketThickness;
     size = [capPosX + 80, 20, bracketSize.z];
@@ -83,14 +87,13 @@ module spoolHolder(bracketSize, offsetX, innerFillet, catchRadius=0) {
             cube([capPosX, clampThickness, size.z]);
         translate([capPosX, bracketThickness, size.z/2])
             rotate([0, 90, 0])
-                spoolHolderCap(size.z, size.x - capPosX);
+                spoolHolderCap(size.z, size.x - capPosX, spoolInternalRadius, capOffset);
         translate([capPosX, clampThickness, 0])
             rotate(90)
                 fillet(2, size.z);
         translate([bracketThickness, 0, size.z])
             rotate([180, 0, 0])
                 right_triangle(size.x - bracketThickness, bracketSize.y, size.z, center=false);
-        endHeight = 20;
         for (x = [capPosX, size.x - bracketThickness]) {
             translate([x, bracketThickness, 0]) {
                 cube([bracketThickness, endHeight, size.z]);
