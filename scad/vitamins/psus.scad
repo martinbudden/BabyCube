@@ -18,7 +18,7 @@ ng_terminals = [9.525, 1.5, 15, 17.8, 7, 15]; // pitch, divider width, divider h
 function NIUGUY_CB_PSU(id, name, s /*size*/, terminals, ways_dc=4, ways_ac=3, c=10/*corner*/) =
     [id, name, // Name
     s.x, s.y, s.z, // Size
-    M3_cap_screw, M3_clearance_radius, // Screw type and clearance hole
+    M4_cap_screw, M4_clearance_radius, // Screw type and clearance hole
     false, // true if ATX
     0, 0, // left and right bays
     //CHANGE TO THIS ONCE NEW PSUs in NopSCADlib: [ways_dc, [5, (s.y - terminal_block_length(terminals, ways_dc))/2], terminals, ways_ac, [5, (s.y - terminal_block_length(terminals, ways_ac))/2], terminals], // terminals, count and offset
