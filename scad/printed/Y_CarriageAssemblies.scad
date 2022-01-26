@@ -25,7 +25,7 @@ module yCarriage(NEMA_width, left, cnc=false) {
     idlerHeight = pulley_height(coreXY_toothed_idler(coreXY_type()));
     pulleyBore = pulley_bore(coreXY_toothed_idler(coreXY_type()));
     chamfer = 0;
-    blockOffsetY = topInset - 2.75;
+    blockOffsetY = topInset - 2.75 - 0.5;
     endStopOffsetX = left ? 2.5 : 1;
     tongueOffset = tongueOffset(NEMA_width);
 
