@@ -1,5 +1,7 @@
 //! Display the right face
 
+include <../scad/global_defs.scad>
+
 include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
@@ -28,7 +30,8 @@ module Right_Face_test() {
     else
         Right_Face_assembly();
     faceRightSpoolHolder(cf=_useCNC);
-    //faceRightSpool();
+    //faceRightSpool(cf=_useCNC);
+    //echo(ep=extruderPosition(_xyNEMA_width));
     //bowdenTube(carriagePosition());
     //Right_Face_stl();
     //Right_Face_NEMA_17_stl();
@@ -49,5 +52,5 @@ module Right_Face_test() {
             Back_Face_stl();
 }
 
-//if ($preview)
+if ($preview)
     Right_Face_test();
