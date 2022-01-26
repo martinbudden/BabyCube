@@ -7,6 +7,7 @@ use <../scad/printed/Base.scad>
 use <../scad/printed/DisplayHousingAssemblies.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
+use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
 use <../scad/printed/FrontFace.scad>
 use <../scad/printed/FrontChords.scad>
 use <../scad/printed/Printbed.scad>
@@ -14,6 +15,7 @@ use <../scad/printed/Printbed3point.scad>
 
 include <../scad/vitamins/pcbs.scad>
 
+include <../scad/Parameters_Positions.scad>
 include <../scad/Parameters_Main.scad>
 
 
@@ -46,9 +48,13 @@ module Base_test() {
     //translate_z(_zMin) Print_bed_3_point_printed_assembly();
     //translate_z(_zMin) Print_bed_assembly();
     *translate([0, eps, 2*eps]) {
-        //Back_Face_assembly();
-        Back_Face_Stage_1_assembly();
-        Right_Face_assembly();
+        if (_useCNC) {
+            Right_Face_CF_assembly();
+        } else {
+            //Back_Face_assembly();
+            Back_Face_Stage_1_assembly();
+            Right_Face_assembly();
+        }
         //Left_Face_assembly();
     }
     //Front_Face_CF_assembly();

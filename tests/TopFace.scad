@@ -4,18 +4,20 @@ include <../scad/global_defs.scad>
 
 include <NopSCADlib/utils/core/core.scad>
 
-use <../scad/printed/BackFace.scad>
+//use <../scad/printed/BackFace.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
-use <../scad/printed/Base.scad>
-include <../scad/printed/Extras.scad>
+//use <../scad/printed/Base.scad>
+//include <../scad/printed/Extras.scad>
 use <../scad/printed/FrontChords.scad>
+use <../scad/printed/FrontFace.scad>
 use <../scad/printed/LeftAndRightFaces.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
+use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/TopFace.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
-use <../scad/printed/X_CarriageAssemblies.scad>
-use <../scad/printed/XY_Motors.scad>
+//use <../scad/printed/X_CarriageAssemblies.scad>
+//use <../scad/printed/XY_Motors.scad>
 
 //include <../scad/utils/CoreXYBelts.scad>
 //include <../scad/utils/cutouts.scad>
@@ -30,7 +32,8 @@ use <../scad/MainAssembly.scad>
 module Top_Face_test() {
     echoPrintSize();
 
-    //xRailCarriagePosition(carriagePosition()) Printhead_assembly();
+    //printheadHotendSide();
+    //printheadBeltSide();
     //CoreXYBelts(carriagePosition());
     //Top_Face_stl();
     //Top_Face();
@@ -45,12 +48,15 @@ module Top_Face_test() {
 
     //let($hide_bolts=true)
     if (_xyMotorDescriptor == "NEMA14") {
-        if (_useCNC)
+        if (_useCNC) {
             Top_Face_CF_assembly();
-        else
+            //Front_Face_CF_assembly();
+            Back_Face_CF_Stage_1_assembly();
+        } else {
             Top_Face_assembly();
-        //Top_Face_Stage_1_assembly();
-        //Top_Face_Stage_2_assembly();
+            //Top_Face_Stage_1_assembly();
+            //Top_Face_Stage_2_assembly();
+        }
     } else {
         Top_Face_NEMA_17_assembly();
         //Top_Face_NEMA_17_Stage_1_assembly();
@@ -59,7 +65,10 @@ module Top_Face_test() {
     //printheadWiring(carriagePosition());
     //CoreXYBelts(carriagePosition());
 
-    //Left_Face_assembly();
+    *if (_useCNC)
+        Left_Face_CF_assembly();
+    else
+        Left_Face_assembly();
     //Right_Face_assembly();
     //bowdenTube(carriagePosition());
 
@@ -75,8 +84,9 @@ module Top_Face_test() {
 
 }
 
-//if ($preview)
-    Top_Face_test();
+if ($preview)
+    translate_z(-eZ)
+        Top_Face_test();
 /*else
     vflip()
         scale([0.5, 0.5, 0.5])

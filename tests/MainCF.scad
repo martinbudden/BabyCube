@@ -30,6 +30,7 @@ module MainCF_test() {
     //Right_Face_CF_assembly();
     //Top_Face_CF_assembly();
     //Front_Face_CF_assembly();
+    //Stage_3_CF_assembly();
     //Stage_5_CF_assembly();
     //CF_DebugAssembly();
     CF_FinalAssembly();
