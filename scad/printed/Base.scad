@@ -4,7 +4,7 @@ include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/utils/tube.scad>
 use <NopSCADlib/vitamins/box_section.scad>
-use <NopSCADlib/vitamins/psu.scad>
+include <NopSCADlib/vitamins/psus.scad>
 use <NopSCADlib/vitamins/sheet.scad>
 include <NopSCADlib/vitamins/iecs.scad>
 //include <NopSCADlib/vitamins/rockers.scad>
@@ -110,7 +110,7 @@ module baseCutouts(cncSides = undef, radius=M3_clearance_radius, pcb=undef) {
     if (psu_screw(psuType)) {
         psuPosition(psuType)
             psu_screw_positions(psuType, f_bottom)
-                poly_circle(M3_tap_radius, sides=cncSides);
+                poly_circle(M4_tap_radius, sides=cncSides);
     } else {
         psuPosition(psuType) {
             psuSupportHoleSize = [21, -psuHoleInset.y*2]; // 21 wide for battery strap
@@ -159,7 +159,8 @@ module baseAssembly(pcb=undef) {
     hidden() Base_stl();
     hidden() Base_Template_stl();
 
-    if (psu_screw(psuType)) {
+    if (_psuDescriptor != "ASUS_FSKE_120W") {
+    //if (psu_screw(psuType)) {
         explode(50, true)
             psuPosition(psuType) {
                 psu(psuType);
@@ -167,7 +168,8 @@ module baseAssembly(pcb=undef) {
                     vflip()
                         translate_z(3)
                             explode(25)
-                                bolt(psu_screw(psuType), 8);
+                                //bolt(psu_screw(psuType), 8);
+                                boltM4Buttonhead(8);
         }
         //translate([eX + 2*eSizeX, 90 + 25, 14 + psu_size(psuType).z + 10]) {
         *translate([eX + 2*eSizeX, 90 + 25, eSizeZ + iec_body_h(IEC_inlet)/2])
