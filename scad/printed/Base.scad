@@ -138,6 +138,7 @@ assembly("Base", big=true) {
     pcbAssembly(BTT_SKR_MINI_E3_V2_0);
     pcbAssembly(RPI3A_plus);
     baseAssembly(BTT_SKR_MINI_E3_V2_0);
+    baseCoverAssembly();
 }
 
 module Base_SKR_E3_Turbo_assembly()
@@ -209,7 +210,26 @@ module baseAssembly(pcb=undef) {
     }
 }
 
+baseCoverHeight = 40;
+module Base_Cover_stl() {
+    size = [eX, 90, 3];
 
+    color(pp1_colour)
+        stl("Base_Cover")
+            translate([eSizeX, -size.y - _frontPlateCFThickness, 0]) {
+                fillet = 1;
+                rounded_cube_xy(size, fillet);
+                size2 = [size.x, 3, baseCoverHeight];
+                rounded_cube_xy(size2, fillet);
+            }
+}
+
+module baseCoverAssembly() {
+    stl_colour(pp1_colour)
+        translate_z(baseCoverHeight)
+            vflip()
+                Base_Cover_stl();
+}
 // All corners are offset by _baseBoltHoleInset in both the x and y direction so that the feet are symmetrical.
 
 module baseLeftFeet(hardware=false) {
