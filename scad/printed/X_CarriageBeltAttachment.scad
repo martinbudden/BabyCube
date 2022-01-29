@@ -133,7 +133,7 @@ module X_Carriage_Belt_Clamp_hardware(size, offset=0, boltLength=10, countersunk
                 boltM3Buttonhead(boltLength);
 }
 
-module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0, cutoutOffsetZ=0, boltCutout=false, boltCutoutOffset=0, teeth=true, endCube=true) {
+module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0, cutoutOffsetZ=0, boltCutout=false, boltCutoutOffset=0, reversedBelts=false, endCube=true) {
     size = size - [0, toothHeight, 0];
     offsetZ = 0;//18.5 - size.y - toothHeight;
     toothCount = floor(size.z/2) - 1;
@@ -165,6 +165,7 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0,
                     }
             //translate([0, size.z/2 + toothCount + 0.5, size.y])
             //translate([-8.4 + (size.z - toothCount*2)/2, size.x, size.y])
+            teeth = true;
             if (teeth) {
                 translate([-0.5 + (size.z - toothCount*2)/2, size.x, size.y])
                     rotate([90, 0, 0])
@@ -178,13 +179,13 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0,
                 translate([0, midOffsetY - (beltSeparation - 1)/2, size.y])
                     cube([size.z, beltSeparation - 1, toothHeight]);
             }
-            if (endCube) // optionally hide endCube for debugging
-                translate([0, cutoutOffsetY, cutoutOffsetZ - offsetZ]) {
+            if (endCube) {// optionally hide endCube for debugging
+                translate([reversedBelts ? size.z - endCubeSize.x : 0, cutoutOffsetY, cutoutOffsetZ - offsetZ])
                     cube(endCubeSize);
                     //translate([18.5, size.z - endCubeSize.y, 0])
-                    translate([size.z - endCubeSize.x, beltWidth + beltSeparation - 1.25, 0])
-                        cube(endCubeSize);
-                }
+                translate([reversedBelts ? 0 : size.z - endCubeSize.x, cutoutOffsetY + beltWidth + beltSeparation - 1.25, cutoutOffsetZ - offsetZ])
+                    cube(endCubeSize);
+            }
         }
         boltCutoutWidth =  2.5;
         if (boltCutout) {
@@ -245,7 +246,7 @@ module xCarriageBeltSide(xCarriageType, size, beltWidth, beltSeparation, holeSep
                     translate([size.x, 0, baseThickness - 1])//-size.z + 20.5 + baseOffset])
                         rotate([-90, 180, 0])
                             //translate([0, size.x, 0]) mirror([0, 1, 0])
-                            xCarriageBeltAttachment(beltAttachmentSize, beltWidth, beltSeparation, cutoutOffsetY, cutoutOffsetZ, boltCutout=true, boltCutoutOffset=offsetY25, teeth=!reversedBelts, endCube=endCube);
+                            xCarriageBeltAttachment(beltAttachmentSize, beltWidth, beltSeparation, cutoutOffsetY, cutoutOffsetZ, boltCutout=true, boltCutoutOffset=offsetY25, reversedBelts=reversedBelts, endCube=endCube);
                     translate_z(baseThickness + beltAttachmentSize.x - fillet)
                         cube([size.x, size.y + sizeExtraY, size.z - beltAttachmentSize.x - baseThickness]);
                     //if (pulley25)
