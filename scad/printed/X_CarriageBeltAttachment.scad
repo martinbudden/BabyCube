@@ -133,7 +133,7 @@ module X_Carriage_Belt_Clamp_hardware(size, offset=0, boltLength=10, countersunk
                 boltM3Buttonhead(boltLength);
 }
 
-module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0, cutoutOffsetZ=0, boltCutout=false, boltCutoutOffset=0, endCube=true) {
+module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0, cutoutOffsetZ=0, boltCutout=false, boltCutoutOffset=0, teeth=true, endCube=true) {
     size = size - [0, toothHeight, 0];
     offsetZ = 0;//18.5 - size.y - toothHeight;
     toothCount = floor(size.z/2) - 1;
@@ -165,17 +165,19 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0,
                     }
             //translate([0, size.z/2 + toothCount + 0.5, size.y])
             //translate([-8.4 + (size.z - toothCount*2)/2, size.x, size.y])
-            translate([-0.5 + (size.z - toothCount*2)/2, size.x, size.y])
-                rotate([90, 0, 0])
-                    GT2Teeth(size.x, toothCount, horizontal=true);
-            //translate([-size.x, 0, size.y])
-            // top flat part
-            translate([0, size.x - 2, size.y])
-                cube([size.z, 2, toothHeight]);
-            //translate([-8.8 - 3/2, 0, size.y])
-            // middle flat part
-            translate([0, midOffsetY - (beltSeparation - 1)/2, size.y])
-                cube([size.z, beltSeparation - 1, toothHeight]);
+            if (teeth) {
+                translate([-0.5 + (size.z - toothCount*2)/2, size.x, size.y])
+                    rotate([90, 0, 0])
+                        GT2Teeth(size.x, toothCount, horizontal=true);
+                //translate([-size.x, 0, size.y])
+                // top flat part
+                translate([0, size.x - 2, size.y])
+                    cube([size.z, 2, toothHeight]);
+                //translate([-8.8 - 3/2, 0, size.y])
+                // middle flat part
+                translate([0, midOffsetY - (beltSeparation - 1)/2, size.y])
+                    cube([size.z, beltSeparation - 1, toothHeight]);
+            }
             if (endCube) // optionally hide endCube for debugging
                 translate([0, cutoutOffsetY, cutoutOffsetZ - offsetZ]) {
                     cube(endCubeSize);
@@ -211,7 +213,7 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0,
 
 function beltAttachmentOffsetY() = 14;
 
-module xCarriageBeltSide(xCarriageType, size, beltWidth, beltSeparation, holeSeparationTop, holeSeparationBottom, accelerometerOffset=undef, countersunk=true, topHoleOffset=0, offsetT=0, endCube=true, pulley25=false, halfCarriage=false) {
+module xCarriageBeltSide(xCarriageType, size, beltWidth, beltSeparation, holeSeparationTop, holeSeparationBottom, accelerometerOffset=undef, topHoleOffset=0, offsetT=0, countersunk=true, halfCarriage=false, reversedBelts=false, pulley25=false, endCube=true) {
     assert(is_list(xCarriageType));
 
     carriageSize = carriage_size(xCarriageType);
@@ -243,7 +245,7 @@ module xCarriageBeltSide(xCarriageType, size, beltWidth, beltSeparation, holeSep
                     translate([size.x, 0, baseThickness - 1])//-size.z + 20.5 + baseOffset])
                         rotate([-90, 180, 0])
                             //translate([0, size.x, 0]) mirror([0, 1, 0])
-                            xCarriageBeltAttachment(beltAttachmentSize, beltWidth, beltSeparation, cutoutOffsetY, cutoutOffsetZ, boltCutout=true, boltCutoutOffset=offsetY25, endCube=endCube);
+                            xCarriageBeltAttachment(beltAttachmentSize, beltWidth, beltSeparation, cutoutOffsetY, cutoutOffsetZ, boltCutout=true, boltCutoutOffset=offsetY25, teeth=!reversedBelts, endCube=endCube);
                     translate_z(baseThickness + beltAttachmentSize.x - fillet)
                         cube([size.x, size.y + sizeExtraY, size.z - beltAttachmentSize.x - baseThickness]);
                     //if (pulley25)
@@ -252,8 +254,9 @@ module xCarriageBeltSide(xCarriageType, size, beltWidth, beltSeparation, holeSep
                     if (pulley25 || !halfCarriage)
                         rounded_cube_xz(topSize, fillet);
                     rounded_cube_xz([size.x, halfCarriage ? beltAttachmentSize.x : beltAttachmentPlusOffsetSizeY, baseThickness], fillet);
-                    translate_z(fillet + 0.25)
-                        cube([size.x, beltAttachmentSize.y, baseThickness - fillet + (isMGN12 ? 0 : 1)], fillet);
+                    if (!reversedBelts)
+                        translate_z(fillet + 0.25)
+                            cube([size.x, beltAttachmentSize.y, baseThickness - fillet + (isMGN12 ? 0 : 1)], fillet);
                     /*if (isMGN12) {
                         rounded_cube_xz([size.x, beltAttachmentOffsetY, baseThickness + beltAttachmentSize.x], fillet);
                         if (pulley25)
