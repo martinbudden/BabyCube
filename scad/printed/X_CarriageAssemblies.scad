@@ -34,6 +34,7 @@ function accelerometerOffset() = [0, 3, 8];
 
 xCarriageBeltTensionerSizeX = 23;
 beltClampSize = [25, xCarriageBeltAttachmentSize(beltWidth(), beltSeparation()).x - 0.5, 3.5];
+beltsCenterZOffset = coreXYPosBL(_xyNEMA_width, carriageType(_yCarriageDescriptor)).z - eZ + yRailSupportThickness();
 
 
 module X_Carriage_Belt_Side_MGN9C_stl() {
@@ -42,13 +43,14 @@ module X_Carriage_Belt_Side_MGN9C_stl() {
     size = xCarriageBeltSideSize(xCarriageType, beltWidth()) + [extraX, 0, 0];
     holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
+    beltsCenterZOffset = coreXYPosBL(_xyNEMA_width, carriageType(_yCarriageDescriptor)).z - eZ + yRailSupportThickness();
 
     // orientate for printing
     stl("X_Carriage_Belt_Side_MGN9C")
         color(pp4_colour)
             translate([extraX/2, 0, 0])
-            rotate([90, 0, 180])
-                    xCarriageBeltSide(xCarriageType, size, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, halfCarriage=true);
+                rotate([90, 0, 180])
+                    xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, halfCarriage=true);
 }
 
 //!Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the
@@ -65,7 +67,7 @@ assembly("X_Carriage_Belt_Side_MGN9C") {
     beltTensionerSize = xCarriageBeltTensionerSize(beltWidth(), xCarriageBeltTensionerSizeX);
     offset = [  xCarriageBeltTensionerSizeX - 8.5 + xCarriageBeltAttachmentMGN9CExtraX(),
                 -3.6,
-                coreXYPosBL(_xyNEMA_width, carriageType(_yCarriageDescriptor)).z -eZ + yRailSupportThickness()
+                beltsCenterZOffset
             ];
     boltLength = 30;
     translate(offset) {
@@ -100,11 +102,11 @@ module X_Carriage_Belt_Clamp_stl() {
 
 module xCarriageBeltClampAssembly(xCarriageType) {
     size = xCarriageBeltSideSize(xCarriageType, beltWidth());
-    translate([0, 5, -size.z + xCarriageTopThickness() + xCarriageBaseThickness() + 0.5])
+    translate([0, 5, beltsCenterZOffset])
         rotate([-90, 180, 0]) {
             stl_colour(pp2_colour)
                 X_Carriage_Belt_Clamp_stl();
-            X_Carriage_Belt_Clamp_hardware(beltClampSize, offset=-0.25, countersunk=true);
+            X_Carriage_Belt_Clamp_hardware(beltClampSize, countersunk=true);
         }
 }
 
