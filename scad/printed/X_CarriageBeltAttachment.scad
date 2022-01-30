@@ -10,6 +10,7 @@ include <../vitamins/pcbs.scad>
 
 
 function xCarriageBeltTensionerSize(beltWidth, sizeX=0) = [sizeX, 10, beltWidth + 1.2];
+function xCarriageBeltTensionerBoltOffset(sizeX=0) = [sizeX, 7.25, -0.6];
 
 function xCarriageBottomOffsetZ() = 40.8;
 //function xCarriageBeltAttachmentSize(beltWidth, beltSeparation, sizeZ=0) = [20+beltSeparation-4.5, 18.5, sizeZ];
@@ -52,7 +53,9 @@ module xCarriageBeltTensioner(size) {
     beltThickness = 1.65;//- 4.5 + 2.83118; actual belt thickness is 1.4
     offsetYT = offsetY - beltThickness;
     offsetY2 = 2.25;
+    baseSizeZ = xCarriageBeltTensionerSize(0).z;
 
+    translate_z(-baseSizeZ - (size.z - baseSizeZ)/2)
     difference() {
         union() {
             translate([offsetX, 0, 0])
@@ -83,8 +86,7 @@ module xCarriageBeltTensioner(size) {
         }
         //translate([0, 4.35, size.z/2])
         threadLength = 8;
-        boltOffsetY = 7.25; // was (size.y + offsetY)/2
-        translate([0, boltOffsetY, size.z/2]) {
+        translate([0, xCarriageBeltTensionerBoltOffset().y, size.z/2]) {
             rotate([90, 0, 90])
                 boltHoleM3(size.x - threadLength, horizontal=true, chamfer_both_ends=false);
             translate([size.x, 0, 0])
@@ -101,8 +103,7 @@ module xCarriageBeltTensioner(size) {
 }
 
 module X_Carriage_Belt_Tensioner_hardware(size, boltLength=40, offset=0) {
-    offsetY = 4.5;
-    translate([offset + 22.7, (size.y + offsetY)/2, size.z/2])
+    translate(xCarriageBeltTensionerBoltOffset(offset))
         rotate([90, 0, 90])
             explode(10, true)
                 washer(M3_washer)
@@ -203,9 +204,10 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0,
                 vflip()
                     boltHoleM3Tap(6);
         translate([0, cutoutOffsetY + 4.35, 3.35 - 0.5 - offsetZ + cutoutOffsetZ]) {
-            rotate([90, 0, 90])
-                boltHoleM3(endCubeSize.x, horizontal=true);
-            translate([size.z, beltWidth + beltSeparation - (beltTensionerSize.z - beltWidth), 0])
+            translate([0, reversedBelts ? beltWidth + beltSeparation - (beltTensionerSize.z - beltWidth) + 0.3: 0, 0])
+                rotate([90, 0, 90])
+                    boltHoleM3(endCubeSize.x, horizontal=true);
+            translate([size.z, reversedBelts ? 0.1 : beltWidth + beltSeparation - (beltTensionerSize.z - beltWidth), 0])
                 rotate([90, 0, -90])
                     boltHoleM3(endCubeSize.x, horizontal=true);
         }

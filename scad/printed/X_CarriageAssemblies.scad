@@ -62,22 +62,26 @@ assembly("X_Carriage_Belt_Side_MGN9C") {
             stl_colour(pp4_colour)
                 X_Carriage_Belt_Side_MGN9C_stl();
 
-    beltTensionerSize = xCarriageBeltTensionerSize(beltWidth());
-    offset = xCarriageBeltTensionerSizeX - 8.5 + xCarriageBeltAttachmentMGN9CExtraX();
+    beltTensionerSize = xCarriageBeltTensionerSize(beltWidth(), xCarriageBeltTensionerSizeX);
+    offset = [  xCarriageBeltTensionerSizeX - 8.5 + xCarriageBeltAttachmentMGN9CExtraX(),
+                -3.6,
+                coreXYPosBL(_xyNEMA_width, carriageType(_yCarriageDescriptor)).z -eZ + yRailSupportThickness()
+            ];
     boltLength = 30;
-    translate([offset, -3.6, -27]) {
-        rotate([0, 0, 180]) {
-            explode([-40, 0, 0])
-                stl_colour(pp2_colour)
-                    X_Carriage_Belt_Tensioner_stl();
-            X_Carriage_Belt_Tensioner_hardware(beltTensionerSize, boltLength, offset - 7.75);
-        }
-        translate([-2*offset + xCarriageBeltAttachmentMGN9CExtraX(), 0, -2])
+    translate(offset) {
+        translate_z((beltSeparation() + beltWidth())/2)
+            rotate([0, 0, 180]) {
+                explode([-40, 0, 0])
+                    stl_colour(pp2_colour)
+                        X_Carriage_Belt_Tensioner_stl();
+                X_Carriage_Belt_Tensioner_hardware(beltTensionerSize, boltLength, xCarriageFrontSize.x/2 + offset.x);
+            }
+        translate([-2*offset.x + xCarriageBeltAttachmentMGN9CExtraX(), 0, -(beltSeparation() + beltWidth())/2])
             rotate([180, 0, 0]) {
                 explode([-40, 0, 0])
                     stl_colour(pp2_colour)
                         X_Carriage_Belt_Tensioner_stl();
-                X_Carriage_Belt_Tensioner_hardware(beltTensionerSize, boltLength, offset - 7.75);
+                X_Carriage_Belt_Tensioner_hardware(beltTensionerSize, boltLength, xCarriageFrontSize.x/2 + offset.x);
             }
     }
 }
