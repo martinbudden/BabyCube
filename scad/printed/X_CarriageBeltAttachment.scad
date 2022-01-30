@@ -273,7 +273,8 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
 
                 } // end union
             offsetY = size.y + sizeExtraY;
-            translate([0, offsetY, baseThickness + beltAttachmentSize.x - baseOffset - 1]) {
+            midOffsetY = 1.15 + (beltWidth + beltSeparation + xCarriageBeltTensionerSize(beltWidth).z)/2;
+            translate([0, offsetY, beltsCenterZOffset +  midOffsetY + 1]) {
                 rotate([-90, 0, 0])
                     fillet(1, beltAttachmentSize.y - offsetY + eps);
                 translate([size.x, 0, 0])
