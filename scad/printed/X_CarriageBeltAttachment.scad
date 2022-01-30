@@ -186,7 +186,7 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0,
                 translate([reversedBelts ? 0 : size.z - endCubeSize.x, cutoutOffsetY + beltWidth + beltSeparation - 1.25, cutoutOffsetZ - offsetZ])
                     cube(endCubeSize);
             }
-        }
+        } // end union
         boltCutoutWidth =  2.5;
         if (boltCutout) {
             //translate([-size.x - eps, -eps, size.y - 3.7 - boltCutoutWidth/2])
@@ -209,7 +209,7 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0,
                 rotate([90, 0, -90])
                     boltHoleM3(endCubeSize.x, horizontal=true);
         }
-    }
+    } // end difference
 }
 
 function beltAttachmentOffsetY() = 14;
