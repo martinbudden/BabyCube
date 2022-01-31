@@ -134,7 +134,7 @@ module X_Carriage_Belt_Clamp_hardware(size, offset=0, boltLength=10, countersunk
                 boltM3Buttonhead(boltLength);
 }
 
-module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0, cutoutOffsetZ=0, boltCutout=false, boltCutoutOffset=0, reversedBelts=false, endCube=true) {
+module xCarriageBeltAttachment(size, beltWidth, beltSeparation, backThickness = 4, cutoutOffsetY=0, cutoutOffsetZ=0, boltCutout=false, boltCutoutOffset=0, reversedBelts=false, endCube=true) {
     size = size - [0, toothHeight, 0];
     offsetZ = 0;//18.5 - size.y - toothHeight;
     toothCount = floor(size.z/2) - 1;
@@ -189,6 +189,12 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, cutoutOffsetY=0,
                     cube(endCubeSize);
             }
         } // end union
+        translate([0, size.x, backThickness])
+            rotate(-90)
+                fillet(1, size.y + toothHeight - backThickness + eps);
+        translate([size.z, size.x, backThickness])
+            rotate(180)
+                fillet(1, size.y + toothHeight - backThickness + eps);
         boltCutoutWidth =  2.5;
         if (boltCutout) {
             //translate([-size.x - eps, -eps, size.y - 3.7 - boltCutoutWidth/2])
@@ -245,13 +251,14 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
         difference () {
             translate_z(-baseOffset)
                 union() {
+                    backThickness = size.y + sizeExtraY;
                     //translate([size.x, beltAttachmentOffsetY, size.z - (isMGN12 ? 49: 45) - beltSeparation + 4.5])//-size.z + 20.5 + baseOffset])
                     translate([size.x, 0, baseOffset + beltsCenterZOffset])//-size.z + 20.5 + baseOffset])
                         rotate([-90, 180, 0])
                             //translate([0, size.x, 0]) mirror([0, 1, 0])
-                            xCarriageBeltAttachment(beltAttachmentSize, beltWidth, beltSeparation, cutoutOffsetY, cutoutOffsetZ, boltCutout=true, boltCutoutOffset=offsetY25, reversedBelts=reversedBelts, endCube=endCube);
-                    translate_z(baseThickness + beltAttachmentSize.x - fillet)
-                        cube([size.x, size.y + sizeExtraY, size.z - beltAttachmentSize.x - baseThickness]);
+                            xCarriageBeltAttachment(beltAttachmentSize, beltWidth, beltSeparation, backThickness, cutoutOffsetY, cutoutOffsetZ, boltCutout=true, boltCutoutOffset=offsetY25, reversedBelts=reversedBelts, endCube=endCube);
+                    translate_z(baseThickness + beltAttachmentSize.x - fillet - eps)
+                        cube([size.x, backThickness, size.z - beltAttachmentSize.x - baseThickness]);
                     translate_z(fillet + 0.25 + (reversedBelts ? 1 : 0))
                         cube([size.x, beltAttachmentSize.y, baseThickness - fillet + (isMGN12 ? 0 : 1)], fillet);
                     //if (pulley25)
@@ -272,7 +279,7 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                     }*/
 
                 } // end union
-            offsetY = size.y + sizeExtraY;
+            /*offsetY = size.y + sizeExtraY;
             midOffsetY = 1.15 + (beltWidth + beltSeparation + xCarriageBeltTensionerSize(beltWidth).z)/2;
             translate([0, offsetY, beltsCenterZOffset +  midOffsetY + 1]) {
                 rotate([-90, 0, 0])
@@ -280,7 +287,7 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                 translate([size.x, 0, 0])
                     rotate([-90, 90, 0])
                         fillet(1, beltAttachmentSize.y - offsetY + eps);
-            }
+            }*/
 
             // bolt holes to connect to to the MGN carriage
             translate([size.x/2 + topHoleOffset, xCarriageBeltSideOffsetY + offsetY25, -carriage_height(xCarriageType)]) {
