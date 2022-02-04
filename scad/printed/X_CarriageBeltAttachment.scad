@@ -303,7 +303,7 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                         rotate(180)
                             pcb_hole_positions(ADXL345)
                                 vflip()
-                                    boltHoleM3Tap(8, horizontal=true);
+                                    boltHoleM3Tap(8, horizontal=true, chamfer_both_ends=false);
             }
             // holes at the top to connect to the hotend side
             for (x = xCarriageHolePositions(size.x, holeSeparationTop))

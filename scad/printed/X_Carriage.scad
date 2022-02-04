@@ -64,7 +64,7 @@ module xCarriageTop(xCarriageType, xCarriageBackSize, holeSeparation, extraX=0, 
                 rotate(180)
                     pcb_hole_positions(ADXL345)
                         vflip()
-                            boltHoleM3Tap(8, horizontal=true, rotate=(reflected ? -90 : 90));
+                            boltHoleM3Tap(8, horizontal=true, rotate=(reflected ? -90 : 90), chamfer_both_ends=false);
     }
 }
 
