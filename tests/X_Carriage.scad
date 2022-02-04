@@ -7,6 +7,7 @@ include <NopSCADlib/vitamins/blowers.scad>
 include <../scad/printed/Printhead.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/X_Carriage.scad>
+use <../scad/printed/X_CarriageBeltAttachment.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 
 include <../scad/utils/carriageTypes.scad>
@@ -41,5 +42,11 @@ module X_Carriage_test() {
         }
 }
 
+//X_Carriage_Belt_Tensioner_stl();
+//X_Carriage_Belt_Tensioner_hardware(beltTensionerSize, beltWidth());
+//xCarriageBeltAttachment( [21, 19.95, 34], beltWidth(), beltSeparation(), cutoutOffsetY=1);
+//X_Carriage_Belt_Side_MGN9C_stl();
+//let($hide_bolts=true)
+//X_Carriage_Belt_Side_MGN9C_assembly();
 if ($preview)
     X_Carriage_test();
