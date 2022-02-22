@@ -50,8 +50,10 @@ module Top_Face_test() {
     if (_xyMotorDescriptor == "NEMA14") {
         if (_useCNC) {
             Top_Face_CF_assembly();
+            //Top_Face_CF_Stage_1_assembly();
+            //Top_Face_CF_Stage_2_assembly();
             //Front_Face_CF_assembly();
-            Back_Face_CF_Stage_1_assembly();
+            //Back_Face_CF_Stage_1_assembly();
         } else {
             Top_Face_assembly();
             //Top_Face_Stage_1_assembly();
