@@ -36,14 +36,15 @@ module Base_stl() {
 
     stl("Base")
         color(pp3_colour) {
-            psuPosition(psuType)
-                psuSupportPositions(psuType)
-                    psuSupport(psuType);
+            if (psu_screw_hole_radius(psuType))
+                psuPosition(psuType)
+                    psuSupportPositions(psuType)
+                        psuSupport(psuType);
             translate_z(-size.z)
                 linear_extrude(size.z)
                     difference() {
                         rounded_square([size.x, size.y], _fillet, center = false);
-                        baseCutouts();
+                        baseCutouts(pcb=_useCNC ? BTT_SKR_MINI_E3_V2_0 : undef);
                     }
         }
 }
@@ -209,7 +210,8 @@ module baseAssembly(pcb=undef) {
         }
     }
     if (_useCNC) {
-        Front_Face_Lower_Joiner_stl();
+        stl_colour(pp1_colour)
+            Front_Face_Lower_Joiner_stl();
         baseFrontHolePositions(-_basePlateThickness)
             vflip()
                 boltM3Buttonhead(10);

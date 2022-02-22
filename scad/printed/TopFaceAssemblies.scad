@@ -174,6 +174,16 @@ assembly("Top_Face_CF", big=true) {
         xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
 }
 
+module Front_Face_Upper_Joiner_stl() {
+    size = [80, eSizeY, eSizeZ];
+    stl("Front_Face_Upper_Joiner")
+        color(pp1_colour)
+            difference() {
+                translate([(eSizeX + 2*eSizeX - size.x) / 2, _frontPlateCFThickness, 0])
+                    rounded_cube_xy(size, _fillet);
+            }
+}
+
 
 /*
 // used for debug

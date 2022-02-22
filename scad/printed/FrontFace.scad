@@ -88,6 +88,14 @@ module Front_Face_CF() {
                 text(_cubeName, size=14, font="Calibri", halign="center", valign="center");
 }
 
+module frontFaceCFAssembly() {
+    if (_useFrontDisplay || _useFrontSwitch)
+        Front_Face_CF_assembly();
+    else
+        rotate([90, 0, 0])
+            Front_Face_CF();
+}
+
 module Front_Face_CF_assembly()
 assembly("Front_Face_CF") {
     rotate([90, 0, 0]) {
