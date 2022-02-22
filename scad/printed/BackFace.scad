@@ -210,8 +210,8 @@ module backFaceUpperBrackets(NEMA_width) {
 }
 
 module backFaceUpperBracketsHardware(backPlateThickness, counterSunk=true) {
-    explode(20, true)
-        translate([zRodOffsetX, _zRodLength - sk_size(SK_type).z/2 - _topPlateThickness, 0])
+    translate([zRodOffsetX, _zRodLength - sk_size(SK_type).z/2 - _topPlateThickness, 0])
+        explode(20, true)
             for (x = [0, _zRodSeparation]) {
                 translate([x, 0, _zRodOffsetY])
                     rotate([90, 0, x==0 ? 0 : 180])
@@ -270,8 +270,8 @@ module backFaceLowerBrackets(NEMA_type) {
 }
 
 module backFaceLowerBracketsHardware(backPlateThickness, counterSunk=true) {
-    explode(20, true)
-        translate([zRodOffsetX, sk_size(SK_type).z/2, 0])
+    translate([zRodOffsetX, sk_size(SK_type).z/2, 0])
+        explode(20, true)
             for (x = [0, _zRodSeparation]) {
                 translate([x, 0, _zRodOffsetY])
                     rotate([90, 0, x==0 ? 180 : 0])

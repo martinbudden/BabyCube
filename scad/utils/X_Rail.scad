@@ -13,13 +13,14 @@ module xRail(carriagePosition, xCarriageType, xRailLength, yCarriageType) {
     xRailType = carriage_rail(xCarriageType);
     assert(is_list(xRailType));
 
-    translate([eSizeX + eX/2, carriagePosition.y, eZ - yRailSupportThickness() - carriage_height(yCarriageType)]) {
-        railOffsetX = yRailOffset(_xyNEMA_width).x;
-        tongueOffset = (eX + 2*eSizeX - xRailLength -2*railOffsetX)/2;
-        posX = carriagePosition.x - tongueOffset - xRailLength/2;
-        rail_assembly(xCarriageType, xRailLength, posX, carriage_end_colour="green", carriage_wiper_colour="red");
-        rail_hole_positions(xRailType, xRailLength, screws = 2, both_ends = true)
-            translate_z(rail_screw_height(xRailType, M3_cap_screw))
-                bolt(rail_screw(xRailType), 10);
-    }
+    translate([eSizeX + eX/2, carriagePosition.y, eZ - yRailSupportThickness() - carriage_height(yCarriageType)]) 
+        explode(30, true) {
+            railOffsetX = yRailOffset(_xyNEMA_width).x;
+            tongueOffset = (eX + 2*eSizeX - xRailLength -2*railOffsetX)/2;
+            posX = carriagePosition.x - tongueOffset - xRailLength/2;
+            rail_assembly(xCarriageType, xRailLength, posX, carriage_end_colour="green", carriage_wiper_colour="red");
+            rail_hole_positions(xRailType, xRailLength, screws = 2, both_ends = true)
+                translate_z(rail_screw_height(xRailType, M3_cap_screw))
+                    bolt(rail_screw(xRailType), 10);
+        }
 }
