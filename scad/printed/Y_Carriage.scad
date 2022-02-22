@@ -294,20 +294,24 @@ module yCarriageBolts(yCarriageType, thickness) {
 }
 
 module pulleyStack(pulley, explode=0) {
-    function bearingStackHeight(bearingType=BBF623, washer=M3_washer) = 2*(washer_thickness(washer) + bb_width(bearingType));
+    function bearingStackHeight(bearingType=BBF623, washer=M3_washer) = 3*washer_thickness(washer) + 2*bb_width(bearingType);
 
     if (pulley[0] == "F623") {
         washer = M3_washer;
         bearingType = pulley;
-        translate_z(-washer_thickness(washer) - bb_width(bearingType))
+        translate_z(-3*washer_thickness(washer)/2 - bb_width(bearingType)) {
             washer(washer);
-        translate_z( - bb_width(bearingType)/2) {
-            explode(explode)
-                ball_bearing(bearingType);
-            explode(explode*2)
-                translate_z(bb_width(bearingType))
-                    vflip()
-                        ball_bearing(bearingType);
+            translate_z(washer_thickness(washer) + bb_width(bearingType)/2) {
+                explode(explode)
+                    ball_bearing(bearingType);
+                explode(1.5*explode)
+                    translate_z(bb_width(bearingType)/2)
+                        washer(washer);
+                explode(2*explode)
+                    translate_z(bb_width(bearingType) + washer_thickness(washer))
+                        vflip()
+                            ball_bearing(bearingType);
+            }
         }
         if ($children)
             translate_z(bearingStackHeight(bearingType, washer))
@@ -332,8 +336,8 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCar
     bolt = pulleyBore == 3 ? M3_cap_screw : pulleyBore == 4 ? M4_cap_screw : M5_cap_screw;
     explode = yCarriageExplodeFactor();
 
-    plainIdlerHeight = isBearing ? 2*bb_width(plainIdler) : pulley_height(plainIdler);
-    toothedIdlerHeight = isBearing ? 2*bb_width(toothedIdler) : pulley_height(toothedIdler);
+    plainIdlerHeight = isBearing ? 2*bb_width(plainIdler) + washer_thickness(washer) : pulley_height(plainIdler);
+    toothedIdlerHeight = isBearing ? 2*bb_width(toothedIdler) + washer_thickness(washer)  : pulley_height(toothedIdler);
 
     translate(plainPulleyPos(left, plainIdlerHeight, pulleyBore, plainIdlerOffset, thickness, yCarriageBraceThickness)) {
         explode(left ? 6*explode : explode, true)
