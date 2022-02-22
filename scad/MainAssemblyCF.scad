@@ -132,11 +132,7 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
             frontFaceLowerHolePositions()
                 boltM3Buttonhead(12);
         }
-        if (_useFrontDisplay || _useFrontSwitch)
-            Front_Face_CF_assembly();
-        else
-            rotate([90, 0, 0])
-                Front_Face_CF();
+        frontFaceCFAssembly();
     }
 }
 
@@ -162,7 +158,7 @@ staged_assembly("Stage_5_CF", big=true, ngb=true) {
 
     Stage_5_CF_assembly();
 
-    explode(150, true)
+    explode(250, true)
         CoreXYBelts(carriagePosition());
     explode(100, true)
         printheadBeltSide();
@@ -198,7 +194,7 @@ module CF_DebugAssembly() {
         explode([0, explode, 0])
             Back_Face_CF_assembly();
         explode([0, -explode, 0])
-            Front_Face_CF_assembly();
+            frontFaceCFAssembly();
         explode([-explode, 0, 0])
             Left_Face_CF_assembly();
         explode([explode, 0, 0])
