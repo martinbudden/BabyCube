@@ -81,12 +81,11 @@ assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
 module Top_Face_Stage_2_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_Stage_2", big=true, ngb=true) {
 
-    Top_Face_Stage_1_assembly(t);
+    explode(15)
+        Top_Face_Stage_1_assembly(t);
 
-    explode(-15, true) {
-        yCarriageLeftAssembly(NEMA_width(NEMA14), t);
-        yCarriageRightAssembly(NEMA_width(NEMA14), t);
-    }
+    yCarriageLeftAssembly(NEMA_width(NEMA14), t);
+    yCarriageRightAssembly(NEMA_width(NEMA14), t);
 }
 
 //! Attach the left and right Y carriages to the top face rails. Note that the two carriages are not interchangeable so be sure
@@ -102,12 +101,11 @@ assembly("Top_Face_Stage_2", big=true, ngb=true) {
 module Top_Face_NEMA_17_Stage_2_assembly() pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
 
-    Top_Face_NEMA_17_Stage_1_assembly();
+    explode(15)
+        Top_Face_NEMA_17_Stage_1_assembly();
 
-    explode(-15, true) {
-        yCarriageLeftAssembly(NEMA_width(NEMA17M));
-        yCarriageRightAssembly(NEMA_width(NEMA17M));
-    }
+    yCarriageLeftAssembly(NEMA_width(NEMA17M));
+    yCarriageRightAssembly(NEMA_width(NEMA17M));
 }
 
 //!1. Turn the Top_Face into its normal orientation.
@@ -157,7 +155,8 @@ assembly("Top_Face_CF_Stage_1", big=true) {
 module Top_Face_CF_Stage_2_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
 
-    Top_Face_CF_Stage_1_assembly();
+    explode(15)
+        Top_Face_CF_Stage_1_assembly();
 
     yCarriageLeftAssembly(NEMA_width(NEMA14), t);
     yCarriageRightAssembly(NEMA_width(NEMA14), t);
