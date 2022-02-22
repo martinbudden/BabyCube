@@ -15,7 +15,8 @@ module footLShapedHoles() {
         children();
 }
 
-function footLShapedSize(footHeight) = [_cornerHoleInset + 12/2, 12, footHeight];
+footWidth = 12;
+function footLShapedSize(footHeight) = [_cornerHoleInset + footWidth/2, footWidth, footHeight];
 
 module footLShaped(footHeight, boreDepth) {
     size = footLShapedSize(footHeight);
