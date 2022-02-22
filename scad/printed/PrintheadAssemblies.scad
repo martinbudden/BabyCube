@@ -40,7 +40,7 @@ module printheadAssembly() {
                 Hotend_Clamp_hardware(xCarriageType, blower_type, hotendDescriptor, countersunk=true);
             }
             explode(-60, true)
-                translate([0, grooveMountClampStrainReliefOffset(), -grooveMountClampSize(blower_type, hotendDescriptor).z - 5])
+                translate([0, grooveMountClampStrainReliefOffset(), -grooveMountClampSize(blower_type, hotendDescriptor).z - 6])
                     vflip() {
                         stl_colour(pp1_colour)
                             Hotend_Strain_Relief_Clamp_stl();
