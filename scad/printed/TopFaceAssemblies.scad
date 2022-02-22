@@ -126,8 +126,7 @@ assembly("Top_Face", big=true) {
     //hidden() Y_Carriage_Left_AL_dxf();
     //hidden() Y_Carriage_Right_AL_dxf();
 
-    explode(30, true)
-        xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
+    xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
 }
 
 //!1. Turn the Top_Face into its normal orientation.
@@ -143,8 +142,7 @@ assembly("Top_Face_NEMA_17", big=true) {
 
     Top_Face_NEMA_17_Stage_2_assembly();
 
-    explode(30, true)
-        xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
+    xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
 }
 
 
@@ -170,8 +168,7 @@ assembly("Top_Face_CF", big=true) {
 
     Top_Face_CF_Stage_2_assembly(t);
 
-    explode(30, true)
-        xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
+    xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
 }
 
 module Front_Face_Upper_Joiner_stl() {
