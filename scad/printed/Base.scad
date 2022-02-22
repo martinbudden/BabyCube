@@ -27,7 +27,7 @@ psuType = _psuDescriptor == "ASUS_FSKE_120W" ? ASUS_FSKE_120W_PSU : NG_CB_200W_2
 psuZOffset = 2.5;
 
 //AL3 = [ "AL3", "Aluminium sheet", 3, 1.05*silver, false];
-AL3 = [ "AL3", "Aluminium sheet", 3, silver, false];
+AL3 = [ "AL3", "Aluminium sheet", 3, silver * 1.1, false];
 AL12x8x1 =  ["AL12x8x1",  "Aluminium box section 12mm x 8mm x 1mm",     [12, 8],  1, 0.5, silver, undef];
 
 
@@ -66,7 +66,7 @@ module BaseAL_dxf(pcb=undef) {
     size = [eX + 2*eSizeX + _backPlateOutset.x, eY + 2*eSizeY + _backPlateOutset.y, _basePlateThickness];
 
     dxf("BaseAL")
-        color(silver)
+        color(sheet_colour(AL3))
             difference() {
                 sheet_2D(AL3, size.x, size.y, 1);
                 translate([-size.x/2, -size.y/2])
@@ -89,7 +89,8 @@ module baseCutouts(cncSides = undef, radius=M3_clearance_radius, pcb=undef) {
     if (is_undef(pcb) || pcb==BTT_SKR_MINI_E3_V2_0)
         pcbPosition(BTT_SKR_MINI_E3_V2_0)
             pcb_screw_positions(BTT_SKR_MINI_E3_V2_0)
-                poly_circle(radius, sides=cncSides);
+                if ($i != 4)
+                    poly_circle(radius, sides=cncSides);
 
     if (is_undef(pcb) || pcb==BTT_SKR_E3_TURBO)
         pcb_back_screw_positions(BTT_SKR_E3_TURBO, -30)
@@ -107,7 +108,7 @@ module baseCutouts(cncSides = undef, radius=M3_clearance_radius, pcb=undef) {
         pcb_screw_positions(BTT_RRF_WIFI_V1_0)
             poly_circle(radius, sides=cncSides);
 
-    if (psu_screw(psuType)) {
+    if (psu_screw_hole_radius(psuType)) {
         psuPosition(psuType)
             psu_screw_positions(psuType, f_bottom)
                 poly_circle(M4_tap_radius, sides=cncSides);
@@ -138,7 +139,7 @@ assembly("Base", big=true) {
     pcbAssembly(BTT_SKR_MINI_E3_V2_0);
     pcbAssembly(RPI3A_plus);
     baseAssembly(BTT_SKR_MINI_E3_V2_0);
-    baseCoverAssembly();
+    //baseCoverAssembly();
 }
 
 module Base_SKR_E3_Turbo_assembly()
@@ -160,8 +161,7 @@ module baseAssembly(pcb=undef) {
     hidden() Base_stl();
     hidden() Base_Template_stl();
 
-    if (_psuDescriptor != "ASUS_FSKE_120W") {
-    //if (psu_screw(psuType)) {
+    if (psu_screw_hole_radius(psuType)) {
         explode(50, true)
             psuPosition(psuType) {
                 psu(psuType);
@@ -207,6 +207,12 @@ module baseAssembly(pcb=undef) {
                         boltM3Buttonhead(10);
             }
         }
+    }
+    if (_useCNC) {
+        Front_Face_Lower_Joiner_stl();
+        baseFrontHolePositions(-_basePlateThickness)
+            vflip()
+                boltM3Buttonhead(10);
     }
 }
 
@@ -256,6 +262,24 @@ module baseRightFeet(hardware=false) {
                         Foot_LShaped_8mm_stl();
 }
 
+module Front_Face_Lower_Joiner_stl() {
+    size = [eX, eSizeY, eSizeZ];
+    stl("Front_Face_Lower_Joiner")
+        color(pp1_colour)
+            difference() {
+                translate([eSizeX, _frontPlateCFThickness, 0])
+                    rounded_cube_xy(size, _fillet);
+                baseFrontHolePositions()
+                    boltHoleM3Tap(size.z);
+                baseAllCornerHolePositions()
+                    boltHoleM3Tap(size.z);
+            rotate([90, 0, 0])
+                frontFaceLowerHolePositions(-size.y - _frontPlateCFThickness)
+                    boltHoleM3Tap(size.y, horizontal=true);
+            }
+}
+
+
 //psuSize = [130, 58, 30];
 //psuSize = [169, 65, 39];
 psuHoleInset = [36, -1.25];
@@ -264,7 +288,7 @@ module psuPosition(psuType) {
     psuSize = psu_size(psuType);
     // [125.5, 121.5, 0];
     //echo(p=[eX + 2*eSizeX - eSizeXBase - psuSize.x/2, eY + 2*eSizeY - psuSize.y/2 - 46, 0]);
-    if (psu_screw(psuType))
+    if (psu_screw_hole_radius(psuType))
         //translate([eX + 2*eSizeX - psuSize.x/2 - eSizeXBase, 90 + psuSize.y/2, 0])
         translate([eX + 2*eSizeX - psuSize.x/2 - 15, 90 + psuSize.y/2, 0])
             children();

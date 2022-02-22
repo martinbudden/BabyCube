@@ -126,10 +126,17 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
     Stage_3_CF_assembly();
 
     explode([0, -100, 0], true) {
-        rotate([90, 0, 0])
+        rotate([90, 0, 0]) {
             frontFaceHolePositions()
                 boltM3Buttonhead(12);
-        Front_Face_CF_assembly();
+            frontFaceLowerHolePositions()
+                boltM3Buttonhead(12);
+        }
+        if (_useFrontDisplay || _useFrontSwitch)
+            Front_Face_CF_assembly();
+        else
+            rotate([90, 0, 0])
+                Front_Face_CF();
     }
 }
 
@@ -148,25 +155,34 @@ staged_assembly("Stage_5_CF", big=true, ngb=true) {
                 boltM3Buttonhead(8);
 }
 
+//! Thread the belts as shown and attach to the X_Carriage_Belt_Side.
+//
+module Stage_6_CF_assembly()
+staged_assembly("Stage_5_CF", big=true, ngb=true) {
+
+    Stage_5_CF_assembly();
+
+    explode(150, true)
+        CoreXYBelts(carriagePosition());
+    explode(100, true)
+        printheadBeltSide();
+}
+
 module CF_FinalAssembly() {
     translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2]) {
-        Stage_5_CF_assembly();
+        Stage_6_CF_assembly();
 
-        explode(150, true)
-            CoreXYBelts(carriagePosition());
-        explode(100, true)
-            printheadBeltSide();
         explode(100, true)
             printheadHotendSide();
-        if (!exploded())
+        if (!exploded()) {
             printheadWiring(carriagePosition());
-        //if (!exploded())
-        explode(150)
-            bowdenTube(carriagePosition());
-        explode([75, 0, 100])
-            faceRightSpoolHolder(cf=true);
-        explode([150, 0, 0])
-            faceRightSpool(cf=true);
+            explode(150)
+                bowdenTube(carriagePosition());
+            explode([75, 0, 100])
+                faceRightSpoolHolder(cf=true);
+            explode([150, 0, 0])
+                faceRightSpool(cf=true);
+        }
     }
 }
 
@@ -190,5 +206,14 @@ module CF_DebugAssembly() {
         explode(-eps)
             translate_z(-eps)
                 Base_assembly();
+        if (!exploded()) {
+            printheadWiring(carriagePosition());
+            explode(150)
+                bowdenTube(carriagePosition());
+            explode([75, 0, 100])
+                faceRightSpoolHolder(cf=true);
+            explode([150, 0, 0])
+                faceRightSpool(cf=true);
+        }
     }
 }

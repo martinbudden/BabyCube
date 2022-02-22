@@ -295,6 +295,17 @@ assembly("Left_Face_CF", big=true) {
     }
 }
 
+module rightFaceIEC() {
+    translate(iecPosition)
+        rotate([0, 90, 0]) {
+            iec(iecType);
+            translate([0, -12, 2 + eps])
+                rotate(90)
+                    not_on_bom() no_explode()
+                        rocker(small_rocker, "red");
+        }
+}
+
 module Right_Face_CF_assembly() pose(a=[55, 0, 25 + 50])
 assembly("Right_Face_CF", big=true) {
 
@@ -322,14 +333,7 @@ assembly("Right_Face_CF", big=true) {
                     Right_Face_Upper_Joiner_stl();
                 }
     }
-    translate(iecPosition)
-        rotate([0, 90, 0]) {
-            iec(iecType);
-            translate([0, -12, 2 + eps])
-                rotate(90)
-                    not_on_bom() no_explode()
-                        rocker(small_rocker, "red");
-        }
+    rightFaceIEC();
     explode([-20, 0, 0]) {
         XY_Motor_Mount_Right_CF_assembly();
         XY_Idler_Bracket_Right_assembly();

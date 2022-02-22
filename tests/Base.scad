@@ -24,11 +24,14 @@ include <../scad/Parameters_Main.scad>
 module Base_test() {
     //PSU();
     //BaseAL_dxf();
+    //BaseAL(BTT_SKR_MINI_E3_V2_0);
     //BaseAL();
     //Base_stl();
     //Base_template_stl();
     //let($hide_pcb=true)
-    Base_assembly();
+    //Base_assembly();
+    baseAssembly(BTT_SKR_MINI_E3_V2_0);
+
     //pcbAssembly(RPI3A_plus);
     //pcbAssembly(RPI0);
     //pcbAssembly(BTT_SKR_MINI_E3_V2_0);
@@ -47,9 +50,12 @@ module Base_test() {
     }
     //translate_z(_zMin) Print_bed_3_point_printed_assembly();
     //translate_z(_zMin) Print_bed_assembly();
-    *translate([0, eps, 2*eps]) {
+    translate([0, eps, 2*eps]) {
         if (_useCNC) {
-            Right_Face_CF_assembly();
+            rightFaceIEC();
+            //Right_Face_CF_assembly();
+            //Left_Face_CF_assembly();
+            //Back_Face_CF_Stage_1_assembly();
         } else {
             //Back_Face_assembly();
             Back_Face_Stage_1_assembly();
