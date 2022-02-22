@@ -62,7 +62,6 @@ module Top_Face_test() {
         //Top_Face_NEMA_17_Stage_1_assembly();
         //Top_Face_NEMA_17_Stage_2_assembly();
     }
-    //printheadWiring(carriagePosition());
     //CoreXYBelts(carriagePosition());
 
     *if (_useCNC)
