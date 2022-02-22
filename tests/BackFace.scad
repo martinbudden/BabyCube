@@ -70,6 +70,7 @@ module Back_Face_test() {
 }
 
 if ($preview)
-    Back_Face_test();
+    translate([0, -eY, 0])
+        Back_Face_test();
 else
     Back_Face_stl();
