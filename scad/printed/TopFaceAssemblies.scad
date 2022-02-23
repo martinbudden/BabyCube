@@ -81,7 +81,7 @@ assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
 module Top_Face_Stage_2_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_Stage_2", big=true, ngb=true) {
 
-    explode(15)
+    translate_z(exploded() ? 15 : 0)
         Top_Face_Stage_1_assembly(t);
 
     yCarriageLeftAssembly(NEMA_width(NEMA14), t);
