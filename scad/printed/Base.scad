@@ -90,7 +90,7 @@ module baseCutouts(cncSides = undef, radius=M3_clearance_radius, pcb=undef) {
     if (is_undef(pcb) || pcb==BTT_SKR_MINI_E3_V2_0)
         pcbPosition(BTT_SKR_MINI_E3_V2_0)
             pcb_screw_positions(BTT_SKR_MINI_E3_V2_0)
-                if ($i != 4)
+                if (!(_useCNC && $i == 4))
                     poly_circle(radius, sides=cncSides);
 
     if (is_undef(pcb) || pcb==BTT_SKR_E3_TURBO)
@@ -474,7 +474,7 @@ module pcbAssembly(pcbType, alignRight=true) {
                 // top side screws
                 pcb_screw_positions(pcbType)
                     translate_z(pcb_thickness(pcbType))
-                        boltM3Caphead(pcbType != BTT_SKR_MINI_E3_V2_0 || $i != 4 ? 6 : 8);
+                        boltM3Caphead(pcbType != BTT_SKR_MINI_E3_V2_0 || ((_useCNC && $i == 4)) ? 6 : 8);
             }
             if (pcbType == BTT_SKR_V1_4_TURBO) {
                 pcb_back_screw_positions(pcbType)
@@ -488,7 +488,7 @@ module pcbAssembly(pcbType, alignRight=true) {
                 // bottom side screws and pillars
                 pcb_screw_positions(pcbType)
                    translate_z(-pcbOffsetFromBase()) {
-                        if (pcbType != BTT_SKR_MINI_E3_V2_0 || $i != 4 ) {
+                        if (pcbType != BTT_SKR_MINI_E3_V2_0 || !(_useCNC && $i == 4) ) {
                             explode(10)
                                 pillar(M3x12_nylon_hex_pillar);
                             translate_z(-_basePlateThickness)
