@@ -101,7 +101,7 @@ assembly("Top_Face_Stage_2", big=true, ngb=true) {
 module Top_Face_NEMA_17_Stage_2_assembly() pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
 
-    explode(15)
+    translate_z(exploded() ? 15 : 0)
         Top_Face_NEMA_17_Stage_1_assembly();
 
     yCarriageLeftAssembly(NEMA_width(NEMA17M));
@@ -155,7 +155,7 @@ assembly("Top_Face_CF_Stage_1", big=true) {
 module Top_Face_CF_Stage_2_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
 
-    explode(15)
+    translate_z(exploded() ? 15 : 0)
         Top_Face_CF_Stage_1_assembly();
 
     yCarriageLeftAssembly(NEMA_width(NEMA14), t);
@@ -213,7 +213,8 @@ module topFaceAssembly(NEMA_width, t=undef) {
                     rail_hole_positions(yRailType, _yRailLength, 0)
                         translate_z(-_topPlateThickness)
                             vflip()
-                                nut_and_washer(M3_nut, true);
+                                explode(40, true)
+                                    nut_and_washer(M3_nut, true);
             }
 
     translate([eX + 2*eSizeX - railOffset.x, railOffset.y, railOffset.z])
@@ -226,7 +227,8 @@ module topFaceAssembly(NEMA_width, t=undef) {
                     rail_hole_positions(yRailType, _yRailLength, 0)
                         translate_z(-_topPlateThickness)
                             vflip()
-                                nut_and_washer(M3_nut, true);
+                                explode(40, true)
+                                    nut_and_washer(M3_nut, true);
             }
     *translate_z(eZ - bb_width(BB608)/2)
         zLeadScrewHolePosition()
