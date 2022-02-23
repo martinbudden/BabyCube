@@ -104,7 +104,7 @@ module yCarriageLeftAssembly(NEMA_width, t=undef) {
                 }
             if (yCarriageBraceThickness())
                 translate_z(yCarriageThickness() + pulleyStackHeight + eps)
-                    explode(4*yCarriageExplodeFactor())
+                    explode(5*yCarriageExplodeFactor())
                         stl_colour(pp1_colour)
                             Y_Carriage_Brace_Left_stl();
             Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), pulleyOffset(), left=true);
@@ -130,7 +130,7 @@ module yCarriageRightAssembly(NEMA_width, t=undef) {
                 }
             if (yCarriageBraceThickness())
                 translate_z(yCarriageThickness() + pulleyStackHeight + 2*eps)
-                    explode(4*yCarriageExplodeFactor())
+                    explode(5*yCarriageExplodeFactor())
                         stl_colour(pp1_colour)
                             Y_Carriage_Brace_Right_stl();
             Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), pulleyOffset(), left=false);

@@ -163,18 +163,18 @@ module XY_MotorMountHardware(NEMA_type, basePlateThickness=basePlateThickness, c
 
     pulley_type = GT2x20um_pulley;
     rotate(-90)
-        explode(-30, true) {
+        explode(-30, true)
             translate_z(-corkDamperThickness) {
                 NEMA(NEMA_type, jst_connector = true);
                 if (corkDamperThickness)
                     explode(15)
                         corkDamper(NEMA_type, corkDamperThickness);
             }
-            translate_z(pulleyOffset - pulley_offset(pulley_type) + motorClearance().z)
-                vflip()
-                    pulley(pulley_type);
-        }
-    explode(50)
+    explode(10)
+        translate_z(pulleyOffset - pulley_offset(pulley_type) + motorClearance().z)
+            vflip()
+                pulley(pulley_type);
+    explode(20, true)
         translate_z(basePlateThickness)
             NEMA_screw_positions(NEMA_type)
                 boltM3Buttonhead(screw_shorter_than(5 + basePlateThickness + corkDamperThickness));
