@@ -18,12 +18,12 @@ function extruderBowdenOffset() = [18, 4.5, 30];
 function extruderBaseSize() = [42, 42, 4];
 function extruderFilamentOffset() = [extruderBowdenOffset().y, extruderBaseSize().y / 2, extruderBowdenOffset().x];
 
-module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17, motorOffsetZ = 3, motorRotate = 180, corkDamperThickness = 0, extruderExplode=30, motorExplode=100, color = "crimson") {
+module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17_47, motorOffsetZ = 3, motorRotate = 180, corkDamperThickness = 0, extruderExplode=30, motorExplode=100, color = "crimson") {
     vitamin(str("Extruder_MK10_Dual_Pulley() : MK10 Dual Pulley Extruder"));
 
     baseSize = extruderBaseSize();
 
-    motorholeOffset = NEMA_hole_pitch(NEMA17);
+    motorholeOffset = NEMA_hole_pitch(NEMA17_40);
     bowdenOffset = extruderFilamentOffset();
     fenceOffset = [0, baseSize.y / 2 - 15, baseSize.z];
     fenceSize = [baseSize.x, 5, 12];
@@ -205,9 +205,9 @@ module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17, motorOffsetZ = 3, motorRota
                 linear_extrude(baseSize.z, convexity=2) {
                     difference() {
                         rounded_square([baseSize.x, baseSize.y], 3);
-                        NEMA_screw_positions(NEMA17)
+                        NEMA_screw_positions(NEMA17_40)
                             circle(r=M3_clearance_radius);
-                        circle(r=NEMA_boss_radius(NEMA17));
+                        circle(r=NEMA_boss_radius(NEMA17_40));
                     }
                 }
                 translate([-motorholeOffset / 2, -motorholeOffset / 2, baseSize.z])

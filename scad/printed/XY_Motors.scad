@@ -23,7 +23,7 @@ function NEMA14T() = NEMA14T;
 
 function xyMotorType() =
     _xyMotorDescriptor == "NEMA14" ? NEMA14T :
-    _xyMotorDescriptor == "NEMA17" ? NEMA17M :
+    _xyMotorDescriptor == "NEMA17" ? NEMA17_40 :
     undef;
 
 
@@ -116,7 +116,7 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
                         rounded_cube_yz([NEMA_type == NEMA14T() ? size.x :  32.5 + motorClearance().x - _sidePlateThickness,
                                         backBraceThickness,
                                         _fullLengthYRail ? braceHeight - rail_height(yRailType) - 1 : braceHeight], fillet);
-                        if (NEMA_type == NEMA17M)
+                        if (NEMA_type == NEMA17_40)
                             rounded_cube_yz([size.x, backBraceThickness, 18], fillet);
                         // small cube for back face boltholes
                         rounded_cube_yz([10, backBraceThickness, braceHeight], fillet);

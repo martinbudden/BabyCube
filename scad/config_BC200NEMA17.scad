@@ -13,6 +13,8 @@ eSizeX = 8;
 _xyMotorDescriptor = "NEMA17";
 _zMotorDescriptor = "NEMA17_34L150";
 
+_psuDescriptor = "ASUS_FSKE_120W";
+
 // set _fullLengthYRail to add end cutouts for Y rail
 _fullLengthYRail = true;
 _xRailLength = 150;

@@ -30,7 +30,7 @@ module Left_Face_stl() {
 module Left_Face_NEMA_17_stl() {
     stl("Left_Face_NEMA_17")
         color(pp1_colour)
-            leftFace(NEMA17M);
+            leftFace(NEMA17_40);
             //cube([eY + 2*eSizeY, eZ, eSizeX]);
 }
 
@@ -43,7 +43,7 @@ module Right_Face_stl() {
 module Right_Face_NEMA_17_stl() {
     stl("Right_Face_NEMA_17")
         color(pp1_colour)
-            rightFace(NEMA17M);
+            rightFace(NEMA17_40);
             //cube([eY + 2*eSizeY, eZ, eSizeX]);
 }
 

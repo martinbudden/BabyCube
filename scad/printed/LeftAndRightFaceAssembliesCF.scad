@@ -142,7 +142,7 @@ module topBoltHolder() {
 
 module Left_Face_CF_dxf() {
     dxf("Left_Face_CF")
-        leftFaceCF(NEMA_width(NEMA14));
+        leftFaceCF(NEMA_width(NEMA14_36));
 }
 
 CF3Red = CF3;//[ "CF3",       "Sheet carbon fiber",      3, [1, 0, 0],                false,  5,  5,  [0.5, 0, 0] ];
@@ -157,7 +157,7 @@ module Left_Face_CF() {
 
 module Right_Face_CF_dxf() {
     dxf("Right_Face_CF")
-        rightFaceCF(NEMA_width(NEMA14));
+        rightFaceCF(NEMA_width(NEMA14_36));
 }
 
 module Right_Face_CF() {
