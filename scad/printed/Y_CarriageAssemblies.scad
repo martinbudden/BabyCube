@@ -36,37 +36,37 @@ module yCarriage(NEMA_width, left, cnc=false) {
 module Y_Carriage_Left_stl() {
     stl("Y_Carriage_Left")
         color(pp2_colour)
-            yCarriage(NEMA_width = NEMA_width(NEMA14), left=true);
+            yCarriage(NEMA_width = NEMA_width(NEMA14_36), left=true);
 }
 
 module Y_Carriage_Right_stl() {
     stl("Y_Carriage_Right")
         color(pp2_colour)
-            yCarriage(NEMA_width = NEMA_width(NEMA14), left=false);
+            yCarriage(NEMA_width = NEMA_width(NEMA14_36), left=false);
 }
 
 module Y_Carriage_Left_NEMA_17_stl() {
     stl("Y_Carriage_Left_NEMA_17")
         color(pp2_colour)
-            yCarriage(NEMA_width = NEMA_width(NEMA17), left=true);
+            yCarriage(NEMA_width = NEMA_width(NEMA17_40), left=true);
 }
 
 module Y_Carriage_Right_NEMA_17_stl() {
     stl("Y_Carriage_Right_NEMA_17")
         color(pp2_colour)
-            yCarriage(NEMA_width = NEMA_width(NEMA17), left=false);
+            yCarriage(NEMA_width = NEMA_width(NEMA17_40), left=false);
 }
 
 module Y_Carriage_Left_AL_dxf() {
     dxf("Y_Carriage_Left_AL")
         color(silver)
-            yCarriage(NEMA_width = NEMA_width(NEMA14), left=true, cnc=true);
+            yCarriage(NEMA_width = NEMA_width(NEMA14_36), left=true, cnc=true);
 }
 
 module Y_Carriage_Right_AL_dxf() {
     dxf("Y_Carriage_Right_AL")
         color(silver)
-            yCarriage(NEMA_width = NEMA_width(NEMA14), left=true, cnc=true);
+            yCarriage(NEMA_width = NEMA_width(NEMA14_36), left=true, cnc=true);
 }
 
 module Y_Carriage_Brace_Left_stl() {

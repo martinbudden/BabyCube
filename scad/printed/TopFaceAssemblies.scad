@@ -19,19 +19,19 @@ module Top_Face_stl() {
     stl("Top_Face")
         color(pp3_colour)
             vflip()
-                topFace(NEMA14);
+                topFace(NEMA14_36);
 }
 
 module Top_Face_NEMA_17_stl() {
     stl("Top_Face_NEMA_17")
         color(pp3_colour)
             vflip()
-                topFace(NEMA17M);
+                topFace(NEMA17_40);
 }
 
 module Top_Face_CF_dxf() {
     dxf("Top_Face_CF")
-        topFaceCF(NEMA14, extraY=_backPlateCFThickness);
+        topFaceCF(NEMA14_36, extraY=_backPlateCFThickness);
 }
 
 module Top_Face_CF() {
@@ -55,7 +55,7 @@ assembly("Top_Face_Stage_1", big=true, ngb=true) {
         vflip()
             stl_colour(pp3_colour)
                 Top_Face_stl();
-    topFaceAssembly(NEMA_width(NEMA14), t);
+    topFaceAssembly(NEMA_width(NEMA14_36), t);
 }
 
 module Top_Face_NEMA_17_Stage_1_assembly()  pose(a=[55 + 180, 0, 25 + 310])
@@ -65,7 +65,7 @@ assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
         vflip()
             stl_colour(pp3_colour)
                 Top_Face_NEMA_17_stl();
-    topFaceAssembly(NEMA_width(NEMA17M));
+    topFaceAssembly(NEMA_width(NEMA17_40));
 }
 
 //! Attach the left and right Y carriages to the top face rails. Note that the two carriages are not interchangeable so be sure
@@ -84,8 +84,8 @@ assembly("Top_Face_Stage_2", big=true, ngb=true) {
     translate_z(exploded() ? 15 : 0)
         Top_Face_Stage_1_assembly(t);
 
-    yCarriageLeftAssembly(NEMA_width(NEMA14), t);
-    yCarriageRightAssembly(NEMA_width(NEMA14), t);
+    yCarriageLeftAssembly(NEMA_width(NEMA14_36), t);
+    yCarriageRightAssembly(NEMA_width(NEMA14_36), t);
 }
 
 //! Attach the left and right Y carriages to the top face rails. Note that the two carriages are not interchangeable so be sure
@@ -104,8 +104,8 @@ assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
     translate_z(exploded() ? 15 : 0)
         Top_Face_NEMA_17_Stage_1_assembly();
 
-    yCarriageLeftAssembly(NEMA_width(NEMA17M));
-    yCarriageRightAssembly(NEMA_width(NEMA17M));
+    yCarriageLeftAssembly(NEMA_width(NEMA17_40));
+    yCarriageRightAssembly(NEMA_width(NEMA17_40));
 }
 
 //!1. Turn the Top_Face into its normal orientation.
@@ -149,7 +149,7 @@ assembly("Top_Face_CF_Stage_1", big=true) {
 
     translate_z(eZ - _topPlateThickness + eps)
         Top_Face_CF();
-    topFaceAssembly(NEMA_width(NEMA14));
+    topFaceAssembly(NEMA_width(NEMA14_36));
 }
 
 module Top_Face_CF_Stage_2_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
@@ -158,8 +158,8 @@ assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
     translate_z(exploded() ? 15 : 0)
         Top_Face_CF_Stage_1_assembly();
 
-    yCarriageLeftAssembly(NEMA_width(NEMA14), t);
-    yCarriageRightAssembly(NEMA_width(NEMA14), t);
+    yCarriageLeftAssembly(NEMA_width(NEMA14_36), t);
+    yCarriageRightAssembly(NEMA_width(NEMA14_36), t);
 }
 
 module Top_Face_CF_assembly(t=undef)

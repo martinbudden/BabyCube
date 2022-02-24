@@ -24,7 +24,7 @@ module XY_Motor_Mount_Right_stl() {
 }
 
 module XY_Motor_Mount_Left_NEMA_17_stl() {
-    NEMA_type = NEMA17M;
+    NEMA_type = NEMA17_40;
     NEMA_width = NEMA_width(NEMA_type);
 
     stl("XY_Motor_Mount_Left_NEMA_17")
@@ -33,7 +33,7 @@ module XY_Motor_Mount_Left_NEMA_17_stl() {
 }
 
 module XY_Motor_Mount_Right_NEMA_17_stl() {
-    NEMA_type = NEMA17M;
+    NEMA_type = NEMA17_40;
     NEMA_width = NEMA_width(NEMA_type);
 
     stl("XY_Motor_Mount_Right_NEMA_17")

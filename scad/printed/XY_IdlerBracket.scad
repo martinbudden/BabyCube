@@ -26,7 +26,7 @@ function frontUpperChordSize() = [eX + 2*eSizeX - 2*idlerBracketTopSizeZ(), 21, 
 function frontLowerChordSize() = [eX + 2*eSizeX - 2*idlerBracketSize(coreXYPosBL(_xyNEMA_width)).z, 50, eSizeY];
 
 module XY_Idler_Bracket_Left_stl() {
-    NEMA_width = NEMA_width(NEMA14);
+    NEMA_width = NEMA_width(NEMA14_36);
 
     stl("XY_Idler_Bracket_Left")
         color(pp1_colour)
@@ -34,7 +34,7 @@ module XY_Idler_Bracket_Left_stl() {
 }
 
 module XY_Idler_Bracket_Right_stl() {
-    NEMA_width = NEMA_width(NEMA14);
+    NEMA_width = NEMA_width(NEMA14_36);
 
     stl("XY_Idler_Bracket_Right")
         color(pp1_colour)
@@ -62,7 +62,7 @@ module XY_Idler_Bracket_Right_NEMA_17_stl() {
 module XY_Idler_Bracket_Left_assembly()
 assembly("XY_Idler_Bracket_Left", ngb=true) {
 
-    NEMA_width = NEMA_width(NEMA14);
+    NEMA_width = NEMA_width(NEMA14_36);
     yCarriageType = carriageType(_yCarriageDescriptor);
     translate_z(coreXYPosBL(NEMA_width, yCarriageType).z + coreXYSeparation().z)
         rotate([90, 0, 90])
@@ -78,7 +78,7 @@ assembly("XY_Idler_Bracket_Left", ngb=true) {
 module XY_Idler_Bracket_Right_assembly()
 assembly("XY_Idler_Bracket_Right", ngb=true) {
 
-    NEMA_width = NEMA_width(NEMA14);
+    NEMA_width = NEMA_width(NEMA14_36);
     coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
     translate([eX + 2*eSizeX, 0, coreXYPosBL.z + coreXYSeparation().z])
         rotate([-90, 0, 90])

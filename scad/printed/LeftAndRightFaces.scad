@@ -22,7 +22,7 @@ use <XY_IdlerBracket.scad>
 include <../Parameters_Main.scad>
 
 
-function extruderMotorType() = NEMA17M;
+function extruderMotorType() = NEMA17_40;
 
 backBoltLength = 9;
 
