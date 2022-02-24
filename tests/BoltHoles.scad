@@ -22,7 +22,7 @@ include <../scad/Parameters_Main.scad>
 //$explode = 1;
 //$pose = 1;
 module BoltHole_test() {
-    NEMA_type = _xyMotorDescriptor == "NEMA14" ? NEMA14 : NEMA17_40;
+    NEMA_type = _xyMotorDescriptor == "NEMA14" ? NEMA14_36 : NEMA17_40;
 
     //baseLeftFeet();
     //baseRightFeet();
