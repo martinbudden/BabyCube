@@ -92,12 +92,12 @@ assembly("Back_Face", big=true) {
                             rod(d=_zRodDiameter, l=_zRodLength);
             backFaceMotorMountHardware(zMotorType());
         }
-    translate_z(bedHeight + (exploded() ? 50 : 0)) {
-        if (_printBedSize == 100)
-            Print_bed_assembly();
-        else
-            Print_bed_3_point_printed_assembly();
-    }
+    translate_z(bedHeight)
+        explode(50, show_line=false)
+            if (_printBedSize == 100)
+                Print_bed_assembly();
+            else
+                Print_bed_3_point_printed_assembly();
     //cameraType = rpi_camera_v1;
     *translate([eX/2 + _zRodSeparation/4, eY + 2*eSizeY - 0*_backPlateThickness - camera_connector_size(cameraType).z - pcb_thickness(camera_pcb(cameraType)), eZ - 60])
         rotate([90, -135, 0])
