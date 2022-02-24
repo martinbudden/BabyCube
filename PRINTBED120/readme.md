@@ -16,7 +16,6 @@ This is a alternative print bed for the BabyCube. It uses the same 120 x 120 x 6
 ## Table of Contents
 
 1. [Parts list](#Parts_list)
-
 1. [Print_bed_3_point_printed_stage_1 assembly](#Print_bed_3_point_printed_stage_1_assembly)
 1. [Print_bed_3_point_printed assembly](#Print_bed_3_point_printed_assembly)
 
@@ -27,7 +26,6 @@ This is a alternative print bed for the BabyCube. It uses the same 120 x 120 x 6
 <a name="Parts_list"></a>
 
 ## Parts list
-
 
 | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed 3 Point Printed Stage 1</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed 3 Point Printed</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">TOTALS</span> |  |
 |-----:|-----:|------:|:---|
