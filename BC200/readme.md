@@ -18,7 +18,6 @@ detail that someone with a good understanding of 3D printers can build the BabyC
 ## Table of Contents
 
 1. [Parts list](#Parts_list)
-
 1. [Printhead_E3DV6_MGN9C assembly](#Printhead_E3DV6_MGN9C_assembly)
 1. [X_Carriage_Belt_Side_MGN9C assembly](#X_Carriage_Belt_Side_MGN9C_assembly)
 1. [Top_Face_Stage_1 assembly](#Top_Face_Stage_1_assembly)
@@ -153,7 +152,6 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 
 ## Parts list
 
-
 | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Printhead E3DV6 MGN9C</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">X Carriage Belt Side MGN9C</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Top Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Display Housing</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Back Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Right Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Base</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Left Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Main</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">TOTALS</span> |  |
 |-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|------:|:---|
 |      |      |      |      |      |      |      |      |      |      |       | **Vitamins** |
@@ -168,8 +166,8 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   1  |   4  |    7  |  Bolt M3 buttonhead x 10mm |
 |   2  |   .  |   .  |   .  |   .  |   4  |   4  |   .  |   4  |  18  |   32  |  Bolt M3 buttonhead x 12mm |
 |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 buttonhead x 16mm |
-|   .  |   .  |   .  |   4  |   .  |   .  |   .  |   9  |   .  |   .  |   13  |  Bolt M3 caphead x  6mm |
-|   .  |   .  |  26  |   .  |   4  |   .  |   .  |   9  |   .  |   .  |   39  |  Bolt M3 caphead x  8mm |
+|   .  |   .  |   .  |   4  |   .  |   .  |   .  |   4  |   .  |   .  |    8  |  Bolt M3 caphead x  6mm |
+|   .  |   .  |  26  |   .  |   4  |   .  |   .  |  14  |   .  |   .  |   44  |  Bolt M3 caphead x  8mm |
 |   .  |   .  |   6  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    6  |  Bolt M3 caphead x 10mm |
 |   .  |   .  |   2  |   4  |   4  |   .  |   .  |   .  |   .  |   .  |   10  |  Bolt M3 caphead x 16mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 caphead x 25mm |
@@ -200,7 +198,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |  Nut M5 nyloc |
 |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |   .  |    8  |  O-ring nitrile 4mm x 2mm |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  OpenBuilds mini heated bed 100mm x 100mm |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  PTFE tube 291 mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  PTFE tube 292 mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   9  |   .  |   .  |    9  |  Pillar hex nylon F/F M3x12 |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Print surface 100mm x 100mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   2  |   .  |   2  |   .  |    6  |  Pulley GT2 idler 16 teeth |
@@ -805,8 +803,8 @@ Note orientation of the JST connector.
 |1| Aluminium sheet 220mm x 204mm x 3mm|
 |1| BigTreeTech SKR Mini E3 v2.0|
 |2| Bolt M3 buttonhead x 10mm|
-|9| Bolt M3 caphead x  6mm|
-|9| Bolt M3 caphead x  8mm|
+|4| Bolt M3 caphead x  6mm|
+|14| Bolt M3 caphead x  8mm|
 |1| Micro SD card|
 |9| Pillar hex nylon F/F M3x12|
 |1| Raspberry Pi 3A+|
@@ -1146,7 +1144,7 @@ Add the Top_Face.
 |---:|:----------|
 |2| Bolt M3 countersunk x 12mm|
 |4| Bolt M3 countersunk x 30mm|
-|1| PTFE tube 291 mm|
+|1| PTFE tube 292 mm|
 |1| Spiral wrap, 500mm|
 
 
