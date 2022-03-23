@@ -43,12 +43,11 @@ staged_assembly("Stage_1", big=true, ngb=true) {
     translate_z(-eps)
         Base_assembly();
 
-    explode(-20, true)
-        translate_z(-eps) {
-            stl_colour(pp2_colour)
-                baseLeftFeet();
-            baseLeftFeet(hardware=true);
-        }
+    translate_z(-eps) {
+        stl_colour(pp2_colour)
+            baseLeftFeet();
+        baseLeftFeet(hardware=true);
+    }
     explode(-40)
         baseLeftHolePositions(-_basePlateThickness)
             vflip()
@@ -57,12 +56,11 @@ staged_assembly("Stage_1", big=true, ngb=true) {
     explode([100, 50, 0])
         Right_Face_assembly();
 
-    explode(-20, true)
-        translate_z(-eps) {
-            stl_colour(pp2_colour)
-                baseRightFeet();
-            baseRightFeet(hardware=true);
-        }
+    translate_z(-eps) {
+        stl_colour(pp2_colour)
+            baseRightFeet();
+        baseRightFeet(hardware=true);
+    }
     explode(-40)
         baseRightHolePositions(-_basePlateThickness)
             vflip()
