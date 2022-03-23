@@ -99,6 +99,16 @@ BC200CF/dxfs/*_diff.png
 #!BC200CF/stls/*.png
 BC200CF/stls/*_diff.png
 
+BC200CF_unstaged/assemblies/*
+BC200CF_unstaged/bom/
+BC200CF_unstaged/dxfs/*
+BC200CF_unstaged/stls/*
+BC200CF_unstaged/tmp/
+BC200CF_unstaged/*.html
+BC200CF_unstaged/readme.md
+!BC200CF_unstaged/assemblies/BC200CF_unstaged_assembly.png
+!BC200CF_unstaged/assemblies/BC200CF_assembled.png
+
 
 BC220/assemblies/*
 BC220/bom/
