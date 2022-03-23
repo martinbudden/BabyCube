@@ -1,23 +1,18 @@
 include <../global_defs.scad>
 
 include <NopSCADlib/core.scad>
-use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/utils/tube.scad>
 use <NopSCADlib/vitamins/box_section.scad>
 include <NopSCADlib/vitamins/psus.scad>
 use <NopSCADlib/vitamins/sheet.scad>
-include <NopSCADlib/vitamins/iecs.scad>
-//include <NopSCADlib/vitamins/rockers.scad>
 include <NopSCADlib/vitamins/pcbs.scad>
 include <NopSCADlib/vitamins/pillar.scad>
 
-include <../utils/HolePositions.scad>
-
-include <../vitamins/bolts.scad>
 include <../vitamins/pcbs.scad>
 include <../vitamins/psus.scad>
 
 include <Foot.scad>
+include <LeftAndRightFaces.scad>
 include <../Parameters_Main.scad>
 //use <../../../MaybeCube/scad/printed/IEC_Housing.scad>
 //function iecHousingSize() = [70, 50, 42 + 3];
@@ -25,6 +20,8 @@ include <../Parameters_Main.scad>
 function pcbOffsetFromBase() = eSizeZ + 2; // to allow clearance for removing SD card
 psuType = _psuDescriptor == "ASUS_FSKE_120W" ? ASUS_FSKE_120W_PSU : NG_CB_200W_24V;
 psuZOffset = 2.5;
+
+pcbType = BTT_SKR_MINI_E3_V2_0;
 
 //AL3 = [ "AL3", "Aluminium sheet", 3, 1.05*silver, false];
 AL3 = [ "AL3", "Aluminium sheet", 3, silver * 1.1, false];
@@ -49,7 +46,7 @@ module Base_stl() {
         }
 }
 
-module Base_Template_stl(pcb=undef) {
+module Base_Template_stl(pcb=pcbType) {
     size = [eX + 2*eSizeX + _backPlateOutset.x, eY + 2*eSizeY + _backPlateOutset.y, 1];
 
     stl("Base_Template")
@@ -63,7 +60,7 @@ module Base_Template_stl(pcb=undef) {
         }
 }
 
-module BaseAL_dxf(pcb=undef) {
+module BaseAL_dxf(pcb=pcbType) {
     size = [eX + 2*eSizeX + _backPlateOutset.x, eY + 2*eSizeY + _backPlateOutset.y, _basePlateThickness];
 
     dxf("BaseAL")
@@ -71,11 +68,11 @@ module BaseAL_dxf(pcb=undef) {
             difference() {
                 sheet_2D(AL3, size.x, size.y, 1);
                 translate([-size.x/2, -size.y/2])
-                    baseCutouts(cncSides=0, pcb=pcb);
+                    baseCutouts(cnc=true, cf=_useCNC, pcb=pcb);
             }
 }
 
-module BaseAL(pcb=undef) {
+module BaseAL(pcb=pcbType) {
     size = [eX + 2*eSizeX + _backPlateOutset.x, eY + 2*eSizeY + _backPlateOutset.y, _basePlateThickness];
 
     translate([size.x/2, size.y/2, -size.z/2])
@@ -83,14 +80,15 @@ module BaseAL(pcb=undef) {
             BaseAL_dxf(pcb);
 }
 
-module baseCutouts(cncSides = undef, radius=M3_clearance_radius, pcb=undef) {
-    baseAllHolePositions()
+module baseCutouts(cnc=false, cf=false, radius=M3_clearance_radius, pcb=undef) {
+    cncSides = cnc ? 0 : undef;
+    baseAllHolePositions(cf=cf)
         poly_circle(radius, sides=cncSides);
 
     if (is_undef(pcb) || pcb==BTT_SKR_MINI_E3_V2_0)
         pcbPosition(BTT_SKR_MINI_E3_V2_0)
             pcb_screw_positions(BTT_SKR_MINI_E3_V2_0)
-                if (!(_useCNC && $i == 4))
+                if (!(cnc && $i == 4))
                     poly_circle(radius, sides=cncSides);
 
     if (is_undef(pcb) || pcb==BTT_SKR_E3_TURBO)
@@ -115,7 +113,7 @@ module baseCutouts(cncSides = undef, radius=M3_clearance_radius, pcb=undef) {
                 poly_circle(M4_tap_radius, sides=cncSides);
     } else {
         psuPosition(psuType) {
-            psuSupportHoleSize = [21, -psuHoleInset.y*2]; // 21 wide for battery strap
+            psuSupportHoleSize = [21, - psuHoleInset.y*2]; // 21 wide for battery strap
             psuHolePositions(psuType)
                 rounded_square([psuSupportHoleSize.x, radius < M3_clearance_radius? 2 : psuSupportHoleSize.y], 0.5);
             psuBracketHolePositions(psuType)
@@ -137,85 +135,122 @@ module baseCutouts(cncSides = undef, radius=M3_clearance_radius, pcb=undef) {
 module Base_assembly()
 assembly("Base", big=true) {
 
-    pcbAssembly(BTT_SKR_MINI_E3_V2_0);
+    //baseAssembly();
+    baseAssembly(pcbType, psuType);
     pcbAssembly(RPI3A_plus);
-    baseAssembly(BTT_SKR_MINI_E3_V2_0);
+}
+
+module BaseCF_assembly()
+assembly("BaseCF", big=true) {
+
+    //baseAssembly();
+    baseAssembly(BTT_SKR_MINI_E3_V2_0, psuType);
     //baseCoverAssembly();
+    pcbAssembly(RPI3A_plus);
+    translate_z(-eps) {
+        stl_colour(pp2_colour)
+            baseLeftFeet();
+        baseLeftFeet(hardware=true);
+        stl_colour(pp2_colour)
+            baseRightFeet();
+        baseRightFeet(hardware=true);
+        }
+    explode(10)
+        stl_colour(pp2_colour)
+            Base_Front_Joiner_stl();
+    baseFrontHolePositions(-_basePlateThickness, cf=true)
+        vflip()
+            boltM3Buttonhead(10);
+    rotate([90, 0, 90]) {
+        explode([0, 15, 0])
+            stl_colour(pp1_colour)
+                Base_Left_Joiner_stl();
+        lowerChordHolePositions(includeFeet=false)
+            rotate([90, 0, 0])
+                translate_z(_basePlateThickness)
+                    boltM3Buttonhead(10);
+    }
+    translate([eX + 2*eSizeX, 0, 0])
+        rotate([-90, 0, 90]) {
+            explode([0, -15, 0])
+                stl_colour(pp1_colour)
+                    Base_Right_Joiner_stl();
+            lowerChordHolePositions(includeFeet=false)
+                rotate([-90, 0, 0])
+                    translate_z(_basePlateThickness)
+                        boltM3Buttonhead(10);
+        }
 }
 
 module Base_SKR_E3_Turbo_assembly()
 assembly("Base_SKR_E3_Turbo", big=true) {
 
-    pcbAssembly(BTT_SKR_E3_TURBO);
-    baseAssembly();
+    baseAssembly(BTT_SKR_E3_TURBO, psuType);
 }
 
 module Base_SKR_1_4_assembly()
 assembly("Base_SKR_1_4", big=true) {
 
-    pcbAssembly(BTT_SKR_V1_4_TURBO);
-    baseAssembly();
+    baseAssembly(BTT_SKR_V1_4_TURBO, psuType);
 }
 
-module baseAssembly(pcb=undef) {
+module baseAssembly(pcb=undef, psuType=undef) {
     BaseAL(pcb=pcb);
-    hidden() Base_stl();
+    if (!_useCNC)
+        hidden() Base_stl();
     hidden() Base_Template_stl();
 
-    if (psu_screw_hole_radius(psuType)) {
-        explode(50, true)
+    if (pcb) {
+        pcbAssembly(pcb);
+    }
+    if (psuType)
+        if (psu_screw_hole_radius(psuType)) {
+            psuPosition(psuType)
+                explode(70, true) {
+                    psu(psuType);
+                    psu_screw_positions(psuType, f_bottom)
+                        vflip()
+                            translate_z(3)
+                                explode(25)
+                                    //bolt(psu_screw(psuType), 8);
+                                    boltM4Buttonhead(8);
+            }
+            //translate([eX + 2*eSizeX, 90 + 25, 14 + psu_size(psuType).z + 10]) {
+            *translate([eX + 2*eSizeX, 90 + 25, eSizeZ + iec_body_h(IEC_inlet)/2])
+                rotate([90, 0, 90])
+                    iec(IEC_inlet);
+            //iecType = IEC_320_C14_switched_fused_inlet;
+            *translate([eX + 2*eSizeX, eY + 2*eSizeY - eSizeY - 5 - iec_body_h(iecType)/2, eSizeZ/2 + iec_pitch(iecType)/2]) {
+            //translate([eX + 2*eSizeX, 90 + 25, eSizeZ/2 + iec_pitch(iecType)/2])
+                rotate([0, 90, 0]) {
+                    iec(iecType);
+                    translate([0, -12, 2 + eps])
+                        rotate(90)
+                            not_on_bom() no_explode()
+                                rocker(small_rocker, "red");
+                }
+            /*translate([-iecHousingSize().z, -iecHousingSize().x/2, -25])
+                rotate([90, 0, 90])
+                    IEC_Housing_Bevelled_stl();*/
+            }
+        } else {
             psuPosition(psuType) {
-                psu(psuType);
-                psu_screw_positions(psuType, f_bottom)
-                    vflip()
-                        translate_z(3)
-                            explode(25)
-                                //bolt(psu_screw(psuType), 8);
-                                boltM4Buttonhead(8);
-        }
-        //translate([eX + 2*eSizeX, 90 + 25, 14 + psu_size(psuType).z + 10]) {
-        *translate([eX + 2*eSizeX, 90 + 25, eSizeZ + iec_body_h(IEC_inlet)/2])
-            rotate([90, 0, 90])
-                iec(IEC_inlet);
-        //iecType = IEC_320_C14_switched_fused_inlet;
-        *translate([eX + 2*eSizeX, eY + 2*eSizeY - eSizeY - 5 - iec_body_h(iecType)/2, eSizeZ/2 + iec_pitch(iecType)/2]) {
-        //translate([eX + 2*eSizeX, 90 + 25, eSizeZ/2 + iec_pitch(iecType)/2])
-            rotate([0, 90, 0]) {
-                iec(iecType);
-                translate([0, -12, 2 + eps])
-                    rotate(90)
-                        not_on_bom() no_explode()
-                            rocker(small_rocker, "red");
-            }
-        /*translate([-iecHousingSize().z, -iecHousingSize().x/2, -25])
-            rotate([90, 0, 90])
-                IEC_Housing_Bevelled_stl();*/
-        }
-    } else {
-        psuPosition(psuType) {
-            explode(50)
-                PSU();
-            explode(25)
-                psuSupportPositions(psuType)
-                    stl_colour(pp1_colour)
-                        PSU_Support_stl();
-            explode([-20, 0, 25], true) {
-                psuBracketPosition(psuType)
-                    stl_colour(pp1_colour)
-                        PSU_Bracket_stl();
-                psuBracketHolePositions(psuType)
-                    translate_z(6)
-                        boltM3Buttonhead(10);
+                explode(50)
+                    PSU();
+                explode(25)
+                    psuSupportPositions(psuType)
+                        stl_colour(pp1_colour)
+                            PSU_Support_stl();
+                explode([-20, 0, 25], true) {
+                    psuBracketPosition(psuType)
+                        stl_colour(pp1_colour)
+                            PSU_Bracket_stl();
+                    psuBracketHolePositions(psuType)
+                        translate_z(6)
+                            boltM3Buttonhead(10);
+                }
             }
         }
-    }
-    if (_useCNC) {
-        stl_colour(pp1_colour)
-            Front_Face_Lower_Joiner_stl();
-        baseFrontHolePositions(-_basePlateThickness)
-            vflip()
-                boltM3Buttonhead(10);
-    }
 }
 
 baseCoverHeight = 40;
@@ -246,10 +281,11 @@ module baseLeftFeet(hardware=false) {
         translate([i.x, i.y, i.z])
             rotate(i[3])
                 vflip()
-                    if (hardware)
-                        Foot_LShaped_8mm_hardware();
-                    else
-                        Foot_LShaped_8mm_stl();
+                    explode(20, true)
+                        if (hardware)
+                            Foot_LShaped_8mm_hardware();
+                        else
+                            Foot_LShaped_8mm_stl();
     }
 
 module baseRightFeet(hardware=false) {
@@ -258,27 +294,76 @@ module baseRightFeet(hardware=false) {
         translate([i.x, i.y, i.z])
             rotate(i[3])
                 vflip()
-                    if (hardware)
-                        Foot_LShaped_8mm_hardware();
-                    else
-                        Foot_LShaped_8mm_stl();
+                    explode(20, true)
+                        if (hardware)
+                            Foot_LShaped_8mm_hardware();
+                        else
+                            Foot_LShaped_8mm_stl();
 }
 
-module Front_Face_Lower_Joiner_stl() {
-    size = [eX, eSizeY, eSizeZ];
-    stl("Front_Face_Lower_Joiner")
-        color(pp1_colour)
+module Base_Left_Joiner_stl() {
+    NEMA_width = NEMA_width(xyMotorType());
+
+    stl("Base_Left_Joiner")
+        difference() {
+            color(pp1_colour)
+                frameLower(NEMA_width, left=true, offset=_sidePlateThickness, cf=true);
+            lowerSideJoinerHolePositions(_sidePlateThickness, left=true)
+                boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
+            faceConnectorHolePositions()
+                rotate([90, 0, 180])
+                    boltHoleM3Tap(backBoltLength(), horizontal=true);
+    }
+}
+
+
+module Base_Right_Joiner_stl() {
+    NEMA_width = NEMA_width(xyMotorType());
+
+    /*mirror([0, 1, 0])
+        translate([iecPosition().y, iecPosition().z, 0])
+            rotate([180, 0, 90])
+                mirror([0, 1, 0])
+                    iec(iecType());*/
+    stl("Base_Right_Joiner")
+        mirror([0, 1, 0])
             difference() {
-                translate([eSizeX, _frontPlateCFThickness, 0])
+                color(pp1_colour)
+                    frameLower(NEMA_width, left=false, offset=_sidePlateThickness, cf=true);
+                translate([iecPosition().y, iecPosition().z, _sidePlateThickness])
+                    rotate([180, 0, 90])
+                        mirror([0, 1, 0])
+                            iec_screw_positions(iecType())
+                                vflip()
+                                    boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
+                lowerSideJoinerHolePositions(_sidePlateThickness, left=false)
+                    boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
+                faceConnectorHolePositions()
+                    rotate([90, 0, 180])
+                        boltHoleM3Tap(backBoltLength(), horizontal=true);
+                rotate([90, 90, 0])
+                    translate([-eX - 2*eSizeX, 0, -10])
+                        pcbPosition(BTT_SKR_MINI_E3_V2_0)
+                            pcb_hole_positions(BTT_SKR_MINI_E3_V2_0)
+                                boltHoleM3Tap(8, horizontal=true, rotate=90, chamfer_both_ends=false);
+            }
+}
+
+module Base_Front_Joiner_stl() {
+    size = [eX, eSizeY, eSizeZ];
+    stl("Base_Front_Joiner")
+        difference() {
+            translate([eSizeX, _frontPlateCFThickness, 0])
+                color(pp2_colour)
                     rounded_cube_xy(size, _fillet);
-                baseFrontHolePositions()
-                    boltHoleM3Tap(size.z);
-                baseAllCornerHolePositions()
-                    boltHoleM3Tap(size.z);
+            baseFrontHolePositions(cf=true)
+                boltHoleM3Tap(size.z);
+            baseAllCornerHolePositions()
+                boltHoleM3Tap(size.z);
             rotate([90, 0, 0])
                 frontFaceLowerHolePositions(-size.y - _frontPlateCFThickness)
                     boltHoleM3Tap(size.y, horizontal=true);
-            }
+        }
 }
 
 
@@ -384,7 +469,7 @@ module pcbPosition(pcbType, alignRight=true) {
     pcbSize = pcb_size(pcbType);
 
     if (pcbType == BTT_SKR_MINI_E3_V2_0) {// || pcbType == BTT_TF_CLOUD_V1_0)
-        translate([alignRight ? eX + 2*eSizeX - pcbSize.x/2 - (_useCNC ? 3 : eSizeXBase + 8) : (eX + 2*eSizeX)/2, pcbSize.y/2 + eSizeY + (_useCNC ? 4 : 2), 0])
+        translate([alignRight ? eX + 2*eSizeX - pcbSize.x/2 - (_useCNC ? 4 : eSizeXBase + 8) : (eX + 2*eSizeX)/2, pcbSize.y/2 + eSizeY + (_useCNC ? 4 : 2), 0])
             if (pcbType == BTT_SKR_MINI_E3_V2_0)
                 children();
             else
@@ -469,7 +554,7 @@ module pcbAssembly(pcbType, alignRight=true) {
         //    pcb(RPI4);
 
         pcbPosition(pcbType, alignRight) {
-            explode(20, true) {
+            explode(50, true) {
                 pcb(pcbType);
                 // top side screws
                 pcb_screw_positions(pcbType)
@@ -486,10 +571,10 @@ module pcbAssembly(pcbType, alignRight=true) {
                     }
             } else {
                 // bottom side screws and pillars
-                pcb_screw_positions(pcbType)
-                   translate_z(-pcbOffsetFromBase()) {
-                        if (pcbType != BTT_SKR_MINI_E3_V2_0 || !(_useCNC && $i == 4) ) {
-                            explode(10)
+                translate_z(-pcbOffsetFromBase())
+                    pcb_screw_positions(pcbType) {
+                        if (pcbType != BTT_SKR_MINI_E3_V2_0 || !_useCNC || $i != 4) {
+                            explode(15)
                                 pillar(M3x12_nylon_hex_pillar);
                             translate_z(-_basePlateThickness)
                                 vflip()

@@ -2,18 +2,15 @@ include <../global_defs.scad>
 
 include <NopSCADlib/utils/core/core.scad>
 use <NopSCADlib/utils/dogbones.scad>
+include <NopSCADlib/vitamins/rod.scad>
 include <NopSCADlib/vitamins/sheets.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <NopSCADlib/vitamins/pcb.scad>
 
-include <../utils/cutouts.scad>
-include <../utils/HolePositions.scad>
-
 include <../vitamins/bolts.scad>
-include <../vitamins/cables.scad>
 
-use <BackFace.scad>
+include <BackFace.scad>
 use <Printbed.scad>
 use <Printbed3point.scad>
 include <Z_MotorMount.scad>
@@ -58,7 +55,8 @@ module backFace(zNEMA_type) {
     }
 }
 
-//! Attach the SK brackets to the back face. Note the orientation of the tightening bolts: the top tightening bolts should face inward and the bottom tightening bolts should face outward. This allows access after the BabyCube is fully assembled.
+//! Attach the SK brackets to the back face. Note the orientation of the tightening bolts: the top tightening bolts should
+//! face inward and the bottom tightening bolts should face outward. This allows access after the BabyCube is fully assembled.
 module Back_Face_Stage_1_assembly()
 assembly("Back_Face_Stage_1", big=true, ngb=true) {
 
@@ -77,7 +75,8 @@ assembly("Back_Face_Stage_1", big=true, ngb=true) {
 
 //!1. Slide the linear rods through the SK brackets and the printbed bearings.
 //!2. Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on the rods.
-//!3. Place the cork damper on the stepper motor and thread the lead screw through the leadnut and attach the stepper motor to the back face. Note the orientation of the JST socket.
+//!3. Place the cork damper on the stepper motor and thread the lead screw through the leadnut and attach the stepper motor
+//!   to the back face. Note the orientation of the JST socket.
 module Back_Face_assembly(bedHeight=bedHeight())
 assembly("Back_Face", big=true) {
     Back_Face_Stage_1_assembly();
@@ -85,7 +84,7 @@ assembly("Back_Face", big=true) {
     zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
     translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0]) {
-            explode([0, 150, 0])
+            explode([0, 160, 0])
                 for (x = [zRodOffsetX, zRodOffsetX + _zRodSeparation])
                     translate([x, _zRodLength/2, _zRodOffsetY])
                         rotate([90, 0, 0])
@@ -114,7 +113,11 @@ module Back_Face_CF_dxf() {
                 backFaceSideCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0);
                 backFaceTopCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0);
                 // add the bolt holes for attachment to the left and right faces
-                backFaceAllHolePositions(cf=true)
+                backFaceAllHolePositions()
+                    circle(r=M3_clearance_radius);
+                backFaceCFTopHolePositions()
+                    circle(r=M3_clearance_radius);
+                backFaceCFSideHolePositions()
                     circle(r=M3_clearance_radius);
                 backFaceBracketHolePositions(-_backPlateThickness)
                     circle(r=M3_clearance_radius);
@@ -144,6 +147,9 @@ module Back_Face_CF() {
             Back_Face_CF_dxf();
 }
 
+//!1. Bolt the Z_Motor_Mount to the back face.
+//!2. Attach the SK brackets to the back face. Note the orientation of the tightening bolts: the top tightening bolts should
+//!   face inward and the bottom tightening bolts should face outward. This allows access after the BabyCube is fully assembled.
 module Back_Face_CF_Stage_1_assembly()
 assembly("Back_Face_CF_Stage_1", big=true) {
 
@@ -159,14 +165,17 @@ assembly("Back_Face_CF_Stage_1", big=true) {
             *backFaceBracketHolePositions(-_backPlateCFThickness)
                 vflip()
                     boltM3Buttonhead(10);
-            zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
-            translate([zRodOffsetX + _zRodSeparation/2, 0, _zLeadScrewOffset])
-                rotate([90, -90, 0])
-                    stl_colour(pp1_colour)
-                        Z_Motor_Mount_stl();
+            explode(20, show_line=false)
+                translate([eX/2 + eSizeX, 0, _zLeadScrewOffset])
+                    rotate([90, -90, 0])
+                        stl_colour(pp1_colour)
+                            Z_Motor_Mount_stl();
         }
 }
 
+//!1. Slide the linear rods through the SK brackets and the printbed bearings.
+//!2. Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on the rods.
+//!3. Place the cork damper on the stepper motor and thread the lead screw through the leadnut and attach the stepper motor to the back face. Note the orientation of the JST socket.
 module Back_Face_CF_assembly(bedHeight=bedHeight())
 assembly("Back_Face_CF", big=true) {
     Back_Face_CF_Stage_1_assembly();
@@ -174,14 +183,14 @@ assembly("Back_Face_CF", big=true) {
     zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
     translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0]) {
-            explode([0, 150, 0])
+            explode([0, 160, 0])
                 for (x = [zRodOffsetX, zRodOffsetX + _zRodSeparation])
                     translate([x, _zRodLength/2, _zRodOffsetY])
                         rotate([90, 0, 0])
                             rod(d=_zRodDiameter, l=_zRodLength);
             backFaceMotorMountHardware(zMotorType());
         }
-    explode(50)
+    explode(50, show_line=false)
         translate_z(bedHeight) {
             if (_printBedSize == 100)
                 Print_bed_assembly();

@@ -3,9 +3,7 @@ include <../global_defs.scad>
 include <../vitamins/bolts.scad>
 
 use <NopSCADlib/utils/fillet.scad>
-include <NopSCADlib/vitamins/rod.scad>
 include <NopSCADlib/vitamins/sk_brackets.scad>
-include <NopSCADlib/vitamins/stepper_motors.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
 include <../utils/bezierTube.scad>

@@ -3,7 +3,6 @@ include <../global_defs.scad>
 include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/utils/rounded_triangle.scad>
-use <NopSCADlib/vitamins/rod.scad>
 include <NopSCADlib/vitamins/shaft_couplings.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 use <NopSCADlib/vitamins/wire.scad>
@@ -133,9 +132,9 @@ module Z_MotorMount(NEMA_type, topPlateThickness = zMotorMountTopPlateThickness,
                                 rounded_right_triangle(size.x - backThickness - 2*fillet, height, braceWidth, fillet);
                                 translate_z(-braceWidth/2)
                                     if (cf)
-                                        rounded_cube_xz([7, height + 2*fillet, braceWidth], fillet);
+                                        rounded_cube_xz([8, height + 2*fillet, braceWidth], fillet);
                                     else
-                                        rounded_cube_yz([7, height + 2*fillet, braceWidth], fillet);
+                                        rounded_cube_yz([8, height + 2*fillet, braceWidth], fillet);
                                 // get rid of the fillet on the bottom of the rounded triangle
                                 if (fillet && !cf)
                                     translate_z(-braceWidth/2)
@@ -168,7 +167,7 @@ module Z_MotorMountHardware(NEMA_type, topPlateThickness=zMotorMountTopPlateThic
     translate_z(height)
         //NEMA(NEMA_type, jst_connector = true);
         rotate(0)
-            explode(-50, true) {
+            explode(-60, true) {
                 if (corkDamperThickness)
                     explode(25)
                         corkDamper(NEMA_type, corkDamperThickness);

@@ -3,19 +3,11 @@ include <../global_defs.scad>
 include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/cameras.scad>
 use <NopSCADlib/vitamins/pcb.scad>
-include <NopSCADlib/vitamins/rockers.scad>
-include <NopSCADlib/vitamins/stepper_motors.scad>
 
-include <../utils/carriageTypes.scad>
-
-include <../vitamins/bolts.scad>
 include <../vitamins/cables.scad>
 use <../vitamins/extruder.scad>
 
-use <LeftAndRightFaces.scad>
-use <SwitchShroud.scad>
-use <XY_IdlerBracket.scad>
-use <XY_Motors.scad>
+include <LeftAndRightFaces.scad>
 
 include <../Parameters_CoreXY.scad>
 
@@ -61,6 +53,7 @@ module leftFaceAssembly() {
 }
 
 module leftFaceHardware(NEMA_type, cnc=false, rocker=true) {
+    stepper_motor_cable(400);
     rotate([90, 0, 90]) {
         if (!cnc) {
             XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), carriageType(_yCarriageDescriptor)));
@@ -69,9 +62,8 @@ module leftFaceHardware(NEMA_type, cnc=false, rocker=true) {
                 rotate([0, -90, 0])
                     rocker(rocker_type(), "red");
         }
-        stepper_motor_cable(400);
         if (!exploded())
-            leftAndRightFaceZipTies(left=true);
+            leftAndRightFaceZipTies(left=true, lowerZipTies=!cnc);
     }
 }
 
@@ -155,10 +147,10 @@ assembly("Right_Face_Stage_1", big=true, ngb=true) {
     rightFaceHardware(xyMotorType());
 }
 
-module rightFaceAssembly(NEMA_width) {
+module rightFaceAssembly(NEMA_width, zipTies=true) {
 
     stepper_motor_cable(400); // cable to extruder motor
-    if (!exploded() && !_useCNC)
+    if (!exploded() && zipTies)
         rightFaceExtruderZipTies(NEMA_width);
     translate(extruderPosition(NEMA_width))
         rotate([90, 0, 90])
@@ -167,6 +159,7 @@ module rightFaceAssembly(NEMA_width) {
 
 
 module rightFaceHardware(NEMA_type, cnc=false) {
+    stepper_motor_cable(400);
     translate([eX + 2*eSizeX, 0, 0])
         rotate([-90, 0, 90])
             mirror([0, 1, 0]) {
@@ -174,9 +167,8 @@ module rightFaceHardware(NEMA_type, cnc=false) {
                     XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), carriageType(_yCarriageDescriptor)));
                     XY_MotorUprightHardware(NEMA_type, left=false);
                 }
-                stepper_motor_cable(400);
                 if (!exploded() && !cnc)
-                    leftAndRightFaceZipTies(left=false);
+                    leftAndRightFaceZipTies(left=false, lowerZipTies=!cnc);
             }
 }
 

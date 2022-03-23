@@ -42,6 +42,10 @@ module XY_Motor_Mount_Right_NEMA_17_stl() {
                 XY_MotorMount(NEMA_type, left=false, basePlateThickness=basePlateThickness, offset=eZ - xyMotorPosition(NEMA_width, left=false).z, cf=true);
 }
 
+//!1. Place the cork damper on the stepper motor and bolt the motor to the motor mount.
+//! Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
+//! Note orientation of the JST connector.
+//!2. Bolt the pulley to the motor shaft.
 module XY_Motor_Mount_Left_CF_assembly()
 assembly("XY_Motor_Mount_Left_CF", big=true, ngb=true) {
 
@@ -60,6 +64,10 @@ assembly("XY_Motor_Mount_Left_CF", big=true, ngb=true) {
             }
 }
 
+//!1. Place the cork damper on the stepper motor and bolt the motor to the motor mount.
+//! Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
+//! Note orientation of the JST connector.
+//!2. Bolt the pulley to the motor shaft.
 module XY_Motor_Mount_Right_CF_assembly()
 assembly("XY_Motor_Mount_Right_CF", big=true, ngb=true) {
 
