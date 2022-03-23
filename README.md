@@ -98,9 +98,16 @@ The standard variant uses an E3D v6 hotend, but other groovemount based hotends 
 The standard variant uses a BigTreeTech TFT35 v3.0 display, however it should also be possible to produce "headless" variants:
 
 * if you use the SKR v1.4 or the SKR E3 turbo controller you can install the RepRap firmware and dispense with the display.
-* you can install Klipper firmware and use a Raspberry Pi Zero.
+* you can install Klipper firmware and use a Raspberry Pi.
 
 I have started to look at developing a variant with a carbon fiber frame, however this is very much a [work in progress](concepts/readme.md).
+
+![BabyCubeCF](concepts/BC200CF_assembled.png)
+
+The exploded version:
+
+![BabyCubeCF exploded](concepts/BC200CF_unstaged_assembly.png)
+
 
 ## Comparisons
 
