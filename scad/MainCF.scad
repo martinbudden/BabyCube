@@ -17,5 +17,10 @@ assembly("BC200CF", big=true) {
     //CF_DebugAssembly();
 }
 
+module BC200CF_unstaged_assembly()
+assembly("BC200CF_unstaged", big=true) {
+    CF_DebugAssembly();
+}
+
 if ($preview)
     BC200CF_assembly();

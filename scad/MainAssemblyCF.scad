@@ -20,7 +20,7 @@ include <utils/HolePositions.scad>
 use <Parameters_Positions.scad>
 
 
-staged_assembly = !true; // set this to false for faster builds during development
+staged_assembly = true; // set this to false for faster builds during development
 
 module staged_assembly(name, big, ngb) {
     if (staged_assembly)
@@ -30,63 +30,53 @@ module staged_assembly(name, big, ngb) {
         children();
 }
 
-module staged_explode(z=0) {
+module staged_explode(z=0, show_line=true) {
     if (staged_assembly)
         children();
     else
         translate_z(exploded() ? z : 0)
-            explode(eps, false)
+            explode(eps, false, show_line=show_line)
                 children();
 }
 
-//! Bolt the left face and the left feet to the base
+//! Bolt the right face and the right feet to the base
 //
 module Stage_1_CF_assembly()
 staged_assembly("Stage_1_CF", big=true, ngb=true) {
 
-    explode([-100, 0, 25])
-        Left_Face_CF_assembly();
-
     translate_z(-eps)
         staged_explode()
-            Base_assembly();
+            BaseCF_assembly();
 
-    explode(-20, true)
-        translate_z(-eps) {
-            stl_colour(pp2_colour)
-                baseLeftFeet();
-            staged_explode()
-                baseLeftFeet(hardware=true);
+    explode([100, 50, 0], true, show_line=false) {
+        Right_Face_CF_assembly();
+        explode([50, 0, 0], true, show_line=false) {
+            rightFaceIEC();
+            rightFaceIEC_hardware();
         }
-    staged_explode()
-        explode(-40)
-            baseLeftHolePositions(-_basePlateThickness)
-                vflip()
+
+        translate([eX + 2 * eSizeX, 0, 0])
+            rotate([90, 0, 90])
+                lowerSideJoinerHolePositions(left=false)
                     boltM3Buttonhead(8);
+    }
 }
 
-//! Bolt the right face and the right feet to the base
+//! Bolt the left face and the left feet to the base
 //
 module Stage_2_CF_assembly()
 staged_assembly("Stage_2_CF", big=true, ngb=true) {
 
     Stage_1_CF_assembly();
 
-    explode([100, 50, 0])
-        Right_Face_CF_assembly();
-
-    explode(-20, true)
-        translate_z(-eps) {
-            stl_colour(pp2_colour)
-                baseRightFeet();
-            staged_explode()
-                baseRightFeet(hardware=true);
-        }
-    staged_explode()
-        explode(-40)
-            baseRightHolePositions(-_basePlateThickness)
+    explode([-100, 0, 25], true) {
+        Left_Face_CF_assembly();
+        rotate([90, 0, 90])
+            lowerSideJoinerHolePositions(left=true)
                 vflip()
-                    boltM3Buttonhead(8);
+                    explode(10, true)
+                        boltM3Buttonhead(8);
+    }
 }
 
 //! Add the back face.
@@ -100,16 +90,20 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
         Back_Face_CF_assembly();
         translate([0, eY + 2*eSizeY, 0])
             rotate([90, 0, 0]) {
-                backFaceAllHolePositions(-_backPlateThickness, cf=true)
+                backFaceAllHolePositions(-_backPlateCFThickness)
                     vflip()
                         explode(50)
                             boltM3Buttonhead(10);
-                backFaceBracketHolePositions(-_backPlateThickness)
+                backFaceCFSideHolePositions(-_backPlateCFThickness)
+                    vflip()
+                        explode(50)
+                            boltM3Buttonhead(10);
+                backFaceBracketHolePositions(-_backPlateCFThickness)
                     vflip()
                         explode(50)
                             boltM3Buttonhead(10);
             }
-            baseBackHolePositions(-_basePlateThickness)
+            baseBackHolePositions(-_backPlateCFThickness)
                 vflip()
                     boltM3Buttonhead(10);
     }
@@ -127,12 +121,12 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
 
     explode([0, -100, 0], true) {
         rotate([90, 0, 0]) {
-            frontFaceHolePositions()
-                boltM3Buttonhead(12);
+            frontFaceSideHolePositions()
+                boltM3Buttonhead(10);
             frontFaceLowerHolePositions()
-                boltM3Buttonhead(12);
+                boltM3Buttonhead(10);
         }
-        frontFaceCFAssembly();
+        Front_Face_CF_assembly();
     }
 }
 
@@ -145,16 +139,26 @@ staged_assembly("Stage_5_CF", big=true, ngb=true) {
 
     explode(100)
         Top_Face_CF_assembly();
-    staged_explode(100)
-        explode(100, true)
-            topFaceAllHolePositions(eZ)
-                boltM3Buttonhead(8);
+    rotate([90, 0, 0])
+        backFaceCFTopHolePositions(-eY - 2*eSizeY - _backPlateCFThickness)
+            vflip()
+                explode(50, true)
+                    boltM3Buttonhead(10);
+    staged_explode()
+        explode(100, true) {
+            topFaceSideHolePositions(eZ)
+                explode(20, true)
+                    boltM3Buttonhead(8);
+            topFaceFrontHolePositions(eZ)
+                explode(50, true)
+                    boltM3Buttonhead(8);
+        }
 }
 
 //! Thread the belts as shown and attach to the X_Carriage_Belt_Side.
 //
 module Stage_6_CF_assembly()
-staged_assembly("Stage_5_CF", big=true, ngb=true) {
+staged_assembly("Stage_6_CF", big=true, ngb=true) {
 
     Stage_5_CF_assembly();
 
@@ -170,12 +174,12 @@ module CF_FinalAssembly() {
 
         explode(100, true)
             printheadHotendSide();
+        explode([100, 0, 100])
+            faceRightSpoolHolder(cf=true);
         if (!exploded()) {
             printheadWiring(carriagePosition());
             explode(150)
                 bowdenTube(carriagePosition());
-            explode([75, 0, 100])
-                faceRightSpoolHolder(cf=true);
             explode([150, 0, 0])
                 faceRightSpool(cf=true);
         }
@@ -185,7 +189,7 @@ module CF_FinalAssembly() {
 
 module CF_DebugAssembly() {
     translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2]) {
-        explode = 75;
+        explode = 100;
         explode(explode + 25) {
             Top_Face_CF_assembly();
             printheadBeltSide();
@@ -194,14 +198,14 @@ module CF_DebugAssembly() {
         explode([0, explode, 0])
             Back_Face_CF_assembly();
         explode([0, -explode, 0])
-            frontFaceCFAssembly();
+            Front_Face_CF_assembly();
         explode([-explode, 0, 0])
             Left_Face_CF_assembly();
         explode([explode, 0, 0])
             Right_Face_CF_assembly();
         explode(-eps)
             translate_z(-eps)
-                Base_assembly();
+                BaseCF_assembly();
         if (!exploded()) {
             printheadWiring(carriagePosition());
             explode(150)

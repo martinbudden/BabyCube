@@ -33,7 +33,7 @@ eY = _chordLengths.y - 2*eSizeY;
 eZ = _chordLengths.z;
 
 _backFaceHoleInset = 8;//eSizeX/2 + 4;
-_baseBoltHoleInset = [eSizeXBase/2 + 1, eSizeY/2 + 1];//eSizeX/2;
+_baseBoltHoleInset = _useCNC ? [eSizeXBase/2 + 2, eSizeY/2 + 2] : [eSizeXBase/2 + 1, eSizeY/2 + 1];//eSizeX/2;
 _cornerHoleInset = 20;
 
 _webThickness = 4;
