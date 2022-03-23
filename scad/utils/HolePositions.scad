@@ -21,15 +21,15 @@ function topFaceSideHolePositions() = [ 20, 100, 180 ];
 topBoltHolderThickness = 7.25 + yRailShiftX();
 function topBoltHolderSize(sidePlateThickness=_sidePlateThickness) = [eY + 2*eSizeY - 15 - _frontPlateCFThickness, 8, topBoltHolderThickness - sidePlateThickness]; // -15 to avoid back cube, +2.75 to give clearance for bolt hole
 function topFaceSideHolePositionOffset() = 3.75 + yRailShiftX() + 0.5;
-function baseBackHoleOffset() = [ floor(_zNEMA_width/2) + 4, 3];
+function baseBackHoleOffset() = [ floor(_zNEMA_width/2) + 4, 4];
 //topBackHoleOffset = [ 20, 4];
 function topFaceBackHolePositions() = [ eX/2 + eSizeX - 20, eX/2 + eSizeX + 20];
 function topFaceBackHolePositionOffsetY() = 4;
 function topFaceFrontHolePositionOffsetY() = 8;
 
 function upperSideJoinerHolePositions() = [ 40, 80, 120, 175 ];
-function lowerSideJoinerHolePositions(left) = left ? [ 50, 90, 190 ] : [ 8, 90];
-function backSideJoinerHolePositions() =  [ 60, 90 ];
+function lowerSideJoinerHolePositions(left) = [ 10, 70, 130, 190 ];
+function backSideJoinerHolePositions() =  [ 45, 80 ];
 function frontSideJoinerHolePositions() = [ 40, 80, 120 ];
 
 function backFaceHolePositions() = [eSizeY/2 + 1, middleWebOffsetZ() + eSizeY/2, eZ - eSizeY/2 - _topPlateThickness];
@@ -83,16 +83,16 @@ module baseRightHolePositions(z=0) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
     translate([size.x/2, size.y/2, z])
         for (x = [size.x/2 - _baseBoltHoleInset.x],
-             y=[0]) //y = [(size.y-eSizeY)/6, -(size.y-eSizeY)/6])
+             y = [0]) //y = [(size.y-eSizeY)/6, -(size.y-eSizeY)/6])
             translate([x, y, 0])
                 rotate(-90)
                     children();
 }
 
-module baseFrontHolePositions(z=0) {
+module baseFrontHolePositions(z=0, cf=false) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
-    for (x = [size.x/3 + eSizeX/6, 2*size.x/3 - eSizeX/6],
-            y = [_baseBoltHoleInset.y] )
+    for (x = cf ? [size.x/2] : [size.x/3 + eSizeX/6, 2*size.x/3 - eSizeX/6],
+         y = [_baseBoltHoleInset.y] )
         translate([x, y, z])
             rotate(90)
                 children();
@@ -108,7 +108,7 @@ module baseBackHolePositions(z=0) {
                 children();
 }
 
-module baseAllHolePositions(z=0) {
+module baseAllHolePositions(z=0, cf=false) {
     baseAllCornerHolePositions(z)
         children();
     baseLeftHolePositions(z)
@@ -117,7 +117,7 @@ module baseAllHolePositions(z=0) {
         children();
     baseBackHolePositions(z)
         children();
-    baseFrontHolePositions(z)
+    baseFrontHolePositions(z, cf)
         children();
 }
 
@@ -131,39 +131,50 @@ module backFaceBaseHolePositions(y=0) {
 
 module backFaceHolePositions(left, z=0) {
     size = [eX + 2*eSizeX, eZ];
-    xInset = _backFaceHoleInset;
-    translate_z(z)
-        for (y = backFaceHolePositions())
-            translate(left ? [xInset, y, 0] : [size.x - xInset, y, 0])
-                children();
+    for (y = backFaceHolePositions())
+        translate(left ? [_backFaceHoleInset, y, z] : [size.x - _backFaceHoleInset, y, z])
+            children();
 }
 
-module backFaceAllHolePositions(z=0, cf=false) {
+module backFaceAllHolePositions(z=0) {
     backFaceHolePositions(left=true, z=z)
         children();
     backFaceHolePositions(left=false, z=z)
         children();
+}
+
+module backFaceCFTopHolePositions(z=0) {
     size = [eX + 2*eSizeX, eZ];
-    if (cf)
-        translate([size.x/2, size.y - _topPlateThickness - eSizeZ/2, z])
+    translate([size.x/2, size.y - _topPlateThickness - eSizeZ/2, z])
+        children();
+}
+
+module backFaceCFSideHolePositions(z=0) {
+    size = [eX + 2*eSizeX, eZ];
+    for (x = [_backFaceHoleInset, size.x - _backFaceHoleInset])
+        translate([x, 60, z])
             children();
 }
 
 // front face
 module frontFaceLowerHolePositions(z=0) {
     size = [eX + 2*eSizeX, eZ];
-    for (x = [85, size.x - 85])
+    for (x = [65, size.x - 65])
         translate([x, 10/2, z])
             children();
 }
 
-module frontFaceHolePositions(z=0) {
+module frontFaceUpperHolePositions(z=0) {
+    size = [eX + 2*eSizeX, eZ];
+    for (x = [85, size.x - 85])
+        translate([x, size.y - _topPlateThickness - eSizeZ/2, z])
+            children();
+}
+
+module frontFaceSideHolePositions(z=0) {
     size = [eX + 2*eSizeX, eZ];
     for (x = [30, size.x - 30])
         translate([x, size.y - 15.5, z])
-            children();
-    for (x = [85, size.x - 85])
-        translate([x, size.y - _topPlateThickness - eSizeZ/2, z])
             children();
     for (x = [(_sidePlateThickness + eSizeXBase)/2, size.x - (_sidePlateThickness + eSizeXBase)/2],
          y = [20, 60, 100, 140])
@@ -262,10 +273,10 @@ module zLeadScrewHolePosition() {
 }
 
 // left and right faces
-module lowerChordHolePositions(z=_baseBoltHoleInset.x) {
+module lowerChordHolePositions(z=_baseBoltHoleInset.x, includeFeet=true) {
     // this should match baseLeftHolePositions and baseRightHolePositions
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
-    for (y = [_cornerHoleInset, size.y/2, size.y - _cornerHoleInset])
+    for (y = includeFeet ? [_cornerHoleInset, size.y/2, size.y - _cornerHoleInset] : [size.y/2])
         translate([y, 0, z])
             children();
 }
