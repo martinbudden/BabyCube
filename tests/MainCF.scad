@@ -23,18 +23,20 @@ include <../scad/Parameters_Main.scad>
 module MainCF_test() {
     echoPrintSize();
     //echoPrintParameters();
-
-    //Base_assembly();
+    //BaseCF_assembly();
+    //Back_Face_CF_Stage_1_assembly();
     //Back_Face_CF_assembly();
     //Left_Face_CF_assembly();
     //Right_Face_CF_assembly();
     //Top_Face_CF_assembly();
+    //Top_Face_CF_Stage_1_assembly();
     //Front_Face_CF_assembly();
-    //Stage_3_CF_assembly();
+    //Stage_2_CF_assembly();
     //Stage_4_CF_assembly();
     //Stage_5_CF_assembly();
-    //CF_DebugAssembly();
-    CF_FinalAssembly();
+    //Stage_6_CF_assembly();
+    //BC200CF_debug();
+    BC200CF_assembly();
 }
 
 if ($preview)
