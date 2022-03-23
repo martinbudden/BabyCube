@@ -370,8 +370,11 @@ Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensi
 ![Top_Face_Stage_1_assembly](assemblies/Top_Face_Stage_1_assembly.png)
 
 1. Turn the Top_Face upside down and place it on a flat surface.
-2. Bolt the rails to the top face. Note that the first and last bolts on the left rail are countersunk bolts and act as pilot bolts to ensure the rails are aligned precisely - they should be tightened before all the other bolts on the left side.
-3. The bolts on the right side rail should be only loosely tightened - they will be fully tightened when the right rail is aligned when the X axis rail is added.
+2. Bolt the rails to the top face. Note that the first and last bolts on the left rail are countersunk bolts and act
+as pilot bolts to ensure the rails are aligned precisely - they should be tightened before all the other bolts on the
+left side.
+3. The bolts on the right side rail should be only loosely tightened - they will be fully tightened when the right rail
+is aligned when the X axis rail is added.
 
 ![Top_Face_Stage_1_assembled](assemblies/Top_Face_Stage_1_assembled.png)
 
@@ -665,7 +668,8 @@ the heated bed from the Z_Carriage.
 
 ![Back_Face_Stage_1_assembly](assemblies/Back_Face_Stage_1_assembly.png)
 
-Attach the SK brackets to the back face. Note the orientation of the tightening bolts: the top tightening bolts should face inward and the bottom tightening bolts should face outward. This allows access after the BabyCube is fully assembled.
+Attach the SK brackets to the back face. Note the orientation of the tightening bolts: the top tightening bolts should
+face inward and the bottom tightening bolts should face outward. This allows access after the BabyCube is fully assembled.
 
 ![Back_Face_Stage_1_assembled](assemblies/Back_Face_Stage_1_assembled.png)
 
@@ -703,7 +707,8 @@ Attach the SK brackets to the back face. Note the orientation of the tightening 
 
 1. Slide the linear rods through the SK brackets and the printbed bearings.
 2. Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on the rods.
-3. Place the cork damper on the stepper motor and thread the lead screw through the leadnut and attach the stepper motor to the back face. Note the orientation of the JST socket.
+3. Place the cork damper on the stepper motor and thread the lead screw through the leadnut and attach the stepper motor
+  to the back face. Note the orientation of the JST socket.
 
 ![Back_Face_assembled](assemblies/Back_Face_assembled.png)
 
