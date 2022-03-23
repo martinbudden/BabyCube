@@ -22,8 +22,8 @@ module footLShaped(footHeight, boreDepth) {
     size = footLShapedSize(footHeight);
     fillet = 1;
 
-    color(pp2_colour)
-        difference() {
+    difference() {
+        color(pp2_colour)
             union() {
                 rounded_cube_xy(size, fillet);
                 translate([size.y, 0, 0])
@@ -32,9 +32,9 @@ module footLShaped(footHeight, boreDepth) {
                 translate([size.y, size.y, 0])
                     fillet(fillet, footHeight);
             }
-            footLShapedHoles()
-                boltHoleM3CounterboreButtonhead(footHeight, boreDepth=boreDepth);
-        }
+        footLShapedHoles()
+            boltHoleM3CounterboreButtonhead(footHeight, boreDepth=boreDepth);
+    }
 }
 
 module Foot_LShaped_8mm_stl() {

@@ -4,9 +4,7 @@ include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/displays.scad>
 include <NopSCADlib/vitamins/pcbs.scad>
 
-include <../vitamins/bolts.scad>
-
-use <DisplayHousing.scad>
+include <DisplayHousing.scad>
 use <FrontChords.scad>
 
 include <../Parameters_Main.scad>
@@ -50,14 +48,14 @@ module Display_Housing_stl() {
 
 module Display_Housing_Bracket_stl() {
     stl("Display_Housing_Bracket")
-        color(pp1_colour)
-            rotate([-90, 0, 0])
-                difference() {
+        rotate([-90, 0, 0])
+            difference() {
+                color(pp1_colour)
                     displayHousingBracket(display_type, displayBracketBackThickness, displayAngle);
-                    // bolt holes on the back of the bracket
-                    displayBracketHolePositions(display_type, displayBracketBackThickness, displayAngle)
-                        boltHoleM3Tap(8);
-                }
+                // bolt holes on the back of the bracket
+                displayBracketHolePositions(display_type, displayBracketBackThickness, displayAngle)
+                    boltHoleM3Tap(8);
+            }
 }
 
 //! Place the display into the housing and secure it with the bolts - use the bolts to self-tap the holes in the housing.

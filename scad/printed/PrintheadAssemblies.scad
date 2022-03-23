@@ -11,7 +11,6 @@ include <../utils/X_rail.scad>
 include <../vitamins/pcbs.scad>
 
 include <Printhead.scad>
-use <X_Carriage.scad>
 use <X_CarriageBeltAttachment.scad>
 use <X_CarriageAssemblies.scad>
 
