@@ -122,8 +122,9 @@ module baseCutouts(cnc=false, cf=false, radius=M3_clearance_radius, pcb=undef) {
     }
 }
 
-//!1. Attach the Base_Template to the aluminium sheet and use it to drill out the holes. The base template has 2mm holes marked out for pilot holes.
-//!Once you have drilled these re-drill the holes with a 3mm bit. Note that the Base_Template has holes marked for the BTT E3 Mini V2, the BTT E3 Turbo and the BTT STL 1.4 boards - choose the appropriate holes for your board.
+//!1. Attach the Base_Template to the aluminium sheet and use it to drill out the holes. The base template has 2mm holes marked
+//!out for pilot holes. Once you have drilled these re-drill the holes with a 3mm bit. Note that the Base_Template has holes marked
+//!for the BTT E3 Mini V2, the BTT E3 Turbo and the BTT STL 1.4 boards - choose the appropriate holes for your board.
 //!If you are unable to source an aluminium sheet, it is possible to print and use the Base.stl file, but using and aluminium plate is much preferred.
 //!2. Attach the PSU_Supports to the base plate with double sided tape.
 //!3. Bolt the PSU_Bracket to the base plate.
@@ -140,6 +141,15 @@ assembly("Base", big=true) {
     pcbAssembly(RPI3A_plus);
 }
 
+//!1. Attach the Base_Template to the aluminium sheet and use it to drill out the holes. The base template has 2mm holes marked
+//!out for pilot holes. Once you have drilled these re-drill the holes with a 3mm bit.
+//!2. Bolt the **Base_Front_Joiner**, the **Base_Left_Joiner**, the **Base_Right_Joiner** and the L-shaped feet to the base plate.
+//!5. Cover the top and bottom sides of the box section with thermal paste.
+//!6. Attach the box section to the bottom of the control board with electrical tape. The tape serves to keep the box section in place
+// until it is attached to the base plate.
+//!7. Using the hex pillars, attach the control board and the Raspberry Pi to the base plate.
+//!8. Bolt the PSU to the base plate.
+//!
 module BaseCF_assembly()
 assembly("BaseCF", big=true) {
 

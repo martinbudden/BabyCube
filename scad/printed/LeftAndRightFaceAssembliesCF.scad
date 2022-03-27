@@ -281,7 +281,10 @@ module rightFaceCF(NEMA_width) {
     }
 }
 
-
+//! 1. Bolt the **Front_Face_Joiner**, the **Left_Face_Back_Joiner**, and the **Left_Face_Upper_Joiner** to the
+//!**Left_Face**
+//! 2. Bolt the **XY_Idler_Bracket_Left_assembly** and the **XY_Motor_Mount_Left_CF_assembly** to the **Left_Face**
+//
 module Left_Face_CF_assembly() pose(a=[55, 0, 25 + 50 - 20])
 assembly("Left_Face_CF", big=true) {
 
@@ -354,6 +357,11 @@ module rightFaceIEC_hardware() {
         }
 }
 
+//! 1. Bolt the **Front_Face_Joiner**, the **Right_Face_Back_Joiner**, and the **Right_Face_Upper_Joiner** to the
+//!**Right_Face**
+//! 2. Bolt the **XY_Idler_Bracket_Right_assembly** and the **XY_Motor_Mount_Right_CF_assembly** to the **Right_Face**
+//! 3. Bolt the extruder, cork damper and stepper motor to the **Right_Face**.
+//!
 module Right_Face_CF_assembly() pose(a=[55, 0, 25 + 50 - 20])
 assembly("Right_Face_CF", big=true) {
 

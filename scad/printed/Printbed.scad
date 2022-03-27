@@ -151,9 +151,9 @@ module printbed(printBedSize) {
 //!1. Prepare the the cork underlay by cutting it to size, making a cutout for the heated bed wiring, and making cutouts for the bolts and O-rings.
 //!2. Prepare the magnetic base by drilling holes for the bolts.
 //!3. Prepare the heated bed by soldering on the wires and sticking on the magnetic base. Drill bolt holes in the magnetic base.
-//!4. Place the cork underlay on the Z_Carriage and place the heated bed on top.
-//!5. Secure the heated bed to the Z_Carriage, using the bolts and O-rings. The O-rings allow for bed leveling and help thermally insulate
-//!the heated bed from the Z_Carriage.
+//!4. Place the cork underlay on the **Z_Carriage** and place the heated bed on top.
+//!5. Secure the heated bed to the **Z_Carriage**, using the bolts and O-rings. The O-rings allow for bed leveling and help thermally insulate
+//!the heated bed from the **Z_Carriage**.
 //!6. Secure the heated bed wiring to the underside of the printbed using zipties.
 module Print_bed_assembly()
 assembly("Print_bed") {

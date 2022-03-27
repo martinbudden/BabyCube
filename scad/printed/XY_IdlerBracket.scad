@@ -59,7 +59,8 @@ module XY_Idler_Bracket_Right_NEMA_17_stl() {
                 XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, _sidePlateThickness, useCNC=true);
 }
 
-//!Bolt the two front idler pulleys with washers into the idler bracket.
+//!Bolt the two front idler pulleys with washers into the **XY_Idler_Bracket_Left**.
+//
 module XY_Idler_Bracket_Left_assembly()
 assembly("XY_Idler_Bracket_Left", ngb=true) {
 
@@ -76,7 +77,8 @@ assembly("XY_Idler_Bracket_Left", ngb=true) {
         XY_IdlerBracketHardware(coreXYPosBL(NEMA_width, yCarriageType));
 }
 
-//!Bolt the two front idler pulleys with washers into the idler bracket.
+//!Bolt the two front idler pulleys with washers into the **XY_Idler_Bracket_Right**.
+//
 module XY_Idler_Bracket_Right_assembly()
 assembly("XY_Idler_Bracket_Right", ngb=true) {
 

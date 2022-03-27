@@ -100,7 +100,7 @@ rpi_camera_zero = ["rpi_camera_zero", "Raspberry Pi Zero camera", rpi_camera_zer
 //! Note orientation of the JST connector.
 //!2. Secure the motor wires with zip ties.
 //!3. Bolt the two front idler pulleys with washers to the frame.
-//!4. Attach the wires to the switch and bolt the Switch_Shroud to the left face.
+//!4. Attach the wires to the switch and bolt the **Switch_Shroud** to the left face.
 module Left_Face_assembly(camera=false, fov_distance=0, switch=true) pose(a=[55, 0, 25 + 50])
 assembly("Left_Face", big=true) {
 

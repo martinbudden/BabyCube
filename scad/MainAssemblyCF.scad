@@ -39,7 +39,7 @@ module staged_explode(z=0, show_line=true) {
                 children();
 }
 
-//! Bolt the right face and the right feet to the base
+//! Bolt the **Right_Face_CF_assembly** to the **BaseCF_assembly**
 //
 module Stage_1_CF_assembly()
 staged_assembly("Stage_1_CF", big=true, ngb=true) {
@@ -62,7 +62,7 @@ staged_assembly("Stage_1_CF", big=true, ngb=true) {
     }
 }
 
-//! Bolt the left face and the left feet to the base
+//! Bolt the **Left_Face_CF_assembly** to the base
 //
 module Stage_2_CF_assembly()
 staged_assembly("Stage_2_CF", big=true, ngb=true) {
@@ -79,7 +79,7 @@ staged_assembly("Stage_2_CF", big=true, ngb=true) {
     }
 }
 
-//! Add the back face.
+//! Bolt the **Back_Face_CF_assembly** to the base and left and right faces.
 //
 module Stage_3_CF_assembly()
 staged_assembly("Stage_3_CF", big=true, ngb=true) {
@@ -112,7 +112,7 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
 }
 
 
-//! Add the Front Face
+//! Bolt the **Front_Face_CF_assembly** to the base and left and right faces.
 //
 module Stage_4_CF_assembly()
 staged_assembly("Stage_4_CF", big=true, ngb=true) {
@@ -130,7 +130,7 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
     }
 }
 
-//! Add the Top Face
+//! Add the **Top_Face_CF_assembly**.
 //
 module Stage_5_CF_assembly()
 staged_assembly("Stage_5_CF", big=true, ngb=true) {
@@ -155,7 +155,7 @@ staged_assembly("Stage_5_CF", big=true, ngb=true) {
         }
 }
 
-//! Thread the belts as shown and attach to the X_Carriage_Belt_Side.
+//! Thread the belts as shown and attach to the **X_Carriage_Belt_Side**.
 //
 module Stage_6_CF_assembly()
 staged_assembly("Stage_6_CF", big=true, ngb=true) {

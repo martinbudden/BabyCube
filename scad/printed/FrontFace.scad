@@ -119,7 +119,8 @@ module Front_Face_Top_Joiner_stl() {
     }
 }
 
-
+//! Bolt the **Nameplate** and the **Front_Face_Top_Joiner** to the **Front_Face**.
+//
 module Front_Face_CF_assembly()
 assembly("Front_Face_CF") {
     explode([0, 20, 0], show_line=false)
