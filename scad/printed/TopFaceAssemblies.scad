@@ -39,8 +39,8 @@ module Top_Face_CF() {
             Top_Face_CF_dxf();
 }
 
-//! 1. Turn the Top_Face upside down and place it on a flat surface.
-//! 2. Bolt the rails to the top face. Note that the first and last bolts on the left rail are countersunk bolts and act
+//! 1. Turn the **Top_Face** upside down and place it on a flat surface.
+//! 2. Bolt the rails to the **Top_Face**. Note that the first and last bolts on the left rail are countersunk bolts and act
 //! as pilot bolts to ensure the rails are aligned precisely - they should be tightened before all the other bolts on the
 //! left side.
 //! 3. The bolts on the right side rail should be only loosely tightened - they will be fully tightened when the right rail
@@ -65,7 +65,7 @@ assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
     topFaceAssembly(NEMA_width(NEMA17_40));
 }
 
-//! Attach the left and right Y carriages to the top face rails. Note that the two carriages are not interchangeable so be sure
+//! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable so be sure
 //! to attach them as shown in the diagram.
 //!
 //! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not accessible.  
@@ -85,7 +85,7 @@ assembly("Top_Face_Stage_2", big=true, ngb=true) {
     yCarriageRightAssembly(NEMA_width(NEMA14_36), t);
 }
 
-//! Attach the left and right Y carriages to the top face rails. Note that the two carriages are not interchangeable so be sure
+//! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable so be sure
 //! to attach them as per the diagram.
 //!
 //! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not accessible.  
@@ -105,11 +105,11 @@ assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
     yCarriageRightAssembly(NEMA_width(NEMA17_40));
 }
 
-//!1. Turn the Top_Face into its normal orientation.
+//!1. Turn the **Top_Face** into its normal orientation.
 //!2. Bolt the X-axis linear rail onto the Y carriages.
 //!3. Turn the Top_Face upside down again and place it on a flat surface.
-//!4. Align the left and right Y-axis linear rails. Do this by pushing the X-axis rail to the rear of the top face and tighten
-//!the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the top face, again
+//!4. Align the left and right Y-axis linear rails. Do this by pushing the X-axis rail to the rear of the **Top_Face** and tighten
+//!the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the **Top_Face**, again
 //!tightening the corresponding bolts.
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
 //
@@ -124,11 +124,11 @@ assembly("Top_Face", big=true) {
     xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
 }
 
-//!1. Turn the Top_Face into its normal orientation.
+//!1. Turn the **Top_Face** into its normal orientation.
 //!2. Bolt the X-axis linear rail onto the Y carriages.
-//!3. Turn the Top_Face upside down again and place it on a flat surface.
-//!4. Align the left and right Y-axis linear rails. Do this by pushing the X-axis rail to the rear of the top face and tighten
-//!the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the top face, again
+//!3. Turn the **Top_Face** upside down again and place it on a flat surface.
+//!4. Align the left and right Y-axis linear rails. Do this by pushing the X-axis rail to the rear of the **Top_Face** and tighten
+//!the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the **Top_Face**, again
 //!tightening the corresponding bolts.
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
 //
@@ -141,6 +141,12 @@ assembly("Top_Face_NEMA_17", big=true) {
 }
 
 
+//! 1. Bolt the rails to the **Top_Face**. Ensure that the left rail is parallel with the left edge before fully tightening the
+//! bolts on the left side.
+//! 2. The bolts on the right side rail should be only loosely tightened - they will be fully tightened when the right rail
+//! is aligned when the X axis rail is added.
+//! 3. Bolt the **Top_Face_Back_Joiner** to the top face.
+//
 module Top_Face_CF_Stage_1_assembly()  pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_CF_Stage_1", big=true) {
 
@@ -154,7 +160,7 @@ assembly("Top_Face_CF_Stage_1", big=true) {
         boltM3Buttonhead(8);
 }
 
-//! Attach the left and right Y carriages to the top face rails. Note that the two carriages are not interchangeable so be sure
+//! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable so be sure
 //! to attach them as per the diagram.
 //!
 //! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not accessible.  
@@ -174,8 +180,8 @@ assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
     yCarriageRightAssembly(NEMA_width(NEMA14_36), t);
 }
 
-//!1. Turn the Top_Face into its normal orientation.
-//!2. Bolt the X-axis linear rail onto the Y carriages.
+//!1. Turn the **Top_Face** into its normal orientation.
+//!2. Bolt the X-axis linear rail onto the **Y_carriages**.
 //!3. Turn the Top_Face upside down again and place it on a flat surface.
 //!4. Align the left and right Y-axis linear rails. Do this by pushing the X-axis rail to the rear of the top face and tighten
 //!the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the top face, again
