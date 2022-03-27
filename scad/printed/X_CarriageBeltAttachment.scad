@@ -53,9 +53,8 @@ module xCarriageBeltTensioner(size) {
     beltThickness = 1.65;//- 4.5 + 2.83118; actual belt thickness is 1.4
     offsetYT = offsetY - beltThickness;
     offsetY2 = 2.25;
-    baseSizeZ = xCarriageBeltTensionerSize(0).z;
 
-    translate_z(-baseSizeZ - (size.z - baseSizeZ)/2)
+    translate_z(-(xCarriageBeltTensionerSize(0).z + size.z)/2)
     difference() {
         union() {
             translate([offsetX, 0, 0])
