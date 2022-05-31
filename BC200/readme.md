@@ -301,8 +301,8 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 ![Printhead_E3DV6_MGN9C_assembly](assemblies/Printhead_E3DV6_MGN9C_assembly.png)
 
 1. Assemble the E3D hotend, including fan, thermistor cartridge and heater cartridge.
-2. Use the Hotend_Clamp to attach the hotend to the X_Carriage.
-3. Collect the wires together and attach to the X_Carriage using the Hotend_Strain_Relief_Clamp.
+2. Use the **Hotend_Clamp** to attach the hotend to the **X_Carriage**.
+3. Collect the wires together and attach to the **X_Carriage** using the **Hotend_Strain_Relief_Clamp**.
 
 ![Printhead_E3DV6_MGN9C_assembled](assemblies/Printhead_E3DV6_MGN9C_assembled.png)
 
@@ -369,8 +369,8 @@ Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensi
 
 ![Top_Face_Stage_1_assembly](assemblies/Top_Face_Stage_1_assembly.png)
 
-1. Turn the Top_Face upside down and place it on a flat surface.
-2. Bolt the rails to the top face. Note that the first and last bolts on the left rail are countersunk bolts and act
+1. Turn the **Top_Face** upside down and place it on a flat surface.
+2. Bolt the rails to the **Top_Face**. Note that the first and last bolts on the left rail are countersunk bolts and act
 as pilot bolts to ensure the rails are aligned precisely - they should be tightened before all the other bolts on the
 left side.
 3. The bolts on the right side rail should be only loosely tightened - they will be fully tightened when the right rail
@@ -424,7 +424,7 @@ is aligned when the X axis rail is added.
 
 ![Top_Face_Stage_2_assembly](assemblies/Top_Face_Stage_2_assembly.png)
 
-Attach the left and right Y carriages to the top face rails. Note that the two carriages are not interchangeable so be sure
+Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable so be sure
 to attach them as shown in the diagram.
 
 The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not accessible.  
@@ -473,11 +473,11 @@ so they run freely.
 
 ![Top_Face_assembly](assemblies/Top_Face_assembly.png)
 
-1. Turn the Top_Face into its normal orientation.
+1. Turn the **Top_Face** into its normal orientation.
 2. Bolt the X-axis linear rail onto the Y carriages.
 3. Turn the Top_Face upside down again and place it on a flat surface.
-4. Align the left and right Y-axis linear rails. Do this by pushing the X-axis rail to the rear of the top face and tighten
-the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the top face, again
+4. Align the left and right Y-axis linear rails. Do this by pushing the X-axis rail to the rear of the **Top_Face** and tighten
+the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the **Top_Face**, again
 tightening the corresponding bolts.
 5. Check that the carriages run smoothly on the Y-axis linear rails.
 
@@ -552,8 +552,8 @@ Attach the knob to the display.
 
 ![Display_Housing_assembly](assemblies/Display_Housing_assembly.png)
 
-1. Bolt the Display_Cover assembly to the Display_Housing_Bracket.
-2. Bolt the Display_Housing_Bracket to the Front_Lower_Chord.
+1. Bolt the **Display_Cover_assembly** to the **Display_Housing_Bracket**.
+2. Bolt the **Display_Housing_Bracket** to **the Front_Lower_Chord**.
 
 ![Display_Housing_assembled](assemblies/Display_Housing_assembled.png)
 
@@ -632,9 +632,9 @@ a 120 x 120 x 6 mm aluminium tooling plate, see [printbed 120](../../PRINTBED120
 1. Prepare the the cork underlay by cutting it to size, making a cutout for the heated bed wiring, and making cutouts for the bolts and O-rings.
 2. Prepare the magnetic base by drilling holes for the bolts.
 3. Prepare the heated bed by soldering on the wires and sticking on the magnetic base. Drill bolt holes in the magnetic base.
-4. Place the cork underlay on the Z_Carriage and place the heated bed on top.
-5. Secure the heated bed to the Z_Carriage, using the bolts and O-rings. The O-rings allow for bed leveling and help thermally insulate
-the heated bed from the Z_Carriage.
+4. Place the cork underlay on the **Z_Carriage** and place the heated bed on top.
+5. Secure the heated bed to the **Z_Carriage**, using the bolts and O-rings. The O-rings allow for bed leveling and help thermally insulate
+the heated bed from the **Z_Carriage**.
 6. Secure the heated bed wiring to the underside of the printbed using zipties.
 
 ![Print_bed_assembled](assemblies/Print_bed_assembled.png)
@@ -668,7 +668,7 @@ the heated bed from the Z_Carriage.
 
 ![Back_Face_Stage_1_assembly](assemblies/Back_Face_Stage_1_assembly.png)
 
-Attach the SK brackets to the back face. Note the orientation of the tightening bolts: the top tightening bolts should
+Attach the SK brackets to the **Back_Face**. Note the orientation of the tightening bolts: the top tightening bolts should
 face inward and the bottom tightening bolts should face outward. This allows access after the BabyCube is fully assembled.
 
 ![Back_Face_Stage_1_assembled](assemblies/Back_Face_Stage_1_assembled.png)
@@ -706,9 +706,9 @@ face inward and the bottom tightening bolts should face outward. This allows acc
 ![Back_Face_assembly](assemblies/Back_Face_assembly.png)
 
 1. Slide the linear rods through the SK brackets and the printbed bearings.
-2. Tighten the bolts in the SK brackets, ensuring the Z_Carriage slides freely on the rods.
+2. Tighten the bolts in the SK brackets, ensuring the **Z_Carriage** slides freely on the rods.
 3. Place the cork damper on the stepper motor and thread the lead screw through the leadnut and attach the stepper motor
-  to the back face. Note the orientation of the JST socket.
+  to the **Back_Face**. Note the orientation of the JST socket.
 
 ![Back_Face_assembled](assemblies/Back_Face_assembled.png)
 
@@ -840,8 +840,9 @@ Note orientation of the JST connector.
 
 ![Base_assembly](assemblies/Base_assembly.png)
 
-1. Attach the Base_Template to the aluminium sheet and use it to drill out the holes. The base template has 2mm holes marked out for pilot holes.
-Once you have drilled these re-drill the holes with a 3mm bit. Note that the Base_Template has holes marked for the BTT E3 Mini V2, the BTT E3 Turbo and the BTT STL 1.4 boards - choose the appropriate holes for your board.
+1. Attach the Base_Template to the aluminium sheet and use it to drill out the holes. The base template has 2mm holes marked
+out for pilot holes. Once you have drilled these re-drill the holes with a 3mm bit. Note that the Base_Template has holes marked
+for the BTT E3 Mini V2, the BTT E3 Turbo and the BTT STL 1.4 boards - choose the appropriate holes for your board.
 If you are unable to source an aluminium sheet, it is possible to print and use the Base.stl file, but using and aluminium plate is much preferred.
 2. Attach the PSU_Supports to the base plate with double sided tape.
 3. Bolt the PSU_Bracket to the base plate.
@@ -941,7 +942,7 @@ Note the cork damper is important as it provides thermal insulation between the 
 Note orientation of the JST connector.
 2. Secure the motor wires with zip ties.
 3. Bolt the two front idler pulleys with washers to the frame.
-4. Attach the wires to the switch and bolt the Switch_Shroud to the left face.
+4. Attach the wires to the switch and bolt the **Switch_Shroud** to the left face.
 
 ![Left_Face_assembled](assemblies/Left_Face_assembled.png)
 
