@@ -73,10 +73,10 @@ module spoolHolderBracket(size, bracketThickness, topThickness, innerFillet, cat
     }
 }
 
-module spoolHolder(bracketSize, offsetX, innerFillet, catchRadius=0, endHeight=20, spoolInternalRadius=26, capOffset=false) {
+module spoolHolder(bracketSize, offsetX, innerFillet, catchRadius=0, length=80, endHeight=20, spoolInternalRadius=26, capOffset=false) {
     bracketThickness = 5;
     capPosX = offsetX - bracketThickness;
-    size = [capPosX + 80, 20, bracketSize.z];
+    size = [capPosX + length, 20, bracketSize.z];
     clampThickness = 8;
 
     translate_z(-size.z/2) {
