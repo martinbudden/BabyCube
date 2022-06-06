@@ -31,7 +31,7 @@ innerFillet = 5;
 reinforcementThickness = 5;
 //upperChordSize = [backUpperChordSize().x, backUpperChordSize().y + 3, backUpperChordSize().z];
 //upperChordSize = [backUpperChordSize().x, sk_size(SK_type).z + _topPlateThickness + 8, backUpperChordSize().z-2];
-upperChordSize = [eSizeY, sk_size(SK_type).z + _topPlateThickness + 8, eX + 2*eSizeX - 54];
+upperChordSize = [eSizeY, sk_size(SK_type).z + _topPlateThickness + 8, eX + 2*eSizeX - 70];
 zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
 
 module backFaceBracketHolePositions(z=0) {
@@ -175,11 +175,12 @@ module backFaceUpperSKBracketHolePositions() {
 
 module backFaceUpperBrackets(NEMA_width) {
 
+echo(upperChordSize=upperChordSize);
     fcHeight = eSizeY + (eX + 2*eSizeX - upperChordSize.z)/2;
-    rectSize = [eX + 2*eSizeX - 2*fcHeight, upperChordSize.y-_topPlateThickness-sk_size(SK_type).z-1, reinforcementThickness];
+    rectSize = [eX + 2*eSizeX - 2*fcHeight, upperChordSize.y - _topPlateThickness-sk_size(SK_type).z - 1, reinforcementThickness];
 
     translate([fcHeight, eY + 2*eSizeY - upperChordSize.y, 0])
-        rounded_cube_xy(rectSize, 1);
+        #rounded_cube_xy(rectSize, 1);
 
     difference() {
         union() {
