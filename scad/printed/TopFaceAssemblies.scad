@@ -117,7 +117,7 @@ module Top_Face_assembly(t=undef)
 assembly("Top_Face", big=true) {
 
     Top_Face_Stage_2_assembly(t);
-    hidden() Top_Face_NEMA_17_stl();
+    //hidden() Top_Face_NEMA_17_stl();
     //hidden() Y_Carriage_Left_AL_dxf();
     //hidden() Y_Carriage_Right_AL_dxf();
 

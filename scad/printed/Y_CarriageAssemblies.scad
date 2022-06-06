@@ -98,7 +98,7 @@ module yCarriageLeftAssembly(NEMA_width, t=undef) {
             stl_colour(pp2_colour)
                 if (NEMA_width < 40) {
                     Y_Carriage_Left_stl();
-                    hidden() Y_Carriage_Left_NEMA_17_stl();
+                    //hidden() Y_Carriage_Left_NEMA_17_stl();
                 } else {
                     Y_Carriage_Left_NEMA_17_stl();
                 }
@@ -124,7 +124,7 @@ module yCarriageRightAssembly(NEMA_width, t=undef) {
             stl_colour(pp2_colour)
                 if (NEMA_width < 40) {
                     Y_Carriage_Right_stl();
-                    hidden() Y_Carriage_Right_NEMA_17_stl();
+                    //hidden() Y_Carriage_Right_NEMA_17_stl();
                 } else {
                     Y_Carriage_Right_NEMA_17_stl();
                 }
