@@ -236,16 +236,13 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Hotend_Clamp.stl |
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Hotend_Strain_Relief_Clamp.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  | Left_Face.stl |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  | Left_Face_NEMA_17.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | PSU_Bracket.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |   .  |    2  | PSU_Support.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  | Right_Face.stl |
-|   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  | Right_Face_NEMA_17.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  | Spool_Holder.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  | Switch_Shroud.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  | Switch_Shroud_Clamp.stl |
 |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Top_Face.stl |
-|   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Top_Face_NEMA_17.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  | X_Carriage_Belt_Clamp.stl |
 |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | X_Carriage_Belt_Side_MGN9C.stl |
 |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  | X_Carriage_Belt_Tensioner.stl |
@@ -253,11 +250,9 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Brace_Left.stl |
 |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Brace_Right.stl |
 |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Left.stl |
-|   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Left_NEMA_17.stl |
 |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Right.stl |
-|   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Right_NEMA_17.stl |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  | Z_Carriage.stl |
-|   4  |   3  |   8  |   3  |   1  |   1  |   2  |   5  |   4  |   7  |   38  | Total 3D printed parts count |
+|   4  |   3  |   5  |   3  |   1  |   1  |   1  |   5  |   3  |   7  |   33  | Total 3D printed parts count |
 |      |      |      |      |      |      |      |      |      |      |       | **CNC routed parts** |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | BaseAL.dxf |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | Total CNC routed parts count |
@@ -406,9 +401,9 @@ is aligned when the X axis rail is added.
 | ![Y_Carriage_Brace_Left.stl](stls/Y_Carriage_Brace_Left.png) | ![Y_Carriage_Brace_Right.stl](stls/Y_Carriage_Brace_Right.png) | ![Y_Carriage_Left.stl](stls/Y_Carriage_Left.png) 
 
 
-| 1 x Y_Carriage_Left_NEMA_17.stl | 1 x Y_Carriage_Right.stl | 1 x Y_Carriage_Right_NEMA_17.stl |
-|---|---|---|
-| ![Y_Carriage_Left_NEMA_17.stl](stls/Y_Carriage_Left_NEMA_17.png) | ![Y_Carriage_Right.stl](stls/Y_Carriage_Right.png) | ![Y_Carriage_Right_NEMA_17.stl](stls/Y_Carriage_Right_NEMA_17.png) 
+| 1 x Y_Carriage_Right.stl |
+|---|
+| ![Y_Carriage_Right.stl](stls/Y_Carriage_Right.png) 
 
 
 
@@ -451,14 +446,6 @@ so they run freely.
 |4| Bolt M3 caphead x 10mm|
 |1| Linear rail MGN9 x 150mm|
 |1| Linear rail carriage MGN9C|
-
-
-### 3D Printed parts
-
-| 1 x Top_Face_NEMA_17.stl |
-|---|
-| ![Top_Face_NEMA_17.stl](stls/Top_Face_NEMA_17.png) 
-
 
 
 ### Sub-assemblies
@@ -737,9 +724,9 @@ face inward and the bottom tightening bolts should face outward. This allows acc
 
 ### 3D Printed parts
 
-| 1 x Right_Face.stl | 1 x Right_Face_NEMA_17.stl |
-|---|---|
-| ![Right_Face.stl](stls/Right_Face.png) | ![Right_Face_NEMA_17.stl](stls/Right_Face_NEMA_17.png) 
+| 1 x Right_Face.stl |
+|---|
+| ![Right_Face.stl](stls/Right_Face.png) 
 
 
 
@@ -918,9 +905,9 @@ Place the XT60 connectors through the Switch_Shroud and bolt on the Switch_Shrou
 
 ### 3D Printed parts
 
-| 1 x Left_Face.stl | 1 x Left_Face_NEMA_17.stl |
-|---|---|
-| ![Left_Face.stl](stls/Left_Face.png) | ![Left_Face_NEMA_17.stl](stls/Left_Face_NEMA_17.png) 
+| 1 x Left_Face.stl |
+|---|
+| ![Left_Face.stl](stls/Left_Face.png) 
 
 
 
