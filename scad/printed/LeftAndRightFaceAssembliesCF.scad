@@ -38,7 +38,7 @@ module Front_Face_Joiner_stl() {
             frontSideJoinerHolePositions(_sidePlateThickness)
                 boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
             rotate([0, -90, 0])
-                frontFaceUpperHolePositions()
+                frontFaceSideHolePositions(-_frontPlateCFThickness)
                     vflip()
                         boltHoleM3Tap(eSizeY - _frontPlateCFThickness, horizontal=true, rotate=-90, chamfer_both_ends=false);
         }
@@ -52,9 +52,12 @@ module backFaceJoiner() {
         backSideJoinerHolePositions(_sidePlateThickness)
             boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
         translate([eY + 2*eSizeY, 0, 0])
-            rotate([0, -90, 0])
+            rotate([0, -90, 0]) {
                 backFaceCFSideHolePositions(0)
                     boltHoleM3Tap(eSizeY - _backPlateCFThickness, horizontal=true, rotate=-90, chamfer_both_ends=false);
+                backFaceAllHolePositions(0)
+                    boltHoleM3Tap(eSizeY - _backPlateCFThickness, horizontal=true, rotate=-90, chamfer_both_ends=false);
+            }
         for (y = motorUprightZipTiePositions())
             translate([eY + eSizeY-eps, y, eSizeXBase + 1])
                 zipTieCutout();
