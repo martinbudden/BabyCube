@@ -14,6 +14,7 @@ use <../scad/printed/Base.scad>
 use <../scad/printed/BackFace.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
 use <../scad/printed/FrontChords.scad>
+use <../scad/printed/FrontFace.scad>
 
 include <../scad/utils/CoreXYBelts.scad>
 include <../scad/utils/printParameters.scad>
@@ -29,6 +30,8 @@ module Left_Face_test() {
     //CoreXYBelts(carriagePosition());
 
     //zipTieCutout();
+    //Front_Face_CF_assembly();
+    //Back_Face_CF_assembly();
     if (_useCNC)
         Left_Face_CF_assembly();
     else
