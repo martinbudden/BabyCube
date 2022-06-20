@@ -69,24 +69,25 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
 
     module tongue(tongueSize, left, tFillet=4) {
         // add rail_width/2 to tongueSize.x to give a bit of extra length to the tongue for wider rails
-        translate([0, -tongueSize.y/2, 0])
-            chamfered_rounded_cube(tongueSize, fillet, chamfer);
+        extraY = isMGN9C(yCarriageType) ? 0 : 2;
+        translate([0, -tongueSize.y/2 - (left ? 0 : extraY), 0])
+            chamfered_rounded_cube(tongueSize + [0, extraY, 0], fillet, chamfer);
 
         //endStopSize = [tongueOffset + endStopOffsetX, tongueSize.y + (left ? 5.5 : 11), tongueSize.z];
         //translate([0, -(endStopSize.y - tongueSize.y), 0])
         //    rounded_cube_xy(endStopSize, fillet);
         fillet = isMGN9C(yCarriageType) ? 2 : tFillet;
-        filletE = endStopOffsetX == 0 ? fillet : 1;
+        filletE = fillet;//endStopOffsetX == 0 ? fillet : 1;
         xPos = blockSize.x/2 - blockOffset.x/2;
         xPosE = endStopOffsetX == 0 ? xPos : tongueOffset + endStopOffsetX;
         if (left) {
-            translate([xPosE, tongueSize.y/2, chamfer])
+            translate([xPosE, tongueSize.y/2 + extraY, chamfer])
                 fillet(filletE, tongueSize.z - 2*chamfer);
             translate([xPos, -tongueSize.y/2, chamfer])
                 rotate(-90)
                     fillet(fillet, tongueSize.z - 2*chamfer);
         } else {
-            translate([xPosE, -tongueSize.y/2, chamfer])
+            translate([xPosE, -tongueSize.y/2 - extraY, chamfer])
                 rotate(-90)
                     fillet(filletE, tongueSize.z - 2*chamfer);
             translate([xPos, tongueSize.y/2, chamfer])
