@@ -4,7 +4,7 @@ include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/utils/rounded_triangle.scad>
 include <NopSCADlib/vitamins/bearing_blocks.scad>
-include <NopSCADlib/vitamins/extrusions.scad>
+use <NopSCADlib/vitamins/extrusion.scad>
 include <NopSCADlib/vitamins/leadnuts.scad>
 use <NopSCADlib/vitamins/o_ring.scad>
 include <NopSCADlib/vitamins/screws.scad>
@@ -18,6 +18,8 @@ use <Z_carriage.scad>
 
 include <../Parameters_Main.scad>
 
+//                  W   H     d1     d2  sq    cw   cwi   t    st   f    recess
+E1515  = [ "E1515", 15, 15,  -3.3,    0, 5.5,  6.2,  9.5, 1.0, 0.9, 0.5, false ];
 
 AL6anodised = [ "AL6anodised",       "Aluminium tooling plate", 6, [0.3, 0.3, 0.3, 1 ], false];
 
@@ -30,6 +32,7 @@ printBed3pointBaseOffsetZ = underlayThickness + heatingPadThickness + sheet_thic
 
 heatedBedSize = _printBedSize == 120 ? [120, 120, 6] : _printBedSize == 180 ? [180, 180, 6] : [120, 120, 6];
 heatedBedHoleOffset = 5;
+heatedBedOffsetE1515 = 0;
 
 module headedBed() {
     size = heatedBedSize;
@@ -81,18 +84,39 @@ module extrusionOY(length, eSize=20) {
             extrusionOX(length, eSize);
 }
 
+module jointBoltHole() {
+    extrusionChannelDepth = (extrusion_width(E1515) - extrusion_center_square_wd(E1515))/2;
+    translate_z(extrusionChannelDepth - eps)
+        cylinder(d = 4, h = eSize - 2*extrusionChannelDepth + 2*eps);
+}
+
 module printbed3pointFrame() {
     scsSize = scs_size(scs_type);
-    yExtrusionLength = (floor(heatedBedSize.y/50) + 1)*50;
+    yExtrusionLength = (floor(heatedBedSize.y/50) + 1)*50 + heatedBedOffsetE1515;
     bracketThickness = 5;
 
-    for (x = [_zRodSeparation/2 - scs_hole_offset(scs_type) - eSize - bracketThickness - 1, scs_hole_offset(scs_type) + bracketThickness + 1 - _zRodSeparation/2])
-        translate([x, -scsSize.x/2, 0])
+    xs = [_zRodSeparation/2 - scs_hole_offset(scs_type) - eSize - bracketThickness, scs_hole_offset(scs_type) + bracketThickness - _zRodSeparation/2];
+    for (x = xs)
+        translate([x, -scsSize.x/2, 0]) {
             extrusionOY(yExtrusionLength, eSize);
+            translate([eSize/2, yExtrusionLength + 1.8, eSize/2])
+                rotate([-90, 0, 0]) {
+                    boltM4Buttonhead(12);
+                    vflip()
+                        washer(M4_washer);
+                }
+        }
 
-    xExtrusionLength = (floor(heatedBedSize.x/50) + 1)*50;
+    xExtrusionLength = (floor(heatedBedSize.x/10) + 1)*10;
     translate([-xExtrusionLength/2, yExtrusionLength - scsSize.x/2, 0])
-        extrusionOX(xExtrusionLength, eSize);
+        difference() {
+            extrusionOX(xExtrusionLength, eSize);
+            separation = xs[0] - xs[1];
+            for (x = [(xExtrusionLength + separation)/2, (xExtrusionLength - separation)/2])
+                translate([x, 0, eSize/2])
+                    rotate([-90,0,0])
+                        jointBoltHole();
+        }
 }
 
 module scs_bearing_block_hole_positions_x(type) {
@@ -239,7 +263,7 @@ module Printbed_Frame_stl() {
 
 module Printbed_Bracket_stl() {
     scsSize = scs_size(scs_type);
-    cubeSize = [_zRodSeparation - scsSize.y - 2, 25, 5];
+    cubeSize = [_zRodSeparation - scsSize.y - 2, 45, 5];
     armSize = [10, (floor(heatedBedSize.y/50) + 1)*50, eSize];
     frameOffsetX = _zRodSeparation/2  - scsSize.y/2 - 1;
 
@@ -247,21 +271,23 @@ module Printbed_Bracket_stl() {
         color(pp1_colour) {
             linear_extrude(cubeSize.z)
                 difference() {
-                    rounded_square(vec2(cubeSize), 3, center=true);
+                    translate([0, 0.5, 0])
+                        rounded_square(vec2(cubeSize), 1, center=true);
                     circle(d=leadnut_od(leadnut));
                     leadnut_screw_positions(leadnut)
                         circle(r=M3_tap_radius);
                 }
             translate_z(-eSize)
-                printBed3pointFrameSideBrackets(armSize, frameOffsetX);
+                printBed3pointFrameSideBrackets(undef, frameOffsetX);
         }
 }
 
-module Print_bed_3_point_bed() {
+module Print_bed_3_point_bed(y=0) {
     scsSize = scs_size(scs_type);
     yExtrusionLength = (floor(heatedBedSize.y/50) + 1)*50;
-    translate([0, yExtrusionLength - heatedBedSize.y/2 + eSize/2 + heatedBedHoleOffset - scsSize.x/2, eSize]) {
+    translate([0, y + yExtrusionLength - heatedBedSize.y/2 + eSize/2 + heatedBedHoleOffset - scsSize.x/2, eSize]) {
         printBedSize = 120;
+        //Heated_Bed();
         explode(10, true)
             corkUnderlay([heatedBedSize.x, heatedBedSize.y, underlayThickness], printBedSize)
                 explode(10, true)
@@ -316,9 +342,13 @@ assembly("Print_bed_3_point") {
 
     translate([eX/2 + eSizeX, eY + 2*eSizeY - _zLeadScrewOffset, -eSize - printBed3pointBaseOffsetZ]) // this moves it to the back face
         rotate(180) {
-            Print_bed_3_point_hardware(scsOffset=-scs_screw_separation_z(scs_type)/2);
-            printbed3pointFrame();
-            translate_z(eSize)
+            //Print_bed_3_point_hardware(scsOffset=-scs_screw_separation_z(scs_type)/2);
+            Print_bed_3_point_hardware(-eSize/2 + leadnutInset, (eSize - scs_size(scs_type).z)/2);
+            translate_z((eSize + scs_screw_separation_z(scs_type) - scs_size(scs_type).z)/2) {
+                printbed3pointFrame();
+                Print_bed_3_point_bed(heatedBedOffsetE1515);
+            }
+            *translate_z(eSize)
                 stl_colour(pp1_colour)
                     Printbed_Bracket_stl();
         }
