@@ -59,6 +59,24 @@ PRINTBED120/dxfs/*_diff.png
 !PRINTBED120/stls/*.png
 PRINTBED120/stls/*_diff.png
 
+PRINTBED120E15/assemblies/*
+PRINTBED120E15/bom/
+PRINTBED120E15/dxfs/*
+PRINTBED120E15/stls/*
+PRINTBED120E15/tmp/
+PRINTBED120E15/*.html
+# change to !, except for _diff, .stl, and .dxf, once released
+!PRINTBED120E15/readme.md
+!PRINTBED120E15/assemblies/main_assembled.png
+!PRINTBED120E15/assemblies/*.png
+PRINTBED120E15/assemblies/*_diff.png
+#!PRINTBED120E15/dxfs/*.dxf
+!PRINTBED120E15/dxfs/*.png
+PRINTBED120E15/dxfs/*_diff.png
+#!PRINTBED120E15/stls/*.stl
+!PRINTBED120E15/stls/*.png
+PRINTBED120E15/stls/*_diff.png
+
 BC200NEMA17/
 
 BC200/assemblies/*
