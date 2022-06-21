@@ -4,5 +4,5 @@ $extrusion_width = 0.5; // note $fs=extrusion_width/2
 
 $pp1_colour     = "gold";
 $pp2_colour     = "orange";
-$pp3_colour     = "skyblue";
-$pp4_colour     = "steelblue";
+$pp3_colour     = "SkyBlue";
+$pp4_colour     = "SteelBlue";

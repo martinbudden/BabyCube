@@ -23,7 +23,7 @@ module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17_47, motorOffsetZ = 3, motorR
 
     baseSize = extruderBaseSize();
 
-    motorholeOffset = NEMA_hole_pitch(NEMA17_40);
+    motorHoleOffset = NEMA_hole_pitch(NEMA17_40);
     bowdenOffset = extruderFilamentOffset();
     fenceOffset = [0, baseSize.y / 2 - 15, baseSize.z];
     fenceSize = [baseSize.x, 5, 12];
@@ -173,7 +173,7 @@ module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17_47, motorOffsetZ = 3, motorR
                 translate([springOffset.x, 5, springOffset.z])
                     rotate([-90, 0, 0])
                         cylinder(r=M3_tap_radius, h=5);
-                translate([motorholeOffset / 2, 6, baseSize.z]) {
+                translate([motorHoleOffset / 2, 6, baseSize.z]) {
                     cylinder(d=5, h=15.5);
                     translate_z(15.5)
                         cylinder(d=8.5, h=5);
@@ -186,7 +186,7 @@ module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17_47, motorOffsetZ = 3, motorR
             translate([springOffset.x, 8, springOffset.z])
                 rotate([-90, 0, 0])
                     screw(M3_dome_screw, 10);
-            translate([motorholeOffset / 2, 1, baseSize.z])
+            translate([motorHoleOffset / 2, 1, baseSize.z])
                 bushing();
         }
         translate(pulleyOffset) {
@@ -210,7 +210,7 @@ module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17_47, motorOffsetZ = 3, motorR
                         circle(r=NEMA_boss_radius(NEMA17_40));
                     }
                 }
-                translate([-motorholeOffset / 2, -motorholeOffset / 2, baseSize.z])
+                translate([-motorHoleOffset / 2, -motorHoleOffset / 2, baseSize.z])
                     screw_countersink(M3_cs_cap_screw);
             }
 
@@ -229,9 +229,9 @@ module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17_47, motorOffsetZ = 3, motorR
 
         translate_z(baseSize.z) {
             for (i = [ [-1, 1, 0], [1, 1, 0] ])
-                translate(i * motorholeOffset / 2)
+                translate(i * motorHoleOffset / 2)
                     screw(M3_dome_screw, 10);
-            translate([-motorholeOffset / 2, -motorholeOffset / 2, 0])
+            translate([-motorHoleOffset / 2, -motorHoleOffset / 2, 0])
                 screw(M3_cs_cap_screw, 10);
         }
 
