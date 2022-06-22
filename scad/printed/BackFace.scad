@@ -178,7 +178,7 @@ module backFaceUpperBrackets(NEMA_width) {
     rectSize = [eX + 2*eSizeX - 2*fcHeight, upperChordSize.y - _topPlateThickness-sk_size(SK_type).z - 1, reinforcementThickness];
 
     translate([fcHeight, eY + 2*eSizeY - upperChordSize.y, 0])
-        #rounded_cube_xy(rectSize, 1);
+        rounded_cube_xy(rectSize, 1);
 
     difference() {
         union() {
