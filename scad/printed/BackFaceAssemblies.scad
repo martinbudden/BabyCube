@@ -176,8 +176,8 @@ assembly("Back_Face_CF_Stage_1", big=true) {
 
 //!1. Slide the linear rods through the SK brackets and the printbed bearings.
 //!2. Tighten the bolts in the SK brackets, ensuring the **Z_Carriage** slides freely on the rods.
-//!3. Place the cork damper on the stepper motor and thread the lead screw through the leadnut and attach the stepper motor to the
-//!**Back_Face**. Note the orientation of the JST socket.
+//!3. Place the cork damper on the stepper motor and thread the lead screw through the leadnut and attach the stepper
+//!motor to the **Back_Face**. Note the orientation of the JST socket.
 //
 module Back_Face_CF_assembly(bedHeight=bedHeight())
 assembly("Back_Face_CF", big=true) {
