@@ -106,7 +106,7 @@ BC200CF/tmp/
 BC200CF/*.html
 # change to !, except for _diff, .stl, and .dxf, once released
 BC200CF/readme.md
-!BC200CF/assemblies/BC200CF_assembly.png
+#!BC200CF/assemblies/BC200CF_assembly.png
 !BC200CF/assemblies/BC200CF_assembled.png
 #!BC200CF/assemblies/*.png
 BC200CF/assemblies/*_diff.png
