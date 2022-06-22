@@ -27,17 +27,22 @@ This is a alternative print bed for the BabyCube. It uses the same 120 x 120 x 6
 ## Parts list
 
 | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed 3 Point</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">TOTALS</span> |  |
-|-----:|------:|:---|
+|-----:|------:|:-------------|
 |      |       | **Vitamins** |
 |   1  |    1  |  Aluminium tooling plate 120mm x 120mm x 6mm |
 |   4  |    4  |  Bolt M3 caphead x  8mm |
 |   4  |    4  |  Bolt M3 caphead x 35mm |
+|   2  |    2  |  Bolt M4 buttonhead x 12mm |
 |   4  |    4  |  Bolt M5 countersunk x 12mm |
+|   1  |    1  |  Cork underlay 120mm x 120mm x 3mm |
 |   1  |    1  |  Extrusion E1515 x 130mm |
-|   2  |    2  |  Extrusion E1515 x 155mm |
+|   2  |    2  |  Extrusion E1515 x 150mm |
+|   1  |    1  |  Heating pad 100mm x 100mm |
 |   1  |    1  |  Leadscrew nut 8 x 2 |
+|   1  |    1  |  Magnetic base 120mm x 120mm |
 |   2  |    2  |  SCS12UU bearing block |
-|  19  |   19  | Total vitamins count |
+|   2  |    2  |  Washer M4 |
+|  26  |   26  | Total vitamins count |
 
 <span></span>
 [Top](#TOP)
@@ -49,17 +54,21 @@ This is a alternative print bed for the BabyCube. It uses the same 120 x 120 x 6
 
 ### Vitamins
 
-|Qty|Description|
-|---:|:----------|
-|1| Aluminium tooling plate 120mm x 120mm x 6mm|
-|4| Bolt M3 caphead x  8mm|
-|4| Bolt M3 caphead x 35mm|
-|4| Bolt M5 countersunk x 12mm|
-|1| Extrusion E1515 x 130mm|
-|2| Extrusion E1515 x 155mm|
-|1| Leadscrew nut 8 x 2|
-|2| SCS12UU bearing block|
-
+| Qty | Description |
+|----:|:------------|
+|   1 | Aluminium tooling plate 120mm x 120mm x 6mm |
+|   4 | Bolt M3 caphead x  8mm |
+|   4 | Bolt M3 caphead x 35mm |
+|   2 | Bolt M4 buttonhead x 12mm |
+|   4 | Bolt M5 countersunk x 12mm |
+|   1 | Cork underlay 120mm x 120mm x 3mm |
+|   1 | Extrusion E1515 x 130mm |
+|   2 | Extrusion E1515 x 150mm |
+|   1 | Heating pad 100mm x 100mm |
+|   1 | Leadscrew nut 8 x 2 |
+|   1 | Magnetic base 120mm x 120mm |
+|   2 | SCS12UU bearing block |
+|   2 | Washer M4 |
 
 ### Assembly instructions
 
