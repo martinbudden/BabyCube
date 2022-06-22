@@ -4,7 +4,7 @@ include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/utils/rounded_triangle.scad>
 include <NopSCADlib/vitamins/bearing_blocks.scad>
-use <NopSCADlib/vitamins/extrusion.scad>
+include <NopSCADlib/vitamins/extrusions.scad>
 include <NopSCADlib/vitamins/leadnuts.scad>
 use <NopSCADlib/vitamins/o_ring.scad>
 include <NopSCADlib/vitamins/screws.scad>
@@ -17,9 +17,6 @@ include <Printbed.scad>
 use <Z_carriage.scad>
 
 include <../Parameters_Main.scad>
-
-//                  W   H     d1     d2  sq    cw   cwi   t    st   f    recess
-E1515  = [ "E1515", 15, 15,  -3.3,    0, 5.5,  6.2,  9.5, 1.0, 0.9, 0.5, false ];
 
 AL6anodised = [ "AL6anodised",       "Aluminium tooling plate", 6, [0.3, 0.3, 0.3, 1 ], false];
 
@@ -370,14 +367,15 @@ assembly("Print_bed_3_point_printed_stage_1") {
             }
 }
 
-//!1. Prepare the the cork underlay by cutting it to size, making a cutout for the heated bed wiring, and drilling holes for the bolts.
+//!1. Prepare the the cork underlay by cutting it to size, making a cutout for the heated bed wiring, and drilling holes
+//!for the bolts.
 //!2. Attach the magnetic base to the top side of the aluminium tooling plate.
 //!3. Attach the heating pad to the bottom side of the tooling plate.
 //!4. Place the cork underlay on the **Printbed_Frame** and place the tooling plate on top.
-//!5. Secure the tooling plate to the **Printbed_Frame**, using the bolts and O-rings. Note that the O-rings allow bed leveling and help thermally
-//!   insulate the heated bed from the **Printbed_Frame**.
+//!5. Secure the tooling plate to the **Printbed_Frame**, using the bolts and O-rings. Note that the O-rings allow bed
+//!leveling and help thermally insulate the heated bed from the **Printbed_Frame**.
 //!6. Secure the heating pad wiring to the underside of the **Printbed_Frame** using a cable tie.
-//!
+//
 module Print_bed_3_point_printed_assembly()
 assembly("Print_bed_3_point_printed") {
     vflip()

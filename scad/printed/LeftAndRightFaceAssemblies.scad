@@ -94,7 +94,6 @@ rpi_camera_zero = ["rpi_camera_zero", "Raspberry Pi Zero camera", rpi_camera_zer
 ];
 
 
-//!
 //!1. Place the cork damper on the stepper motor and bolt the motor to the frame.
 //! Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
 //! Note orientation of the JST connector.
@@ -138,7 +137,8 @@ module rightFaceStage1Assembly() {
 //! Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
 //! Note orientation of the JST connector.
 //!2. Attach the toothed idler pulleys to the frame, separated by the washers as shown.
-//!3. Thread the zip ties through the frame, but do not tighten them yet, since the extruder motor cable will also go through the zip ties.
+//!3. Thread the zip ties through the frame, but do not tighten them yet, since the extruder motor cable will also go through
+//!the zip ties.
 module Right_Face_Stage_1_assembly() pose(a=[55, 0, 25 + 260])
 assembly("Right_Face_Stage_1", big=true, ngb=true) {
 
@@ -173,7 +173,8 @@ module rightFaceHardware(NEMA_type, cnc=false) {
 }
 
 //!1. Attach the extruder gear to the stepper motor.
-//!2. Place the cork damper on the stepper motor and attach the motor through the frame to the extruder. Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
+//!2. Place the cork damper on the stepper motor and attach the motor through the frame to the extruder. Note the cork
+//!damper is important as it provides thermal insulation between the stepper motor and the frame.
 //!3. Secure the cables for both motors with the zip ties.
 module Right_Face_assembly()
 assembly("Right_Face") {

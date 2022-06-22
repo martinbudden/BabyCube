@@ -2,9 +2,9 @@
 //!
 //!**Note that the Carbon Fiber BabyCube is very much a work in progress.**
 //!
-//!These are the assembly instructions for the Carbon Fiber BabyCube. These instructions are not fully comprehensive, that is they do
-//!not show every small detail of the construction, and in particular they do not show the wiring. However there is sufficient
-//!detail that someone with a good understanding of 3D printers can build the BabyCube.
+//!These are the assembly instructions for the Carbon Fiber BabyCube. These instructions are not fully comprehensive, that
+//!is they do not show every small detail of the construction, and in particular they do not show the wiring. However there
+//!is sufficient detail that someone with a good understanding of 3D printers can build the BabyCube.
 //!
 //!![BC200CF Assembly](assemblies/BC200CF_assembled.png)
 //

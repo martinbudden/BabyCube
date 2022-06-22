@@ -65,15 +65,16 @@ assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
     topFaceAssembly(NEMA_width(NEMA17_40));
 }
 
-//! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable so be sure
-//! to attach them as shown in the diagram.
+//! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable
+//! so be sure to attach them as shown in the diagram.
 //!
-//! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not accessible.  
-//! Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a washer under
-//! each of the upper pulleys, but not on top of those pulleys.
+//! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not
+//! accessible.  
+//! Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a
+//! washer under each of the upper pulleys, but not on top of those pulleys.
 //!
-//! Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16 of a turn)
-//! so they run freely.
+//! Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16
+//! of a turn) so they run freely.
 //
 module Top_Face_Stage_2_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_Stage_2", big=true, ngb=true) {
@@ -85,15 +86,16 @@ assembly("Top_Face_Stage_2", big=true, ngb=true) {
     yCarriageRightAssembly(NEMA_width(NEMA14_36), t);
 }
 
-//! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable so be sure
-//! to attach them as per the diagram.
+//! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable
+//! so be sure to attach them as per the diagram.
 //!
-//! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not accessible.  
-//! Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a washer under
-//! each pulley, but not on top of the pulley.
+//! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not
+//! accessible.  
+//! Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a
+//! washer under each pulley, but not on top of the pulley.
 //!
-//! Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16 of a turn)
-//! so they run freely.
+//! Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16
+//! of a turn) so they run freely.
 //
 module Top_Face_NEMA_17_Stage_2_assembly() pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
@@ -109,8 +111,8 @@ assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
 //!2. Bolt the X-axis linear rail onto the Y carriages.
 //!3. Turn the Top_Face upside down again and place it on a flat surface.
 //!4. Align the left and right Y-axis linear rails. Do this by pushing the X-axis rail to the rear of the **Top_Face** and tighten
-//!the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the **Top_Face**, again
-//!tightening the corresponding bolts.
+//!the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the **Top_Face**,
+//!again tightening the corresponding bolts.
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
 //
 module Top_Face_assembly(t=undef)
@@ -160,12 +162,13 @@ assembly("Top_Face_CF_Stage_1", big=true) {
         boltM3Buttonhead(8);
 }
 
-//! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable so be sure
-//! to attach them as per the diagram.
+//! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable
+//! so be sure to attach them as per the diagram.
 //!
-//! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not accessible.  
-//! Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a washer under
-//! each pulley, but not on top of the pulley.
+//! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not
+//! accessible.  
+//! Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a
+//! washer under each pulley, but not on top of the pulley.
 //!
 //! Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16 of a turn)
 //! so they run freely.
@@ -184,8 +187,8 @@ assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
 //!2. Bolt the X-axis linear rail onto the **Y_carriages**.
 //!3. Turn the Top_Face upside down again and place it on a flat surface.
 //!4. Align the left and right Y-axis linear rails. Do this by pushing the X-axis rail to the rear of the top face and tighten
-//!the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the top face, again
-//!tightening the corresponding bolts.
+//!the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the top face,
+//!again tightening the corresponding bolts.
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
 //
 module Top_Face_CF_assembly(t=undef)
