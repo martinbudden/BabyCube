@@ -28,7 +28,7 @@ This is a alternative print bed for the BabyCube. It uses the same 120 x 120 x 6
 ## Parts list
 
 | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed 3 Point Printed Stage 1</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed 3 Point Printed</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">TOTALS</span> |  |
-|-----:|-----:|------:|:---|
+|-----:|-----:|------:|:-------------|
 |      |      |       | **Vitamins** |
 |   .  |   1  |    1  |  Aluminium tooling plate 120mm x 120mm x 6mm |
 |   4  |   .  |    4  |  Bolt M3 caphead x  8mm |
@@ -57,29 +57,26 @@ This is a alternative print bed for the BabyCube. It uses the same 120 x 120 x 6
 
 ### Vitamins
 
-|Qty|Description|
-|---:|:----------|
-|4| Bolt M3 caphead x  8mm|
-|4| Bolt M3 caphead x 35mm|
-|4| Bolt M5 countersunk x 12mm|
-|1| Leadscrew nut 8 x 2|
-|2| SCS12UU bearing block|
-
+| Qty | Description |
+|----:|:------------|
+|   4 | Bolt M3 caphead x  8mm |
+|   4 | Bolt M3 caphead x 35mm |
+|   4 | Bolt M5 countersunk x 12mm |
+|   1 | Leadscrew nut 8 x 2 |
+|   2 | SCS12UU bearing block |
 
 ### 3D Printed parts
 
 | 1 x Printbed_Frame.stl |
-|---|
-| ![Printbed_Frame.stl](stls/Printbed_Frame.png) 
-
-
+|----------|
+| ![Printbed_Frame.stl](stls/Printbed_Frame.png) |
 
 ### Assembly instructions
 
 ![Print_bed_3_point_printed_stage_1_assembly](assemblies/Print_bed_3_point_printed_stage_1_assembly.png)
 
-1. Bolt the bearing blocks to the sides of the printed frame.
-2. Insert the leadnut and bolt it to the frame.
+1. Bolt the bearing blocks to the sides of the **Printbed_Frame**.
+2. Insert the leadnut and bolt it to the **Printbed_Frame**.
 
 ![Print_bed_3_point_printed_stage_1_assembled](assemblies/Print_bed_3_point_printed_stage_1_assembled.png)
 
@@ -93,35 +90,34 @@ This is a alternative print bed for the BabyCube. It uses the same 120 x 120 x 6
 
 ### Vitamins
 
-|Qty|Description|
-|---:|:----------|
-|1| Aluminium tooling plate 120mm x 120mm x 6mm|
-|3| Bolt M3 countersunk x 12mm|
-|1| Cork underlay 120mm x 120mm x 3mm|
-|1| Heating pad 100mm x 100mm|
-|1| Magnetic base 120mm x 120mm|
-|9| O-ring nitrile 3mm x 2mm|
-|1| Ziptie 2.5mm x 100mm min length|
-
+| Qty | Description |
+|----:|:------------|
+|   1 | Aluminium tooling plate 120mm x 120mm x 6mm |
+|   3 | Bolt M3 countersunk x 12mm |
+|   1 | Cork underlay 120mm x 120mm x 3mm |
+|   1 | Heating pad 100mm x 100mm |
+|   1 | Magnetic base 120mm x 120mm |
+|   9 | O-ring nitrile 3mm x 2mm |
+|   1 | Ziptie 2.5mm x 100mm min length |
 
 ### Sub-assemblies
 
 | 1 x Print_bed_3_point_printed_stage_1_assembly |
-|---|
-| ![Print_bed_3_point_printed_stage_1_assembled](assemblies/Print_bed_3_point_printed_stage_1_assembled_tn.png) 
-
-
+|----------|
+| ![Print_bed_3_point_printed_stage_1_assembled](assemblies/Print_bed_3_point_printed_stage_1_assembled_tn.png) |
 
 ### Assembly instructions
 
 ![Print_bed_3_point_printed_assembly](assemblies/Print_bed_3_point_printed_assembly.png)
 
-1. Prepare the the cork underlay by cutting it to size, making a cutout for the heated bed wiring, and drilling holes for the bolts.
+1. Prepare the the cork underlay by cutting it to size, making a cutout for the heated bed wiring, and drilling holes
+for the bolts.
 2. Attach the magnetic base to the top side of the aluminium tooling plate.
 3. Attach the heating pad to the bottom side of the tooling plate.
-4. Place the cork underlay on the printed frame and place the tooling plate on top.
-5. Secure the tooling plate to the frame, using the bolts and O-rings. Note that the O-rings allow bed leveling and help thermally insulate the heated bed from the frame.
-6. Secure the heating pad wiring to the underside of the frame using a cable tie.
+4. Place the cork underlay on the **Printbed_Frame** and place the tooling plate on top.
+5. Secure the tooling plate to the **Printbed_Frame**, using the bolts and O-rings. Note that the O-rings allow bed
+leveling and help thermally insulate the heated bed from the **Printbed_Frame**.
+6. Secure the heating pad wiring to the underside of the **Printbed_Frame** using a cable tie.
 
 ![Print_bed_3_point_printed_assembled](assemblies/Print_bed_3_point_printed_assembled.png)
 
