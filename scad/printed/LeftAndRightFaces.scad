@@ -1,6 +1,7 @@
 include <../global_defs.scad>
 
-include <NopSCADlib/core.scad>
+include <../vitamins/bolts.scad>
+
 use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/iecs.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
@@ -13,7 +14,6 @@ include <../utils/diagonal.scad>
 include <../utils/HolePositions.scad>
 include <../utils/motorTypes.scad>
 
-include <../vitamins/bolts.scad>
 include <../vitamins/inserts.scad>
 
 use <SwitchShroud.scad>

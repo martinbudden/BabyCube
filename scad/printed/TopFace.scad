@@ -1,5 +1,7 @@
 include <../global_defs.scad>
 
+include <../vitamins/bolts.scad>
+
 use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/ball_bearings.scad>
 include <NopSCADlib/vitamins/sheets.scad>
@@ -9,8 +11,6 @@ include <../utils/carriageTypes.scad>
 include <../utils/cutouts.scad>
 include <../utils/HolePositions.scad>
 include <../utils/motorTypes.scad>
-
-include <../vitamins/bolts.scad>
 
 use <XY_IdlerBracket.scad>
 

@@ -3,11 +3,12 @@ include <../global_defs.scad>
 
 use <NopSCADlib/utils/fillet.scad>
 
-include <NopSCADlib/vitamins/ball_bearings.scad>
-include <NopSCADlib/vitamins/rails.scad>
-include <NopSCADlib/vitamins/pulleys.scad>
-
 include <../vitamins/bolts.scad>
+
+include <NopSCADlib/vitamins/ball_bearings.scad>
+include <NopSCADlib/vitamins/pulleys.scad>
+include <NopSCADlib/vitamins/rails.scad>
+
 include <../vitamins/inserts.scad>
 
 

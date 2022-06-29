@@ -1,5 +1,9 @@
 //! Display the print head
 
+include <../scad/global_defs.scad>
+
+include <NopSCADlib/utils/core/core.scad>
+include <NopSCADlib/vitamins/screws.scad>
 include <../scad/utils/carriageTypes.scad>
 
 include <NopSCADlib/vitamins/blowers.scad>

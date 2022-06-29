@@ -1,6 +1,6 @@
 include <../global_defs.scad>
 
-include <../utils/carriageTypes.scad>
+include <Printhead.scad>
 
 include <NopSCADlib/vitamins/blowers.scad>
 use <NopSCADlib/vitamins/wire.scad>
@@ -10,7 +10,8 @@ include <../utils/X_rail.scad>
 
 include <../vitamins/pcbs.scad>
 
-include <Printhead.scad>
+include <../utils/carriageTypes.scad>
+
 use <X_CarriageBeltAttachment.scad>
 use <X_CarriageAssemblies.scad>
 

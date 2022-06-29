@@ -3,6 +3,7 @@
 include <../scad/global_defs.scad>
 
 include <NopSCADlib/utils/core/core.scad>
+include <NopSCADlib/vitamins/screws.scad>
 use <NopSCADlib/utils/core_xy.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 

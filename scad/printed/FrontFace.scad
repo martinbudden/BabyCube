@@ -1,15 +1,15 @@
 include <../global_defs.scad>
 
-include <NopSCADlib/utils/core/core.scad>
+include <../vitamins/bolts.scad>
+
 use <NopSCADlib/utils/dogbones.scad>
 include <NopSCADlib/vitamins/displays.scad>
+include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/rockers.scad>
 include <NopSCADlib/vitamins/sheets.scad>
 
 include <../utils/cutouts.scad>
 include <../utils/HolePositions.scad>
-
-include <../vitamins/bolts.scad>
 
 use <DisplayHousing.scad>
 use <DisplayHousingAssemblies.scad>

@@ -13,7 +13,7 @@ use <../scad/MainAssemblyCF.scad>
 //$pose = 1;
 module Main_test() {
     echoPrintSize();
-    //echoPrintParameters();
+    echoPrintParameters();
 
     //Stage_1_CF_assembly();
     //Stage_1_assembly();

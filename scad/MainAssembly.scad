@@ -1,6 +1,6 @@
 include <global_defs.scad>
 
-include <NopSCADlib/utils/core/core.scad>
+include <vitamins/bolts.scad>
 
 use <printed/BackFace.scad>
 use <printed/BackFaceAssemblies.scad>
@@ -14,9 +14,7 @@ use <printed/TopFaceAssemblies.scad>
 use <printed/X_CarriageAssemblies.scad>
 
 include <utils/CoreXYBelts.scad>
-use <utils/HolePositions.scad>
-
-include <vitamins/bolts.scad>
+include <utils/HolePositions.scad>
 
 use <Parameters_Positions.scad>
 
