@@ -2,6 +2,7 @@
 include <../global_defs.scad>
 
 include <NopSCADlib/utils/core/core.scad>
+include <NopSCADlib/vitamins/screws.scad>
 include <NopSCADlib/vitamins/spools.scad>
 
 include <../utils/bezierTube.scad>

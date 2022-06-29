@@ -1,5 +1,7 @@
 include <../global_defs.scad>
 
+include <../vitamins/bolts.scad>
+
 use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/e3d.scad>
 include <NopSCADlib/vitamins/fans.scad>
@@ -8,8 +10,6 @@ include <NopSCADlib/vitamins/blowers.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
 include <../utils/ziptieCutout.scad>
-
-include <../vitamins/bolts.scad>
 
 use <X_Carriage.scad>
 

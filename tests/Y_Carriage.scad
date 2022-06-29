@@ -1,11 +1,7 @@
 //! Display the Y carriages
 
-include <../scad/utils/carriageTypes.scad>
-
-include <NopSCADlib/vitamins/pulleys.scad>
-
-use <../scad/printed/Y_Carriage.scad>
-use <../scad/printed/Y_CarriageAssemblies.scad>
+include <../scad/printed/Y_Carriage.scad>
+include <../scad/printed/Y_CarriageAssemblies.scad>
 
 include <../scad/utils/CoreXYBelts.scad>
 
