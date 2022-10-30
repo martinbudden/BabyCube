@@ -13,6 +13,7 @@ Thumbs.db
 *.echo
 *.3mf
 times.txt
+cmd_times.txt
 
 .vscode/
 
