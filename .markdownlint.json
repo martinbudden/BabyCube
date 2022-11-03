@@ -1,6 +1,6 @@
 {
     "default": true,
-    "line-length": { "line_length": 120, "tables": false },
+    "line-length": { "line_length": 240, "tables": false },
     "no-duplicate-heading": { "siblings_only": true },
     "no-inline-html": { "allowed_elements": ["a", "br", "img", "span", "sup"] },
     "first-line-heading": false

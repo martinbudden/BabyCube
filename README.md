@@ -8,16 +8,20 @@ The **BabyCube** is a small 3D-printed CoreXY 3D printer with a linear rails mot
 
 The BabyCube has a print volume of just over 90mm by 80mm by 60mm.
 
-The BOM cost is approximately £290 with a genuine E3D hotend (or about £250 with a generic E3D compatible hotend), this does not include the cost of filament for printing parts, see [spreadsheet](documents/BabyCube200_BOM.ods). Price is current for May 2021.
+The BOM cost is approximately £290 with a genuine E3D hotend (or about £250 with a generic E3D compatible hotend), this
+does not include the cost of filament for printing parts, see [spreadsheet](documents/BabyCube200_BOM.ods). Price is
+current for May 2021.
 
 The dimensions of the cube are 220mm by 204mm by 203mm, and the enclosing volume (including the display, extruder,
 and feet, but excluding the spool holder, Bowden tube and hotend wiring) is about 248mm by 272mm by 211mm.
 
-Although the BabyCube is small and has a 3D printed frame, it is not a toy. It is an engineered machine capable of producing high quality prints.
+Although the BabyCube is small and has a 3D printed frame, it is not a toy. It is an engineered machine capable of
+producing high quality prints.
 
 ## Assembly instructions
 
-The assembly instructions and the BOM (parts list) are [here](BC200/readme.md). Please read all the build instructions before you begin assembly.
+The assembly instructions and the BOM (parts list) are [here](BC200/readme.md). Please read all the build instructions
+before you begin assembly.
 
 The STL files are on [thingiverse](https://www.thingiverse.com/thing:4911835).
 
@@ -41,7 +45,9 @@ If you would like to build a bigger printer, you may be interested in the BabyCu
 The primary design goal was to produce a small 3D printer with a printable frame, external dimensions of approximately
 200mm by 200mm by 200mm, and a target print volume of approximately 75mm by 75mm by 75mm.
 
-The aim was that BabyCube could be printed on "standard" size printers, that is printers with a bed size of approximately 220mm by 220mm, such as the Ender 3 (print volume 220mm by 220mm by 250mm) and the Prusa i3 (print volume 250mm by 210mm by 210mm).
+The aim was that BabyCube could be printed on "standard" size printers, that is printers with a bed size of approximately
+220mm by 220mm, such as the Ender 3 (print volume 220mm by 220mm by 250mm) and the Prusa i3 (print volume 250mm by
+210mm by 210mm).
 
 I printed my BabyCube on a BIQU B1 (which is similar to an Ender 3).
 
@@ -89,9 +95,11 @@ Further design goals:
 
 ## Variants
 
-The standard variant of the BabyCube uses and OpenBuilds 100 x 100 mm heated bed, however it is also possible to use a 120 x 120 x 6 mm aluminium tooling plate with a heating pad, see [printbed 120](PRINTBED120/readme.md).
+The standard variant of the BabyCube uses and OpenBuilds 100 x 100 mm heated bed, however it is also possible to use a
+120 x 120 x 6 mm aluminium tooling plate with a heating pad, see [printbed 120](PRINTBED120/readme.md).
 
-The standard variant uses a BigTreeTech SKR Mini E3 v2.0 controller, however it is also possible to use the BigTreeTech SKR v1.4 (and Turbo) and BigTreeTech E3 Turbo controllers.
+The standard variant uses a BigTreeTech SKR Mini E3 v2.0 controller, however it is also possible to use the BigTreeTech
+SKR v1.4 (and Turbo) and BigTreeTech E3 Turbo controllers.
 
 The standard variant uses an E3D v6 hotend, but other groovemount based hotends could be used.
 
