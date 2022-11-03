@@ -53,10 +53,10 @@ PRINTBED120/*.html
 !PRINTBED120/assemblies/main_assembled.png
 !PRINTBED120/assemblies/*.png
 PRINTBED120/assemblies/*_diff.png
-#!PRINTBED120/dxfs/*.dxf
+!PRINTBED120/dxfs/*.dxf
 !PRINTBED120/dxfs/*.png
 PRINTBED120/dxfs/*_diff.png
-#!PRINTBED120/stls/*.stl
+!PRINTBED120/stls/*.stl
 !PRINTBED120/stls/*.png
 PRINTBED120/stls/*_diff.png
 
@@ -91,10 +91,10 @@ BC200/*.html
 !BC200/assemblies/main_assembled.png
 !BC200/assemblies/*.png
 BC200/assemblies/*_diff.png
-#!BC200/dxfs/*.dxf
+!BC200/dxfs/*.dxf
 !BC200/dxfs/*.png
 BC200/dxfs/*_diff.png
-#!BC200/stls/*.stl
+!BC200/stls/*.stl
 !BC200/stls/*.png
 BC200/stls/*_diff.png
 
