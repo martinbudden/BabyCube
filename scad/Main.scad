@@ -20,9 +20,9 @@
 //!### Parts in proximity to heat sources
 //!
 //!A number of parts are in proximity with heat sources, namely the hotend, the heated bed and the motors. Ideally these
-//! should be printed in ABS, but I have used successfully used PETG.  These parts are insulated from direct contact with
-//! the heat sources, by O-rings and cork underlay (for the heated bed) and by cork dampers (for the motors). These
-//! insulators should not be omitted from the build.
+//!should be printed in ABS, but I have used successfully used PETG.  These parts are insulated from direct contact with
+//!the heat sources, by O-rings and cork underlay (for the heated bed) and by cork dampers (for the motors). These
+//!insulators should not be omitted from the build.
 //!
 //!### Small parts
 //!
