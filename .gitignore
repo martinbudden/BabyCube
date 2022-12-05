@@ -15,7 +15,7 @@ Thumbs.db
 times.txt
 cmd_times.txt
 
-.vscode/
+# .vscode/
 
 documents/*
 !documents/MarlinConfiguration.md
