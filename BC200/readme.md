@@ -279,6 +279,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 | 1 x Fan_Duct.stl | 1 x Hotend_Clamp.stl | 1 x Hotend_Strain_Relief_Clamp.stl |
 |----------|----------|----------|
 | ![Fan_Duct.stl](stls/Fan_Duct.png) | ![Hotend_Clamp.stl](stls/Hotend_Clamp.png) | ![Hotend_Strain_Relief_Clamp.stl](stls/Hotend_Strain_Relief_Clamp.png) |
+
 | 1 x X_Carriage_Groovemount_MGN9C.stl |
 |----------|
 | ![X_Carriage_Groovemount_MGN9C.stl](stls/X_Carriage_Groovemount_MGN9C.png) |
@@ -384,6 +385,7 @@ is aligned when the X axis rail is added.
 | 1 x Y_Carriage_Brace_Left.stl | 1 x Y_Carriage_Brace_Right.stl | 1 x Y_Carriage_Left.stl |
 |----------|----------|----------|
 | ![Y_Carriage_Brace_Left.stl](stls/Y_Carriage_Brace_Left.png) | ![Y_Carriage_Brace_Right.stl](stls/Y_Carriage_Brace_Right.png) | ![Y_Carriage_Left.stl](stls/Y_Carriage_Left.png) |
+
 | 1 x Y_Carriage_Right.stl |
 |----------|
 | ![Y_Carriage_Right.stl](stls/Y_Carriage_Right.png) |
@@ -760,6 +762,7 @@ damper is important as it provides thermal insulation between the stepper motor 
 | 1 x Base.stl | 1 x Base_Template.stl | 1 x PSU_Bracket.stl |
 |----------|----------|----------|
 | ![Base.stl](stls/Base.png) | ![Base_Template.stl](stls/Base_Template.png) | ![PSU_Bracket.stl](stls/PSU_Bracket.png) |
+
 | 2 x PSU_Support.stl |
 |----------|
 | ![PSU_Support.stl](stls/PSU_Support.png) |
