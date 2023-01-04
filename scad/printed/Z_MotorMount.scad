@@ -46,10 +46,10 @@ module NEMA_MotorWithIntegratedLeadScrew(NEMA_type, leadScrewLength, leadScrewDi
 
     not_on_bom()
         if (is_list(NEMA_shaft_length(NEMA_type)))
-            NEMA(NEMA_type, jst_connector = true);
+            NEMA(NEMA_type, jst_connector=true);
         else
             no_explode() {
-                NEMA(NEMA_type, jst_connector = true);
+                NEMA(NEMA_type, jst_connector=true);
                 translate_z(leadScrewLength/2)
                     leadscrewX(leadScrewDiameter, leadScrewLength);
             }
@@ -59,14 +59,14 @@ module NEMA_MotorWithIntegratedLeadScrew(NEMA_type, leadScrewLength, leadScrewDi
 zMotorMountTopPlateThickness = 6;
 braceWidth = 5.5;
 
-function Z_MotorMountSize(NEMA_type, braceWidth = 5, topPlateThickness = zMotorMountTopPlateThickness) = [
+function Z_MotorMountSize(NEMA_type, braceWidth=5, topPlateThickness=zMotorMountTopPlateThickness) = [
     NEMA_width(NEMA_type)/2 + _zLeadScrewOffset,
     NEMA_width(NEMA_type) + 2*braceWidth + 2,
     topPlateThickness
 ];
 
-function Z_MotorMountHeightX(NEMA_type, topPlateThickness = zMotorMountTopPlateThickness) = NEMA_length(NEMA_type) + 1.0 + topPlateThickness;
-function Z_MotorMountHeight(NEMA_type, topPlateThickness = zMotorMountTopPlateThickness) = NEMA_length(NEMA_type) + 1.0 + topPlateThickness + _corkDamperThickness;
+function Z_MotorMountHeightX(NEMA_type, topPlateThickness=zMotorMountTopPlateThickness) = NEMA_length(NEMA_type) + 1.0 + topPlateThickness;
+function Z_MotorMountHeight(NEMA_type, topPlateThickness=zMotorMountTopPlateThickness) = NEMA_length(NEMA_type) + 1.0 + topPlateThickness + _corkDamperThickness;
 
 module Z_MotorMountHolePositions(NEMA_type) {
     height = Z_MotorMountHeight(NEMA_type) - zMotorMountTopPlateThickness/2 - _corkDamperThickness;
@@ -165,7 +165,6 @@ module Z_MotorMountHardware(NEMA_type, topPlateThickness=zMotorMountTopPlateThic
     height = Z_MotorMountHeightX(NEMA_type) - topPlateThickness;
 
     translate_z(height)
-        //NEMA(NEMA_type, jst_connector = true);
         rotate(0)
             explode(-60, true) {
                 if (corkDamperThickness)
@@ -177,7 +176,7 @@ module Z_MotorMountHardware(NEMA_type, topPlateThickness=zMotorMountTopPlateThic
                     NEMA_no_shaft = [ for (i = [0 : len(NEMA_type) - 1]) i==8 ? [1, shaft_length[1], shaft_length[2]] : NEMA_type[i] ];
                     no_explode() {
                         not_on_bom()
-                            NEMA(NEMA_no_shaft, jst_connector = true);
+                            NEMA(NEMA_no_shaft, jst_connector=true);
                         vitamin(str("NEMA(", NEMA_type[0], "): Stepper motor NEMA", round(NEMA_width(NEMA_type) / 2.54), " x ", NEMA_length(NEMA_type), "mm, ", shaft_length[0], "mm integrated leadscrew"));
                         translate_z(eps)
                             not_on_bom()
@@ -188,10 +187,10 @@ module Z_MotorMountHardware(NEMA_type, topPlateThickness=zMotorMountTopPlateThic
                     }
                 } else {
                     // no integrated lead screw, so add lead screw and coupling
-                    NEMA(NEMA_type, jst_connector = true);
+                    NEMA(NEMA_type, jst_connector=true);
                     translate_z(NEMA_shaft_length(NEMA_type)) {
                         explode(80)
-                            shaft_coupling(SC_5x8_rigid, colour = grey(30));
+                            shaft_coupling(SC_5x8_rigid, colour=grey(30));
                         //if ($preview && is_undef($show_threads))
                             leadscrewX(_zLeadScrewDiameter, _zLeadScrewLength, center=false);
                         //else

@@ -126,14 +126,14 @@ module XT60MaleHolder() {
     coverThickness = 1;
     tolerance = [0.3, 0.45];
     linear_extrude(size.z - coverThickness) difference() {
-        square([size.x, size.y], center = true);
+        square([size.x, size.y], center=true);
         //scale([1.4, 1.2]) translate([-xt60Width/2, -xt60Height/2, 0]) polygon(xt60Polygon);
         //translate([-xt60Width/2, -xt60Height/2, 0])polygon(xt60Polygon);
         square([XT60MaleCutoutSize.x, XT60MaleCutoutSize.y] + tolerance, center=true);
     }
     // add a cover to stop the XT60 pushing through
     translate_z(size.z-coverThickness) linear_extrude(coverThickness) difference() {
-        square([size.x, size.y], center = true);
+        square([size.x, size.y], center=true);
         //scale([1.4, 1.2]) translate([-xt60Width/2, -xt60Height/2, 0]) polygon(xt60Polygon);
         scale([0.8, 0.9]) translate([-xt60Width/2, -xt60Height/2, 0]) polygon(xt60Polygon);
     }
@@ -149,7 +149,7 @@ module XT60FemaleHolder() {
     tolerance = [0.3, 0.45];
     render(convexity=2) difference() {
         linear_extrude(size.z - coverThickness) difference() {
-            square([size.x, size.y], center = true);
+            square([size.x, size.y], center=true);
             //scale([1.4, 1.2]) translate([-xt60Width/2, -xt60Height/2, 0]) polygon(xt60Polygon);
             //translate([-xt60Width/2, -xt60Height/2, 0])polygon(xt60Polygon);
             square([XT60MaleCutoutSize.x, XT60MaleCutoutSize.y] + tolerance, center=true);
@@ -159,7 +159,7 @@ module XT60FemaleHolder() {
     }
     // add a cover to stop the XT60 pushing through
     translate_z(size.z-coverThickness) linear_extrude(coverThickness) difference() {
-        square([size.x, size.y], center = true);
+        square([size.x, size.y], center=true);
         //scale([1.4, 1.2]) translate([-xt60Width/2, -xt60Height/2, 0]) polygon(xt60Polygon);
         scale([0.8, 0.9]) translate([-xt60Width/2, -xt60Height/2, 0]) polygon(xt60Polygon);
     }

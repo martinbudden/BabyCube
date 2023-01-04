@@ -19,7 +19,7 @@ module xRail(carriagePosition, xCarriageType, xRailLength, yCarriageType) {
             tongueOffset = (eX + 2*eSizeX - xRailLength -2*railOffsetX)/2;
             posX = carriagePosition.x - tongueOffset - xRailLength/2;
             rail_assembly(xCarriageType, xRailLength, posX, carriage_end_colour="green", carriage_wiper_colour="red");
-            rail_hole_positions(xRailType, xRailLength, screws = 2, both_ends = true)
+            rail_hole_positions(xRailType, xRailLength, screws=2, both_ends=true)
                 translate_z(rail_screw_height(xRailType, M3_cap_screw))
                     bolt(rail_screw(xRailType), 10);
         }
