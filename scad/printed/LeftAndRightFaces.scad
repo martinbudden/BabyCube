@@ -87,7 +87,7 @@ module leftFace(NEMA_type) {
         /*translate([0, eZ - _topPlateThickness, eX + 2*eSizeX])
             rotate([90, 90, 0])
                 topFaceSideHolePositions()
-                    boltHoleM3Tap(topBoltHolderSize().y, horizontal = true, rotate = 90);*/
+                    boltHoleM3Tap(topBoltHolderSize().y, horizontal=true, rotate = 90);*/
     }
 }
 
@@ -110,7 +110,7 @@ module rightFace(NEMA_type) {
                 /*translate([0, eZ - _topPlateThickness, eX + 2*eSizeX])
                     rotate([90, 90, 0])
                         topFaceSideHolePositions()
-                            //boltHoleM3Tap(topBoltHolderSize().y, horizontal = true, rotate = 90);
+                            //boltHoleM3Tap(topBoltHolderSize().y, horizontal=true, rotate=90);
                             translate_z(-eps)
                                 rotate(30)
                                     poly_cylinder(r=M3_tap_radius, h=topBoltHolderSize().y-2, sides=6);*/
@@ -329,7 +329,7 @@ module frameLower(NEMA_width, left=true, offset=0, cf=false, length=0) {
                         zipTieCutout();
                 translate([eSizeZ, backFaceHolePositions()[1], _backFaceHoleInset - offset])
                     rotate([90, 0, -90])
-                        boltHoleM3Tap(backBoltLength(), horizontal = !cf, chamfer_both_ends=false);
+                        boltHoleM3Tap(backBoltLength(), horizontal=!cf, chamfer_both_ends=false);
             }
         }
 
@@ -503,24 +503,24 @@ module leftAndRightFaceZipTies(left, lowerZipTies=true) {
         for (y = motorUprightZipTiePositions())
             translate([0.5, y, eSizeXBase])
                 rotate(90)
-                    cable_tie(cable_r = 3, thickness = 3);
+                    cable_tie(cable_r=3, thickness=3);
     if (lowerZipTies)
         for (x = bottomChordZipTiePositions(left))
             translate([x, eSizeY - 1, eSizeX + 1])
                 rotate(180)
-                    cable_tie(cable_r = 3, thickness = 2);
+                    cable_tie(cable_r=3, thickness=2);
 }
 
 module rightFaceExtruderZipTies(NEMA_width) {
     for (y = extruderZipTiePositions())
         translate([eX + eSizeX, y + extruderPosition(NEMA_width).y, middleWebOffsetZ() + 0.5])
             rotate([90, 0, -90])
-                cable_tie(cable_r = 3, thickness = 3);
+                cable_tie(cable_r=3, thickness=3);
 }
 
 module rightFaceIdlerUprightZipTies() {
     for (y = idlerUprightZipTiePositions())
         translate([eSizeY, y, eSizeX + eps])
             rotate([0, 0, -90])
-                cable_tie(cable_r = 3, thickness = 3);
+                cable_tie(cable_r=3, thickness=3);
 }

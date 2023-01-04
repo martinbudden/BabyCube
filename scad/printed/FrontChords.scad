@@ -39,7 +39,7 @@ module Front_Upper_Chord_stl() {
                     translate([0, size.y, 0])
                         rotate([90, 0, 0])
                             topFaceFrontHolePositions(_topPlateThickness)
-                                boltHoleM3Tap(8, horizontal = true, chamfer_both_ends = false);
+                                boltHoleM3Tap(8, horizontal=true, chamfer_both_ends=false);
                     translate([eX + 2*eSizeX, size.y, 0 - eps])
                         frontUpperChordMessage(size, _cubeName);
                 }
@@ -56,7 +56,7 @@ module Front_Upper_Chord_hardware() {
                     boltM3Countersunk(10);
 }
 
-module frontUpperChordMessage(size=frontUpperChordSize(), message=_cubeName, messageDepth = 2) {
+module frontUpperChordMessage(size=frontUpperChordSize(), message=_cubeName, messageDepth=2) {
     translate([-(eX + 2*eSizeX)/2, -size.y/2, 0 - eps])
         linear_extrude(messageDepth)
             mirror([1, 0, 0])
@@ -79,7 +79,7 @@ module frontLowerChord() {
         mirror([0, 0, 1])
             rotate([-90, 0, 0])
                 baseFrontHolePositions()
-                    boltHoleM3Tap(8, horizontal = true, rotate = -90, chamfer_both_ends = false);
+                    boltHoleM3Tap(8, horizontal=true, rotate=-90, chamfer_both_ends=false);
         for (x = [overlap/2, size.x - overlap/2], y = [5, size.y/2, size.y - 5])
             translate([x + (eX + 2*eSizeX - size.x)/2, y, 0])
                 boltPolyholeM3Countersunk(cutoutHeight, sink=0.25);
@@ -112,7 +112,7 @@ module Front_Lower_Chord_stl() {
     stl("Front_Lower_Chord")
         translate([-eX - 2*eSizeX, 0, 2*eps])
             color(pp2_colour)
-                frontLowerChordSKR_1_4(headless = false);
+                frontLowerChordSKR_1_4(headless=false);
 }
 
 module Front_Lower_Chord_hardware() {
@@ -129,7 +129,7 @@ module Front_Lower_Chord_SKR_1_4_Headless_stl() {
     stl("Front_Lower_Chord_SKR_1_4_Headless")
         translate([-eX - 2*eSizeX, 0, 0])
             color(pp2_colour)
-                frontLowerChordSKR_1_4(headless = true);
+                frontLowerChordSKR_1_4(headless=true);
 }
 
 function frontChordCutoutSize(display_type=BigTreeTech_TFT35v3_0, cnc=false)  = [displayHousingInnerWidth(display_type) + 6, (cnc ? 24 : 26), frontLowerChordSize().z + 2*eps];
@@ -200,10 +200,10 @@ module frontLowerChordSKR_1_4(headless=false) {
             rotate([90, 0, 0])
                 pcbPosition(pcb_type)
                     pcb_screw_positions(pcb_type) {
-                        boltHoleM3Tap(cutoutOffset.y, horizontal = true);
+                        boltHoleM3Tap(cutoutOffset.y, horizontal=true);
                         // add an access hole for the bolts
                         translate_z(cutoutSize.y + cutoutOffset.y)
-                            boltHoleM3(frontLowerChordSize().y - (cutoutSize.y + cutoutOffset.y), horizontal = true);
+                            boltHoleM3(frontLowerChordSize().y - (cutoutSize.y + cutoutOffset.y), horizontal=true);
                     }
     }
 }

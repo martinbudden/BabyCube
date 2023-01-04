@@ -127,13 +127,13 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
         translate_z(-eps)
             rotate(-90)
                 if (cf)
-                    poly_cylinder(r=NEMA_boss_radius(NEMA_type) + 0.5, h = basePlateThickness + 2*eps);
+                    poly_cylinder(r=NEMA_boss_radius(NEMA_type) + 0.5, h=basePlateThickness + 2*eps);
                 else
                     teardrop(basePlateThickness + 2*eps, NEMA_boss_radius(NEMA_type) + 0.5, center=false, chamfer=0.5);
         translate_z(basePlateThickness)
             NEMA_screw_positions(NEMA_type)
                 rotate([180, 0, 90])
-                    boltHoleM3(basePlateThickness, horizontal = !cf);
+                    boltHoleM3(basePlateThickness, horizontal=!cf);
 
         if (cf)
             translate([-NEMA_width/2 - motorClearance().x + _sidePlateThickness,NEMA_width/2 + motorClearance().y, basePlateThickness/2])
@@ -145,11 +145,11 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
         translate([-NEMA_width/2 - motorClearance().x + _sidePlateThickness, NEMA_width/2 + motorClearance().y - backBraceThickness, 0]) {
                         translate([_backFaceHoleInset - _sidePlateThickness, 0, offset - (eZ - backFaceHolePositions()[2])])
                             rotate([90, 0, 180])
-                                boltHoleM3Tap(backBraceThickness, horizontal=true, rotate = cf ? 0 : 90);
+                                boltHoleM3Tap(backBraceThickness, horizontal=true, rotate=cf ? 0 : 90);
                         //upperOffsetX = (eX + 2*eSizeX - backUpperChordSize().z)/2 + 5;
                         translate([backFaceBracketUpperOffset().x - _sidePlateThickness, 0, offset - backFaceBracketUpperOffset().y])
                             rotate([90, 0, 180])
-                                boltHoleM3Tap(backBraceThickness, horizontal=true, rotate = cf ? 0 : 90);
+                                boltHoleM3Tap(backBraceThickness, horizontal=true, rotate=cf ? 0 : 90);
         }
 
         *translate([NEMA_width/2, NEMA_width/2+motorClearance().y, 0])
@@ -165,7 +165,7 @@ module XY_MotorMountHardware(NEMA_type, basePlateThickness=basePlateThickness, c
     rotate(-90)
         explode(-30, true)
             translate_z(-corkDamperThickness) {
-                NEMA(NEMA_type, jst_connector = true);
+                NEMA(NEMA_type, jst_connector=true);
                 if (corkDamperThickness)
                     explode(15)
                         corkDamper(NEMA_type, corkDamperThickness);

@@ -94,7 +94,7 @@ module MGNCarriageHolePositions(xCarriageType, positions=undef) {
                 children();
 }
 
-module xCarriageTopBolts(xCarriageType, countersunk = true, positions=undef) {
+module xCarriageTopBolts(xCarriageType, countersunk=true, positions=undef) {
     assert(is_list(xCarriageType));
 
     // depth of holes in MGN9 and MGN12 carriages is approx 5mm. so 4.5mm leaves room for error

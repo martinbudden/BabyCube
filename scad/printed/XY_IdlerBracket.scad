@@ -200,7 +200,7 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, useCNC=false) {
             translate([0, size.y + offsetY, eX + 2*eSizeX])
                 rotate([90, 90, 0])
                     topFaceSideHolePositions()
-                        boltHoleM3Tap(8, horizontal = true, rotate = 90, chamfer_both_ends = false);
+                        boltHoleM3Tap(8, horizontal=true, rotate=90, chamfer_both_ends=false);
             translate([0, 30 - eZ - offsetY, 0])
                 upperSideJoinerHolePositions(_sidePlateThickness)
                     boltHoleM3Tap(size.z);

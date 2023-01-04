@@ -133,8 +133,8 @@ module zCarriage(printBedSize, testing=false) {
                 for (x = [-braceSeparation/2, braceSeparation/2])
                     translate([x, supportSize.y/2 - 2*triangleFillet - (printBedSize == 120 ? 5 : 4), 8])
                         rotate([90, 0, 90]) {
-                            rounded_right_triangle(armSize.y - 12, bearing_length(bearing_type) - bearingOffset - 34, triangleWidth, triangleFillet, offset = false);
-                            rounded_right_triangle(20, bearing_length(bearing_type) - bearingOffset - 8, triangleWidth, triangleFillet, offset = false);
+                            rounded_right_triangle(armSize.y - 12, bearing_length(bearing_type) - bearingOffset - 34, triangleWidth, triangleFillet, offset=false);
+                            rounded_right_triangle(20, bearing_length(bearing_type) - bearingOffset - 8, triangleWidth, triangleFillet, offset=false);
                         }
             } // end testing
         } // end union

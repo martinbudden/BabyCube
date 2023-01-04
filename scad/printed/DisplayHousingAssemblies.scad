@@ -61,7 +61,7 @@ module Display_Housing_Bracket_stl() {
 //! Place the display into the housing and secure it with the bolts - use the bolts to self-tap the holes in the housing.
 //! Attach the knob to the display.
 module Display_Cover_assembly()  pose(a=[55 + 45, 0, 25 + 95])
-assembly("Display_Cover", big=true, ngb = true) {
+assembly("Display_Cover", big=true, ngb=true) {
 
     translate([eX/2 + eSizeX, -displayBracketBackThickness, 0])
         displayHousingLocate(displayHousingSize(display_type), displayAngle) {

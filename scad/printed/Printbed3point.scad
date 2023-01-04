@@ -291,7 +291,7 @@ module Print_bed_3_point_bed(y=0) {
                     heatingPad([100, 100, heatingPadThickness])
                         Heated_Bed()
                             explode(10, true)
-                                magneticBase(printBedSize, magneticBaseThickness, holeRadius = 3);
+                                magneticBase(printBedSize, magneticBaseThickness, holeRadius=3);
     }
 }
 

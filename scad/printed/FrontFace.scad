@@ -68,7 +68,7 @@ module frontFaceCF(coverBelts) {
                 /*cutoutSize = frontChordCutoutSize(display_type);
                 cutoutOffset = frontChordCutoutOffset(display_type);
                 translate([size.x + cutoutOffset.x, cutoutOffset.y])
-                    rounded_square([cutoutSize.x, cutoutSize.y], 2, center = false);*/
+                    rounded_square([cutoutSize.x, cutoutSize.y], 2, center=false);*/
                 translate([size.x/2, -1])
                     displayBracketHolePositionsCNC(display_type)
                         circle(r=M3_clearance_radius);

@@ -40,7 +40,7 @@ module Base_stl() {
             translate_z(-size.z)
                 linear_extrude(size.z)
                     difference() {
-                        rounded_square([size.x, size.y], _fillet, center = false);
+                        rounded_square([size.x, size.y], _fillet, center=false);
                         baseCutouts(pcb=_useCNC ? BTT_SKR_MINI_E3_V2_0 : undef);
                     }
         }
@@ -54,7 +54,7 @@ module Base_Template_stl(pcb=pcbType) {
             translate_z(-size.z)
                 linear_extrude(size.z)
                     difference() {
-                        rounded_square([size.x, size.y], 1.5, center = false);
+                        rounded_square([size.x, size.y], 1.5, center=false);
                         baseCutouts(radius=1, pcb=pcb);
                     }
         }
@@ -466,7 +466,7 @@ module PSU() {
     translate_z(psuZOffset) {// to allow wires to run underneath PSU
         color(grey(30))
             difference() {
-                rounded_cube_xy(psuSize, 3, xy_center = true);
+                rounded_cube_xy(psuSize, 3, xy_center=true);
                 hull()
                     translate([psuSize.x/2 - 5 + 2*eps, 0, psuSize.z/2])
                         rotate([90, 0, 90])

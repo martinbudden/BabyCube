@@ -222,7 +222,7 @@ module backFaceUpperBracketsHardware(backPlateThickness, counterSunk=true) {
                                 else
                                     boltM5Buttonhead(16);
                         translate_z(backPlateThickness + sk_base_height(SK_type))
-                            nut(M5_nut, nyloc = true);
+                            nut(M5_nut, nyloc=true);
                     }
             }
 }
@@ -282,7 +282,7 @@ module backFaceLowerBracketsHardware(backPlateThickness, counterSunk=true) {
                                 else
                                     boltM5Buttonhead(16);
                         translate_z(backPlateThickness + sk_base_height(SK_type))
-                            nut(M5_nut, nyloc = true);
+                            nut(M5_nut, nyloc=true);
                     }
             }
 }

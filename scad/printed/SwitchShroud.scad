@@ -25,7 +25,7 @@ function switchShroudSize() = [60, 85, idlerBracketSize(coreXYPosBL(_xyNEMA_widt
 
 //! Place the XT60 connectors through the Switch_Shroud and bolt on the Switch_Shroud_Clamp to keep them in place.
 module Switch_Shroud_assembly()  pose(a=[55, 0, 25 - 90])
-    assembly("Switch_Shroud", ngb = true) {
+    assembly("Switch_Shroud", ngb=true) {
 
     translate([0, eps, 0])
         rotate([90, 0, 90]) {

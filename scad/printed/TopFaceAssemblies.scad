@@ -257,7 +257,7 @@ module topFaceAssembly(NEMA_width, t=undef, cf=false) {
             explode(20, true) {
                 rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
                 translate_z(cf ? 0.5 : 0) // so screws are not absolutely flush in drawing
-                    rail_screws(yRailType, _yRailLength, thickness = 5 + (cf ? _topPlateThickness - 1: 0), index_screws = 0);
+                    rail_screws(yRailType, _yRailLength, thickness=5 + (cf ? _topPlateThickness - 1: 0), index_screws=0);
                 if (cf)
                     rail_hole_positions(yRailType, _yRailLength, 0)
                         translate_z(-_topPlateThickness)

@@ -54,10 +54,10 @@ module topFaceCover(NEMA_type) {
     difference() {
         linear_extrude(size.z)
             difference() {
-                rounded_square([size.x, size.y], _fillet, center = false);
+                rounded_square([size.x, size.y], _fillet, center=false);
                 //translate([(size.x - cutoutSize.x)/2, cutoutFrontY + insetY])
                 translate([(size.x - cutoutSize.x)/2,  cutoutFrontY, -eps])
-                    rounded_square([cutoutSize.x, cutoutSize.y], 4, center = false);
+                    rounded_square([cutoutSize.x, cutoutSize.y], 4, center=false);
                 topFaceAllHolePositions()
                     poly_circle(r=M3_clearance_radius);
                 motorAccessHolePositions(NEMA_type)
@@ -82,7 +82,7 @@ module topFaceWiringCutout(NEMA_width) {
 
     translate([printheadWiringPos().x, printheadWiringPos().y - eps]) {
         translate([-size.x/2, -size.y])
-            square(size, center = false);
+            square(size, center=false);
         circle(r=radius);
     }
     translate([printheadWiringPosX() + size.x/2, eY + 2*eSizeY - cutoutBackY])
@@ -101,7 +101,7 @@ module topFaceInterlock(NEMA_type) {
     translate_z(-size.z)
         linear_extrude(size.z)
             difference() {
-                rounded_square([size.x, size.y], _fillet, center = false);
+                rounded_square([size.x, size.y], _fillet, center=false);
                 topFaceInterlockCutouts(NEMA_type, M3_tap_radius);
             }
     if (!is_undef(bearingType))
@@ -121,7 +121,7 @@ module topFaceInterlock(NEMA_type) {
                 rounded_cube_xy(endStopSize, 1);
 }
 
-module motorAccessHolePositions(NEMA_type, n = 3) {
+module motorAccessHolePositions(NEMA_type, n=3) {
     assert(isNEMAType(NEMA_type));
 
     NEMA_width = NEMA_width(NEMA_type);
@@ -196,7 +196,7 @@ module topFaceRailHolePositions(NEMA_width) {
     for (x = [railOffset.x, eX + 2*eSizeX - railOffset.x])
         translate([x, railOffset.y, 0])
             rotate(90)
-                rail_hole_positions(yRailType, _yRailLength, first = 0, screws = rail_holes(yRailType, _yRailLength))
+                rail_hole_positions(yRailType, _yRailLength, first=0, screws=rail_holes(yRailType, _yRailLength))
                     children();
 }
 
