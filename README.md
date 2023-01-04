@@ -27,7 +27,7 @@ The STL files are on [thingiverse](https://www.thingiverse.com/thing:4911835).
 
 A video overview of the features of BabyCube is [here](https://www.youtube.com/watch?v=HpjnHnVyvj4).
 
-I plan to make a series of YouTube videos giving build instructions, when I have done so I will post a link here.
+Dr Klipper had done a series of YouTube videos giving build instructions (in German). The playlist is [here](https://www.youtube.com/watch?v=Hourt_4GOHs&list=PLbNI1Rcik-oIJZLZGHtmtgYNiHBKnzX2O). He also describes the build (again in German) on his [wiki](http://www.drklipper.de/doku.php?id=videos:15_-_babycube_-_mini_corexy_drucker).
 
 If you would like to build a bigger printer, you may be interested in the BabyCube's larger sibling, the [MaybeCube](https://github.com/martinbudden/MaybeCube)
 
@@ -88,6 +88,7 @@ Further design goals:
     * Open source design
     * Parametric design in [OpenSCAD](https://openscad.org/)
     * As far as possible, make it easy to partially disassemble the frame and exchange parts
+    * Have space in frame for a Raspberry Pi, so that user can run OctoPrint or Klipper
 10. **Support different size and material variants**
     * BabyCube's parametric design allows different size variants
 11. **Be delightful**
@@ -105,8 +106,8 @@ The standard variant uses an E3D v6 hotend, but other groovemount based hotends 
 
 The standard variant uses a BigTreeTech TFT35 v3.0 display, however it should also be possible to produce "headless" variants:
 
-* if you use the SKR v1.4 or the SKR E3 turbo controller you can install the RepRap firmware and dispense with the display.
-* you can install Klipper firmware and use a Raspberry Pi.
+* if you use the SKR v1.4 or the SKR E3 Turbo controller you can install the RepRap firmware and dispense with the display.
+* you can use a Raspberry Pi and install OctoPrint or Klipper. Note that there is not enough space for a full size Raspberry Pi (eg a Pi 4), but the smaller Pi 3A+ or Pi Zero 2W will fit.
 
 I have started to look at developing a variant with a carbon fiber frame, however this is very much a [work in progress](concepts/readme.md).
 
@@ -115,7 +116,6 @@ I have started to look at developing a variant with a carbon fiber frame, howeve
 The exploded version:
 
 ![BabyCubeCF exploded](concepts/BC200CF_unstaged_assembly.png)
-
 
 ## Comparisons
 
@@ -133,6 +133,10 @@ BabyCube          | 90 x 80 x 60 | 200 x 220 x 210
 |       | Overview | SpeedBoatRace |
 | ----- | :------: | :-----------: |
 | Video | [![Overview](https://img.youtube.com/vi/HpjnHnVyvj4/0.jpg)](https://www.youtube.com/watch?v=HpjnHnVyvj4) | [![Speed benchy](https://img.youtube.com/vi/jGo57FBjNX4/0.jpg)](https://www.youtube.com/watch?v=jGo57FBjNX4) |
+
+## Assembly videos
+
+Dr Klipper had done a series of YouTube videos giving build instructions (in German). The playlist is [here](https://www.youtube.com/watch?v=Hourt_4GOHs&list=PLbNI1Rcik-oIJZLZGHtmtgYNiHBKnzX2O).
 
 ## Input shaper test results
 
