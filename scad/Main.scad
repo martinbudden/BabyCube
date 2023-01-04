@@ -9,8 +9,7 @@
 //!![BabyCube](../pictures/babycube200_1000.jpg)
 //
 //!***
-//!
-//!## Read this before you order parts
+//!//!## Read this before you order parts
 //!
 //!The motor for the Z-axis has an integrated lead screw: in the *Parts List* the length specified is the length that
 //!protrudes from the motor. Some suppliers specify the total length of the lead screw, that is including the part that
@@ -120,15 +119,23 @@
 //!
 //!### Marlin configuration
 //!
-//!The changes to `configuration.h` and `configuration_adv.h` are [here](../../documents/MarlinConfiguration.md).
-//
+//!The changes to `configuration.h` and `configuration_adv.h` are [here](../documents/MarlinConfiguration.md).
+//!
+//!### Klipper configuration
+//!
+//!A starting point for the Klipper configuration is [here](../documents/klipper_btt_skr_mini_e3_v2_0.cfg).
+//!This only a starting point and should be adjusted according to your components.
+//!
+//!In particular Nnote that the endstop sensitivities (that is the `driver_SGTHRS` values) must be tuned for each axis.
+//!They are currently set at `255`, the most sensitive value and this will need to be reduced as part of the tuning.
+
 include <NopSCADlib/utils/core/core.scad>
 
 use <MainAssembly.scad>
 
-//!1. Connect the wiring to the print head.
+//!1. Connect the wiring to the printhead.
 //!2. Connect the Bowden tube.
-//!3. Add the spool holder.
+//!3. Add the S**pool_Holder**.
 //!4. Calibrate the printer.
 module main_assembly() pose(a=[55 + 19, 0, 25 - 15])
 assembly("main", big=true) {

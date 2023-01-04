@@ -29,8 +29,8 @@ module staged_assembly(name, big, ngb) {
         children();
 }
 
-//!1. Bolt the Left_Face and the left feet to the base.
-//!2. Bolt the Right_Face and the right feet to the base.
+//!1. Bolt the **Left_Face** and the left feet to the base.
+//!2. Bolt the **Right_Face** and the right feet to the base.
 //
 module Stage_1_assembly()
 staged_assembly("Stage_1", big=true, ngb=true) {
@@ -65,7 +65,7 @@ staged_assembly("Stage_1", big=true, ngb=true) {
                 boltM3Buttonhead(8);
 }
 
-//! Add the Back_Face and bolt it to the left and right faces and the base.
+//! Add the **Back_Face** and bolt it to the left and right faces and the base.
 //
 module Stage_2_assembly()
 staged_assembly("Stage_2", big=true, ngb=true) {
@@ -94,7 +94,7 @@ staged_assembly("Stage_2", big=true, ngb=true) {
 }
 
 
-//!Bolt the BabyCube nameplate and the Display_Housing to the front of the frame.
+//!Bolt the BabyCube nameplate and the **Display_Housing** to the front of the frame.
 //
 module Stage_3_assembly()
 staged_assembly("Stage_3", big=true, ngb=true) {
@@ -121,7 +121,7 @@ staged_assembly("Stage_3", big=true, ngb=true) {
                 boltM3Buttonhead(10);
 }
 
-//! Add the Top_Face.
+//! Add the **Top_Face**.
 //
 module Stage_4_assembly()
 staged_assembly("Stage_4", big=true, ngb=true) {
