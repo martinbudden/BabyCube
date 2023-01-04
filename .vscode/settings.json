@@ -13,11 +13,13 @@
         "caphead",
         "colour",
         "concat",
+        "COREXY",
         "counterbore",
         "customisation",
         "dogbone",
         "dogbones",
         "dxfs",
+        "EEPROM",
         "endfacet",
         "endloop",
         "ENDSEC",
@@ -52,11 +54,13 @@
         "psus",
         "ptfe",
         "sensorless",
+        "SGTHRS",
         "Slic",
         "spoolholder",
         "stabilise",
         "stlimport",
         "stls",
+        "STOCKDISPLAY",
         "tensioner",
         "tensioners",
         "thingiverse",
@@ -65,6 +69,7 @@
         "vflip",
         "Voron",
         "ziptie",
-        "zipties"
+        "zipties",
+        "ZPROBE"
     ]
 }
