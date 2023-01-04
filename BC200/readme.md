@@ -40,6 +40,17 @@ detail that someone with a good understanding of 3D printers can build the BabyC
 1. [Stage_5 assembly](#Stage_5_assembly)
 1. [Main assembly](#main_assembly)
 
+//!## Read this before you order parts
+
+The motor for the Z-axis has an integrated lead screw: in the *Parts List* the length specified is the length that
+protrudes from the motor. Some suppliers specify the total length of the lead screw, that is including the part that
+is inside the motor, so check how your supplier specifies the part before ordering. Another option is to order a motor
+with a lead screw that is too long and cut to size, not however that lead screws are made from hardened steel and cannot
+be cut with a hacksaw - an angle grinder is required to cut them.
+
+If you wish to use a Raspberry Pi (for running OctoPrint or Klipper),  note that there is not enough space for a full size
+Raspberry Pi (eg a Pi 4), but the smaller Pi 3A+ or Pi Zero 2W will fit.
+
 ## Tips for printing the parts
 
 The printed parts can be divided into two classes, the "large parts" (ie the left, right, top and back faces), and the
@@ -139,7 +150,15 @@ less ensures the fans' voltage specification is not exceeded.)
 
 ### Marlin configuration
 
-The changes to `configuration.h` and `configuration_adv.h` are [here](../../documents/MarlinConfiguration.md).
+The changes to `configuration.h` and `configuration_adv.h` are [here](../documents/MarlinConfiguration.md).
+
+### Klipper configuration
+
+A starting point for the Klipper configuration is [here](../documents/klipper_btt_skr_mini_e3_v2_0.cfg).
+This only a starting point and should be adjusted according to your components.
+
+In particular Nnote that the endstop sensitivities (that is the `driver_SGTHRS` values) must be tuned for each axis.
+They are currently set at `255`, the most sensitive value and this will need to be reduced as part of the tuning.
 
 <span></span>
 [Top](#TOP)
@@ -163,8 +182,8 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   1  |   4  |    7  |  Bolt M3 buttonhead x 10mm |
 |   2  |   .  |   .  |   .  |   .  |   4  |   4  |   .  |   4  |  18  |   32  |  Bolt M3 buttonhead x 12mm |
 |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 buttonhead x 16mm |
-|   .  |   .  |   .  |   4  |   .  |   .  |   .  |   4  |   .  |   .  |    8  |  Bolt M3 caphead x  6mm |
-|   .  |   .  |  26  |   .  |   4  |   .  |   .  |  14  |   .  |   .  |   44  |  Bolt M3 caphead x  8mm |
+|   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 caphead x  6mm |
+|   .  |   .  |  26  |   .  |   4  |   .  |   .  |  10  |   .  |   .  |   40  |  Bolt M3 caphead x  8mm |
 |   .  |   .  |   6  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    6  |  Bolt M3 caphead x 10mm |
 |   .  |   .  |   2  |   4  |   4  |   .  |   .  |   .  |   .  |   .  |   10  |  Bolt M3 caphead x 16mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 caphead x 25mm |
@@ -182,7 +201,6 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Cork underlay 105mm x 105mm x 3mm |
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  Fan 30mm x 10mm |
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  Hot end E3D V6 direct 1.75mm |
-|   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |  Leadscrew 8mm x 150mm |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Leadscrew nut 8 x 2 |
 |   .  |   .  |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |    2  |  Linear bearing LM12LUU |
 |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  Linear rail MGN9 x 150mm |
@@ -191,23 +209,22 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   .  |   .  |   2  |   .  |   .  |   .  |   .  |    2  |  Linear rod 12mm x 200mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |  MK10 Dual Pulley Extruder |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Magnetic base 100mm x 100mm |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |  Micro SD card |
 |   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |  Nut M5 nyloc |
 |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |   .  |    8  |  O-ring nitrile 4mm x 2mm |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  OpenBuilds mini heated bed 100mm x 100mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  PTFE tube 292 mm |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   9  |   .  |   .  |    9  |  Pillar hex nylon F/F M3x12 |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   5  |   .  |   .  |    5  |  Pillar hex nylon F/F M3x12 |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Print surface 100mm x 100mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   2  |   .  |   2  |   .  |    6  |  Pulley GT2 idler 16 teeth |
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Pulley GT2 idler smooth 9.63mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |  Pulley GT2UM 20 teeth |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |  Raspberry Pi 3A+ |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |  Raspberry Pi 3A+ (optional) |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  Rocker Switch PRASA1-16F-BB0BW |
 |   .  |   .  |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |    4  |  SK12 shaft support bracket |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  Spiral wrap, 500mm |
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  Square radial fan 3010 |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   1  |   .  |    2  |  Stepper motor NEMA14 x 36mm |
-|   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |  Stepper motor NEMA17 x 34mm |
+|   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |  Stepper motor NEMA17 x 34mm, 150mm integrated leadscrew |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |  Stepper motor NEMA17 x 40mm |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |  Stepper motor cable, 150mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |   1  |   .  |    3  |  Stepper motor cable, 400mm |
@@ -219,7 +236,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../../docu
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Male - not shown |
 |   1  |   .  |   .  |   .  |   2  |   .  |   5  |   .  |   4  |   4  |   16  |  Ziptie 2.5mm x 100mm min length |
-|  12  |   4  |  54  |  13  |  33  |  30  |  26  |  34  |  35  |  60  |  301  | Total vitamins count |
+|  12  |   4  |  54  |  13  |  33  |  29  |  26  |  21  |  35  |  60  |  287  | Total vitamins count |
 |      |      |      |      |      |      |      |      |      |      |       | **3D printed parts** |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  | Back_Face.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | Base.stl |
@@ -541,7 +558,7 @@ Attach the knob to the display.
 
 ![Z_Carriage_assembly](assemblies/Z_Carriage_assembly.png)
 
-Slide the linear bearings into the Z_Carriage.
+Slide the linear bearings into the **Z_Carriage**.
 
 Affix the leadscrew nut.
 
@@ -637,9 +654,8 @@ face inward and the bottom tightening bolts should face outward. This allows acc
 |----:|:------------|
 |   4 | Bolt M3 buttonhead x 12mm |
 |   1 | Cork damper NEMA 17 |
-|   1 | Leadscrew 8mm x 150mm |
 |   2 | Linear rod 12mm x 200mm |
-|   1 | Stepper motor NEMA17 x 34mm |
+|   1 | Stepper motor NEMA17 x 34mm, 150mm integrated leadscrew |
 |   1 | Stepper motor cable, 150mm |
 
 ### Sub-assemblies
@@ -751,11 +767,9 @@ damper is important as it provides thermal insulation between the stepper motor 
 |   1 | Aluminium sheet 220mm x 204mm x 3mm |
 |   1 | BigTreeTech SKR Mini E3 v2.0 |
 |   2 | Bolt M3 buttonhead x 10mm |
-|   4 | Bolt M3 caphead x  6mm |
-|  14 | Bolt M3 caphead x  8mm |
-|   1 | Micro SD card |
-|   9 | Pillar hex nylon F/F M3x12 |
-|   1 | Raspberry Pi 3A+ |
+|  10 | Bolt M3 caphead x  8mm |
+|   5 | Pillar hex nylon F/F M3x12 |
+|   1 | Raspberry Pi 3A+ (optional) |
 
 ### 3D Printed parts
 
@@ -822,7 +836,7 @@ section in place until it is attached to the base plate.
 
 ![Switch_Shroud_assembly](assemblies/Switch_Shroud_assembly.png)
 
-Place the XT60 connectors through the Switch_Shroud and bolt on the Switch_Shroud_Clamp to keep them in place.
+Place the XT60 connectors through the **Switch_Shroud** and bolt on the **Switch_Shroud_Clamp** to keep them in place.
 
 ![Switch_Shroud_assembled](assemblies/Switch_Shroud_assembled.png)
 
@@ -907,8 +921,8 @@ Note orientation of the JST connector.
 
 ![Stage_1_assembly](assemblies/Stage_1_assembly.png)
 
-1. Bolt the Left_Face and the left feet to the base.
-2. Bolt the Right_Face and the right feet to the base.
+1. Bolt the **Left_Face** and the left feet to the base.
+2. Bolt the **Right_Face** and the right feet to the base.
 
 ![Stage_1_assembled](assemblies/Stage_1_assembled.png)
 
@@ -939,7 +953,7 @@ Note orientation of the JST connector.
 
 ![Stage_2_assembly](assemblies/Stage_2_assembly.png)
 
-Add the Back_Face and bolt it to the left and right faces and the base.
+Add the **Back_Face** and bolt it to the left and right faces and the base.
 
 ![Stage_2_assembled](assemblies/Stage_2_assembled.png)
 
@@ -974,7 +988,7 @@ Add the Back_Face and bolt it to the left and right faces and the base.
 
 ![Stage_3_assembly](assemblies/Stage_3_assembly.png)
 
-Bolt the BabyCube nameplate and the Display_Housing to the front of the frame.
+Bolt the BabyCube nameplate and the **Display_Housing** to the front of the frame.
 
 ![Stage_3_assembled](assemblies/Stage_3_assembled.png)
 
@@ -1002,7 +1016,7 @@ Bolt the BabyCube nameplate and the Display_Housing to the front of the frame.
 
 ![Stage_4_assembly](assemblies/Stage_4_assembly.png)
 
-Add the Top_Face.
+Add the **Top_Face**.
 
 ![Stage_4_assembled](assemblies/Stage_4_assembled.png)
 
@@ -1078,9 +1092,9 @@ Add the Top_Face.
 
 ![main_assembly](assemblies/main_assembly.png)
 
-1. Connect the wiring to the print head.
+1. Connect the wiring to the printhead.
 2. Connect the Bowden tube.
-3. Add the spool holder.
+3. Add the S**pool_Holder**.
 4. Calibrate the printer.
 
 ![main_assembled](assemblies/main_assembled.png)
