@@ -9,7 +9,18 @@
 //!![BabyCube](../pictures/babycube200_1000.jpg)
 //
 //!***
-//
+//!
+//!## Read this before you order parts
+//!
+//!The motor for the Z-axis has an integrated lead screw: in the *Parts List* the length specified is the length that
+//!protrudes from the motor. Some suppliers specify the total length of the lead screw, that is including the part that
+//!is inside the motor, so check how your supplier specifies the part before ordering. Another option is to order a motor
+//!with a lead screw that is too long and cut to size, not however that lead screws are made from hardened steel and cannot
+//!be cut with a hacksaw - an angle grinder is required to cut them.
+//!
+//!If you wish to use a Raspberry Pi (for running OctoPrint or Klipper),  note that there is not enough space for a full size
+//!Raspberry Pi (eg a Pi 4), but the smaller Pi 3A+ or Pi Zero 2W will fit.
+//!
 //!## Tips for printing the parts
 //!
 //!The printed parts can be divided into two classes, the "large parts" (ie the left, right, top and back faces), and the
