@@ -176,8 +176,11 @@ module Z_MotorMountHardware(NEMA_type, topPlateThickness=zMotorMountTopPlateThic
                     // integrated lead screw, so set shaft length to zero and use leadscrewX rather than NopSCADlib leadscrew
                     NEMA_no_shaft = [ for (i = [0 : len(NEMA_type) - 1]) i==8 ? [1, shaft_length[1], shaft_length[2]] : NEMA_type[i] ];
                     no_explode() {
-                        NEMA(NEMA_no_shaft, jst_connector = true);
+                        not_on_bom()
+                            NEMA(NEMA_no_shaft, jst_connector = true);
+                        vitamin(str("NEMA(", NEMA_type[0], "): Stepper motor NEMA", round(NEMA_width(NEMA_type) / 2.54), " x ", NEMA_length(NEMA_type), "mm, ", shaft_length[0], "mm integrated leadscrew"));
                         translate_z(eps)
+                            not_on_bom()
                             //if ($preview && is_undef($show_threads))
                                 leadscrewX(shaft_length[1], shaft_length[0], shaft_length[2], center=false);
                             //else
