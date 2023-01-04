@@ -140,7 +140,9 @@ assembly("Base", big=true) {
 
     //baseAssembly();
     baseAssembly(pcbType, psuType);
-    pcbAssembly(RPI3A_plus);
+    not_on_bom()
+        pcbAssembly(RPI3A_plus);
+    vitamin(str("pcb(", RPI3A_plus[0], "): ", pcb_name(RPI3A_plus), " (optional)"));
 }
 
 //!1. Attach the Base_Template to the aluminium sheet and use it to drill out the holes. The base template has 2mm holes
