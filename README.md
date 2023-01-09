@@ -27,7 +27,8 @@ The STL files are on [thingiverse](https://www.thingiverse.com/thing:4911835).
 
 A video overview of the features of BabyCube is [here](https://www.youtube.com/watch?v=HpjnHnVyvj4).
 
-Dr Klipper had done a series of YouTube videos giving build instructions (in German). The playlist is [here](https://www.youtube.com/watch?v=Hourt_4GOHs&list=PLbNI1Rcik-oIJZLZGHtmtgYNiHBKnzX2O). He also describes the build (again in German) on his [wiki](http://www.drklipper.de/doku.php?id=videos:15_-_babycube_-_mini_corexy_drucker).
+Dr Klipper had done a series of YouTube videos giving build instructions (in German). The playlist is [here](https://www.youtube.com/watch?v=Hourt_4GOHs&list=PLbNI1Rcik-oIJZLZGHtmtgYNiHBKnzX2O).
+If you don't speak German, you can turn on subtitles and set auto-translate to English, or the language of your choice. He also describes the build (again in German) on his [wiki](http://www.drklipper.de/doku.php?id=videos:15_-_babycube_-_mini_corexy_drucker).
 
 If you would like to build a bigger printer, you may be interested in the BabyCube's larger sibling, the [MaybeCube](https://github.com/martinbudden/MaybeCube)
 
@@ -137,6 +138,7 @@ BabyCube          | 90 x 80 x 60 | 200 x 220 x 210
 ## Assembly videos
 
 Dr Klipper had done a series of YouTube videos giving build instructions (in German). The playlist is [here](https://www.youtube.com/watch?v=Hourt_4GOHs&list=PLbNI1Rcik-oIJZLZGHtmtgYNiHBKnzX2O).
+If you don't speak German, you can turn on subtitles and set auto-translate to English, or the language of your choice.
 
 ## Input shaper test results
 
