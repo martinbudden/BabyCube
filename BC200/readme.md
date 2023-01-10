@@ -40,7 +40,7 @@ detail that someone with a good understanding of 3D printers can build the BabyC
 1. [Stage_5 assembly](#Stage_5_assembly)
 1. [Main assembly](#main_assembly)
 
-//!## Read this before you order parts
+## Read this before you order parts
 
 The motor for the Z-axis has an integrated lead screw: in the *Parts List* the length specified is the length that
 protrudes from the motor. Some suppliers specify the total length of the lead screw, that is including the part that

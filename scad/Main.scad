@@ -9,7 +9,7 @@
 //!![BabyCube](../pictures/babycube200_1000.jpg)
 //
 //!***
-//!//!## Read this before you order parts
+//!## Read this before you order parts
 //!
 //!The motor for the Z-axis has an integrated lead screw: in the *Parts List* the length specified is the length that
 //!protrudes from the motor. Some suppliers specify the total length of the lead screw, that is including the part that
