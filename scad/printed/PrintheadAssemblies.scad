@@ -6,7 +6,7 @@ include <NopSCADlib/vitamins/blowers.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
 include <../utils/PrintheadOffsets.scad>
-include <../utils/X_rail.scad>
+include <../utils/X_Rail.scad>
 
 include <../vitamins/pcbs.scad>
 

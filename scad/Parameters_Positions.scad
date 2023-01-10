@@ -1,4 +1,4 @@
-include <Parameters_main.scad>
+include <Parameters_Main.scad>
 
 // set $t = 2 for mid position
 $t = 2;

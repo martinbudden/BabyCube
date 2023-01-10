@@ -17,7 +17,7 @@ use <../scad/printed/X_CarriageAssemblies.scad>
 
 include <../scad/utils/CoreXYBelts.scad>
 include <../scad/utils/printParameters.scad>
-include <../scad/utils/X_rail.scad>
+include <../scad/utils/X_Rail.scad>
 
 
 
