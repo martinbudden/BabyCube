@@ -53,6 +53,11 @@ Raspberry Pi (eg a Pi 4), but the smaller Pi 3A+ or Pi Zero 2W will fit.
 
 ## Tips for printing the parts
 
+Many parts on the BabyCube are designed to press-fit together (a bit like Lego), so the tolerances are quite tight.
+For this reason it is important you printer is properly calibrated before you print the BabyCube parts. In particular
+the extruder should be calibrated, the printbed correctly trammed (levelled), and "elephant's foot" compensation set
+if required.
+
 The printed parts can be divided into two classes, the "large parts" (ie the left, right, top and back faces), and the
 "small parts" (the rest of the parts)
 
@@ -157,7 +162,7 @@ The changes to `configuration.h` and `configuration_adv.h` are [here](../documen
 A starting point for the Klipper configuration is [here](../documents/klipper_btt_skr_mini_e3_v2_0.cfg).
 This only a starting point and should be adjusted according to your components.
 
-In particular Nnote that the endstop sensitivities (that is the `driver_SGTHRS` values) must be tuned for each axis.
+In particular note that the endstop sensitivities (that is the `driver_SGTHRS` values) must be tuned for each axis.
 They are currently set at `255`, the most sensitive value and this will need to be reduced as part of the tuning.
 
 <span></span>
