@@ -22,6 +22,11 @@
 //!
 //!## Tips for printing the parts
 //!
+//!Many parts on the BabyCube are designed to press-fit together (a bit like Lego), so the tolerances are quite tight.
+//!For this reason it is improtant you printer is properly calibrated before you print the BabyCube parts. In particular
+//!the extruder should be calibrated, the printbed correctly trammed (levelled), and "elephant's foot" compensation set
+//!if required.
+//!
 //!The printed parts can be divided into two classes, the "large parts" (ie the left, right, top and back faces), and the
 //!"small parts" (the rest of the parts)
 //!
