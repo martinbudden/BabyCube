@@ -23,7 +23,7 @@
 //!## Tips for printing the parts
 //!
 //!Many parts on the BabyCube are designed to press-fit together (a bit like Lego), so the tolerances are quite tight.
-//!For this reason it is improtant you printer is properly calibrated before you print the BabyCube parts. In particular
+//!For this reason it is important you printer is properly calibrated before you print the BabyCube parts. In particular
 //!the extruder should be calibrated, the printbed correctly trammed (levelled), and "elephant's foot" compensation set
 //!if required.
 //!
@@ -131,7 +131,7 @@
 //!A starting point for the Klipper configuration is [here](../documents/klipper_btt_skr_mini_e3_v2_0.cfg).
 //!This only a starting point and should be adjusted according to your components.
 //!
-//!In particular Nnote that the endstop sensitivities (that is the `driver_SGTHRS` values) must be tuned for each axis.
+//!In particular note that the endstop sensitivities (that is the `driver_SGTHRS` values) must be tuned for each axis.
 //!They are currently set at `255`, the most sensitive value and this will need to be reduced as part of the tuning.
 
 include <NopSCADlib/utils/core/core.scad>
