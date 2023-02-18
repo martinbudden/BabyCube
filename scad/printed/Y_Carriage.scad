@@ -298,7 +298,7 @@ module yCarriageBolts(yCarriageType, thickness) {
 module pulleyStack(pulley, explode=0) {
     function bearingStackHeight(bearingType=BBF623, washer=M3_washer) = 3*washer_thickness(washer) + 2*bb_width(bearingType);
 
-    if (pulley[0] == "F623") {
+    if (pulley[0] == "F623" || pulley[0] == "F684" || pulley[0] == "F694" || pulley[0] == "F695") {
         washer = M3_washer;
         bearingType = pulley;
         translate_z(-3*washer_thickness(washer)/2 - bb_width(bearingType)) {
@@ -332,7 +332,7 @@ module pulleyStack(pulley, explode=0) {
 
 
 module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCarriageBraceThickness, plainIdlerOffset, toothedIdlerOffset, blockOffsetX, left) {
-    isBearing = plainIdler[0] == "F623";
+    isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
     pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
     washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_washer : M5_washer;
     bolt = pulleyBore == 3 ? M3_cap_screw : pulleyBore == 4 ? M4_cap_screw : M5_cap_screw;
