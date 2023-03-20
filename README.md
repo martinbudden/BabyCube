@@ -127,6 +127,7 @@ Printer           | Build Volume | Nominal Dimensions
 BabyCube          | 90 x 80 x 60 | 200 x 220 x 210
 [Dice](https://www.instructables.com/DICE-a-Tiny-Rigid-and-Superfast-3D-printer/) | 90 x 75 x 80  | 200 x 200 x 200
 [Rook](https://github.com/rolohaun/Rook) | 120 x 120 x 100 (est) | 220 x 250 x 280 (est)
+[the100](https://github.com/MSzturc/the100) | 165 x 165 x 165 (est) |
 [Voron 0](https://vorondesign.com/voron0) | 120 x 120 x 120 | 230 x 230 x 280
 
 ## Demo videos
