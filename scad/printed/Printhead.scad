@@ -179,8 +179,7 @@ module hotEndPartCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower
                     cable_tie(cable_r=3, thickness=1);
 }
 
-module grooveMountCutout(length) {
-    tolerance = 1/8;
+module grooveMountCutout(length, tolerance=0.125) {
     neckLength = 6 - tolerance;
     innerRadius = 6;
     outerRadius = 8;
@@ -204,7 +203,7 @@ module grooveMountCutout(length) {
 function grooveMountClampStrainReliefOffset() = 15;
 function hotendStrainReliefClampHoleSpacing() = 12;
 
-module grooveMountClamp(size, hotendDescriptor="E3DV6", countersunk=true, strainRelief=false) {
+module grooveMountClamp(size, hotendDescriptor="E3DV6", countersunk=true, tolerance=0.125, strainRelief=false) {
     fillet = 1.5;
     supportSize = [20, grooveMountClampStrainReliefOffset() + 5, 6];
 
@@ -223,7 +222,7 @@ module grooveMountClamp(size, hotendDescriptor="E3DV6", countersunk=true, strain
                 }
         }
         translate([grooveMountOffsetX(hotendDescriptor), 0, 0])
-            grooveMountCutout(size.y);
+            grooveMountCutout(size.y, tolerance);
         for (x = grooveMountHoleOffsets)
             translate([x, 0, -size.z])
                 if (countersunk)
