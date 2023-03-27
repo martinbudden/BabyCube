@@ -74,7 +74,7 @@ module Y_Carriage_Brace_Left_stl() {
 
     stl("Y_Carriage_Brace_Left")
         color(pp1_colour)
-            yCarriageBrace(carriageType(_yCarriageDescriptor), yCarriageBraceThickness(), pulleyOffset(), holeRadius, left=true);
+            yCarriageBrace(carriageType(_yCarriageDescriptor), yCarriageBraceThickness(), pulleyOffset(), holeRadius, holeRadius, left=true);
 }
 
 module Y_Carriage_Brace_Right_stl() {
@@ -82,7 +82,7 @@ module Y_Carriage_Brace_Right_stl() {
 
     stl("Y_Carriage_Brace_Right")
         color(pp1_colour)
-            yCarriageBrace(carriageType(_yCarriageDescriptor), yCarriageBraceThickness(), pulleyOffset(), holeRadius, left=false);
+            yCarriageBrace(carriageType(_yCarriageDescriptor), yCarriageBraceThickness(), pulleyOffset(), holeRadius, holeRadius, left=false);
 }
 
 module yCarriageLeftAssembly(NEMA_width, t=undef) {
