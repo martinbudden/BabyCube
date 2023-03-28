@@ -349,7 +349,8 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCar
     isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
     pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
     washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
-    bolt = pulleyBore == 3 ? M3_cap_screw : pulleyBore == 4 ? M4_cap_screw : M5_cap_screw;
+    M3_shoulder_screw= ["M3_sld", "M3 shoulder",     hs_cap,   4, 7.0, 4,    2.0, 3.0, 20,  M4_washer, M3_nut,   M3_tap_radius,    M4_clearance_radius];
+    bolt = pulleyBore == 3 ? M3_cap_screw : pulleyBore == 4 ? M3_shoulder_screw : M5_cap_screw;
     explode = yCarriageExplodeFactor();
 
     plainIdlerHeight = isBearing ? 2*bb_width(plainIdler) + washer_thickness(washer) : pulley_height(plainIdler);
@@ -358,35 +359,41 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCar
     translate(plainPulleyPos(left, plainIdlerHeight, pulleyBore, plainIdlerOffset, thickness, yCarriageBraceThickness)) {
         explode(left ? 6*explode : explode, true)
             pulleyStack(plainIdler, explode=explode);
-        translate_z(plainIdlerHeight/2)
+        translate_z(plainIdlerHeight/2) {
+            boltLength = pulleyBore==3  ? screw_shorter_than(thickness + 2*pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness)
+                                        : screw_longer_than(2*pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness);
             if (left) {
                 explode(7*explode, true)
-                    bolt(bolt, screw_shorter_than(thickness + 2*pulleyStackHeight(plainIdlerHeight, pulleyBore) + yCarriageBraceThickness));
+                    bolt(bolt, boltLength);
             } else {
                 translate_z(yCarriageBraceThickness + washer_thickness(washer))
                     explode(5*explode, true)
-                        bolt(bolt, screw_shorter_than(thickness + pulleyStackHeight(plainIdlerHeight, pulleyBore) + yCarriageBraceThickness));
+                        bolt(bolt, boltLength);
                 if (yCarriageBraceThickness)
                     explode(4*explode)
                         washer(washer);
             }
+        }
     }
 
     translate(toothedPulleyPos(left, toothedIdlerHeight, pulleyBore, toothedIdlerOffset, thickness, yCarriageBraceThickness)) {
         explode(left? explode : 6*explode, true)
             pulleyStack(toothedIdler, explode=explode);
-        translate_z(plainIdlerHeight/2)
+        translate_z(plainIdlerHeight/2) {
+            boltLength = pulleyBore==3  ? screw_shorter_than(thickness + pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness)
+                                        : screw_longer_than(pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness);
             if (left) {
                 translate_z(yCarriageBraceThickness + washer_thickness(washer))
                     explode(5*explode, true)
-                        bolt(bolt, screw_shorter_than(thickness + pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness));
+                        bolt(bolt, boltLength);
                 if (yCarriageBraceThickness)
                     explode(4*explode)
                         washer(washer);
             } else {
                 explode(7*explode, true)
-                    bolt(bolt, screw_shorter_than(thickness + 2*pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness));
+                    bolt(bolt, boltLength);
             }
+        }
     }
 
     if (yCarriageBraceThickness) {
@@ -398,7 +405,7 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCar
         for (x = boltXPositions)
             translate([x, 0, thickness + pulleyStackHeight(plainIdlerHeight, pulleyBore) + yCarriageBraceThickness])
                 explode(4*explode, true)
-                    boltM3Caphead(10);
+                    boltM3Caphead(8);
     }
 }
 
