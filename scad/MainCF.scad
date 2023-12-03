@@ -20,10 +20,28 @@ assembly("BC200CF", big=true) {
     //CF_DebugAssembly();
 }
 
+module BC220CF_assembly() pose(a=[55, 0, 25])
+assembly("BC220CF", big=true) {
+    CF_FinalAssembly();
+    //CF_DebugAssembly();
+}
+
+module BC250CF_assembly() pose(a=[55, 0, 25])
+assembly("BC250CF", big=true) {
+    CF_FinalAssembly();
+    //CF_DebugAssembly();
+}
+
+module BC260CF_assembly() pose(a=[55, 0, 25])
+assembly("BC260CF", big=true) {
+    CF_FinalAssembly();
+    //CF_DebugAssembly();
+}
+
 module BC200CF_unstaged_assembly()
 assembly("BC200CF_unstaged", big=true) {
     CF_DebugAssembly();
 }
 
 if ($preview)
-    BC200CF_assembly();
+    BC220CF_assembly();
