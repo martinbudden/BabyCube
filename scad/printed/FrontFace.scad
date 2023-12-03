@@ -37,9 +37,10 @@ module frontFaceCF(coverBelts) {
             translate([insetX, 50])
                 rounded_square([size.x - 2*insetX, eZ - insetY - 50 - (coverBelts ? 24 : 0)], 3, center=false);
             if (coverBelts) {
-                for (x = [18.5, size.x - 18.5])
-                    translate([x, eZ - insetY - 10])
-                        rounded_square([12, 20], 1.5, center=true);
+                if (_fullLengthYRail)
+                    for (x = [18.5, size.x - 18.5])
+                        translate([x, eZ - insetY - 10])
+                            rounded_square([12, 20], 1.5, center=true);
             } else {
                 translate([insetX2, eZ - insetY - 20])
                     rounded_square([size.x - 2*insetX2, 20], 2, center=false);
@@ -51,8 +52,9 @@ module frontFaceCF(coverBelts) {
                         fillet(2);
             }
             backFaceSideCutouts(cnc=true, plateThickness=_frontPlateCFThickness, dogBoneThickness=0);
-            backFaceTopCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0);
-            railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
+            backFaceTopCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0, yRailOffset = 13.4);
+            if (_fullLengthYRail)
+                railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
             frontFaceSideHolePositions()
                 circle(r=M3_clearance_radius);
             frontFaceUpperHolePositions()
@@ -87,14 +89,14 @@ module Front_Face_CF() {
 }
 
 module Nameplate_stl() {
-    size = [80, 22, 3];
-    stl("Nameplate");
+    size = [eX == 200 ? 80 : eX == 220 ? 100 : 140, 22, 3];
+    echo(eX=eX);
         difference() {
             translate([(eX + 2*eSizeX - size.x)/2, eZ - size.y - _topPlateThickness])
                 color(grey(30))
                     rounded_cube_xy(size, 2);
-            translate([(eX + 2*eSizeX - size.x)/2, eX])
-                translate([size.x/2, -15, size.z - 1 + eps])
+            #translate([(eX + 2*eSizeX - size.x)/2, eZ - size.y - _topPlateThickness])
+                translate([size.x/2, 10, size.z - 1 + eps])
                     linear_extrude(1)
                         text(_cubeName, size=14, font="Calibri", halign="center", valign="center");
             frontFaceUpperHolePositions()
@@ -103,7 +105,7 @@ module Nameplate_stl() {
 }
 
 module Front_Face_Top_Joiner_stl() {
-    size = [80, eSizeY, eSizeZ];
+    size = [eX - 120, eSizeY, eSizeZ];
     stl("Front_Face_Top_Joiner");
     difference() {
         color(pp1_colour)
