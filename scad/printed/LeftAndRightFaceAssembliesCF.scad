@@ -6,6 +6,7 @@ include <NopSCADlib/vitamins/sheets.scad>
 
 include <LeftAndRightFaceAssemblies.scad>
 include <XY_MotorMountCF.scad>
+include <Extras.scad>
 
 include <../Parameters_CoreXY.scad>
 
@@ -31,10 +32,11 @@ module Left_Face_Lower_Joiner_Back_stl() {
 module Front_Face_Joiner_stl() {
     stl("Front_Face_Joiner")
         difference() {
-            offset = 10;
-            translate([_sidePlateThickness, offset, _sidePlateThickness])
+            offsetBottom = eZ == 200 ? 30 : 45;
+            offsetTop = eZ == 200 ? 70 : 85;
+            translate([_sidePlateThickness, offsetBottom, _sidePlateThickness])
                 color(pp2_colour)
-                    rounded_cube_xy([eSizeY, eZ - 70 - offset, eSizeXBase - _sidePlateThickness], _fillet);
+                    rounded_cube_xy([eSizeY, eZ - offsetTop - offsetBottom, eSizeXBase - _sidePlateThickness], _fillet);
             frontSideJoinerHolePositions(_sidePlateThickness)
                 boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
             rotate([0, -90, 0])
@@ -48,7 +50,7 @@ module backFaceJoiner() {
     difference() {
         offset = 20;
         translate([eY + eSizeY, offset, _sidePlateThickness])
-            rounded_cube_xy([eSizeY, eZ - 90 - offset, eSizeXBase + 1 - _sidePlateThickness], _fillet);
+            rounded_cube_xy([eSizeY, eZ - 94 - offset, eSizeXBase + 1 - _sidePlateThickness], _fillet);
         backSideJoinerHolePositions(_sidePlateThickness)
             boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
         translate([eY + 2*eSizeY, 0, 0])
@@ -181,6 +183,11 @@ module Left_Face_CF_dxf() {
         leftFaceCF(NEMA_width(NEMA14_36));
 }
 
+module Left_Face_NEMA_17_CF_dxf() {
+    dxf("Left_Face_NEMA_17_CF")
+        leftFaceCF(NEMA_width(NEMA17_40));
+}
+
 CF3Red = CF3;//[ "CF3",       "Sheet carbon fiber",      3, [1, 0, 0],                false,  5,  5,  [0.5, 0, 0] ];
 
 module Left_Face_CF() {
@@ -188,7 +195,10 @@ module Left_Face_CF() {
 
     translate([size.x/2, size.y/2, 0])
         render_2D_sheet(CF3Red, w=size.x, d=size.y)
-            Left_Face_CF_dxf();
+            if (_xyMotorDescriptor=="NEMA14")
+                Left_Face_CF_dxf();
+            else
+                Left_Face_NEMA_17_CF_dxf();
 }
 
 module Right_Face_CF_dxf() {
@@ -196,12 +206,20 @@ module Right_Face_CF_dxf() {
         rightFaceCF(NEMA_width(NEMA14_36));
 }
 
+module Right_Face_NEMA_17_CF_dxf() {
+    dxf("Right_Face_NEMA_17_CF")
+        rightFaceCF(NEMA_width(NEMA17_40));
+}
+
 module Right_Face_CF() {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
 
     translate([size.x/2, size.y/2, -_sidePlateThickness])
         render_2D_sheet(CF3Red, w=size.x, d=size.y)
-            Right_Face_CF_dxf();
+            if (_xyMotorDescriptor=="NEMA14")
+                Right_Face_CF_dxf();
+            else
+                Right_Face_NEMA_17_CF_dxf();
 }
 
 module leftFaceCF(NEMA_width) {
@@ -210,7 +228,8 @@ module leftFaceCF(NEMA_width) {
     difference() {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2]) {
-            sideFaceMotorCutout(left=true, NEMA_width=NEMA_width, cnc=true);
+            if (NEMA_width < NEMA_width(NEMA17_40))
+                sideFaceMotorCutout(left=true, NEMA_width=NEMA_width, cnc=true);
             sideFaceTopDogbones(cnc=true);
             translate([_backPlateCFThickness, 0])
                 sideFaceBackDogBones(cnc=true);
@@ -245,8 +264,10 @@ module rightFaceCF(NEMA_width) {
                 translate([eSizeY + 35, eSizeZ])
                     rounded_square([eY - 75, 30], 5, center=false);
             } else {
-                translate([eSizeY + 35, eSizeZ])
-                    rounded_square([40, 15], 5, center=false);
+                // MainBoard cutout
+                //translate([eSizeY + 35, eSizeZ])
+                //    rounded_square([40, 15], 5, center=false);
+                // IEC cutout
                 cutoutSize = [48, 30];
                 translate([iecPosition().y, iecPosition().z]) {
                     rounded_square(cutoutSize, 5, center=true);
@@ -255,7 +276,8 @@ module rightFaceCF(NEMA_width) {
                             circle(r=M3_clearance_radius);
                 }
             }
-            sideFaceMotorCutout(left=false, NEMA_width=NEMA_width, cnc=true);
+            if (NEMA_width < NEMA_width(NEMA17_40))
+                sideFaceMotorCutout(left=false, NEMA_width=NEMA_width, cnc=true);
             sideFaceTopDogbones(cnc=true);
             translate([_backPlateCFThickness, 0])
                 sideFaceBackDogBones(cnc=true);
@@ -267,7 +289,10 @@ module rightFaceCF(NEMA_width) {
                 NEMA_screw_positions(extruderMotorType())
                     circle(r=M3_clearance_radius);
             }
-            spoolHolderCutout(NEMA_width, cnc=true);
+            //spoolHolderCutout(NEMA_width, cnc=true);
+            translate([spoolHolderPosition(cf=true).y, spoolHolderPosition(cf=true).z-20, 0])
+                spoolHolderBracketHolePositions(M3=true)
+                    circle(r=M3_clearance_radius);
             lowerSideJoinerHolePositions(left=false)
                 circle(r=M3_clearance_radius);
             upperSideJoinerHolePositions()
@@ -334,11 +359,6 @@ assembly("Left_Face_CF", big=true) {
         XY_Idler_Bracket_Left_assembly();
     }
     leftFaceHardware(xyMotorType(), cnc=true);
-    *if (_useFrontSwitch) {
-        explode([25, 0, 0])
-            Switch_Shroud_assembly();
-        Switch_Shroud_bolts(counterSunk=false);
-    }
 }
 
 module rightFaceIEC() {
@@ -391,7 +411,7 @@ assembly("Right_Face_CF", big=true) {
             backSideJoinerHolePositions()
                 explode(10, true)
                     boltM3Buttonhead(10);
-            frontSideJoinerHolePositions()
+            frontSideJoinerHolePositions(bolts=true)
                 explode(10, true)
                     boltM3Buttonhead(10);
             xyMotorMountHolePositions(_xyNEMA_width, left=false)
@@ -408,4 +428,17 @@ assembly("Right_Face_CF", big=true) {
     }
     rightFaceHardware(xyMotorType(), cnc=true);
     rightFaceAssembly(_xyNEMA_width, zipTies=false);
+
+    translate(spoolHolderPosition(cf=true))
+        rotate([-90, 0, 90]) {
+            stl_colour(pp1_colour)
+                Spool_Holder_Bracket_stl();
+            spoolHolderBracketHardware(M3=true);
+        }
+
+
+    explode([50, 0, 0], true, show_line=false) {
+        rightFaceIEC();
+        rightFaceIEC_hardware();
+    }
 }
