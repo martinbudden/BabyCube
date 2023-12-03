@@ -91,6 +91,10 @@ module boltHoleM3CounterboreButtonhead(length, boreDepth=undef, boltHeadToleranc
     boltHoleCounterbore(M3_dome_screw, length, boreDepth, boltHeadTolerance, horizontal=horizontal, cnc=cnc, twist=twist);
 }
 
+module boltHoleM3HangingCounterboreButtonhead(length, boreDepth=undef, boltHeadTolerance=0.4) {
+    boltHoleHangingCounterbore(M3_dome_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance);
+}
+
 module boltHoleM3HangingCounterbore(length, boreDepth=undef, boltHeadTolerance=0) {
     boltHoleHangingCounterbore(M3_cap_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance);
 }
