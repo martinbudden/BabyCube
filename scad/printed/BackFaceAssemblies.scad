@@ -125,7 +125,7 @@ module Back_Face_CF_dxf() {
                     circle(r=M3_clearance_radius);
                 backFaceUpperSKBracketHolePositions(_topPlateThickness)
                     circle(r=M5_clearance_radius);
-                if (_backFaceUpperBracketOffset != _topPlateThickness)
+                if (!is_undef(_backFaceUpperBracketOffset) && _backFaceUpperBracketOffset != _topPlateThickness)
                     backFaceUpperSKBracketHolePositions(_backFaceUpperBracketOffset)
                         circle(r=M5_clearance_radius);
                 backFaceLowerSKBracketHolePositions()
@@ -163,7 +163,8 @@ assembly("Back_Face_CF_Stage_1", big=true) {
     translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0]) {
             Back_Face_CF();
-            backFaceUpperBracketsHardware(_backPlateCFThickness, _backFaceUpperBracketOffset, counterSunk=false);
+            backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
+            backFaceUpperBracketsHardware(_backPlateCFThickness, backFaceUpperBracketOffset, counterSunk=false);
             backFaceLowerBracketsHardware(_backPlateCFThickness, counterSunk=false);
             Z_MotorMountHolePositions(zMotorType())
                 vflip()
