@@ -39,12 +39,15 @@ module CoreXY() {
         yCarriageRightAssembly(_xyNEMA_width);
     //Left_Face_assembly();
     //Right_Face_assembly();
-    //XY_Idler_Bracket_Left_assembly();
-    //XY_Idler_Bracket_Right_assembly();
-    XY_Idler_Left_assembly();
-    XY_Idler_Right_assembly();
-    XY_Motor_Mount_Left_CF_assembly();
-    XY_Motor_Mount_Right_CF_assembly();
+    if (_useCNC) {
+        XY_Idler_Bracket_Left_assembly();
+        XY_Idler_Bracket_Right_assembly();
+        XY_Motor_Mount_Left_CF_assembly();
+        XY_Motor_Mount_Right_CF_assembly();
+    } else {
+        XY_Idler_Left_assembly();
+        XY_Idler_Right_assembly();
+    }
     xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
     //let($hide_bolts=true)
     printheadBeltSide(t=t);

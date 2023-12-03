@@ -31,6 +31,7 @@ module Base_test() {
     //let($hide_pcb=true)
     //Base_assembly();
     baseAssembly(BTT_SKR_MINI_E3_V2_0);
+    //BaseCF_assembly();
 
     //pcbAssembly(RPI3A_plus);
     //pcbAssembly(RPI0);

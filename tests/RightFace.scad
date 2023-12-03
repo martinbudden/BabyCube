@@ -24,6 +24,7 @@ include <../scad/utils/CoreXYBelts.scad>
 module Right_Face_test() {
     echoPrintSize();
     //CoreXYBelts(carriagePosition(), x_gap=16);
+    //Right_Face_CF();
 
     if (_useCNC)
         Right_Face_CF_assembly();

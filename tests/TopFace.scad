@@ -49,6 +49,9 @@ module Top_Face_test() {
     //let($hide_bolts=true)
     if (_xyMotorDescriptor == "NEMA14") {
         if (_useCNC) {
+            //topFaceFrontAndBackDogbones(true, yRailOffset=20);
+            //topFaceFrontCutouts(true);
+            //Top_Face_CF();
             Top_Face_CF_assembly();
             //Top_Face_CF_Stage_1_assembly();
             //Top_Face_CF_Stage_2_assembly();
@@ -60,6 +63,7 @@ module Top_Face_test() {
             //Top_Face_Stage_2_assembly();
         }
     } else {
+        //Top_Face_CF_Stage_1_assembly();
         Top_Face_NEMA_17_assembly();
         //Top_Face_NEMA_17_Stage_1_assembly();
         //Top_Face_NEMA_17_Stage_2_assembly();
@@ -73,6 +77,7 @@ module Top_Face_test() {
     //Right_Face_assembly();
     //bowdenTube(carriagePosition());
 
+    //Back_Face_CF_assembly();
     //Back_Face_Stage_1_assembly();
     //Back_Face_assembly();
     //Back_Face();
@@ -85,7 +90,17 @@ module Top_Face_test() {
 
 }
 
+module Top_Face_map() {
+    Top_Face_CF();
+    translate([0, -eZ-2, 0])
+        Front_Face_CF();
+    translate([-eZ-2, 0, 0])
+        rotate([0, 180, -90])
+            Left_Face_CF();
+}
+
 if ($preview)
+    //Top_Face_map();
     translate_z(-eZ)
         Top_Face_test();
 /*else

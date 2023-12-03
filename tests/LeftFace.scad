@@ -16,7 +16,6 @@ use <../scad/printed/BackFaceAssemblies.scad>
 use <../scad/printed/FrontChords.scad>
 use <../scad/printed/FrontFace.scad>
 
-include <../scad/utils/CoreXYBelts.scad>
 include <../scad/utils/printParameters.scad>
 
 
@@ -25,6 +24,17 @@ NEMA_type = xyMotorType();
 
 //$explode = 1;
 //$pose = 1;
+
+module Left_Face_map() {
+    rotate([0, 180, 0])
+        Left_Face_CF();
+    translate([0, 0, 0])
+        Front_Face_CF();
+    translate([-eY-23, 0, 0])
+        rotate([0, 180, 0])
+            Back_Face_CF();
+}
+
 module Left_Face_test() {
     echoPrintSize();
     //CoreXYBelts(carriagePosition());
@@ -32,6 +42,10 @@ module Left_Face_test() {
     //zipTieCutout();
     //Front_Face_CF_assembly();
     //Back_Face_CF_assembly();
+    //translate([0, -eZ/2, 0]) 
+    //Left_Face_CF_dxf();
+    //Left_Face_NEMA_17_CF_dxf();
+
     if (_useCNC)
         Left_Face_CF_assembly();
     else
@@ -85,5 +99,6 @@ module Left_Face_test() {
 
 if ($preview)
     Left_Face_test();
+    //Left_Face_map();
 else
     scale([0.5, 0.5, 0.5]) Left_Face_stl();

@@ -7,10 +7,13 @@ include <NopSCADlib/vitamins/stepper_motors.scad>
 use <../scad/printed/BackFace.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
+use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
+
 use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/Printbed.scad>
 use <../scad/printed/Printbed3point.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
+include <../scad/utils/CoreXYBelts.scad>
 use <../scad/utils/printParameters.scad>
 
 use <../scad/Parameters_Positions.scad>
@@ -21,10 +24,15 @@ include <../scad/Parameters_Main.scad>
 module Back_Face_test() {
     t = 2;
     echoPrintSize();
-    //Back_Face_Stage_1_assembly();
+    //CoreXYBelts(carriagePosition(t), show_pulleys=true);
+
+    //topFaceMotors(xyMotorType());
     //translate_z(bedHeight()) Print_bed_3_point_assembly();
     //translate_z(bedHeight()) Print_bed_assembly();
     //translate_z(_zMin) Print_bed_3_point_printed_assembly();
+
+    //Back_Face_Stage_1_assembly();
+    //Back_Face_CF_Stage_1_assembly();
     if (_useCNC)
         Back_Face_CF_assembly(bedHeight(t));
     else
@@ -34,12 +42,15 @@ module Back_Face_test() {
     //Back_Face_CF();
     //Back_Face_CF_dxf();
     //Left_Face_assembly(switch=false);
+    //Left_Face_CF_assembly();
+    //Right_Face_CF_assembly();
     //Right_Face_assembly();
-    //Top_Face_assembly(t);
     //printheadBeltSide(t=t);
     //printheadHotendSide(t=t);
     //camera(rpi_camera_v2, fov_distance = eY/2);
 
+    //Top_Face_assembly(t);
+    //Top_Face_CF_Stage_1_assembly();
     //Top_Face_CF_assembly();
 
 
