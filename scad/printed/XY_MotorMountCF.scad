@@ -76,7 +76,7 @@ assembly("XY_Motor_Mount_Right_CF", big=true, ngb=true) {
     NEMA_type = xyMotorType();
     NEMA_width = NEMA_width(NEMA_type);
 
-    translate([eX + 2 * eSizeX - NEMA_width - _sidePlateThickness - 1, 0, 0])
+    translate([eX + 2*eSizeX - NEMA_width - _sidePlateThickness -4, 0, 0])
         rotate([90, 0, 90])
             XY_MotorPosition(NEMA_width, left=false)
                 rotate(180) {
