@@ -90,12 +90,12 @@ module Front_Face_CF() {
 
 module Nameplate_stl() {
     size = [eX == 200 ? 80 : eX == 220 ? 100 : 140, 22, 3];
-    echo(eX=eX);
+    stl("Nameplate");
         difference() {
             translate([(eX + 2*eSizeX - size.x)/2, eZ - size.y - _topPlateThickness])
                 color(grey(30))
                     rounded_cube_xy(size, 2);
-            #translate([(eX + 2*eSizeX - size.x)/2, eZ - size.y - _topPlateThickness])
+            translate([(eX + 2*eSizeX - size.x)/2, eZ - size.y - _topPlateThickness])
                 translate([size.x/2, 10, size.z - 1 + eps])
                     linear_extrude(1)
                         text(_cubeName, size=14, font="Calibri", halign="center", valign="center");
