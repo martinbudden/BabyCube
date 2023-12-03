@@ -19,11 +19,15 @@ include <../Parameters_Main.scad>
 // NEMA 14 with longer shaft, to ensure clearances
 //NEMA14= ["NEMA14",   35.2, 36,     46.4/2, 21,     11,     2,     5,     21,          26,    [8,     8]];
 NEMA14T = ["NEMA14T",   35.2, 36,     46.4/2, 21,     11,     2,     5,     24,          26,    [8,     8], 3,     false, false, 0,       0];
+NEMA17_48 = ["NEMA17_48",     42.3, 48,     53.6/2, 25,     11,     2,     5,     24,          31,    [11.5,  9], 3,     false, false, 0,       0];
+
 function NEMA14T() = NEMA14T;
 
 function xyMotorType() =
     _xyMotorDescriptor == "NEMA14" ? NEMA14T :
     _xyMotorDescriptor == "NEMA17" ? NEMA17_40 :
+    _xyMotorDescriptor == "NEMA17_47" ? NEMA17_47 :
+    _xyMotorDescriptor == "NEMA17_48" ? NEMA17_48 :
     undef;
 
 
