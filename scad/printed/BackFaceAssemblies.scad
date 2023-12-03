@@ -35,7 +35,7 @@ module backFace(zNEMA_type) {
     difference() {
         union() {
             backFaceBare(zNEMA_type);
-            backFaceUpperBrackets(_xyNEMA_width);// use_xyNEMA_width or rail offset
+            backFaceUpperBrackets(_xyNEMA_width, _topPlateThickness);// use_xyNEMA_width or rail offset
             backFaceLowerBrackets(zNEMA_type);
         }
         // add the bolt holes for attachment to the left and right faces
@@ -50,8 +50,9 @@ module backFace(zNEMA_type) {
 
         if (_backFaceSideCutouts)
             backFaceSideCutouts();
+        yRailOffset = yRailOffset(_xyNEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
         if (_backFaceTopCutouts)
-            backFaceTopCutouts();
+            backFaceTopCutouts(yRailOffset=yRailOffset);
     }
 }
 
@@ -64,8 +65,8 @@ assembly("Back_Face_Stage_1", big=true, ngb=true) {
         rotate([90, 0, 0]) {
             stl_colour(pp2_colour)
                 Back_Face_stl();
-            backFaceUpperBracketsHardware(_backPlateThickness, counterSunk=true);
-            backFaceLowerBracketsHardware(_backPlateThickness, counterSunk=true);
+            backFaceUpperBracketsHardware(_backPlateThickness, _topPlateThickness, counterSunk=true);
+            backFaceLowerBracketsHardware(_backPlateThickness , counterSunk=true);
         }
     // create back face for NEMA_motors with integrated leadscrew, if integrated leadscrew not already specified
     if (!is_list(NEMA_shaft_length(zMotorType())))
@@ -111,7 +112,8 @@ module Back_Face_CF_dxf() {
             sheet_2D(CF3, size.x, size.y);
             translate([-size.x/2, -size.y/2]) {
                 backFaceSideCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0);
-                backFaceTopCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0);
+                yRailOffset = yRailOffset(_xyNEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
+                backFaceTopCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0, yRailOffset=yRailOffset);
                 // add the bolt holes for attachment to the left and right faces
                 backFaceAllHolePositions()
                     circle(r=M3_clearance_radius);
@@ -121,15 +123,19 @@ module Back_Face_CF_dxf() {
                     circle(r=M3_clearance_radius);
                 backFaceBracketHolePositions(-_backPlateThickness)
                     circle(r=M3_clearance_radius);
-                backFaceUpperSKBracketHolePositions()
+                backFaceUpperSKBracketHolePositions(_topPlateThickness)
                     circle(r=M5_clearance_radius);
+                if (_backFaceUpperBracketOffset != _topPlateThickness)
+                    backFaceUpperSKBracketHolePositions(_backFaceUpperBracketOffset)
+                        circle(r=M5_clearance_radius);
                 backFaceLowerSKBracketHolePositions()
                     circle(r=M5_clearance_radius);
-                railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
+                if (_fullLengthYRail)
+                    railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
                 Z_MotorMountHolePositions(zMotorType())
                     circle(r=M3_clearance_radius);
                 // cutouts for zipties
-                zipTiePositions()
+                *zipTiePositions()
                     for (x = [-4, 4])
                         translate([x, 0])
                             rounded_square([2, 4], r=0.5, center=true);
@@ -157,7 +163,7 @@ assembly("Back_Face_CF_Stage_1", big=true) {
     translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0]) {
             Back_Face_CF();
-            backFaceUpperBracketsHardware(_backPlateCFThickness, counterSunk=false);
+            backFaceUpperBracketsHardware(_backPlateCFThickness, _backFaceUpperBracketOffset, counterSunk=false);
             backFaceLowerBracketsHardware(_backPlateCFThickness, counterSunk=false);
             Z_MotorMountHolePositions(zMotorType())
                 vflip()

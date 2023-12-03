@@ -166,14 +166,14 @@ module backFaceBare(NEMA_type) {
             rounded_cube_xy(zipTieBridgeSize, r=0.5, xy_center=true, z_center=false);
 }
 
-module backFaceUpperSKBracketHolePositions() {
-    translate([zRodOffsetX, _zRodLength - sk_size(SK_type).z/2 - _topPlateThickness, 0])
+module backFaceUpperSKBracketHolePositions(yOffset) {
+    translate([zRodOffsetX, _zRodLength - sk_size(SK_type).z/2 - yOffset, 0])
         for (x = [0, _zRodSeparation], s = [-sk_screw_separation(SK_type)/2, sk_screw_separation(SK_type)/2])
             translate([x + s, 0, 0])
                 children();
 }
 
-module backFaceUpperBrackets(NEMA_width) {
+module backFaceUpperBrackets(NEMA_width, yOffset) {
     fcHeight = eSizeY + (eX + 2*eSizeX - upperChordSize.z)/2;
     rectSize = [eX + 2*eSizeX - 2*fcHeight, upperChordSize.y - _topPlateThickness-sk_size(SK_type).z - 1, reinforcementThickness];
 
@@ -188,7 +188,7 @@ module backFaceUpperBrackets(NEMA_width) {
             translate([0, eZ - upperChordSize.y, -_backPlateThickness])
                 rounded_cube_xy([eX + 2*eSizeX, upperChordSize.y, _backPlateThickness], r=1);
         }
-        backFaceUpperSKBracketHolePositions()
+        backFaceUpperSKBracketHolePositions(yOffset)
             translate_z(-_backPlateThickness)
                 boltPolyholeM5Countersunk(_backPlateThickness, sink=0.25);
         backFaceTopHolePositions()
@@ -206,8 +206,8 @@ module backFaceUpperBrackets(NEMA_width) {
     }*/
 }
 
-module backFaceUpperBracketsHardware(backPlateThickness, counterSunk=true) {
-    translate([zRodOffsetX, _zRodLength - sk_size(SK_type).z/2 - _topPlateThickness, 0])
+module backFaceUpperBracketsHardware(backPlateThickness, yOffset, counterSunk=true) {
+    translate([zRodOffsetX, _zRodLength - sk_size(SK_type).z/2 - yOffset, 0])
         explode(20, true)
             for (x = [0, _zRodSeparation]) {
                 translate([x, 0, _zRodOffsetY])
