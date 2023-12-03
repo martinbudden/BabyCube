@@ -50,10 +50,6 @@ staged_assembly("Stage_1_CF", big=true, ngb=true) {
 
     explode([100, 50, 0], true, show_line=false) {
         Right_Face_CF_assembly();
-        explode([50, 0, 0], true, show_line=false) {
-            rightFaceIEC();
-            rightFaceIEC_hardware();
-        }
 
         translate([eX + 2 * eSizeX, 0, 0])
             rotate([90, 0, 90])
@@ -111,31 +107,12 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
         backFaceCableTies();
 }
 
-
-//! Bolt the **Front_Face_CF_assembly** to the base and left and right faces.
+//! Add the **Top_Face_CF_assembly**.
 //
 module Stage_4_CF_assembly()
 staged_assembly("Stage_4_CF", big=true, ngb=true) {
 
     Stage_3_CF_assembly();
-
-    explode([0, -100, 0], true) {
-        rotate([90, 0, 0]) {
-            frontFaceSideHolePositions()
-                boltM3Buttonhead(10);
-            frontFaceLowerHolePositions()
-                boltM3Buttonhead(10);
-        }
-        Front_Face_CF_assembly();
-    }
-}
-
-//! Add the **Top_Face_CF_assembly**.
-//
-module Stage_5_CF_assembly()
-staged_assembly("Stage_5_CF", big=true, ngb=true) {
-
-    Stage_4_CF_assembly();
 
     explode(100)
         Top_Face_CF_assembly();
@@ -157,15 +134,33 @@ staged_assembly("Stage_5_CF", big=true, ngb=true) {
 
 //! Thread the belts as shown and attach to the **X_Carriage_Belt_Side**.
 //
-module Stage_6_CF_assembly()
-staged_assembly("Stage_6_CF", big=true, ngb=true) {
+module Stage_5_CF_assembly()
+staged_assembly("Stage_5_CF", big=true, ngb=true) {
 
-    Stage_5_CF_assembly();
+    Stage_4_CF_assembly();
 
     explode(250, true)
         CoreXYBelts(carriagePosition());
     explode(100, true)
         printheadBeltSide();
+}
+
+//! Bolt the **Front_Face_CF_assembly** to the base and left and right faces.
+//
+module Stage_6_CF_assembly()
+staged_assembly("Stage_6_CF", big=true, ngb=true) {
+
+    Stage_5_CF_assembly();
+
+    explode([0, -100, 0], true) {
+        rotate([90, 0, 0]) {
+            frontFaceSideHolePositions()
+                boltM3Buttonhead(10);
+            frontFaceLowerHolePositions()
+                boltM3Buttonhead(10);
+        }
+        Front_Face_CF_assembly();
+    }
 }
 
 module CF_FinalAssembly() {
