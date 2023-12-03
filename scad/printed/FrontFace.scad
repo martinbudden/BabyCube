@@ -89,7 +89,7 @@ module Front_Face_CF() {
 }
 
 module Nameplate_stl() {
-    size = [eX == 200 ? 80 : eX == 220 ? 100 : 140, 22, 3];
+    size = [eX < 220 ? 80 : eX == 220 ? 100 : 140, 22, 3];
     stl("Nameplate");
         difference() {
             translate([(eX + 2*eSizeX - size.x)/2, eZ - size.y - _topPlateThickness])
@@ -145,7 +145,7 @@ assembly("Front_Face_CF") {
             translate([rockerPosition(rocker_type()).z, rockerPosition(rocker_type()).y])
                 rocker(rocker_type(), "red");
     }
-    if (_useFrontSwitch)
+    *if (_useFrontSwitch)
         explode([0, -30, 0], true) {
             Display_Housing_CF_assembly();
             translate([eX/2 + eSizeX, -2, 0])
