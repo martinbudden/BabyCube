@@ -43,7 +43,7 @@ function XY_MotorMountSize(NEMA_width, basePlateThickness=basePlateThickness, cf
 ];
 
 function xyMotorPosition(NEMA_width, left) = [
-    eX + 2*eSizeX - coreXYPosTR(NEMA_width).x + coreXY_drive_pulley_x_alignment(coreXY_type()) + (left ? leftDrivePulleyOffset().y : rightDrivePulleyOffset().y),
+    eX + 2*eSizeX - coreXYPosTR(NEMA_width).x + (useReversedBelts() ?  0 : coreXY_drive_pulley_x_alignment(coreXY_type())) + (left ? leftDrivePulleyOffset().x : rightDrivePulleyOffset().x),
     coreXYPosTR(NEMA_width).y + (left ? leftDrivePulleyOffset().y : rightDrivePulleyOffset().y),
     coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor)).z - motorClearance().z - pulleyOffset - (left ? coreXYSeparation().z/2 : -coreXYSeparation().z/2)
 ];
