@@ -146,3 +146,27 @@ BC220/dxfs/*_diff.png
 #!BC220/stls/*.stl
 #!BC220/stls/*.png
 BC220/stls/*_diff.png
+
+BC220CF/
+BC220CF/assemblies/*
+BC220CF/bom/
+BC220CF/dxfs/*
+BC220CF/stls/*
+BC220CF/tmp/
+BC220CF/*.html
+# change to !, except for _diff, .stl, and .dxf, once released
+BC220CF/readme.md
+#!BC220CF/assemblies/BC220CF_assembly.png
+!BC220CF/assemblies/BC220CF_assembled.png
+#!BC220CF/assemblies/*.png
+BC220CF/assemblies/*_diff.png
+#!BC220CF/dxfs/*.dxf
+#!BC220CF/dxfs/*.png
+BC220CF/dxfs/*_diff.png
+#!BC220CF/stls/*.stl
+#!BC220CF/stls/*.png
+BC220CF/stls/*_diff.png
+
+BC250CF/
+BC260CF/
+
