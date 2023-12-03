@@ -47,10 +47,10 @@ _corkDamperThickness = 2;
 
 // Z rods
 _zRodDiameter = 12;
-_zRodLength = floor(eZ/50)*50;
+_zRodLength = floor(eZ/100)*100;
 _zRodSeparation = 100;
 _zRodOffsetY = 23; // !! 20 to match SK8 and SK10 is a real squeeze. 23 for SK12 fits well
 
 _zLeadScrewDiameter = 8;
 _zLeadScrewOffset = _zRodOffsetY; // ensures clearance of zMotor from frame and alignment with zRods
-_zLeadScrewLength = floor((eZ - 25)/50)*50;
+_zLeadScrewLength = floor((_zRodLength - 25)/50)*50;
