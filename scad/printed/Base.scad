@@ -12,7 +12,7 @@ include <../vitamins/pcbs.scad>
 include <../vitamins/psus.scad>
 
 include <Foot.scad>
-include <LeftAndRightFaces.scad>
+include <LeftAndRightFaces.scad> // for frameLower
 include <../Parameters_Main.scad>
 //use <../../../MaybeCube/scad/printed/IEC_Housing.scad>
 //function iecHousingSize() = [70, 50, 42 + 3];
