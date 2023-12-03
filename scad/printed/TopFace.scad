@@ -170,8 +170,9 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, cn
     topFaceAllHolePositions()
         cutout_circle(M3_clearance_radius, cnc);
 
-    motorAccessHolePositions(NEMA_type)
-        cutout_circle(M3_clearance_radius, cnc);
+    if (!cnc)
+        motorAccessHolePositions(NEMA_type)
+            cutout_circle(M3_clearance_radius, cnc);
 
     zRodHolePositions()
         cutout_circle(_zRodDiameter/2 + 0.5, cnc);
@@ -182,7 +183,8 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, cn
         else
             poly_circle(r=bb_diameter(bearingType)/2);
 
-    topFaceWiringCutout(NEMA_width);
+    if (!cnc)
+        topFaceWiringCutout(NEMA_width);
 
     // remove the sides and back
     topFaceSideCutouts(cnc);
@@ -219,7 +221,8 @@ module topFaceFrontCutouts(cnc) {
 
     offsetX = (eX + 2*eSizeX - size.x)/2;
     if (cnc) {
-        topFaceFrontDogbones(cnc, yRailOffset=13.4);
+        yRailOffset = yRailOffset(_xyNEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
+        topFaceFrontAndBackDogbones(cnc, yRailOffset=yRailOffset);
     } else {
         translate([offsetX, -2*fillet])
             rounded_square(size, 0, center=false);
@@ -249,13 +252,16 @@ module topFaceBackCutouts(cnc, NEMA_width) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
     insetX = 3;
     insetY = 3;
+    yRailOffset = yRailOffset(_xyNEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
 
     translate([0, size.y + insetY])
-        topFaceBackDogbones(cnc, yRailOffset=13.4);//!!TODO fix this magic number
-    translate([insetX, size.y])
-        rotate(-90)
-            fillet(1);
-    translate([size.x - insetX, size.y])
-        rotate(180)
-            fillet(1);
+        topFaceFrontAndBackDogbones(cnc, yRailOffset=yRailOffset);
+    if (!cnc) {
+        translate([insetX, size.y])
+            rotate(-90)
+                fillet(1);
+        translate([size.x - insetX, size.y])
+            rotate(180)
+                fillet(1);
+    }
 }
