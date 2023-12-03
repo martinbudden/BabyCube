@@ -43,7 +43,7 @@ module XY_Idler_Bracket_Right_stl() {
 }
 
 module XY_Idler_Bracket_Left_NEMA_17_stl() {
-    NEMA_width = NEMA_width(NEMA17);
+    NEMA_width = NEMA_width(NEMA17_40);
 
     stl("XY_Idler_Bracket_Left_NEMA_17")
         color(pp1_colour)
@@ -51,7 +51,7 @@ module XY_Idler_Bracket_Left_NEMA_17_stl() {
 }
 
 module XY_Idler_Bracket_Right_NEMA_17_stl() {
-    NEMA_width = NEMA_width(NEMA17);
+    NEMA_width = NEMA_width(NEMA17_40);
 
     stl("XY_Idler_Bracket_Right_NEMA_17")
         color(pp1_colour)
@@ -180,7 +180,7 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, useCNC=false) {
                 boltHoleM3Tap(12);
     }
     if (useCNC) {
-        size = [45, topBoltHolderSize().y, topBoltHolderSize().z];
+        size = [eY == 180 ? 45 : 55, topBoltHolderSize().y, topBoltHolderSize().z];
         fillet = 1;
         offsetY = 9.5;
         difference() {
@@ -190,7 +190,7 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, useCNC=false) {
                     size2 = [eSizeY, 4*fillet, size.z];
                     translate([0, -size2.y + 2*fillet, 0])
                         cube(size2);
-                    size3 = [eSizeY, 25, eSizeZ];
+                    size3 = [eSizeY, eZ == 200 ? 25 : 40, eSizeZ];
                     translate([0, -size3.y - 30, 0])
                         rounded_cube_xy(size3, 1.5);
                 }
@@ -204,6 +204,10 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, useCNC=false) {
             translate([0, 30 - eZ - offsetY, 0])
                 upperSideJoinerHolePositions(_sidePlateThickness)
                     boltHoleM3Tap(size.z);
+            translate([_sidePlateThickness, 30 - eZ - offsetY, eX + 2*eSizeX])
+                rotate([0, 90, 0])
+                    frontFaceSideHolePositions()
+                        boltHoleM3Tap(8, horizontal=true, rotate=90, chamfer_both_ends=false);
         }
     }
 }
