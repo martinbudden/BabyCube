@@ -43,8 +43,8 @@ function XY_MotorMountSize(NEMA_width, basePlateThickness=basePlateThickness, cf
 ];
 
 function xyMotorPosition(NEMA_width, left) = [
-    eX + 2*eSizeX - coreXYPosTR(NEMA_width).x + coreXY_drive_pulley_x_alignment(coreXY_type()),
-    coreXYPosTR(NEMA_width).y,
+    eX + 2*eSizeX - coreXYPosTR(NEMA_width).x + coreXY_drive_pulley_x_alignment(coreXY_type()) + (left ? leftDrivePulleyOffset().y : rightDrivePulleyOffset().y),
+    coreXYPosTR(NEMA_width).y + (left ? leftDrivePulleyOffset().y : rightDrivePulleyOffset().y),
     coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor)).z - motorClearance().z - pulleyOffset - (left ? coreXYSeparation().z/2 : -coreXYSeparation().z/2)
 ];
 
@@ -183,3 +183,4 @@ module XY_MotorMountHardware(NEMA_type, basePlateThickness=basePlateThickness, c
             NEMA_screw_positions(NEMA_type)
                 boltM3Buttonhead(screw_shorter_than(5 + basePlateThickness + corkDamperThickness));
 }
+
