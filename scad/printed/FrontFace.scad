@@ -11,10 +11,10 @@ include <NopSCADlib/vitamins/sheets.scad>
 include <../utils/cutouts.scad>
 include <../utils/HolePositions.scad>
 
-use <DisplayHousing.scad>
-use <DisplayHousingAssemblies.scad>
-use <FrontChords.scad>
-use <LeftAndRightFaces.scad>
+//use <DisplayHousing.scad>
+//use <DisplayHousingAssemblies.scad>
+//use <FrontChords.scad>
+//use <LeftAndRightFaces.scad> // for rockerPosition
 use <XY_IdlerBracket.scad>
 
 include <../Parameters_CoreXY.scad>
@@ -61,21 +61,21 @@ module frontFaceCF(coverBelts) {
                 circle(r=M3_clearance_radius);
             frontFaceLowerHolePositions()
                 circle(r=M3_clearance_radius);
-            if (_useFrontSwitch)
+            /*if (_useFrontSwitch)
                 translate([rockerPosition(rocker_type()).z, rockerPosition(rocker_type()).y])
                     rocker_hole(rocker_type(), 0, rounded=false);
 
             if (_useFrontDisplay) {
                 display_type = BigTreeTech_TFT35v3_0;
-                /*cutoutSize = frontChordCutoutSize(display_type);
-                cutoutOffset = frontChordCutoutOffset(display_type);
-                translate([size.x + cutoutOffset.x, cutoutOffset.y])
-                    rounded_square([cutoutSize.x, cutoutSize.y], 2, center=false);*/
+                //cutoutSize = frontChordCutoutSize(display_type);
+                //cutoutOffset = frontChordCutoutOffset(display_type);
+                //translate([size.x + cutoutOffset.x, cutoutOffset.y])
+                //    rounded_square([cutoutSize.x, cutoutSize.y], 2, center=false);
                 translate([size.x/2, -1])
                     displayBracketHolePositionsCNC(display_type)
                         circle(r=M3_clearance_radius);
                 frontLowerChordSKR_1_4_cutout(display_type, cnc=true);
-            }
+            }*/
         }
     }
 }
@@ -141,7 +141,7 @@ assembly("Front_Face_CF") {
             frontFaceUpperHolePositions(3)
                 boltM3Buttonhead(12);
         }
-        if (_useFrontSwitch)
+        *if (_useFrontSwitch)
             translate([rockerPosition(rocker_type()).z, rockerPosition(rocker_type()).y])
                 rocker(rocker_type(), "red");
     }
