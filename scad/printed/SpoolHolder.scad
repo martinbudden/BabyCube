@@ -1,9 +1,10 @@
 include <NopSCADlib/utils/core/core.scad>
 
 use <NopSCADlib/utils/fillet.scad>
+use <../vitamins/bolts.scad>
 
 
-function spoolOffset() = [17.5, 0, 7];
+function spoolOffset(cf=false) = cf ? [17.5, 0, 7] : [17.5, 0, 7];
 
 
 module spoolHolderEndCap(height, length) {
@@ -34,7 +35,7 @@ module spoolHolderCap(width, length, spoolInternalRadius=26, offset=false) {
         }
 }
 
-module spoolHolderBracket(size, bracketThickness, topThickness, innerFillet, catchRadius) {
+module spoolHolderClamp(size, bracketThickness, topThickness, innerFillet, catchRadius) {
     interference = 1/16;// so there is some interference fit, to hold the bracket on tighter
     thickness = bracketThickness + interference;
     linear_extrude(size.z) {
@@ -81,7 +82,7 @@ module spoolHolder(bracketSize, offsetX, innerFillet, catchRadius=0, length=80, 
 
     translate_z(-size.z/2) {
         translate([-bracketSize.x - bracketThickness, -bracketSize.y, 0])
-            spoolHolderBracket(bracketSize, bracketThickness, clampThickness, innerFillet, catchRadius);
+            spoolHolderClamp(bracketSize, bracketThickness, clampThickness, innerFillet, catchRadius);
         cube([size.x, bracketThickness, size.z]);
         if (capPosX > 0)
             cube([capPosX, clampThickness, size.z]);
@@ -104,3 +105,59 @@ module spoolHolder(bracketSize, offsetX, innerFillet, catchRadius=0, length=80, 
         }
     }
 }
+
+module spoolHolderBracket(M3=false) {
+    eSize = 20;
+    size = [M3 ? 50 : 3*eSize, 1.5*eSize, 10];
+    fillet = 2;
+    thickness = 4.5;
+    catchRadius = 2;
+    catchLength = eSize + 1;
+
+    translate([-size.x/2, 0, 0])
+        difference() {
+            union() {
+                rounded_cube_xy([size.x, size.y, thickness], fillet);
+                sideSize = [(size.x - eSize)/2 - 0.45, size.y, size.z];
+                for (x = [0, size.x - sideSize.x])
+                    translate([x, 0, 0])
+                        rounded_cube_xy(sideSize, fillet);
+            }
+            for (x = M3 ? [8, size.x - 5] : [eSize/2, size.x - eSize/2])
+                translate([x, eSize/2, 0])
+                    if (M3)
+                        boltHoleM3HangingCounterboreButtonhead(size.z, boreDepth=size.z - 4);
+                    else
+                        boltHoleM4HangingCounterboreButtonhead(size.z, boreDepth=size.z - 4);
+            // latch
+            offset = 0.1;
+            *translate([size.x/2, size.y - catchRadius - offset, 0])
+                rotate([0, 90, 0])
+                        hull() {
+                        cylinder(r=catchRadius, h=catchLength, center=true);
+                        translate([-catchRadius, 0, -catchLength/2])
+                            cube([catchRadius, catchRadius + offset + eps, catchLength]);
+                    }
+
+        }
+}
+
+module spoolHolderBracketHolePositions(M3=false, z=0) {
+    eSize = 20;
+    size = [M3 ? 50 : 3*eSize, 1.5*eSize, 10];
+    thickness = 4.5;
+
+    for (x = M3 ? [8, size.x - 5] : [eSize/2, size.x - eSize/2])
+        translate([x - size.x/2, eSize/2, z])
+            children();
+}
+
+module spoolHolderBracketHardware(M3=false) {
+    spoolHolderBracketHolePositions(M3, 10 - 4)
+        vflip()
+            if (M3)
+                boltM3Buttonhead(12);
+            else
+                boltM4Buttonhead(12);
+}
+
