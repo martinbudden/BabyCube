@@ -52,47 +52,48 @@ module topFaceSideDogbones(cnc=false, plateThickness=_sidePlateThickness) {
     yStep = 20;
     dogboneSize = [plateThickness*2, yStep];
 
+    start = eY == 180 ? -4 : 5*yStep/2 - 4;
     for (x = [0],
-         y = [-4 : yStep*2 : eY + 2*eSizeY])
+          y = [start : yStep*2 : eY + 2*eSizeY - start])
             translate([x, y])
                 edgeCutout_x(dogboneSize, cnc);
+    if (eY !=180) {
+        endDogboneSize = [plateThickness*2, 2*yStep];
+        for (y = [-4, eY + 2 * eSizeY - 4])
+            translate([0, y])
+                edgeCutout_x(endDogboneSize, cnc);
+    }
 }
 
-module topFaceBackDogbones(cnc=false, plateThickness=_backPlateCFThickness, yRailOffset) {
-    xStep = 20;
-    dogboneSize = [xStep, plateThickness*2];
-
-    for (x = [cnc? xStep*2 : 0 : xStep*2 : cnc ? eX - xStep*2 : eX],
-         y = [0])
-        translate([x - eps + dogboneSize.x/2, y])
-            edgeCutout_y(dogboneSize, cnc);
-    endDogboneSize = [yRailOffset, plateThickness*2];
-    if (cnc)
-        for (x = [0, eX + 2*eSizeX - endDogboneSize.x])
-            translate([x - eps + endDogboneSize.x/2, 0])
-                edgeCutout_y(endDogboneSize, cnc);
-}
-
-module topFaceFrontDogbones(cnc=false, plateThickness=_backPlateCFThickness, yRailOffset) {
+module topFaceFrontAndBackDogbones(cnc=false, plateThickness=_backPlateCFThickness, yRailOffset) {
     xStep = 20;
     dogboneSize = [xStep, plateThickness*2];
     y = 0;
 
-    for (x = [cnc? xStep*2 : 0 : xStep*2 : cnc ? eX - xStep*2 : eX])
-        translate([x - eps + dogboneSize.x/2, y])
-            edgeCutout_y(dogboneSize, cnc);
-    endDogboneSize = [yRailOffset, plateThickness*2];
-    if (cnc)
-        for (x = [0, eX + 2*eSizeX - endDogboneSize.x])
-            translate([x - eps + endDogboneSize.x/2, y])
-                edgeCutout_y(endDogboneSize, cnc);
+    if (cnc) {
+        start = eX == 200 ? 3*xStep : eX == 220 ? 30 : xStep + 5;
+        for (x = [start : xStep*2 : eX - start])
+            translate([x - eps + dogboneSize.x/2, y])
+                edgeCutout_y(dogboneSize, cnc);
+        if (eX == 200) {
+            endDogboneSize = [yRailOffset, plateThickness*2];
+            for (x = [0, eX + 2*eSizeX - endDogboneSize.x])
+                translate([x - eps + endDogboneSize.x/2, y])
+                    edgeCutout_y(endDogboneSize, cnc);
+            midDogboneSize = [2*xStep - 12 - yRailOffset, plateThickness*2];
+            for (x = [yRailOffset + 12, eX + 2*eSizeX - 2*xStep])
+                translate([x - eps + midDogboneSize.x/2, y])
+                    edgeCutout_y(midDogboneSize, cnc);
+        }
+    }
 }
 
 module sideFaceTopDogbones(cnc=false, plateThickness=_topPlateThickness) {
     xStep = 20;
     dogboneSize = [xStep, plateThickness*2, 0];
 
-    for (x = [xStep : xStep*2 : eY + 2*eSizeY],
+    start = eY == 180 ? xStep : 3*xStep/2;
+    for (x = [start : xStep*2 : eY + 2*eSizeY],
          y = [eZ])
             translate([x, y, 0])
                 edgeCutout_y(dogboneSize, cnc);
@@ -102,8 +103,9 @@ module sideFaceBackDogBones(cnc=true, plateThickness=_sidePlateThickness) {
     yStep = 20;
     dogboneSize = [3*2, yStep - _tabTolerance];
 
+    start = eZ == 200 ? yStep : 3*yStep/2;
     x = eY + 2*eSizeY;
-    for (y = [yStep : yStep*2 : eZ])
+    for (y = [start : yStep*2 : eZ])
         translate([x, y])
             edgeCutout_x(dogboneSize, cnc);
 }
@@ -119,7 +121,8 @@ module backFaceSideCutouts(cnc=false, plateThickness=3, dogBoneThickness=3) {
     yStep = 20;
     dogboneSize = [plateThickness*2, yStep + _tabTolerance, dogBoneThickness];
 
-    for (y = [0 : yStep*2 : eZ],
+    start = eZ == 200 ? 0 : yStep/2;
+    for (y = [start : yStep*2 : eZ],
         x = [0, eX + 2*eSizeX])
             translate([x, y, -dogBoneThickness])
                 edgeCutout_x(dogboneSize, cnc);
@@ -133,14 +136,31 @@ module backFaceSideCutouts(cnc=false, plateThickness=3, dogBoneThickness=3) {
                     fillet(1, plateThickness + 2*eps);
 }
 
-module backFaceTopCutouts(cnc=false, plateThickness=_topPlateThickness, dogBoneThickness=3) {
+module backFaceTopCutouts(cnc=false, plateThickness=_topPlateThickness, dogBoneThickness=3, yRailOffset) {
     xStep = 20;
     dogboneSize = [xStep, plateThickness*2, dogBoneThickness];
 
-    for (x = [xStep/2 + eSizeZ : xStep*2 : eX],
-         y = [eZ])
-        translate([x + dogboneSize.x/2, y, -dogBoneThickness])
-            edgeCutout_y(dogboneSize, cnc);
+    if (cnc) {
+        start = eX == 200 ? 2*xStep : eX == 220 ? 2*xStep + 10 : 2*xStep + 5;
+        for (x = [start : xStep*2 : eX - start],
+            y = [eZ])
+            translate([x + dogboneSize.x/2, y, -dogBoneThickness])
+                edgeCutout_y(dogboneSize, cnc);
+        if (eX == 200) {
+            endDogboneSize = [3*xStep/2 - yRailOffset, plateThickness*2];
+            *for (x = [yRailOffset, eX + 2*eSizeX - endDogboneSize.x - yRailOffset],
+                y = [eZ])
+                translate([x - eps + endDogboneSize.x/2, y])
+                    edgeCutout_y(endDogboneSize, cnc);
+        } else {
+            endDogboneSize = [eX == 220 ? xStep + 10 : xStep + 5, plateThickness*2];
+            for (x = [0, eX + 2*eSizeX - endDogboneSize.x],
+                y = [eZ])
+                translate([x - eps + endDogboneSize.x/2, y])
+                    edgeCutout_y(endDogboneSize, cnc);
+        }
+    }
+
 }
 
 module sideFaceBackTabs() {

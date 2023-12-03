@@ -15,22 +15,22 @@ function backFaceBracketUpperOffset() = [30, 15];
 //function topFaceMidSideHolePositions() = [ eSizeY + eY/3, eSizeY + 2*eY/3 ];
 //function topFaceSideHolePositions() = [ 8, 20, 60, 140, 180 ];
 //function topFaceSideHolePositions() = [ 20, 60, 100, 140, 180 ];
-function topFaceSideHolePositions() = [ 20, 100, 180 ];
+function topFaceSideHolePositions() = eY == 180 ? [ 20, 100, 180 ] : [ 30, 110, 190, 230];
 
 // offset of side bolt holes for top plate
 topBoltHolderThickness = 7.25 + yRailShiftX();
-function topBoltHolderSize(sidePlateThickness=_sidePlateThickness) = [eY + 2*eSizeY - 15 - _frontPlateCFThickness, 8, topBoltHolderThickness - sidePlateThickness]; // -15 to avoid back cube, +2.75 to give clearance for bolt hole
+function topBoltHolderSize(sidePlateThickness=_sidePlateThickness) = [eY + 2*eSizeY - 15 - 60 - _frontPlateCFThickness, 8, topBoltHolderThickness - sidePlateThickness]; // -15 to avoid back cube, +2.75 to give clearance for bolt hole
 function topFaceSideHolePositionOffset() = 3.75 + yRailShiftX() + 0.5;
 function baseBackHoleOffset() = [ floor(_zNEMA_width/2) + 4, 4];
 //topBackHoleOffset = [ 20, 4];
-function topFaceBackHolePositions() = [ eX/2 + eSizeX - 20, eX/2 + eSizeX + 20];
+function topFaceBackHolePositions() = eX == 250 ? [eX/2 + eSizeX] : [ eX/2 + eSizeX - 20, eX/2 + eSizeX + 20 ];
 function topFaceBackHolePositionOffsetY() = 4;
 function topFaceFrontHolePositionOffsetY() = 8;
 
-function upperSideJoinerHolePositions() = [ 40, 80, 120, 175 ];
-function lowerSideJoinerHolePositions(left) = [ 10, 70, 130, 190 ];
-function backSideJoinerHolePositions() =  [ 45, 80 ];
-function frontSideJoinerHolePositions() = [ 40, 80, 120 ];
+function upperSideJoinerHolePositions() = eY == 180 ? [ 40, 80, 120, 160 ] : [ 50, 90, 130 ];
+function lowerSideJoinerHolePositions(left) = [ 10, 10 + eY/3, 10 + 2*eY/3, eY + 10 ];
+function backSideJoinerHolePositions() =  eZ == 200 ? [ 45, 80 ] : [50, 90, 130];
+function frontSideJoinerHolePositions(bolts=false) = eZ == 200 ? (bolts ? [40, 80] : [ 40, 80, 120 ]) : [ 50, 90, 130, 170];
 
 function backFaceHolePositions() = [eSizeY/2 + 1, middleWebOffsetZ() + eSizeY/2, eZ - eSizeY/2 - _topPlateThickness];
 
@@ -145,8 +145,9 @@ module backFaceAllHolePositions(z=0) {
 
 module backFaceCFTopHolePositions(z=0) {
     size = [eX + 2*eSizeX, eZ];
-    translate([size.x/2, size.y - _topPlateThickness - eSizeZ/2, z])
-        children();
+    for (x = eX == 250 ? [size.x/2 - 20, size.x/2 + 20] : [size.x/2])
+        translate([x, size.y - _topPlateThickness - eSizeZ/2, z])
+            children();
 }
 
 module backFaceCFSideHolePositions(z=0) {
@@ -166,26 +167,29 @@ module frontFaceLowerHolePositions(z=0) {
 
 module frontFaceUpperHolePositions(z=0) {
     size = [eX + 2*eSizeX, eZ];
-    for (x = [85, size.x - 85])
+    xPos = eX == 200 ? 85 : eX == 220 ? 80 : 75;
+    for (x = [xPos, size.x - xPos])
         translate([x, size.y - _topPlateThickness - eSizeZ/2, z])
             children();
 }
 
 module frontFaceSideHolePositions(z=0) {
     size = [eX + 2*eSizeX, eZ];
+    // IdlerBracket holes
     for (x = [30, size.x - 30])
         translate([x, size.y - 15.5, z])
             children();
     for (x = [(_sidePlateThickness + eSizeXBase)/2, size.x - (_sidePlateThickness + eSizeXBase)/2],
-         y = [20, 60, 100, 140])
-        translate([x, y, z])
+         y = [60 : 40 : eZ - 60])
+        translate([x, y + (eZ == 200 ? 0 : 10), z])
             children();
 }
 
 // top face
 module topFaceFrontHolePositions(z=0) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
-    for (x = [size.x/3 + eSizeX/6, 2*size.x/3 - eSizeX/6])
+    positions = eX == 200 ? [size.x/3 + eSizeX/6, 2*size.x/3 - eSizeX/6] : eX == 220 ? [100, size.x - 100] : [95, size.x - 95];
+    for (x = positions)
         translate([x, topFaceFrontHolePositionOffsetY(), z])
             children();
 }
@@ -253,9 +257,9 @@ module backSideJoinerHolePositions(z=0) {
             children();
 }
 
-module frontSideJoinerHolePositions(z=0) {
+module frontSideJoinerHolePositions(z=0, bolts=false) {
     size = [eY + 2*eSizeY, eZ];
-    for (x = [3 + eSizeY/2], y = frontSideJoinerHolePositions())
+    for (x = [3 + eSizeY/2], y = frontSideJoinerHolePositions(bolts))
         translate([x, y, z])
             children();
 }
