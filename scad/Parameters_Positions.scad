@@ -10,7 +10,7 @@ _xMax = eX - 2*eSizeX - 53.8; // . For E3D hotend, was limited (at -52) by hoten
 _yMin = _useCNC ? 32.85 : 29.85; // limited by Y carriage hitting idler (and previously also by X carriage front bolts hitting top face)
 _yMax = eY - 67.75;
 _zMin = _printBedSize == 100 ? 77.35 : _useCNC ? 63.5 : 59.5;
-_zMax = eZ - (_printBedSize == 100 ? 61.4 : _useCNC ? 59.5 : 81);
+_zMax = _zRodLength - (_printBedSize == 100 ? 61.4 : _useCNC ? 59 : 81);
 
 // note values of _zRodSeparation (for zRodOffsetX) and heatedBedOffset
 
