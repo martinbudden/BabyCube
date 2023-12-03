@@ -57,7 +57,7 @@ module Spool_Holder_stl() {
 
 module Spool_Holder_CF_stl() {
     eSize = 20;
-    stl("Spool_Holder_CF2")
+    stl("Spool_Holder_CF")
         color(pp2_colour)
             spoolHolder(bracketSize=[5, 2*eSize - 10, 20], offsetX=7, catchRadius=0, length=90, capOffset=false);
 }
