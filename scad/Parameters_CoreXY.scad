@@ -12,12 +12,12 @@ function coreXY_type(coreXYDescriptor=_coreXYDescriptor) = coreXYDescriptor == "
                          coreXYDescriptor == "GT2_20_20" ? coreXY_GT2_20_20 :
                          coreXYDescriptor == "GT2_20_F623" ? coreXY_GT2_20_F623 :
                          undef;
-function useReversedBelts() = !is_undef(_useReversedBelts) && _useReversedBelts;
+function coreXYBearing(coreXYDescriptor=_coreXYDescriptor) = coreXYDescriptor == "GT2_20_F623" ? BBF623 : undef;
 function coreXYIdlerBore(coreXYType=coreXY_type()) = pulley_bore(coreXY_toothed_idler(coreXYType));
 function beltWidth() = belt_width(coreXY_belt(coreXY_type()));
 function beltSeparation() = coreXYSeparation().z - beltWidth();
 
-
+function useReversedBelts() = !is_undef(_useReversedBelts) && _useReversedBelts;
 function yRailSupportThickness() = 3; // was 8// needs to be at least 7.5 to clear the side bolt holes
 function yRailShiftX() = 1; // limit it this to [-0.5, +1.25] avoid problems with yCarriage bolt interference
 //function yRailOffset(motorWidth) = [_yRailLength/2 + (_fullLengthYRail ? 0 : eSizeY), eZ - yRailSupportThickness(), coreXYPosBL(motorWidth).x - coreXYSeparation().x + yRailShiftX()];
@@ -30,8 +30,8 @@ function beltOffsetZ() = yCarriageThickness() - coreXYSeparation().z - 26 + yCar
 //function beltOffsetZ() = eZ - coreXYPosBL().z - yRailSupportThickness() - 55;
 //function beltOffsetZ() =  yCarriageThickness() + 19.5 - 55;
 
-function leftDrivePulleyOffset() = useReversedBelts() ? [6, eX==200 ? -20 : -15.5] : [0, 0];
-function rightDrivePulleyOffset() = useReversedBelts() ? [-6, eX==200 ? -20 : -15.5] : [0, 0]; // need to give clearance to extruder motor
+function leftDrivePulleyOffset() = useReversedBelts() ? [7, eX==200 ? -20 : -15.5] : [0, 0];
+function rightDrivePulleyOffset() = useReversedBelts() ? [-7, eX==200 ? -20 : -15.5] : [0, 0]; // need to give clearance to extruder motor
 function plainIdlerPulleyOffset() = useReversedBelts() ? [21.5, 0] : [0, 0];
 // use -12.75 for separation.x to make y-carriage idlers coincident vertically
 function  coreXYSeparation() = [
@@ -43,7 +43,7 @@ function  coreXYSeparation() = [
 
 function coreXYOffsetY(coreXYType=coreXY_type()) = coreXYIdlerBore(coreXYType) == 3 ? 0 : -1.0;
 
-function motorClearance() = useReversedBelts() ? [17.6+2, 8, 0.5] : [ 2, 8, 0.5 ]; // y value was 6, changed to 8 for better carbon fiber variants, should hot affect print volume
+function motorClearance() = useReversedBelts() ? [17.6+2, 15, 0.5] : [ 2, 8, 0.5 ]; // y value was 6, changed to 8 for better carbon fiber variants, should hot affect print volume
 
 function coreXYPosBL(motorWidth, yCarriageType=MGN9C_carriage) = [
     is_undef(motorWidth) ? undef : (useReversedBelts() ? 0 : motorWidth/2) - coreXY_drive_pulley_x_alignment( coreXY_type() ) + motorClearance().x,

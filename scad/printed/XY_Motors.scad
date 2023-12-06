@@ -79,13 +79,28 @@ module XY_MotorUprightHardware(NEMA_type, left=true) {
         XY_MotorMountHardware(NEMA_type, basePlateThickness);
 }
 
-function xyMotorMountHolePositions(sizeY) = [ [-4, 0], [-sizeY + 4, 0], [-4, 18] ];
+module xyMotorMountBackHolePositions(left=true, z=0) {
+    size = [eX + 2*eSizeX, eZ];
+    for (pos = [[10, 10], [40, 40]])
+        translate(left ? [pos.x, size.y - pos.y, z] : [size.x - pos.x, size.y - pos.y, z])
+            children();
+}
 
-module xyMotorMountHolePositions(NEMA_width, left) {
-    zPos = xyMotorPosition(NEMA_width, left).z;
-    size = XY_MotorMountSize(NEMA_width, cf=true);
-    translate([eY + 2*eSizeY, zPos + 3])
-        for (pos = xyMotorMountHolePositions(size.y))
+
+module xyMotorMountTopHolePositions(left=true, z=0) {
+    size = [eX + 2*eSizeX, eY + 2*eSizeY];
+    for (pos = left ? [[topFaceSideHolePositionOffset(), 190], [_sidePlateThickness + 46/2, size.y - 2.5]] 
+                    : [[size.x - topFaceSideHolePositionOffset(), 190], [size.x - _sidePlateThickness - 46/2, size.y - 2.5]] 
+        )
+        translate([pos.x, pos.y, z])
+            children();
+}
+
+function xyMotorMountSideHolePositions(sizeY) = [ [-4, 0], [-sizeY + 4, 0], [-4, 18] ];
+
+module xyMotorMountSideHolePositions() {
+    translate([eY + 2*eSizeY, eZ])
+        for (pos = [[-10, -20], [-40, -40]])
             translate(pos)
                 children();
 }
@@ -139,10 +154,10 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
                 rotate([180, 0, 90])
                     boltHoleM3(basePlateThickness, horizontal=!cf);
 
-        if (cf)
+        *if (cf)
             translate([-NEMA_width/2 - motorClearance().x + _sidePlateThickness,NEMA_width/2 + motorClearance().y, basePlateThickness/2])
                 rotate([90, 0, 90])
-                    for (pos = xyMotorMountHolePositions(size.y))
+                    for (pos = xyMotorMountSideHolePositions(size.y))
                         translate(pos)
                             boltHoleM3Tap(10, horizontal=true, chamfer_both_ends=false);
 

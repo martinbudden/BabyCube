@@ -14,7 +14,6 @@ use <printed/PrintheadAssemblies.scad>
 use <printed/TopFaceAssemblies.scad>
 use <printed/X_CarriageAssemblies.scad>
 
-include <utils/CoreXYBelts.scad>
 include <utils/HolePositions.scad>
 
 use <Parameters_Positions.scad>
@@ -86,7 +85,7 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
         Back_Face_CF_assembly();
         translate([0, eY + 2*eSizeY, 0])
             rotate([90, 0, 0]) {
-                backFaceAllHolePositions(-_backPlateCFThickness)
+                backFaceAllHolePositions(-_backPlateCFThickness, cf=true)
                     vflip()
                         explode(50)
                             boltM3Buttonhead(10);
@@ -94,7 +93,7 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
                     vflip()
                         explode(50)
                             boltM3Buttonhead(10);
-                backFaceBracketHolePositions(-_backPlateCFThickness)
+                backFaceBracketHolePositions(-_backPlateCFThickness, cnc=true)
                     vflip()
                         explode(50)
                             boltM3Buttonhead(10);
@@ -103,8 +102,6 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
                 vflip()
                     boltM3Buttonhead(10);
     }
-    if (!exploded())
-        backFaceCableTies();
 }
 
 //! Add the **Top_Face_CF_assembly**.
@@ -116,10 +113,36 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
 
     explode(100)
         Top_Face_CF_assembly();
+    translate([-eps, 0, 0])
+        rotate([90, 0, 90]) {
+            xyMotorMountSideHolePositions()
+                vflip()
+                    explode(10, true)
+                        boltM3Buttonhead(10);
+            *xyIdlerBracketHolePositions(_xyNEMA_width)
+                vflip()
+                    explode(10, true)
+                        boltM3Buttonhead(10);
+        }
+    translate([eX + 2*eSizeX + eps, 0, 0]) {
+        rotate([90, 0, 90]) {
+            xyMotorMountSideHolePositions()
+                explode(10, true)
+                    boltM3Buttonhead(10);
+            *xyIdlerBracketHolePositions(_xyNEMA_width)
+                explode(10, true)
+                    boltM3Buttonhead(10);
+        }
+    }
     rotate([90, 0, 0])
         backFaceCFTopHolePositions(-eY - 2*eSizeY - _backPlateCFThickness)
             vflip()
                 explode(50, true)
+                    boltM3Buttonhead(10);
+    rotate([90, 0, 0])
+        for (left = [true, false])
+            xyMotorMountBackHolePositions(left=left, z= -eY - 2*eSizeY - _backPlateCFThickness)
+                vflip()
                     boltM3Buttonhead(10);
     staged_explode()
         explode(100, true) {
@@ -132,25 +155,12 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
         }
 }
 
-//! Thread the belts as shown and attach to the **X_Carriage_Belt_Side**.
+//! Bolt the **Front_Face_CF_assembly** to the base and left and right faces.
 //
 module Stage_5_CF_assembly()
 staged_assembly("Stage_5_CF", big=true, ngb=true) {
 
     Stage_4_CF_assembly();
-
-    explode(250, true)
-        CoreXYBelts(carriagePosition());
-    explode(100, true)
-        printheadBeltSide();
-}
-
-//! Bolt the **Front_Face_CF_assembly** to the base and left and right faces.
-//
-module Stage_6_CF_assembly()
-staged_assembly("Stage_6_CF", big=true, ngb=true) {
-
-    Stage_5_CF_assembly();
 
     explode([0, -100, 0], true) {
         rotate([90, 0, 0]) {
@@ -165,7 +175,7 @@ staged_assembly("Stage_6_CF", big=true, ngb=true) {
 
 module CF_FinalAssembly() {
     translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2]) {
-        Stage_6_CF_assembly();
+        Stage_5_CF_assembly();
 
         explode(100, true)
             printheadHotendSide();

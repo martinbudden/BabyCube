@@ -13,6 +13,7 @@ include <../vitamins/bolts.scad>
 include <BackFace.scad>
 use <Printbed.scad>
 use <Printbed3point.scad>
+include <XY_Motors.scad>
 include <Z_MotorMount.scad>
 
 include <../Parameters_CoreXY.scad>
@@ -115,13 +116,13 @@ module Back_Face_CF_dxf() {
                 yRailOffset = yRailOffset(_xyNEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
                 backFaceTopCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0, yRailOffset=yRailOffset);
                 // add the bolt holes for attachment to the left and right faces
-                backFaceAllHolePositions()
+                backFaceAllHolePositions(cf=true)
                     circle(r=M3_clearance_radius);
                 backFaceCFTopHolePositions()
                     circle(r=M3_clearance_radius);
                 backFaceCFSideHolePositions()
                     circle(r=M3_clearance_radius);
-                backFaceBracketHolePositions(-_backPlateThickness)
+                backFaceBracketHolePositions(-_backPlateThickness, cnc=true)
                     circle(r=M3_clearance_radius);
                 backFaceUpperSKBracketHolePositions(_topPlateThickness)
                     circle(r=M5_clearance_radius);
@@ -132,6 +133,10 @@ module Back_Face_CF_dxf() {
                     circle(r=M5_clearance_radius);
                 if (_fullLengthYRail)
                     railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
+                xyMotorMountBackHolePositions(left=true)
+                    circle(r=M3_clearance_radius);
+                xyMotorMountBackHolePositions(left=false)
+                    circle(r=M3_clearance_radius);
                 Z_MotorMountHolePositions(zMotorType())
                     circle(r=M3_clearance_radius);
                 // cutouts for zipties

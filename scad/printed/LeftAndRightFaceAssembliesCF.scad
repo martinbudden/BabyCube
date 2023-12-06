@@ -246,7 +246,7 @@ module leftFaceCF(NEMA_width) {
                 circle(r=M3_clearance_radius);
             frontSideJoinerHolePositions()
                 circle(r=M3_clearance_radius);
-            xyMotorMountHolePositions(NEMA_width, left=true)
+            xyMotorMountSideHolePositions()
                 circle(r=M3_clearance_radius);
             xyIdlerBracketHolePositions(NEMA_width)
                 circle(r=M3_clearance_radius);
@@ -301,7 +301,7 @@ module rightFaceCF(NEMA_width) {
                 circle(r=M3_clearance_radius);
             frontSideJoinerHolePositions()
                 circle(r=M3_clearance_radius);
-            xyMotorMountHolePositions(NEMA_width, left=false)
+            xyMotorMountSideHolePositions()
                 circle(r=M3_clearance_radius);
             xyIdlerBracketHolePositions(NEMA_width)
                 circle(r=M3_clearance_radius);
@@ -345,16 +345,12 @@ assembly("Left_Face_CF", big=true) {
                 vflip()
                     explode(10, true)
                         boltM3Buttonhead(10);
-            xyMotorMountHolePositions(_xyNEMA_width, left=true)
-                vflip()
-                    explode(10, true)
-                        boltM3Buttonhead(10);
             xyIdlerBracketHolePositions(_xyNEMA_width)
                 vflip()
                     explode(10, true)
                         boltM3Buttonhead(10);
         }
-    explode([20, 0, 0], show_line=false) {
+    *explode([20, 0, 0], show_line=false) {
         XY_Motor_Mount_Left_CF_assembly();
         XY_Idler_Bracket_Left_assembly();
     }
@@ -414,15 +410,9 @@ assembly("Right_Face_CF", big=true) {
             frontSideJoinerHolePositions(bolts=true)
                 explode(10, true)
                     boltM3Buttonhead(10);
-            xyMotorMountHolePositions(_xyNEMA_width, left=false)
-                explode(10, true)
-                    boltM3Buttonhead(10);
-            xyIdlerBracketHolePositions(_xyNEMA_width)
-                explode(10, true)
-                    boltM3Buttonhead(10);
         }
     }
-    explode([-20, 0, 0], show_line=false) {
+    *explode([-20, 0, 0], show_line=false) {
         XY_Motor_Mount_Right_CF_assembly();
         XY_Idler_Bracket_Right_assembly();
     }

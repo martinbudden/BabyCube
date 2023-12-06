@@ -22,8 +22,12 @@ function tongueOffset(NEMA_width=_xyNEMA_width) = (eX + 2*eSizeX - _xRailLength 
 topInset = 3.5;
 
 module yCarriage(NEMA_width, left, cnc=false) {
-    idlerHeight = pulley_height(coreXY_toothed_idler(coreXY_type()));
-    pulleyBore = pulley_bore(coreXY_toothed_idler(coreXY_type()));
+    plainIdler = coreXY_plain_idler(coreXY_type());
+    isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
+    pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
+    washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
+
+    idlerHeight = isBearing ? 2*bb_width(plainIdler) + washer_thickness(washer) : pulley_height(plainIdler);
     chamfer = 0;
     blockOffsetY = topInset - 2.75 - 0.5;
     endStopOffsetX = left ? 2.5 : 1;
@@ -89,9 +93,14 @@ module yCarriageLeftAssembly(NEMA_width, t=undef) {
 
     yCarriageType = carriageType(_yCarriageDescriptor);
     railOffset = yRailOffset(NEMA_width);
-    plainIdler = coreXY_plain_idler(coreXY_type());
-    toothedIdler = coreXY_toothed_idler(coreXY_type());
-    pulleyStackHeight = pulleyStackHeight(pulley_height(plainIdler), pulley_bore(plainIdler));
+    plainIdler = useReversedBelts() ? coreXYBearing() : coreXY_plain_idler(coreXY_type());
+    toothedIdler = useReversedBelts() ? coreXYBearing() : coreXY_toothed_idler(coreXY_type());
+    isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
+    pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
+    washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
+    idlerHeight = isBearing ? 2*bb_width(plainIdler) + washer_thickness(washer) : pulley_height(plainIdler);
+
+    pulleyStackHeight = pulleyStackHeight(idlerHeight, pulleyBore);
 
     translate([railOffset.x, carriagePosition(t).y, railOffset.z - carriage_height(yCarriageType)])
         rotate([180, 0, 0]) {
@@ -115,9 +124,14 @@ module yCarriageRightAssembly(NEMA_width, t=undef) {
 
     yCarriageType = carriageType(_yCarriageDescriptor);
     railOffset = yRailOffset(NEMA_width);
-    plainIdler = coreXY_plain_idler(coreXY_type());
-    toothedIdler = coreXY_toothed_idler(coreXY_type());
-    pulleyStackHeight = pulleyStackHeight(pulley_height(plainIdler), pulley_bore(plainIdler));
+    plainIdler = useReversedBelts() ? coreXYBearing() : coreXY_plain_idler(coreXY_type());
+    toothedIdler = useReversedBelts() ? coreXYBearing() : coreXY_toothed_idler(coreXY_type());
+    isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
+    pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
+    washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
+    idlerHeight = isBearing ? 2*bb_width(plainIdler) + washer_thickness(washer) : pulley_height(plainIdler);
+
+    pulleyStackHeight = pulleyStackHeight(idlerHeight, pulleyBore);
 
     translate([eX + 2*eSizeX - railOffset.x, carriagePosition(t).y, railOffset.z - carriage_height(yCarriageType)])
         rotate([180, 0, 180]) {

@@ -15,7 +15,7 @@ function backFaceBracketUpperOffset() = [30, 15];
 //function topFaceMidSideHolePositions() = [ eSizeY + eY/3, eSizeY + 2*eY/3 ];
 //function topFaceSideHolePositions() = [ 8, 20, 60, 140, 180 ];
 //function topFaceSideHolePositions() = [ 20, 60, 100, 140, 180 ];
-function topFaceSideHolePositions() = eY == 180 ? [ 20, 100, 180 ] : [ 30, 110, 190, 230];
+function topFaceSideHolePositions() = eY == 180 ? [ 20, 100, 180 ] : [ 30, 110];
 
 // offset of side bolt holes for top plate
 topBoltHolderThickness = 7.25 + yRailShiftX();
@@ -32,7 +32,7 @@ function lowerSideJoinerHolePositions(left) = [ 10, 10 + eY/3, 10 + 2*eY/3, eY +
 function backSideJoinerHolePositions() =  eZ == 200 ? [ 45, 80 ] : [50, 90, 130];
 function frontSideJoinerHolePositions(bolts=false) = eZ == 200 ? (bolts ? [40, 80] : [ 40, 80, 120 ]) : [ 50, 90, 130, 170];
 
-function backFaceHolePositions() = [eSizeY/2 + 1, middleWebOffsetZ() + eSizeY/2, eZ - eSizeY/2 - _topPlateThickness];
+function backFaceHolePositions(cf=false) = concat([eSizeY/2 + 1, middleWebOffsetZ() + eSizeY/2], cf ? [] : [eZ - eSizeY/2 - _topPlateThickness]);
 
 
 // base
@@ -129,17 +129,17 @@ module backFaceBaseHolePositions(y=0) {
             children();
 }
 
-module backFaceHolePositions(left, z=0) {
+module backFaceHolePositions(left, z=0, cf=false) {
     size = [eX + 2*eSizeX, eZ];
-    for (y = backFaceHolePositions())
+    for (y = backFaceHolePositions(cf))
         translate(left ? [_backFaceHoleInset, y, z] : [size.x - _backFaceHoleInset, y, z])
             children();
 }
 
-module backFaceAllHolePositions(z=0) {
-    backFaceHolePositions(left=true, z=z)
+module backFaceAllHolePositions(z=0, cf=false) {
+    backFaceHolePositions(left=true, z=z, cf=cf)
         children();
-    backFaceHolePositions(left=false, z=z)
+    backFaceHolePositions(left=false, z=z, cf=cf)
         children();
 }
 

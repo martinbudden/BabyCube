@@ -35,7 +35,7 @@ M5_shim = ["M5_shim",          5,  10,   0.5, false,  undef,  undef, undef, unde
 
 function bearingStackHeight(bearingType=BBF623, washer=M3_washer) = 3*washer_thickness(washer) + 2*bb_width(bearingType);
 
-module bearingStack(bearingType=BBF623, explode=5) {
+module bearingStack(bearingType, explode=5) {
     washer = bb_bore(bearingType) == 3 ? M3_washer : bb_bore(bearingType) == 4 ? M4_shim : M5_shim;
     washer(washer);
     translate_z(washer_thickness(washer) + bb_width(bearingType)/2) {

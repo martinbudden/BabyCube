@@ -34,13 +34,14 @@ reinforcementThickness = 5;
 upperChordSize = [eSizeY, sk_size(SK_type).z + _topPlateThickness + 8, eX + 2*eSizeX - 70];
 zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
 
-module backFaceBracketHolePositions(z=0) {
+module backFaceBracketHolePositions(z=0, cnc=false) {
     for (x = [backFaceBracketLowerOffset().x, eX + 2*eSizeX - backFaceBracketLowerOffset().x])
         translate([x, backFaceBracketLowerOffset().y, z])
             children();
-    for (x = [backFaceBracketUpperOffset().x, eX + 2*eSizeX - backFaceBracketUpperOffset().x])
-        translate([x, eZ - backFaceBracketUpperOffset().y, z])
-            children();
+    if (!cnc)
+        for (x = [backFaceBracketUpperOffset().x, eX + 2*eSizeX - backFaceBracketUpperOffset().x])
+            translate([x, eZ - backFaceBracketUpperOffset().y, z])
+                children();
 }
 
 wiringRectWidth = 20;

@@ -7,8 +7,14 @@ include <NopSCADlib/vitamins/stepper_motors.scad>
 
 include <../scad/printed/XY_Motors.scad>
 include <../scad/printed/XY_MotorMountCF.scad>
+use <../scad/printed/BackFaceAssemblies.scad>
+use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
+
+include <../scad/utils/CoreXYBelts.scad>
 
 include <../scad/Parameters_Main.scad>
+use <../scad/Parameters_Positions.scad>
+
 
 
 
@@ -22,26 +28,26 @@ module XY_MotorMount_test() {
     echo(leftDrivePulleyOffset=leftDrivePulleyOffset());
     echo(rightDrivePulleyOffset=rightDrivePulleyOffset());
 
+    //CoreXYBelts(carriagePosition());
+
     //XY_MotorUpright(NEMA_type, left);
     //XY_MotorMount(NEMA_type, left, basePlateThickness = 5, offset = basePlateThickness + eZ-coreXYPosBL(NEMA_width(NEMA_type)).z+(left?0:coreXYSeparation().z));
     //XY_MotorMountHardware(NEMA_type);
-    rotate([90, 0, 90])
-        XY_MotorPosition(NEMA_width, left=true) {
-            if (_xyMotorDescriptor == "NEMA14")
-                XY_Motor_Mount_Left_stl();
-            else
-                XY_Motor_Mount_Left_NEMA_17_stl();
-        }
-    translate([eX + 2 * eSizeX - NEMA_width - _sidePlateThickness - 1, 0, 0])
+    Left_Face_CF_assembly();
+    *translate([-eps, 0, 0])
         rotate([90, 0, 90])
-            XY_MotorPosition(NEMA_width, left=false)
-                rotate(180) {
-                    if (_xyMotorDescriptor == "NEMA14")
-                        XY_Motor_Mount_Right_stl();
-                    else
-                        XY_Motor_Mount_Right_NEMA_17_stl();
-                }
-    topFaceMotors(NEMA_type);
+            Left_Face_CF();
+
+    //Back_Face_CF();
+    //Back_Face_CF_assembly();
+    *translate([0, eY + 2*eSizeY, 0])
+        rotate([90, 0, 0])
+            Back_Face_CF();
+
+
+    XY_Motor_Mount_Left_CF_assembly();
+    XY_Motor_Mount_Right_CF_assembly();
+    //topFaceMotors(NEMA_type);
 }
 
 module topFaceMotors(NEMA_type) {
@@ -53,7 +59,7 @@ module topFaceMotors(NEMA_type) {
             translate_z(8)
                 #pulley(GT2x20ob_pulley);
         }
-        translate([coreXYPosBL(NEMA_width).x, coreXYPosTR(_xyNEMA_width).y, coreXYPosTR(_xyNEMA_width).z] + [leftDrivePulleyOffset().x, leftDrivePulleyOffset().y, 0]) {
+        translate([coreXYPosBL(NEMA_width).x, coreXYPosTR(_xyNEMA_width).y, coreXYPosTR(NEMA_width).z] + [leftDrivePulleyOffset().x, leftDrivePulleyOffset().y, 0]) {
             rotate(-90)
                 NEMA(NEMA_type, jst_connector=true);
             translate_z(18)

@@ -183,8 +183,14 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, cn
         else
             poly_circle(r=bb_diameter(bearingType)/2);
 
-    if (!cnc)
+    if (cnc) {
+        xyMotorMountTopHolePositions(left=true)
+            cutout_circle(M3_clearance_radius, cnc);
+        xyMotorMountTopHolePositions(left=false)
+            cutout_circle(M3_clearance_radius, cnc);
+    } else {
         topFaceWiringCutout(NEMA_width);
+    }
 
     // remove the sides and back
     topFaceSideCutouts(cnc);

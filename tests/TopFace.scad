@@ -63,10 +63,13 @@ module Top_Face_test() {
             //Top_Face_Stage_2_assembly();
         }
     } else {
-        //Top_Face_CF_Stage_1_assembly();
-        Top_Face_NEMA_17_assembly();
-        //Top_Face_NEMA_17_Stage_1_assembly();
-        //Top_Face_NEMA_17_Stage_2_assembly();
+        if (_useCNC) {
+            Top_Face_CF_Stage_1_assembly();
+        } else {
+            Top_Face_NEMA_17_assembly();
+            //Top_Face_NEMA_17_Stage_1_assembly();
+            //Top_Face_NEMA_17_Stage_2_assembly();
+        }
     }
     //CoreXYBelts(carriagePosition());
 

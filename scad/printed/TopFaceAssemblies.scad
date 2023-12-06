@@ -3,7 +3,10 @@ include <../global_defs.scad>
 include <../utils/X_Rail.scad>
 
 include <TopFace.scad>
+include <XY_MotorMountCF.scad>
+use <PrintheadAssemblies.scad>
 use <Y_CarriageAssemblies.scad>
+include <../utils/CoreXYBelts.scad>
 
 use <../Parameters_Positions.scad>
 include <../Parameters_Main.scad>
@@ -160,6 +163,19 @@ assembly("Top_Face_CF_Stage_1", big=true) {
         Top_Face_Back_Joiner_stl();
     topFaceBackHolePositions(eZ)
         boltM3Buttonhead(8);
+    explode([20, 0, 0], show_line=false) {
+        XY_Motor_Mount_Left_CF_assembly();
+        XY_Idler_Bracket_Left_assembly();
+    }
+    xyMotorMountTopHolePositions(left=true, z=eZ)
+        boltM3Buttonhead(8);
+    xyMotorMountTopHolePositions(left=false, z=eZ)
+        boltM3Buttonhead(8);
+
+    explode([-20, 0, 0], show_line=false) {
+        XY_Motor_Mount_Right_CF_assembly();
+        XY_Idler_Bracket_Right_assembly();
+    }
 }
 
 //! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable
@@ -191,12 +207,25 @@ assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
 //!again tightening the corresponding bolts.
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
 //
-module Top_Face_CF_assembly(t=undef)
-assembly("Top_Face_CF", big=true) {
+module Top_Face_CF_Stage_3_assembly(t=undef)
+assembly("Top_Face_CF_Stage_3", big=true) {
 
     Top_Face_CF_Stage_2_assembly(t);
 
     xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
+}
+
+//! Thread the belts as shown and attach to the **X_Carriage_Belt_Side**.
+//
+module Top_Face_CF_assembly(t=undef)
+assembly("Top_Face_CF", big=true) {
+
+    Top_Face_CF_Stage_3_assembly(t);
+
+    explode(250, true)
+        CoreXYBelts(carriagePosition());
+    explode(100, true)
+        printheadBeltSide();
 }
 
 module Top_Face_Back_Joiner_stl() {
