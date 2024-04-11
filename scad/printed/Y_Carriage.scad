@@ -26,7 +26,7 @@ function railFirstHoleOffset(type, length) = (length - (rail_holes(type, length)
 function counterBore(thickness) = screw_head_height(M3_cap_screw) + max(thickness - 9, 0);
 function yCarriageBlockSizeX(yCarriageType) = carriage_width(yCarriageType) + 4;
 function yCarriageExplodeFactor() = 5;
-function yCarriageTongueThickness(yCarriageType, chamfer=0) = isMGN9C(yCarriageType) ? 6.5 - chamfer : 7;
+function yCarriageTongueThickness(yCarriageType, chamfer=0) = isMGN9C(yCarriageType) ? 6.5 - chamfer : 6.5;
 
 function boltOffsetMGN9(left) = 13.5;
 function boltOffsetInnerMGN12(left, blockOffsetX) = blockOffsetX ? 29 : 22;
