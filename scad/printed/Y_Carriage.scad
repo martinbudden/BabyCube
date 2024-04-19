@@ -362,7 +362,7 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCar
             pulleyStack(plainIdler, explode=explode);
         translate_z(plainIdlerHeight/2) {
             boltLength = pulleyBore==3  ? screw_shorter_than(thickness + 2*pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness)
-                                        : screw_longer_than(2*pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness);
+                                        : screw_longer_than((left ? 2 : 1)*pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness);
             if (left) {
                 explode(7*explode, true)
                     bolt(bolt, boltLength);
@@ -382,7 +382,7 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCar
             pulleyStack(toothedIdler, explode=explode);
         translate_z(plainIdlerHeight/2) {
             boltLength = pulleyBore==3  ? screw_shorter_than(thickness + pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness)
-                                        : screw_longer_than(pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness);
+                                        : screw_longer_than((left ? 1 : 2)*pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness);
             if (left) {
                 translate_z(yCarriageBraceThickness + washer_thickness(washer))
                     explode(5*explode, true)
