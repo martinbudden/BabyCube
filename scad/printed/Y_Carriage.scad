@@ -24,7 +24,7 @@ function railFirstHoleOffset(type, length) = (length - (rail_holes(type, length)
 
 // allow adjustment of counterbore to optimise bolt length
 function counterBore(thickness) = screw_head_height(M3_cap_screw) + max(thickness - 9, 0);
-function yCarriageBlockSizeX(yCarriageType) = carriage_width(yCarriageType) + 2;
+function yCarriageBlockSizeX(yCarriageType) = carriage_width(yCarriageType) + 4;
 function yCarriageExplodeFactor() = 5;
 function yCarriageTongueThickness(yCarriageType, chamfer=0) = isMGN9C(yCarriageType) ? 6.5 - chamfer : 6.5;
 
@@ -49,6 +49,7 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
     toothedIdlerHeight = idlerHeight;
 
     fillet = isMGN9C(yCarriageType) ? 1.5 : 2.5;
+    leftExtraClearance = isMGN9C(yCarriageType) ? 0 : 1;
     pulley25 = is_list(blockOffset);
     blockOffset =  is_list(blockOffset) ? blockOffset : [0, blockOffset];
 
@@ -86,7 +87,7 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
         if (left) {
             translate([xPosE, tongueSize.y/2 + extraY, chamfer])
                 fillet(filletE, tongueSize.z - 2*chamfer);
-            translate([xPos, -tongueSize.y/2, chamfer])
+            translate([xPos - leftExtraClearance, -tongueSize.y/2, chamfer])
                 rotate(-90)
                     fillet(fillet, tongueSize.z - 2*chamfer);
         } else {
@@ -125,12 +126,12 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
                     sizeY = blockSize.y/2 + tongueSize.y/2 + blockOffset.y - topInset;
                     translate([0, blockSize.y/2 - sizeY, 0]) {
                         rounded_cube_xy([blockSize.x + endstopX, sizeY, blockSize.z], fillet);
-                        translate([blockSize.x, 0, 0])
+                        translate([blockSize.x - leftExtraClearance, 0, 0])
                             rotate(270)
                                 fillet(isMGN9C(yCarriageType) ? 2 : 4, blockSize.z);
                     }
                     translate([0, -blockSize.y/2, 0])
-                        rounded_cube_xy([blockSize.x, blockSize.y - topInset, blockSize.z], fillet);
+                        rounded_cube_xy([blockSize.x - leftExtraClearance, blockSize.y - topInset, blockSize.z], fillet);
                 } else {
                     translate([0, topInset, 0]) {
                         sizeY = blockSize.y/2 + tongueSize.y/2 + blockOffset.y - topInset;
