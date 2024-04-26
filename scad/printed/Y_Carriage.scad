@@ -24,7 +24,7 @@ function railFirstHoleOffset(type, length) = (length - (rail_holes(type, length)
 
 // allow adjustment of counterbore to optimise bolt length
 function counterBore(thickness) = screw_head_height(M3_cap_screw) + max(thickness - 9, 0);
-function yCarriageBlockSizeX(yCarriageType) = carriage_width(yCarriageType) + 4;
+function yCarriageBlockSizeX(yCarriageType) = carriage_width(yCarriageType) + 2;
 function yCarriageExplodeFactor() = 5;
 function yCarriageTongueThickness(yCarriageType, chamfer=0) = isMGN9C(yCarriageType) ? 6.5 - chamfer : 6.5;
 
