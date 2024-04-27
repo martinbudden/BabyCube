@@ -118,14 +118,16 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
         toothedPulleyPos = toothedPulleyPos(left, toothedIdlerHeight, pulleyBore, toothedIdlerOffset, thickness, yCarriageBraceThickness);
         union() {
             endstopX = tongueOffset - blockSize.x/2 + blockOffset.x/2 + endStopOffsetX;
+            endstopX1 = tongueOffset - blockSize.x/2 + blockOffset.x/2 + (isMGN9C(yCarriageType) ? endStopOffsetX : 9.65);
             translate([-blockSize.x/2 - blockOffset.x/2, left ? blockOffset.y : -blockSize.y/2 - blockOffset.y, 0]) {
                 // inset the block to avoid possible interference with the idler pulleys
-                rounded_cube_xy([blockSize.x + endstopX, blockSize.y/2, blockSize.z - 1], fillet);
                 if (left) {
+                    rounded_cube_xy([blockSize.x + endstopX1, blockSize.y/2, blockSize.z - (isMGN9C(yCarriageType) ? 1 : 0)], fillet);
                     *rounded_cube_xy([blockSize.x + endstopX, blockSize.y/2 - topInset, blockSize.z], fillet);
                     sizeY = blockSize.y/2 + tongueSize.y/2 + blockOffset.y - topInset;
                     translate([0, blockSize.y/2 - sizeY, 0]) {
-                        rounded_cube_xy([blockSize.x + endstopX, sizeY, blockSize.z], fillet);
+                        rounded_cube_xy([blockSize.x + endstopX1, sizeY, blockSize.z], fillet);
+                        rounded_cube_xy([blockSize.x + endstopX, sizeY, tongueSize.z], fillet);
                         translate([blockSize.x - leftExtraClearance, 0, 0])
                             rotate(270)
                                 fillet(isMGN9C(yCarriageType) ? 2 : 4, blockSize.z);
@@ -133,6 +135,7 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
                     translate([0, -blockSize.y/2, 0])
                         rounded_cube_xy([blockSize.x - leftExtraClearance, blockSize.y - topInset, blockSize.z], fillet);
                 } else {
+                    rounded_cube_xy([blockSize.x + endstopX, blockSize.y/2, blockSize.z], fillet);
                     translate([0, topInset, 0]) {
                         sizeY = blockSize.y/2 + tongueSize.y/2 + blockOffset.y - topInset;
                         difference() {
