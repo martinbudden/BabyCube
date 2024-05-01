@@ -318,8 +318,9 @@ module pulleyStack(pulley, explode=0) {
     function bearingStackHeight(bearingType=BBF623, washer=M3_washer) = 3*washer_thickness(washer) + 2*bb_width(bearingType);
 
     if (pulley[0] == "F623" || pulley[0] == "F684" || pulley[0] == "F694" || pulley[0] == "F695") {
-        washer = M3_washer;
         bearingType = pulley;
+        pulleyBore = bb_bore(bearingType);
+        washer = pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
         translate_z(-3*washer_thickness(washer)/2 - bb_width(bearingType)) {
             washer(washer);
             translate_z(washer_thickness(washer) + bb_width(bearingType)/2) {
@@ -338,7 +339,8 @@ module pulleyStack(pulley, explode=0) {
             translate_z(bearingStackHeight(bearingType, washer))
                 children();
     } else {
-        washer = pulley_bore(pulley) == 3 ? M3_washer : pulley_bore(pulley) == 4 ? M4_washer : M5_washer;
+        pulleyBore = pulley_bore(pulley);
+        washer = pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
         translate_z(-washer_thickness(washer) - pulley_height(pulley)/2)
             washer(washer)
                 explode(3*explode/2)
