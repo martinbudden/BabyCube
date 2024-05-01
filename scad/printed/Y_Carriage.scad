@@ -349,12 +349,21 @@ module pulleyStack(pulley, explode=0) {
     }
 }
 
+module pulleyBolt(bolt, boltLength, washer, pulleyBore, explode) {
+    if (pulleyBore==4)
+        explode(2*explode, true)
+            washer(washer)
+                explode(explode, true)
+                    washer(washer)
+                        bolt(bolt, boltLength);
+    else
+        bolt(bolt, boltLength);
+}
 
 module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCarriageBraceThickness, plainIdlerOffset, toothedIdlerOffset, blockOffsetX, left) {
     isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
     pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
     washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
-    M3_shoulder_screw= ["M3_sld", "M3 shoulder",     hs_cap,   4, 7.0, 4,    2.0, 3.0, 20,  M4_washer, M3_nut,   M3_tap_radius,    M4_clearance_radius];
     bolt = pulleyBore == 3 ? M3_cap_screw : pulleyBore == 4 ? M3_shoulder_screw : M5_cap_screw;
     explode = yCarriageExplodeFactor();
 
@@ -369,11 +378,11 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCar
                                         : screw_longer_than((left ? 2 : 1)*pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness);
             if (left) {
                 explode(7*explode, true)
-                    bolt(bolt, boltLength);
+                    pulleyBolt(bolt, boltLength, washer, pulleyBore, explode);
             } else {
                 translate_z(yCarriageBraceThickness + washer_thickness(washer))
                     explode(5*explode, true)
-                        bolt(bolt, boltLength);
+                        pulleyBolt(bolt, boltLength, washer, pulleyBore, explode);
                 if (yCarriageBraceThickness)
                     explode(4*explode)
                         washer(washer);
@@ -390,13 +399,13 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCar
             if (left) {
                 translate_z(yCarriageBraceThickness + washer_thickness(washer))
                     explode(5*explode, true)
-                        bolt(bolt, boltLength);
+                        pulleyBolt(bolt, boltLength, washer, pulleyBore, explode);
                 if (yCarriageBraceThickness)
                     explode(4*explode)
                         washer(washer);
             } else {
                 explode(7*explode, true)
-                    bolt(bolt, boltLength);
+                    pulleyBolt(bolt, boltLength, washer, pulleyBore, explode);
             }
         }
     }
