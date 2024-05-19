@@ -223,7 +223,7 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, backThickness = 
 
 function beltAttachmentOffsetY() = 14;
 
-module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, beltSeparation, holeSeparationTop, holeSeparationBottom, accelerometerOffset=undef, topHoleOffset=0, offsetT=0, countersunk=true, halfCarriage=false, reversedBelts=false, pulley25=false, endCube=true) {
+module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, beltSeparation, holeSeparationTop, holeSeparationBottom, accelerometerOffset=undef, topHoleOffset=0, offsetT=0, screwType=hs_cap, halfCarriage=false, reversedBelts=false, pulley25=false, endCube=true) {
     assert(is_list(xCarriageType));
 
     carriageSize = carriage_size(xCarriageType);
@@ -309,10 +309,12 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
             for (x = xCarriageHolePositions(size.x, holeSeparationTop))
                 translate([x + topHoleOffset, 0, -baseOffset + size.z - topSize.z/2 + offsetT])
                     rotate([-90, 0, 0])
-                        if (countersunk)
+                        if (screwType == hs_cs_cap)
                             boltPolyholeM3Countersunk(topSize.y, sink=(pulley25 ? 1 : 0.2));
-                        else
+                        else if (screwType == hs_dome)
                             boltHoleM3(topSize.y);
+                        else
+                            boltHoleM3HangingCounterbore(topSize.y, boreDepth=xCarriageBeltSideBoreDepth());
             /*for (x = xCarriageTopHolePositions(xCarriageType, xCarriageHoleOffsetTop().x))
                 translate([x, 0, -baseOffset + size.z - topSize.z/2 + xCarriageHoleOffsetTop().y])
                     rotate([-90, 0, 0])
@@ -322,10 +324,12 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
             for (x = xCarriageHolePositions(size.x, holeSeparationBottom))
                translate([x + topHoleOffset, 0, -baseOffset + baseThickness/2])
                     rotate([-90, 0, 0])
-                        if (countersunk)
+                        if (screwType == hs_cs_cap)
                             boltPolyholeM3Countersunk(pulley25 || !halfCarriage ? topSize.y : beltAttachmentPlusOffsetSizeY, sink=(pulley25 ? 1 : 0.2));
-                        else
+                        else if (screwType == hs_dome)
                             boltHoleM3(pulley25 || !halfCarriage ? topSize.y : beltAttachmentPlusOffsetSizeY);
+                        else
+                            boltHoleM3HangingCounterbore(pulley25 || !halfCarriage ? topSize.y : beltAttachmentPlusOffsetSizeY, boreDepth=xCarriageBeltSideBoreDepth());
             /*for (x = xCarriageBottomHolePositions(xCarriageType, xCarriageHoleOffsetBottom().x))
                 translate([x, 0, -baseOffset + baseThickness/2 + xCarriageHoleOffsetBottom().y])
                     rotate([-90, 0, 0])

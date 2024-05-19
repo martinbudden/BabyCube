@@ -27,6 +27,7 @@ xCarriageFrontOffsetExtraY = 2;
 function xCarriageBeltSideOffsetY(xCarriageType, xCarriageFrontSizeY) = carriage_size(xCarriageType).y/2 + xCarriageFrontSizeY + xCarriageFrontOffsetExtraY;
 
 function xCarriageHolePositions(sizeX, spacing) = [(sizeX - spacing)/2, (sizeX + spacing)/2];
+function xCarriageBeltSideBoreDepth() = 5;
 
 module xCarriageTop(xCarriageType, xCarriageBackSize, holeSeparation, extraX=0, reflected=false, countersunk=4, topHoleOffset=0, holeOffset=0, accelerometerOffset=undef) {
     assert(is_list(xCarriageType));
@@ -168,24 +169,30 @@ module xCarriageBack(xCarriageType, size, extraX=0, holeSeparationTop, holeSepar
 }
 
 
-module xCarriageBeltSideBolts(xCarriageType, size, topBoltLength=10, holeSeparationTop, holeSeparationBottom, bottomBoltLength=12, holeSeparationBottom, countersunk=false, offsetT=0) {
+module xCarriageBeltSideBolts(xCarriageType, size, topBoltLength=10, holeSeparationTop, holeSeparationBottom, bottomBoltLength=12, holeSeparationBottom, screwType=hs_cs_cap, offsetT=0) {
     translate([-size.x/2, -xCarriageBeltSideOffsetY(xCarriageType, size.y), 0]) {
         // holes at the top to connect to the xCarriage
         for (x = xCarriageHolePositions(size.x, holeSeparationTop))
             translate([x, 0, xCarriageTopThickness()/2 + offsetT])
                 rotate([90, 90, 0])
-                    if (countersunk)
+                    if (screwType==hs_cs_cap)
                         boltM3Countersunk(topBoltLength);
-                    else
+                    else if (screwType==hs_dome)
                         boltM3Buttonhead(topBoltLength);
+                    else
+                        translate_z(-xCarriageBeltSideBoreDepth())
+                            boltM3Caphead(topBoltLength);
         // holes at the bottom to connect to the xCarriage
         for (x = xCarriageHolePositions(size.x, holeSeparationBottom))
             translate([x, 0, -size.z + xCarriageTopThickness() + xCarriageBaseThickness()/2])
                 rotate([90, 90, 0])
-                    if (countersunk)
+                    if (screwType==hs_cs_cap)
                         boltM3Countersunk(bottomBoltLength);
-                    else
+                    else if (screwType==hs_dome)
                         boltM3Buttonhead(bottomBoltLength);
+                    else
+                        translate_z(-xCarriageBeltSideBoreDepth())
+                            boltM3Caphead(bottomBoltLength);
     }
 }
 

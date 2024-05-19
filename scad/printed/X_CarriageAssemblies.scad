@@ -50,7 +50,7 @@ module X_Carriage_Belt_Side_MGN9C_stl() {
         color(pp4_colour)
             translate([extraX/2, 0, 0])
                 rotate([90, 0, 180])
-                    xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, halfCarriage=true);
+                    xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, screwType=hs_cs_cap, halfCarriage=true);
 }
 
 //!Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the

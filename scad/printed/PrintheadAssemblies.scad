@@ -90,7 +90,7 @@ module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false) {
     xRailCarriagePosition(carriagePosition(t), rotate=rotate)
         explode(explode, true) {
             explode([0, -20, 0], true)
-                xCarriageBeltSideBolts(xCarriageType, xCarriageBeltSideSize, topBoltLength=30, holeSeparationTop=holeSeparationTop, bottomBoltLength=30, holeSeparationBottom=holeSeparationBottom, countersunk=true);
+                xCarriageBeltSideBolts(xCarriageType, xCarriageBeltSideSize, topBoltLength=30, holeSeparationTop=holeSeparationTop, bottomBoltLength=30, holeSeparationBottom=holeSeparationBottom, screwType=hs_cs_cap);
             Printhead_E3DV6_MGN9C_assembly();
             xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, 1], [-1, 1] ]);
         }
