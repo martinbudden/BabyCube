@@ -223,7 +223,7 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, backThickness = 
 
 function beltAttachmentOffsetY() = 14;
 
-module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, beltSeparation, holeSeparationTop, holeSeparationBottom, accelerometerOffset=undef, topHoleOffset=0, offsetT=0, screwType=hs_cap, halfCarriage=false, reversedBelts=false, pulley25=false, endCube=true) {
+module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, beltSeparation, holeSeparationTop, holeSeparationBottom, accelerometerOffset=undef, topHoleOffset=0, offsetT=0, offsetB=0, screwType=hs_cap, halfCarriage=false, reversedBelts=false, pulley25=false, endCube=true) {
     assert(is_list(xCarriageType));
 
     carriageSize = carriage_size(xCarriageType);
@@ -322,7 +322,7 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                         //boltHoleM3(topSize.y, twist=4);*/
             // holes at the bottom to connect to the hotend side
             for (x = xCarriageHolePositions(size.x, holeSeparationBottom))
-               translate([x + topHoleOffset, 0, -baseOffset + baseThickness/2])
+               translate([x + topHoleOffset, 0, -baseOffset + baseThickness/2 + offsetB])
                     rotate([-90, 0, 0])
                         if (screwType == hs_cs_cap)
                             boltPolyholeM3Countersunk(pulley25 || !halfCarriage ? topSize.y : beltAttachmentPlusOffsetSizeY, sink=(pulley25 ? 1 : 0.2));
