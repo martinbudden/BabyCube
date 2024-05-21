@@ -313,6 +313,8 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                             boltPolyholeM3Countersunk(topSize.y, sink=(pulley25 ? 1 : 0.2));
                         else if (screwType == hs_dome)
                             boltHoleM3(topSize.y);
+                        else if (screwType == -1)
+                            #boltHoleM3HangingCounterboreWasher(topSize.y, boreDepth=xCarriageBeltSideBoreDepth(), boltHeadTolerance=0.2);
                         else
                             boltHoleM3HangingCounterbore(topSize.y, boreDepth=xCarriageBeltSideBoreDepth());
             /*for (x = xCarriageTopHolePositions(xCarriageType, xCarriageHoleOffsetTop().x))
@@ -323,13 +325,17 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
             // holes at the bottom to connect to the hotend side
             for (x = xCarriageHolePositions(size.x, holeSeparationBottom))
                translate([x + topHoleOffset, 0, -baseOffset + baseThickness/2 + offsetB])
-                    rotate([-90, 0, 0])
+                    rotate([-90, 0, 0]) {
+                        length = pulley25 || !halfCarriage ? topSize.y : beltAttachmentPlusOffsetSizeY;
                         if (screwType == hs_cs_cap)
-                            boltPolyholeM3Countersunk(pulley25 || !halfCarriage ? topSize.y : beltAttachmentPlusOffsetSizeY, sink=(pulley25 ? 1 : 0.2));
+                            boltPolyholeM3Countersunk(length, sink=(pulley25 ? 1 : 0.2));
                         else if (screwType == hs_dome)
-                            boltHoleM3(pulley25 || !halfCarriage ? topSize.y : beltAttachmentPlusOffsetSizeY);
+                            boltHoleM3(length);
+                        else if (screwType == -1)
+                            boltHoleM3HangingCounterboreWasher(topSize.y, boreDepth=xCarriageBeltSideBoreDepth(), boltHeadTolerance=0.2);
                         else
-                            boltHoleM3HangingCounterbore(pulley25 || !halfCarriage ? topSize.y : beltAttachmentPlusOffsetSizeY, boreDepth=xCarriageBeltSideBoreDepth());
+                            boltHoleM3HangingCounterbore(length, boreDepth=xCarriageBeltSideBoreDepth());
+                    }
             /*for (x = xCarriageBottomHolePositions(xCarriageType, xCarriageHoleOffsetBottom().x))
                 translate([x, 0, -baseOffset + baseThickness/2 + xCarriageHoleOffsetBottom().y])
                     rotate([-90, 0, 0])

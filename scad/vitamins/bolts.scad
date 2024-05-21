@@ -99,6 +99,10 @@ module boltHoleM3HangingCounterbore(length, boreDepth=undef, boltHeadTolerance=0
     boltHoleHangingCounterbore(M3_cap_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance);
 }
 
+module boltHoleM3HangingCounterboreWasher(length, boreDepth=undef, boltHeadTolerance=0.4) {
+    boltHoleHangingCounterbore(M3_cap_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=washer_diameter(M3_washer) + boltHeadTolerance - 2*screw_head_radius(M3_cap_screw));
+}
+
 module boltHoleM3HangingCounterboreTap(length, boreDepth=undef, boltHeadTolerance=0.4) {
     boltHoleHangingCounterboreTap(M3_cap_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance);
 }
