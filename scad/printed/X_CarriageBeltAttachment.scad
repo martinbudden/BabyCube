@@ -314,7 +314,9 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                         else if (screwType == hs_dome)
                             boltHoleM3(topSize.y);
                         else if (screwType == -1)
-                            #boltHoleM3HangingCounterboreWasher(topSize.y, boreDepth=xCarriageBeltSideBoreDepth(), boltHeadTolerance=0.2);
+                            boltHoleM3HangingCounterboreWasher(topSize.y, boreDepth=xCarriageBeltSideBoreDepth(), boltHeadTolerance=0.2);
+                        else if (screwType == -2) // M3 caphead with 6mm (undersized) washer
+                            boltHoleM3HangingCounterbore(topSize.y, boreDepth=xCarriageBeltSideBoreDepth(), boltHeadTolerance=6.3 - 2*screw_head_radius(M3_cap_screw));
                         else
                             boltHoleM3HangingCounterbore(topSize.y, boreDepth=xCarriageBeltSideBoreDepth());
             /*for (x = xCarriageTopHolePositions(xCarriageType, xCarriageHoleOffsetTop().x))
@@ -332,7 +334,9 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                         else if (screwType == hs_dome)
                             boltHoleM3(length);
                         else if (screwType == -1)
-                            boltHoleM3HangingCounterboreWasher(topSize.y, boreDepth=xCarriageBeltSideBoreDepth(), boltHeadTolerance=0.2);
+                            boltHoleM3HangingCounterboreWasher(length, boreDepth=xCarriageBeltSideBoreDepth(), boltHeadTolerance=0.2);
+                        else if (screwType == -2) // M3 caphead with 6mm (undersized) washer
+                            boltHoleM3HangingCounterbore(length, boreDepth=xCarriageBeltSideBoreDepth(), boltHeadTolerance=6.3 - 2*screw_head_radius(M3_cap_screw));
                         else
                             boltHoleM3HangingCounterbore(length, boreDepth=xCarriageBeltSideBoreDepth());
                     }
