@@ -136,7 +136,6 @@ module X_Carriage_Belt_Clamp_hardware(size, offset=0, boltLength=10, countersunk
 }
 
 module xCarriageBeltAttachment(size, beltWidth, beltSeparation, backThickness = 4, cutoutOffsetY=0, cutoutOffsetZ=0, boltCutout=false, boltCutoutOffset=0, inserts=false, reversedBelts=false, endCube=true) {
-echo(size=size);
     size = size - [0, toothHeight, 0];
     offsetZ = 0;//18.5 - size.y - toothHeight;
     toothCount = floor(size.z/2) - 1;
