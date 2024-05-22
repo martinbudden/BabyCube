@@ -169,7 +169,7 @@ module xCarriageBack(xCarriageType, size, extraX=0, holeSeparationTop, holeSepar
 }
 
 
-module xCarriageBeltSideBolts(xCarriageType, size, topBoltLength=10, holeSeparationTop, holeSeparationBottom, bottomBoltLength=12, holeSeparationBottom, screwType=hs_cs_cap, offsetT=0) {
+module xCarriageBeltSideBolts(xCarriageType, size, topBoltLength=10, holeSeparationTop, holeSeparationBottom, bottomBoltLength=12, holeSeparationBottom, screwType=hs_cs_cap, offsetT=0, offsetB=0) {
     translate([-size.x/2, -xCarriageBeltSideOffsetY(xCarriageType, size.y), 0]) {
         // holes at the top to connect to the xCarriage
         for (x = xCarriageHolePositions(size.x, holeSeparationTop))
@@ -184,7 +184,7 @@ module xCarriageBeltSideBolts(xCarriageType, size, topBoltLength=10, holeSeparat
                             boltM3Caphead(topBoltLength);
         // holes at the bottom to connect to the xCarriage
         for (x = xCarriageHolePositions(size.x, holeSeparationBottom))
-            translate([x, 0, -size.z + xCarriageTopThickness() + xCarriageBaseThickness()/2])
+            translate([x, 0, -size.z + xCarriageTopThickness() + xCarriageBaseThickness()/2 + offsetB])
                 rotate([90, 90, 0])
                     if (screwType==hs_cs_cap)
                         boltM3Countersunk(bottomBoltLength);
