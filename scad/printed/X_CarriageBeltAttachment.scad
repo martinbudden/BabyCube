@@ -7,6 +7,7 @@ use <NopSCADlib/vitamins/pcb.scad>
 
 use <X_Carriage.scad>
 
+include <../vitamins/inserts.scad>
 include <../vitamins/pcbs.scad>
 
 
@@ -134,7 +135,8 @@ module X_Carriage_Belt_Clamp_hardware(size, offset=0, boltLength=10, countersunk
                 boltM3Buttonhead(boltLength);
 }
 
-module xCarriageBeltAttachment(size, beltWidth, beltSeparation, backThickness = 4, cutoutOffsetY=0, cutoutOffsetZ=0, boltCutout=false, boltCutoutOffset=0, reversedBelts=false, endCube=true) {
+module xCarriageBeltAttachment(size, beltWidth, beltSeparation, backThickness = 4, cutoutOffsetY=0, cutoutOffsetZ=0, boltCutout=false, boltCutoutOffset=0, inserts=false, reversedBelts=false, endCube=true) {
+echo(size=size);
     size = size - [0, toothHeight, 0];
     offsetZ = 0;//18.5 - size.y - toothHeight;
     toothCount = floor(size.z/2) - 1;
@@ -209,7 +211,10 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, backThickness = 
         for (x = [(size.z - xCarriageBeltClampHoleSeparation())/2, (size.z + xCarriageBeltClampHoleSeparation())/2])
             translate([x, midOffsetY, size.y + toothHeight])
                 vflip()
-                    boltHoleM3Tap(6);
+                    if (inserts)
+                        insertHoleM3(6.5, insertHoleLength=6.5);
+                    else
+                        boltHoleM3Tap(7);
         translate([0, cutoutOffsetY + 4.35, 3.35 - 0.5 - offsetZ + cutoutOffsetZ]) {
             translate([0, reversedBelts ? beltWidth + beltSeparation - (beltTensionerSize.z - beltWidth) + 0.3: 0, 0])
                 rotate([90, 0, 90])
@@ -223,7 +228,7 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, backThickness = 
 
 function beltAttachmentOffsetY() = 14;
 
-module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, beltSeparation, holeSeparationTop, holeSeparationBottom, accelerometerOffset=undef, topHoleOffset=0, offsetT=0, offsetB=0, screwType=hs_cap, halfCarriage=false, reversedBelts=false, pulley25=false, endCube=true) {
+module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, beltSeparation, holeSeparationTop, holeSeparationBottom, accelerometerOffset=undef, topHoleOffset=0, offsetT=0, offsetB=0, screwType=hs_cap, halfCarriage=false, inserts=false, reversedBelts=false, pulley25=false, endCube=true) {
     assert(is_list(xCarriageType));
 
     carriageSize = carriage_size(xCarriageType);
@@ -256,7 +261,7 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                     translate([size.x, 0, baseOffset + beltsCenterZOffset])//-size.z + 20.5 + baseOffset])
                         rotate([-90, 180, 0])
                             //translate([0, size.x, 0]) mirror([0, 1, 0])
-                            xCarriageBeltAttachment(beltAttachmentSize, beltWidth, beltSeparation, backThickness, cutoutOffsetY, cutoutOffsetZ, boltCutout=true, boltCutoutOffset=offsetY25, reversedBelts=reversedBelts, endCube=endCube);
+                            xCarriageBeltAttachment(beltAttachmentSize, beltWidth, beltSeparation, backThickness, cutoutOffsetY, cutoutOffsetZ, boltCutout=true, boltCutoutOffset=offsetY25, inserts=inserts, reversedBelts=reversedBelts, endCube=endCube);
                     translate_z(baseThickness + beltAttachmentSize.x - fillet - eps)
                         cube([size.x, backThickness, size.z - beltAttachmentSize.x - baseThickness]);
                     translate_z(fillet + 0.25 + (reversedBelts ? 1 : 0))
@@ -355,7 +360,7 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                     rotate([90, 0, 0])
                         carriage_hole_positions(MGN12H_carriage)
                             vflip()
-                                boltHoleM3Tap(6);
+                                boltHoleM3Tap(5);
             } else {
                 // extra bolt holes to allow something to be attached to the carriage
                 for (z = [baseThickness/2, size.z - topSize.z/2])
