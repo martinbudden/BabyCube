@@ -50,7 +50,6 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
 
     fillet = isMGN9C(yCarriageType) ? 1.5 : 2.5;
     leftExtraClearance = isMGN9C(yCarriageType) ? 0 : 1;
-    pulley25 = is_list(blockOffset);
     blockOffset =  is_list(blockOffset) ? blockOffset : [0, blockOffset];
 
     blockSize = [yCarriageBlockSizeX(yCarriageType) + blockOffset.x, carriage_length(yCarriageType) + 1 + 2*blockOffset.y, thickness];
@@ -185,26 +184,24 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
             } else {
                 if (left) {
                     // inside cube to support brace
-                    size = pulley25 ? [22, 12.5, h] : [18 + (reversedBelts ? -plainIdlerOffset.x - (pulleyBore==4 ? 2.5 : 1.5) : 0), 10 + (pulleyBore==4 ? 1.5 : 0), h];
-                    translate([plainPulleyPos.x - (reversedBelts ? 3.5 : (pulley25 ? 4.5 : 5)), reversedBelts ? -tongueSize.y/2 : tongueSize.y/2 - size.y, 0])
+                    size = [18 + (reversedBelts ? -plainIdlerOffset.x - (pulleyBore==4 ? 2.5 : 1.5) : 0), 10 + (pulleyBore==4 ? 1.5 : 0), h];
+                    translate([plainPulleyPos.x - (reversedBelts ? 3.5 : 5), reversedBelts ? -tongueSize.y/2 : tongueSize.y/2 - size.y, 0])
                         rounded_cube_xy(size, 1.5);
                     if (yCarriageBraceThickness) {
-                        size2 = [6.5 + blockOffset.x - (pulley25 ? 2.5 : 0), tongueSize.y, h];
+                        size2 = [6.5 + blockOffset.x, tongueSize.y, h];
                         translate([-blockSize.x/2 - blockOffset.x/2, -size2.y/2, 0])
                             rounded_cube_xy(size2, 1.5);
-                        if (pulley25)
-                            tongue([size2.x + blockSize.x/2 - 3*blockOffset.x/2 + 12.15, tongueSize.y, thickness], left, 1.5);
                     }
                 } else {
-                    size = [pulley25 ? 9 : 7.5 + plainIdlerOffset.x, tongueSize.y, h];
-                    translate([toothedPulleyPos.x - (pulley25 ? 4.5 : 3.25), -size.y/2, 0])
+                    size = [7.5 + plainIdlerOffset.x, tongueSize.y, h];
+                    translate([toothedPulleyPos.x - 3.25, -size.y/2, 0])
                         rounded_cube_xy(size, 1.5);
                     if (yCarriageBraceThickness) {
-                        size2 = [6.5, pulley25 ? 12 : 10.25, h];
-                        translate([plainPulleyPos.x + (pulley25 ? 10.75 : 6.5), reversedBelts ? -tongueSize.y/2 : tongueSize.y/2 - size2.y, 0])
+                        size2 = [6.5, 10.25, h];
+                        translate([plainPulleyPos.x + 6.5, reversedBelts ? -tongueSize.y/2 : tongueSize.y/2 - size2.y, 0])
                             rounded_cube_xy(size2, 1.5);
-                        tongue([size2.x + blockSize.x/2 - blockOffset.x/2 + (pulley25 ? 10.40 : 3.15) + plainIdlerOffset.x, tongueSize.y, thickness], left, reversedBelts ? 4 : 1.5);
-                        size3 = [6.5 + blockOffset.x - (pulley25 ? 2.5 : 0), tongueSize.y, h];
+                        tongue([size2.x + blockSize.x/2 - blockOffset.x/2 + 3.15 + plainIdlerOffset.x, tongueSize.y, thickness], left, reversedBelts ? 4 : 1.5);
+                        size3 = [6.5 + blockOffset.x, tongueSize.y, h];
                         translate([-blockSize.x/2 - blockOffset.x/2, -size3.y/2, 0])
                             rounded_cube_xy(size3, 1.5);
                     }
@@ -231,9 +228,6 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
                 }
             else
                 boltHole(rail_hole(xRailType) < 3 ? 2*M2_tap_radius : 2*M3_tap_radius, thickness + (left ? 4 : 0), twist=4, cnc=cnc);
-        if (inserts && left && pulley25)
-            yCarriageTongueBoltPositions(tongueOffset, xRailType, xRailLength, 1)
-                insertHoleM3(tongueSize.z);
         translate_z(thickness - carriage_height(yCarriageType))
             rotate(90)
                 carriage_hole_positions(yCarriageType)
