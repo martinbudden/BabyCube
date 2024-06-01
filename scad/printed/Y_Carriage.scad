@@ -272,7 +272,7 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
 module yCarriageBraceBoltPositionsMGN12(blockSizeX, blockOffsetX, left) {
     translate([-blockSizeX/2 + boltOffsetOuterMGN12(left, blockOffsetX), 0, 0])
         children();
-    translate([boltOffsetInnerMGN12(left, blockOffsetX) + (left ? 0.5 : 0.75), left ? 0 : -3, 0])
+    translate([boltOffsetInnerMGN12(left, blockOffsetX) + (left ? 0.5 : 0.75), left ? 0 : -1.5, 0])
         children();
 }
 
