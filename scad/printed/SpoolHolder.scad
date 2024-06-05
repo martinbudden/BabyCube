@@ -106,9 +106,8 @@ module spoolHolder(bracketSize, offsetX, innerFillet, catchRadius=0, length=80, 
     }
 }
 
-module spoolHolderBracket(M3=false) {
+module spoolHolderBracket(size=[50, 30, 10], M3=true) {
     eSize = 20;
-    size = [M3 ? 50 : 3*eSize, 1.5*eSize, 10];
     fillet = 2;
     thickness = 4.5;
     catchRadius = 2;
@@ -123,7 +122,7 @@ module spoolHolderBracket(M3=false) {
                     translate([x, 0, 0])
                         rounded_cube_xy(sideSize, fillet);
             }
-            for (x = M3 ? [8, size.x - 5] : [eSize/2, size.x - eSize/2])
+            for (x = M3 ? [8, size.x - 5] : [(size.x - eSize)/4, (3*size.x + eSize)/4])
                 translate([x, eSize/2, 0])
                     if (M3)
                         boltHoleM3HangingCounterboreButtonhead(size.z, boreDepth=size.z - 4);
@@ -142,17 +141,15 @@ module spoolHolderBracket(M3=false) {
         }
 }
 
-module spoolHolderBracketHolePositions(M3=false, z=0) {
+module spoolHolderBracketHolePositions(size=[50, 30, 10], M3=true, z=0) {
     eSize = 20;
-    size = [M3 ? 50 : 3*eSize, 1.5*eSize, 10];
-    thickness = 4.5;
 
-    for (x = M3 ? [8, size.x - 5] : [eSize/2, size.x - eSize/2])
+    for (x = M3 ? [8, size.x - 5] : [(size.x - eSize)/4, (3*size.x + eSize)/4])
         translate([x - size.x/2, eSize/2, z])
             children();
 }
 
-module spoolHolderBracketHardware(M3=false) {
+module spoolHolderBracketHardware(M3=true) {
     spoolHolderBracketHolePositions(M3, 10 - 4)
         vflip()
             if (M3)

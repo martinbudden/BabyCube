@@ -65,6 +65,6 @@ module Spool_Holder_CF_stl() {
 module Spool_Holder_Bracket_stl() {
     stl("Spool_Holder_Bracket")
         color(pp1_colour)
-            spoolHolderBracket(M3=true);
+            spoolHolderBracket();
 }
 
