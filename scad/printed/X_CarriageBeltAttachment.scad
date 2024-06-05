@@ -363,7 +363,7 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                     rotate([90, 0, 0])
                         carriage_hole_positions(MGN12H_carriage)
                             vflip()
-                                boltHoleM3Tap(5);
+                                boltHoleM3Tap(4.5);
             } else {
                 // extra bolt holes to allow something to be attached to the carriage
                 for (z = [baseThickness/2, size.z - topSize.z/2])
