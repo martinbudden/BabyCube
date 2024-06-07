@@ -240,10 +240,11 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
                     vflip()
                         boltHoleM3Counterbore(thickness, counterBore(thickness), cnc=cnc);
         // use shoulder bolts for pulleyBore 4 and above
-        holeDiameter = pulleyBore == 3 ? 2*M3_tap_radius : pulleyBore == 4 ? 2*M3_tap_radius : 2*M4_tap_radius;
+        // previously set holeDiameter as 2*M3_tap_radius for pulleyBore==4, using should bolts, but they did not have sufficient purchase for tightening
+        holeDiameter = pulleyBore == 3 ? 2*M3_tap_radius : pulleyBore == 4 ? 2*M4_tap_radius : 2*M4_tap_radius;
         translate([left ? toothedPulleyPos.x : plainPulleyPos.x, left ? toothedPulleyPos.y : plainPulleyPos.y, 0]) {
             boltHole(holeDiameter, thickness, twist=4, cnc=cnc);
-            if (pulleyBore == 4) {
+            if (pulleyBore == 4 && holeDiameter < 2*M4_tap_radius) {
                 translate_z(thickness + 1.5 + pulleyStackHeight(idlerHeight, pulleyBore))
                     vflip()
                         boltHole(4, 12, twist=4, cnc=cnc);// use 12mm shoulder bolt for pulleyBore 4
@@ -251,7 +252,7 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
         }
         translate([left ? plainPulleyPos.x : toothedPulleyPos.x, left ? plainPulleyPos.y : toothedPulleyPos.y, 0]) {
             boltHole(holeDiameter, thickness + pulleyStackHeight(idlerHeight, pulleyBore), twist=4, cnc=cnc);
-            if (pulleyBore == 4) {
+            if (pulleyBore == 4 && holeDiameter < 2*M4_tap_radius) {
                 translate_z(thickness + 0.5 + 2*pulleyStackHeight(idlerHeight, pulleyBore))
                     rotate([180, 0, 22.5]) // rotate bolthole to maximise wall thickness
                         boltHole(4, 20, twist=0, cnc=cnc);// use 20mm shoulder bolt for pulleyBore 4
@@ -261,11 +262,11 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
             if (isMGN9C(yCarriageType))
                 translate([plainPulleyPos.x + boltOffsetMGN9(left), 0, 0])
                     vflip()
-                        boltHole(holeDiameter, 12, twist=4, cnc=cnc);
+                        boltHoleM3Tap(12, twist=4, cnc=cnc);
             else
                 yCarriageBraceBoltPositionsMGN12(blockSize.x, blockOffset.x, left)
                     vflip()
-                        boltHole(holeDiameter, 12, twist=4, cnc=cnc);
+                        boltHoleM3Tap(12, twist=4, cnc=cnc);
     } // end difference
 }
 
@@ -380,7 +381,9 @@ module pulleyBolt(bolt, boltLength, washer, pulleyBore, explode) {
     if (pulleyBore==4)
         explode(explode, true)
             washer(washer)
-                bolt(bolt, boltLength);
+                explode(explode, true)
+                    washer(washer)
+                        bolt(bolt, boltLength);
     else
         bolt(bolt, boltLength);
 }
@@ -389,7 +392,7 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCar
     isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
     pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
     washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
-    bolt = pulleyBore == 3 ? M3_cap_screw : pulleyBore == 4 ? M3_shoulder_screw : M5_cap_screw;
+    bolt = pulleyBore == 3 ? M3_cap_screw : pulleyBore == 4 ? M4_cap_screw : M5_cap_screw;
     explode = yCarriageExplodeFactor();
 
     plainIdlerHeight = isBearing ? 2*bb_width(plainIdler) + washer_thickness(washer) : pulley_height(plainIdler);
@@ -399,10 +402,10 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCar
         explode(left ? 6*explode : explode, true)
             pulleyStack(plainIdler, explode=explode);
         translate_z(plainIdlerHeight/2) {
-            boltLength = pulleyBore==3  ? screw_shorter_than(thickness + 2*pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness)
-                                        : screw_longer_than((left ? 2 : 1)*pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness);
+            length = thickness + (left ? 2 : 1)*pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness + washer_thickness(washer);
+            boltLength = screw_shorter_than(length);
             if (left) {
-                explode(7*explode, true)
+                explode(8*explode, true)
                     pulleyBolt(bolt, boltLength, washer, pulleyBore, explode);
             } else {
                 translate_z(yCarriageBraceThickness + washer_thickness(washer))
@@ -419,8 +422,8 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCar
         explode(left? explode : 6*explode, true)
             pulleyStack(toothedIdler, explode=explode);
         translate_z(plainIdlerHeight/2) {
-            boltLength = pulleyBore==3  ? screw_shorter_than(thickness + pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness)
-                                        : screw_longer_than((left ? 1 : 2)*pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness);
+            length = thickness + (left ? 1 : 2)*pulleyStackHeight(toothedIdlerHeight, pulleyBore) + yCarriageBraceThickness + washer_thickness(washer);
+            boltLength = screw_shorter_than(length);
             if (left) {
                 translate_z(yCarriageBraceThickness + washer_thickness(washer))
                     explode(5*explode, true)
@@ -429,7 +432,7 @@ module yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCar
                     explode(4*explode)
                         washer(washer);
             } else {
-                explode(7*explode, true)
+                explode(8*explode, true)
                     pulleyBolt(bolt, boltLength, washer, pulleyBore, explode);
             }
         }
