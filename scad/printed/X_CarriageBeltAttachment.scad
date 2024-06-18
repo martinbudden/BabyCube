@@ -227,12 +227,13 @@ module xCarriageBeltAttachment(size, beltWidth, beltSeparation, backThickness = 
 
 function beltAttachmentOffsetY() = 14;
 
-module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, beltSeparation, holeSeparationTop, holeSeparationBottom, accelerometerOffset=undef, topHoleOffset=0, offsetT=0, offsetB=0, screwType=hs_cap, halfCarriage=false, inserts=false, reversedBelts=false, pulley25=false, extraBeltOffset=0,endCube=true) {
+module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, beltSeparation, holeSeparationTop, holeSeparationBottom, accelerometerOffset=undef, topHoleOffset=0, offsetT=0, offsetB=0, screwType=hs_cap, boreDepth=0, halfCarriage=false, inserts=false, reversedBelts=false, pulley25=false, extraBeltOffset=0, endCube=true) {
     assert(is_list(xCarriageType));
 
     carriageSize = carriage_size(xCarriageType);
     isMGN12 = carriageSize.z >= 13;
     sizeExtraY = (isMGN12 ? 2 : 1.5) + (pulley25 ? 2 : 0);
+    extraBackThickness = xCarriageExtraBackThickness(xCarriageType);
     cutoutOffsetY = isMGN12 ? 1 : 2;
     cutoutOffsetZ = isMGN12 ? 5.5 : 2.25;
     tolerance = 0.05;
@@ -263,6 +264,8 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                             xCarriageBeltAttachment(beltAttachmentSize, beltWidth, beltSeparation, backThickness, cutoutOffsetY, cutoutOffsetZ, boltCutout=true, boltCutoutOffset=offsetY25 + extraBeltOffset, inserts=inserts, reversedBelts=reversedBelts, endCube=endCube);
                     translate_z(baseThickness + beltAttachmentSize.x - fillet - eps)
                         cube([size.x, backThickness, size.z - beltAttachmentSize.x - baseThickness]);
+                    translate([0, -extraBackThickness, 0])
+                        rounded_cube_xz([size.x, extraBackThickness + 1, size.z], fillet);
                     translate_z(fillet + 0.25 + (reversedBelts ? 1 : 0))
                         cube([size.x, beltAttachmentSize.y, baseThickness - fillet + (isMGN12 ? 0 : 1)], fillet);
                     //if (pulley25)
@@ -311,20 +314,22 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
             }
             // holes at the top to connect to the hotend side
             for (x = xCarriageHolePositions(size.x, holeSeparationTop))
-                translate([x + topHoleOffset, 0, -baseOffset + size.z - topSize.z/2 + offsetT])
-                    rotate([-90, 0, 0])
+                translate([x + topHoleOffset,  -extraBackThickness, -baseOffset + size.z - topSize.z/2 + offsetT])
+                    rotate([-90, 0, 0]) {
+                        length = topSize.y + extraBackThickness;
                         if (screwType == hs_cs_cap)
-                            boltPolyholeM3Countersunk(topSize.y, sink=(pulley25 ? 1 : 0.2));
+                            boltPolyholeM3Countersunk(length, sink=(pulley25 ? 1 : 0.2));
                         else if (screwType == hs_dome)
                             rotate(180/14) // rotate to align hole with perimeter for thicker wall when printing
-                                boltHoleM3(topSize.y);
+                                boltHoleM3(length);
                         else if (screwType == -1)
-                            boltHoleM3HangingCounterboreWasher(topSize.y, boreDepth=xCarriageBeltSideBoreDepth(), boltHeadTolerance=0.2);
+                            boltHoleM3HangingCounterboreWasher(length, boreDepth=boreDepth, boltHeadTolerance=0.2);
                         else if (screwType == -2) // M3 caphead with 6mm (undersized) washer
                             rotate(-9.5) // rotate to align hole with perimeter for thicker wall when printing
-                                boltHoleM3HangingCounterbore(topSize.y, boreDepth=xCarriageBeltSideBoreDepth(), boltHeadTolerance=6.3 - 2*screw_head_radius(M3_cap_screw));
+                                boltHoleM3HangingCounterbore(length, boreDepth=boreDepth, boltHeadTolerance=6.3 - 2*screw_head_radius(M3_cap_screw));
                         else
-                            boltHoleM3HangingCounterbore(topSize.y, boreDepth=xCarriageBeltSideBoreDepth());
+                            boltHoleM3HangingCounterbore(topSize.y, boreDepth=boreDepth);
+                    }
             /*for (x = xCarriageTopHolePositions(xCarriageType, xCarriageHoleOffsetTop().x))
                 translate([x, 0, -baseOffset + size.z - topSize.z/2 + xCarriageHoleOffsetTop().y])
                     rotate([-90, 0, 0])
@@ -332,21 +337,21 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                         //boltHoleM3(topSize.y, twist=4);*/
             // holes at the bottom to connect to the hotend side
             for (x = xCarriageHolePositions(size.x, holeSeparationBottom))
-               translate([x + topHoleOffset, 0, -baseOffset + baseThickness/2 + offsetB])
+               translate([x + topHoleOffset, -extraBackThickness, -baseOffset + baseThickness/2 + offsetB])
                     rotate([-90, 0, 0]) {
-                        length = pulley25 || !halfCarriage ? topSize.y : beltAttachmentPlusOffsetSizeY;
+                        length = pulley25 || !halfCarriage ? topSize.y + extraBackThickness: beltAttachmentPlusOffsetSizeY;
                         if (screwType == hs_cs_cap)
                             boltPolyholeM3Countersunk(length, sink=(pulley25 ? 1 : 0.2));
                         else if (screwType == hs_dome)
                             rotate(-180/14) // rotate to align hole with perimeter for thicker wall when printing
                                 boltHoleM3(length);
                         else if (screwType == -1)
-                            boltHoleM3HangingCounterboreWasher(length, boreDepth=xCarriageBeltSideBoreDepth(), boltHeadTolerance=0.2);
+                            boltHoleM3HangingCounterboreWasher(length, boreDepth=boreDepth, boltHeadTolerance=0.2);
                         else if (screwType == -2) // M3 caphead with 6mm (undersized) washer
                             rotate(16) // rotate to align hole with perimeter for thicker wall when printing
-                                boltHoleM3HangingCounterbore(length, boreDepth=xCarriageBeltSideBoreDepth(), boltHeadTolerance=6.3 - 2*screw_head_radius(M3_cap_screw));
+                                boltHoleM3HangingCounterbore(length, boreDepth=boreDepth, boltHeadTolerance=6.3 - 2*screw_head_radius(M3_cap_screw));
                         else
-                            boltHoleM3HangingCounterbore(length, boreDepth=xCarriageBeltSideBoreDepth());
+                            boltHoleM3HangingCounterbore(length, boreDepth=boreDepth);
                     }
             /*for (x = xCarriageBottomHolePositions(xCarriageType, xCarriageHoleOffsetBottom().x))
                 translate([x, 0, -baseOffset + baseThickness/2 + xCarriageHoleOffsetBottom().y])
@@ -359,11 +364,11 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                 //    translate([x, 0, -baseOffset + baseThickness/2])
                 //        rotate([-90, 0, 0])
                 //            boltHoleM3Tap(8);
-                translate([size.x/2, -6.5 + xCarriageBeltSideOffsetY, topSize.z - size.z/2])
+                translate([size.x/2, -6.5 + xCarriageBeltSideOffsetY - extraBackThickness, topSize.z - size.z/2])
                     rotate([90, 0, 0])
                         carriage_hole_positions(MGN12H_carriage)
                             vflip()
-                                boltHoleM3Tap(4.5);
+                                boltHoleM3Tap(4.5 + extraBackThickness);
             } else {
                 // extra bolt holes to allow something to be attached to the carriage
                 for (z = [baseThickness/2, size.z - topSize.z/2])

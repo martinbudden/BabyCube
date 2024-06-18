@@ -27,7 +27,7 @@ xCarriageFrontOffsetExtraY = 2;
 function xCarriageBeltSideOffsetY(xCarriageType, xCarriageFrontSizeY) = carriage_size(xCarriageType).y/2 + xCarriageFrontSizeY + xCarriageFrontOffsetExtraY;
 
 function xCarriageHolePositions(sizeX, spacing) = [(sizeX - spacing)/2, (sizeX + spacing)/2];
-function xCarriageBeltSideBoreDepth() = 5;
+function xCarriageExtraBackThickness(xCarriageType) = xCarriageType[0] == "MGN9C" ? 0 : 1;
 
 module xCarriageTop(xCarriageType, xCarriageBackSize, holeSeparation, extraX=0, reflected=false, countersunk=4, topHoleOffset=0, holeOffset=0, accelerometerOffset=undef) {
     assert(is_list(xCarriageType));
@@ -75,7 +75,7 @@ module xCarriageStrainRelief(xCarriageType, xCarriageBackSize, topThickness, ref
     size =  [xCarriageBackSize.x, xCarriageBackSize.y + carriageSize.y/2, topThickness];
     tabSize = [15, xCarriageBackSize.y, 25]; // ensure room for bolt heads
 
-    translate([reflected ? size.x - tabSize.x : 0, railCarriageGap, size.z - 2*fillet])
+    translate([reflected ? size.x - tabSize.x : 0, 0, size.z - 2*fillet])
         difference() {
             rounded_cube_yz(tabSize, fillet);
             for (x = [tabSize.x/2 - 4, tabSize.x/2 + 4], z = [5 + 2, 15 + 2])
@@ -116,7 +116,7 @@ module xCarriageBottom(xCarriageType, xCarriageBackSize, holeSeparation, reflect
     assert(is_list(xCarriageType));
 
     size =  [xCarriageBackSize.x, carriage_size(xCarriageType).z >= 13 ? 14.45 : 10, baseThickness];
-    translate([0, -size.y + xCarriageBackSize.y + railCarriageGap, 0])
+    translate([0, -size.y + xCarriageBackSize.y, 0])
         difference() {
             rounded_cube_yz(size, fillet);
             // bolt holes to connect to the belt side
@@ -135,19 +135,19 @@ module xCarriageBack(xCarriageType, size, extraX=0, holeSeparationTop, holeSepar
 
     baseSize = [size.x, carriageSize.y + size.y - 2*beltInsetBack(xCarriageType), baseThickness];
     difference() {
-        translate([-size.x/2, carriageSize.y/2, 0])
+        translate([-size.x/2, carriageSize.y/2 + railCarriageGap, 0])
             union() {
-                translate([0, railCarriageGap, baseSize.z - size.z])
+                translate_z(baseSize.z - size.z)
                     rounded_cube_yz([size.x, size.y, size.z], fillet);
                 // top
                 if (strainRelief)
                     xCarriageStrainRelief(xCarriageType, size, topThickness, reflected);
                 if (halfCarriage) {
-                    xCarriageTop(xCarriageType, size, holeSeparationTop, extraX, reflected, countersunk, topHoleOffset, offsetT, accelerometerOffset);
-                    translate([0, railCarriageGap, 0])
-                        rotate([-90, 0, -90])
-                            fillet(fillet, baseSize.x);
-                    translate([0, railCarriageGap, -size.z + 2*baseThickness])
+                    translate([0, -railCarriageGap, 0])
+                        xCarriageTop(xCarriageType, size, holeSeparationTop, extraX, reflected, countersunk, topHoleOffset, offsetT, accelerometerOffset);
+                    rotate([-90, 0, -90])
+                        fillet(fillet, baseSize.x);
+                    translate_z(-size.z + 2*baseThickness)
                         rotate([-90, -90, -90])
                             fillet(internalFillet, baseSize.x);
                     // base
@@ -169,8 +169,8 @@ module xCarriageBack(xCarriageType, size, extraX=0, holeSeparationTop, holeSepar
 }
 
 
-module xCarriageBeltSideBolts(xCarriageType, size, topBoltLength=10, holeSeparationTop, holeSeparationBottom, bottomBoltLength=12, holeSeparationBottom, screwType=hs_cs_cap, offsetT=0, offsetB=0) {
-    translate([-size.x/2, -xCarriageBeltSideOffsetY(xCarriageType, size.y), 0]) {
+module xCarriageBeltSideBolts(xCarriageType, size, topBoltLength=10, holeSeparationTop, holeSeparationBottom, bottomBoltLength=12, holeSeparationBottom, screwType=hs_cs_cap, boreDepth=0, offsetT=0, offsetB=0) {
+    translate([-size.x/2, -xCarriageBeltSideOffsetY(xCarriageType, size.y) - xCarriageExtraBackThickness(xCarriageType), 0]) {
         // holes at the top to connect to the xCarriage
         for (x = xCarriageHolePositions(size.x, holeSeparationTop))
             translate([x, 0, xCarriageTopThickness()/2 + offsetT])
@@ -180,7 +180,7 @@ module xCarriageBeltSideBolts(xCarriageType, size, topBoltLength=10, holeSeparat
                     else if (screwType==hs_dome)
                         boltM3Buttonhead(topBoltLength);
                     else
-                        translate_z(-xCarriageBeltSideBoreDepth())
+                        translate_z(-boreDepth)
                             boltM3Caphead(topBoltLength);
         // holes at the bottom to connect to the xCarriage
         for (x = xCarriageHolePositions(size.x, holeSeparationBottom))
@@ -191,7 +191,7 @@ module xCarriageBeltSideBolts(xCarriageType, size, topBoltLength=10, holeSeparat
                     else if (screwType==hs_dome)
                         boltM3Buttonhead(bottomBoltLength);
                     else
-                        translate_z(-xCarriageBeltSideBoreDepth())
+                        translate_z(-boreDepth)
                             boltM3Caphead(bottomBoltLength);
     }
 }
