@@ -16,6 +16,7 @@ use <X_CarriageBeltAttachment.scad>
 use <X_CarriageFanDuct.scad>
 
 include <../Parameters_CoreXY.scad>
+include <../Parameters_Main.scad>
 
 xCarriageFrontSize = [30, 4, 40.5];
 function xCarriageBeltSideSize(xCarriageType, beltWidth) =  [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x), xCarriageFrontSize.y, 36 + carriage_height(xCarriageType) + xCarriageTopThickness() + (!is_undef(beltWidth) && beltWidth == 9 ? 4.5 : 0)];
@@ -50,7 +51,7 @@ module X_Carriage_Belt_Side_MGN9C_stl() {
         color(pp4_colour)
             translate([extraX/2, 0, 0])
                 rotate([90, 0, 180])
-                    xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, screwType=hs_cs_cap, halfCarriage=true);
+                    xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, screwType=hs_cs_cap, halfCarriage=_useHalfCarriage);
 }
 
 //!Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the
@@ -124,8 +125,8 @@ module X_Carriage_Groovemount_MGN9C_stl() {
         color(pp1_colour)
             rotate([0, -90, 0]) {
                 size = xCarriageHotendSideSize(xCarriageType, beltWidth());
-                xCarriageBack(xCarriageType, size, extraX, holeSeparationTop, holeSeparationBottom, halfCarriage=true, strainRelief=false, countersunk=_xCarriageCountersunk ? 4 : 0, topHoleOffset=-xCarriageBeltAttachmentMGN9CExtraX()/2, accelerometerOffset = accelerometerOffset());
-                hotEndHolder(xCarriageType, xCarriageHotendSideSize(xCarriageType), grooveMountSize, hotendOffset, hotendDescriptor, blower_type, baffle=true, left=true);
+                xCarriageBack(xCarriageType, size, extraX, holeSeparationTop, holeSeparationBottom, halfCarriage=_useHalfCarriage, strainRelief=false, countersunk=_xCarriageCountersunk ? 4 : 0, topHoleOffset=-xCarriageBeltAttachmentMGN9CExtraX()/2, accelerometerOffset = accelerometerOffset());
+                E3DV6HotendHolder(xCarriageType, xCarriageHotendSideSize(xCarriageType), grooveMountSize, hotendOffset, blower_type, baffle=true, left=true);
             }
 }
 
@@ -147,7 +148,7 @@ module X_Carriage_Groovemount_MGN9C_assembly() {
     explode([-20, 0, 10], true)
         hotEndPartCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower_type, left=true);
     explode([-20, 0, -10], true)
-        hotEndHolderAlign(hotendOffset, left=true)
+        E3DV6HotendHolderAlign(hotendOffset, left=true)
             blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type)
                 rotate([-90, 0, 0]) {
                     stl_colour(pp2_colour)

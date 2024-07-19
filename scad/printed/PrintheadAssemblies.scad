@@ -19,7 +19,7 @@ include <../Parameters_CoreXY.scad>
 use <../Parameters_Positions.scad>
 
 
-function hotendClampOffset(xCarriageType, hotendDescriptor="E3DV6") =  [hotendOffset(xCarriageType, hotendDescriptor).x, 18 + xCarriageHotendOffsetY(xCarriageType) + grooveMountOffsetX(hotendDescriptor), hotendOffset(xCarriageType, hotendDescriptor).z];
+function hotendClampOffset(xCarriageType, hotendDescriptor="E3DV6") =  [hotendOffset(xCarriageType, hotendDescriptor).x, 18 + xCarriageHotendOffsetY(xCarriageType), hotendOffset(xCarriageType, hotendDescriptor).z];
 grooveMountFillet = 1;
 function grooveMountClampSize(blower_type, hotendDescriptor) = [grooveMountSize(blower_type, hotendDescriptor).y - 2*grooveMountFillet - grooveMountClampOffsetX(), 12, 15];
 
@@ -146,15 +146,15 @@ module Hotend_Strain_Relief_Clamp_hardware() {
 module Hotend_Clamp_stl() {
     stl("Hotend_Clamp")
         color(pp2_colour)
-            grooveMountClamp(grooveMountClampSize(BL30x10), strainRelief=true);
+            grooveMountClamp(grooveMountClampSize(BL30x10), strainRelief=true, left=true);
 }
 
 module Hotend_Clamp_40_stl() {
     stl("Hotend_Clamp")
         color(pp2_colour)
-            grooveMountClamp(grooveMountClampSize(BL40x10));
+            grooveMountClamp(grooveMountClampSize(BL40x10), left=true);
 }
 
 module Hotend_Clamp_hardware(xCarriageType, blower_type, hotendDescriptor, countersunk=false) {
-    grooveMountClampHardware(grooveMountClampSize(blower_type, hotendDescriptor), countersunk);
+    grooveMountClampHardware(grooveMountClampSize(blower_type, hotendDescriptor), countersunk, left=true);
 }
