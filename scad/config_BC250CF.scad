@@ -24,8 +24,10 @@ _xCarriageDescriptor = "MGN9C";
 _xCarriageCountersunk = true;
 _yCarriageDescriptor = "MGN9C";
 _coreXYDescriptor = "GT2_20_16";
+_useReversedBelts = false;
 
 _useFrontDisplay = false;
 _useFrontSwitch = false;
+_useHalfCarriage = true;
 
 _printBedSize = 120;

@@ -27,5 +27,6 @@ _coreXYDescriptor = "GT2_20_16";
 
 _useFrontDisplay = false;
 _useFrontSwitch = false;
+_useHalfCarriage = true;
 
 _printBedSize = 120;
