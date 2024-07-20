@@ -3,6 +3,7 @@ include <../global_defs.scad>
 include <../vitamins/bolts.scad>
 
 use <NopSCADlib/utils/dogbones.scad>
+include <NopSCADlib/vitamins/pcb.scad> // needed by displays.scad
 include <NopSCADlib/vitamins/displays.scad>
 include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/rockers.scad>
@@ -115,7 +116,7 @@ module Front_Face_Top_Joiner_stl() {
             frontFaceUpperHolePositions(-_frontPlateCFThickness)
                 vflip()
                     boltHoleM3Tap(size.y, horizontal=true, rotate=180);
-        topFaceFrontHolePositions(eZ - _topPlateThickness)
+        topFaceFrontHolePositions(eZ - _topPlateThickness, cf=true)
             vflip()
                 boltHoleM3Tap(9);
     }
@@ -145,7 +146,7 @@ assembly("Front_Face_CF") {
             translate([rockerPosition(rocker_type()).z, rockerPosition(rocker_type()).y])
                 rocker(rocker_type(), "red");
     }
-    *if (_useFrontSwitch)
+    /*if (_useFrontSwitch)
         explode([0, -30, 0], true) {
             Display_Housing_CF_assembly();
             translate([eX/2 + eSizeX, -2, 0])
@@ -153,5 +154,5 @@ assembly("Front_Face_CF") {
                     vflip()
                         explode(60)
                             boltM3Buttonhead(10);
-        }
+        }*/
 }

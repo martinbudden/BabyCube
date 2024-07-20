@@ -35,7 +35,7 @@ module topFaceCF(NEMA_type, extraY) {
     difference() {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2 - insetY])
-            topFaceInterlockCutouts(NEMA_type, M3_clearance_radius, cnc= true);
+            topFaceInterlockCutouts(NEMA_type, M3_clearance_radius, cnc=true);
     }
 }
 
@@ -58,7 +58,7 @@ module topFaceCover(NEMA_type) {
                 //translate([(size.x - cutoutSize.x)/2, cutoutFrontY + insetY])
                 translate([(size.x - cutoutSize.x)/2,  cutoutFrontY, -eps])
                     rounded_square([cutoutSize.x, cutoutSize.y], 4, center=false);
-                topFaceAllHolePositions()
+                topFaceAllHolePositions(cf=false)
                     poly_circle(r=M3_clearance_radius);
                 motorAccessHolePositions(NEMA_type)
                     poly_circle(r=M3_clearance_radius);
@@ -102,7 +102,7 @@ module topFaceInterlock(NEMA_type) {
         linear_extrude(size.z)
             difference() {
                 rounded_square([size.x, size.y], _fillet, center=false);
-                topFaceInterlockCutouts(NEMA_type, M3_tap_radius);
+                topFaceInterlockCutouts(NEMA_type, M3_tap_radius, cnc=false);
             }
     if (!is_undef(bearingType))
         translate_z(-bb_width(bearingType))
@@ -167,7 +167,7 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, cn
     topFaceRailHolePositions(NEMA_width)
         cutout_circle(railHoleRadius, cnc);
 
-    topFaceAllHolePositions()
+    topFaceAllHolePositions(cf=cnc)
         cutout_circle(M3_clearance_radius, cnc);
 
     if (!cnc)
@@ -188,9 +188,8 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, cn
             cutout_circle(M3_clearance_radius, cnc);
         xyMotorMountTopHolePositions(left=false)
             cutout_circle(M3_clearance_radius, cnc);
-    } else {
-        topFaceWiringCutout(NEMA_width);
     }
+    topFaceWiringCutout(NEMA_width);
 
     // remove the sides and back
     topFaceSideCutouts(cnc);

@@ -19,7 +19,7 @@ function topFaceSideHolePositions() = eY == 180 ? [ 20, 100, 180 ] : [ 30, 110];
 
 // offset of side bolt holes for top plate
 topBoltHolderThickness = 7.25 + yRailShiftX();
-function topBoltHolderSize(sidePlateThickness=_sidePlateThickness) = [eY + 2*eSizeY - 15 - 60 - _frontPlateCFThickness, 8, topBoltHolderThickness - sidePlateThickness]; // -15 to avoid back cube, +2.75 to give clearance for bolt hole
+function topBoltHolderSize(sidePlateThickness=_sidePlateThickness, cnc=false) = [eY + 2*eSizeY - 15 - (cnc ? 60 : 0) - _frontPlateCFThickness, 8, topBoltHolderThickness - sidePlateThickness]; // -15 to avoid back cube, +2.75 to give clearance for bolt hole
 function topFaceSideHolePositionOffset() = 3.75 + yRailShiftX() + 0.5;
 function baseBackHoleOffset() = [ floor(_zNEMA_width/2) + 4, 4];
 //topBackHoleOffset = [ 20, 4];
@@ -186,9 +186,9 @@ module frontFaceSideHolePositions(z=0) {
 }
 
 // top face
-module topFaceFrontHolePositions(z=0) {
+module topFaceFrontHolePositions(z=0, cf=false) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
-    positions = eX == 200 ? [size.x/3 + eSizeX/6, 2*size.x/3 - eSizeX/6] : eX == 220 ? [100, size.x - 100] : [95, size.x - 95];
+    positions = cf ? [95, size.x - 95] : [size.x/3 + eSizeX/6, 2*size.x/3 - eSizeX/6];
     for (x = positions)
         translate([x, topFaceFrontHolePositionOffsetY(), z])
             children();
@@ -227,8 +227,8 @@ module sideFaceTopHolePositions(z=topFaceSideHolePositionOffset()) {
                 children();
 }
 
-module topFaceAllHolePositions(z=0) {
-    topFaceFrontHolePositions(z)
+module topFaceAllHolePositions(z=0, cf=false) {
+    topFaceFrontHolePositions(z, cf)
         children();
     topFaceBackHolePositions(z)
         children();

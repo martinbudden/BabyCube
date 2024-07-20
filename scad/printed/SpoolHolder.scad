@@ -150,7 +150,7 @@ module spoolHolderBracketHolePositions(size=[50, 30, 10], M3=true, z=0) {
 }
 
 module spoolHolderBracketHardware(M3=true) {
-    spoolHolderBracketHolePositions(M3, 10 - 4)
+    spoolHolderBracketHolePositions(M3=M3, z=6)
         vflip()
             if (M3)
                 boltM3Buttonhead(12);

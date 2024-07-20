@@ -133,7 +133,7 @@ staged_assembly("Stage_4", big=true, ngb=true) {
             Top_Face_assembly();
         else
             Top_Face_NEMA_17_assembly();
-        topFaceAllHolePositions(eZ + _topPlateCoverThickness)
+        topFaceAllHolePositions(eZ + _topPlateCoverThickness, cf=false)
             boltM3Buttonhead(12);
     }
 }

@@ -38,7 +38,7 @@ module Front_Upper_Chord_stl() {
                             boltPolyholeM3Countersunk(cutoutHeight, sink=0.25);
                     translate([0, size.y, 0])
                         rotate([90, 0, 0])
-                            topFaceFrontHolePositions(_topPlateThickness)
+                            topFaceFrontHolePositions(_topPlateThickness, cf=false)
                                 boltHoleM3Tap(8, horizontal=true, chamfer_both_ends=false);
                     translate([eX + 2*eSizeX, size.y, 0 - eps])
                         frontUpperChordMessage(size, _cubeName);

@@ -1,6 +1,6 @@
 include <global_defs.scad>
 
-include <NopSCADlib/utils/core/core.scad>
+include <vitamins/bolts.scad>
 
 use <printed/BackFace.scad>
 use <printed/BackFaceAssemblies.scad>
@@ -14,6 +14,7 @@ use <printed/PrintheadAssemblies.scad>
 use <printed/TopFaceAssemblies.scad>
 use <printed/X_CarriageAssemblies.scad>
 
+include <utils/CoreXYBelts.scad>
 include <utils/HolePositions.scad>
 
 use <Parameters_Positions.scad>
@@ -149,7 +150,7 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
             topFaceSideHolePositions(eZ)
                 explode(20, true)
                     boltM3Buttonhead(8);
-            topFaceFrontHolePositions(eZ)
+            topFaceFrontHolePositions(eZ, cf=true)
                 explode(50, true)
                     boltM3Buttonhead(8);
         }
