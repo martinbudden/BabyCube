@@ -11,6 +11,7 @@ include <../scad/utils/carriageTypes.scad>
 include <../scad/utils/CoreXYBelts.scad>
 use <../scad/utils/printParameters.scad>
 
+use <../scad/printed/BackFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
@@ -37,8 +38,6 @@ module CoreXY() {
         yCarriageLeftAssembly(_xyNEMA_width);
     translate([0, carriagePosition(t).y - carriagePosition().y, 0])
         yCarriageRightAssembly(_xyNEMA_width);
-    //Left_Face_assembly();
-    //Right_Face_assembly();
     if (_useCNC) {
         XY_Idler_Bracket_Left_assembly();
         XY_Idler_Bracket_Right_assembly();
@@ -47,6 +46,9 @@ module CoreXY() {
     } else {
         XY_Idler_Left_assembly();
         XY_Idler_Right_assembly();
+        //Left_Face_assembly();
+        //Right_Face_assembly();
+        //Back_Face_Stage_1_assembly();
     }
     xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
     //let($hide_bolts=true)

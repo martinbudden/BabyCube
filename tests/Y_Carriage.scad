@@ -20,14 +20,16 @@ module Y_Carriage_test0() {
 
 module Y_Carriage_test1() {
 
-    //Y_Carriage_Left_AL_dxf();
-    Y_Carriage_Left_stl();
     yCarriageType = carriageType(_yCarriageDescriptor);
-    //Y_Carriage_hardware(yCarriageType, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), pulleyOffset(), left=true);
-    idlerHeight = pulley_height(coreXY_toothed_idler(coreXY_type()));
-    pulleyBore = pulley_bore(coreXY_toothed_idler(coreXY_type()));
+    toothedIdler = coreXY_toothed_idler(coreXY_type());
+    plainIdler = coreXY_plain_idler(coreXY_type());
+    idlerHeight = pulley_height(toothedIdler);
+    pulleyBore = pulley_bore(toothedIdler);
 
-    if (yCarriageBraceThickness())
+    Y_Carriage_Left_stl();
+    Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), pulleyOffset(), left=true);
+
+    *if (yCarriageBraceThickness())
         translate_z(yCarriageThickness() + pulleyStackHeight(idlerHeight, pulleyBore) + eps)
             Y_Carriage_Brace_Left_stl();
     *translate_z(-carriage_height(yCarriageType))
@@ -35,9 +37,8 @@ module Y_Carriage_test1() {
             carriage(yCarriageType);
 
     translate([100, 0, 0]) rotate(180) {
-        //Y_Carriage_Right_AL_dxf();
         Y_Carriage_Right_stl();
-        //Y_Carriage_hardware(yCarriageType, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), pulleyOffset(), left=false);
+        Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), pulleyOffset(), left=false);
         if (yCarriageBraceThickness())
             translate_z(yCarriageThickness() + pulleyStackHeight(idlerHeight, pulleyBore) + 2*eps)
                 Y_Carriage_Brace_Right_stl();
