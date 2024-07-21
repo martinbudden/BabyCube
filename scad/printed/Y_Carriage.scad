@@ -30,11 +30,11 @@ function yCarriageBlockSizeX(yCarriageType) = carriage_width(yCarriageType) + 4;
 function yCarriageExplodeFactor() = 5;
 function yCarriageTongueThickness(yCarriageType, chamfer=0) = isMGN9C(yCarriageType) ? 6.5 - chamfer : 6.5;
 
-function boltOffsetMGN9(left) = 13.5;
+leftSupportLength = 17;
+function boltOffsetMGN9(left) = left ? leftSupportLength - 6.5 : 10;
 function boltOffsetInnerMGN12(left, blockOffsetX) = blockOffsetX ? 29 : 21;
 function boltOffsetOuterMGN12(left, blockOffsetX) = (blockOffsetX ? (left ? 2.5 : 5) : 3);
 
-leftSupportLength = 20;
 
 module yCarriageTongueBoltPositions(tongueOffset, xRailType, xRailLength, screws=2) {
     translate([tongueOffset + xRailLength/2, 0, 0])
@@ -171,11 +171,11 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
                     translate([toothedPulleyPos.x - 3.25, -size.y/2, 0])
                         rounded_cube_xy(size, 1.5);
                     if (yCarriageBraceThickness) {
-                        size2 = [9, 9.5, h];
+                        size2 = [6, 9.5, h];
                         //translate([11.75 + 14 + 4.75 - size2.x, 3.5 - size.y/2, 0]) {
-                        translate([19, 3.5 - size.y/2, 0]) {
+                        translate([18.5, 3.5 - size.y/2, 0]) {
                             rounded_cube_xy(size2, 1.5);
-                            translate([-7.5, 0, 0])
+                            translate([-5.5, 0, 0])
                                 cube([9, size2.y, thickness]);
                         }
                         translate([blockSize.x/2 - blockOffset.x/2 + endstopX, 3.5 -size.y/2, 0])
@@ -233,7 +233,7 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
                     boltHole(insert_outer_d(F1BM3) + 1, pulleyStackHeight(idlerHeight, pulleyBore) + thickness - tongueSize.z, cnc=true);
                 }
             else
-                boltHole(rail_hole(xRailType) < 3 ? 2*M2_tap_radius : 2*M3_tap_radius, thickness + (left ? 4 : 0), twist=4, cnc=cnc);
+                boltHole(rail_hole(xRailType) < 3 ? 2*M2_tap_radius : 2*M3_tap_radius, thickness - 1, twist=4, cnc=cnc);
         translate_z(thickness - carriage_height(yCarriageType))
             rotate(90)
                 carriage_hole_positions(yCarriageType)
