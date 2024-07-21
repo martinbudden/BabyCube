@@ -229,7 +229,7 @@ module leftFaceCF(NEMA_width) {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2]) {
             if (NEMA_width < NEMA_width(NEMA17_40))
-                sideFaceMotorCutout(left=true, NEMA_width=NEMA_width, cnc=true);
+                sideFaceMotorCutout(left=true, NEMA_width=NEMA_width, zOffset=1.5);
             sideFaceTopDogbones(cnc=true);
             translate([_backPlateCFThickness, 0])
                 sideFaceBackDogBones(cnc=true);
@@ -277,7 +277,7 @@ module rightFaceCF(NEMA_width) {
                 }
             }
             if (NEMA_width < NEMA_width(NEMA17_40))
-                sideFaceMotorCutout(left=false, NEMA_width=NEMA_width, cnc=true);
+                sideFaceMotorCutout(left=false, NEMA_width=NEMA_width, zOffset=1.5);
             sideFaceTopDogbones(cnc=true);
             translate([_backPlateCFThickness, 0])
                 sideFaceBackDogBones(cnc=true);

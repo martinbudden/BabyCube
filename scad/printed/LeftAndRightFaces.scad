@@ -117,9 +117,9 @@ module rightFace(NEMA_type) {
             }
 }
 
-module sideFaceMotorCutout(left, NEMA_width, cnc=false) {
+module sideFaceMotorCutout(left, NEMA_width, cnc=true, zOffset=0) {
     cutoutHeight = NEMA_width < 40 ? 40 : 50;
-    translate([coreXYPosTR(NEMA_width).y, xyMotorPosition(NEMA_width, left).z, 0])
+    translate([coreXYPosTR(NEMA_width).y, xyMotorPosition(NEMA_width, left).z + zOffset, 0])
         motorCutout([NEMA_width + 3, cutoutHeight, cnc ? 0 : _webThickness], upperFillet);
 }
 
@@ -186,7 +186,7 @@ module webbingLeft(NEMA_type) {
                 if (_sideTabs)
                     sideFaceBackTabs();
             }
-            sideFaceMotorCutout(left, NEMA_width, cnc=true);
+            sideFaceMotorCutout(left, NEMA_width);
         }
     // diagonal brace by motor
     translate([idlerBracketSize.x, middleWebOffsetZ() + eSizeZ, 0])
@@ -242,7 +242,7 @@ module webbingRight(NEMA_type) {
                     poly_circle(r=M3_clearance_radius);
             }
             spoolHolderCutout(NEMA_width);
-            sideFaceMotorCutout(left, NEMA_width, cnc=true);
+            sideFaceMotorCutout(left, NEMA_width);
         }
 
     // support for the spoolholder

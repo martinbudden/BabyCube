@@ -81,7 +81,7 @@ module XY_MotorUprightHardware(NEMA_type, left=true) {
 
 module xyMotorMountBackHolePositions(left=true, z=0) {
     size = [eX + 2*eSizeX, eZ];
-    for (pos = [[10, 10], [40, 40]])
+    for (pos = [[10, 10], [30, 38]])
         translate(left ? [pos.x, size.y - pos.y, z] : [size.x - pos.x, size.y - pos.y, z])
             children();
 }
@@ -100,7 +100,7 @@ function xyMotorMountSideHolePositions(sizeY) = [ [-4, 0], [-sizeY + 4, 0], [-4,
 
 module xyMotorMountSideHolePositions() {
     translate([eY + 2*eSizeY, eZ])
-        for (pos = [[-10, -20], [-40, -40]])
+        for (pos = [[-10, -20], [-30, -38]])
             translate(pos)
                 children();
 }
