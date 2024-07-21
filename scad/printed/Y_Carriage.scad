@@ -277,51 +277,22 @@ module yCarriageBraceBoltPositionsMGN12(blockSizeX, blockOffsetX, left) {
         children();
 }
 
-module yCarriageBrace(yCarriageType, thickness, plainPulleyOffset, toothedPulleyOffset, boltHoleRadius, pulleyBoreRadius, blockOffsetX=undef, reversedBelts=false, left) {
-    if (isMGN9C(yCarriageType)) {
-        size = [leftSupportLength + 12.5, left ? 7 : 9.5, thickness];
-        difference() {
-            translate([-4.5, left ? -size.y/2 : -4, 0])
-                rounded_cube_xy(size, left ? 3 : 1.5);
-            for (x = [plainPulleyOffset.x, 11.15, 11.15 + boltOffsetMGN9(left)])
-                translate([x, 0, 0])
-                    boltHole(boltHoleRadius*2, size.z, twist=4);
-        }
-    } else {
-        size = left ? (is_undef(blockOffsetX) ? [pulleyBoreRadius == 2 ? 39.65 : 40.65, reversedBelts ? 14 : 12, thickness] : [48.15 + blockOffsetX, 12.5, thickness])
-                    : (is_undef(blockOffsetX) ? [reversedBelts ? (pulleyBoreRadius == 2 ? 40.25 : 38.5) : 41.15, 14, thickness] : [48.15 + blockOffsetX, 14, thickness]);
-        blockSizeX = yCarriageBlockSizeX(yCarriageType);
-        difference() {
-            blockOffsetX = is_undef(blockOffsetX) ? 0 : blockOffsetX;
-            translate([-blockSizeX/2 - blockOffsetX, left ? (blockOffsetX ? -5.5 : reversedBelts ? -7 : -5) : -size.y/2, 0])
-                if (left) {
-                    sizeL = [16.45, 13, size.z];
-                    hull() {
-                        rounded_cube_xy([6.5, size.y, size.z], 1.5);
-                        translate([23.7, 0, 0])
-                            rounded_cube_xy([1.5, sizeL.y, size.z], 0);
-                    }
-                    translate([23.7, 0, 0])
-                        rounded_cube_xy(sizeL, 1.5);
-                } else {
-                    rounded_cube_xy([19.5, size.y, size.z], 1.5);
-                    hull() {
-                        translate([18, 0, 0])
-                            cube([1.5, size.y, size.z]);
-                        sizeR = [6, 12, size.z];
-                        translate([size.x - sizeR.x, -sizeR.y + 10, 0])
-                            rounded_cube_xy(sizeR, 1.5);
-                    }
-                }
+module yCarriageBraceMGN9C(thickness, plainPulleyOffset, boltHoleRadius, left) {
+    echo(plainPulleyOffset=plainPulleyOffset);
 
-            yCarriageBraceBoltPositionsMGN12(blockSizeX, blockOffsetX, left)
-                boltHole(boltHoleRadius*2, size.z, twist=4);
-            translate([0, toothedPulleyOffset.y, 0])
-                boltHole(pulleyBoreRadius*2, size.z, twist=4);
-            translate([12.25 + plainPulleyOffset.x, plainPulleyOffset.y, 0])
-                rotate(22.5) // rotate bolthole to maximise wall thickness
-                    boltHole(pulleyBoreRadius*2, size.z, twist=4);
+    difference() {
+        if (left) {
+            size = [leftSupportLength + 12.5, 7, thickness];
+            translate([-4.5, -size.y/2, 0])
+                rounded_cube_xy(size, 3);
+        } else {
+            size = [28.75, 9.5, thickness]; // was 32.5, so diff rom 32.25, saves 3.5
+            translate([-4.25, -4, 0]) //was4.5
+                rounded_cube_xy(size, 1.5);
         }
+        for (x = [plainPulleyOffset.x, 11.15, 11.15 + boltOffsetMGN9(left)])
+            translate([x, 0, 0])
+                boltHole(boltHoleRadius*2, thickness, twist=4);
     }
 }
 
