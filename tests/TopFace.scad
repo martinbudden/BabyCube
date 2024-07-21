@@ -95,15 +95,13 @@ module Top_Face_test() {
 
 module Top_Face_map() {
     Top_Face_CF();
-    translate([0, -eZ-2, 0])
-        Front_Face_CF();
-    translate([-eZ-2, 0, 0])
-        rotate([0, 180, -90])
-            Left_Face_CF();
+    translate([0, -eZ - 2, 0]) Front_Face_CF();
+    translate([-eZ - 2, 0, 0]) rotate([0, 180, -90]) Left_Face_CF();
+    translate([-eY - 2*eSizeY - 4, -eZ - 2, 0]) Left_Face_CF();
 }
 
+//Top_Face_map()
 if ($preview)
-    //Top_Face_map();
     translate_z(-eZ)
         Top_Face_test();
 /*else

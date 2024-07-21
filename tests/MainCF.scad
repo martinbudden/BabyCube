@@ -10,9 +10,9 @@ use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
 
 include <../scad/utils/printParameters.scad>
 
-use <../scad/Main.scad>
+//use <../scad/Main.scad>
 use <../scad/MainCF.scad>
-use <../scad/MainAssembly.scad>
+//use <../scad/MainAssembly.scad>
 use <../scad/MainAssemblyCF.scad>
 
 include <../scad/Parameters_Main.scad>
@@ -29,13 +29,12 @@ module MainCF_test() {
     //Left_Face_CF_assembly();
     //Right_Face_CF_assembly();
     //Top_Face_CF_assembly();
-    //Top_Face_CF_Stage_1_assembly();
+    //translate_z(3)  Top_Face_CF_Stage_1_assembly();
     //Front_Face_CF_assembly();
     //Stage_2_CF_assembly();
     //Stage_3_CF_assembly();
     //Stage_4_CF_assembly();
     //Stage_5_CF_assembly();
-    //Stage_6_CF_assembly();
     //BC200CF_debug();
     BC200CF_assembly();
 }
