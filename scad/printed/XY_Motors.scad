@@ -38,7 +38,7 @@ pulleyOffset = pulley_height(GT2x20ob_pulley) - pulley_hub_length(GT2x20ob_pulle
 
 function XY_MotorMountSize(NEMA_width, basePlateThickness=basePlateThickness, cf=false) = [
     floor(NEMA_width) + motorClearance().x - _sidePlateThickness,
-    NEMA_width + motorClearance().y + 1.5 + (cf ? 2 : 0),
+    NEMA_width + motorClearance().y + (cf ? 3.5 : 0.5),
     basePlateThickness
 ];
 
@@ -114,7 +114,7 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
     fillet = 1.5;
     braceWidth = 3;
     braceHeight = offset - yRailSupportThickness();
-    backBraceThickness = 8;
+    backBraceThickness = 7;
     offsetY = 0;
 
     difference() {
@@ -196,6 +196,6 @@ module XY_MotorMountHardware(NEMA_type, basePlateThickness=basePlateThickness, c
     explode(20, true)
         translate_z(basePlateThickness)
             NEMA_screw_positions(NEMA_type)
-                boltM3Buttonhead(screw_shorter_than(5 + basePlateThickness + corkDamperThickness));
+                boltM3Caphead(screw_shorter_than(5 + basePlateThickness + corkDamperThickness));
 }
 
