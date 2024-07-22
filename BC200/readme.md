@@ -17,8 +17,8 @@ detail that someone with a good understanding of 3D printers can build the BabyC
 ## Table of Contents
 
 1. [Parts list](#Parts_list)
-1. [Printhead_E3DV6_MGN9C assembly](#Printhead_E3DV6_MGN9C_assembly)
-1. [X_Carriage_Belt_Side_MGN9C assembly](#X_Carriage_Belt_Side_MGN9C_assembly)
+1. [Printhead_E3DV6_MGN9C_HC assembly](#Printhead_E3DV6_MGN9C_HC_assembly)
+1. [X_Carriage_Belt_Side_MGN9C_HC assembly](#X_Carriage_Belt_Side_MGN9C_HC_assembly)
 1. [Top_Face_Stage_1 assembly](#Top_Face_Stage_1_assembly)
 1. [Top_Face_Stage_2 assembly](#Top_Face_Stage_2_assembly)
 1. [Top_Face assembly](#Top_Face_assembly)
@@ -173,23 +173,24 @@ They are currently set at `255`, the most sensitive value and this will need to 
 
 ## Parts list
 
-| <span style="writing-mode: vertical-rl; text-orientation: mixed;">Printhead E3DV6 MGN9C</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">X Carriage Belt Side MGN9C</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Top Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Display Housing</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Back Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Right Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Base</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Left Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Main</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">TOTALS</span> |  |
+| <span style="writing-mode: vertical-rl; text-orientation: mixed;">Printhead E3DV6 MGN9C HC</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">X Carriage Belt Side MGN9C HC</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Top Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Display Housing</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Back Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Right Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Base</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Left Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Main</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">TOTALS</span> |  |
 |-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|------:|:-------------|
 |      |      |      |      |      |      |      |      |      |      |       | **Vitamins** |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |  Aluminium box section 12mm x 8mm x 1mm, length 85mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |  Aluminium sheet 220mm x 204mm x 3mm |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  Belt GT2 x 6mm x 728mm |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  Belt GT2 x 6mm x 728mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  Belt GT2 x 6mm x 742mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  Belt GT2 x 6mm x 742mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |  BigTreeTech SKR Mini E3 v2.0 |
 |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  BigTreeTech TFT35 v3.0 |
 |   4  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M2 caphead x  6mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |    2  |  Bolt M3 buttonhead x  8mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   1  |   4  |    7  |  Bolt M3 buttonhead x 10mm |
-|   2  |   .  |   .  |   .  |   .  |   4  |   4  |   .  |   4  |  18  |   32  |  Bolt M3 buttonhead x 12mm |
+|   2  |   .  |   .  |   .  |   .  |   4  |   .  |   .  |   .  |  18  |   24  |  Bolt M3 buttonhead x 12mm |
 |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 buttonhead x 16mm |
 |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 caphead x  6mm |
-|   .  |   .  |  26  |   .  |   4  |   .  |   .  |  10  |   .  |   .  |   40  |  Bolt M3 caphead x  8mm |
-|   .  |   .  |   6  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    6  |  Bolt M3 caphead x 10mm |
+|   .  |   .  |  28  |   .  |   4  |   .  |   .  |  10  |   .  |   .  |   42  |  Bolt M3 caphead x  8mm |
+|   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 caphead x 10mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   4  |   .  |   4  |   .  |    8  |  Bolt M3 caphead x 12mm |
 |   .  |   .  |   2  |   4  |   4  |   .  |   .  |   .  |   .  |   .  |   10  |  Bolt M3 caphead x 16mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 caphead x 25mm |
 |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 caphead x 30mm |
@@ -214,10 +215,10 @@ They are currently set at `255`, the most sensitive value and this will need to 
 |   .  |   .  |   .  |   .  |   .  |   2  |   .  |   .  |   .  |   .  |    2  |  Linear rod 12mm x 200mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |  MK10 Dual Pulley Extruder |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Magnetic base 100mm x 100mm |
-|   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |  Nut M5 nyloc |
+|   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |    8  |  Nut M5 x 4mm nyloc |
 |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |   .  |   .  |    8  |  O-ring nitrile 4mm x 2mm |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  OpenBuilds mini heated bed 100mm x 100mm |
-|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  PTFE tube 292 mm |
+|   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  PTFE tube 295 mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   5  |   .  |   .  |    5  |  Pillar hex nylon F/F M3x12 |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Print surface 100mm x 100mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   2  |   .  |   2  |   .  |    6  |  Pulley GT2 idler 16 teeth |
@@ -233,7 +234,7 @@ They are currently set at `255`, the most sensitive value and this will need to 
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |  Stepper motor NEMA17 x 40mm |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |  Stepper motor cable, 150mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |   1  |   .  |    3  |  Stepper motor cable, 400mm |
-|   .  |   2  |   6  |   .  |   8  |   .  |   6  |   .  |   6  |   .  |   28  |  Washer M3 |
+|   .  |   2  |   6  |   .  |   8  |   .  |   6  |   .  |   6  |   .  |   28  |  Washer M3 x 7mm x 0.5mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |    2  |  Wire black 12SWG, length 100mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |    2  |  Wire red 12SWG, length 100mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  XT60 Connector Female |
@@ -248,11 +249,11 @@ They are currently set at `255`, the most sensitive value and this will need to 
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | Base_Template.stl |
 |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Display_Housing.stl |
 |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Display_Housing_Bracket.stl |
+|   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | E3DV6_Clamp.stl |
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Fan_Duct.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   4  |    4  | Foot_LShaped_8mm.stl |
 |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Front_Lower_Chord.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  | Front_Upper_Chord.stl |
-|   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Hotend_Clamp.stl |
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Hotend_Strain_Relief_Clamp.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  | Left_Face.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | PSU_Bracket.stl |
@@ -263,9 +264,9 @@ They are currently set at `255`, the most sensitive value and this will need to 
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  | Switch_Shroud_Clamp.stl |
 |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Top_Face.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  | X_Carriage_Belt_Clamp.stl |
-|   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | X_Carriage_Belt_Side_MGN9C.stl |
+|   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | X_Carriage_Belt_Side_MGN9C_HC.stl |
 |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  | X_Carriage_Belt_Tensioner.stl |
-|   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | X_Carriage_Groovemount_MGN9C.stl |
+|   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | X_Carriage_Groovemount_MGN9C_HC.stl |
 |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Brace_Left.stl |
 |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Brace_Right.stl |
 |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Left.stl |
@@ -280,9 +281,9 @@ They are currently set at `255`, the most sensitive value and this will need to 
 [Top](#TOP)
 
 ---
-<a name="Printhead_E3DV6_MGN9C_assembly"></a>
+<a name="Printhead_E3DV6_MGN9C_HC_assembly"></a>
 
-## Printhead_E3DV6_MGN9C assembly
+## Printhead_E3DV6_MGN9C_HC assembly
 
 ### Vitamins
 
@@ -298,53 +299,53 @@ They are currently set at `255`, the most sensitive value and this will need to 
 
 ### 3D Printed parts
 
-| 1 x Fan_Duct.stl | 1 x Hotend_Clamp.stl | 1 x Hotend_Strain_Relief_Clamp.stl |
+| 1 x E3DV6_Clamp.stl | 1 x Fan_Duct.stl | 1 x Hotend_Strain_Relief_Clamp.stl |
 |----------|----------|----------|
-| ![Fan_Duct.stl](stls/Fan_Duct.png) | ![Hotend_Clamp.stl](stls/Hotend_Clamp.png) | ![Hotend_Strain_Relief_Clamp.stl](stls/Hotend_Strain_Relief_Clamp.png) |
+| ![E3DV6_Clamp.stl](stls/E3DV6_Clamp.png) | ![Fan_Duct.stl](stls/Fan_Duct.png) | ![Hotend_Strain_Relief_Clamp.stl](stls/Hotend_Strain_Relief_Clamp.png) |
 
-| 1 x X_Carriage_Groovemount_MGN9C.stl |
+| 1 x X_Carriage_Groovemount_MGN9C_HC.stl |
 |----------|
-| ![X_Carriage_Groovemount_MGN9C.stl](stls/X_Carriage_Groovemount_MGN9C.png) |
+| ![X_Carriage_Groovemount_MGN9C_HC.stl](stls/X_Carriage_Groovemount_MGN9C_HC.png) |
 
 ### Assembly instructions
 
-![Printhead_E3DV6_MGN9C_assembly](assemblies/Printhead_E3DV6_MGN9C_assembly.png)
+![Printhead_E3DV6_MGN9C_HC_assembly](assemblies/Printhead_E3DV6_MGN9C_HC_assembly.png)
 
 1. Assemble the E3D hotend, including fan, thermistor cartridge and heater cartridge.
-2. Use the **Hotend_Clamp** to attach the hotend to the **X_Carriage**.
-3. Collect the wires together and attach to the **X_Carriage** using the **Hotend_Strain_Relief_Clamp**.
+2. Use the **E3DV6_Clamp** to attach the hotend to the **X_Carriage_Groovemount**.
+3. Collect the wires together and attach to the **X_Carriage_Groovemount** using the **Hotend_Strain_Relief_Clamp**.
 
-![Printhead_E3DV6_MGN9C_assembled](assemblies/Printhead_E3DV6_MGN9C_assembled.png)
+![Printhead_E3DV6_MGN9C_HC_assembled](assemblies/Printhead_E3DV6_MGN9C_HC_assembled.png)
 
 <span></span>
 [Top](#TOP)
 
 ---
-<a name="X_Carriage_Belt_Side_MGN9C_assembly"></a>
+<a name="X_Carriage_Belt_Side_MGN9C_HC_assembly"></a>
 
-## X_Carriage_Belt_Side_MGN9C assembly
+## X_Carriage_Belt_Side_MGN9C_HC assembly
 
 ### Vitamins
 
 | Qty | Description |
 |----:|:------------|
 |   2 | Bolt M3 caphead x 30mm |
-|   2 | Washer M3 |
+|   2 | Washer M3 x 7mm x 0.5mm |
 
 ### 3D Printed parts
 
-| 1 x X_Carriage_Belt_Side_MGN9C.stl | 2 x X_Carriage_Belt_Tensioner.stl |
+| 1 x X_Carriage_Belt_Side_MGN9C_HC.stl | 2 x X_Carriage_Belt_Tensioner.stl |
 |----------|----------|
-| ![X_Carriage_Belt_Side_MGN9C.stl](stls/X_Carriage_Belt_Side_MGN9C.png) | ![X_Carriage_Belt_Tensioner.stl](stls/X_Carriage_Belt_Tensioner.png) |
+| ![X_Carriage_Belt_Side_MGN9C_HC.stl](stls/X_Carriage_Belt_Side_MGN9C_HC.png) | ![X_Carriage_Belt_Tensioner.stl](stls/X_Carriage_Belt_Tensioner.png) |
 
 ### Assembly instructions
 
-![X_Carriage_Belt_Side_MGN9C_assembly](assemblies/X_Carriage_Belt_Side_MGN9C_assembly_tn.png)
+![X_Carriage_Belt_Side_MGN9C_HC_assembly](assemblies/X_Carriage_Belt_Side_MGN9C_HC_assembly_tn.png)
 
 Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the
 **X_Carriage_Belt_Side_MGN9C** part as shown. Note the belts are not shown in this diagram.
 
-![X_Carriage_Belt_Side_MGN9C_assembled](assemblies/X_Carriage_Belt_Side_MGN9C_assembled_tn.png)
+![X_Carriage_Belt_Side_MGN9C_HC_assembled](assemblies/X_Carriage_Belt_Side_MGN9C_HC_assembled_tn.png)
 
 <span></span>
 [Top](#TOP)
@@ -394,13 +395,12 @@ is aligned when the X axis rail is added.
 
 | Qty | Description |
 |----:|:------------|
-|   8 | Bolt M3 caphead x  8mm |
-|   2 | Bolt M3 caphead x 10mm |
+|  10 | Bolt M3 caphead x  8mm |
 |   2 | Bolt M3 caphead x 16mm |
 |   2 | Bolt M3 caphead x 25mm |
 |   2 | Pulley GT2 idler 16 teeth |
 |   2 | Pulley GT2 idler smooth 9.63mm |
-|   6 | Washer M3 |
+|   6 | Washer M3 x 7mm x 0.5mm |
 
 ### 3D Printed parts
 
@@ -587,7 +587,7 @@ Affix the leadscrew nut.
 |   8 | O-ring nitrile 4mm x 2mm |
 |   1 | OpenBuilds mini heated bed 100mm x 100mm |
 |   1 | Print surface 100mm x 100mm |
-|   8 | Washer M3 |
+|   8 | Washer M3 x 7mm x 0.5mm |
 |   2 | Ziptie 2.5mm x 100mm min length |
 
 ### Sub-assemblies
@@ -627,7 +627,7 @@ thermally insulate the heated bed from the **Z_Carriage**.
 | Qty | Description |
 |----:|:------------|
 |   8 | Bolt M5 countersunk x 16mm |
-|   8 | Nut M5 nyloc |
+|   8 | Nut M5 x 4mm nyloc |
 |   4 | SK12 shaft support bracket |
 
 ### 3D Printed parts
@@ -692,14 +692,14 @@ face inward and the bottom tightening bolts should face outward. This allows acc
 
 | Qty | Description |
 |----:|:------------|
-|   4 | Bolt M3 buttonhead x 12mm |
+|   4 | Bolt M3 caphead x 12mm |
 |   1 | Bolt M3 countersunk x 35mm |
 |   1 | Cork damper NEMA 14 |
 |   2 | Pulley GT2 idler 16 teeth |
 |   1 | Pulley GT2UM 20 teeth |
 |   1 | Stepper motor NEMA14 x 36mm |
 |   1 | Stepper motor cable, 400mm |
-|   6 | Washer M3 |
+|   6 | Washer M3 x 7mm x 0.5mm |
 |   3 | Ziptie 2.5mm x 100mm min length |
 
 ### 3D Printed parts
@@ -790,7 +790,9 @@ damper is important as it provides thermal insulation between the stepper motor 
 
 | 1 x BaseAL.dxf |
 |----------|
-| ![BaseAL.dxf](dxfs/BaseAL.png) |
+| ![BaseAL.dxf](dxfs/BaseAL.png) 
+
+
 
 ### Assembly instructions
 
@@ -857,7 +859,7 @@ Place the XT60 connectors through the **Switch_Shroud** and bolt on the **Switch
 
 | Qty | Description |
 |----:|:------------|
-|   4 | Bolt M3 buttonhead x 12mm |
+|   4 | Bolt M3 caphead x 12mm |
 |   2 | Bolt M3 countersunk x 12mm |
 |   2 | Bolt M3 countersunk x 16mm |
 |   1 | Bolt M3 countersunk x 35mm |
@@ -867,7 +869,7 @@ Place the XT60 connectors through the **Switch_Shroud** and bolt on the **Switch
 |   1 | Rocker Switch PRASA1-16F-BB0BW |
 |   1 | Stepper motor NEMA14 x 36mm |
 |   1 | Stepper motor cable, 400mm |
-|   6 | Washer M3 |
+|   6 | Washer M3 x 7mm x 0.5mm |
 |   4 | Ziptie 2.5mm x 100mm min length |
 
 ### 3D Printed parts
@@ -1037,8 +1039,8 @@ Add the **Top_Face**.
 
 | Qty | Description |
 |----:|:------------|
-|   1 | Belt GT2 x 6mm x 728mm |
-|   1 | Belt GT2 x 6mm x 728mm |
+|   1 | Belt GT2 x 6mm x 742mm |
+|   1 | Belt GT2 x 6mm x 742mm |
 |   2 | Bolt M3 countersunk x 10mm |
 |   2 | Bolt M3 countersunk x 12mm |
 
@@ -1050,9 +1052,9 @@ Add the **Top_Face**.
 
 ### Sub-assemblies
 
-| 1 x Stage_4_assembly | 1 x X_Carriage_Belt_Side_MGN9C_assembly |
+| 1 x Stage_4_assembly | 1 x X_Carriage_Belt_Side_MGN9C_HC_assembly |
 |----------|----------|
-| ![Stage_4_assembled](assemblies/Stage_4_assembled_tn.png) | ![X_Carriage_Belt_Side_MGN9C_assembled](assemblies/X_Carriage_Belt_Side_MGN9C_assembled_tn.png) |
+| ![Stage_4_assembled](assemblies/Stage_4_assembled_tn.png) | ![X_Carriage_Belt_Side_MGN9C_HC_assembled](assemblies/X_Carriage_Belt_Side_MGN9C_HC_assembled_tn.png) |
 
 ### Assembly instructions
 
@@ -1078,7 +1080,7 @@ Add the **Top_Face**.
 |----:|:------------|
 |   2 | Bolt M3 countersunk x 12mm |
 |   4 | Bolt M3 countersunk x 30mm |
-|   1 | PTFE tube 292 mm |
+|   1 | PTFE tube 295 mm |
 |   1 | Spiral wrap, 500mm |
 
 ### 3D Printed parts
@@ -1089,9 +1091,9 @@ Add the **Top_Face**.
 
 ### Sub-assemblies
 
-| 1 x Printhead_E3DV6_MGN9C_assembly | 1 x Stage_5_assembly |
+| 1 x Printhead_E3DV6_MGN9C_HC_assembly | 1 x Stage_5_assembly |
 |----------|----------|
-| ![Printhead_E3DV6_MGN9C_assembled](assemblies/Printhead_E3DV6_MGN9C_assembled_tn.png) | ![Stage_5_assembled](assemblies/Stage_5_assembled_tn.png) |
+| ![Printhead_E3DV6_MGN9C_HC_assembled](assemblies/Printhead_E3DV6_MGN9C_HC_assembled_tn.png) | ![Stage_5_assembled](assemblies/Stage_5_assembled_tn.png) |
 
 ### Assembly instructions
 
