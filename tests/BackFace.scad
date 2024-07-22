@@ -51,7 +51,7 @@ module Back_Face_test() {
     //printheadHotendSide(t=t);
     //camera(rpi_camera_v2, fov_distance = eY/2);
 
-    translate_z(3)
+    *translate_z(3)
     if (_useCNC)
         Top_Face_CF_Stage_1_assembly();
     else

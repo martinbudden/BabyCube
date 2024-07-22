@@ -33,7 +33,7 @@ module XY_MotorMount_test() {
     //XY_MotorUpright(NEMA_type, left);
     //XY_MotorMount(NEMA_type, left, basePlateThickness = 5, offset = basePlateThickness + eZ-coreXYPosBL(NEMA_width(NEMA_type)).z+(left?0:coreXYSeparation().z));
     //XY_MotorMountHardware(NEMA_type);
-    Left_Face_CF_assembly();
+    //Left_Face_CF_assembly();
     *translate([-eps, 0, 0])
         rotate([90, 0, 90])
             Left_Face_CF();
@@ -71,5 +71,4 @@ module topFaceMotors(NEMA_type) {
 
 
 if ($preview)
-    if (_useCNC)
-        XY_MotorMount_test();
+    XY_MotorMount_test();
