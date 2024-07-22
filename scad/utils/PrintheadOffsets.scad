@@ -1,3 +1,9 @@
-function printheadHotendOffset(hotendDescriptor="E3DV6") = [17, hotendDescriptor == "E3DV6" ? 18 : 14, -2];
-function printheadWiringOffset(hotendDescriptor="E3DV6") = printheadHotendOffset() + [35, 0, -10];
-function printheadBowdenOffset(hotendDescriptor="E3DV6") = printheadHotendOffset() + [17, 0, 2];
+function printheadHotendOffset(hotendDescriptor="E3DV6") = 
+    hotendDescriptor == "E3DV6" ? [17, 18, -2] :
+    [0, 0, 0];
+function printheadBowdenOffset(hotendDescriptor="E3DV6") = 
+    hotendDescriptor == "E3DV6" ? printheadHotendOffset(hotendDescriptor) + [17, 0, 2] :
+    [0, 0, 0];
+function printheadWiringOffset(hotendDescriptor="E3DV6") =
+    hotendDescriptor == "E3DV6" ? printheadHotendOffset(hotendDescriptor) + [35, 0, -10] :
+    [0, 0, 0];

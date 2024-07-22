@@ -3,19 +3,46 @@ include <../global_defs.scad>
 include <../vitamins/bolts.scad>
 
 use <NopSCADlib/utils/fillet.scad>
-include <NopSCADlib/vitamins/e3d.scad>
 include <NopSCADlib/vitamins/fans.scad>
 include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/blowers.scad>
+include <NopSCADlib/vitamins/e3d.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
 include <../utils/ziptieCutout.scad>
 
-use <X_Carriage.scad>
+include <X_CarriageFanDuct.scad>
 
-
-function grooveMountHoleOffsets(left = false) = left ? [13.5, -12] : [12, -13.5];
+grooveMountFillet = 1;
 function grooveMountClampOffsetX() = 0.5;
+function grooveMountClampSize(blower_type, hotendDescriptor) = [grooveMountSize(blower_type, hotendDescriptor).y - 2*grooveMountFillet - grooveMountClampOffsetX(), 12, 15];
+function grooveMountHoleOffsets(left=false) = left ? [13.5, -12] : [12, -13.5];
+
+
+module E3Dv6plusFan() {
+    fan_type = fan30x10;
+    translate_z(-36)
+        rotate(180) {
+            //vitamin(str("E3D_V6_Fan_Duct(): ", "E3D V6 Fan Duct"));
+            rotate([90, 0, 0])
+                color("SkyBlue")
+                    import("../stlimport/E3D_V6_6_Duct.stl");
+            translate([-20, 0, 15])
+                rotate([0, 90, 0]) {
+                    fan(fan_type);
+                    vflip()
+                        for (i = [[-1, 1, 0], [1, -1, 0]])
+                            translate(i * fan_hole_pitch(fan_type) + [0, 0, fan_depth(fan_type) / 2]) {
+                                not_on_bom()
+                                    boltM3Panhead(16);
+                                //vitamin(str(": M3 self tapping screw x 16mm"));
+                            }
+                }
+        }
+    translate_z(3)
+        rotate(180)
+            e3d_hot_end(E3Dv6, filament=1.75, naked=true, bowden=false);
+}
 
 module E3DV6HotendHolderAlign(hotendOffset, left) {
     assert(left == true || left == false);
@@ -117,41 +144,11 @@ module E3DV6HotendHolder(xCarriageType, xCarriageBackSize, grooveMountSize, hote
     }
 }
 
-module E3Dv6plusFan() {
-    fan_type = fan30x10;
-    translate_z(-36)
-        rotate(180) {
-            //vitamin(str("E3D_V6_Fan_Duct(): ", "E3D V6 Fan Duct"));
-            rotate([90, 0, 0])
-                color("SkyBlue")
-                    import("../stlimport/E3D_V6_6_Duct.stl");
-            translate([-20, 0, 15])
-                rotate([0, 90, 0]) {
-                    fan(fan_type);
-                    vflip()
-                        for (i = [[-1, 1, 0], [1, -1, 0]])
-                            translate(i * fan_hole_pitch(fan_type) + [0, 0, fan_depth(fan_type) / 2]) {
-                                not_on_bom()
-                                    boltM3Panhead(16);
-                                //vitamin(str(": M3 self tapping screw x 16mm"));
-                            }
-                }
-        }
-    translate_z(3)
-        rotate(180)
-            e3d_hot_end(E3Dv6, filament=1.75, naked=true, bowden=false);
-}
-
-module fanDuctHolePositions(z=0) {
-    for (x = [-1, 27])
-        translate([x, z, -3])
-            children();
-}
-
 module blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type, z=0) {
     isMGN9C = xCarriageType[0] == "MGN9C";
     translate([ hotendOffset.x - grooveMountSize.x + z,
-                xCarriageHotendOffsetY(xCarriageType) + blower_length(blower_type) + (isMGN9C ? 0.5 : 2),
+                //xCarriageHotendOffsetY(xCarriageType) + blower_length(blower_type) + (isMGN9C ? 0.5 : 0),
+                carriage_size(xCarriageType).y/2 + blower_length(blower_type) + (isMGN9C ? 5.5 : 9.5),
                 -blower_size(blower_type).x - grooveMountSize.z/2 + (isMGN9C ? 0 : 3)])
             rotate([90, 0, -90])
                 children();

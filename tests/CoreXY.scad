@@ -14,6 +14,7 @@ use <../scad/utils/printParameters.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
+use <../scad/printed/PrintheadAssembliesE3DV6.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/XY_IdlerBracket.scad>
 include <../scad/printed/XY_Motors.scad>

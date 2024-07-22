@@ -1,15 +1,18 @@
 include <../global_defs.scad>
 
 include <NopSCADlib/core.scad>
-use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/blowers.scad>
 
 include <../vitamins/bolts.scad>
 
-include <Printhead.scad>
-
 
 fanDuctTabThickness = 2;
+
+module fanDuctHolePositions(z=0) {
+    for (x = [-1, 27])
+        translate([x, z, -3])
+            children();
+}
 
 module fanDuct(printheadHotendOffsetX, jetOffset=0, chimneySizeZ=14) {
     blower_type = BL30x10;

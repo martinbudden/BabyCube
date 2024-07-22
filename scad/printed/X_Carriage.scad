@@ -10,9 +10,6 @@ use <NopSCADlib/vitamins/pcb.scad>
 include <../vitamins/pcbs.scad>
 
 
-_useInsertsForXCarriage = false;
-
-
 fillet = 1;
 
 topThickness = xCarriageTopThickness();
@@ -95,7 +92,7 @@ module MGNCarriageHolePositions(xCarriageType, positions=undef) {
                 children();
 }
 
-module xCarriageTopBolts(xCarriageType, countersunk=true, positions=undef) {
+module xCarriageTopBolts(xCarriageType, countersunk=true, positions=undef, inserts=false) {
     assert(is_list(xCarriageType));
 
     // depth of holes in MGN9 and MGN12 carriages is approx 5mm. so 4.5mm leaves room for error
@@ -105,7 +102,7 @@ module xCarriageTopBolts(xCarriageType, countersunk=true, positions=undef) {
         MGNCarriageHolePositions(xCarriageType, positions)
             bolt(countersunk ? M3_cs_cap_screw : M3_dome_screw, screw_shorter_than(topThickness + carriageHoleDepth));
 
-    if (_useInsertsForXCarriage)
+    if (inserts)
         for (x = xCarriageTopHolePositions(xCarriageType))
             translate([x, -carriage_size(xCarriageType).y, topThickness.z/2])
                 rotate([90, 90, 0])

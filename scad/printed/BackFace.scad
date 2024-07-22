@@ -17,6 +17,7 @@ include <../utils/motorTypes.scad>
 include <../vitamins/cables.scad>
 
 use <X_CarriageAssemblies.scad>
+use <X_CarriageE3DV6.scad>
 include <Z_MotorMount.scad>
 
 include <../Parameters_Main.scad>
@@ -71,7 +72,7 @@ module printheadWiring(carriagePosition) {
     vitamin(str(": Spiral wrap, 500mm"));
 
     xCarriageType = carriageType(_xCarriageDescriptor);
-    endPos = [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + xCarriageHotendOffsetY(xCarriageType), eZ] + printheadWiringOffset();
+    endPos = [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + carriage_size(xCarriageType).y/2 + 5, eZ] + printheadWiringOffset();
     zp = zipTiePositions;
     y = eY + 2*eSizeY - printheadWireRadius();
     p = [

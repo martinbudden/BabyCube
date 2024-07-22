@@ -21,7 +21,7 @@ include <../Parameters_Main.scad>
 module bowdenTube(carriagePosition, extraZ=120) {
     xCarriageType = carriageType(_xCarriageDescriptor);
     color("White")
-        bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + xCarriageHotendOffsetY(xCarriageType), eZ] + printheadBowdenOffset(), ptfeTube=true, extraZ=extraZ);
+        bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + carriage_size(xCarriageType).y/2 + 5, eZ] + printheadBowdenOffset(), ptfeTube=true, extraZ=extraZ);
 }
 
 module faceRightSpoolHolder(cf=false) {

@@ -4,9 +4,9 @@ include <../scad/global_defs.scad>
 include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/blowers.scad>
 
-include <../scad/printed/Printhead.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/X_Carriage.scad>
+use <../scad/printed/X_CarriageE3DV6.scad>
 use <../scad/printed/X_CarriageBeltAttachment.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 
@@ -23,10 +23,10 @@ module X_Carriage_test() {
 
     //rotate([0, 90, 0]) X_Carriage_stl();
     //X_Carriage_assembly();
-    X_Carriage_Belt_Side_MGN9C_assembly();
+    X_Carriage_Belt_Side_MGN9C_HC_assembly();
     translate([xCarriageBeltAttachmentMGN9CExtraX()/2, 0, 0])
         xCarriageBeltClampAssembly(xCarriageType);
-    X_Carriage_Groovemount_MGN9C_assembly();
+    xCarriageGroovemountMGN9CAssembly(halfCarriage=true);
     translate_z(-carriage_height(MGN9C_carriage)) carriage(MGN9C_carriage);
 
     //let($preview=false)
@@ -34,11 +34,10 @@ module X_Carriage_test() {
         xCarriageTop(xCarriageType);
     hotendDescriptor = "E3DV6";
     blower_type = BL30x10;
-    *hotEndHolderHardware(xCarriageType, hotendDescriptor);
-    *translate(hotendClampOffset(xCarriageType, hotendDescriptor))
+    *translate(hotendOffset(xCarriageType, hotendDescriptor))
         rotate([90, 0, -90]) {
-            Hotend_Clamp_stl();
-            Hotend_Clamp_hardware(xCarriageType, blower_type, countersunk=true);
+            E3DV6_Clamp_stl();
+            E3DV6_Clamp_hardware(xCarriageType, blower_type, countersunk=true);
         }
 }
 

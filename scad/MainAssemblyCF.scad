@@ -11,6 +11,7 @@ use <printed/FrontFace.scad>
 use <printed/LeftAndRightFaceAssemblies.scad>
 use <printed/LeftAndRightFaceAssembliesCF.scad>
 use <printed/PrintheadAssemblies.scad>
+use <printed/PrintheadAssembliesE3DV6.scad>
 use <printed/TopFaceAssemblies.scad>
 use <printed/X_CarriageAssemblies.scad>
 

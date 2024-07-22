@@ -11,6 +11,7 @@ use <../scad/printed/DisplayHousingAssemblies.scad>
 use <../scad/printed/FrontChords.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
+use <../scad/printed/PrintheadAssembliesE3DV6.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 
 include <../scad/Parameters_Main.scad>

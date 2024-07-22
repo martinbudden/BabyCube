@@ -10,8 +10,8 @@ include <NopSCADlib/vitamins/blowers.scad>
 
 use <../scad/printed/Base.scad>
 include <../scad/printed/Extras.scad>
-include <../scad/printed/Printhead.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
+use <../scad/printed/PrintheadAssembliesE3DV6.scad>
 use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 
@@ -27,11 +27,12 @@ module Printhead_test() {
     echoPrintSize();
     xCarriageType = carriageType(_xCarriageDescriptor);
     echo(coreXYSeparation=coreXYSeparation());
+    halfCarriage = true;
 
     //let($hide_bolts=true)
     translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
-        printheadBeltSide();
-        printheadHotendSide();
+        printheadBeltSide(halfCarriage=halfCarriage);
+        printheadHotendSide(halfCarriage=halfCarriage);
         CoreXYBelts(carriagePosition(), x_gap=2);
         xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         //bowdenTube(carriagePosition());
@@ -40,11 +41,10 @@ module Printhead_test() {
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();
-    //hotEndHolderHardware(xCarriageType);
     //Fan_Duct_stl();
     //X_Carriage_stl();
-    //Hotend_Clamp_stl();
-    //Hotend_Clamp_hardware(xCarriageType, BL30x10);
+    //E3DV6_Clamp_stl();
+    //E3DV6_Clamp_hardware(xCarriageType, BL30x10);
     //grooveMountClamp(xCarriageType, 0, BL30x10);
     //grooveMountClampHardware();
     //Hotend_Strain_Relief_Clamp_stl();
