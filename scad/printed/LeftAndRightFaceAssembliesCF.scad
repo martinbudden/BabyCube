@@ -228,7 +228,7 @@ module leftFaceCF(NEMA_width) {
     difference() {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2]) {
-            if (NEMA_width < NEMA_width(NEMA17_40))
+            if (NEMA_width < NEMA_width(NEMA17_40) && !_useReversedBelts)
                 sideFaceMotorCutout(left=true, NEMA_width=NEMA_width, zOffset=1.5);
             sideFaceTopDogbones(cnc=true);
             translate([_backPlateCFThickness, 0])
@@ -276,7 +276,7 @@ module rightFaceCF(NEMA_width) {
                             circle(r=M3_clearance_radius);
                 }
             }
-            if (NEMA_width < NEMA_width(NEMA17_40))
+            if (NEMA_width < NEMA_width(NEMA17_40) && !_useReversedBelts)
                 sideFaceMotorCutout(left=false, NEMA_width=NEMA_width, zOffset=1.5);
             sideFaceTopDogbones(cnc=true);
             translate([_backPlateCFThickness, 0])

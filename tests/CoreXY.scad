@@ -34,7 +34,7 @@ module CoreXY() {
     echo(coreXY_drive_pulley_x_offset=coreXY_drive_pulley_x_alignment(coreXY_type()));
     echo(coreXYSeparation=coreXYSeparation());
 
-    CoreXYBelts(carriagePosition());
+    CoreXYBelts(carriagePosition(), show_pulleys=[1, 0, 0]);
     translate([0, carriagePosition(t).y - carriagePosition().y, 0])
         yCarriageLeftAssembly(_xyNEMA_width);
     translate([0, carriagePosition(t).y - carriagePosition().y, 0])

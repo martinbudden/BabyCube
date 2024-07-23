@@ -30,9 +30,9 @@ function beltOffsetZ() = yCarriageThickness() - coreXYSeparation().z - 26 + yCar
 //function beltOffsetZ() = eZ - coreXYPosBL().z - yRailSupportThickness() - 55;
 //function beltOffsetZ() =  yCarriageThickness() + 19.5 - 55;
 
-function leftDrivePulleyOffset() = useReversedBelts() ? [7, eX==200 ? -20 : -15.5] : [0, 0];
-function rightDrivePulleyOffset() = useReversedBelts() ? [-7, eX==200 ? -20 : -15.5] : [0, 0]; // need to give clearance to extruder motor
-function plainIdlerPulleyOffset() = useReversedBelts() ? [21.5, 0] : [0, 0];
+function leftDrivePulleyOffset() = useReversedBelts() ? [13, -13] : [0, 0];
+function rightDrivePulleyOffset() = useReversedBelts() ? [-13, -13] : [0, 0]; // need to give clearance to extruder motor
+function plainIdlerPulleyOffset() = useReversedBelts() ? [26, 0] : [0, 0];
 // use -12.75 for separation.x to make y-carriage idlers coincident vertically
 function  coreXYSeparation() = [
     0,
@@ -43,7 +43,7 @@ function  coreXYSeparation() = [
 
 function coreXYOffsetY(coreXYType=coreXY_type()) = coreXYIdlerBore(coreXYType) == 3 ? 0 : -1.0;
 
-function motorClearance() = useReversedBelts() ? [17.6+2, 15, 0.5] : _useCNC ? [ 3, 7, 0.5 ] : [ 2, 6, 0.5 ];
+function motorClearance() = useReversedBelts() ? [16, 12, 0.5] : _useCNC ? [ 3, 7, 0.5 ] : [ 2, 6, 0.5 ];
 
 function coreXYPosBL(motorWidth, yCarriageType=MGN9C_carriage) = [
     is_undef(motorWidth) ? undef : (useReversedBelts() ? 0 : motorWidth/2) - coreXY_drive_pulley_x_alignment( coreXY_type() ) + motorClearance().x,

@@ -124,11 +124,9 @@ module Back_Face_CF_dxf() {
                     circle(r=M3_clearance_radius);
                 backFaceBracketHolePositions(-_backPlateThickness, cnc=true)
                     circle(r=M3_clearance_radius);
-                backFaceUpperSKBracketHolePositions(_topPlateThickness)
+                backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
+                backFaceUpperSKBracketHolePositions(backFaceUpperBracketOffset)
                     circle(r=M5_clearance_radius);
-                if (!is_undef(_backFaceUpperBracketOffset) && _backFaceUpperBracketOffset != _topPlateThickness)
-                    backFaceUpperSKBracketHolePositions(_backFaceUpperBracketOffset)
-                        circle(r=M5_clearance_radius);
                 backFaceLowerSKBracketHolePositions()
                     circle(r=M5_clearance_radius);
                 if (_fullLengthYRail)
