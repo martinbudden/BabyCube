@@ -57,8 +57,9 @@ module NEMA_MotorWithIntegratedLeadScrew(NEMA_type, leadScrewLength, leadScrewDi
 }
 */
 
-zMotorMountTopPlateThickness = 6;
+zMotorMountTopPlateThickness = 5;
 braceWidth = 4.5;
+zMotorMountCounterSunk = true;
 
 function Z_MotorMountSize(NEMA_type, braceWidth=5, topPlateThickness=zMotorMountTopPlateThickness) = [
     NEMA_width(NEMA_type)/2 + _zLeadScrewOffset,
@@ -121,7 +122,10 @@ module Z_MotorMount(NEMA_type, topPlateThickness = zMotorMountTopPlateThickness,
             translate_z(topPlateThickness)
                 NEMA_screw_positions(NEMA_type)
                     rotate([180, 0, 90])
-                        boltHoleM3(topPlateThickness, chamfer=0.5, horizontal=!cf);
+                        if (zMotorMountCounterSunk)
+                            boltHoleM3Countersunk(topPlateThickness, horizontal=!cf);
+                        else
+                            boltHoleM3(topPlateThickness, chamfer=0.5, horizontal=!cf);
         } // difference
 
         for (y = [size.y/2 - braceWidth/2, -size.y/2 + braceWidth/2])
@@ -203,5 +207,8 @@ module Z_MotorMountHardware(NEMA_type, topPlateThickness=zMotorMountTopPlateThic
     //echo(topPlateScrewLength=screw_shorter_than(5+topPlateThickness));
     translate_z(Z_MotorMountHeight(NEMA_type, topPlateThickness))
         NEMA_screw_positions(NEMA_type)
-            boltM3Buttonhead(screw_shorter_than(5+topPlateThickness + corkDamperThickness));
+            if (zMotorMountCounterSunk)
+                boltM3Countersunk(screw_shorter_than(5 + topPlateThickness + 0*corkDamperThickness));
+            else
+                boltM3Buttonhead(screw_shorter_than(5 + topPlateThickness + 0*corkDamperThickness));
 }
