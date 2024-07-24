@@ -18,15 +18,19 @@ include <../scad/Parameters_Main.scad>
 module X_Carriage_test() {
     //echo(fho150=railFirstHoleOffset(MGN9, 150));
     //echo(fho200=railFirstHoleOffset(MGN9, 200));
+    halfCarriage = !true;
 
     xCarriageType = carriageType(_xCarriageDescriptor);
 
     //rotate([0, 90, 0]) X_Carriage_stl();
     //X_Carriage_assembly();
-    X_Carriage_Belt_Side_MGN9C_HC_assembly();
+    if (halfCarriage)
+        X_Carriage_Belt_Side_MGN9C_HC_assembly();
+    else
+        X_Carriage_Belt_Side_MGN9C_assembly();
     translate([xCarriageBeltAttachmentMGN9CExtraX()/2, 0, 0])
         xCarriageBeltClampAssembly(xCarriageType);
-    xCarriageGroovemountMGN9CAssembly(halfCarriage=true);
+    //xCarriageGroovemountMGN9CAssembly(halfCarriage=halfCarriage);
     translate_z(-carriage_height(MGN9C_carriage)) carriage(MGN9C_carriage);
 
     //let($preview=false)

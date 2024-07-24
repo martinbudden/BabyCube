@@ -35,11 +35,12 @@ module XY_MotorMount_test() {
     //Left_Face_CF_assembly();
     //translate([-eps, 0, 0]) rotate([90, 0, 90]) Left_Face_CF();
 
-    //Back_Face_CF_assembly();
+    //Back_Face_CF_assembly(73);
     Back_Face_CF_Stage_1_assembly();
     //translate([0, eY + 2*eSizeY, 0]) rotate([90, 0, 0]) Back_Face_CF();
 
-    //translate_z(eZ - _topPlateThickness + eps) Top_Face_CF();
+    //translate_z(eZ -_topPlateThickness + eps) Top_Face_CF();
+    let($hide_bolts=true) topFaceAssembly(_xyNEMA_width, t=4);
 
     XY_Motor_Mount_Left_CF_assembly();
     XY_Motor_Mount_Right_CF_assembly();

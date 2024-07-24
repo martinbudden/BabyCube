@@ -13,6 +13,7 @@ use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/Printbed.scad>
 use <../scad/printed/Printbed3point.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
+use <../scad/printed/PrintheadAssembliesE3DV6.scad>
 include <../scad/utils/CoreXYBelts.scad>
 use <../scad/utils/printParameters.scad>
 
@@ -22,13 +23,14 @@ include <../scad/Parameters_Main.scad>
 //$explode = 1;
 //$pose = 1;
 module Back_Face_test() {
-    t = 2;
+    t = 3;
     echoPrintSize();
+    echo(_zRodSeparation=_zRodSeparation);
     //CoreXYBelts(carriagePosition(t), show_pulleys=true);
 
     //topFaceMotors(xyMotorType());
-    //translate_z(bedHeight()) Print_bed_3_point_assembly();
-    //translate_z(bedHeight()) Print_bed_assembly();
+    //translate_z(bedHeight(t)) Print_bed_3_point_assembly();
+    //translate_z(bedHeight(t)) Print_bed_assembly();
     //translate_z(_zMin) Print_bed_3_point_printed_assembly();
 
     *if (_useCNC)
@@ -60,7 +62,7 @@ module Back_Face_test() {
 
 
     //let($preview=false)
-    //backFaceLowerBrackets(NEMA17P);
+    //backFaceLowerBrackets(NEMA17P, 0);
     //backFaceUpperBrackets(_xyNEMA_width);
     //backFaceBare(NEMA17P);
     //backFaceAllHolePositions() cylinder(r=2, h=10);

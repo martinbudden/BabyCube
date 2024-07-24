@@ -40,6 +40,7 @@ module CoreXY() {
     translate([0, carriagePosition(t).y - carriagePosition().y, 0])
         yCarriageRightAssembly(_xyNEMA_width);
     if (_useCNC) {
+        topFaceAssembly(_xyNEMA_width);
         XY_Idler_Bracket_Left_assembly();
         XY_Idler_Bracket_Right_assembly();
         XY_Motor_Mount_Left_CF_assembly();
