@@ -64,9 +64,10 @@ module E3DV6HotendHolder(xCarriageType, xCarriageBackSize, grooveMountSize, hote
                 translate([0, -fillet, 0])
                     rounded_cube_yz(grooveMountSize + [0, fillet, 0], fillet);
                 translate([0, 2, 0]) {
-                    translate_z(grooveMountSize.z)
-                        rotate([90, 0, 90])
-                            fillet(1.5, grooveMountSize.x);
+                    if (hotendOffset.z <= 0)
+                        translate_z(grooveMountSize.z)
+                            rotate([90, 0, 90])
+                                fillet(1.5, grooveMountSize.x);
                     rotate([0, 90, 0])
                         fillet(1.5, grooveMountSize.x);
                 }

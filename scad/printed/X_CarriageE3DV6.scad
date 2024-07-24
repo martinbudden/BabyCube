@@ -20,8 +20,9 @@ function hotendOffset(xCarriageType, hotendDescriptor="E3DV6") =
 function grooveMountSize(blower_type, hotendDescriptor="E3DV6") = [printheadHotendOffset(hotendDescriptor).x, blower_size(blower_type).x + 6.25, 12];
 function blower_type() = is_undef(_blowerDescriptor) || _blowerDescriptor == "BL30x10" ? BL30x10 : BL40x10;
 
-module xCarriageGroovemountMGN9C(halfCarriage) {
+module xCarriageGroovemountMGN9C(halfCarriage, inserts=false) {
     xCarriageType = MGN9C_carriage;
+    size = xCarriageHotendSideSize(xCarriageType, beltWidth());
     blower_type = blower_type();
     hotendDescriptor = "E3DV6";
     grooveMountSize = grooveMountSize(blower_type, hotendDescriptor);
@@ -30,13 +31,20 @@ module xCarriageGroovemountMGN9C(halfCarriage) {
     holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
 
-    stl("X_Carriage_Groovemount_MGN9C")
-        color(pp1_colour)
-            rotate([0, -90, 0]) {
-                size = xCarriageHotendSideSize(xCarriageType, beltWidth());
+    rotate([0, -90, 0])
+        difference() {
+            union() {
                 xCarriageBack(xCarriageType, size, extraX, holeSeparationTop, holeSeparationBottom, halfCarriage=halfCarriage, strainRelief=false, countersunk=4, topHoleOffset=-xCarriageBeltAttachmentMGN9CExtraX()/2, accelerometerOffset = accelerometerOffset());
                 E3DV6HotendHolder(xCarriageType, xCarriageHotendSideSize(xCarriageType), grooveMountSize, hotendOffset, blower_type, baffle=true, left=true);
             }
+            xCarriageHotendSideHolePositions(xCarriageType)
+                if (inserts) {
+                    insertHoleM3(size.y, horizontal=true);
+                } else {
+                    boltHoleM3Tap(size.y, horizontal=true, rotate=180);
+                    boltHoleM3Tap(size.y+3, horizontal=true, rotate=180, chamfer_both_ends=false);
+                }
+        }
 }
 
 module X_Carriage_Groovemount_MGN9C_HC_stl() {

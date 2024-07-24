@@ -23,7 +23,7 @@ module printheadBeltSide(rotate=0, explode=0, t=undef, halfCarriage=true) {
                     X_Carriage_Belt_Side_MGN9C_HC_assembly();
                 else
                     X_Carriage_Belt_Side_MGN9C_assembly();
-            xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, -1], [-1, -1] ]);
+            xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = halfCarriage ? [ [1, -1], [-1, -1] ] : undef);
             xCarriageBeltClampAssembly(xCarriageType);
         }
 }

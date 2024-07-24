@@ -11,8 +11,12 @@ use <X_CarriageBeltAttachment.scad>
 include <../Parameters_CoreXY.scad>
 
 xCarriageFrontSize = [30, 4, 40.5];
-function xCarriageBeltSideSize(xCarriageType, beltWidth) =  [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x), xCarriageFrontSize.y, 36 + carriage_height(xCarriageType) + xCarriageTopThickness() + (!is_undef(beltWidth) && beltWidth == 9 ? 4.5 : 0)];
-
+function xCarriageBeltSideSize(xCarriageType, beltWidth) = 
+    [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x),
+     xCarriageFrontSize.y,
+     28 + carriage_height(xCarriageType) + xCarriageTopThickness() + xCarriageBaseThickness(xCarriageType) + (!is_undef(beltWidth) && beltWidth == 9 ? 4.5 : 0)
+    ];
+function xCarriageBoreDepth() = 6.5;
 
 function xCarriageBeltAttachmentMGN9CExtraX() = 4;
 evaHoleSeparationTop = 34;
@@ -25,6 +29,22 @@ xCarriageBeltTensionerSizeX = 23;
 beltClampSize = [25, xCarriageBeltAttachmentSize(beltWidth(), beltSeparation()).x - 0.5, 3.5];
 beltsCenterZOffset = coreXYPosBL(_xyNEMA_width, carriageType(_yCarriageDescriptor)).z - eZ + yRailSupportThickness();
 
+
+module xCarriageHotendSideHolePositions(xCarriageType, flipSide=false) {
+    size = xCarriageBeltSideSize(xCarriageType, beltWidth());
+    holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
+    holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
+    carriageSize = carriage_size(xCarriageType);
+
+    for (x = xCarriageHolePositions(size.x, holeSeparationTop))
+        translate([x - size.x/2, carriageSize.y/2 + railCarriageGap() + (flipSide ? size.y : 0), xCarriageTopThickness()/2])
+            rotate([-90, 90, 0])
+                children();
+    for (x = xCarriageHolePositions(size.x, holeSeparationBottom))
+        translate([x - size.x/2, carriageSize.y/2 + railCarriageGap() + (flipSide ? size.y : 0), -size.z + xCarriageTopThickness() + xCarriageBaseThickness()/2])
+            rotate([-90, 90, 0])
+                children();
+}
 
 module X_Carriage_Belt_Side_MGN9C_HC_stl() {
     xCarriageType = MGN9C_carriage;
@@ -57,7 +77,7 @@ module X_Carriage_Belt_Side_MGN9C_stl() {
         color(pp4_colour)
             translate([extraX/2, 0, 0])
                 rotate([90, 0, 180])
-                    xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, screwType=hs_cs_cap, halfCarriage=halfCarriage);
+                    xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, screwType=hs_cap, boreDepth=xCarriageBoreDepth(), halfCarriage=halfCarriage);
 }
 
 //!Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the

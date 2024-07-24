@@ -66,11 +66,12 @@ module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false, ha
     xCarriageBeltSideSize = xCarriageBeltSideSize(xCarriageType, beltWidth()) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 0];
     holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
+    screwType = halfCarriage ? hs_cs_cap : hs_cap;
 
     xRailCarriagePosition(carriagePosition(t), rotate=rotate)
         explode(explode, true) {
             explode([0, -20, 0], true)
-                xCarriageBeltSideBolts(xCarriageType, xCarriageBeltSideSize, topBoltLength=30, holeSeparationTop=holeSeparationTop, bottomBoltLength=30, holeSeparationBottom=holeSeparationBottom, screwType=hs_cs_cap);
+                xCarriageBeltSideBolts(xCarriageType, xCarriageBeltSideSize, topBoltLength=25, holeSeparationTop=holeSeparationTop, bottomBoltLength=25, holeSeparationBottom=holeSeparationBottom, screwType=screwType, boreDepth=xCarriageBoreDepth());
             if (halfCarriage) {
                 xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, 1], [-1, 1] ]);
                 Printhead_E3DV6_MGN9C_HC_assembly();
