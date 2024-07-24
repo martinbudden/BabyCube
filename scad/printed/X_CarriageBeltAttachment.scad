@@ -241,7 +241,7 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
     topSize = [size.x,
                 halfCarriage ? size.y + carriageSize.y/2 + 2 - tolerance : size.y + carriageSize.y + 2*(pulley25 ? offsetY25 : isMGN12 ? 2.25 : 1.25) - tolerance,
                 xCarriageTopThickness()];
-    baseThickness = xCarriageBaseThickness();
+    baseThickness = xCarriageBaseThickness(xCarriageType);
     baseOffset = size.z - topSize.z;
     fillet = 1;
     beltAttachmentSize = xCarriageBeltAttachmentSize(beltWidth, beltSeparation, size.x) + [1, 2*offsetY25 + cutoutOffsetZ + extraBeltOffset, 0];
@@ -271,8 +271,8 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                     //if (pulley25)
                     translate([0, 0, size.z - topSize.z])
                         rounded_cube_xz(topSize, fillet);
-                    if (pulley25 || !halfCarriage)
-                        rounded_cube_xz(topSize, fillet);
+                    if (!halfCarriage)
+                        rounded_cube_xz([topSize.x, topSize.y, baseThickness], fillet);
                     rounded_cube_xz([size.x, halfCarriage ? beltAttachmentSize.x : beltAttachmentPlusOffsetSizeY, baseThickness], fillet);
                     /*if (isMGN12) {
                         rounded_cube_xz([size.x, beltAttachmentOffsetY, baseThickness + beltAttachmentSize.x], fillet);
@@ -301,9 +301,10 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                 carriage_hole_positions(xCarriageType) {
                     boltHoleM3(topSize.z, horizontal=true);
                     // cut the countersink
-                    translate_z(topSize.z)
-                        hflip()
-                            boltHoleM3(topSize.z, horizontal=true, chamfer=3.2, chamfer_both_ends=false);
+                    if (isMGN12 || halfCarriage) // no room for countersink on full size MGN9 carriage
+                        translate_z(topSize.z)
+                            hflip()
+                                boltHoleM3(topSize.z, horizontal=true, chamfer=3.2, chamfer_both_ends=false);
                 }
                 if (is_list(accelerometerOffset))
                     translate(accelerometerOffset + [0, 0, carriage_height(xCarriageType)])

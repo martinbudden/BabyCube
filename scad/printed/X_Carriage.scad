@@ -13,13 +13,13 @@ include <../vitamins/pcbs.scad>
 fillet = 1;
 
 topThickness = xCarriageTopThickness();
-baseThickness = xCarriageBaseThickness();
-railCarriageGap = 0.5;
+railCarriageGap = railCarriageGap();
+function railCarriageGap() = 0.5;
 
 function beltInsetBack(xCarriageType) = is_undef(xCarriageType) ? 4.5 : xCarriageType == MGN12H_carriage ? 6.5 : 4.5;
 
 function xCarriageTopThickness() = 8;
-function xCarriageBaseThickness() = 8;
+function xCarriageBaseThickness(xCarriageType) = 8;
 xCarriageFrontOffsetExtraY = 2;
 function xCarriageBeltSideOffsetY(xCarriageType, xCarriageFrontSizeY) = carriage_size(xCarriageType).y/2 + xCarriageFrontSizeY + xCarriageFrontOffsetExtraY;
 
@@ -112,7 +112,7 @@ module xCarriageTopBolts(xCarriageType, countersunk=true, positions=undef, inser
 module xCarriageBottom(xCarriageType, xCarriageBackSize, holeSeparation, reflected=false) {
     assert(is_list(xCarriageType));
 
-    size =  [xCarriageBackSize.x, carriage_size(xCarriageType).z >= 13 ? 14.45 : 10, baseThickness];
+    size =  [xCarriageBackSize.x, carriage_size(xCarriageType).z >= 13 ? 14.45 : 10, xCarriageBaseThickness(xCarriageType)];
     translate([0, -size.y + xCarriageBackSize.y, 0])
         difference() {
             rounded_cube_yz(size, fillet);
@@ -130,11 +130,11 @@ module xCarriageBack(xCarriageType, size, extraX=0, holeSeparationTop, holeSepar
     carriageSize = carriage_size(xCarriageType);
     isMGN12 = carriageSize.z >= 13;
 
-    baseSize = [size.x, carriageSize.y + size.y - 2*beltInsetBack(xCarriageType), baseThickness];
+    baseSize = [size.x, carriageSize.y + size.y - 2*beltInsetBack(xCarriageType), xCarriageBaseThickness(xCarriageType)];
     difference() {
         translate([-size.x/2, carriageSize.y/2 + railCarriageGap, 0])
             union() {
-                translate_z(baseSize.z - size.z)
+                translate_z(xCarriageTopThickness() - size.z)
                     rounded_cube_yz([size.x, size.y, size.z], fillet);
                 // top
                 if (strainRelief)
@@ -144,7 +144,7 @@ module xCarriageBack(xCarriageType, size, extraX=0, holeSeparationTop, holeSepar
                         xCarriageTop(xCarriageType, size, holeSeparationTop, extraX, reflected, countersunk, topHoleOffset, offsetT, accelerometerOffset);
                     rotate([-90, 0, -90])
                         fillet(fillet, baseSize.x);
-                    translate_z(-size.z + 2*baseThickness)
+                    translate_z(-size.z + 2*baseSize.z)
                         rotate([-90, -90, -90])
                             fillet(internalFillet, baseSize.x);
                     // base
@@ -181,7 +181,7 @@ module xCarriageBeltSideBolts(xCarriageType, size, topBoltLength=10, holeSeparat
                             boltM3Caphead(topBoltLength);
         // holes at the bottom to connect to the xCarriage
         for (x = xCarriageHolePositions(size.x, holeSeparationBottom))
-            translate([x, 0, -size.z + xCarriageTopThickness() + xCarriageBaseThickness()/2 + offsetB])
+            translate([x, 0, -size.z + xCarriageTopThickness() + xCarriageBaseThickness(xCarriageType)/2 + offsetB])
                 rotate([90, 90, 0])
                     if (screwType==hs_cs_cap)
                         boltM3Countersunk(bottomBoltLength);
