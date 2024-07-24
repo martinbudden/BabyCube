@@ -21,7 +21,7 @@ function useReversedBelts() = !is_undef(_useReversedBelts) && _useReversedBelts;
 function yRailSupportThickness() = 3; // was 8// needs to be at least 7.5 to clear the side bolt holes
 function yRailShiftX() = 1; // limit it this to [-0.5, +1.25] avoid problems with yCarriage bolt interference
 //function yRailOffset(motorWidth) = [_yRailLength/2 + (_fullLengthYRail ? 0 : eSizeY), eZ - yRailSupportThickness(), coreXYPosBL(motorWidth).x - coreXYSeparation().x + yRailShiftX()];
-function yRailOffset(motorWidth) = [coreXYPosBL(motorWidth).x - coreXYSeparation().x + yRailShiftX(), _yRailLength/2 + (_fullLengthYRail ? 0 : eSizeY), eZ - yRailSupportThickness()];
+function yRailOffset(motorWidth) = [coreXYPosBL(motorWidth).x - coreXYSeparation().x + yRailShiftX(), _yRailLength/2 + (_fullLengthYRail ? 0 : eSizeY + 3), eZ - yRailSupportThickness()];
 function yCarriageThickness() = 8;
 function yCarriageBraceThickness() = 1; // brace to support cantilevered pulleys on yCarriage
 
@@ -43,7 +43,7 @@ function  coreXYSeparation() = [
 
 function coreXYOffsetY(coreXYType=coreXY_type()) = coreXYIdlerBore(coreXYType) == 3 ? 0 : -1.0;
 
-function motorClearance() = useReversedBelts() ? [16, 12, 0.5] : _useCNC ? [ 3, 7, 0.5 ] : [ 2, 6, 0.5 ];
+function motorClearance() = useReversedBelts() ? [18.5, 12, 0.5] : _useCNC ? [ 3, 7, 0.5 ] : [ 2, 6, 0.5 ];
 
 function coreXYPosBL(motorWidth, yCarriageType=MGN9C_carriage) = [
     is_undef(motorWidth) ? undef : (useReversedBelts() ? 0 : motorWidth/2) - coreXY_drive_pulley_x_alignment( coreXY_type() ) + motorClearance().x,

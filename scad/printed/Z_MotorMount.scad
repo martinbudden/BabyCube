@@ -34,7 +34,7 @@ function NEMA17_40L() = NEMA17_40L;
 
 module Z_Motor_Mount_stl() {
     stl("Z_Motor_Mount")
-        color(pp1_colour)
+        color(pp2_colour)
             vflip()
                 Z_MotorMount(zMotorType(), cf=true);
 }
@@ -58,11 +58,11 @@ module NEMA_MotorWithIntegratedLeadScrew(NEMA_type, leadScrewLength, leadScrewDi
 */
 
 zMotorMountTopPlateThickness = 6;
-braceWidth = 5.5;
+braceWidth = 4.5;
 
 function Z_MotorMountSize(NEMA_type, braceWidth=5, topPlateThickness=zMotorMountTopPlateThickness) = [
     NEMA_width(NEMA_type)/2 + _zLeadScrewOffset,
-    NEMA_width(NEMA_type) + 2*braceWidth + 2,
+    NEMA_width(NEMA_type) + 2*braceWidth + 1,
     topPlateThickness
 ];
 

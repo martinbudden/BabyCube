@@ -169,7 +169,7 @@ module backFaceBare(NEMA_type) {
 }
 
 module backFaceUpperSKBracketHolePositions(yOffset) {
-    translate([zRodOffsetX, _zRodLength - sk_size(SK_type).z/2 - yOffset, 0])
+    translate([zRodOffsetX, eZ - sk_size(SK_type).z/2 - yOffset, 0])
         for (x = [0, _zRodSeparation], s = [-sk_screw_separation(SK_type)/2, sk_screw_separation(SK_type)/2])
             translate([x + s, 0, 0])
                 children();
@@ -209,7 +209,7 @@ module backFaceUpperBrackets(NEMA_width, yOffset) {
 }
 
 module backFaceUpperBracketsHardware(backPlateThickness, yOffset, counterSunk=true) {
-    translate([zRodOffsetX, _zRodLength - sk_size(SK_type).z/2 - yOffset, 0])
+    translate([zRodOffsetX, eZ - sk_size(SK_type).z/2 - yOffset, 0])
         explode(20, true)
             for (x = [0, _zRodSeparation]) {
                 translate([x, 0, _zRodOffsetY])
@@ -229,20 +229,20 @@ module backFaceUpperBracketsHardware(backPlateThickness, yOffset, counterSunk=tr
             }
 }
 
-module backFaceLowerSKBracketHolePositions() {
-    translate([zRodOffsetX, sk_size(SK_type).z/2, 0])
+module backFaceLowerSKBracketHolePositions(yOffset) {
+    translate([zRodOffsetX, sk_size(SK_type).z/2 + yOffset, 0])
         for (x = [0, _zRodSeparation], s = [-sk_screw_separation(SK_type)/2, sk_screw_separation(SK_type)/2])
             translate([x + s, 0, 0])
                 children();
 }
 
-module backFaceLowerBrackets(NEMA_type) {
+module backFaceLowerBrackets(NEMA_type, yOffset) {
     assert(isNEMAType(NEMA_type));
 
     translate_z(-_backPlateThickness)
         difference() {
             rounded_cube_xy([eX + 2*eSizeX, Z_MotorMountHeight(NEMA_type), _backPlateThickness], r=1);
-            backFaceLowerSKBracketHolePositions()
+            backFaceLowerSKBracketHolePositions(yOffset)
                 boltPolyholeM5Countersunk(_backPlateThickness, sink=0.25);
         }
     translate([zRodOffsetX + _zRodSeparation/2, 0, _zLeadScrewOffset])
@@ -268,8 +268,8 @@ module backFaceLowerBrackets(NEMA_type) {
             fillet(5, rectSize.z);
 }
 
-module backFaceLowerBracketsHardware(backPlateThickness, counterSunk=true) {
-    translate([zRodOffsetX, sk_size(SK_type).z/2, 0])
+module backFaceLowerBracketsHardware(backPlateThickness, yOffset, counterSunk=true) {
+    translate([zRodOffsetX, sk_size(SK_type).z/2 + yOffset, 0])
         explode(20, true)
             for (x = [0, _zRodSeparation]) {
                 translate([x, 0, _zRodOffsetY])

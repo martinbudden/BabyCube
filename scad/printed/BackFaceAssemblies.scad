@@ -36,8 +36,10 @@ module backFace(zNEMA_type) {
     difference() {
         union() {
             backFaceBare(zNEMA_type);
-            backFaceUpperBrackets(_xyNEMA_width, _topPlateThickness);// use_xyNEMA_width or rail offset
-            backFaceLowerBrackets(zNEMA_type);
+            backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
+            backFaceUpperBrackets(_xyNEMA_width, backFaceUpperBracketOffset);// use_xyNEMA_width or rail offset
+            backFaceLowerBracketOffset = is_undef(_backFaceLowerBracketOffset) ? 0 : _backFaceLowerBracketOffset;
+            backFaceLowerBrackets(zNEMA_type, backFaceLowerBracketOffset);
         }
         // add the bolt holes for attachment to the left and right faces
         backFaceAllHolePositions(-_backPlateThickness)
@@ -66,8 +68,10 @@ assembly("Back_Face_Stage_1", big=true, ngb=true) {
         rotate([90, 0, 0]) {
             stl_colour(pp2_colour)
                 Back_Face_stl();
-            backFaceUpperBracketsHardware(_backPlateThickness, _topPlateThickness, counterSunk=true);
-            backFaceLowerBracketsHardware(_backPlateThickness , counterSunk=true);
+            backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
+            backFaceUpperBracketsHardware(_backPlateThickness, backFaceUpperBracketOffset, counterSunk=true);
+            backFaceLowerBracketOffset = is_undef(_backFaceLowerBracketOffset) ? 0 : _backFaceLowerBracketOffset;
+            backFaceLowerBracketsHardware(_backPlateThickness , backFaceLowerBracketOffset, counterSunk=true);
         }
     // create back face for NEMA_motors with integrated leadscrew, if integrated leadscrew not already specified
     if (!is_list(NEMA_shaft_length(zMotorType())))
@@ -84,11 +88,12 @@ assembly("Back_Face", big=true) {
     Back_Face_Stage_1_assembly();
 
     zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
+    zRodOffsetZ = is_undef(_zRodOffsetZ) ? 0 : _zRodOffsetZ;
     translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0]) {
             explode([0, 160, 0])
                 for (x = [zRodOffsetX, zRodOffsetX + _zRodSeparation])
-                    translate([x, _zRodLength/2, _zRodOffsetY])
+                    translate([x, _zRodLength/2 + zRodOffsetZ, _zRodOffsetY])
                         rotate([90, 0, 0])
                             rod(d=_zRodDiameter, l=_zRodLength);
             backFaceMotorMountHardware(zMotorType());
@@ -127,7 +132,8 @@ module Back_Face_CF_dxf() {
                 backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
                 backFaceUpperSKBracketHolePositions(backFaceUpperBracketOffset)
                     circle(r=M5_clearance_radius);
-                backFaceLowerSKBracketHolePositions()
+                backFaceLowerBracketOffset = is_undef(_backFaceLowerBracketOffset) ? 0 : _backFaceLowerBracketOffset;
+                backFaceLowerSKBracketHolePositions(backFaceLowerBracketOffset)
                     circle(r=M5_clearance_radius);
                 if (_fullLengthYRail)
                     railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
@@ -168,7 +174,8 @@ assembly("Back_Face_CF_Stage_1", big=true) {
             Back_Face_CF();
             backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
             backFaceUpperBracketsHardware(_backPlateCFThickness, backFaceUpperBracketOffset, counterSunk=false);
-            backFaceLowerBracketsHardware(_backPlateCFThickness, counterSunk=false);
+            backFaceLowerBracketOffset = is_undef(_backFaceLowerBracketOffset) ? 0 : _backFaceLowerBracketOffset;
+            backFaceLowerBracketsHardware(_backPlateCFThickness, backFaceLowerBracketOffset, counterSunk=false);
             Z_MotorMountHolePositions(zMotorType())
                 vflip()
                     translate_z(_backPlateCFThickness)
@@ -179,7 +186,7 @@ assembly("Back_Face_CF_Stage_1", big=true) {
             explode(20, show_line=false)
                 translate([eX/2 + eSizeX, 0, _zLeadScrewOffset])
                     rotate([90, -90, 0])
-                        stl_colour(pp1_colour)
+                        stl_colour(pp2_colour)
                             Z_Motor_Mount_stl();
         }
 }
@@ -194,11 +201,12 @@ assembly("Back_Face_CF", big=true) {
     Back_Face_CF_Stage_1_assembly();
 
     zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
+    zRodOffsetZ = is_undef(_zRodOffsetZ) ? 0 : _zRodOffsetZ;
     translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0]) {
             explode([0, 160, 0])
                 for (x = [zRodOffsetX, zRodOffsetX + _zRodSeparation])
-                    translate([x, _zRodLength/2, _zRodOffsetY])
+                    translate([x, _zRodLength/2 + zRodOffsetZ, _zRodOffsetY])
                         rotate([90, 0, 0])
                             rod(d=_zRodDiameter, l=_zRodLength);
             backFaceMotorMountHardware(zMotorType());

@@ -17,7 +17,7 @@ function xyMotorMountCFSize(NEMA_width) = XY_MotorMountCFSize(NEMA_width, 38 + b
 
 
 function XY_MotorMountCFSize(NEMA_width, basePlateThickness) = [
-    floor(NEMA_width) + 8,
+    floor(NEMA_width) + 10,
     floor(NEMA_width) + 8,
     basePlateThickness
 ];
@@ -67,7 +67,7 @@ module xyMotorMountCF(NEMA_type, left) {
                         rotate(left ? -90 : 180)
                             fillet(5, basePlateThickness + 2*coreXYSeparation().z - 1);
                     if (left)
-                        translate([sideSize.x + 7 + 26/2, -backSize.y, basePlateThickness])
+                        translate([sideSize.x + 9.5 + 26/2, -backSize.y, basePlateThickness])
                             xyMotorMountBeltGuide();
                 }
             }
@@ -95,7 +95,7 @@ module xyMotorMountCF(NEMA_type, left) {
             vflip()
                 boltHoleM3Tap(sideSize.x);
         translate([0, eY + 2*eSizeY - backSizeY, offsetZ + basePlateThickness + 2*pulleyStackHeight + yCarriageBraceThickness() + braceHeight/2])
-            translate([left ? _sidePlateThickness + sideSizeX/2 + size.x/2 : eX + 2*eSizeX - _sidePlateThickness - sideSizeX/2 - size.x/2, 0, 0])
+            translate([left ? _sidePlateThickness + sideSizeX + size.x/2 : eX + 2*eSizeX - _sidePlateThickness - sideSizeX - size.x/2, 0, 0])
                 rotate([-90, 0, 0])
                     boltHoleM3Countersunk(backSizeY, horizontal=true, rotate=180);
     }
@@ -121,7 +121,7 @@ module xyMotorMountCFBrace(NEMA_type, left) {
                     rotate(left ? 0 : 90)
                         fillet(fillet, size.z);
                 if (!left)
-                    translate([sideSizeX + 26/2, size.y - 1, -10])
+                    translate([4.5 + 26/2, size.y - 1, -10])
                         xyMotorMountBeltGuide(10);
             }
         translate([left ? coreXYPosBL(NEMA_width).x : coreXYPosTR(NEMA_width).x, coreXYPosTR(NEMA_width).y, offsetZ])
@@ -133,7 +133,7 @@ module xyMotorMountCFBrace(NEMA_type, left) {
                         boltHoleM3Countersunk(size.z);
             }
         translate([0, eY + 2*eSizeY - backSizeY, offsetZ])
-            translate([left ? _sidePlateThickness + sideSizeX + size.x/2 : eX + 2*eSizeX - _sidePlateThickness - sideSizeX - size.x/2, 0, braceHeight/2])
+            translate([left ? _sidePlateThickness + (3*sideSizeX + size.x)/2 : eX + 2*eSizeX - _sidePlateThickness - (3*sideSizeX + size.x)/2, 0, braceHeight/2])
                 rotate([90, 0, 0])
                     boltHoleM3Tap(size.y, horizontal=true);
     }
@@ -256,7 +256,7 @@ module XY_Motor_Mount_CF_hardware(NEMA_type, left=true) {
     //braceOffsetZ = 2*bearingStackHeight() + yCarriageBraceThickness() + 0.5; // tolerance of 0.5
 
     translate_z(eZ - _topPlateThickness - xyMotorMountCFSize(NEMA_width).z + basePlateThickness) {
-        offsetX = _sidePlateThickness + (sideSizeX + xyMotorMountCFSize(NEMA_width).x)/2;
+        offsetX = _sidePlateThickness + sideSizeX + xyMotorMountCFSize(NEMA_width).x/2;
         translate([left ? offsetX : eX + 2*eSizeX - offsetX, eY + 2*eSizeY, 2*pulleyStackHeight + yCarriageBraceThickness() + braceHeight/2])
             rotate([90, 0, 180])
                 explode(20, true)
@@ -283,9 +283,8 @@ module XY_Motor_Mount_CF_hardware(NEMA_type, left=true) {
                 bearingType = coreXYBearing();
                 screwLength = 35;
                 translate_z(screwLength - basePlateThickness - motorBoltHoleDepth)
-                    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-                        explode(80, true)
-                            boltM3Countersunk(screwLength);
+                    explode(80, true)
+                        boltM3Countersunk(screwLength);
                 bearingStack(bearingType)
                     explode(25, true)
                         washer(washer)
@@ -295,9 +294,8 @@ module XY_Motor_Mount_CF_hardware(NEMA_type, left=true) {
                                         bearingStack(bearingType);
                 translate(left ? plainIdlerPulleyOffset() : -plainIdlerPulleyOffset()) {
                     translate_z(screwLength - basePlateThickness - motorBoltHoleDepth)
-                        if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-                            explode(80, true)
-                                boltM3Countersunk(screwLength);
+                        explode(80, true)
+                            boltM3Countersunk(screwLength);
                     if (left) {
                         explode(5, true)
                             bearingStack(bearingType);
