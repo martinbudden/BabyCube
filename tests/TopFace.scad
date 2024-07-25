@@ -14,6 +14,8 @@ use <../scad/printed/LeftAndRightFaces.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
+use <../scad/printed/PrintheadAssembliesE3DV6.scad>
+use <../scad/printed/PrintheadAssembliesE3DRevo.scad>
 use <../scad/printed/TopFace.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 //use <../scad/printed/X_CarriageAssemblies.scad>
@@ -32,7 +34,8 @@ use <../scad/MainAssembly.scad>
 module Top_Face_test() {
     echoPrintSize();
 
-    //printheadHotendSide();
+    //printheadHotendSideE3DV6();
+    printheadHotendSideE3DRevo();
     //printheadBeltSide();
     //CoreXYBelts(carriagePosition());
     //Top_Face_stl();

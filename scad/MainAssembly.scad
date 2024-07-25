@@ -165,7 +165,7 @@ module FinalAssembly() {
             if (!exploded())
                 printheadWiring(carriagePosition());
             explode(100, true)
-                printheadHotendSide();
+                printheadHotendSideE3DV6();
             explode(150)
                 bowdenTube(carriagePosition());
             explode([75, 0, 100])

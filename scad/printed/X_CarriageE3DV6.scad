@@ -77,19 +77,19 @@ module xCarriageGroovemountMGN9CAssembly(halfCarriage) {
     grooveMountSize = grooveMountSize(blower_type, hotendDescriptor);
 
     explode([-20, 0, 10], true)
-        hotEndPartCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower_type, left=true);
+        E3DV6HotendPartCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower_type, left=true);
     explode([-20, 0, -10], true)
         E3DV6HotendHolderAlign(hotendOffset, left=true)
             blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type)
                 rotate([-90, 0, 0]) {
                     stl_colour(pp2_colour)
-                        Fan_Duct_stl();
+                        E3DV6_Fan_Duct_stl();
                     Fan_Duct_hardware(xCarriageType, hotendDescriptor);
                 }
 }
 
-module Fan_Duct_stl() {
-    stl("Fan_Duct")
+module E3DV6_Fan_Duct_stl() {
+    stl("E3DV6_Fan_Duct")
         color(pp2_colour)
-            fanDuct(printheadHotendOffset().x);
+            fanDuct(printheadHotendOffset("E3DV6").x);
 }

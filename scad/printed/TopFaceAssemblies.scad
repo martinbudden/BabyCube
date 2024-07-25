@@ -225,7 +225,7 @@ assembly("Top_Face_CF", big=true) {
     explode(250, true)
         CoreXYBelts(carriagePosition());
     explode(100, true)
-        printheadBeltSide();
+        printheadBeltSide(halfCarriage=false);
 }
 
 module Top_Face_Back_Joiner_stl() {

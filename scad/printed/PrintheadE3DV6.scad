@@ -4,9 +4,9 @@ include <../vitamins/bolts.scad>
 
 use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/fans.scad>
-include <NopSCADlib/vitamins/rails.scad>
 include <NopSCADlib/vitamins/blowers.scad>
 include <NopSCADlib/vitamins/e3d.scad>
+include <NopSCADlib/vitamins/rails.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
 include <../utils/ziptieCutout.scad>
@@ -131,7 +131,7 @@ module E3DV6HotendHolder(xCarriageType, xCarriageBackSize, grooveMountSize, hote
                                 boltHoleM2Tap(blowerMountSize.x + 4);
                 }
 
-            translate([hotendOffset.x, left ? hotendOffset.y : -hotendOffset.y, hotendOffset.z]) {
+            translate([hotendOffset.x, left ? hotendOffset.y : -hotendOffset.y + 2, hotendOffset.z]) { //!!TODO magic number +2
                 translate_z(-37)
                     cylinder(r=11.5, h=4);
                 rotate([-90, 0, 0])
@@ -155,19 +155,18 @@ module blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type
                 children();
 }
 
-module partCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower_type) {
-    blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type) {
-        blower(blower_type);
-        blower_hole_positions(blower_type)
-            translate_z(blower_lug(blower_type))
-                boltM2Caphead(6);
-    }
+module partCoolingFan(blower_type) {
+    blower(blower_type);
+    blower_hole_positions(blower_type)
+        translate_z(blower_lug(blower_type))
+            boltM2Caphead(6);
 }
 
-module hotEndPartCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower_type, left=true) {
+module E3DV6HotendPartCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower_type, left=true) {
     E3DV6HotendHolderAlign(hotendOffset, left)
         if (blower_size(blower_type).x < 40)
-            partCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower_type);
+            blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type)
+                partCoolingFan(blower_type);
     if (!exploded())
         mirror([left ? 0 : 1, 0, 0])
             translate([hotendOffset.x - grooveMountSize.x + 1.5, hotendOffset.y - blower_size(blower_type).y/2 + 2, hotendOffset.z + 1])

@@ -11,7 +11,7 @@ use <printed/FrontFace.scad>
 use <printed/LeftAndRightFaceAssemblies.scad>
 use <printed/LeftAndRightFaceAssembliesCF.scad>
 use <printed/PrintheadAssemblies.scad>
-use <printed/PrintheadAssembliesE3DV6.scad>
+use <printed/PrintheadAssembliesE3DRevo.scad>
 use <printed/TopFaceAssemblies.scad>
 use <printed/X_CarriageAssemblies.scad>
 
@@ -19,6 +19,7 @@ include <utils/CoreXYBelts.scad>
 include <utils/HolePositions.scad>
 
 use <Parameters_Positions.scad>
+use <Parameters_CoreXY.scad>
 
 
 staged_assembly = true; // set this to false for faster builds during development
@@ -180,7 +181,7 @@ module CF_FinalAssembly() {
         Stage_5_CF_assembly();
 
         explode(100, true)
-            printheadHotendSide();
+            printheadHotendSideE3DRevo();
         explode([100, 0, 100])
             faceRightSpoolHolder(cf=true);
         if (!exploded()) {
@@ -199,8 +200,7 @@ module CF_DebugAssembly() {
         explode = 100;
         explode(explode + 25) {
             Top_Face_CF_assembly();
-            printheadBeltSide();
-            printheadHotendSide();
+            printheadHotendSideE3DRevo();
         }
         explode([0, explode, 0])
             Back_Face_CF_assembly();

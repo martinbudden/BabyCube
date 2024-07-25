@@ -1,15 +1,5 @@
-include <../global_defs.scad>
-
-use <NopSCADlib/vitamins/wire.scad>
-
-include <../utils/X_Rail.scad>
-
-use <X_CarriageBeltAttachment.scad>
-
+include <PrintheadAssemblies.scad>
 include <X_CarriageE3DV6.scad>
-
-include <../Parameters_CoreXY.scad>
-use <../Parameters_Positions.scad>
 
 
 module printheadE3DV6Assembly() {
@@ -61,23 +51,20 @@ assembly("Printhead_E3DV6_MGN9C", big=true) {
     printheadE3DV6Assembly();
 }
 
-module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false, halfCarriage=true) {
+module printheadHotendSideE3DV6(rotate=0, explode=0, t=undef, accelerometer=false, halfCarriage=true, noPrinthead=false) {
     xCarriageType = carriageType(_xCarriageDescriptor);
-    xCarriageBeltSideSize = xCarriageBeltSideSize(xCarriageType, beltWidth()) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 0];
-    holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
-    holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
     screwType = halfCarriage ? hs_cs_cap : hs_cap;
+    boreDepth = xCarriageBoreDepth();
 
-    xRailCarriagePosition(carriagePosition(t), rotate=rotate)
-        explode(explode, true) {
-            explode([0, -20, 0], true)
-                xCarriageBeltSideBolts(xCarriageType, xCarriageBeltSideSize, topBoltLength=25, holeSeparationTop=holeSeparationTop, bottomBoltLength=25, holeSeparationBottom=holeSeparationBottom, screwType=screwType, boreDepth=xCarriageBoreDepth());
-            if (halfCarriage) {
-                xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, 1], [-1, 1] ]);
-                Printhead_E3DV6_MGN9C_HC_assembly();
-            } else {
+    printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=25, boreDepth=boreDepth)
+        if (halfCarriage) {
+            xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, 1], [-1, 1] ]);
+            Printhead_E3DV6_MGN9C_HC_assembly();
+        } else {
+            if (noPrinthead) // for debugging
+                xCarriageGroovemountMGN9CAssembly(halfCarriage=false);
+            else
                 Printhead_E3DV6_MGN9C_assembly();
-            }
         }
 }
 

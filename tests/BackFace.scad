@@ -50,7 +50,7 @@ module Back_Face_test() {
     //Right_Face_CF_assembly();
     //Right_Face_assembly();
     //printheadBeltSide(t=t);
-    //printheadHotendSide(t=t);
+    //printheadHotendSideE3DV6(t=t);
     //camera(rpi_camera_v2, fov_distance = eY/2);
 
     *translate_z(3)

@@ -9,7 +9,7 @@ include <../vitamins/pcbs.scad>
 use <X_Carriage.scad>
 use <X_CarriageAssemblies.scad>
 
-include <../Parameters_CoreXY.scad>
+include <../Parameters_Main.scad>
 use <../Parameters_Positions.scad>
 
 
@@ -25,6 +25,21 @@ module printheadBeltSide(rotate=0, explode=0, t=undef, halfCarriage=true) {
                     X_Carriage_Belt_Side_MGN9C_assembly();
             xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = halfCarriage ? [ [1, -1], [-1, -1] ] : undef);
             xCarriageBeltClampAssembly(xCarriageType);
+        }
+}
+
+module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false, screwType=hs_cs_cap, boltLength=25, boreDepth=0) {
+    xCarriageType = carriageType(_xCarriageDescriptor);
+    xCarriageBeltSideSize = xCarriageBeltSideSize(xCarriageType, beltWidth()) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 0];
+    holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
+    holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
+
+    xRailCarriagePosition(carriagePosition(t), rotate=rotate)
+        explode(explode, true) {
+            explode([0, -20, 0], true)
+                if (boltLength > 0)
+                    xCarriageBeltSideBolts(xCarriageType, xCarriageBeltSideSize, topBoltLength=boltLength, holeSeparationTop=holeSeparationTop, bottomBoltLength=boltLength, holeSeparationBottom=holeSeparationBottom, screwType=screwType, boreDepth=boreDepth);
+            children();
         }
 }
 
