@@ -43,7 +43,7 @@ function  coreXYSeparation() = [
 
 function coreXYOffsetY(coreXYType=coreXY_type()) = coreXYIdlerBore(coreXYType) == 3 ? 0 : -1.0;
 
-function motorClearance() = useReversedBelts() ? [18.5, 12, 0.5] : _useCNC ? [ 3, 7, 0.5 ] : [ 2, 6, 0.5 ];
+function motorClearance(reversedBelts=useReversedBelts(), cnc=_useCNC) = reversedBelts ? [18.5, 12, 0.5] : cnc ? [ 3, 7, 0.5 ] : [ 2, 6, 0.5 ];
 
 function coreXYPosBL(motorWidth, yCarriageType=MGN9C_carriage) = [
     is_undef(motorWidth) ? undef : (useReversedBelts() ? 0 : motorWidth/2) - coreXY_drive_pulley_x_alignment( coreXY_type() ) + motorClearance().x,

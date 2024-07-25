@@ -37,15 +37,15 @@ upperWebThickness = 3;
 antiShearSize = [eY + 2*eSizeY, 20];
 switchShroudSizeX = 60;//switchShroudSize().x;
 upperFillet = 1.5;
-
+motorClearance = motorClearance(reversedBelts=false, cnc=false);
 
 function rocker_type() = small_rocker;
 function rockerPosition(rocker_type) = [0, rocker_height(rocker_type)/2 + frontLowerChordSize().y + 3, eSizeX + eps + rocker_slot_w(rocker_type)/2];
 function extruderMotorOffsetZ() = upperWebThickness;
 //ECHO: extruderPosition14Y = 132
 //ECHO: extruderPosition17Y = 117.8
-//function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - 2*NEMA_width + 2*35.2 - 40 - motorClearance().y, eZ - 73];
-function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - motorClearance().y - NEMA_width - (NEMA_width < 40 ? 3.8 : 2.7), eZ - 73];
+//function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - 2*NEMA_width + 2*35.2 - 40 - motorClearance.y, eZ - 73];
+function extruderPosition(NEMA_width) = [eX + 2*eSizeX, eY - motorClearance.y - NEMA_width - (NEMA_width < 40 ? 3.8 : 2.7), eZ - 73];
 function spoolHolderPosition(cf=false) = [eX + 2*eSizeX + (cf ? 10 : 0), cf ? 25 : 24, cf ? eZ - 70 : eZ - 75];
 function frontReinforcementThickness() = 3;
 function spoolHolderBracketSize(cf=false) = [cf ? 3 : eSizeX, cf ? 25 : 30, 20];
@@ -275,8 +275,8 @@ module motorUpright(NEMA_width, left) {
     uprightTopZ = xyMotorPosition(NEMA_width, left).z + 2*fillet;
     uprightPosZ = middleWebOffsetZ() + eSizeZ - 2*fillet;
     upperFillet = 1.5;
-    translate([eY + 2*eSizeY - motorClearance().y + upperFillet, uprightPosZ, 0])
-        cube([motorClearance().y - upperFillet, uprightTopZ - uprightPosZ, eSizeXBase]);
+    translate([eY + 2*eSizeY - motorClearance.y + upperFillet, uprightPosZ, 0])
+        cube([motorClearance.y - upperFillet, uprightTopZ - uprightPosZ, eSizeXBase]);
 }
 
 module idlerUpright(NEMA_width, left) {
@@ -459,7 +459,7 @@ module frame(NEMA_type, left=true) {
         if (left)
             translate([idlerBracketSize(coreXYPosBL(NEMA_width)).x - eSizeY, eSizeZ, 0])
                 fillet(innerFillet, eSizeX); // fillet not needed on right side because of spoolholder
-        translate([eY + eSizeY - motorClearance().y + upperFillet, eSizeZ, 0])
+        translate([eY + eSizeY - motorClearance.y + upperFillet, eSizeZ, 0])
             rotate(90)
                 fillet(3, eSizeX);// smaller fillet by motor cutout
     }
