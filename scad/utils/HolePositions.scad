@@ -34,6 +34,8 @@ function frontSideJoinerHolePositions(bolts=false) = eZ == 200 ? (bolts ? [40, 8
 
 function backFaceHolePositions(cf=false) = concat([eSizeY/2 + 1, middleWebOffsetZ() + eSizeY/2], cf ? [] : [eZ - eSizeY/2 - _topPlateThickness]);
 
+function motorUprightZipTiePositions() = [30, middleWebOffsetZ() - 18];
+
 
 // base
 module baseLeftCornerHolePositions(z=0) {

@@ -169,9 +169,25 @@ module Back_Face_CF() {
 module Back_Face_CF_Stage_1_assembly()
 assembly("Back_Face_CF_Stage_1", big=true) {
 
-    translate([0, eY + 2*eSizeY, 0])
+    translate([-eps, 0, 0])
+        rotate([90, 0, 90]) {
+            stl_colour(pp2_colour)
+                Back_Face_Left_Joiner_stl();
+            backFaceZipTies();
+        }
+    translate([eX + 2*eSizeX + eps, 0, 0]) {
+        rotate([-90, 0, 90])
+            stl_colour(pp2_colour)
+                Back_Face_Right_Joiner_stl();
+        translate([0, 2*eY + 2*eSizeY, 0])
+            rotate([90, 0, -90])
+                backFaceZipTies();
+    }
+
+   translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0]) {
             Back_Face_CF();
+
             backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
             backFaceUpperBracketsHardware(_backPlateCFThickness, backFaceUpperBracketOffset, counterSunk=false);
             backFaceLowerBracketOffset = is_undef(_backFaceLowerBracketOffset) ? 0 : _backFaceLowerBracketOffset;
@@ -219,3 +235,45 @@ assembly("Back_Face_CF", big=true) {
                 Print_bed_3_point_printed_assembly();
         }
 }
+
+module backFaceZipTies() {
+    translate([eY + 2*eSizeY - max(10, eSizeY), 0, 0])
+        for (y = motorUprightZipTiePositions())
+            translate([0.5, y, eSizeXBase])
+                rotate(90)
+                    cable_tie(cable_r=3, thickness=3);
+}
+
+module sideFaceJoiner() {
+    difference() {
+        offset = 20;
+        translate([eY + eSizeY, offset, _sidePlateThickness])
+            rounded_cube_xy([eSizeY, eZ - 94 - offset, eSizeXBase + 1 - _sidePlateThickness], _fillet);
+        backSideJoinerHolePositions(_sidePlateThickness)
+            boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
+        translate([eY + 2*eSizeY, 0, 0])
+            rotate([0, -90, 0]) {
+                backFaceCFSideHolePositions(0)
+                    boltHoleM3Tap(eSizeY - _backPlateCFThickness, horizontal=true, rotate=-90, chamfer_both_ends=false);
+                backFaceAllHolePositions(0)
+                    boltHoleM3Tap(eSizeY - _backPlateCFThickness, horizontal=true, rotate=-90, chamfer_both_ends=false);
+            }
+        for (y = motorUprightZipTiePositions())
+            translate([eY + eSizeY-eps, y, eSizeXBase + 1])
+                zipTieCutout();
+    }
+}
+
+module Back_Face_Left_Joiner_stl() {
+    stl("Back_Face_Left_Joiner")
+        color(pp2_colour)
+            sideFaceJoiner();
+}
+
+module Back_Face_Right_Joiner_stl() {
+    stl("Back_Face_Right_Joiner")
+        color(pp2_colour)
+            mirror([0, 1, 0])
+                sideFaceJoiner();
+}
+

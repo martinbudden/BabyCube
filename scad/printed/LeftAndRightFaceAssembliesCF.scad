@@ -5,7 +5,6 @@ use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/sheets.scad>
 
 include <LeftAndRightFaceAssemblies.scad>
-include <XY_MotorMountCF.scad>
 include <Extras.scad>
 
 include <../Parameters_CoreXY.scad>
@@ -29,55 +28,6 @@ module Left_Face_Lower_Joiner_Back_stl() {
         }
 }
 
-module Front_Face_Joiner_stl() {
-    stl("Front_Face_Joiner")
-        difference() {
-            offsetBottom = eZ == 200 ? 30 : 45;
-            offsetTop = eZ == 200 ? 70 : 85;
-            translate([_sidePlateThickness, offsetBottom, _sidePlateThickness])
-                color(pp2_colour)
-                    rounded_cube_xy([eSizeY, eZ - offsetTop - offsetBottom, eSizeXBase - _sidePlateThickness], _fillet);
-            frontSideJoinerHolePositions(_sidePlateThickness)
-                boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
-            rotate([0, -90, 0])
-                frontFaceSideHolePositions(-_frontPlateCFThickness)
-                    vflip()
-                        boltHoleM3Tap(eSizeY - _frontPlateCFThickness, horizontal=true, rotate=-90, chamfer_both_ends=false);
-        }
-}
-
-module backFaceJoiner() {
-    difference() {
-        offset = 20;
-        translate([eY + eSizeY, offset, _sidePlateThickness])
-            rounded_cube_xy([eSizeY, eZ - 94 - offset, eSizeXBase + 1 - _sidePlateThickness], _fillet);
-        backSideJoinerHolePositions(_sidePlateThickness)
-            boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
-        translate([eY + 2*eSizeY, 0, 0])
-            rotate([0, -90, 0]) {
-                backFaceCFSideHolePositions(0)
-                    boltHoleM3Tap(eSizeY - _backPlateCFThickness, horizontal=true, rotate=-90, chamfer_both_ends=false);
-                backFaceAllHolePositions(0)
-                    boltHoleM3Tap(eSizeY - _backPlateCFThickness, horizontal=true, rotate=-90, chamfer_both_ends=false);
-            }
-        for (y = motorUprightZipTiePositions())
-            translate([eY + eSizeY-eps, y, eSizeXBase + 1])
-                zipTieCutout();
-    }
-}
-
-module Left_Face_Back_Joiner_stl() {
-    stl("Left_Face_Back_Joiner")
-        color(pp2_colour)
-            backFaceJoiner();
-}
-
-module Right_Face_Back_Joiner_stl() {
-    stl("Right_Face_Back_Joiner")
-        color(pp2_colour)
-            mirror([0, 1, 0])
-                backFaceJoiner();
-}
 
 module Left_Face_Lower_Joiner_Front_stl() {
     stl("Left_Face_Lower_Joiner_Front")
@@ -95,16 +45,6 @@ module Left_Face_Lower_Joiner_Front_stl() {
                 frontFaceSideHolePositions()
                     vflip()
                         boltHoleM3Tap(eSizeY - _sidePlateThickness);
-        }
-}
-
-module Left_Face_Upper_Joiner_stl() {
-    stl("Left_Face_Upper_Joiner")
-        difference() {
-            color(pp2_colour)
-                topBoltHolder();
-            upperSideJoinerHolePositions(_sidePlateThickness)
-                boltHoleM3Tap(topBoltHolderSize().z);
         }
 }
 
@@ -146,37 +86,6 @@ module Right_Face_Lower_Joiner_Front_stl() {
             }
 }
 
-module Right_Face_Upper_Joiner_stl() {
-    stl("Right_Face_Upper_Joiner")
-        mirror([0, 1, 0])
-            difference() {
-                color(pp2_colour)
-                    topBoltHolder();
-                upperSideJoinerHolePositions(_sidePlateThickness)
-                    boltHoleM3Tap(topBoltHolderSize().z);
-            }
-}
-
-module topBoltHolder() {
-    offset = 70;
-    size = topBoltHolderSize(cnc=true) - [offset, 0, 0];
-    difference() {
-        translate([_frontPlateCFThickness + offset, eZ - _topPlateThickness - size.y, _sidePlateThickness])
-            rounded_cube_xy(size, _fillet);
-        /*cutoutSize = [11, 1, size.z + 2*eps];
-        translate([_frontPlateCFThickness, eZ - _topPlateThickness - size.y, _sidePlateThickness - eps]) {
-            cube(cutoutSize);
-            translate([0, cutoutSize.y, 0])
-                fillet(1, size.z + 2*eps);
-            translate([cutoutSize.x, 0, 0])
-                fillet(1, size.z + 2*eps);
-        }*/
-        translate([0, eZ - _topPlateThickness, eX + 2*eSizeX])
-            rotate([90, 90, 0])
-                topFaceSideHolePositions()
-                    boltHoleM3Tap(8, horizontal=true, rotate=90, chamfer_both_ends=false);
-    }
-}
 
 module Left_Face_CF_dxf() {
     dxf("Left_Face_CF")
@@ -319,16 +228,6 @@ assembly("Left_Face_CF", big=true) {
     translate([-eps, 0, 0])
         rotate([90, 0, 90]) {
             Left_Face_CF();
-            explode(20, show_line=false) {
-                stl_colour(pp2_colour)
-                    Front_Face_Joiner_stl();
-                stl_colour(pp2_colour)
-                    Left_Face_Back_Joiner_stl();
-                    //Left_Face_Lower_Joiner_Front_stl();
-                    //Left_Face_Lower_Joiner_Back_stl();
-                stl_colour(pp2_colour)
-                    Left_Face_Upper_Joiner_stl();
-            }
             *lowerSideJoinerHolePositions(left=true)
                 vflip()
                     explode(10, true)
@@ -376,10 +275,8 @@ module rightFaceIEC_hardware() {
         }
 }
 
-//! 1. Bolt the **Front_Face_Joiner**, the **Right_Face_Back_Joiner**, and the **Right_Face_Upper_Joiner** to the
-//!**Right_Face**
-//! 2. Bolt the **XY_Idler_Bracket_Right_assembly** and the **XY_Motor_Mount_Right_CF_assembly** to the **Right_Face**
-//! 3. Bolt the extruder, cork damper and stepper motor to the **Right_Face**.
+//! 1. Bolt the extruder, cork damper and stepper motor to the **Right_Face**.
+//! 2. Bolt the IEC power connector to the **Right_Face**.
 //
 module Right_Face_CF_assembly() pose(a=[55, 0, 25 + 50 - 20])
 assembly("Right_Face_CF", big=true) {
@@ -387,17 +284,6 @@ assembly("Right_Face_CF", big=true) {
     translate([eX + 2*eSizeX + eps, 0, 0]) {
         rotate([90, 0, 90]) {
             Right_Face_CF();
-            explode(-20, show_line=false) {
-                translate([0, 0, -eSizeXBase - _sidePlateThickness])
-                    stl_colour(pp2_colour)
-                        Front_Face_Joiner_stl();
-                rotate([180, 0, 0]) {
-                    stl_colour(pp2_colour)
-                        Right_Face_Upper_Joiner_stl();
-                    stl_colour(pp2_colour)
-                        Right_Face_Back_Joiner_stl();
-                }
-            }
             *lowerSideJoinerHolePositions(left=false)
                 explode(10, true)
                     boltM3Buttonhead(screw_shorter_than(topBoltHolderSize().z + _sidePlateThickness));
@@ -418,14 +304,6 @@ assembly("Right_Face_CF", big=true) {
     }
     rightFaceHardware(xyMotorType(), cnc=true);
     rightFaceAssembly(_xyNEMA_width, zipTies=false);
-
-    translate(spoolHolderPosition(cf=true))
-        rotate([-90, 0, 90]) {
-            stl_colour(pp1_colour)
-                Spool_Holder_Bracket_stl();
-            spoolHolderBracketHardware(M3=true);
-        }
-
 
     explode([50, 0, 0], true, show_line=false) {
         rightFaceIEC();

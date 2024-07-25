@@ -159,6 +159,17 @@ assembly("Top_Face_CF_Stage_1", big=true) {
         Top_Face_CF();
     topFaceAssembly(NEMA_width(NEMA14_36), cf=true);
 
+    translate([-eps, 0, 0])
+        rotate([90, 0, 90])
+            stl_colour(pp3_colour)
+                Top_Face_Left_Joiner_stl();
+    translate([eX + 2*eSizeX + eps, 0, 0])
+        rotate([-90, 0, 90])
+            stl_colour(pp3_colour)
+                Top_Face_Right_Joiner_stl();
+    explode([0, 20, 0], show_line=false)
+        Top_Face_Front_Joiner_stl();
+
     explode(-20, show_line=false)
         Top_Face_Back_Joiner_stl();
     topFaceBackHolePositions(eZ)
@@ -244,6 +255,62 @@ module Top_Face_Back_Joiner_stl() {
         }
 }
 
+module Top_Face_Front_Joiner_stl() {
+    size = [eX - 120, eSizeY, eSizeZ];
+    stl("Top_Face_Front_Joiner");
+    difference() {
+        color(pp1_colour)
+            translate([(eX + 2*eSizeX - size.x) / 2, _frontPlateCFThickness, eZ - size.z - _topPlateThickness])
+                rounded_cube_xy(size, _fillet);
+        rotate([90, 0, 0])
+            frontFaceUpperHolePositions(-_frontPlateCFThickness)
+                vflip()
+                    boltHoleM3Tap(size.y, horizontal=true, rotate=180);
+        topFaceFrontHolePositions(eZ - _topPlateThickness, cf=true)
+            vflip()
+                boltHoleM3Tap(9);
+    }
+}
+
+module topFaceSideJoiner() {
+    offset = 70;
+    size = topBoltHolderSize(cnc=true) - [offset, 0, 0];
+    difference() {
+        translate([_frontPlateCFThickness + offset, eZ - _topPlateThickness - size.y, _sidePlateThickness])
+            rounded_cube_xy(size, _fillet);
+        /*cutoutSize = [11, 1, size.z + 2*eps];
+        translate([_frontPlateCFThickness, eZ - _topPlateThickness - size.y, _sidePlateThickness - eps]) {
+            cube(cutoutSize);
+            translate([0, cutoutSize.y, 0])
+                fillet(1, size.z + 2*eps);
+            translate([cutoutSize.x, 0, 0])
+                fillet(1, size.z + 2*eps);
+        }*/
+        translate([0, eZ - _topPlateThickness, eX + 2*eSizeX])
+            rotate([90, 90, 0])
+                topFaceSideHolePositions()
+                    boltHoleM3Tap(8, horizontal=true, rotate=90, chamfer_both_ends=false);
+    }
+}
+module Top_Face_Left_Joiner_stl() {
+    stl("Top_Face_Left_Joiner")
+        difference() {
+            color(pp3_colour)
+                topFaceSideJoiner();
+            upperSideJoinerHolePositions(_sidePlateThickness)
+                boltHoleM3Tap(topBoltHolderSize().z);
+        }
+}
+module Top_Face_Right_Joiner_stl() {
+    stl("Top_Face_Right_Joiner")
+        mirror([0, 1, 0])
+            difference() {
+                color(pp3_colour)
+                    topFaceSideJoiner();
+                upperSideJoinerHolePositions(_sidePlateThickness)
+                    boltHoleM3Tap(topBoltHolderSize().z);
+            }
+}
 
 /*
 // used for debug
@@ -265,7 +332,7 @@ module topFaceAssembly(NEMA_width, t=undef, cf=false) {
     yRailType = carriage_rail(yCarriageType);
 
     railOffset = yRailOffset(NEMA_width);
-    posY = carriagePosition(t).y - _yRailLength/2 - (_fullLengthYRail ? 0 : eSizeY);
+    posY = carriagePosition(t).y - railOffset.y;
 
     translate(railOffset)
         rotate([180, 0, 90])

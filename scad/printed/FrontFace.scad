@@ -36,7 +36,7 @@ module frontFaceCF(coverBelts) {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2]) {
             translate([insetX, 50])
-                rounded_square([size.x - 2*insetX, eZ - insetY - 50 - (coverBelts ? 24 : 0)], 3, center=false);
+                rounded_square([size.x - 2*insetX, eZ - insetY - 50 + 15 - (coverBelts ? 24 : 0)], 3, center=false);
             if (coverBelts) {
                 if (_fullLengthYRail)
                     for (x = [18.5, size.x - 18.5])
@@ -92,56 +92,63 @@ module Front_Face_CF() {
 module Nameplate_stl() {
     size = [eX < 220 ? 80 : eX == 220 ? 100 : 140, 22, 3];
     stl("Nameplate");
+    difference() {
+        translate([(eX + 2*eSizeX - size.x)/2, eZ - size.y - _topPlateThickness])
+            color(grey(30))
+                rounded_cube_xy(size, 2);
+        translate([(eX + 2*eSizeX - size.x)/2, eZ - size.y - _topPlateThickness])
+            translate([size.x/2, 10, size.z - 1 + eps])
+                linear_extrude(1)
+                    text(_cubeName, size=14, font="Calibri", halign="center", valign="center");
+        frontFaceUpperHolePositions()
+            boltHoleM3(size.z);
+    }
+}
+module nameplateText() {
+    size = [80, 22, 3];
+    translate([(eX + 2*eSizeX)/2, eZ - 15, 2 + eps])
+        color(grey(95))
+            linear_extrude(1)
+                text(_cubeName, size=14, font="Calibri", halign="center", valign="center");
+}
+
+module Front_Face_Side_Joiner_stl() {
+    stl("Front_Face_Side_Joiner")
         difference() {
-            translate([(eX + 2*eSizeX - size.x)/2, eZ - size.y - _topPlateThickness])
-                color(grey(30))
-                    rounded_cube_xy(size, 2);
-            translate([(eX + 2*eSizeX - size.x)/2, eZ - size.y - _topPlateThickness])
-                translate([size.x/2, 10, size.z - 1 + eps])
-                    linear_extrude(1)
-                        text(_cubeName, size=14, font="Calibri", halign="center", valign="center");
-            frontFaceUpperHolePositions()
-                boltHoleM3(size.z);
+            offsetBottom = eZ == 200 ? 30 : 45;
+            offsetTop = eZ == 200 ? 70 : 85;
+            translate([_sidePlateThickness, offsetBottom, _sidePlateThickness])
+                color(pp2_colour)
+                    rounded_cube_xy([eSizeY, eZ - offsetTop - offsetBottom, eSizeXBase - _sidePlateThickness], _fillet);
+            frontSideJoinerHolePositions(_sidePlateThickness)
+                boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
+            rotate([0, -90, 0])
+                frontFaceSideHolePositions(-_frontPlateCFThickness)
+                    vflip()
+                        boltHoleM3Tap(eSizeY - _frontPlateCFThickness, horizontal=true, rotate=-90, chamfer_both_ends=false);
         }
 }
 
-module Front_Face_Top_Joiner_stl() {
-    size = [eX - 120, eSizeY, eSizeZ];
-    stl("Front_Face_Top_Joiner");
-    difference() {
-        color(pp1_colour)
-            translate([(eX + 2*eSizeX - size.x) / 2, _frontPlateCFThickness, eZ - size.z - _topPlateThickness])
-                rounded_cube_xy(size, _fillet);
-        rotate([90, 0, 0])
-            frontFaceUpperHolePositions(-_frontPlateCFThickness)
-                vflip()
-                    boltHoleM3Tap(size.y, horizontal=true, rotate=180);
-        topFaceFrontHolePositions(eZ - _topPlateThickness, cf=true)
-            vflip()
-                boltHoleM3Tap(9);
-    }
-}
 
 //! Bolt the **Nameplate** and the **Front_Face_Top_Joiner** to the **Front_Face**.
 //
 module Front_Face_CF_assembly()
 assembly("Front_Face_CF") {
-    explode([0, 20, 0], show_line=false)
-        Front_Face_Top_Joiner_stl();
+    translate([-eps, 0, 0])
+        rotate([90, 0, 90])
+            explode(20, show_line=false)
+                stl_colour(pp2_colour)
+                    Front_Face_Side_Joiner_stl();
+
+    translate([eX + 2*eSizeX + eps, 0, 0])
+        rotate([90, 0, 90])
+            explode(-20, show_line=false)
+                translate([0, 0, -eSizeXBase - _sidePlateThickness])
+                    stl_colour(pp2_colour)
+                        Front_Face_Side_Joiner_stl();
 
     rotate([90, 0, 0]) {
         Front_Face_CF();
-        explode(20, true, show_line=false) {
-            stl_colour(grey(30))
-                Nameplate_stl();
-            size = [80, 22, 3];
-            translate([(eX + 2*eSizeX)/2, eZ - 15, 2 + eps])
-                color(grey(95))
-                    linear_extrude(1)
-                        text(_cubeName, size=14, font="Calibri", halign="center", valign="center");
-            frontFaceUpperHolePositions(3)
-                boltM3Buttonhead(12);
-        }
         *if (_useFrontSwitch)
             translate([rockerPosition(rocker_type()).z, rockerPosition(rocker_type()).y])
                 rocker(rocker_type(), "red");

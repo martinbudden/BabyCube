@@ -41,14 +41,12 @@ module staged_explode(z=0, show_line=true) {
                 children();
 }
 
-//! Bolt the **Right_Face_CF_assembly** to the **BaseCF_assembly**
+//! Bolt the **Right_Face_CF_assembly** to the **BaseCF_assembly** and the **Back_Face_CF_assembly**.
 //
-module Stage_1_CF_assembly()
-staged_assembly("Stage_1_CF", big=true, ngb=true) {
+module Stage_2_CF_assembly()
+staged_assembly("Stage_2_CF", big=true, ngb=true) {
 
-    translate_z(-eps)
-        staged_explode()
-            BaseCF_assembly();
+    Stage_1_CF_assembly();
 
     explode([100, 50, 0], true, show_line=false) {
         Right_Face_CF_assembly();
@@ -60,15 +58,17 @@ staged_assembly("Stage_1_CF", big=true, ngb=true) {
     }
 }
 
-//! Bolt the **Left_Face_CF_assembly** to the base
+//! Bolt the **Left_Face_CF** to the **BaseCF_assembly** and the **Back_Face_CF_assembly**.
 //
-module Stage_2_CF_assembly()
-staged_assembly("Stage_2_CF", big=true, ngb=true) {
+module Stage_3_CF_assembly()
+staged_assembly("Stage_3_CF", big=true, ngb=true) {
 
-    Stage_1_CF_assembly();
+    Stage_2_CF_assembly();
 
     explode([-100, 0, 25], true) {
-        Left_Face_CF_assembly();
+        translate([-eps, 0, 0])
+            rotate([90, 0, 90])
+                Left_Face_CF();
         rotate([90, 0, 90])
             lowerSideJoinerHolePositions(left=true)
                 vflip()
@@ -77,12 +77,14 @@ staged_assembly("Stage_2_CF", big=true, ngb=true) {
     }
 }
 
-//! Bolt the **Back_Face_CF_assembly** to the base and left and right faces.
+//! Bolt the **Back_Face_CF_assembly** to the **BaseCF_assembly**.
 //
-module Stage_3_CF_assembly()
-staged_assembly("Stage_3_CF", big=true, ngb=true) {
+module Stage_1_CF_assembly()
+staged_assembly("Stage_1_CF", big=true, ngb=true) {
 
-    Stage_2_CF_assembly();
+    translate_z(-eps)
+        staged_explode()
+            BaseCF_assembly();
 
     explode([0, 200, 0], true) {
         Back_Face_CF_assembly();
@@ -147,6 +149,13 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
             xyMotorMountBackHolePositions(left=left, z= -eY - 2*eSizeY - _backPlateCFThickness)
                 vflip()
                     boltM3Buttonhead(10);
+    translate(spoolHolderPosition(cf=true))
+        rotate([-90, 0, 90]) {
+            stl_colour(pp1_colour)
+                Spool_Holder_Bracket_stl();
+            spoolHolderBracketHardware(M3=true);
+        }
+
     staged_explode()
         explode(100, true) {
             topFaceSideHolePositions(eZ)
@@ -158,7 +167,7 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
         }
 }
 
-//! Bolt the **Front_Face_CF_assembly** to the base and left and right faces.
+//! Bolt the **Front_Face_CF_assembly** to the base and the top, left, and right faces.
 //
 module Stage_5_CF_assembly()
 staged_assembly("Stage_5_CF", big=true, ngb=true) {
@@ -174,6 +183,14 @@ staged_assembly("Stage_5_CF", big=true, ngb=true) {
         }
         Front_Face_CF_assembly();
     }
+    rotate([90, 0, 0])
+        explode(20, true, show_line=false) {
+            stl_colour(grey(30))
+                Nameplate_stl();
+            nameplateText();
+            frontFaceUpperHolePositions(3)
+                boltM3Buttonhead(12);
+        }
 }
 
 module CF_FinalAssembly() {
@@ -207,7 +224,9 @@ module CF_DebugAssembly() {
         explode([0, -explode, 0])
             Front_Face_CF_assembly();
         explode([-explode, 0, 0])
-            Left_Face_CF_assembly();
+            translate([-eps, 0, 0])
+                rotate([90, 0, 90])
+                    Left_Face_CF();
         explode([explode, 0, 0])
             Right_Face_CF_assembly();
         explode(-eps)

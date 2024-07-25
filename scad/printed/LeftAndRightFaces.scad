@@ -470,33 +470,8 @@ module frame(NEMA_type, left=true) {
 }
 
 function extruderZipTiePositions() = [10, 48];
-function motorUprightZipTiePositions() = [30, middleWebOffsetZ() - 18];
 function idlerUprightZipTiePositions() = [middleWebOffsetZ() - 20];
 function bottomChordZipTiePositions(left) = left ? [eY/2 + eSizeY + 30, eY + 2*eSizeY - 30] : [eY + 2*eSizeY - 30];
-
-module zipTieCutout() {
-    cutoutSize = [5, 4, 2];
-    cutoutDepth = cutoutSize.x/2;
-
-    translate([0, -cutoutSize.y/2, - cutoutSize.z - cutoutDepth]) {
-        difference() {
-            union() {
-                translate([-eps, 0, 0])
-                    cube(cutoutSize + [eps, 0, 0]);
-                translate([cutoutSize.x - cutoutSize.z, 0, 0])
-                    cube([cutoutSize.z, cutoutSize.y, cutoutSize.z + cutoutDepth + 2*eps]);
-                translate([cutoutSize.x - cutoutSize.z + eps, -eps, cutoutSize.y - cutoutSize.z - eps])
-                    rotate([90, 0, 180])
-                        right_triangle(1.5, 1.5, cutoutSize.y + 2*eps, center=false);
-            }
-            // add a fillet to make it easier to insert the ziptie
-            translate([cutoutSize.x + eps, -eps, -eps])
-                rotate([90, 0, 180])
-                    fillet(3, cutoutSize.y + 2*eps); // rounded fillet seems to work better than triangular one
-                    //right_triangle(1, 1, cutoutSize.y + 2*eps, center=false);
-        }
-    }
-}
 
 module leftAndRightFaceZipTies(left, lowerZipTies=true) {
     translate([eY + 2*eSizeY - motorUprightWidth, 0, 0])
