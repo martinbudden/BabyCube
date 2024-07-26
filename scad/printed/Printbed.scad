@@ -159,12 +159,13 @@ module printbed(printBedSize) {
 module Print_bed_assembly()
 assembly("Print_bed") {
 
+    printBedSize = 100;
     translate([eX/2 + eSizeX, eY + 2*eSizeY - _zLeadScrewOffset, 0]) // this moves it to the back face
         rotate(180)
-            translate_z(-heatedBedSize(_printBedSize).z - underlayThickness - printSurfaceThickness- magneticBaseThickness) {
+            translate_z(-heatedBedSize(printBedSize).z - underlayThickness - printSurfaceThickness- magneticBaseThickness) {
                 Z_Carriage_assembly();
-                printbed(_printBedSize);
+                printbed(printBedSize);
                 if (!exploded())
-                    Z_Carriage_cable_ties(_printBedSize);
+                    Z_Carriage_cable_ties(printBedSize);
             }
 }

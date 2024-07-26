@@ -88,17 +88,17 @@ module zCarriageCrossPiece(crossPieceSize, armSizeX) {
             fillet(crossPieceFillet, crossPieceSize.z);
 }
 
-module zCarriage(printBedSize, testing=false) {
-    armSeparation = printBedSize==100 ? _zRodSeparation - 5 : _zRodSeparation + 18;
+module zCarriage(printBedSize, zRodSeparation=_zRodSeparation, testing=false) {
+    armSeparation = printBedSize<=100 ? 95 : zRodSeparation + 18;
     armSize = armSize(printBedSize);
-    supportSize = [_zRodSeparation, tubeDiameter + 4, baseThickness];
+    supportSize = [zRodSeparation, tubeDiameter + 4, baseThickness];
 
     //echo("zc hbo", heatedBedOffset());
     //echo("zc ym, dd", _yMax, eY + 2*eSizeY- heatedBedOffset().y - _zLeadScrewOffset);
 
     difference() {
         union() {
-            for (x = [-_zRodSeparation/2, _zRodSeparation/2])
+            for (x = [-zRodSeparation/2, zRodSeparation/2])
                 translate([x, 0, 0]) {
                     cylinder(d=tubeDiameter, h=testing ? 25 : bearing_length(bearing_type) - bearingOffset);
                     cylinder(d=supportSize.y, h=testing ? 25 : supportSize.z);
@@ -129,7 +129,7 @@ module zCarriage(printBedSize, testing=false) {
                         fillet(5, armSize.z);
                 triangleFillet = 1;
                 triangleWidth = 7;
-                braceSeparation = (_zRodSeparation - 5 + armSize.x - triangleWidth) + (printBedSize == 120 ? 8 : 0);
+                braceSeparation = (zRodSeparation - 5 + armSize.x - triangleWidth) + (printBedSize == 120 ? 8 : 0);
                 for (x = [-braceSeparation/2, braceSeparation/2])
                     translate([x, supportSize.y/2 - 2*triangleFillet - (printBedSize == 120 ? 5 : 4), 8])
                         rotate([90, 0, 90]) {
@@ -138,7 +138,7 @@ module zCarriage(printBedSize, testing=false) {
                         }
             } // end testing
         } // end union
-        for (x = [-_zRodSeparation/2, _zRodSeparation/2])
+       for (x = [-zRodSeparation/2, zRodSeparation/2])
             translate([x, 0, -eps]) {
                 poly_cylinder(r=bearing_dia(bearing_type)/2, h=bearing_length(bearing_type) + 2*eps);
                 cut = 1.5;
@@ -154,9 +154,11 @@ module zCarriage(printBedSize, testing=false) {
             translate_z(supportSize.z - leadnutInset)
                 poly_cylinder(r=leadnut_flange_dia(leadnut)/2, h = leadnutInset + 2*eps);
             translate_z(-supportSize.z/2)
-                leadnut_screw_positions(leadnut)
-                    rotate(27) // rotate the poly cylinders to give a bit more clearance from the center hole
-                        poly_cylinder(r=screw_pilot_hole(leadnut_screw(leadnut)), h=supportSize.z + 2);
+                for (a = [0, 90, 180, 270])
+                    rotate(a)
+                        translate([leadnut_hole_pitch(leadnut), 0, leadnut_flange_t(leadnut)])
+                            //poly_cylinder(r = (a==0 || a==180) ? M3_clearance_radius : M3_tap_radius, h=supportSize.z + 2);
+                            poly_cylinder(r = (a==0 || a==180) ? screw_clearance_radius(leadnut_screw(leadnut)) : screw_pilot_hole(leadnut_screw(leadnut)), h=supportSize.z + 2);
         }
         translate([0, heatedBedSize(printBedSize).y/2 + heatedBedOffset(printBedSize).y, 0])
             for (i = heatedBedHoles(printBedSize) )
@@ -175,27 +177,21 @@ module Z_Carriage_cable_ties(printBedSize) {
                 cable_tie(cable_r=3, thickness=1);
 }
 
-module zCarriage_hardware() {
+module zCarriage_hardware(zRodSeparation=_zRodSeparation) {
     brassColor = "#B5A642";
     explode(-20, true) {
-        *translate_z(-leadnut_flange_t(leadnut)) {
-            color(brassColor)
-                leadnut(leadnut);
-            translate_z(-leadnut_flange_t(leadnut))
-                leadnut_screw_positions(leadnut)
-                    vflip()
-                        screw(leadnut_screw(leadnut), 8);
-        }
-        translate_z(baseThickness - leadnutInset) {
+        translate_z(baseThickness - leadnutInset)
             explode(50)
                 color(brassColor)
                     leadnut(leadnut);
-            explode(80)
-                leadnut_screw_positions(leadnut)
-                    screw(leadnut_screw(leadnut), 8);
-        }
+        explode(-15)
+            for (a = [0, 180])
+                rotate(a)
+                    translate([leadnut_hole_pitch(leadnut), 0, 0*leadnut_flange_t(leadnut)])
+                        vflip()
+                            screw(leadnut_screw(leadnut), 8);
     }
-    for (x = [-_zRodSeparation/2, _zRodSeparation/2])
+    for (x = [-zRodSeparation/2, zRodSeparation/2])
         translate([x, 0, 0])
             translate_z(bearing_length(bearing_type)/2 - bearingOffset)
                 explode(80)
@@ -205,7 +201,13 @@ module zCarriage_hardware() {
 module Z_Carriage_stl() {
     stl("Z_Carriage")
         color(pp4_colour)
-            zCarriage(_printBedSize);
+            zCarriage(printBedSize=100, zRodSeparation=100);
+}
+
+module Z_Carriage_96_stl() {
+    stl("Z_Carriage_96")
+        color(pp4_colour)
+            zCarriage(printBedSize=100, zRodSeparation=96);
 }
 
 //! Slide the linear bearings into the **Z_Carriage**.
