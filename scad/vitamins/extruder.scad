@@ -18,7 +18,7 @@ function extruderBowdenOffset() = [18, 4.5, 30];
 function extruderBaseSize() = [42, 42, 4];
 function extruderFilamentOffset() = [extruderBowdenOffset().y, extruderBaseSize().y / 2, extruderBowdenOffset().x];
 
-module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17_47, motorOffsetZ = 3, motorRotate = 180, corkDamperThickness = 0, extruderExplode=30, motorExplode=100, color = "crimson") {
+module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17_47, motorOffsetZ = 3, motorRotate = 180, screwLength = 10, corkDamperThickness = 0, extruderExplode=30, motorExplode=100, color = "crimson") {
     vitamin(str("Extruder_MK10_Dual_Pulley() : MK10 Dual Pulley Extruder"));
 
     baseSize = extruderBaseSize();
@@ -230,22 +230,21 @@ module Extruder_MK10_Dual_Pulley(NEMA_type = NEMA17_47, motorOffsetZ = 3, motorR
         translate_z(baseSize.z) {
             for (i = [ [-1, 1, 0], [1, 1, 0] ])
                 translate(i * motorHoleOffset / 2)
-                    screw(M3_dome_screw, 10);
+                    screw(M3_dome_screw, screwLength);
             translate([-motorHoleOffset / 2, -motorHoleOffset / 2, 0])
-                screw(M3_cs_cap_screw, 10);
+                screw(M3_cs_cap_screw, screwLength);
         }
 
     }
 
     explode(-motorExplode, true)
         if (NEMA_type) {
-            translate_z(-corkDamperThickness) {
+            translate_z(-motorOffsetZ) {
+                rotate(motorRotate)
+                    NEMA(NEMA_type, jst_connector = true);
                 if (corkDamperThickness)
                     explode(40)
                         corkDamper(NEMA_type, corkDamperThickness);
-                translate_z(-motorOffsetZ)
-                    rotate(motorRotate)
-                        NEMA(NEMA_type, jst_connector = true);
             }
             translate_z(pulley_height(extruder_pulley) + 7)
                 vflip()
