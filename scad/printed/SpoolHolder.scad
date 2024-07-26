@@ -149,12 +149,16 @@ module spoolHolderBracketHolePositions(size=[50, 30, 10], M3=true, z=0) {
             children();
 }
 
-module spoolHolderBracketHardware(M3=true) {
-    spoolHolderBracketHolePositions(M3=M3, z=6)
-        vflip()
-            if (M3)
+module spoolHolderBracketHardware(M3=true, z=6) {
+    spoolHolderBracketHolePositions(M3=M3, z=z)
+        if (M3) {
+            vflip()
                 boltM3Buttonhead(12);
-            else
+            translate_z(7)
+                nut_and_washer(M3_nut, true);
+        } else {
+            vflip()
                 boltM4Buttonhead(12);
+        }
 }
 
