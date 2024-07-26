@@ -30,7 +30,7 @@ function topFaceFrontHolePositionOffsetY() = 8;
 function upperSideJoinerHolePositions() = eY == 180 ? [ 40, 80, 120, 160 ] : [ 50, 90, 130 ];
 function lowerSideJoinerHolePositions(left) = [ 10, 10 + eY/3, 10 + 2*eY/3, eY + 10 ];
 function backSideJoinerHolePositions() =  eZ == 200 ? [ 45, 80 ] : [50, 90, 130];
-function frontSideJoinerHolePositions(bolts=false) = eZ == 200 ? (bolts ? [40, 80] : [ 40, 80, 120 ]) : [ 50, 90, 130, 170];
+function frontSideJoinerHolePositions(bolts=false) = eZ == 200 ? (bolts ? [40, 80] : [ 40, 80, 120 ]) : [ 50 ];
 
 function backFaceHolePositions(cf=false) = concat([eSizeY/2 + 1, middleWebOffsetZ() + eSizeY/2], cf ? [] : [eZ - eSizeY/2 - _topPlateThickness]);
 
@@ -182,7 +182,8 @@ module frontFaceSideHolePositions(z=0) {
         translate([x, size.y - 15.5, z])
             children();
     for (x = [(_sidePlateThickness + eSizeXBase)/2, size.x - (_sidePlateThickness + eSizeXBase)/2],
-         y = [60 : 40 : eZ - 60])
+          //y = [60 : 40 : eZ - 60])
+          y = [20, 140])
         translate([x, y + (eZ == 200 ? 0 : 10), z])
             children();
 }

@@ -157,12 +157,12 @@ module XY_IdlerBracketCutouts(coreXYPosBL) {
                 boltHoleM3TapOrInsert(sizeY, horizontal=true);
 }
 
-module idlerBracketHolePositions(coreXYPosBL, offset) {
+module idlerBracketSideHolePositions(coreXYPosBL, offset) {
     size = idlerBracketSize(coreXYPosBL) - [offset, 0, 0];
     separation = coreXYSeparation().z;
     if (offset) {
         translate([0, -2*separation + yCarriageBraceThickness() - size.y])
-            translate([size.x/2, size.y/2, 0])
+            translate([eSizeY/2, size.y/2, 0])
                 children();
         translate([size.x/2, idlerBracketTopSizeY()/2, 0])
             children();
@@ -172,7 +172,7 @@ module idlerBracketHolePositions(coreXYPosBL, offset) {
 module xyIdlerBracketHolePositions(NEMA_width) {
     coreXYPosBL = coreXYPosBL(NEMA_width);
     translate([3, coreXYPosBL.z + 10, 0])
-        idlerBracketHolePositions(coreXYPosBL, _sidePlateThickness)
+        idlerBracketSideHolePositions(coreXYPosBL, _sidePlateThickness)
             children();
 }
 
@@ -236,27 +236,20 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, l
     //boltPos = [coreXYPosBL.y - offset, 0, coreXYPosBL.x - _sidePlateThickness];
     //baseLength = eZ - coreXYPosBL.z + separation + size.y - yRailSupportSize(NEMA_width).y;
     offsetY = 9.5;
-    translate([offset, -yCarriageBraceThickness()/2, _sidePlateThickness])
-        difference() {
-            idlerBracket(coreXYPosBL, NEMA_width, offset, reversedBelts, left);
-            translate([-offset, yCarriageBraceThickness()/2 + offsetY + topBoltHolderSize().y, eX + 2*eSizeX - _sidePlateThickness])
-                rotate([90, 90, 0])
-                    topFaceFrontHolePositions(cf=true)
-                        boltHoleM3Tap(8, horizontal=true, rotate=90, chamfer_both_ends=false);
-            idlerBracketHolePositions(coreXYPosBL, offset)
-                boltHoleM3Tap(12);
-    }
-    if (cnc) {
-        size = [eY == 180 ? 45 : 55, topBoltHolderSize().y, topBoltHolderSize().z];
-        fillet = 1;
-        difference() {
-            translate([_frontPlateCFThickness, offsetY, _sidePlateThickness])
-                union() {
+    size = [eY == 180 ? 45 : 55, topBoltHolderSize().y, topBoltHolderSize().z];
+    fillet = 1;
+
+    difference() {
+        union() {
+            translate([offset, -yCarriageBraceThickness()/2, _sidePlateThickness])
+                idlerBracket(coreXYPosBL, NEMA_width, offset, reversedBelts, left);
+            if (cnc)
+                translate([_frontPlateCFThickness, offsetY, _sidePlateThickness]) {
                     rounded_cube_xy(size, _fillet);
                     size2 = [eSizeY, 4*fillet, size.z];
                     translate([0, -size2.y + 2*fillet, 0])
                         cube(size2);
-                    size3 = [eSizeY, eZ == 200 ? 25 : 40, reversedBelts ? 8.5: eSizeZ];
+                    size3 = [eSizeY, 25, reversedBelts ? 8.5: eSizeZ];
                     translate([0, -size3.y - 30, 0])
                         rounded_cube_xy(size3, 1.5);
                     if (!left && reversedBelts) {
@@ -265,9 +258,16 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, l
                             rounded_cube_xy(size4, 1.5);
                     }
                 }
-            translate([_sidePlateThickness, -eZ + 160.5, (eSizeX + _sidePlateThickness)/2])
-                rotate([0, 90, 0])
-                    boltHoleM3Tap(eSizeZ, horizontal=true, rotate=90, chamfer_both_ends=true);
+        } // end union
+        translate([offset, -yCarriageBraceThickness()/2, _sidePlateThickness]) {
+            translate([-offset, yCarriageBraceThickness()/2 + offsetY + topBoltHolderSize().y, eX + 2*eSizeX - _sidePlateThickness])
+                rotate([90, 90, 0])
+                    topFaceFrontHolePositions(cf=true)
+                        boltHoleM3Tap(8, horizontal=true, rotate=90, chamfer_both_ends=false);
+            idlerBracketSideHolePositions(coreXYPosBL, offset)
+                boltHoleM3Tap(12);
+        }
+        if (cnc) {
             translate([0, size.y + offsetY, eX + 2*eSizeX])
                 rotate([90, 90, 0])
                     topFaceSideHolePositions()
@@ -278,9 +278,12 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, l
             translate([_sidePlateThickness, 30 - eZ - offsetY, eX + 2*eSizeX])
                 rotate([0, 90, 0])
                     frontFaceSideHolePositions()
-                        boltHoleM3Tap(8, horizontal=true, rotate=90, chamfer_both_ends=false);
+                        boltHoleM3Tap(10, horizontal=true, rotate=90, chamfer_both_ends=false);
+            *translate([_sidePlateThickness, -eZ + 160.5, (eSizeX + _sidePlateThickness)/2])
+                rotate([0, 90, 0])
+                    boltHoleM3Tap(eSizeZ, horizontal=true, rotate=90, chamfer_both_ends=true);
         }
-    }
+    } // end difference
 }
 
 module XY_IdlerBracketHardware(coreXYPosBL, reversedBelts=false, left=true) {
