@@ -62,7 +62,7 @@ module leftFaceHardware(NEMA_type, cnc=false, rocker=true) {
                 rotate([0, -90, 0])
                     rocker(rocker_type(), "red");
         }
-        if (!exploded())
+        if (!exploded() && !cnc)
             leftAndRightFaceZipTies(left=true, lowerZipTies=!cnc);
     }
 }
@@ -152,9 +152,10 @@ module rightFaceAssembly(NEMA_width, zipTies=true) {
     stepper_motor_cable(400); // cable to extruder motor
     if (!exploded() && zipTies)
         rightFaceExtruderZipTies(NEMA_width);
+    corkDamperThickness = _useCNC ? 0 : _corkDamperThickness; // no cork damper necessary to between motor and CF right side
     translate(extruderPosition(NEMA_width))
         rotate([90, 0, 90])
-            Extruder_MK10_Dual_Pulley(extruderMotorType(), extruderMotorOffsetZ(), corkDamperThickness=_corkDamperThickness);
+            Extruder_MK10_Dual_Pulley(extruderMotorType(), motorOffsetZ = extruderMotorOffsetZ() + corkDamperThickness, corkDamperThickness=corkDamperThickness);
 }
 
 
