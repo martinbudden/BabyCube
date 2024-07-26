@@ -122,8 +122,8 @@ module baseCutouts(cnc=false, cf=false, radius=M3_clearance_radius, pcb=undef) {
     }
 }
 
-//!1. Attach the Base_Template to the aluminium sheet and use it to drill out the holes. The base template has 2mm holes
-//!marked out for pilot holes. Once you have drilled these re-drill the holes with a 3mm bit. Note that the Base_Template
+//!1. Attach the **Base_Template** to the aluminium sheet and use it to drill out the holes. The base template has 2mm holes
+//!marked out for pilot holes. Once you have drilled these re-drill the holes with a 3mm bit. Note that the **Base_Template**
 //!has holes marked for the BTT E3 Mini V2, the BTT E3 Turbo and the BTT STL 1.4 boards - choose the appropriate holes for
 //!your board. If you are unable to source an aluminium sheet, it is possible to print and use the Base.stl file, but
 //!using and aluminium plate is much preferred.
