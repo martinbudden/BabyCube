@@ -345,12 +345,6 @@ module Base_Right_Joiner_stl() {
             difference() {
                 color(pp1_colour)
                     frameLower(NEMA_width, left=false, offset=_sidePlateThickness, cf=true);
-                translate([iecPosition().y, iecPosition().z, _sidePlateThickness])
-                    rotate([180, 0, 90])
-                        mirror([0, 1, 0])
-                            iec_screw_positions(iecType())
-                                vflip()
-                                    boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
                 lowerSideJoinerHolePositions(_sidePlateThickness, left=false)
                     boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
                 faceConnectorHolePositions()

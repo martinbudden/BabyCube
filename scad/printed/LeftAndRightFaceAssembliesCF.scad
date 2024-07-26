@@ -6,6 +6,7 @@ include <NopSCADlib/vitamins/sheets.scad>
 
 include <LeftAndRightFaceAssemblies.scad>
 include <Extras.scad>
+include <IECHousing.scad>
 
 include <../Parameters_CoreXY.scad>
 
@@ -256,7 +257,7 @@ assembly("Left_Face_CF", big=true) {
     leftFaceHardware(xyMotorType(), cnc=true);
 }
 
-module rightFaceIEC() {
+module IEC_hardware() {
     translate(iecPosition())
         rotate([0, 90, 0]) {
             iec(iecType());
@@ -264,49 +265,40 @@ module rightFaceIEC() {
                 rotate(90)
                     not_on_bom() no_explode()
                         rocker(small_rocker, "red");
+            iec_screw_positions(iecType())
+                translate_z(3)
+                    boltM3Countersunk(12);
         }
 }
 
-module rightFaceIEC_hardware() {
-    translate(iecPosition() + [3, 0, 0])
-        rotate([0, 90, 0]) {
-            iec_screw_positions(iecType())
-                boltM3Countersunk(12);
-        }
+module IEC_Housing() {
+    translate(iecPosition())
+        rotate([-90, 0, -90])
+            IEC_Housing_stl();
 }
 
 //! 1. Bolt the extruder, cork damper and stepper motor to the **Right_Face**.
-//! 2. Bolt the IEC power connector to the **Right_Face**.
+//! 2. Bolt the IEC power connector through the **Right_Face** to the **IEC_Housing_stl**.
 //
 module Right_Face_CF_assembly() pose(a=[55, 0, 25 + 50 - 20])
 assembly("Right_Face_CF", big=true) {
 
-    translate([eX + 2*eSizeX + eps, 0, 0]) {
-        rotate([90, 0, 90]) {
+    translate([eX + 2*eSizeX + eps, 0, 0])
+        rotate([90, 0, 90])
             Right_Face_CF();
-            *lowerSideJoinerHolePositions(left=false)
-                explode(10, true)
-                    boltM3Buttonhead(screw_shorter_than(topBoltHolderSize().z + _sidePlateThickness));
-            upperSideJoinerHolePositions()
-                explode(10, true)
-                    boltM3Buttonhead(8);
-            backSideJoinerHolePositions()
-                explode(10, true)
-                    boltM3Buttonhead(10);
-            frontSideJoinerHolePositions(bolts=true)
-                explode(10, true)
-                    boltM3Buttonhead(10);
-        }
-    }
-    *explode([-20, 0, 0], show_line=false) {
-        XY_Motor_Mount_Right_CF_assembly();
-        XY_Idler_Bracket_Right_assembly();
-    }
+
+    translate(spoolHolderPosition(cf=true))
+        explode([40, 0, 0], true)
+            rotate([-90, 0, 90]) {
+                stl_colour(pp1_colour)
+                    Spool_Holder_Bracket_stl();
+                spoolHolderBracketHardware(M3=true, nutExplode=60);
+            }
     rightFaceHardware(xyMotorType(), cnc=true);
     rightFaceAssembly(_xyNEMA_width, zipTies=false);
 
-    explode([50, 0, 0], true, show_line=false) {
-        rightFaceIEC();
-        rightFaceIEC_hardware();
-    }
+    explode([-80, 0, 0], show_line=false)
+        IEC_Housing();
+    explode([40, 0, 0], true, show_line=false)
+        IEC_hardware();
 }

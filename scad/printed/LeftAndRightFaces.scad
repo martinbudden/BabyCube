@@ -3,7 +3,6 @@ include <../global_defs.scad>
 include <../vitamins/bolts.scad>
 
 use <NopSCADlib/utils/fillet.scad>
-include <NopSCADlib/vitamins/iecs.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 include <NopSCADlib/vitamins/rockers.scad>
 use <NopSCADlib/vitamins/wire.scad>
@@ -16,6 +15,7 @@ include <../utils/motorTypes.scad>
 
 include <../vitamins/inserts.scad>
 
+use <IECHousing.scad>
 use <SwitchShroud.scad>
 use <XY_IdlerBracket.scad>
 use <XY_Motors.scad>
@@ -27,8 +27,7 @@ function extruderMotorType() = NEMA17_40;
 
 function backBoltLength() = 9;
 
-function iecType() = IEC_320_C14_switched_fused_inlet;
-function iecPosition() = [eX + 2*eSizeX, eY + 2*eSizeY - eSizeY - 1 - iec_body_h(iecType())/2, eSizeZ/2 + iec_pitch(iecType())/2];
+function iecPosition() = [eX + 2*eSizeX, eY + 2*eSizeY - eSizeY - 1 - iec_body_h(iecType())/2, eSizeZ/2 + iec_pitch(iecType())/2] + [0, -10, 8];
 
 
 fillet = _fillet;
