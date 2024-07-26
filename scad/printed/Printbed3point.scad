@@ -87,12 +87,12 @@ module jointBoltHole() {
         cylinder(d = 4, h = eSize - 2*extrusionChannelDepth + 2*eps);
 }
 
-module printbed3pointFrame() {
+module printbed3pointFrame(zRodSeparation) {
     scsSize = scs_size(scs_type);
     yExtrusionLength = (floor(heatedBedSize.y/50) + 1)*50 + heatedBedOffsetE1515;
     bracketThickness = 5;
 
-    xs = [_zRodSeparation/2 - scs_hole_offset(scs_type) - eSize - bracketThickness, scs_hole_offset(scs_type) + bracketThickness - _zRodSeparation/2];
+    xs = [zRodSeparation/2 - scs_hole_offset(scs_type) - eSize, scs_hole_offset(scs_type) - zRodSeparation/2];
     for (x = xs)
         translate([x, -scsSize.x/2, 0]) {
             extrusionOY(yExtrusionLength, eSize);
@@ -127,10 +127,10 @@ module scs_bearing_block_hole_positions_x(type) {
 }
 
 sideBracketOffsetY = 1;
-module printBed3pointFrameSideBrackets(armSize, frameOffsetX) {
+sideBracketThickness = 6;
+module printBed3pointFrameSideBrackets(zRodSeparation, armSize, frameOffsetX) {
     scsSize = scs_size(scs_type);
     fillet = 1;
-    sideBracketThickness = 6;
     sideBracketSize = [sideBracketThickness, scsSize.x + 1 + 2*sideBracketOffsetY, scsSize.z + 1];
     sideBracketBraceSize = [scsSize.z - eSize, 1.5, sideBracketThickness]; // x value of scsSize.z - eSize for full size
 
@@ -145,7 +145,7 @@ module printBed3pointFrameSideBrackets(armSize, frameOffsetX) {
                 rotate([0, 90, 0])
                     rounded_right_triangle(sideBracketBraceSize.x, sideBracketBraceSize.y, sideBracketBraceSize.z, fillet, center=false, offset=true);
         }
-        translate([_zRodSeparation/2, 0, eSize - scsSize.z/2 - scs_screw_separation_z(scs_type)])
+        translate([zRodSeparation/2, 0, eSize - scsSize.z/2 - scs_screw_separation_z(scs_type)])
             rotate(-90)
                 scs_bearing_block_hole_positions_x(scs_type)
                     translate_z(-sideBracketThickness)
@@ -161,11 +161,11 @@ module printBed3pointFrameSideBrackets(armSize, frameOffsetX) {
                 rotate([0, 90, 0])
                     rounded_right_triangle(sideBracketBraceSize.x, sideBracketBraceSize.y, sideBracketBraceSize.z, fillet, center=false, offset=true);
         }
-        translate([-_zRodSeparation/2, 0, eSize - scsSize.z/2 - scs_screw_separation_z(scs_type)])
-                rotate(90)
-                    scs_bearing_block_hole_positions_x(scs_type)
-                        translate_z(-sideBracketThickness)
-                            boltHoleM5(sideBracketThickness, horizontal=true, chamfer=5, chamfer_both_ends=false);
+        translate([-zRodSeparation/2, 0, eSize - scsSize.z/2 - scs_screw_separation_z(scs_type)])
+            rotate(90)
+                scs_bearing_block_hole_positions_x(scs_type)
+                    translate_z(-sideBracketThickness)
+                        boltHoleM5(sideBracketThickness, horizontal=true, chamfer=5, chamfer_both_ends=false);
     }
 }
 
@@ -183,37 +183,39 @@ module Printbed_Frame_hole_positions() {
 }
 
 module Printbed_Frame_stl() {
+    zRodSeparation = _zRodSeparation;
     scsSize = scs_size(scs_type);
     armSize = [10, (floor(heatedBedSize.y/50) + 1)*50, eSize];
     endPieceSize = [heatedBedSize.x, 10, eSize];
     fillet = 1;
-    frameOffsetX = _zRodSeparation/2  - scsSize.y/2 - 1;
+    frameOffsetX = zRodSeparation/2  - scsSize.y/2 - 1;
 
     stl("Printbed_Frame")
         color(pp1_colour)
         vflip() {
-            translate([-endPieceSize.x/2, armSize.y - scsSize.x/2 + (eSize - endPieceSize.y)/2, 0]) {
-                difference() {
-                    rounded_cube_xy(endPieceSize, fillet);
-                    for (x = [ -heatedBedSize.x/2 + heatedBedHoleOffset, heatedBedSize.x/2 - heatedBedHoleOffset] )
-                        translate([x + endPieceSize.x/2, endPieceSize.y/2, 0])
-                            boltHoleM3Tap(eSize);
-                }
-                translate([endPieceSize.x/2 - frameOffsetX, 0, 0])
+            translate([0, armSize.y - scsSize.x/2 + (eSize - endPieceSize.y)/2, 0]) {
+                translate([-endPieceSize.x/2, 0, 0])
+                    difference() {
+                        rounded_cube_xy(endPieceSize, fillet);
+                        for (x = [ -heatedBedSize.x/2 + heatedBedHoleOffset, heatedBedSize.x/2 - heatedBedHoleOffset] )
+                            translate([x + endPieceSize.x/2, endPieceSize.y/2, 0])
+                                boltHoleM3Tap(eSize);
+                    }
+                translate([-frameOffsetX, 0, 0])
                     rotate(180)
                         fillet(5, eSize);
-                translate([endPieceSize.x/2 - frameOffsetX + armSize.x, 0, 0])
+                translate([-frameOffsetX + armSize.x, 0, 0])
                     rotate(270)
                         fillet(5, eSize);
-                translate([endPieceSize.x/2 + frameOffsetX, 0, 0])
+                translate([frameOffsetX, 0, 0])
                     rotate(270)
                         fillet(5, eSize);
-                translate([endPieceSize.x/2 + frameOffsetX - armSize.x, 0, 0])
+                translate([frameOffsetX - armSize.x, 0, 0])
                     rotate(180)
                         fillet(5, eSize);
             }
 
-            crossPieceSize = [_zRodSeparation - scsSize.y - 2 - armSize.x, 10, 5];
+            crossPieceSize = [zRodSeparation - scsSize.y - 2 - armSize.x, 10, 5];
             translate([-crossPieceSize.x/2, armSize.y/2, eSize])
                 vflip()
                     zCarriageCrossPiece(crossPieceSize, armSize.x);
@@ -221,11 +223,11 @@ module Printbed_Frame_stl() {
             render(convexity=8)
                 difference() {
                     union() {
-                        printBed3pointFrameSideBrackets(armSize, frameOffsetX);
+                        printBed3pointFrameSideBrackets(zRodSeparation, armSize, frameOffsetX);
                         linear_extrude(eSize)
                             difference() {
                                 union() {
-                                    squareSize = [_zRodSeparation - 2*scs_hole_offset(scs_type)-2*fillet - 0*armSize.x, 55];
+                                    squareSize = [zRodSeparation - 2*scs_hole_offset(scs_type)-2*fillet - 0*armSize.x, 55];
                                     translate([-squareSize.x/2, -scsSize.x/2 - 1, 0]) {
                                         //translate([-fillet, 0])
                                             square(squareSize, center=false);
@@ -237,19 +239,21 @@ module Printbed_Frame_stl() {
                                     }
                                 }
                                 poly_circle(r=leadnut_od(leadnut)/2);
+                                for (a = [0, 90, 180, 270])
+                                    rotate(a)
+                                        translate([leadnut_hole_pitch(leadnut), 0, leadnut_flange_t(leadnut)])
+                                            poly_circle(r = (a==0 || a==180) ? M3_clearance_radius : M3_tap_radius);
                             }
                     }
-                    leadnut_screw_positions(leadnut)
-                        boltHoleM3Tap(eSize);
                     poly_cylinder(r=leadnut_flange_dia(leadnut)/2, h=leadnutInset + 2*eps);
                     translate([0, armSize.y - heatedBedSize.y + eSize/2 + 2*heatedBedHoleOffset - scsSize.x/2, 0])
                         boltHoleM3Tap(eSize);
-                    translate([_zRodSeparation/2, 0, eSize - scsSize.z/2])
+                    translate([zRodSeparation/2, 0, eSize - scsSize.z/2])
                         rotate(-90)
                             scs_bearing_block_hole_positions_x(scs_type)
                                 rotate([180, 0, 180])
                                     boltHoleM3Tap(15, horizontal=true, chamfer_both_ends=false);
-                    translate([-_zRodSeparation/2, 0, eSize - scsSize.z/2])
+                    translate([-zRodSeparation/2, 0, eSize - scsSize.z/2])
                         rotate(90)
                             scs_bearing_block_hole_positions_x(scs_type)
                                 rotate([180, 0, 180])
@@ -260,22 +264,32 @@ module Printbed_Frame_stl() {
 
 module Printbed_Bracket_stl() {
     scsSize = scs_size(scs_type);
-    cubeSize = [_zRodSeparation - scsSize.y - 2, 45, 5];
+    zRodSeparation = _zRodSeparation;
+    cubeSize = [zRodSeparation - scsSize.y - 2 - 2*eSize, 55, eSize];
     armSize = [10, (floor(heatedBedSize.y/50) + 1)*50, eSize];
-    frameOffsetX = _zRodSeparation/2  - scsSize.y/2 - 1;
+    frameOffsetX = zRodSeparation/2  - scsSize.y/2 - 1;
 
     stl("Printbed_Bracket")
         color(pp1_colour) {
-            linear_extrude(cubeSize.z)
+            render(convexity=8)
                 difference() {
-                    translate([0, 0.5, 0])
-                        rounded_square(vec2(cubeSize), 1, center=true);
-                    circle(d=leadnut_od(leadnut));
-                    leadnut_screw_positions(leadnut)
-                        circle(r=M3_tap_radius);
+                    linear_extrude(cubeSize.z)
+                        difference() {
+                            translate([-cubeSize.x/2, -21, 0])
+                                rounded_square([cubeSize.x, cubeSize.y], 1, center=false);
+                            poly_circle(r=leadnut_od(leadnut)/2);
+                            for (a = [0, 90, 180, 270])
+                                rotate(a)
+                                    translate([leadnut_hole_pitch(leadnut), 0, leadnut_flange_t(leadnut)])
+                                        poly_circle(r = (a==0 || a==180) ? M3_clearance_radius : M3_tap_radius);
+                        }
+                    translate_z(-eps)
+                        poly_cylinder(r=leadnut_flange_dia(leadnut)/2, h=leadnutInset + 2*eps);
+                    translate([0, armSize.y - heatedBedSize.y + eSize/2 + 2*heatedBedHoleOffset - scsSize.x/2, 0])
+                        boltHoleM3Tap(eSize);
                 }
-            translate_z(-eSize)
-                printBed3pointFrameSideBrackets(undef, frameOffsetX);
+            *translate_z(-eSize)
+                printBed3pointFrameSideBrackets(zRodSeparation, undef, frameOffsetX);
         }
 }
 
@@ -295,43 +309,52 @@ module Print_bed_3_point_bed(y=0) {
     }
 }
 
-module translate_a(v) {
-    translate([v.x, v.y, v.z])
-        rotate(v[3])
-            children();
+module translate_r(v) {
+    assert(is_list(v));
+    if (is_list(v[0]))
+        translate(v[0])
+            rotate(v[1])
+                children();
+    else
+        translate([v.x, v.y, v.z])
+            rotate(v[3])
+                children();
 }
 
 
-module Print_bed_3_point_hardware(leadnutOffset=eSize/2, scsOffset=0) {
+module Print_bed_3_point_hardware(zRodSeparation, leadnutOffset=eSize/2, scsOffset=0) {
 
-    for (i = [  [_zRodSeparation/2, 0, scsOffset + eSize/2, -90],
-               [-_zRodSeparation/2, 0, scsOffset + eSize/2, 90] ])
-    translate_a(i)
+    scsScrewSeparationZ = scs_screw_separation_z(scs_type);
+
+    for (i = [ [ zRodSeparation/2, 0, scsOffset + eSize/2, -90],
+               [-zRodSeparation/2, 0, scsOffset + eSize/2, 90] ])
+    translate_r(i)
         explode([0, 30, 0], true) {
             scs_bearing_block(scs_type);
-            scs_bearing_block_hole_positions_x(scs_type)
+            scs_bearing_block_hole_positions_x(scs_type) {
                 translate_z(scs_block_side_height(scs_type))
                     explode(20, true)
                         boltM3Caphead(screw_longer_than(scs_block_side_height(scs_type) + 10));
+                translate([0, scsScrewSeparationZ, 0])
+                    vflip()
+                        translate_z(sideBracketThickness)
+                            boltM5Countersunk(12);
+            }
         }
 
-    scsSize = scs_size(scs_type);
-    for (i = [ [ _zRodSeparation/2 - 6 - eps, 0, eSize - scsSize.z/2 - scs_screw_separation_z(scs_type), -90],
-               [-_zRodSeparation/2 + 6 + eps, 0, eSize - scsSize.z/2 - scs_screw_separation_z(scs_type), 90] ])
-        translate_a(i)
-            scs_bearing_block_hole_positions_x(scs_type)
+    translate_z(leadnutOffset)
+        //translate_z((eSize + scs_screw_separation_z(scs_type) - scs_size(scs_type).z)/2) {
+        translate_z(scsOffset + scsScrewSeparationZ/2) {
+            brassColor = "#B5A642";
+            explode(-60, true)
                 vflip()
-                    boltM5Countersunk(12);
-
-    explode(-60, true)
-        translate_z(leadnutOffset + eSize/2)
-            vflip() {
-                brassColor = "#B5A642";
-                color(brassColor)
-                    leadnut(leadnut);
-                leadnut_screw_positions(leadnut)
-                    screw(leadnut_screw(leadnut), 8);
-            }
+                    color(brassColor)
+                        leadnut(leadnut);
+            for (a = [0, 180])
+                rotate(a)
+                    translate([leadnut_hole_pitch(leadnut), 0, eSize - leadnutInset])
+                        screw(leadnut_screw(leadnut), 8);
+        }
 }
 
 module Print_bed_3_point_assembly()
@@ -340,14 +363,13 @@ assembly("Print_bed_3_point") {
     translate([eX/2 + eSizeX, eY + 2*eSizeY - _zLeadScrewOffset, -eSize - printBed3pointBaseOffsetZ]) // this moves it to the back face
         rotate(180) {
             //Print_bed_3_point_hardware(scsOffset=-scs_screw_separation_z(scs_type)/2);
-            Print_bed_3_point_hardware(-eSize/2 + leadnutInset, (eSize - scs_size(scs_type).z)/2);
+            Print_bed_3_point_hardware(_zRodSeparation, leadnutInset, (eSize - scs_size(scs_type).z)/2);
             translate_z((eSize + scs_screw_separation_z(scs_type) - scs_size(scs_type).z)/2) {
-                printbed3pointFrame();
+                printbed3pointFrame(_zRodSeparation);
                 Print_bed_3_point_bed(heatedBedOffsetE1515);
-            }
-            *translate_z(eSize)
                 stl_colour(pp1_colour)
                     Printbed_Bracket_stl();
+            }
         }
 }
 
@@ -360,7 +382,7 @@ assembly("Print_bed_3_point_printed_stage_1") {
     vflip()
         translate([eX/2 + eSizeX, eY + 2*eSizeY - _zLeadScrewOffset, -eSize - printBed3pointBaseOffsetZ]) // this moves it to the back face
             rotate(180) {
-                Print_bed_3_point_hardware(-eSize/2 + leadnutInset, (eSize - scs_size(scs_type).z)/2);
+                Print_bed_3_point_hardware(_zRodSeparation, leadnutInset - 2.5, (eSize - scs_size(scs_type).z)/2);
                 vflip()
                     stl_colour(pp1_colour)
                         Printbed_Frame_stl();
