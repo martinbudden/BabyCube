@@ -171,18 +171,22 @@ assembly("Back_Face_CF_Stage_1", big=true, ngb=true) {
 
     translate([-eps, 0, 0])
         rotate([90, 0, 90]) {
-            stl_colour(pp2_colour)
-                Back_Face_Left_Joiner_stl();
-            backFaceZipTies();
-        }
-    translate([eX + 2*eSizeX + eps, 0, 0]) {
-        rotate([-90, 0, 90])
-            stl_colour(pp2_colour)
-                Back_Face_Right_Joiner_stl();
-        translate([0, 2*eY + 2*eSizeY, 0])
-            rotate([90, 0, -90])
+            explode([-50, 0, 0], show_line=false)
+                stl_colour(pp2_colour)
+                    Back_Face_Left_Joiner_stl();
+            if (!exploded())
                 backFaceZipTies();
-    }
+        }
+        translate([eX + 2*eSizeX + eps, 0, 0]) {
+            rotate([-90, 0, 90])
+                explode([-50, 0, 0], show_line=false)
+                    stl_colour(pp2_colour)
+                        Back_Face_Right_Joiner_stl();
+            translate([0, 2*eY + 2*eSizeY, 0])
+                rotate([90, 0, -90])
+                    if (!exploded())
+                        backFaceZipTies();
+        }
 
    translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0]) {
@@ -213,11 +217,9 @@ assembly("Back_Face_CF_Stage_1", big=true, ngb=true) {
 
 //!1. Slide the linear rods through the SK brackets and the printbed bearings.
 //!2. Tighten the bolts in the SK brackets, ensuring the **Z_Carriage** slides freely on the rods.
-//!3. Place the cork damper on the stepper motor and thread the lead screw through the leadnut and attach the stepper
-//!motor to the **Back_Face**. Note the orientation of the JST socket.
 //
-module Back_Face_CF_assembly(bedHeight=bedHeight())
-assembly("Back_Face_CF", big=true) {
+module Back_Face_CF_Stage_2_assembly(bedHeight=bedHeight())
+assembly("Back_Face_CF_Stage_2", big=true, ngb=true) {
     Back_Face_CF_Stage_1_assembly();
 
     zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
@@ -230,7 +232,6 @@ assembly("Back_Face_CF", big=true) {
                     translate([x, _zRodLength/2 + zRodOffsetZ, _zRodOffsetY])
                         rotate([90, 0, 0])
                             rod(d=_zRodDiameter, l=_zRodLength);
-            backFaceMotorMountHardware(zMotorType());
         }
     explode(50, show_line=false)
         translate_z(bedHeight) {
@@ -239,6 +240,18 @@ assembly("Back_Face_CF", big=true) {
             else
                 Print_bed_3_point_printed_assembly();
         }
+}
+
+//!1. Place the cork damper on the stepper motor and thread the lead screw through the leadnut and attach the stepper
+//!motor to the **Back_Face**. Note the orientation of the JST socket.
+//
+module Back_Face_CF_assembly()
+assembly("Back_Face_CF", big=true) {
+    Back_Face_CF_Stage_2_assembly();
+
+    translate([0, eY + 2*eSizeY, 0])
+        rotate([90, 0, 0])
+            backFaceMotorMountHardware(zMotorType());
 }
 
 module backFaceZipTies() {
