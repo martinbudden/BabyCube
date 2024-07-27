@@ -274,13 +274,14 @@ module IEC_hardware() {
 module IEC_Housing() {
     translate(iecPosition())
         rotate([-90, 0, -90])
-            IEC_Housing_stl();
+            color(pp4_colour)
+                IEC_Housing_stl();
 }
 
 //! 1. Bolt the extruder, cork damper and stepper motor to the **Right_Face**.
 //! 2. Bolt the IEC power connector through the **Right_Face** to the **IEC_Housing_stl**.
 //
-module Right_Face_CF_assembly() pose(a=[55, 0, 25 + 50 - 20])
+module Right_Face_CF_assembly() pose(a=[55, 0, 25])
 assembly("Right_Face_CF", big=true) {
 
     translate([eX + 2*eSizeX + eps, 0, 0])
