@@ -94,7 +94,7 @@ assembly("XY_Idler_Bracket_Left_SB", ngb=true) {
         XY_IdlerBracketHardware(coreXYPosBL(_xyNEMA_width, yCarriageType), reversedBelts=false, left=true);
 }
 
-module XY_Idler_Bracket_Left_assembly()
+module XY_Idler_Bracket_Left_assembly() pose(a=[55, 0, 25])
 assembly("XY_Idler_Bracket_Left", ngb=true) {
 
     yCarriageType = carriageType(_yCarriageDescriptor);
@@ -129,7 +129,7 @@ assembly("XY_Idler_Bracket_Right", ngb=true) {
                     XY_IdlerBracketHardware(coreXYPosBL, reversedBelts=false, left=false);
 }
 
-module XY_Idler_Bracket_Right_assembly()
+module XY_Idler_Bracket_Right_assembly() pose(a=[55, 0, 25])
 assembly("XY_Idler_Bracket_Right", ngb=true) {
 
     coreXYPosBL = coreXYPosBL(_xyNEMA_width, carriageType(_yCarriageDescriptor));
@@ -296,11 +296,13 @@ module XY_IdlerBracketHardware(coreXYPosBL, reversedBelts=false, left=true) {
             if (reversedBelts) {
                 bearingType = coreXYBearing();
                 translate([boltPos.x, -boltPos.y, yCarriageBraceThickness()/2 - (left ? separation : 0)]) {
-                    bearingStack(bearingType);
+                    explode([-40, 0, 0], true)
+                        bearingStack(bearingType);
                     translate_z(-size.y)
                         vflip()
                             //boltM3Caphead(screw_shorter_than(separation + size.y + 10));
-                            boltM3Caphead(25);
+                            explode(10, true)
+                                boltM3Caphead(25);
                 }
             } else {
                 translate([boltPos.x, -boltPos.y, -separation - size.y - 1])
