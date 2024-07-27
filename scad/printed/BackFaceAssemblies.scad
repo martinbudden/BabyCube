@@ -167,7 +167,7 @@ module Back_Face_CF() {
 //!face inward and the bottom tightening bolts should face outward. This allows access after the BabyCube is fully assembled.
 //
 module Back_Face_CF_Stage_1_assembly()
-assembly("Back_Face_CF_Stage_1", big=true) {
+assembly("Back_Face_CF_Stage_1", big=true, ngb=true) {
 
     translate([-eps, 0, 0])
         rotate([90, 0, 90]) {
