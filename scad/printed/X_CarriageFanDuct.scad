@@ -63,13 +63,14 @@ module fanDuct(printheadHotendOffsetX, jetOffset=0, chimneySizeZ=14) {
 
         jetEndSize = [5, 2, 2];
         jetStartSize = [16, 2, 2];
-        translate([12.5 + jetOffset, -8, 14 - chimneySize.z])
-            #hull() {
-                translate([-jetEndSize.x/2, 6 + 2 + printheadHotendOffsetX, -21-1])
-                    cube(jetEndSize);
-                translate([-jetStartSize.x/2, 0, -13])
-                    cube(jetStartSize);
-            }
+        if (!exploded())
+            translate([12.5 + jetOffset, -8, 14 - chimneySize.z])
+                #hull() {
+                    translate([-jetEndSize.x/2, 6 + 2 + printheadHotendOffsetX, -21-1])
+                        cube(jetEndSize);
+                    translate([-jetStartSize.x/2, 0, -13])
+                        cube(jetStartSize);
+                }
     }
 }
 
