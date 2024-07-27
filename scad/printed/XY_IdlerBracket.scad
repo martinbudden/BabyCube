@@ -80,7 +80,7 @@ module XY_Idler_Bracket_Right_NEMA_17_SB_stl() {
 //!Bolt the two front idler pulleys with washers into the **XY_Idler_Bracket_Left**.
 //
 module XY_Idler_Bracket_Left_SB_assembly()
-assembly("XY_Idler_Bracket_Left_SB", ngb=true) {
+assembly("XY_Idler_Bracket_Left_SB", big=true, ngb=true) {
 
     yCarriageType = carriageType(_yCarriageDescriptor);
     translate_z(coreXYPosBL(_xyNEMA_width, yCarriageType).z + coreXYSeparation().z)
@@ -95,7 +95,7 @@ assembly("XY_Idler_Bracket_Left_SB", ngb=true) {
 }
 
 module XY_Idler_Bracket_Left_assembly() pose(a=[55, 0, 25])
-assembly("XY_Idler_Bracket_Left", ngb=true) {
+assembly("XY_Idler_Bracket_Left", big=true, ngb=true) {
 
     yCarriageType = carriageType(_yCarriageDescriptor);
     translate_z(coreXYPosBL(_xyNEMA_width, yCarriageType).z + coreXYSeparation().z)
