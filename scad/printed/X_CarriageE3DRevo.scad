@@ -128,29 +128,30 @@ module X_Carriage_E3DRevo_MGN9C_hardware() {
                     translate_z(8)
                         bowden_connector();
             }
-            explode([0, 40, 0], true)
-                rotate(-90)
-                    translate([-17, 0, -14])
-                        rotate([0, -90, 0]) {
+            rotate(-90)
+                translate([-17, 0, -14])
+                    rotate([0, -90, 0]) {
+                        explode(40)
                             fan(fan_type);
+                        explode(40, true)
                             fan_hole_positions(fan_type)
                                 boltM3Buttonhead(12);
-                        }
+                    }
         }
     }
-            explode([40, 0, 0], true)
     translate([15, 15.5, 20 - revoVoronSizeZ()]) {
         rotate([90, 0, 90]) {
-            blower(blower_type);
-            blower_hole_positions(blower_type)
-                translate_z(blower_lug(blower_type))
-                    boltM2Caphead(6);
+            explode(40, true, show_line=false) {
+                blower(blower_type);
+                blower_hole_positions(blower_type)
+                    translate_z(blower_lug(blower_type))
+                        boltM2Caphead(6);}
         }
-        explode(-20, true)
-        rotate(90) {
-            stl_colour(pp2_colour)
-                E3DRevo_Fan_Duct_stl();
-            Fan_Duct_hardware(xCarriageType, hotendDescriptor);
+        explode([40, 0,-20], true)
+            rotate(90) {
+                stl_colour(pp2_colour)
+                    E3DRevo_Fan_Duct_stl();
+                Fan_Duct_hardware(xCarriageType, hotendDescriptor);
         }
     }
 }
