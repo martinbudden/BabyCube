@@ -80,16 +80,19 @@ module topFaceWiringCutout(NEMA_width) {
     radius = 5;
     size = [6.5 + eps, cutoutBackY - (eY + 2*eSizeY - printheadWiringPos().y) + eps];
 
-    translate([printheadWiringPos().x, printheadWiringPos().y - eps]) {
-        translate([-size.x/2, -size.y])
-            square(size, center=false);
-        circle(r=radius);
+    translate([printheadWiringPos().x, 0,]) {
+        translate([0, printheadWiringPos().y - eps]) {
+            translate([-size.x/2, -size.y])
+                square(size, center=false);
+            circle(r=radius);
+        }
+        translate([size.x/2, eY + 2*eSizeY - cutoutBackY]) {
+            fillet(NEMA_width < 40 ? fillet : 1);
+            translate([-size.x, 0])
+                rotate(90)
+                    fillet(fillet);
+        }
     }
-    translate([printheadWiringPosX() + size.x/2, eY + 2*eSizeY - cutoutBackY])
-        fillet(NEMA_width < 40 ? fillet : 1);
-    translate([printheadWiringPosX() - size.x/2, eY + 2*eSizeY - cutoutBackY])
-        rotate(90)
-            fillet(fillet);
 }
 
 module topFaceInterlock(NEMA_type) {
