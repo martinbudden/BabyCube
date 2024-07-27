@@ -21,7 +21,7 @@ function tongueOffset(NEMA_width=_xyNEMA_width) = (eX + 2*eSizeX - _xRailLength 
 
 topInset = 3.5;
 
-module yCarriage(NEMA_width, left, cnc=false) {
+module yCarriage(NEMA_width, reversedBelts=false, left, cnc=false) {
     plainIdler = coreXY_plain_idler(coreXY_type());
     isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
     pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
@@ -43,10 +43,22 @@ module Y_Carriage_Left_stl() {
             yCarriage(NEMA_width = NEMA_width(NEMA14_36), left=true);
 }
 
+module Y_Carriage_Left_RB_stl() {
+    stl("Y_Carriage_Left_RB")
+        color(pp2_colour)
+            yCarriage(NEMA_width = NEMA_width(NEMA14_36), reversedBelts=true, left=true);
+}
+
 module Y_Carriage_Right_stl() {
     stl("Y_Carriage_Right")
         color(pp2_colour)
             yCarriage(NEMA_width = NEMA_width(NEMA14_36), left=false);
+}
+
+module Y_Carriage_Right_RB_stl() {
+    stl("Y_Carriage_Right_RB")
+        color(pp2_colour)
+            yCarriage(NEMA_width = NEMA_width(NEMA14_36), reversedBelts=true, left=false);
 }
 
 module Y_Carriage_Left_NEMA_17_stl() {
@@ -89,7 +101,7 @@ module Y_Carriage_Brace_Right_stl() {
             yCarriageBraceMGN9C(yCarriageBraceThickness(), pulleyOffset(), holeRadius, left=false);
 }
 
-module yCarriageLeftAssembly(NEMA_width, t=undef) {
+module yCarriageLeftAssembly(NEMA_width, t=undef, reversedBelts=false) {
 
     yCarriageType = carriageType(_yCarriageDescriptor);
     railOffset = yRailOffset(NEMA_width);
@@ -106,7 +118,10 @@ module yCarriageLeftAssembly(NEMA_width, t=undef) {
         rotate([180, 0, 0]) {
             stl_colour(pp2_colour)
                 if (NEMA_width < 40) {
-                    Y_Carriage_Left_stl();
+                    if (reversedBelts)
+                        Y_Carriage_Left_RB_stl();
+                    else
+                        Y_Carriage_Left_stl();
                     //hidden() Y_Carriage_Left_NEMA_17_stl();
                 } else {
                     Y_Carriage_Left_NEMA_17_stl();
@@ -120,7 +135,7 @@ module yCarriageLeftAssembly(NEMA_width, t=undef) {
         }
 }
 
-module yCarriageRightAssembly(NEMA_width, t=undef) {
+module yCarriageRightAssembly(NEMA_width, t=undef, reversedBelts=false) {
 
     yCarriageType = carriageType(_yCarriageDescriptor);
     railOffset = yRailOffset(NEMA_width);
@@ -137,7 +152,10 @@ module yCarriageRightAssembly(NEMA_width, t=undef) {
         rotate([180, 0, 180]) {
             stl_colour(pp2_colour)
                 if (NEMA_width < 40) {
-                    Y_Carriage_Right_stl();
+                    if (reversedBelts)
+                        Y_Carriage_Right_RB_stl();
+                    else
+                        Y_Carriage_Right_stl();
                     //hidden() Y_Carriage_Right_NEMA_17_stl();
                 } else {
                     Y_Carriage_Right_NEMA_17_stl();

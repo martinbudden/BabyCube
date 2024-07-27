@@ -30,8 +30,8 @@ function yCarriageBlockSizeX(yCarriageType) = carriage_width(yCarriageType) + 4;
 function yCarriageExplodeFactor() = 5;
 function yCarriageTongueThickness(yCarriageType, chamfer=0) = isMGN9C(yCarriageType) ? 6.5 - chamfer : 6.5;
 
-leftSupportLength = 17;
-function boltOffsetMGN9(left) = left ? leftSupportLength - 6.5 : 10;
+function leftSupportLength(reversedBelts) = reversedBelts ? 10 : 17;
+function boltOffsetMGN9(left, reversedBelts) = left ? leftSupportLength(reversedBelts) - 6.5 : 10;
 function boltOffsetInnerMGN12(left, blockOffsetX) = blockOffsetX ? 29 : 21;
 function boltOffsetOuterMGN12(left, blockOffsetX) = (blockOffsetX ? (left ? 2.5 : 5) : 3);
 
@@ -158,7 +158,7 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
             h = thickness + pulleyStackHeight(plainIdlerHeight, pulleyBore);
             if (isMGN9C(yCarriageType)) {
                 if (left) {
-                    size = [leftSupportLength, 7, h];
+                    size = [leftSupportLength(reversedBelts), 7, h];
                     translate([plainPulleyPos.x - 3.25, -size.y/2, 0])
                         rounded_cube_xy(size, 3);
                     translate([blockSize.x/2 - blockOffset.x/2 + endstopX, size.y/2, 0])
@@ -277,12 +277,10 @@ module yCarriageBraceBoltPositionsMGN12(blockSizeX, blockOffsetX, left) {
         children();
 }
 
-module yCarriageBraceMGN9C(thickness, plainPulleyOffset, boltHoleRadius, left) {
-    echo(plainPulleyOffset=plainPulleyOffset);
-
+module yCarriageBraceMGN9C(thickness, plainPulleyOffset, boltHoleRadius, reversedBelts, left) {
     difference() {
         if (left) {
-            size = [leftSupportLength + 12.5, 7, thickness];
+            size = [leftSupportLength(reversedBelts) + 12.5, 7, thickness];
             translate([-4.5, -size.y/2, 0])
                 rounded_cube_xy(size, 3);
         } else {
