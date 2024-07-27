@@ -4,6 +4,7 @@ include <../vitamins/bolts.scad>
 include <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/blowers.scad>
 include <NopSCADlib/vitamins/fans.scad>
+use <NopSCADlib/vitamins/e3d.scad> // for bowden_connector
 
 include <../utils/carriageTypes.scad>
 include <../utils/PrintheadOffsets.scad>
@@ -65,9 +66,12 @@ module E3DRevoHolder(xCarriageType, size) {
     difference() {
         translate([size.x/2 - sizeTop.x, 11, 0])
             rounded_cube_yz(sizeTop, fillet);
-        translate(hotendOffset)
-            revoVoronBoltPositions()
-                boltHoleM2p5(sizeTop.z, horizontal=true, rotate=90);
+        translate(hotendOffset) {
+            boltHoleM6(sizeTop.z, horizontal=true, rotate=90);
+            revoVoronBoltPositions(8)
+                rotate([180, 0, -90])
+                    boltHoleM2p5Counterbore(sizeTop.z, boreDepth=2, horizontal=true);
+        }
     }
 
     sizeSide = [3, sizeTop.y, size.z - 12];
@@ -114,20 +118,26 @@ module X_Carriage_E3DRevo_MGN9C_hardware() {
     translate(hotendOffset) {
         rotate(0) {
             rotate(0) {
-                revoVoronBoltPositions(8)
-                    boltM2p5Caphead(12);
+                revoVoronBoltPositions(8 - 2)
+                    boltM2p5Caphead(10);
                 translate_z(-revoVoronSizeZ())
-                    revoVoron();
+                    explode(-80)
+                        revoVoron();
+                explode(40)
+                    translate_z(8)
+                        bowden_connector();
             }
-            rotate(-90)
-                translate([-17, 0, -14])
-                    rotate([0, -90, 0]) {
-                        fan(fan_type);
-                        fan_hole_positions(fan_type)
-                            boltM3Buttonhead(12);
-                    }
+            explode([0, 40, 0], true)
+                rotate(-90)
+                    translate([-17, 0, -14])
+                        rotate([0, -90, 0]) {
+                            fan(fan_type);
+                            fan_hole_positions(fan_type)
+                                boltM3Buttonhead(12);
+                        }
         }
     }
+            explode([40, 0, 0], true)
     translate([15, 15.5, 20 - revoVoronSizeZ()]) {
         rotate([90, 0, 90]) {
             blower(blower_type);
@@ -135,6 +145,7 @@ module X_Carriage_E3DRevo_MGN9C_hardware() {
                 translate_z(blower_lug(blower_type))
                     boltM2Caphead(6);
         }
+        explode(-20, true)
         rotate(90) {
             stl_colour(pp2_colour)
                 E3DRevo_Fan_Duct_stl();
