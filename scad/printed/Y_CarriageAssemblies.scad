@@ -90,7 +90,7 @@ module Y_Carriage_Brace_Left_stl() {
 
     stl("Y_Carriage_Brace_Left")
         color(pp1_colour)
-            yCarriageBraceMGN9C(yCarriageBraceThickness(), pulleyOffset(), holeRadius, left=true);
+            yCarriageBraceMGN9C(yCarriageBraceThickness(), pulleyOffset(), holeRadius, reversedBelts=false, left=true);
 }
 
 module Y_Carriage_Brace_Right_stl() {
@@ -98,15 +98,31 @@ module Y_Carriage_Brace_Right_stl() {
 
     stl("Y_Carriage_Brace_Right")
         color(pp1_colour)
-            yCarriageBraceMGN9C(yCarriageBraceThickness(), pulleyOffset(), holeRadius, left=false);
+            yCarriageBraceMGN9C(yCarriageBraceThickness(), pulleyOffset(), holeRadius, reversedBelts=false, left=false);
+}
+
+module Y_Carriage_Brace_Left_RB_stl() {
+    holeRadius = M3_tap_radius;
+
+    stl("Y_Carriage_Brace_Left_RB")
+        color(pp1_colour)
+            yCarriageBraceMGN9C(yCarriageBraceThickness(), pulleyOffset(), holeRadius, reversedBelts=true, left=true);
+}
+
+module Y_Carriage_Brace_Right_RB_stl() {
+    holeRadius = M3_tap_radius;
+
+    stl("Y_Carriage_Brace_Right_RB")
+        color(pp1_colour)
+            yCarriageBraceMGN9C(yCarriageBraceThickness(), pulleyOffset(), holeRadius, reversedBelts=true, left=false);
 }
 
 module yCarriageLeftAssembly(NEMA_width, t=undef, reversedBelts=false) {
 
     yCarriageType = carriageType(_yCarriageDescriptor);
     railOffset = yRailOffset(NEMA_width);
-    plainIdler = useReversedBelts() ? coreXYBearing() : coreXY_plain_idler(coreXY_type());
-    toothedIdler = useReversedBelts() ? coreXYBearing() : coreXY_toothed_idler(coreXY_type());
+    plainIdler = reversedBelts ? coreXYBearing() : coreXY_plain_idler(coreXY_type());
+    toothedIdler = reversedBelts ? coreXYBearing() : coreXY_toothed_idler(coreXY_type());
     isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
     pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
     washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
@@ -128,9 +144,12 @@ module yCarriageLeftAssembly(NEMA_width, t=undef, reversedBelts=false) {
                 }
             if (yCarriageBraceThickness())
                 translate_z(yCarriageThickness() + pulleyStackHeight + eps)
-                    explode(5*yCarriageExplodeFactor())
+                    explode(5*yCarriageExplodeFactor(), show_line=false)
                         stl_colour(pp1_colour)
-                            Y_Carriage_Brace_Left_stl();
+                            if (reversedBelts)
+                                Y_Carriage_Brace_Left_RB_stl();
+                            else
+                                Y_Carriage_Brace_Left_stl();
             Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), pulleyOffset(), left=true);
         }
 }
@@ -139,8 +158,8 @@ module yCarriageRightAssembly(NEMA_width, t=undef, reversedBelts=false) {
 
     yCarriageType = carriageType(_yCarriageDescriptor);
     railOffset = yRailOffset(NEMA_width);
-    plainIdler = useReversedBelts() ? coreXYBearing() : coreXY_plain_idler(coreXY_type());
-    toothedIdler = useReversedBelts() ? coreXYBearing() : coreXY_toothed_idler(coreXY_type());
+    plainIdler = reversedBelts ? coreXYBearing() : coreXY_plain_idler(coreXY_type());
+    toothedIdler = reversedBelts ? coreXYBearing() : coreXY_toothed_idler(coreXY_type());
     isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
     pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
     washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
@@ -162,9 +181,51 @@ module yCarriageRightAssembly(NEMA_width, t=undef, reversedBelts=false) {
                 }
             if (yCarriageBraceThickness())
                 translate_z(yCarriageThickness() + pulleyStackHeight + 2*eps)
-                    explode(5*yCarriageExplodeFactor())
+                    explode(5*yCarriageExplodeFactor(), show_line=false)
                         stl_colour(pp1_colour)
-                            Y_Carriage_Brace_Right_stl();
+                            if (reversedBelts)
+                                Y_Carriage_Brace_Right_RB_stl();
+                            else
+                                Y_Carriage_Brace_Right_stl();
             Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), pulleyOffset(), left=false);
         }
 }
+
+module yCarriageLeftRailAssembly(NEMA_width, t=undef, reversedBelts=false) {
+    yCarriageLeftAssembly(NEMA_width, t, reversedBelts);
+
+    yCarriageType = carriageType(_yCarriageDescriptor);
+
+    railOffset = yRailOffset(NEMA_width);
+    posY = carriagePosition(t).y - railOffset.y;
+
+    translate(railOffset)
+        rotate([180, 0, 90])
+            explode(-40, true, show_line=false)
+                rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
+}
+
+module yCarriageRightRailAssembly(NEMA_width, t=undef, reversedBelts=false) {
+    yCarriageRightAssembly(NEMA_width, t, reversedBelts);
+
+    yCarriageType = carriageType(_yCarriageDescriptor);
+
+    railOffset = yRailOffset(NEMA_width);
+    posY = carriagePosition(t).y - railOffset.y;
+
+    translate([eX + 2*eSizeX - railOffset.x, railOffset.y, railOffset.z])
+        rotate([180, 0, 90])
+            explode(-40, true, show_line=false)
+                rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
+}
+
+module Y_Carriage_Left_Rail_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
+assembly("Y_Carriage_Left_Rail", big=true, ngb=true) {
+    yCarriageLeftRailAssembly(_xyNEMA_width, t=t, reversedBelts=true);
+}
+
+module Y_Carriage_Right_Rail_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
+assembly("Y_Carriage_Right_Rail", big=true, ngb=true) {
+    yCarriageRightRailAssembly(_xyNEMA_width, t=t, reversedBelts=true);
+}
+
