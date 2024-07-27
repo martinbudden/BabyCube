@@ -42,14 +42,14 @@ module staged_explode(z=0, show_line=true) {
                 children();
 }
 
-//! Bolt the **Back_Face_CF_assembly** to the **BaseCF_assembly**.
+//! Bolt the **Back_Face_CF_assembly** to the **Base_CF_assembly**.
 //
 module Stage_1_CF_assembly()
 staged_assembly("Stage_1_CF", big=true, ngb=true) {
 
     translate_z(-eps)
         staged_explode()
-            BaseCF_assembly();
+            Base_CF_assembly();
 
     explode([0, 200, 0], true) {
         Back_Face_CF_assembly();
@@ -70,7 +70,7 @@ staged_assembly("Stage_1_CF", big=true, ngb=true) {
     }
 }
 
-//! Bolt the **Right_Face_CF_assembly** to the **BaseCF_assembly** and the **Back_Face_CF_assembly**.
+//! Bolt the **Right_Face_CF_assembly** to the **Base_CF_assembly** and the **Back_Face_CF_assembly**.
 //
 module Stage_2_CF_assembly()
 staged_assembly("Stage_2_CF", big=true, ngb=true) {
@@ -96,7 +96,7 @@ staged_assembly("Stage_2_CF", big=true, ngb=true) {
     }
 }
 
-//! Bolt the **Left_Face_CF** to the **BaseCF_assembly** and the **Back_Face_CF_assembly**.
+//! Bolt the **Left_Face_CF** to the **Base_CF_assembly** and the **Back_Face_CF_assembly**.
 //
 module Stage_3_CF_assembly()
 staged_assembly("Stage_3_CF", big=true, ngb=true) {
@@ -238,15 +238,11 @@ module CF_DebugAssembly() {
             Right_Face_CF_assembly();
         explode(-eps)
             translate_z(-eps)
-                BaseCF_assembly();
+                Base_CF_assembly();
         if (!exploded()) {
             printheadWiring(carriagePosition(), "E3DRevo");
             explode(150)
                 bowdenTube(carriagePosition(), "E3DRevo");
-            explode([75, 0, 100])
-                faceRightSpoolHolder(cf=true);
-            explode([150, 0, 0])
-                faceRightSpool(cf=true);
         }
     }
 }

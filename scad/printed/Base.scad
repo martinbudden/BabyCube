@@ -149,19 +149,15 @@ assembly("Base", big=true) {
 //!marked out for pilot holes. Once you have drilled these re-drill the holes with a 3mm bit.
 //!2. Bolt the **Base_Front_Joiner**, the **Base_Left_Joiner**, the **Base_Right_Joiner** and the L-shaped feet to the
 //!base plate.
-//!3. Cover the top and bottom sides of the box section with thermal paste.
-//!4. Attach the box section to the bottom of the control board with electrical tape. The tape serves to keep the box
-//!section in place until it is attached to the base plate.
-//!5. Using the hex pillars, attach the control board and the Raspberry Pi to the base plate.
-//!6. Bolt the PSU to the base plate.
 //
-module BaseCF_assembly()
-assembly("BaseCF", big=true) {
+module Base_CF_Stage_1_assembly()
+assembly("Base_CF_Stage_1", big=true) {
+    BaseAL(pcb=pcbType);
+    if (!_useCNC)
+        hidden() Base_stl();
+    hidden() Base_Template_stl();
 
-    //baseAssembly();
-    baseAssembly(BTT_SKR_MINI_E3_V2_0, psuType);
-    //baseCoverAssembly();
-    pcbAssembly(RPI3A_plus);
+
     translate_z(-eps) {
         stl_colour(pp2_colour)
             baseLeftFeet();
@@ -197,6 +193,23 @@ assembly("BaseCF", big=true) {
         }
 }
 
+//!1. Cover the top and bottom sides of the box section with thermal paste.
+//!2. Attach the box section to the bottom of the control board with electrical tape. The tape serves to keep the box
+//!section in place until it is attached to the base plate.
+//!3. Using the hex pillars, attach the control board and the Raspberry Pi to the base plate.
+//!4. Bolt the PSU to the base plate.
+//
+module Base_CF_assembly()
+assembly("Base_CF", big=true) {
+
+    Base_CF_Stage_1_assembly();
+
+    //baseAssembly();
+    baseAssembly(BTT_SKR_MINI_E3_V2_0, psuType);
+    //baseCoverAssembly();
+    pcbAssembly(RPI3A_plus);
+}
+
 module Base_SKR_E3_Turbo_assembly()
 assembly("Base_SKR_E3_Turbo", big=true) {
 
@@ -210,11 +223,6 @@ assembly("Base_SKR_1_4", big=true) {
 }
 
 module baseAssembly(pcb=undef, psuType=undef) {
-    BaseAL(pcb=pcb);
-    if (!_useCNC)
-        hidden() Base_stl();
-    hidden() Base_Template_stl();
-
     if (pcb) {
         pcbAssembly(pcb);
     }
