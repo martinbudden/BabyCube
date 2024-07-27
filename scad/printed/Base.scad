@@ -325,6 +325,12 @@ module Base_Left_Joiner_stl() {
                 frameLower(NEMA_width, left=true, offset=_sidePlateThickness, cf=true);
             lowerSideJoinerHolePositions(_sidePlateThickness, left=true)
                 boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
+            frontSideJoinerHolePositions(_sidePlateThickness)
+                boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
+            rotate([0, -90, 0])
+                frontFaceSideHolePositions(-_sidePlateThickness)
+                    vflip()
+                        boltHoleM3Tap(eSizeXBase, horizontal=true, rotate=-90);
             faceConnectorHolePositions()
                 rotate([90, 0, 180])
                     boltHoleM3Tap(backBoltLength(), horizontal=true);
@@ -347,6 +353,12 @@ module Base_Right_Joiner_stl() {
                     frameLower(NEMA_width, left=false, offset=_sidePlateThickness, cf=true);
                 lowerSideJoinerHolePositions(_sidePlateThickness, left=false)
                     boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
+                frontSideJoinerHolePositions(_sidePlateThickness)
+                    boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
+                rotate([0, -90, 0])
+                    frontFaceSideHolePositions(-_sidePlateThickness)
+                        vflip()
+                            boltHoleM3Tap(eSizeXBase, horizontal=true, rotate=-90);
                 faceConnectorHolePositions()
                     rotate([90, 0, 180])
                         boltHoleM3Tap(backBoltLength(), horizontal=true);

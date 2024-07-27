@@ -172,20 +172,31 @@ assembly("Top_Face_CF_Stage_1", big=true) {
 
     explode(-20, show_line=false)
         Top_Face_Back_Joiner_stl();
-    topFaceBackHolePositions(eZ)
-        boltM3Buttonhead(8);
     explode([20, 0, 0], show_line=false) {
         XY_Motor_Mount_Left_CF_assembly();
         XY_Idler_Bracket_Left_assembly();
     }
+
+    explode([-20, 0, 0], show_line=false) {
+        XY_Motor_Mount_Right_CF_assembly();
+        XY_Idler_Bracket_Right_assembly();
+    }
+
     xyMotorMountTopHolePositions(left=true, z=eZ)
         boltM3Buttonhead(8);
     xyMotorMountTopHolePositions(left=false, z=eZ)
         boltM3Buttonhead(8);
 
-    explode([-20, 0, 0], show_line=false) {
-        XY_Motor_Mount_Right_CF_assembly();
-        XY_Idler_Bracket_Right_assembly();
+    topFaceBackHolePositions(eZ)
+        boltM3Buttonhead(8);
+
+    explode(100, true) {
+        topFaceSideHolePositions(eZ)
+            explode(20, true)
+                boltM3Buttonhead(8);
+        topFaceFrontHolePositions(eZ, cf=true)
+            explode(50, true)
+                boltM3Buttonhead(8);
     }
 }
 

@@ -29,7 +29,7 @@ function topFaceFrontHolePositionOffsetY() = 8;
 
 function upperSideJoinerHolePositions() = eY == 180 ? [ 40, 80, 120, 160 ] : [ 50, 90, 130 ];
 function lowerSideJoinerHolePositions(left) = [ 10, 10 + eY/3, 10 + 2*eY/3, eY + 10 ];
-function backSideJoinerHolePositions() =  eZ == 200 ? [ 45, 80 ] : [50, 90, 130];
+function backSideJoinerHolePositions() =  eZ == 200 ? [ 45, 80 ] : [50, 90 ];
 function frontSideJoinerHolePositions(bolts=false) = eZ == 200 ? (bolts ? [40, 80] : [ 40, 80, 120 ]) : [ 50 ];
 
 function backFaceHolePositions(cf=false) = concat([eSizeY/2 + 1, middleWebOffsetZ() + eSizeY/2], cf ? [] : [eZ - eSizeY/2 - _topPlateThickness]);

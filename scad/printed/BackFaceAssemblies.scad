@@ -196,6 +196,10 @@ assembly("Back_Face_CF_Stage_1", big=true) {
                 vflip()
                     translate_z(_backPlateCFThickness)
                         boltM3Buttonhead(12);
+            backFaceCFSideHolePositions(-_backPlateCFThickness) // bolt back face to joiner
+                vflip()
+                    explode(50)
+                        boltM3Buttonhead(10);
             *backFaceBracketHolePositions(-_backPlateCFThickness)
                 vflip()
                     boltM3Buttonhead(10);
@@ -218,6 +222,7 @@ assembly("Back_Face_CF", big=true) {
 
     zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
     zRodOffsetZ = is_undef(_zRodOffsetZ) ? 0 : _zRodOffsetZ;
+
     translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0]) {
             explode([0, 160, 0])

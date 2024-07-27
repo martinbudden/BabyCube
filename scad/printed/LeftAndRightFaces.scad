@@ -340,6 +340,12 @@ module frameLower(NEMA_width, left=true, offset=0, cf=false, length=0) {
                 rounded_cube_xy([length == 0 ? eY + 2*eSizeY - offset : length, eSizeZ, eSizeXBase - offset], fillet);
             translate([eY + 2*eSizeY - 10, 0, offset])
                 rounded_cube_xy([10, 20, 35 - offset], fillet); // 38 to match frontConnector size
+            if (cf)
+                translate([offset, 0, offset]) {
+                    rounded_cube_xy([eSizeY, 55, eSizeXBase - offset], fillet);
+                    translate([eSizeY, eSizeZ, 0])
+                        fillet(fillet, eSizeXBase - offset);
+                }
         }
         translate([eY + 2*eSizeY, backFaceHolePositions()[0], _backFaceHoleInset])
             rotate([90, 0, -90])
