@@ -338,7 +338,8 @@ module Print_bed_3_point_hardware(zRodSeparation, leadnutOffset=eSize/2, scsOffs
                 translate([0, scsScrewSeparationZ, 0])
                     vflip()
                         translate_z(sideBracketThickness)
-                            boltM5Countersunk(12);
+                            explode(25, true)
+                                boltM5Countersunk(12);
             }
         }
 
@@ -353,7 +354,8 @@ module Print_bed_3_point_hardware(zRodSeparation, leadnutOffset=eSize/2, scsOffs
             for (a = [0, 180])
                 rotate(a)
                     translate([leadnut_hole_pitch(leadnut), 0, eSize - leadnutInset])
-                        screw(leadnut_screw(leadnut), 8);
+                        explode(20, true)
+                            screw(leadnut_screw(leadnut), 8);
         }
 }
 
