@@ -156,7 +156,7 @@ module spoolHolderBracketHardware(M3=true, z=6, nutExplode=0) {
                 boltM3Buttonhead(12);
             translate_z(z)
                 explode(nutExplode, true)
-                    nut_and_washer(M3_nut, true);
+                    nut_and_washer(M3_nut, nyloc=true);
         } else {
             vflip()
                 boltM4Buttonhead(12);
