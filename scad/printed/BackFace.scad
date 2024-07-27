@@ -68,11 +68,11 @@ module backFaceCableTies() {
                         cable_tie(cable_r=printheadWireRadius() + 0.5, thickness=_backPlateThickness);
 }
 
-module printheadWiring(carriagePosition) {
+module printheadWiring(carriagePosition, hotendDescriptor) {
     vitamin(str(": Spiral wrap, 500mm"));
 
     xCarriageType = carriageType(_xCarriageDescriptor);
-    endPos = [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + carriage_size(xCarriageType).y/2 + 5, eZ] + printheadWiringOffset();
+    endPos = [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + carriage_size(xCarriageType).y/2 + 5, eZ] + printheadWiringOffset(hotendDescriptor);
     zp = zipTiePositions;
     y = eY + 2*eSizeY - printheadWireRadius();
     p = [

@@ -163,11 +163,11 @@ module FinalAssembly() {
         } else {
             Stage_5_assembly();
             if (!exploded())
-                printheadWiring(carriagePosition());
+                printheadWiring(carriagePosition(), "E3DV6");
             explode(100, true)
                 printheadHotendSideE3DV6();
             explode(150)
-                bowdenTube(carriagePosition());
+                bowdenTube(carriagePosition(), "E3DV6");
             explode([75, 0, 100])
                 faceRightSpoolHolder();
             explode([150, 0, 0])

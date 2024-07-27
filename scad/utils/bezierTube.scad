@@ -4,8 +4,11 @@ use <NopSCADlib/utils/bezier.scad>
 
 
 module bezierTube(startPos, endPos, tubeRadius=2, ptfeTube=false, extraZ=50) {
+    assert(is_list(startPos));
+    assert(is_list(endPos));
+    assert(is_num(extraZ));
 
-    pathEndPos = endPos-startPos;
+    pathEndPos = endPos - startPos;
     // assumes startPos.z < endPos.z
     heightDelta = endPos.z - startPos.z;
     arcRadius = 1.25*sqrt((startPos.x-endPos.x)*(startPos.x-endPos.x) + (startPos.y-endPos.y)*(startPos.y-endPos.y))/2;
