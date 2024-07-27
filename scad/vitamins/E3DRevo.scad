@@ -6,25 +6,35 @@ module revoImportStl(file) {
     import(str("../../../stlimport/E3D/", file, ".stl"), convexity=10);
 }
 
+module revoImport3mf(file) {
+    import(str("../../../stlimport/E3D/", file, ".3mf"), convexity=10);
+}
+
 // z-distance from top of RevoVoron to tip of nozzle is 48.80mm, see https://e3d-online.zendesk.com/hc/en-us/articles/5927310441373-Revo-Voron-Datasheet
 function revoVoronSizeZ() = 48.8;
 
-module revoVoron() {
-    color(grey(40))
-        difference() {
-            intersection() {
-                size = [30, 30, 50];
-                rotate(45)
-                    translate([-size.x/2, -size.y/2, 0])
-                        cube(size);
-                translate([0, 0, 22.8])
-                    rotate([90, 0, -90])
-                        revoImportStl("RevoVoron");
-            }
-            translate_z(-eps)
-                cylinder(h=revoNozzleLength + 2*eps, r=0.4);
-        }
-    RevoNozzle();
+module E3DRevoVoron() {
+    vitamin(str(": E3D Revo Voron heatsink"));
+    vitamin(str(": E3D Revo HeaterCore"));
+
+    color("crimson")
+        translate([-13.4, 16.7, 9.4])
+            rotate(90)
+                revoImport3mf("RevoVoronHeatsink");
+    color(grey(90))
+        intersection() {
+            size = [25, 25, 50];
+            rotate(45)
+                translate([-size.x/2, -size.y/2, 0])
+                    cube(size);
+            translate([-13.4, 16.7, 9.4])
+                rotate(90)
+                    revoImport3mf("RevoHeaterCore");
+            /*translate([0, 0, 22.8])
+                rotate([90, 0, -90])
+                    revoImportStl("RevoVoron");*/
+        } // end intersection
+    E3DRevoNozzle();
 }
 
 module revoVoronBoltPositions(z=0) {
@@ -37,7 +47,9 @@ function revoNozzleOffsetZ() = 22.8;
 
 revoNozzleLength = 44.1;
 
-module RevoNozzle() {
+module E3DRevoNozzle() {
+    vitamin(str(": E3D Revo nozzle"));
+
     brassColor="#B5A642";
     difference() {
         union() {

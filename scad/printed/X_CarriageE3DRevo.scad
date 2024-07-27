@@ -122,7 +122,8 @@ module X_Carriage_E3DRevo_MGN9C_hardware() {
                     boltM2p5Caphead(10);
                 translate_z(-revoVoronSizeZ())
                     explode(-80)
-                        revoVoron();
+                        E3DRevoVoron();
+                vitamin(str(": Bowden connector"));
                 explode(40)
                     translate_z(8)
                         bowden_connector();
