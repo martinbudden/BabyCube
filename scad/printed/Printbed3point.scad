@@ -358,7 +358,7 @@ module Print_bed_3_point_hardware(zRodSeparation, leadnutOffset=eSize/2, scsOffs
 }
 
 module Print_bed_3_point_assembly()
-assembly("Print_bed_3_point") {
+assembly("Print_bed_3_point", big=true) {
 
     translate([eX/2 + eSizeX, eY + 2*eSizeY - _zLeadScrewOffset, -eSize - printBed3pointBaseOffsetZ]) // this moves it to the back face
         rotate(180) {
@@ -377,7 +377,7 @@ assembly("Print_bed_3_point") {
 //!2. Insert the leadnut and bolt it to the **Printbed_Frame**.
 //
 module Print_bed_3_point_printed_stage_1_assembly()
-assembly("Print_bed_3_point_printed_stage_1") {
+assembly("Print_bed_3_point_printed_stage_1", big=true, ngb=true) {
 
     vflip()
         translate([eX/2 + eSizeX, eY + 2*eSizeY - _zLeadScrewOffset, -eSize - printBed3pointBaseOffsetZ]) // this moves it to the back face
@@ -399,7 +399,7 @@ assembly("Print_bed_3_point_printed_stage_1") {
 //!6. Secure the heating pad wiring to the underside of the **Printbed_Frame** using a cable tie.
 //
 module Print_bed_3_point_printed_assembly()
-assembly("Print_bed_3_point_printed") {
+assembly("Print_bed_3_point_printed", big=true) {
     vflip()
         Print_bed_3_point_printed_stage_1_assembly();
 
