@@ -289,12 +289,13 @@ assembly("Right_Face_CF", big=true) {
             Right_Face_CF();
 
     translate(spoolHolderPosition(cf=true))
-        explode([40, 0, 0], true)
-            rotate([-90, 0, 90]) {
+        rotate([-90, 0, 90]) {
+            explode(-40, true, show_line=false) {
                 stl_colour(pp1_colour)
                     Spool_Holder_Bracket_stl();
                 spoolHolderBracketHardware(M3=true, nutExplode=60);
             }
+        }
     rightFaceHardware(xyMotorType(), cnc=true);
     rightFaceAssembly(_xyNEMA_width, zipTies=false);
 
