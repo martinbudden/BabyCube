@@ -146,67 +146,54 @@ assembly("Top_Face_NEMA_17", big=true) {
 }
 
 
+//! 1. Bolt the **Top_Face Joiners** to the **Top_Face_CF**.
+//! 2. Bolt the **XY_Idler_Bracket** assemblies to the **Top_Face_CF**.
+//
+module Top_Face_CF_Stage_1_assembly()
+assembly("Top_Face_CF_Stage_1", big=true, ngb=true) {
+
+    translate_z(eZ - _topPlateThickness + eps)
+        Top_Face_CF();
+
+    explode(-50)
+        translate([-eps, 0, 0])
+            rotate([90, 0, 90])
+                stl_colour(pp3_colour)
+                    Top_Face_Left_Joiner_stl();
+    explode(-50)
+        translate([eX + 2*eSizeX + eps, 0, 0])
+            rotate([-90, 0, 90])
+                stl_colour(pp3_colour)
+                    Top_Face_Right_Joiner_stl();
+    explode(-50)
+        stl_colour(pp3_colour)
+            Top_Face_Front_Joiner_stl();
+    explode(-50)
+        stl_colour(pp3_colour)
+            Top_Face_Back_Joiner_stl();
+
+    explode(-50, show_line=false)
+        XY_Idler_Bracket_Left_assembly();
+
+    explode(-50, show_line=false)
+        XY_Idler_Bracket_Right_assembly();
+
+    topFaceBackHolePositions(eZ)
+        explode(25, true)
+            boltM3Buttonhead(8);
+    topFaceSideHolePositions(eZ)
+        explode(25, true)
+            boltM3Buttonhead(8);
+    topFaceFrontHolePositions(eZ, cf=true)
+        explode(25, true)
+            boltM3Buttonhead(8);
+}
+
 //! 1. Bolt the rails to the **Top_Face**. Ensure that the left rail is parallel with the left edge before fully tightening the
 //! bolts on the left side.
 //! 2. The bolts on the right side rail should be only loosely tightened - they will be fully tightened when the right rail
 //! is aligned when the X axis rail is added.
-//! 3. Bolt the **Top_Face_Back_Joiner** to the top face.
-//
-module Top_Face_CF_Stage_1_assembly()  pose(a=[55 + 180, 0, 25 + 310])
-assembly("Top_Face_CF_Stage_1", big=true) {
-
-    translate_z(eZ - _topPlateThickness + eps)
-        Top_Face_CF();
-    topFaceAssembly(NEMA_width(NEMA14_36), cf=true);
-
-    translate([-eps, 0, 0])
-        rotate([90, 0, 90])
-            stl_colour(pp3_colour)
-                Top_Face_Left_Joiner_stl();
-    translate([eX + 2*eSizeX + eps, 0, 0])
-        rotate([-90, 0, 90])
-            stl_colour(pp3_colour)
-                Top_Face_Right_Joiner_stl();
-    explode([0, 20, 0], show_line=false)
-        Top_Face_Front_Joiner_stl();
-
-    explode(-20, show_line=false)
-        Top_Face_Back_Joiner_stl();
-    explode([20, 0, 0], show_line=false) {
-        XY_Motor_Mount_Left_CF_assembly();
-        XY_Idler_Bracket_Left_assembly();
-    }
-
-    explode([-20, 0, 0], show_line=false) {
-        XY_Motor_Mount_Right_CF_assembly();
-        XY_Idler_Bracket_Right_assembly();
-    }
-
-    xyMotorMountTopHolePositions(left=true, z=eZ)
-        boltM3Buttonhead(8);
-    xyMotorMountTopHolePositions(left=false, z=eZ)
-        boltM3Buttonhead(8);
-
-    topFaceBackHolePositions(eZ)
-        boltM3Buttonhead(8);
-
-    explode(100, true) {
-        topFaceSideHolePositions(eZ)
-            explode(20, true)
-                boltM3Buttonhead(8);
-        topFaceFrontHolePositions(eZ, cf=true)
-            explode(50, true)
-                boltM3Buttonhead(8);
-    }
-}
-
-//! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable
-//! so be sure to attach them as per the diagram.
 //!
-//! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not
-//! accessible.  
-//! Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a
-//! washer under each pulley, but not on top of the pulley.
 //!
 //! Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16 of a turn)
 //! so they run freely.
@@ -214,25 +201,49 @@ assembly("Top_Face_CF_Stage_1", big=true) {
 module Top_Face_CF_Stage_2_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
 
-    explode(15, show_line=false)
-        Top_Face_CF_Stage_1_assembly();
+    Top_Face_CF_Stage_1_assembly();
 
-    yCarriageLeftAssembly(NEMA_width(NEMA14_36), t);
-    yCarriageRightAssembly(NEMA_width(NEMA14_36), t);
+    topFaceAssembly(NEMA_width(NEMA14_36), cf=true);
+    //yCarriageLeftAssembly(NEMA_width(NEMA14_36), t);
+    //yCarriageRightAssembly(NEMA_width(NEMA14_36), t);
+    explode(-20, show_line=false)
+        Y_Carriage_Left_Rail_assembly(t=t);
+    explode(-20, show_line=false)
+        Y_Carriage_Right_Rail_assembly(t=t);
+
+}
+
+//! 1. Bolt the **XY_Motor_Mount** assemblies to the **Top_Face_CF**.
+//
+module Top_Face_CF_Stage_3_assembly(t=undef)
+assembly("Top_Face_CF_Stage_3", big=true, ngb=true) {
+
+    Top_Face_CF_Stage_2_assembly(t);
+
+    explode(-40, show_line=false)
+        XY_Motor_Mount_Left_CF_assembly();
+    explode(-40, show_line=false)
+        XY_Motor_Mount_Right_CF_assembly();
+    xyMotorMountTopHolePositions(left=true, z=eZ)
+        explode(20, true)
+            boltM3Buttonhead(8);
+    xyMotorMountTopHolePositions(left=false, z=eZ)
+        explode(20, true)
+            boltM3Buttonhead(8);
 }
 
 //!1. Turn the **Top_Face** into its normal orientation.
-//!2. Bolt the X-axis linear rail onto the **Y_carriages**.
+//!2. Bolt the X-axis linear rail onto the **Y_Carriages**.
 //!3. Turn the Top_Face upside down again and place it on a flat surface.
 //!4. Align the left and right Y-axis linear rails. Do this by pushing the X-axis rail to the rear of the top face and tighten
 //!the corresponding bolts (left loose in a previous step) and then push the X-axis rails to the front of the top face,
 //!again tightening the corresponding bolts.
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
 //
-module Top_Face_CF_Stage_3_assembly(t=undef)
-assembly("Top_Face_CF_Stage_3", big=true) {
+module Top_Face_CF_Stage_4_assembly(t=undef)
+assembly("Top_Face_CF_Stage_4", big=true, ngb=true) {
 
-    Top_Face_CF_Stage_2_assembly(t);
+    Top_Face_CF_Stage_3_assembly(t);
 
     xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
 }
@@ -242,7 +253,7 @@ assembly("Top_Face_CF_Stage_3", big=true) {
 module Top_Face_CF_assembly(t=undef)
 assembly("Top_Face_CF", big=true) {
 
-    Top_Face_CF_Stage_3_assembly(t);
+    Top_Face_CF_Stage_4_assembly(t);
 
     explode(250, true)
         CoreXYBelts(carriagePosition());
@@ -253,7 +264,7 @@ assembly("Top_Face_CF", big=true) {
 module Top_Face_Back_Joiner_stl() {
     size = [80, eSizeY, eSizeZ];
     stl("Top_Face_Back_Joiner");
-    color(pp1_colour)
+    color(pp3_colour)
         difference() {
             translate([(eX + 2*eSizeX - size.x) / 2, eY + 2*eSizeY - size.y, eZ - size.z - _topPlateThickness])
                 rounded_cube_xy(size, _fillet);
@@ -269,18 +280,18 @@ module Top_Face_Back_Joiner_stl() {
 module Top_Face_Front_Joiner_stl() {
     size = [eX - 120, eSizeY, eSizeZ];
     stl("Top_Face_Front_Joiner");
-    difference() {
-        color(pp1_colour)
+    color(pp3_colour)
+        difference() {
             translate([(eX + 2*eSizeX - size.x) / 2, _frontPlateCFThickness, eZ - size.z - _topPlateThickness])
                 rounded_cube_xy(size, _fillet);
-        rotate([90, 0, 0])
-            frontFaceUpperHolePositions(-_frontPlateCFThickness)
+            rotate([90, 0, 0])
+                frontFaceUpperHolePositions(-_frontPlateCFThickness)
+                    vflip()
+                        boltHoleM3Tap(size.y, horizontal=true, rotate=180);
+            topFaceFrontHolePositions(eZ - _topPlateThickness, cf=true)
                 vflip()
-                    boltHoleM3Tap(size.y, horizontal=true, rotate=180);
-        topFaceFrontHolePositions(eZ - _topPlateThickness, cf=true)
-            vflip()
-                boltHoleM3Tap(9);
-    }
+                    boltHoleM3Tap(9);
+        }
 }
 
 module topFaceSideJoiner() {
@@ -348,7 +359,6 @@ module topFaceAssembly(NEMA_width, t=undef, cf=false) {
     translate(railOffset)
         rotate([180, 0, 90])
             explode(20, true) {
-                rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
                 translate_z(cf ? 0.5 : 0) // so screws are not absolutely flush in drawing
                     if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
                         rail_screws(yRailType, _yRailLength, thickness = 5 + (cf ? _topPlateThickness - 1 : 0), index_screws = cf ? 0 : 1);
@@ -356,14 +366,15 @@ module topFaceAssembly(NEMA_width, t=undef, cf=false) {
                     rail_hole_positions(yRailType, _yRailLength, 0)
                         translate_z(-_topPlateThickness)
                             vflip()
-                                explode(40, true)
-                                    nut_and_washer(M3_nut, true);
+                                explode(60, true)
+                                    nut_and_washer(M3_nut, nyloc=true);
+                else
+                    rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
             }
 
     translate([eX + 2*eSizeX - railOffset.x, railOffset.y, railOffset.z])
         rotate([180, 0, 90])
             explode(20, true) {
-                rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
                 translate_z(cf ? 0.5 : 0) // so screws are not absolutely flush in drawing
                     if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
                         rail_screws(yRailType, _yRailLength, thickness=5 + (cf ? _topPlateThickness - 1: 0), index_screws=0);
@@ -371,8 +382,10 @@ module topFaceAssembly(NEMA_width, t=undef, cf=false) {
                     rail_hole_positions(yRailType, _yRailLength, 0)
                         translate_z(-_topPlateThickness)
                             vflip()
-                                explode(40, true)
-                                    nut_and_washer(M3_nut, true);
+                                explode(60, true)
+                                    nut_and_washer(M3_nut, nyloc=true);
+                else
+                    rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
             }
     *translate_z(eZ - bb_width(BB608)/2)
         zLeadScrewHolePosition()
