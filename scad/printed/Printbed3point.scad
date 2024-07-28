@@ -55,7 +55,7 @@ module headedBed() {
 
 module Heated_Bed() {
     size = heatedBedSize;
-    vitamin(str("Heated_Bed(): Aluminium tooling plate ", size.x, "mm x ", size.y, "mm x ", size.z, "mm"));
+    vitamin(str("Heated_Bed(): Voron V0 aluminium build plate ", size.x, "mm x ", size.y, "mm x ", size.z, "mm"));
 
     translate_z(size.z/2)
         render_sheet(AL6anodised, w=size.x, d=size.y)
