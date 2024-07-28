@@ -145,6 +145,42 @@ assembly("Top_Face_NEMA_17", big=true) {
     xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
 }
 
+module railHolePositions(type, length, step=1) { //! Position children over screw holes
+    pitch = rail_pitch(type);
+    holeCount = rail_holes(type, length);
+    for(i = [0 : step : holeCount - 1])
+        translate([i * pitch - length / 2 + (length - (holeCount - 1) * pitch) / 2, 0])
+            children();
+}
+
+module topFaceAssembly(NEMA_width, t=undef, cf=false) {
+    yCarriageType = carriageType(_yCarriageDescriptor);
+    yRailType = carriage_rail(yCarriageType);
+
+    railOffset = yRailOffset(NEMA_width);
+    posY = carriagePosition(t).y - railOffset.y;
+
+    for (i = [ railOffset, [eX + 2*eSizeX - railOffset.x, railOffset.y, railOffset.z] ])
+        translate(i)
+            rotate([180, 0, 90])
+                if (cf) {
+                    railHolePositions(yRailType, _yRailLength, 2) {
+                        translate_z(-_topPlateThickness)
+                            vflip()
+                                explode(40, true)
+                                    color(grey(80))
+                                        nut_and_washer(M3_nut, nyloc=true);
+                        translate_z(rail_height(yRailType) - rail_bore_depth(yRailType))
+                            explode(30, true)
+                                color(grey(70))
+                                    boltM3Caphead(10);
+                    }
+                } else {
+                    rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
+                    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
+                        rail_screws(yRailType, _yRailLength, thickness=5, index_screws=0);
+                }
+}
 
 //! 1. Bolt the **Top_Face Joiners** to the **Top_Face_CF**.
 //! 2. Bolt the **XY_Idler_Bracket** assemblies to the **Top_Face_CF**.
@@ -349,46 +385,3 @@ assembly("Top_Face_with_Printhead", big=true) {
 }
 */
 
-module topFaceAssembly(NEMA_width, t=undef, cf=false) {
-    yCarriageType = carriageType(_yCarriageDescriptor);
-    yRailType = carriage_rail(yCarriageType);
-
-    railOffset = yRailOffset(NEMA_width);
-    posY = carriagePosition(t).y - railOffset.y;
-
-    translate(railOffset)
-        rotate([180, 0, 90])
-            explode(20, true) {
-                translate_z(cf ? 0.5 : 0) // so screws are not absolutely flush in drawing
-                    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-                        rail_screws(yRailType, _yRailLength, thickness = 5 + (cf ? _topPlateThickness - 1 : 0), index_screws = cf ? 0 : 1);
-                if (cf)
-                    rail_hole_positions(yRailType, _yRailLength, 0)
-                        translate_z(-_topPlateThickness)
-                            vflip()
-                                explode(60, true)
-                                    nut_and_washer(M3_nut, nyloc=true);
-                else
-                    rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
-            }
-
-    translate([eX + 2*eSizeX - railOffset.x, railOffset.y, railOffset.z])
-        rotate([180, 0, 90])
-            explode(20, true) {
-                translate_z(cf ? 0.5 : 0) // so screws are not absolutely flush in drawing
-                    if ($preview && (is_undef($hide_bolts) || $hide_bolts == false))
-                        rail_screws(yRailType, _yRailLength, thickness=5 + (cf ? _topPlateThickness - 1: 0), index_screws=0);
-                if (cf)
-                    rail_hole_positions(yRailType, _yRailLength, 0)
-                        translate_z(-_topPlateThickness)
-                            vflip()
-                                explode(60, true)
-                                    nut_and_washer(M3_nut, nyloc=true);
-                else
-                    rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
-            }
-    *translate_z(eZ - bb_width(BB608)/2)
-        zLeadScrewHolePosition()
-            ball_bearing(BB608);
-
-}
