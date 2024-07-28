@@ -23,6 +23,7 @@ _xCarriageDescriptor = "MGN9C";
 _xCarriageCountersunk = true;
 _yCarriageDescriptor = "MGN9C";
 _coreXYDescriptor = "GT2_20_16";
+_useReversedBelts = false;
 
 _useFrontDisplay = true;
 _useFrontSwitch = true;
