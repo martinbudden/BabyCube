@@ -29,8 +29,8 @@ module XY_IdlerBracket_test() {
     //Front_Face_CF_assembly();
     XY_Idler_Bracket_Left_assembly();
     XY_Idler_Bracket_Right_assembly();
-    //XY_Idler_Bracket_Left_stl();
-    //XY_Idler_Bracket_Right_stl();
+    //rotate(180) translate_z(eZ) XY_Idler_Bracket_Left_stl();
+    //translate_z(eZ) XY_Idler_Bracket_Right_stl();
 }
 
 if ($preview)
