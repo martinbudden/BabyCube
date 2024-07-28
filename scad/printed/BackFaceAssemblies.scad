@@ -244,7 +244,7 @@ assembly("Back_Face_CF_Stage_2", big=true, ngb=true) {
 //
 module Back_Face_CF_assembly()
 assembly("Back_Face_CF", big=true) {
-    Back_Face_CF_Stage_2_assembly();
+    Back_Face_CF_Stage_2_assembly(bedHeight = exploded() ? 200 : bedHeight());
 
     translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0])

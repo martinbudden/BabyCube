@@ -171,7 +171,7 @@ module Z_MotorMountHardware(NEMA_type, topPlateThickness=zMotorMountTopPlateThic
 
     translate_z(height)
         rotate(0)
-            explode(-60, true) {
+            explode(-200, true) {
                 if (corkDamperThickness)
                     explode(25)
                         corkDamper(NEMA_type, corkDamperThickness);
