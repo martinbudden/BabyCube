@@ -23,7 +23,7 @@ function topBoltHolderSize(sidePlateThickness=_sidePlateThickness, cnc=false) = 
 function topFaceSideHolePositionOffset() = 3.75 + yRailShiftX() + 0.5;
 function baseBackHoleOffset() = [ floor(_zNEMA_width/2) + 4, 4];
 //topBackHoleOffset = [ 20, 4];
-function topFaceBackHolePositions() = eX == 250 ? [eX/2 + eSizeX] : [ eX/2 + eSizeX - 20, eX/2 + eSizeX + 20 ];
+function topFaceBackHolePositions() = eX == 250 ? [eX/2 + eSizeX] : [ eX/2 + eSizeX - 15, eX/2 + eSizeX + 15 ];
 function topFaceBackHolePositionOffsetY() = 4;
 function topFaceFrontHolePositionOffsetY() = 8;
 
@@ -32,7 +32,7 @@ function lowerSideJoinerHolePositions(left) = [ 10, 10 + eY/3, 10 + 2*eY/3, eY +
 function backSideJoinerHolePositions() =  eZ == 200 ? [ 45, 80 ] : [50, 90 ];
 function frontSideJoinerHolePositions(bolts=false) = eZ == 200 ? (bolts ? [40, 80] : [ 40, 80, 120 ]) : [ 50 ];
 
-function backFaceHolePositions(cf=false) = concat([eSizeY/2 + 1, middleWebOffsetZ() + eSizeY/2], cf ? [] : [eZ - eSizeY/2 - _topPlateThickness]);
+function backFaceHolePositions(cf=false) = cf ? [eSizeY/2 + 1] : [eSizeY/2 + 1, middleWebOffsetZ() + eSizeY/2, eZ - eSizeY/2 - _topPlateThickness];
 
 function motorUprightZipTiePositions() = [30, middleWebOffsetZ() - 18];
 
@@ -138,7 +138,7 @@ module backFaceHolePositions(left, z=0, cf=false) {
             children();
 }
 
-module backFaceAllHolePositions(z=0, cf=false) {
+module backFaceLeftAndRightSideHolePositions(z=0, cf=false) {
     backFaceHolePositions(left=true, z=z, cf=cf)
         children();
     backFaceHolePositions(left=false, z=z, cf=cf)
@@ -154,8 +154,8 @@ module backFaceCFTopHolePositions(z=0) {
 
 module backFaceCFSideHolePositions(z=0) {
     size = [eX + 2*eSizeX, eZ];
-    for (x = [_backFaceHoleInset, size.x - _backFaceHoleInset])
-        translate([x, 60, z])
+    for (x = [_backFaceHoleInset, size.x - _backFaceHoleInset], y = [30, 110])
+        translate([x, y, z])
             children();
 }
 

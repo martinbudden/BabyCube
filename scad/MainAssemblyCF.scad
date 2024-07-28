@@ -55,7 +55,7 @@ staged_assembly("Stage_1_CF", big=true, ngb=true) {
         Back_Face_CF_assembly();
         translate([0, eY + 2*eSizeY, 0])
             rotate([90, 0, 0]) {
-                *backFaceAllHolePositions(-_backPlateCFThickness, cf=true)
+                *backFaceLeftAndRightSideHolePositions(-_backPlateCFThickness, cf=true)
                     vflip()
                         explode(50)
                             boltM3Buttonhead(10);

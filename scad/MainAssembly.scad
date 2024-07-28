@@ -77,7 +77,7 @@ staged_assembly("Stage_2", big=true, ngb=true) {
         Back_Face_assembly();
         translate([0, eY + 2*eSizeY, 0])
             rotate([90, 0, 0]) {
-                backFaceAllHolePositions(-_backPlateThickness)
+                backFaceLeftAndRightSideHolePositions(-_backPlateThickness)
                     vflip()
                         explode(50)
                             boltM3Countersunk(6);

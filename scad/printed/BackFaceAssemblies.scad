@@ -42,7 +42,7 @@ module backFace(zNEMA_type) {
             backFaceLowerBrackets(zNEMA_type, backFaceLowerBracketOffset);
         }
         // add the bolt holes for attachment to the left and right faces
-        backFaceAllHolePositions(-_backPlateThickness)
+        backFaceLeftAndRightSideHolePositions(-_backPlateThickness)
             boltPolyholeM3Countersunk(2*_backPlateThickness + 1, sink=0.25);
         backFaceBracketHolePositions(-_backPlateThickness)
             boltPolyholeM3Countersunk(2*_backPlateThickness + 1, sink=0.25);
@@ -121,13 +121,13 @@ module Back_Face_CF_dxf() {
                 yRailOffset = yRailOffset(_xyNEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
                 backFaceTopCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0, yRailOffset=yRailOffset);
                 // add the bolt holes for attachment to the left and right faces
-                backFaceAllHolePositions(cf=true)
+                backFaceLeftAndRightSideHolePositions(cf=true)
                     circle(r=M3_clearance_radius);
                 backFaceCFTopHolePositions()
                     circle(r=M3_clearance_radius);
-                backFaceCFSideHolePositions()
+                backFaceCFSideHolePositions() // attaches to left and right face joiners
                     circle(r=M3_clearance_radius);
-                backFaceBracketHolePositions(-_backPlateThickness, cnc=true)
+                backFaceBracketHolePositions(-_backPlateThickness, cnc=true) // attaches to base side joiner
                     circle(r=M3_clearance_radius);
                 backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
                 backFaceUpperSKBracketHolePositions(backFaceUpperBracketOffset)
@@ -204,9 +204,6 @@ assembly("Back_Face_CF_Stage_1", big=true, ngb=true) {
                 vflip()
                     explode(50)
                         boltM3Buttonhead(10);
-            *backFaceBracketHolePositions(-_backPlateCFThickness)
-                vflip()
-                    boltM3Buttonhead(10);
             explode(20, show_line=false)
                 translate([eX/2 + eSizeX, 0, _zLeadScrewOffset])
                     rotate([90, -90, 0])
@@ -271,9 +268,9 @@ module sideFaceJoiner() {
             boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
         translate([eY + 2*eSizeY, 0, 0])
             rotate([0, -90, 0]) {
-                backFaceCFSideHolePositions(0)
+                backFaceCFSideHolePositions()
                     boltHoleM3Tap(eSizeY - _backPlateCFThickness, horizontal=true, rotate=-90, chamfer_both_ends=false);
-                backFaceAllHolePositions(0)
+                backFaceLeftAndRightSideHolePositions()
                     boltHoleM3Tap(eSizeY - _backPlateCFThickness, horizontal=true, rotate=-90, chamfer_both_ends=false);
             }
         for (y = motorUprightZipTiePositions())
