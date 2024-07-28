@@ -143,25 +143,13 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
 
 //! Bolt the **Left_Face_CF** to the **Base_CF_assembly** and the **Back_Face_CF_assembly**.
 //
-module Stage_4_CF_assembly()
+module Stage_4_CF_assembly() pose(a=[55, 0, 25 - 50])
 staged_assembly("Stage_4_CF", big=true, ngb=true) {
 
     Stage_3_CF_assembly();
 
     translate([-eps, 0, 0])
         rotate([90, 0, 90]) {
-            upperSideJoinerHolePositions() // bolt left face to top
-                vflip()
-                    explode(10, true)
-                        boltM3Buttonhead(8);
-            xyMotorMountSideHolePositions()
-                vflip()
-                    explode(10, true)
-                        boltM3Buttonhead(10);
-            xyIdlerBracketHolePositions(_xyNEMA_width)
-                vflip()
-                    explode(10, true)
-                        boltM3Buttonhead(10);
         }
 
 
@@ -169,6 +157,10 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
         translate([-eps, 0, 0])
             rotate([90, 0, 90]) {
                 Left_Face_CF();
+                upperSideJoinerHolePositions() // bolt left face to top
+                    vflip()
+                        explode(10, true)
+                            boltM3Buttonhead(8);
                 lowerSideJoinerHolePositions(left=true) // bolt left face to base
                     vflip()
                         explode(10, true)
@@ -178,6 +170,14 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
                         explode(10, true)
                             boltM3Buttonhead(10);
                 backSideJoinerHolePositions() // bolt left face to back
+                    vflip()
+                        explode(10, true)
+                            boltM3Buttonhead(10);
+                xyMotorMountSideHolePositions()
+                    vflip()
+                        explode(10, true)
+                            boltM3Buttonhead(10);
+                xyIdlerBracketHolePositions(_xyNEMA_width)
                     vflip()
                         explode(10, true)
                             boltM3Buttonhead(10);
