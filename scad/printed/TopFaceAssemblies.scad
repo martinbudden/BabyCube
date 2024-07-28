@@ -183,14 +183,14 @@ assembly("Top_Face_CF_Stage_1", big=true, ngb=true) {
     translate_z(eZ - _topPlateThickness + eps)
         Top_Face_CF();
 
-    explode(-50)
-        translate([-eps, 0, 0])
-            rotate([90, 0, 90])
+    translate([-eps, 0, 0])
+        rotate([90, 0, 90])
+            explode([0, -50, 0])
                 stl_colour(pp3_colour)
                     Top_Face_Left_Joiner_stl();
-    explode(-50)
-        translate([eX + 2*eSizeX + eps, 0, 0])
-            rotate([-90, 0, 90])
+    translate([eX + 2*eSizeX + eps, 0, 0])
+        rotate([-90, 0, 90])
+            explode([0, 50, 0])
                 stl_colour(pp3_colour)
                     Top_Face_Right_Joiner_stl();
     explode(-50)
@@ -283,9 +283,9 @@ assembly("Top_Face_CF", big=true) {
 
     Top_Face_CF_Stage_4_assembly(t);
 
-    explode(250, true)
+    explode(250, true, show_line=false)
         CoreXYBelts(carriagePosition());
-    explode(100, true)
+    explode(100, true, show_line=false)
         printheadBeltSide(halfCarriage=false);
 }
 
