@@ -171,25 +171,28 @@ assembly("Base_CF_Stage_1", big=true) {
             Base_Front_Joiner_stl();
     baseFrontHolePositions(-_basePlateThickness, cf=true)
         vflip()
-            boltM3Buttonhead(10);
+            explode(15, true)
+                boltM3Buttonhead(10);
     rotate([90, 0, 90]) {
-        explode([0, 15, 0])
+        explode([0, 25, 0])
             stl_colour(pp1_colour)
                 Base_Left_Joiner_stl();
         lowerChordHolePositions(includeFeet=false)
             rotate([90, 0, 0])
                 translate_z(_basePlateThickness)
-                    boltM3Buttonhead(10);
+                    explode(15, true)
+                        boltM3Buttonhead(10);
     }
     translate([eX + 2*eSizeX, 0, 0])
         rotate([-90, 0, 90]) {
-            explode([0, -15, 0])
+            explode([0, -25, 0])
                 stl_colour(pp1_colour)
                     Base_Right_Joiner_stl();
             lowerChordHolePositions(includeFeet=false)
                 rotate([-90, 0, 0])
                     translate_z(_basePlateThickness)
-                        boltM3Buttonhead(10);
+                        explode(15, true)
+                            boltM3Buttonhead(10);
         }
 }
 
@@ -304,7 +307,7 @@ module baseLeftFeet(hardware=false) {
         translate([i.x, i.y, i.z])
             rotate(i[3])
                 vflip()
-                    explode(20, true)
+                    explode(hardware ? 30 : 20, true)
                         if (hardware)
                             Foot_LShaped_8mm_hardware();
                         else
@@ -317,7 +320,7 @@ module baseRightFeet(hardware=false) {
         translate([i.x, i.y, i.z])
             rotate(i[3])
                 vflip()
-                    explode(20, true)
+                    explode(hardware ? 30 : 20, true)
                         if (hardware)
                             Foot_LShaped_8mm_hardware();
                         else
@@ -607,7 +610,7 @@ module pcbAssembly(pcbType, alignRight=true) {
                                 pillar(M3x12_nylon_hex_pillar);
                             translate_z(-_basePlateThickness)
                                 vflip()
-                                    explode(20, true)
+                                    explode(30, true)
                                         boltM3Caphead(8);
                         }
                     }
