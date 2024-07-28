@@ -7,19 +7,16 @@ include <XY_Motors.scad>
 include <../Parameters_CoreXY.scad>
 
 
-basePlateThickness = 4;
 backSizeY = 5;
 sideSizeX = 5;
 braceHeight = 6;
 
 pulleyStackHeight = 2*washer_thickness(coreXYIdlerBore() == 3 ? M3_washer : coreXYIdlerBore() == 4 ? M4_shim : M5_shim) + pulley_height(coreXY_plain_idler(coreXY_type()));
-function xyMotorMountCFSize(NEMA_width) = XY_MotorMountCFSize(NEMA_width, 38 + basePlateThickness);
 
-
-function XY_MotorMountCFSize(NEMA_width, basePlateThickness) = [
+function xyMotorMountCFSize(NEMA_width) = [
     floor(NEMA_width) + 10,
     floor(NEMA_width) + 8,
-    basePlateThickness
+    38 + xyMotorMountBasePlateThickness()
 ];
 
 module xyMotorMountBeltGuide(sizeZ=10) {
@@ -43,6 +40,7 @@ module xyMotorMountCF(NEMA_type, left) {
 
     NEMA_width = NEMA_width(NEMA_type);
     size = xyMotorMountCFSize(NEMA_width);
+    basePlateThickness = xyMotorMountBasePlateThickness();
     backSize = [size.x, backSizeY, size.z];
     sideSize = [sideSizeX, size.y, size.z];
     fillet = 1;
@@ -86,11 +84,11 @@ module xyMotorMountCF(NEMA_type, left) {
             rotate([90, 0, 90])
                 xyMotorMountSideHolePositions()
                     vflip(!left)
-                        boltHoleM3Tap(sideSize.x, horizontal=true, rotate=left ? 0 : 180);
+                        boltHoleM3Tap(sideSize.x, horizontal=true, rotate=left ? 0 : 180, chamfer_both_ends=false);
         translate([0, eY + 2*eSizeY, 0])
             rotate([90, 0, 0])
                 xyMotorMountBackHolePositions(left)
-                    boltHoleM3Tap(backSize.y, horizontal=true);
+                    boltHoleM3Tap(backSize.y, horizontal=true, chamfer_both_ends=false);
         xyMotorMountTopHolePositions(left, eZ - _topPlateThickness)
             vflip()
                 boltHoleM3Tap(sideSize.x);
@@ -109,7 +107,7 @@ module xyMotorMountCFBrace(NEMA_type, left) {
     size = [xyMotorMountCFSize(NEMA_width).x - sideSizeX, 15, braceHeight];
     fillet = 1;
 
-    offsetZ  = eZ - _topPlateThickness - xyMotorMountCFSize.z + basePlateThickness + 2*pulleyStackHeight + yCarriageBraceThickness();
+    offsetZ  = eZ - _topPlateThickness - xyMotorMountCFSize.z + xyMotorMountBasePlateThickness() + 2*pulleyStackHeight + yCarriageBraceThickness();
     difference() {
         translate([0, eY + 2*eSizeY - backSizeY - size.y, offsetZ])
             translate([left ? _sidePlateThickness + sideSizeX : eX + 2*eSizeX - _sidePlateThickness - sideSizeX - size.x, 0, 0]) {
@@ -252,6 +250,7 @@ module XY_Motor_Mount_CF_hardware(NEMA_type, left=true) {
     separation = coreXYSeparation();
     coreXY_type = coreXY_type();
     washer = M3_washer;
+    basePlateThickness = xyMotorMountBasePlateThickness();
 
     //braceOffsetZ = 2*bearingStackHeight() + yCarriageBraceThickness() + 0.5; // tolerance of 0.5
 

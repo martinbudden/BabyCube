@@ -31,14 +31,15 @@ function xyMotorType() =
     undef;
 
 
-basePlateThickness = _xyMotorBracketThickness;
+function xyMotorMountBasePlateThickness(cnc=_useCNC) = cnc ? 5 : 6;
+
 pulleyOffset = pulley_height(GT2x20ob_pulley) - pulley_hub_length(GT2x20ob_pulley);
 
 //function motorUprightThickness() = eSizeY - 5;
 
-function XY_MotorMountSize(NEMA_width, basePlateThickness=basePlateThickness, cf=false) = [
-    floor(NEMA_width) + motorClearance().x - _sidePlateThickness,
-    NEMA_width + motorClearance().y + (cf ? 3.5 : 0.5),
+function XY_MotorMountSize(NEMA_width, basePlateThickness, cnc=false) = [
+    floor(NEMA_width) + motorClearance(cnc=cnc).x - _sidePlateThickness,
+    NEMA_width + motorClearance(cnc=cnc).y + (cnc ? 3.5 : 0.5),
     basePlateThickness
 ];
 
@@ -68,7 +69,7 @@ module XY_MotorUpright(NEMA_type, left=true) {
 
     XY_MotorPosition(NEMA_width, left)
         //render_if(!$preview, convexity=10)
-            XY_MotorMount(NEMA_type, left, basePlateThickness, eZ - xyMotorPosition(NEMA_width, left).z);
+            XY_MotorMount(NEMA_type, xyMotorMountBasePlateThickness(cnc=false), eZ - xyMotorPosition(NEMA_width, left).z, left, cnc=false);
 }
 
 module XY_MotorUprightHardware(NEMA_type, left=true) {
@@ -76,12 +77,12 @@ module XY_MotorUprightHardware(NEMA_type, left=true) {
     NEMA_width = NEMA_width(NEMA_type);
 
     XY_MotorPosition(NEMA_width, left)
-        XY_MotorMountHardware(NEMA_type, basePlateThickness);
+        XY_MotorMountHardware(NEMA_type, xyMotorMountBasePlateThickness(cnc=false));
 }
 
 module xyMotorMountBackHolePositions(left=true, z=0) {
     size = [eX + 2*eSizeX, eZ];
-    for (pos = [[10, 10], [37, 38]])
+    for (pos = [[8, 13], [37, 41 + xyMotorMountBasePlateThickness()/2]])
         translate(left ? [pos.x, size.y - pos.y, z] : [size.x - pos.x, size.y - pos.y, z])
             children();
 }
@@ -102,17 +103,19 @@ function xyMotorMountSideHolePositions(sizeY) = [ [-4, 0], [-sizeY + 4, 0], [-4,
 
 module xyMotorMountSideHolePositions() {
     translate([eY + 2*eSizeY, eZ])
-        for (pos = [[-10, -15], [-35, -38]])
+        for (pos = [[-12, -18], [-35, -41 - xyMotorMountBasePlateThickness()/2]])
             translate(pos)
                 children();
 }
 
-module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness, offset=0, cf=false) {
+module XY_MotorMount(NEMA_type, basePlateThickness, offset=0, left=true, cnc=false) {
     assert(isNEMAType(NEMA_type));
     assert(offset >= yRailSupportThickness());
+    assert(!is_undef(basePlateThickness));
 
     NEMA_width = NEMA_width(NEMA_type);
-    size = XY_MotorMountSize(NEMA_width, cf=cf);
+    size = XY_MotorMountSize(NEMA_width, xyMotorMountBasePlateThickness(cnc=cnc), cnc=cnc);
+    motorClearance = motorClearance(cnc=cnc);
     fillet = 1.5;
     braceWidth = 3;
     braceHeight = offset - yRailSupportThickness();
@@ -123,8 +126,8 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
         // baseplate for motor with cutouts
         union() {
             yRailType = railType(_yCarriageDescriptor);
-            translate([-NEMA_width/2 - motorClearance().x + _sidePlateThickness, NEMA_width/2 + motorClearance().y - size.y, 0]) {
-                if (cf) {
+            translate([-NEMA_width/2 - motorClearance.x + _sidePlateThickness, NEMA_width/2 + motorClearance.y - size.y, 0]) {
+                if (cnc) {
                     rounded_cube_xy(size + [0, offsetY*2, 0], fillet);
                     translate([0, size.y - backBraceThickness, 0]) {
                         rounded_cube_xy([size.x, backBraceThickness, braceHeight - rail_height(yRailType) - 1], fillet);
@@ -134,7 +137,7 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
                 } else {
                     rounded_cube_yz(size + [0, offsetY*2, 0], fillet);
                     translate([0, size.y - backBraceThickness, 0]) {
-                        rounded_cube_yz([NEMA_type == NEMA14T() ? size.x :  32.5 + motorClearance().x - _sidePlateThickness,
+                        rounded_cube_yz([NEMA_type == NEMA14T() ? size.x :  32.5 + motorClearance.x - _sidePlateThickness,
                                         backBraceThickness,
                                         _fullLengthYRail ? braceHeight - rail_height(yRailType) - 1 : braceHeight], fillet);
                         if (NEMA_type == NEMA17_40)
@@ -147,39 +150,39 @@ module XY_MotorMount(NEMA_type, left=true, basePlateThickness=basePlateThickness
         }
         translate_z(-eps)
             rotate(-90)
-                if (cf)
+                if (cnc)
                     poly_cylinder(r=NEMA_boss_radius(NEMA_type) + 0.5, h=basePlateThickness + 2*eps);
                 else
                     teardrop(basePlateThickness + 2*eps, NEMA_boss_radius(NEMA_type) + 0.5, center=false, chamfer=0.5);
         translate_z(basePlateThickness)
             NEMA_screw_positions(NEMA_type)
                 rotate([180, 0, 90])
-                    boltHoleM3(basePlateThickness, horizontal=!cf);
+                    boltHoleM3(basePlateThickness, horizontal=!cnc);
 
-        *if (cf)
-            translate([-NEMA_width/2 - motorClearance().x + _sidePlateThickness,NEMA_width/2 + motorClearance().y, basePlateThickness/2])
+        *if (cnc)
+            translate([-NEMA_width/2 - motorClearance.x + _sidePlateThickness,NEMA_width/2 + motorClearance.y, basePlateThickness/2])
                 rotate([90, 0, 90])
                     for (pos = xyMotorMountSideHolePositions(size.y))
                         translate(pos)
                             boltHoleM3Tap(10, horizontal=true, chamfer_both_ends=false);
 
-        translate([-NEMA_width/2 - motorClearance().x + _sidePlateThickness, NEMA_width/2 + motorClearance().y - backBraceThickness, 0]) {
+        translate([-NEMA_width/2 - motorClearance.x + _sidePlateThickness, NEMA_width/2 + motorClearance.y - backBraceThickness, 0]) {
                         translate([_backFaceHoleInset - _sidePlateThickness, 0, offset - (eZ - backFaceHolePositions()[2])])
                             rotate([90, 0, 180])
-                                boltHoleM3Tap(backBraceThickness, horizontal=true, rotate=cf ? 0 : 90);
+                                boltHoleM3Tap(backBraceThickness, horizontal=true, rotate=cnc ? 0 : 90);
                         //upperOffsetX = (eX + 2*eSizeX - backUpperChordSize().z)/2 + 5;
                         translate([backFaceBracketUpperOffset().x - _sidePlateThickness, 0, offset - backFaceBracketUpperOffset().y])
                             rotate([90, 0, 180])
-                                boltHoleM3Tap(backBraceThickness, horizontal=true, rotate=cf ? 0 : 90);
+                                boltHoleM3Tap(backBraceThickness, horizontal=true, rotate=cnc ? 0 : 90);
         }
 
-        *translate([NEMA_width/2, NEMA_width/2+motorClearance().y, 0])
+        *translate([NEMA_width/2, NEMA_width/2 + motorClearance.y, 0])
             rotate([90, 0, -90])
                 fillet(fillet, size.x);
     }
 }
 
-module XY_MotorMountHardware(NEMA_type, basePlateThickness=basePlateThickness, corkDamperThickness=_corkDamperThickness) {
+module XY_MotorMountHardware(NEMA_type, basePlateThickness, corkDamperThickness=_corkDamperThickness) {
     assert(isNEMAType(NEMA_type));
 
     pulley_type = GT2x20um_pulley;
