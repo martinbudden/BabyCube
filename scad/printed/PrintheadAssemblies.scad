@@ -34,13 +34,13 @@ module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false, sc
     holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
 
-    xRailCarriagePosition(carriagePosition(t), rotate=rotate)
-        explode(explode, true) {
-            explode([0, -20, 0], true)
-                if (boltLength > 0)
-                    xCarriageBeltSideBolts(xCarriageType, xCarriageBeltSideSize, topBoltLength=boltLength, holeSeparationTop=holeSeparationTop, bottomBoltLength=boltLength, holeSeparationBottom=holeSeparationBottom, screwType=screwType, boreDepth=boreDepth);
+    xRailCarriagePosition(carriagePosition(t), rotate=rotate) {
+        explode(explode, true)
             children();
-        }
+        if (boltLength > 0)
+            explode([0, -20, 0], true)
+                xCarriageBeltSideBolts(xCarriageType, xCarriageBeltSideSize, topBoltLength=boltLength, holeSeparationTop=holeSeparationTop, bottomBoltLength=boltLength, holeSeparationBottom=holeSeparationBottom, screwType=screwType, boreDepth=boreDepth);
+    }
 }
 
 module printheadAccelerometerAssembly() {
