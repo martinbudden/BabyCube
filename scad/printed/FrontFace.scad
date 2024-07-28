@@ -35,8 +35,9 @@ module frontFaceCF(coverBelts) {
     difference() {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2]) {
-            translate([insetX, 50])
-                rounded_square([size.x - 2*insetX, eZ - insetY - 50 + 15 - (coverBelts ? 24 : 0)], 3, center=false);
+            baseY = 45;
+            translate([insetX, baseY])
+                rounded_square([size.x - 2*insetX, eZ - insetY - baseY + 15 - (coverBelts ? 24 : 0)], 3, center=false);
             if (coverBelts) {
                 if (_fullLengthYRail)
                     for (x = [18.5, size.x - 18.5])
