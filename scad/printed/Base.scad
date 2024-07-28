@@ -522,11 +522,11 @@ module PSU() {
     }
 }
 
-module pcbPosition(pcbType, alignRight=true) {
+module pcbPosition(pcbType, alignRight=true, cnc=_useCNC) {
     pcbSize = pcb_size(pcbType);
 
     if (pcbType == BTT_SKR_MINI_E3_V2_0) {// || pcbType == BTT_TF_CLOUD_V1_0)
-        translate([alignRight ? eX + 2*eSizeX - pcbSize.x/2 - (_useCNC ? 4 : eSizeXBase + 8) : (eX + 2*eSizeX)/2, pcbSize.y/2 + eSizeY + (_useCNC ? 4 : 2), 0])
+        translate([alignRight ? eX + 2*eSizeX - pcbSize.x/2 - eSizeXBase - (cnc ? 18 : 8) : (eX + 2*eSizeX)/2, pcbSize.y/2 + eSizeY + (cnc ? 4 : 2), 0])
             if (pcbType == BTT_SKR_MINI_E3_V2_0)
                 children();
             else
@@ -553,7 +553,7 @@ module pcbPosition(pcbType, alignRight=true) {
             rotate(90)
                 children();
     } else if (pcbType == RPI3A_plus) {
-        translate([42 + pcbSize.y/2, pcbSize.x/2 + eSizeY + 7.25])
+        translate([(cnc ? 32 : 42) + pcbSize.y/2, pcbSize.x/2 + eSizeY + 7.25])
             rotate(-90)
                 children();
     } else if (pcbType == RPI4) {
@@ -594,7 +594,7 @@ module pcb_back_screw_positions(type, yCutoff=0) {
 M3x10_nylon_hex_pillar = ["M3x10_nylon_hex_pillar", "hex nylon", 3, 10, 6/cos(30), 6/cos(30),  6, 6,  grey(20),   grey(20),  -5, -5 + eps];
 M3x12_nylon_hex_pillar = ["M3x12_nylon_hex_pillar", "hex nylon", 3, 12, 6/cos(30), 6/cos(30),  6, 6,  grey(20),   grey(20),  -6, -6 + eps];
 
-module pcbAssembly(pcbType, alignRight=true) {
+module pcbAssembly(pcbType, alignRight=true, cnc=_useCNC) {
 
     if (is_undef($hide_pcb) || $hide_pcb == false)
     translate_z(pcbOffsetFromBase()) {
@@ -610,13 +610,14 @@ module pcbAssembly(pcbType, alignRight=true) {
         //pcbPosition(RPI4)
         //    pcb(RPI4);
 
-        pcbPosition(pcbType, alignRight) {
+        pcbPosition(pcbType, alignRight, cnc) {
             explode(50, true) {
                 pcb(pcbType);
                 // top side screws
                 pcb_screw_positions(pcbType)
                     translate_z(pcb_thickness(pcbType))
-                        boltM3Caphead(pcbType != BTT_SKR_MINI_E3_V2_0 || ((_useCNC && $i == 4)) ? 6 : 8);
+                        //boltM3Caphead(pcbType != BTT_SKR_MINI_E3_V2_0 || ((cnc && $i == 4)) ? 6 : 8);
+                        boltM3Caphead(8);
             }
             if (pcbType == BTT_SKR_V1_4_TURBO) {
                 pcb_back_screw_positions(pcbType)
@@ -630,14 +631,14 @@ module pcbAssembly(pcbType, alignRight=true) {
                 // bottom side screws and pillars
                 translate_z(-pcbOffsetFromBase())
                     pcb_screw_positions(pcbType) {
-                        if (pcbType != BTT_SKR_MINI_E3_V2_0 || !_useCNC || $i != 4) {
+                        //if (pcbType != BTT_SKR_MINI_E3_V2_0 || !cnc || $i != 4) {
                             explode(15)
                                 pillar(M3x12_nylon_hex_pillar);
                             translate_z(-_basePlateThickness)
                                 vflip()
                                     explode(30, true)
                                         boltM3Caphead(8);
-                        }
+                        //}
                     }
                 if (pcbType == BTT_SKR_MINI_E3_V2_0 || pcbType == BTT_SKR_E3_TURBO) {
                     tubeHeight = 12;
