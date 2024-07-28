@@ -341,11 +341,21 @@ module frameLower(NEMA_width, left=true, offset=0, cf=false, length=0) {
             translate([eY + 2*eSizeY - 10, 0, offset])
                 rounded_cube_xy([10, 20, 35 - offset], fillet); // 38 to match frontConnector size
             if (cf)
-                translate([offset, 0, offset]) {
-                    rounded_cube_xy([eSizeY, 55, eSizeXBase - offset], fillet);
-                    translate([eSizeY, eSizeZ, 0])
-                        fillet(fillet, eSizeXBase - offset);
-                }
+                translate([offset, 0, offset])
+                    difference() {
+                        baseCoverOffset = 40;
+                        union() {
+                            rounded_cube_xy([eSizeY, 55, eSizeXBase - offset], fillet);
+                            rounded_cube_xy([2*eSizeY, baseCoverOffset, eSizeXBase - offset], fillet);
+                            translate([eSizeY, baseCoverOffset, 0])
+                                fillet(fillet, eSizeXBase - offset);
+                            translate([2*eSizeY, eSizeZ, 0])
+                                fillet(fillet, eSizeXBase - offset);
+                        }// end union
+                        translate([3*eSizeY/2, baseCoverOffset, (eSizeXBase - offset)/2])
+                            rotate([90, 0, 0])
+                                boltHoleM3Tap(10);
+                    }// end difference
         }
         translate([eY + 2*eSizeY, backFaceHolePositions()[0], _backFaceHoleInset])
             rotate([90, 0, -90])

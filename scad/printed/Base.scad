@@ -209,7 +209,6 @@ assembly("Base_CF", big=true) {
 
     //baseAssembly();
     baseAssembly(BTT_SKR_MINI_E3_V2_0, psuType);
-    //baseCoverAssembly();
     pcbAssembly(RPI3A_plus);
 }
 
@@ -279,28 +278,54 @@ module baseAssembly(pcb=undef, psuType=undef) {
         }
 }
 
-baseCoverHeight = 40;
+baseCoverHeight = 43;
 module Base_Cover_stl() {
-    size = [eX, 90, 3];
+    size = [eX + 2*eSizeX - 2*_sidePlateThickness, 144, 3];
 
-    color(pp1_colour)
+    color(pp3_colour)
         stl("Base_Cover")
-            translate([eSizeX, -size.y - _frontPlateCFThickness, 0]) {
-                fillet = 1;
-                rounded_cube_xy(size, fillet);
-                size2 = [size.x, 3, baseCoverHeight];
-                rounded_cube_xy(size2, fillet);
-            }
+            difference() {
+                union() {
+                    translate([_sidePlateThickness, -size.y - _frontPlateCFThickness, 0]) {
+                        rounded_cube_xy(size - [0, eSizeY, 0], fillet);
+                        translate([eSizeX - _sidePlateThickness, 0, 0])
+                            rounded_cube_xy([eX, size.y, size.z], fillet);
+
+                        sizeBack = [size.x, 3, baseCoverHeight - eSizeZ];
+                        rounded_cube_xy(sizeBack, fillet);
+
+                        sizeBack2 = [size.x - 4*eSizeX, 3, baseCoverHeight];
+                        translate([(size.x - sizeBack2.x)/2, 0, 0])
+                            rounded_cube_xy(sizeBack2, fillet);
+
+                        sizePillar = [eSizeXBase - _sidePlateThickness, eSizeY, sizeBack.z];
+                        for (x = [0, sizeBack.x - sizePillar.x])
+                            translate([x, 0, 0])
+                                rounded_cube_xy(sizePillar, fillet);
+                        translate([sizePillar.x, sizeBack.y, 0])
+                            fillet(2, sizePillar.z);
+                        translate([sizeBack.x - sizePillar.x, sizeBack.y, 0])
+                            rotate(90)
+                                fillet(2, sizePillar.z);
+                    }// end translate
+                }// end union
+                for (x = [(eSizeXBase + _sidePlateThickness)/2, eX + (3*eSizeX - _sidePlateThickness)/2])
+                    translate([x, -(_frontPlateCFThickness + 3*eSizeY/2), 0])
+                        boltHoleM3(size.z);
+            }// end difference
 }
 
 module baseCoverAssembly() {
-    stl_colour(pp1_colour)
+    stl_colour(pp3_colour)
         translate_z(baseCoverHeight)
             vflip()
                 Base_Cover_stl();
+    for (x = [(eSizeXBase + _sidePlateThickness)/2, eX + (3*eSizeX - _sidePlateThickness)/2])
+        translate([x, _frontPlateCFThickness + 3*eSizeY/2, baseCoverHeight])
+            boltM3Caphead(8);
 }
-// All corners are offset by _baseBoltHoleInset in both the x and y direction so that the feet are symmetrical.
 
+// All corners are offset by _baseBoltHoleInset in both the x and y direction so that the feet are symmetrical.
 module baseLeftFeet(hardware=false) {
     footHeight = 8;
     for (i = [ [0, 0, -_basePlateThickness - footHeight, 0], [0, eY + 2*eSizeY, -_basePlateThickness - footHeight, 270] ])
@@ -334,7 +359,7 @@ module Base_Left_Joiner_stl() {
         difference() {
             color(pp1_colour)
                 frameLower(NEMA_width, left=true, offset=_sidePlateThickness, cf=true);
-            lowerSideJoinerHolePositions(_sidePlateThickness, left=true)
+           lowerSideJoinerHolePositions(_sidePlateThickness, left=true)
                 boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
             frontSideJoinerHolePositions(_sidePlateThickness)
                 boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
