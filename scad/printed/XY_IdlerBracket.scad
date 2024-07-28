@@ -206,11 +206,8 @@ module idlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, left
         } else {
             rounded_cube_xy(topSize, fillet);
             if (reversedBelts) {
-                if (!_fullLengthYRail) {
-                    rounded_cube_xy([eSizeY - 1, topSize.y + 7, topSize.z], fillet);
-                    translate([eSizeY - 1, topSize.y, 0])
-                        fillet(fillet, topSize.z);
-                }
+                if (!_fullLengthYRail)
+                    rounded_cube_xy([eSizeY + 0.5, topSize.y + 7, topSize.z], fillet);
                 if (left)
                     translate([0, -separation, 0])
                         rounded_cube_xy([topSize.x, topSize.y + separation, size.z - _sidePlateThickness], fillet);
@@ -223,11 +220,11 @@ module idlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, left
         translate([0, reversedBelts && left ? -separation : 0, 0])
             rotate([-90, 180, 0])
                 translate(boltPos)
-                    boltHoleM3TapOrInsert(topSize.y + 2, horizontal=true, chamfer_both_ends=false);
+                    boltHoleM3TapOrInsert(topSize.y + (reversedBelts ? (left ? separation + 7 : 7) : 0), horizontal=true, chamfer_both_ends=true);
     }
     // base
-    translate([0, -2*separation - size.y + 2*fillet, 0])
-        cube([size.x, 2*(separation + size.y), 5]);
+    translate([0, -fillet/2 - (left ? 2*separation : separation), 0])
+        cube([size.x, separation + 3*fillet, 5]);
 }
 
 module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, left=true, cnc=false) {
