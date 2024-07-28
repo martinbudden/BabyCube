@@ -298,7 +298,7 @@ assembly("Top_Face_CF", big=true) {
 }
 
 module Top_Face_Back_Joiner_stl() {
-    size = [80, eSizeY, eSizeZ];
+    size = [50, eSizeY, eSizeZ];
     stl("Top_Face_Back_Joiner");
     color(pp3_colour)
         difference() {
