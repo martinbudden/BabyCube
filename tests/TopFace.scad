@@ -59,6 +59,7 @@ module Top_Face_test() {
             //Top_Face_CF_Stage_2_assembly();
             //translate_z(2*eZ) vflip()
             //Top_Face_CF_Stage_3_assembly();
+            //Top_Face_CF_Stage_4_assembly();
             //Front_Face_CF_assembly();
             //Back_Face_CF_Stage_1_assembly();
             //Right_Face_CF_assembly();

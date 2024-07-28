@@ -33,17 +33,17 @@ module Back_Face_test() {
     //translate_z(bedHeight(t)) Print_bed_assembly();
     //translate_z(_zMin) Print_bed_3_point_printed_assembly();
 
-    *if (_useCNC)
-        Back_Face_CF_Stage_1_assembly();
-    else
-        Back_Face_Stage_1_assembly();
-    if (_useCNC)
-        Back_Face_CF_assembly(bedHeight(t));
-    else
+    if (_useCNC) {
+        //Back_Face_CF();
+        //Back_Face_CF_Stage_1_assembly();
+        //Back_Face_CF_Stage_2_assembly(bedHeight(t));
+        Back_Face_CF_assembly();
+    } else {
+        //Back_Face_Stage_1_assembly();
         Back_Face_assembly(bedHeight(t));
+    }
     *let($preview=false)
         Back_Face_stl();
-    //Back_Face_CF();
     //Back_Face_CF_dxf();
     //Left_Face_assembly(switch=false);
     //Left_Face_CF_assembly();
