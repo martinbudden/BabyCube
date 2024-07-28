@@ -1,5 +1,7 @@
 //! Display an L-shaped foot
 
+include <../scad/global_defs.scad>
+
 include <NopSCADlib/utils/core/core.scad>
 
 include <../scad/printed/Foot.scad>

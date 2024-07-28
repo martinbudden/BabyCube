@@ -14,7 +14,7 @@ use <../scad/utils/printParameters.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
-use <../scad/printed/PrintheadAssembliesE3DV6.scad>
+use <../scad/printed/PrintheadAssembliesE3DRevo.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/XY_IdlerBracket.scad>
 include <../scad/printed/XY_Motors.scad>
@@ -26,7 +26,7 @@ use <../scad/printed/Y_CarriageAssemblies.scad>
 use <../scad/Parameters_Positions.scad>
 
 
-t=2;
+t=3;
 
 module CoreXY() {
 
@@ -34,13 +34,13 @@ module CoreXY() {
     echo(coreXY_drive_pulley_x_offset=coreXY_drive_pulley_x_alignment(coreXY_type()));
     echo(coreXYSeparation=coreXYSeparation());
 
-    CoreXYBelts(carriagePosition(), show_pulleys=[1, 0, 0]);
+    CoreXYBelts(carriagePosition(t), show_pulleys=[1, 0, 0]);
     translate([0, carriagePosition(t).y - carriagePosition().y, 0])
         yCarriageLeftAssembly(_xyNEMA_width);
     translate([0, carriagePosition(t).y - carriagePosition().y, 0])
         yCarriageRightAssembly(_xyNEMA_width);
     if (_useCNC) {
-        topFaceAssembly(_xyNEMA_width);
+        let($hide_bolts=true) topFaceAssembly(_xyNEMA_width, t=t);
         XY_Idler_Bracket_Left_assembly();
         XY_Idler_Bracket_Right_assembly();
         XY_Motor_Mount_Left_CF_assembly();
@@ -54,8 +54,8 @@ module CoreXY() {
     }
     xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
     //let($hide_bolts=true)
-    printheadBeltSide(t=t);
-    printheadHotendSideE3DV6(t=t);
+    printheadBeltSide(t=t, halfCarriage=false);
+    //printheadHotendSideE3DRevo(t=t);
     *xRailCarriagePosition(carriagePosition(), rotate=0) {// rotate 180 to make it easier to see belts
         *rotate([0, 90, 0])
             X_Carriage_stl();

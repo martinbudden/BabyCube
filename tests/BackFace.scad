@@ -65,7 +65,7 @@ module Back_Face_test() {
     //backFaceLowerBrackets(NEMA17P, 0);
     //backFaceUpperBrackets(_xyNEMA_width);
     //backFaceBare(NEMA17P);
-    //backFaceAllHolePositions() cylinder(r=2, h=10);
+    //backFaceLeftAndRightSideHolePositions() cylinder(r=2, h=10);
     //backFaceHolePositions(left=false) cylinder(r=2, h=10);
     //backFaceCableTies();
     //printheadWiring(carriagePosition(t));

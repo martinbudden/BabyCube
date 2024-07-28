@@ -46,6 +46,7 @@ module Left_Face_test() {
     //Left_Face_CF_dxf();
     //Left_Face_NEMA_17_CF_dxf();
 
+    //Right_Face_CF_assembly();
     if (_useCNC)
         Left_Face_CF_assembly();
     else

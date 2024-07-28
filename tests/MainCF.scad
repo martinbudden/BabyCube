@@ -23,7 +23,7 @@ include <../scad/Parameters_Main.scad>
 module MainCF_test() {
     echoPrintSize();
     //echoPrintParameters();
-    //BaseCF_assembly();
+    //Base_CF_assembly();
     //Back_Face_CF_Stage_1_assembly();
     //Back_Face_CF_assembly();
     //Left_Face_CF_assembly();
@@ -31,6 +31,7 @@ module MainCF_test() {
     //Top_Face_CF_assembly();
     //translate_z(3)  Top_Face_CF_Stage_1_assembly();
     //Front_Face_CF_assembly();
+    //Stage_1_CF_assembly();
     //Stage_2_CF_assembly();
     //Stage_3_CF_assembly();
     //Stage_4_CF_assembly();

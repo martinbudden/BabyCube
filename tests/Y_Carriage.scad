@@ -11,10 +11,14 @@ use <../scad/Parameters_Positions.scad>
 //$explode = 1;
 //$pose = 1;
 module Y_Carriage_test0() {
+    t = 3;
     translate_z(-eZ + 20) {
-        CoreXYBelts(carriagePosition(), x_gap=16, show_pulleys=false);//[1,0,0]);
-        yCarriageLeftAssembly(_xyNEMA_width);
-        yCarriageRightAssembly(_xyNEMA_width);
+        CoreXYBelts(carriagePosition(t), x_gap=16, show_pulleys=[1,0,0]);
+        yCarriageLeftAssembly(_xyNEMA_width, t=t, reversedBelts=true);
+        yCarriageRightAssembly(_xyNEMA_width, t=t, reversedBelts=true);
+        //Y_Carriage_Left_Rail_assembly(t=t);
+        //yCarriageLeftRailAssembly(_xyNEMA_width, t=t, reversedBelts=true);
+        //yCarriageRightRailAssembly(_xyNEMA_width, t=t, reversedBelts=true);
     }
 }
 

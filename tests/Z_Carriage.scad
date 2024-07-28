@@ -8,10 +8,15 @@ include <../scad/Parameters_Main.scad>
 //$explode = 1;
 //$pose = 1;
 module Z_Carriage_test() {
-    //Z_Carriage_stl();
-    //zCarriage_hardware();
-    //Z_Carriage_cable_ties(_printBedSize);
-    Z_Carriage_assembly();
+    rotate([180, 0, 0]) {
+        if (_useCNC)
+            Z_Carriage_96_stl();
+        else
+            Z_Carriage_stl();
+        zCarriage_hardware();
+    }
+    //Z_Carriage_cable_ties(100);
+    //Z_Carriage_assembly();
     //zCarriage(testing=true);
 }
 

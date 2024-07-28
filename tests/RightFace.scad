@@ -18,7 +18,6 @@ include <../scad/utils/printParameters.scad>
 include <../scad/utils/CoreXYBelts.scad>
 
 
-
 //$explode = 1;
 //$pose = 1;
 module Right_Face_test() {
@@ -30,10 +29,10 @@ module Right_Face_test() {
         Right_Face_CF_assembly();
     else
         Right_Face_assembly();
-    faceRightSpoolHolder(cf=_useCNC);
+    //faceRightSpoolHolder(cf=_useCNC);
     //faceRightSpool(cf=_useCNC);
     //echo(ep=extruderPosition(_xyNEMA_width));
-    //bowdenTube(carriagePosition());
+    //bowdenTube(carriagePosition(), "E3DRevo");
     //Right_Face_stl();
     //Right_Face_NEMA_17_stl();
 
@@ -43,7 +42,6 @@ module Right_Face_test() {
     //webbingRight(xyMotorType());
     //frame(NEMA_type, left=false);
     //XY_MotorUpright(xyMotorType(), left=false);
-    //bowdenTube(carriagePosition());
     //hotEndWiring();
 
     //Base_assembly();

@@ -8,7 +8,6 @@ include <NopSCADlib/utils/core/core.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
 //use <../scad/printed/Base.scad>
 //include <../scad/printed/Extras.scad>
-use <../scad/printed/FrontChords.scad>
 use <../scad/printed/FrontFace.scad>
 use <../scad/printed/LeftAndRightFaces.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
@@ -35,7 +34,7 @@ module Top_Face_test() {
     echoPrintSize();
 
     //printheadHotendSideE3DV6();
-    printheadHotendSideE3DRevo();
+    //printheadHotendSideE3DRevo();
     //printheadBeltSide();
     //CoreXYBelts(carriagePosition());
     //Top_Face_stl();
@@ -58,8 +57,11 @@ module Top_Face_test() {
             Top_Face_CF_assembly();
             //Top_Face_CF_Stage_1_assembly();
             //Top_Face_CF_Stage_2_assembly();
+            //translate_z(2*eZ) vflip()
+            //Top_Face_CF_Stage_3_assembly();
             //Front_Face_CF_assembly();
             //Back_Face_CF_Stage_1_assembly();
+            //Right_Face_CF_assembly();
         } else {
             Top_Face_assembly();
             //Top_Face_Stage_1_assembly();
@@ -75,16 +77,28 @@ module Top_Face_test() {
         }
     }
     //CoreXYBelts(carriagePosition());
+    /*rotate([90, 0, 0])
+        for (left = [true, false])
+            xyMotorMountBackHolePositions(left=left, z= -eY - 2*eSizeY - _backPlateCFThickness) // bolt back face to motor mounts
+                vflip()
+                    boltM3Buttonhead(10+50);
+    for (left = [true])
+        translate([left ? _sidePlateThickness : eX + 2*eSizeX - _sidePlateThickness, 0, 0])
+            rotate([90, 0, 90])
+                xyMotorMountSideHolePositions()
+                    vflip(left)
+                        boltM3Buttonhead(10+50);*/
+
 
     *if (_useCNC)
         Left_Face_CF_assembly();
     else
         Left_Face_assembly();
     //Right_Face_assembly();
-    //bowdenTube(carriagePosition());
+    //bowdenTube(carriagePosition(), "E3DRevo");
 
     //Back_Face_CF_assembly();
-    //Back_Face_Stage_1_assembly();
+    //Back_Face_CF_Stage_1_assembly();
     //Back_Face_assembly();
     //Back_Face();
 
@@ -100,10 +114,12 @@ module Top_Face_map() {
     Top_Face_CF();
     translate([0, -eZ - 2, 0]) Front_Face_CF();
     translate([-eZ - 2, 0, 0]) rotate([0, 180, -90]) Left_Face_CF();
-    translate([-eY - 2*eSizeY - 4, -eZ - 2, 0]) Left_Face_CF();
+    *translate([-eY - 2*eSizeY - 4, -eZ - 2, 0]) Left_Face_CF();
+     translate([eX + 2*eSizeX + eZ, 0, 0]) rotate(90)Right_Face_CF();
 }
 
 //Top_Face_map()
+//let($hide_bolts=true)
 if ($preview)
     translate_z(-eZ)
         Top_Face_test();

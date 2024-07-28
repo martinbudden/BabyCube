@@ -2,6 +2,7 @@
 
 include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/pcbs.scad>
+include <NopSCADlib/vitamins/fans.scad>
 
 use <../scad/printed/Base.scad>
 use <../scad/printed/DisplayHousingAssemblies.scad>
@@ -29,9 +30,14 @@ module Base_test() {
     //Base_stl();
     //Base_template_stl();
     //let($hide_pcb=true)
-    //Base_assembly();
-    baseAssembly(BTT_SKR_MINI_E3_V2_0);
-    //BaseCF_assembly();
+    //Base_CF_Stage_1_assembly();
+    //#baseCoverAssembly();
+    //Base_Cover_stl();
+    if (_useCNC)
+        Base_CF_assembly();
+    else
+        Base_assembly();
+    //baseAssembly(BTT_SKR_MINI_E3_V2_0);
 
     //pcbAssembly(RPI3A_plus);
     //pcbAssembly(RPI0);
@@ -39,10 +45,10 @@ module Base_test() {
     //pcbAssembly(BTT_SKR_E3_TURBO);
     //Base_SKR_E3_Turbo_assembly();
     //Base_SKR_1_4_assembly();
-    baseLeftFeet();
-    baseLeftFeet(hardware=true);
-    baseRightFeet();
-    baseRightFeet(hardware=true);
+    //baseLeftFeet();
+    //baseLeftFeet(hardware=true);
+    //baseRightFeet();
+    //baseRightFeet(hardware=true);
     //Display_Cover_assembly();
     //Display_Housing_assembly();
     *rotate([90, 0, 180]) {
@@ -53,10 +59,12 @@ module Base_test() {
     //translate_z(_zMin) Print_bed_assembly();
     translate([0, eps, 2*eps]) {
         if (_useCNC) {
-            rightFaceIEC();
+            IEC_Housing();
+            IEC_hardware();
             //Right_Face_CF_assembly();
             //Left_Face_CF_assembly();
             //Back_Face_CF_Stage_1_assembly();
+            //Back_Face_CF_assembly();
         } else {
             //Back_Face_assembly();
             Back_Face_Stage_1_assembly();
@@ -64,6 +72,7 @@ module Base_test() {
         }
         //Left_Face_assembly();
     }
+    //rotate([90, 0, 0]) Front_Face_CF();
     //Front_Face_CF_assembly();
 
     *baseAllCornerHolePositions()
