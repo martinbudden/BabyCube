@@ -145,14 +145,6 @@ assembly("Top_Face_NEMA_17", big=true) {
     xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
 }
 
-module railHolePositions(type, length, step=1) { //! Position children over screw holes
-    pitch = rail_pitch(type);
-    holeCount = rail_holes(type, length);
-    for(i = [0 : step : holeCount - 1])
-        translate([i * pitch - length / 2 + (length - (holeCount - 1) * pitch) / 2, 0])
-            children();
-}
-
 module topFaceAssembly(NEMA_width, t=undef, cf=false) {
     yCarriageType = carriageType(_yCarriageDescriptor);
     yRailType = carriage_rail(yCarriageType);

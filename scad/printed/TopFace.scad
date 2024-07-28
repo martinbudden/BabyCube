@@ -200,13 +200,22 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, cn
     topFaceBackCutouts(cnc, _xyNEMA_width);
 }
 
+module railHolePositions(type, length, step=1) { //! Position children over screw holes
+    pitch = rail_pitch(type);
+    holeCount = rail_holes(type, length);
+    for(i = [0 : step : holeCount - 1])
+        translate([i * pitch - length / 2 + (length - (holeCount - 1) * pitch) / 2, 0])
+            children();
+}
+
 module topFaceRailHolePositions(NEMA_width) {
     railOffset = yRailOffset(NEMA_width);
     yRailType = railType(_yCarriageDescriptor);
     for (x = [railOffset.x, eX + 2*eSizeX - railOffset.x])
         translate([x, railOffset.y, 0])
             rotate(90)
-                rail_hole_positions(yRailType, _yRailLength, first=0, screws=rail_holes(yRailType, _yRailLength))
+                railHolePositions(yRailType, _yRailLength, step=2)
+                //rail_hole_positions(yRailType, _yRailLength, first=0, screws=rail_holes(yRailType, _yRailLength))
                     children();
 }
 
