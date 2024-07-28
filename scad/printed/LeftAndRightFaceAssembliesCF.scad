@@ -2,7 +2,9 @@ include <../global_defs.scad>
 
 include <NopSCADlib/core.scad>
 use <NopSCADlib/utils/fillet.scad>
+use <NopSCADlib/vitamins/psu.scad> // for psu_grill
 include <NopSCADlib/vitamins/sheets.scad>
+include <NopSCADlib/vitamins/fans.scad>
 
 include <LeftAndRightFaceAssemblies.scad>
 include <Extras.scad>
@@ -10,6 +12,8 @@ include <IECHousing.scad>
 
 include <../Parameters_CoreXY.scad>
 
+fan = fan30x10;
+function rightFaceFanPosition(fan) = [eX + 2*eSizeX - fan_depth(fan)/2 -_sidePlateThickness, fan_width(fan)/2+_frontPlateCFThickness+20+30, fan_width(fan)/2 + eSizeZ];
 
 module Left_Face_Lower_Joiner_Back_stl() {
     NEMA_width = NEMA_width(xyMotorType());
@@ -160,6 +164,11 @@ module leftFaceCF(NEMA_width) {
                 circle(r=M3_clearance_radius);
             xyIdlerBracketHolePositions(NEMA_width)
                 circle(r=M3_clearance_radius);
+            if (!is_undef(fan))
+                translate([rightFaceFanPosition(fan).y, rightFaceFanPosition(fan).z])
+                    rotate(90)
+                        psu_grill(25, 30, grill_hole=3.5, grill_gap=2, fn=0, avoid=[]);
+
         }
     }
 }
@@ -186,6 +195,13 @@ module rightFaceCF(NEMA_width) {
                             circle(r=M3_clearance_radius);
                 }
             }
+            // fan coutout
+            if (!is_undef(fan))
+                translate([rightFaceFanPosition(fan).y, rightFaceFanPosition(fan).z]) {
+                    circle(r=fan_bore(fan)/2 - 0.5);
+                    fan_hole_positions(fan)
+                        circle(r=M3_clearance_radius);
+                }
             if (NEMA_width < NEMA_width(NEMA17_40) && !_useReversedBelts)
                 sideFaceMotorCutout(left=false, NEMA_width=NEMA_width, zOffset=1.5);
             sideFaceTopDogbones(cnc=true);
@@ -278,6 +294,22 @@ module IEC_Housing() {
                 IEC_Housing_stl();
 }
 
+module rightFaceFan(fan) {
+    translate(rightFaceFanPosition(fan))
+       rotate([0, 90, 0]) {
+            explode(-40)
+            fan(fan);
+            fan_hole_positions(fan) {
+                translate_z(_sidePlateThickness)
+                    boltM3Buttonhead(16);
+                translate_z(-fan_depth(fan))
+                    vflip()
+                        explode(50, true)
+                            nut(M3_nut);
+            }
+        }
+}
+
 //! 1. Bolt the extruder, cork damper and stepper motor to the **Right_Face**.
 //! 2. Bolt the IEC power connector through the **Right_Face** to the **IEC_Housing_stl**.
 //
@@ -303,4 +335,6 @@ assembly("Right_Face_CF", big=true) {
         IEC_Housing();
     explode([40, 0, 0], true, show_line=false)
         IEC_hardware();
+    if (!is_undef(fan))
+        rightFaceFan(fan);
 }
