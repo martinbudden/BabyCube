@@ -9,13 +9,13 @@ include <../Parameters_CoreXY.scad>
 
 backSizeY = 5;
 sideSizeX = 5;
-braceHeight = 6;
+braceHeight = 10 - xyMotorMountBasePlateThickness();
 
 pulleyStackHeight = 2*washer_thickness(coreXYIdlerBore() == 3 ? M3_washer : coreXYIdlerBore() == 4 ? M4_shim : M5_shim) + pulley_height(coreXY_plain_idler(coreXY_type()));
 
 function xyMotorMountCFSize(NEMA_width) = [
     floor(NEMA_width) + 10,
-    floor(NEMA_width) + 8,
+    floor(NEMA_width) + 8 + (useReversedBelts() ? motorClearance().y - 12 : 0),
     38 + xyMotorMountBasePlateThickness()
 ];
 
@@ -104,7 +104,7 @@ module xyMotorMountCFBrace(NEMA_type, left) {
 
     NEMA_width = NEMA_width(NEMA_type);
     xyMotorMountCFSize = xyMotorMountCFSize(NEMA_width);
-    size = [xyMotorMountCFSize(NEMA_width).x - sideSizeX, 15, braceHeight];
+    size = [xyMotorMountCFSize(NEMA_width).x - sideSizeX, motorClearance().y + 3, braceHeight];
     fillet = 1;
 
     offsetZ  = eZ - _topPlateThickness - xyMotorMountCFSize.z + xyMotorMountBasePlateThickness() + 2*pulleyStackHeight + yCarriageBraceThickness();

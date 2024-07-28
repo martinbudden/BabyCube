@@ -21,7 +21,7 @@ function useReversedBelts() = !is_undef(_useReversedBelts) && _useReversedBelts;
 function yRailSupportThickness() = 3; // was 8// needs to be at least 7.5 to clear the side bolt holes
 function yRailShiftX() = 1; // limit it this to [-0.5, +1.25] avoid problems with yCarriage bolt interference
 //function yRailOffset(motorWidth) = [_yRailLength/2 + (_fullLengthYRail ? 0 : eSizeY), eZ - yRailSupportThickness(), coreXYPosBL(motorWidth).x - coreXYSeparation().x + yRailShiftX()];
-function yRailOffset(motorWidth) = [coreXYPosBL(motorWidth).x - coreXYSeparation().x + yRailShiftX(), _yRailLength/2 + (_fullLengthYRail ? 0 : eSizeY + 3), eZ - yRailSupportThickness()];
+function yRailOffset(motorWidth) = [coreXYPosBL(motorWidth).x - coreXYSeparation().x + yRailShiftX(), _yRailLength/2 + (_fullLengthYRail ? 0 : eSizeY + 4), eZ - yRailSupportThickness()];
 function yCarriageThickness() = 8;
 function yCarriageBraceThickness() = 1; // brace to support cantilevered pulleys on yCarriage
 
@@ -30,6 +30,7 @@ function beltOffsetZ() = yCarriageThickness() - coreXYSeparation().z - 26 + yCar
 //function beltOffsetZ() = eZ - coreXYPosBL().z - yRailSupportThickness() - 55;
 //function beltOffsetZ() =  yCarriageThickness() + 19.5 - 55;
 
+// bolthole separation on NEMA14 motors is 26, so values of 13 and 26 allign pulleys with motor boltholes
 function leftDrivePulleyOffset() = useReversedBelts() ? [13, -13] : [0, 0];
 function rightDrivePulleyOffset() = useReversedBelts() ? [-13, -13] : [0, 0]; // need to give clearance to extruder motor
 function plainIdlerPulleyOffset() = useReversedBelts() ? [26, 0] : [0, 0];
@@ -43,7 +44,7 @@ function  coreXYSeparation() = [
 
 function coreXYOffsetY(coreXYType=coreXY_type()) = coreXYIdlerBore(coreXYType) == 3 ? 0 : -1.0;
 
-function motorClearance(reversedBelts=useReversedBelts(), cnc=_useCNC) = reversedBelts ? [18.5, 12, 0.5] : cnc ? [ 3, 7, 0.5 ] : [ 2, 6, 0.5 ];
+function motorClearance(reversedBelts=useReversedBelts(), cnc=_useCNC) = reversedBelts ? [18.5, 13, 0.5] : cnc ? [ 3, 7, 0.5 ] : [ 2, 6, 0.5 ];
 
 function coreXYPosBL(motorWidth, yCarriageType=MGN9C_carriage) = [
     is_undef(motorWidth) ? undef : (useReversedBelts() ? 0 : motorWidth/2) - coreXY_drive_pulley_x_alignment( coreXY_type() ) + motorClearance().x,
