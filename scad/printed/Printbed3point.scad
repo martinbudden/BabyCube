@@ -13,6 +13,7 @@ use <NopSCADlib/vitamins/wire.scad>
 
 include <../vitamins/bolts.scad>
 
+use <../utils/translateRotate.scad>
 include <Printbed.scad>
 use <Z_Carriage.scad>
 
@@ -201,17 +202,8 @@ module Printbed_Frame_stl() {
                             translate([x + endPieceSize.x/2, endPieceSize.y/2, 0])
                                 boltHoleM3Tap(eSize);
                     }
-                translate([-frameOffsetX, 0, 0])
-                    rotate(180)
-                        fillet(5, eSize);
-                translate([-frameOffsetX + armSize.x, 0, 0])
-                    rotate(270)
-                        fillet(5, eSize);
-                translate([frameOffsetX, 0, 0])
-                    rotate(270)
-                        fillet(5, eSize);
-                translate([frameOffsetX - armSize.x, 0, 0])
-                    rotate(180)
+                for (v = [ [-frameOffsetX, 0, 0, 180], [-frameOffsetX + armSize.x, 0, 0, 270], [frameOffsetX, 0, 0, 270], [frameOffsetX - armSize.x, 0, 0, 180] ])
+                    translate_r(v)
                         fillet(5, eSize);
             }
 
@@ -308,19 +300,6 @@ module Print_bed_3_point_bed(y=0) {
                                 magneticBase(printBedSize, magneticBaseThickness, holeRadius=3);
     }
 }
-
-module translate_r(v) {
-    assert(is_list(v));
-    if (is_list(v[0]))
-        translate(v[0])
-            rotate(v[1])
-                children();
-    else
-        translate([v.x, v.y, v.z])
-            rotate(v[3])
-                children();
-}
-
 
 module Print_bed_3_point_hardware(zRodSeparation, leadnutOffset=eSize/2, scsOffset=0) {
 

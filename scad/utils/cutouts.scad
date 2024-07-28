@@ -1,6 +1,7 @@
 use <NopSCADlib/utils/dogbones.scad>
 use <NopSCADlib/utils/fillet.scad>
 
+use <translateRotate.scad>
 include <../Parameters_Main.scad>
 
 
@@ -116,13 +117,6 @@ module sideFaceBackDogBones(cnc=true, plateThickness=_sidePlateThickness) {
             edgeCutout_x(dogboneSize, cnc);
 }
 
-
-module translate_a(v) {
-    translate([v.x, v.y, v.z])
-        rotate(v[3])
-            children();
-}
-
 module backFaceSideCutouts(cnc=false, plateThickness=3, dogBoneThickness=3) {
     yStep = 20;
     dogboneSize = [plateThickness*2, yStep + _tabTolerance, dogBoneThickness];
@@ -146,7 +140,7 @@ module backFaceSideCutouts(cnc=false, plateThickness=3, dogBoneThickness=3) {
                     [eX + 2*eSizeX - plateThickness, 0, 0, 90], [eX + 2*eSizeX - plateThickness, eZ, 0, 180]
                 ])
             translate_z(-plateThickness - eps)
-                translate_a(v)
+                translate_r(v)
                     fillet(1, plateThickness + 2*eps);
 }
 
