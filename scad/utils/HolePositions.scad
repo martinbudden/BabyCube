@@ -110,7 +110,12 @@ module baseBackHolePositions(z=0) {
                 children();
 }
 
-module baseAllHolePositions(z=0, cf=false) {
+module baseCoverHolePosition(z=0, coverHolePosY) {
+    translate([(eX + 2*eSizeX)/2, coverHolePosY, z])
+        children();
+}
+
+module baseAllHolePositions(z=0, cf=false, coverHolePosY=0) {
     baseAllCornerHolePositions(z)
         children();
     baseLeftHolePositions(z)
@@ -121,6 +126,10 @@ module baseAllHolePositions(z=0, cf=false) {
         children();
     baseFrontHolePositions(z, cf)
         children();
+    if (coverHolePosY)
+        baseCoverHolePosition(z=0, coverHolePosY=coverHolePosY)
+            children();
+
 }
 
 // back face

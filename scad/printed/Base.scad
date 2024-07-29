@@ -63,7 +63,7 @@ module BaseAL(pcb=pcbType) {
 
 module baseCutouts(cnc=false, cf=false, radius=M3_clearance_radius, pcb=undef) {
     cncSides = cnc ? 0 : undef;
-    baseAllHolePositions(cf=cf)
+    baseAllHolePositions(cf=cf, coverHolePosY=baceCoverCenterHolePosY)
         poly_circle(radius, sides=cncSides);
 
     if (is_undef(pcb) || pcb==BTT_SKR_MINI_E3_V2_0)
@@ -260,6 +260,7 @@ module baseAssembly(pcb=undef, psuType=undef) {
 }
 
 baseCoverHeight = 43;
+baceCoverCenterHolePosY = 144.5;
 module Base_Cover_stl() {
     size = [eX + 2*eSizeX - 2*_sidePlateThickness, 144, 3];
     sizeBack = [size.x, 3, baseCoverHeight - eSizeZ];
@@ -303,6 +304,7 @@ module Base_Cover_stl() {
                 for (x = [(eSizeXBase + _sidePlateThickness)/2, eX + (3*eSizeX - _sidePlateThickness)/2])
                     translate([x, -(_frontPlateCFThickness + 3*eSizeY/2), 0])
                         boltHoleM3(size.z);
+                assert(baceCoverCenterHolePosY == size.y + _frontPlateCFThickness - sizeCenterPillar.y/2);
                 translate([_sidePlateThickness + size.x/2, -size.y - _frontPlateCFThickness + sizeCenterPillar.y/2, sizeCenterPillar.z])
                     vflip()
                         boltHoleM3Tap(10);
