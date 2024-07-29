@@ -281,20 +281,22 @@ module baseAssembly(pcb=undef, psuType=undef) {
 baseCoverHeight = 43;
 module Base_Cover_stl() {
     size = [eX + 2*eSizeX - 2*_sidePlateThickness, 144, 3];
+    sizeBack = [size.x, 3, baseCoverHeight - eSizeZ];
+    sizeCenterPillar = [eSizeXBase - _sidePlateThickness, 5, baseCoverHeight];
 
     color(pp3_colour)
         stl("Base_Cover")
             difference() {
                 union() {
                     translate([_sidePlateThickness, -size.y - _frontPlateCFThickness, 0]) {
-                        rounded_cube_xy(size - [0, eSizeY, 0], fillet);
-                        translate([eSizeX - _sidePlateThickness, 0, 0])
-                            rounded_cube_xy([eX, size.y, size.z], fillet);
+                        tolerance = 0.5;
+                        rounded_cube_xy(size - [0, eSizeY + tolerance, 0], fillet);
+                        translate([eSizeX - _sidePlateThickness + tolerance, 0, 0])
+                            rounded_cube_xy([eX - 2*tolerance, size.y, size.z], fillet);
 
-                        sizeBack = [size.x, 3, baseCoverHeight - eSizeZ];
                         rounded_cube_xy(sizeBack, fillet);
 
-                        sizeBack2 = [size.x - 4*eSizeX, 3, baseCoverHeight];
+                        sizeBack2 = [size.x - 4*eSizeX, sizeBack.y, baseCoverHeight];
                         translate([(size.x - sizeBack2.x)/2, 0, 0])
                             rounded_cube_xy(sizeBack2, fillet);
 
@@ -307,11 +309,22 @@ module Base_Cover_stl() {
                         translate([sizeBack.x - sizePillar.x, sizeBack.y, 0])
                             rotate(90)
                                 fillet(2, sizePillar.z);
+                        translate([(sizeBack.x - sizeCenterPillar.x)/2, 0, 0]) {
+                            rounded_cube_xy(sizeCenterPillar, fillet);
+                            translate([sizeCenterPillar.x, sizeBack.y, 0])
+                                fillet(1, sizeCenterPillar.z);
+                            translate([0, sizeBack.y, 0])
+                                rotate(90)
+                                    fillet(1, sizeCenterPillar.z);
+                        }
                     }// end translate
                 }// end union
                 for (x = [(eSizeXBase + _sidePlateThickness)/2, eX + (3*eSizeX - _sidePlateThickness)/2])
                     translate([x, -(_frontPlateCFThickness + 3*eSizeY/2), 0])
                         boltHoleM3(size.z);
+                translate([_sidePlateThickness + size.x/2, -size.y - _frontPlateCFThickness + sizeCenterPillar.y/2, sizeCenterPillar.z])
+                    vflip()
+                        boltHoleM3Tap(10);
             }// end difference
 }
 
@@ -322,7 +335,8 @@ module baseCoverAssembly() {
                 Base_Cover_stl();
     for (x = [(eSizeXBase + _sidePlateThickness)/2, eX + (3*eSizeX - _sidePlateThickness)/2])
         translate([x, _frontPlateCFThickness + 3*eSizeY/2, baseCoverHeight])
-            boltM3Caphead(8);
+            explode(10, true)
+                boltM3Caphead(8);
 }
 
 // All corners are offset by _baseBoltHoleInset in both the x and y direction so that the feet are symmetrical.
