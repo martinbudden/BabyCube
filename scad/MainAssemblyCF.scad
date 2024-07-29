@@ -44,14 +44,14 @@ module staged_explode(z=0, show_line=true) {
 
 //! Bolt the **Back_Face_CF_assembly** to the **Base_CF_assembly**.
 //
-module Stage_1_CF_assembly()
+module Stage_1_CF_assembly() pose(a=[55+10, 0, 25 + 80])
 staged_assembly("Stage_1_CF", big=true, ngb=true) {
 
     translate_z(-eps)
         staged_explode()
             Base_CF_assembly();
 
-    explode([0, 200, 0], true) {
+    explode([0, 100, 0], true) {
         Back_Face_CF_assembly();
         translate([0, eY + 2*eSizeY, 0])
             rotate([90, 0, 0]) {
@@ -64,10 +64,11 @@ staged_assembly("Stage_1_CF", big=true, ngb=true) {
                         explode(50)
                             boltM3Buttonhead(10);
             }
-            baseBackHolePositions(-_backPlateCFThickness) // bolt back face to base
-                vflip()
-                    boltM3Buttonhead(10);
     }
+    baseBackHolePositions(-_backPlateCFThickness) // bolt back face to base
+        vflip()
+            explode([0, 0, 60], true)
+                boltM3Buttonhead(10);
 }
 
 //! Bolt the **Right_Face_CF_assembly** to the **Base_CF_assembly** and the **Back_Face_CF_assembly**.
@@ -104,28 +105,24 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
 
     Stage_2_CF_assembly();
 
-    explode(100, show_line=false)
+    explode([-50, -50, 150], show_line=false)
         Top_Face_CF_assembly();
 
-    explode(100, true, show_line=false)
+    explode([-50, -50, 150], true, show_line=false)
         printheadHotendSideE3DRevo(explode=[0, 50, 100]);
     if (!exploded())
         printheadWiring(carriagePosition(), "E3DRevo");
 
-
-    explode([-250, 0, 50], show_line=false)
-        baseCoverAssembly();
-
     translate([eX + 2*eSizeX + eps, 0, 0]) {
         rotate([90, 0, 90]) {
             upperSideJoinerHolePositions() // bolt right face to top
-                explode(10, true)
+                explode(50, true)
                     boltM3Buttonhead(8);
             xyMotorMountSideHolePositions()
-                explode(10, true)
+                explode(50, true)
                     boltM3Buttonhead(10);
             xyIdlerBracketHolePositions(_xyNEMA_width)
-                explode(10, true)
+                explode(50, true)
                     boltM3Buttonhead(10);
         }
     }
@@ -138,7 +135,8 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
         for (left = [true, false])
             xyMotorMountBackHolePositions(left=left, z= -eY - 2*eSizeY - _backPlateCFThickness) // bolt back face to motor mounts
                 vflip()
-                    boltM3Buttonhead(10);
+                    explode(50, true)
+                        boltM3Buttonhead(10);
 }
 
 //! Bolt the **Left_Face_CF** to the **Base_CF_assembly** and the **Back_Face_CF_assembly**.
@@ -148,12 +146,10 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
 
     Stage_3_CF_assembly();
 
-    translate([-eps, 0, 0])
-        rotate([90, 0, 90]) {
-        }
+    explode([-250, 0, 50], true, show_line=false)
+        baseCoverAssembly();
 
-
-    explode([-100, 0, 25], true) {
+    explode([-300, 0, 25], true) {
         translate([-eps, 0, 0])
             rotate([90, 0, 90]) {
                 Left_Face_CF();
