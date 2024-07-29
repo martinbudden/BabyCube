@@ -347,8 +347,6 @@ module frameLower(NEMA_width, left=true, offset=0, cf=false, length=0) {
                         union() {
                             rounded_cube_xy([eSizeY, 55, eSizeXBase - offset], fillet);
                             rounded_cube_xy([2*eSizeY, baseCoverOffset, eSizeXBase - offset], fillet);
-                            translate([eSizeY, baseCoverOffset, 0])
-                                fillet(fillet, eSizeXBase - offset);
                             translate([2*eSizeY, eSizeZ, 0])
                                 fillet(fillet, eSizeXBase - offset);
                         }// end union
