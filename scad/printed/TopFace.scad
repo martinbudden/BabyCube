@@ -167,7 +167,7 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, cn
     translate([(size.x - cutoutSize.x)/2, cutoutFrontY + insetY])
         rounded_square([cutoutSize.x, cutoutSize.y], 4, center=false);
 
-    topFaceRailHolePositions(NEMA_width)
+    topFaceRailHolePositions(NEMA_width, step = cnc ? 2 : 1)
         cutout_circle(railHoleRadius, cnc);
 
     topFaceAllHolePositions(cf=cnc)
@@ -208,13 +208,13 @@ module railHolePositions(type, length, step=1) { //! Position children over scre
             children();
 }
 
-module topFaceRailHolePositions(NEMA_width) {
+module topFaceRailHolePositions(NEMA_width, step=1) {
     railOffset = yRailOffset(NEMA_width);
     yRailType = railType(_yCarriageDescriptor);
     for (x = [railOffset.x, eX + 2*eSizeX - railOffset.x])
         translate([x, railOffset.y, 0])
             rotate(90)
-                railHolePositions(yRailType, _yRailLength, step=2)
+                railHolePositions(yRailType, _yRailLength, step=step)
                 //rail_hole_positions(yRailType, _yRailLength, first=0, screws=rail_holes(yRailType, _yRailLength))
                     children();
 }
