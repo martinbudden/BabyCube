@@ -11,6 +11,7 @@ include <../utils/HolePositions.scad>
 
 include <../vitamins/inserts.scad>
 
+include <../Parameters_CoreXY.scad>
 
 function idlerBracketSize(coreXYPosBL=[0, 0, 0]) = [coreXYPosBL.y + 6, 6, floor(coreXYPosBL.x/2)*2 + 10];
 
@@ -224,7 +225,8 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, l
     //boltPos = [coreXYPosBL.y - offset, 0, coreXYPosBL.x - _sidePlateThickness];
     //baseLength = eZ - coreXYPosBL.z + separation + size.y - yRailSupportSize(NEMA_width).y;
     offsetY = 9.5;
-    size = [eY == 180 ? 45 : 55, topBoltHolderSize().y, topBoltHolderSize().z];
+    topBoltHolderSize = topBoltHolderSize(reversedBelts=reversedBelts, cnc=cnc);
+    size = [eY == 180 ? 45 : 55, topBoltHolderSize.y, topBoltHolderSize.z];
     fillet = 1;
 
     difference() {
@@ -248,7 +250,7 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, l
                 }
         } // end union
         translate([offset, -yCarriageBraceThickness()/2, _sidePlateThickness]) {
-            translate([-offset, yCarriageBraceThickness()/2 + offsetY + topBoltHolderSize().y, eX + 2*eSizeX - _sidePlateThickness])
+            translate([-offset, yCarriageBraceThickness()/2 + offsetY + topBoltHolderSize.y, eX + 2*eSizeX - _sidePlateThickness])
                 rotate([90, 90, 0])
                     topFaceFrontHolePositions(cf=true)
                         boltHoleM3Tap(8, horizontal=true, rotate=90, chamfer_both_ends=false);
@@ -261,7 +263,7 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, l
                     topFaceSideHolePositions()
                         boltHoleM3Tap(8, horizontal=true, rotate=90, chamfer_both_ends=true);
             translate([0, 30 - eZ - offsetY, 0])
-                upperSideJoinerHolePositions(_sidePlateThickness)
+                upperSideJoinerHolePositions(_sidePlateThickness, reversedBelts=reversedBelts, cnc=cnc)
                     boltHoleM3Tap(size.z);
             translate([_sidePlateThickness, 30 - eZ - offsetY, eX + 2*eSizeX])
                 rotate([0, 90, 0])

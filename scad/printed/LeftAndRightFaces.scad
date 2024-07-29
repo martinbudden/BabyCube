@@ -403,13 +403,14 @@ module frontConnector() {
 module frame(NEMA_type, left=true) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
+    topBoltHolderSize = topBoltHolderSize(0, reversedBelts=false, cnc=false);
 
     idlerUpright(NEMA_width, left);
     difference() {
         union() {
             frameLower(NEMA_width, left);
             // cube for top face bolt holes
-            topBoltHolderSize = topBoltHolderSize(0);
+            topBoltHolderSize = topBoltHolderSize;
             translate([0, eZ - _topPlateThickness - topBoltHolderSize.y, 0]) {
                 translate([_frontPlateCFThickness, 0, 0])
                     rounded_cube_xy(topBoltHolderSize, fillet);
@@ -425,7 +426,7 @@ module frame(NEMA_type, left=true) {
                 cube([eY + eSizeY + eps, eSizeZ, eSizeX]);
         }
         sideFaceTopHolePositions()
-            boltHoleM3Tap(topBoltHolderSize().y, horizontal=true, chamfer_both_ends=true);
+            boltHoleM3Tap(topBoltHolderSize.y, horizontal=true, chamfer_both_ends=true);
         faceConnectorHolePositions()
             rotate([90, 0, 180])
                 boltHoleM3TapOrInsert(backBoltLength(), _useInsertsForFaces, horizontal=true);

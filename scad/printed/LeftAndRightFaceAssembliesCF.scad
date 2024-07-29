@@ -157,7 +157,7 @@ module leftFaceCF(NEMA_width) {
                     circle(r=M3_clearance_radius);
             lowerSideJoinerHolePositions(left=true)
                 circle(r=M3_clearance_radius);
-            upperSideJoinerHolePositions()
+            upperSideJoinerHolePositions(reversedBelts=_useReversedBelts, cnc=true)
                 circle(r=M3_clearance_radius);
             backSideJoinerHolePositions()
                 circle(r=M3_clearance_radius);
@@ -224,7 +224,7 @@ module rightFaceCF(NEMA_width) {
                     circle(r=M3_clearance_radius);
             lowerSideJoinerHolePositions(left=false)
                 circle(r=M3_clearance_radius);
-            upperSideJoinerHolePositions()
+            upperSideJoinerHolePositions(reversedBelts=_useReversedBelts, cnc=true)
                 circle(r=M3_clearance_radius);
             backSideJoinerHolePositions()
                 circle(r=M3_clearance_radius);
@@ -251,8 +251,8 @@ assembly("Left_Face_CF", big=true) {
             *lowerSideJoinerHolePositions(left=true)
                 vflip()
                     explode(10, true)
-                        boltM3Buttonhead(screw_shorter_than(topBoltHolderSize().z + _sidePlateThickness));
-            upperSideJoinerHolePositions()
+                        boltM3Buttonhead(screw_shorter_than(topBoltHolderSize(reversedBelts=true, cnc=true).z + _sidePlateThickness));
+            upperSideJoinerHolePositions(reversedBelts=_useReversedBelts, cnc=true)
                 vflip()
                     explode(10, true)
                         boltM3Buttonhead(8);

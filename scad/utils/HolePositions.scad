@@ -1,5 +1,3 @@
-include <../Parameters_CoreXY.scad>
-
 function middleWebOffsetZ() = eZ - 105;
 
 function printheadWiringPosX() = let(zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2) (eX + eSizeX - zRodOffsetX/2 - 4);
@@ -24,8 +22,8 @@ function backFaceBracketUpperOffset() = [30, 15];
 function topFaceSideHolePositions() = eY == 180 ? [ 20, 100, 180 ] : [ 30, 110];
 
 // offset of side bolt holes for top plate
-topBoltHolderThickness = yRailShiftX() + (useReversedBelts() ? 6.5 : 7.25);
-function topBoltHolderSize(sidePlateThickness=_sidePlateThickness, cnc=false) = [eY + 2*eSizeY - 15 - (cnc ? 60 : 0) - _frontPlateCFThickness, 8, topBoltHolderThickness - sidePlateThickness]; // -15 to avoid back cube, +2.75 to give clearance for bolt hole
+function topBoltHolderThickness(reversedBelts) = yRailShiftX() + (reversedBelts ? 6.5 : 7.25);
+function topBoltHolderSize(sidePlateThickness=_sidePlateThickness, reversedBelts, cnc=false) = [eY + 2*eSizeY - 15 - (cnc ? 60 : 0) - _frontPlateCFThickness, 8, topBoltHolderThickness(reversedBelts) - sidePlateThickness]; // -15 to avoid back cube, +2.75 to give clearance for bolt hole
 function topFaceSideHolePositionOffset() = 3.75 + yRailShiftX() + 0.5;
 function baseBackHoleOffset() = [ floor(_zNEMA_width/2) + 4, 4];
 //topBackHoleOffset = [ 20, 4];
@@ -261,9 +259,9 @@ module lowerSideJoinerHolePositions(z=0, left=true) {
             children();
 }
 
-module upperSideJoinerHolePositions(z=0) {
+module upperSideJoinerHolePositions(z=0, reversedBelts, cnc) {
     size = [eY + 2*eSizeY, eZ];
-    for (x = upperSideJoinerHolePositions(), y = [size.y - _topPlateThickness - topBoltHolderSize().y/2])
+    for (x = upperSideJoinerHolePositions(), y = [size.y - _topPlateThickness - topBoltHolderSize(reversedBelts=reversedBelts, cnc=cnc).y/2])
         translate([x, y, z])
             children();
 }
