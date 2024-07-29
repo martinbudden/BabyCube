@@ -15,6 +15,8 @@ include <../scad/printed/SpoolHolder.scad>
 use <../scad/printed/XY_Motors.scad>
 
 include <../scad/utils/printParameters.scad>
+
+include <../scad/Parameters_CoreXY.scad>
 include <../scad/utils/CoreXYBelts.scad>
 
 

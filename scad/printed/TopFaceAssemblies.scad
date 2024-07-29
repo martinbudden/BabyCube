@@ -6,12 +6,12 @@ include <TopFace.scad>
 include <XY_MotorMountCF.scad>
 use <PrintheadAssemblies.scad>
 use <Y_CarriageAssemblies.scad>
-include <../utils/CoreXYBelts.scad>
 use <XY_IdlerBracket.scad>
 
 
 use <../Parameters_Positions.scad>
-include <../Parameters_Main.scad>
+include <../Parameters_CoreXY.scad>
+include <../utils/CoreXYBelts.scad>
 
 
 module Top_Face_stl() {

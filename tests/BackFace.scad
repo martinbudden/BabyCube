@@ -14,11 +14,11 @@ use <../scad/printed/Printbed.scad>
 use <../scad/printed/Printbed3point.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/PrintheadAssembliesE3DV6.scad>
-include <../scad/utils/CoreXYBelts.scad>
 use <../scad/utils/printParameters.scad>
 
 use <../scad/Parameters_Positions.scad>
-include <../scad/Parameters_Main.scad>
+include <../scad/Parameters_CoreXY.scad>
+include <../scad/utils/CoreXYBelts.scad>
 
 //$explode = 1;
 //$pose = 1;

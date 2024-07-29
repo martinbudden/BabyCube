@@ -1,5 +1,6 @@
-include <../Parameters_CoreXY.scad>
-include <../utils/CoreXYReversed.scad>
+// This file assumes Parameters_CoreXY.scad has already been included.
+
+include <coreXYReversed.scad>
 
 
 module CoreXYBelts(carriagePosition, coreXY_type=coreXY_type(), x_gap=0, show_pulleys=false, xyMotorWidth=undef, leftDrivePulleyOffset=leftDrivePulleyOffset(), rightDrivePulleyOffset=rightDrivePulleyOffset(), plainIdlerPulleyOffset=plainIdlerPulleyOffset()) {

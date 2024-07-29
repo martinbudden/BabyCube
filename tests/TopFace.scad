@@ -20,6 +20,7 @@ use <../scad/printed/TopFaceAssemblies.scad>
 //use <../scad/printed/X_CarriageAssemblies.scad>
 //use <../scad/printed/XY_Motors.scad>
 
+//include <../scad/Parameters_CoreXY.scad>
 //include <../scad/utils/CoreXYBelts.scad>
 //include <../scad/utils/cutouts.scad>
 include <../scad/utils/printParameters.scad>

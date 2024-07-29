@@ -8,7 +8,6 @@ use <NopSCADlib/utils/core_xy.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 include <../scad/utils/carriageTypes.scad>
-include <../scad/utils/CoreXYBelts.scad>
 use <../scad/utils/printParameters.scad>
 
 use <../scad/printed/BackFaceAssemblies.scad>
@@ -24,6 +23,8 @@ use <../scad/printed/X_CarriageAssemblies.scad>
 use <../scad/printed/Y_CarriageAssemblies.scad>
 
 use <../scad/Parameters_Positions.scad>
+include <../scad/Parameters_CoreXY.scad>
+include <../scad/utils/CoreXYBelts.scad>
 
 
 t=3;

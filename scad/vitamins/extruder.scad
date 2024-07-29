@@ -5,6 +5,7 @@ use <NopSCADlib/utils/tube.scad>
 use <NopSCADlib/vitamins/e3d.scad>
 include <NopSCADlib/vitamins/pillar.scad>
 include <NopSCADlib/vitamins/pin_headers.scad>
+include <NopSCADlib/vitamins/screws.scad> // needed by pulleys.scad
 include <NopSCADlib/vitamins/pulleys.scad>
 include <NopSCADlib/vitamins/springs.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>

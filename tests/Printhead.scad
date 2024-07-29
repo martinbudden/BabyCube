@@ -15,9 +15,11 @@ use <../scad/printed/PrintheadAssembliesE3DV6.scad>
 use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 
-include <../scad/utils/CoreXYBelts.scad>
 include <../scad/utils/printParameters.scad>
 include <../scad/utils/X_Rail.scad>
+
+include <../scad/Parameters_CoreXY.scad>
+include <../scad/utils/CoreXYBelts.scad>
 
 
 

@@ -14,8 +14,10 @@ use <printed/PrintheadAssembliesE3DV6.scad>
 use <printed/TopFaceAssemblies.scad>
 use <printed/X_CarriageAssemblies.scad>
 
-include <utils/CoreXYBelts.scad>
 include <utils/HolePositions.scad>
+
+include <Parameters_CoreXY.scad>
+include <utils/CoreXYBelts.scad>
 
 use <Parameters_Positions.scad>
 

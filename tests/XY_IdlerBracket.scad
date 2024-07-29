@@ -7,6 +7,7 @@ use <../scad/printed/XY_IdlerBracket.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/FrontFace.scad>
 
+include <../scad/Parameters_CoreXY.scad>
 include <../scad/utils/CoreXYBelts.scad>
 
 use <../scad/Parameters_Positions.scad>

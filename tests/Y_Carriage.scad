@@ -3,6 +3,7 @@
 include <../scad/printed/Y_Carriage.scad>
 include <../scad/printed/Y_CarriageAssemblies.scad>
 
+include <../scad/Parameters_CoreXY.scad>
 include <../scad/utils/CoreXYBelts.scad>
 
 use <../scad/Parameters_Positions.scad>
