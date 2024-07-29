@@ -1,3 +1,4 @@
+include <BaseJoiners.scad>
 include <BasePSUandPCBs.scad>
 
 use <NopSCADlib/vitamins/sheet.scad>
@@ -396,22 +397,5 @@ module Base_Right_Joiner_stl() {
                             pcb_hole_positions(BTT_SKR_MINI_E3_V2_0)
                                 boltHoleM3Tap(8, horizontal=true, rotate=90, chamfer_both_ends=false);
             }
-}
-
-module Base_Front_Joiner_stl() {
-    size = [eX, eSizeY, eSizeZ];
-    stl("Base_Front_Joiner")
-        difference() {
-            translate([eSizeX, _frontPlateCFThickness, 0])
-                color(pp2_colour)
-                    rounded_cube_xy(size, _fillet);
-            baseFrontHolePositions(cf=true)
-                boltHoleM3Tap(size.z);
-            baseAllCornerHolePositions()
-                boltHoleM3Tap(size.z);
-            rotate([90, 0, 0])
-                frontFaceLowerHolePositions(-size.y - _frontPlateCFThickness)
-                    boltHoleM3Tap(size.y, horizontal=true);
-        }
 }
 
