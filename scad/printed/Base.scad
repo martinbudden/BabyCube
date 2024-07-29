@@ -374,11 +374,6 @@ module Base_Left_Joiner_stl() {
 module Base_Right_Joiner_stl() {
     NEMA_width = NEMA_width(xyMotorType());
 
-    /*mirror([0, 1, 0])
-        translate([iecPosition().y, iecPosition().z, 0])
-            rotate([180, 0, 90])
-                mirror([0, 1, 0])
-                    iec(iecType());*/
     stl("Base_Right_Joiner")
         mirror([0, 1, 0])
             difference() {

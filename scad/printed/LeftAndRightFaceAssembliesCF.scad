@@ -12,6 +12,9 @@ include <IECHousing.scad>
 
 include <../Parameters_CoreXY.scad>
 
+
+function iecPosition() = [eX + 2*eSizeX, eY + 2*eSizeY - eSizeY - 1 - iec_body_h(iecType())/2, eSizeZ/2 + iec_pitch(iecType())/2] + [0, -10, 8];
+
 fan = fan30x10;
 function rightFaceFanPosition(fan) = [eX + 2*eSizeX - fan_depth(fan)/2 -_sidePlateThickness, fan_width(fan)/2+_frontPlateCFThickness+20+30, fan_width(fan)/2 + eSizeZ];
 
