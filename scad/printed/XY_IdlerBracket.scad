@@ -11,18 +11,9 @@ include <../utils/HolePositions.scad>
 
 include <../vitamins/inserts.scad>
 
-include <../Parameters_CoreXY.scad>
-
-
-function yRailSupportSize(NEMA_width = _xyNEMA_width)
-    = [ eY + 2*eSizeY, yRailSupportThickness(), yRailOffset(NEMA_width).x + rail_width(railType(_yCarriageDescriptor))/2 + 1 ];
 
 function idlerBracketSize(coreXYPosBL=[0, 0, 0]) = [coreXYPosBL.y + 6, 6, floor(coreXYPosBL.x/2)*2 + 10];
-function idlerBracketTopSizeY() = 11;
-function idlerBracketTopSizeZ() = 25;
 
-function faceConnectorOverlap() = 10;
-function faceConnectorOverlapHeight() = 4;
 function frontUpperChordSize() = [eX + 2*eSizeX - 2*idlerBracketTopSizeZ(), 21, eSizeY + 1];
 function frontLowerChordSize() = [eX + 2*eSizeX - 2*idlerBracketSize(coreXYPosBL(_xyNEMA_width)).z, 50, eSizeY];
 

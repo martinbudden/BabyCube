@@ -8,6 +8,12 @@ function printheadWiringPosX() = let(zRodOffsetX = (eX + 2*eSizeX - _zRodSeparat
 function printheadWiringPos() = [printheadWiringPosX(), eY + 2*eSizeY - 38+15+4, eZ];
 function printheadWireRadius() = 3;
 
+function idlerBracketTopSizeY() = 11;
+function idlerBracketTopSizeZ() = 25;
+
+function faceConnectorOverlap() = 10;
+function faceConnectorOverlapHeight() = 4;
+
 function backFaceBracketLowerOffset() = [30, 15];
 function backFaceBracketUpperOffset() = [30, 15];
 

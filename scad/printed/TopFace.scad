@@ -12,16 +12,15 @@ include <../utils/cutouts.scad>
 include <../utils/HolePositions.scad>
 include <../utils/motorTypes.scad>
 
-use <XY_IdlerBracket.scad>
-
-include <../Parameters_Main.scad>
-
+function yRailSupportSize(NEMA_width = _xyNEMA_width)
+    = [ eY + 2*eSizeY, yRailSupportThickness(), yRailOffset(NEMA_width).x + rail_width(railType(_yCarriageDescriptor))/2 + 1 ];
 
 //bearingType = BB608;
 
 cutoutFront = 11.75;
 cutoutBack = 42.5;
 cutoutXExtra = 6;
+
 
 module topFace(NEMA_type) {
     topFaceCover(NEMA_type);
