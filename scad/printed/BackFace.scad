@@ -30,8 +30,6 @@ SK_type = _zRodDiameter == 8 ? SK8 : _zRodDiameter == 10 ? SK10 : SK12;
 
 innerFillet = 5;
 reinforcementThickness = 5;
-//upperChordSize = [backUpperChordSize().x, backUpperChordSize().y + 3, backUpperChordSize().z];
-//upperChordSize = [backUpperChordSize().x, sk_size(SK_type).z + _topPlateThickness + 8, backUpperChordSize().z-2];
 upperChordSize = [eSizeY, sk_size(SK_type).z + _topPlateThickness + 8, eX + 2*eSizeX - 70];
 zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
 
