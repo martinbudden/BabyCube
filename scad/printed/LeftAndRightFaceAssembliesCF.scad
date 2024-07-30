@@ -313,8 +313,11 @@ module rightFaceFan(fan) {
         }
 }
 
-//! 1. Bolt the extruder, cork damper and stepper motor to the **Right_Face**.
-//! 2. Bolt the IEC power connector through the **Right_Face** to the **IEC_Housing_stl**.
+//!1. Bolt the extruder and stepper motor to the **Right_Face**.
+//!2. Wire up the IEC power connector and bolt it through the **Right_Face** to the **IEC_Housing_stl**.
+//!3. Bolt the **Spool_Holder_Bracket** to the **Right_Face**. 
+//!4. Bolt the fan to the **Right_Face**. 
+//!5. Attach the stepper motor cable to the stepper motor.
 //
 module Right_Face_CF_assembly() pose(a=[55, 0, 25])
 assembly("Right_Face_CF", big=true) {

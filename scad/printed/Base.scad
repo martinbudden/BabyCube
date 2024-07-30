@@ -180,8 +180,9 @@ assembly("Base_CF_Stage_1", big=true) {
 //!1. Cover the top and bottom sides of the box section with thermal paste.
 //!2. Attach the box section to the bottom of the control board with electrical tape. The tape serves to keep the box
 //!section in place until it is attached to the base plate.
-//!3. Using the hex pillars, attach the control board and the Raspberry Pi to the base plate.
-//!4. Bolt the PSU to the base plate.
+//!3. Using the hex pillars, attach the **mainboard** and the **Raspberry Pi** to the base plate.
+//!4. Wire the **mainboard** to the **Raspberry Pi**.
+//!5. Bolt the PSU to the base plate.
 //
 module Base_CF_assembly()
 assembly("Base_CF", big=true) {

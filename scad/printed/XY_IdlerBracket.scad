@@ -86,6 +86,8 @@ assembly("XY_Idler_Bracket_Left_SB", big=true, ngb=true) {
         XY_IdlerBracketHardware(coreXYPosBL(_xyNEMA_width, yCarriageType), reversedBelts=false, left=true);
 }
 
+//!Bolt the two bearings with washers into the **XY_Idler_Bracket_Left**, as shown.
+//
 module XY_Idler_Bracket_Left_assembly() pose(a=[55, 0, 25])
 assembly("XY_Idler_Bracket_Left", big=true, ngb=true) {
 
@@ -121,6 +123,8 @@ assembly("XY_Idler_Bracket_Right", big=true, ngb=true) {
                     XY_IdlerBracketHardware(coreXYPosBL, reversedBelts=false, left=false);
 }
 
+//!Bolt the two bearings with washers into the **XY_Idler_Bracket_Right**, as shown.
+//
 module XY_Idler_Bracket_Right_assembly() pose(a=[55, 0, 25])
 assembly("XY_Idler_Bracket_Right", big=true, ngb=true) {
 

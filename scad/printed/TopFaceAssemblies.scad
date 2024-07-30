@@ -221,10 +221,6 @@ assembly("Top_Face_CF_Stage_1", big=true, ngb=true) {
 //! bolts on the left side.
 //! 2. The bolts on the right side rail should be only loosely tightened - they will be fully tightened when the right rail
 //! is aligned when the X axis rail is added.
-//!
-//!
-//! Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16 of a turn)
-//! so they run freely.
 //
 module Top_Face_CF_Stage_2_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {

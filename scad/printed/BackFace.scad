@@ -67,7 +67,7 @@ module backFaceCableTies() {
 }
 
 module printheadWiring(carriagePosition, hotendDescriptor) {
-    vitamin(str(": Spiral wrap, 500mm"));
+    cable_wrap(500);
 
     xCarriageType = carriageType(_xCarriageDescriptor);
     endPos = [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + carriage_size(xCarriageType).y/2 + 5, eZ] + printheadWiringOffset(hotendDescriptor);

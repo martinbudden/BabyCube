@@ -196,10 +196,14 @@ module XY_Motor_Mount_Pulley_Spacer_M3_stl() {
         }
 }
 
-//!1. Place the cork damper on the stepper motor and bolt the motor to the **XY_Motor_Mount_Left**.
+//!1. Place the cork damper on the stepper motor and bolt the motor to the **XY_Motor_Mount_Right**, using two bolts at the front,
+// as shown. Note orientation of the JST connector.
+//!2. Bolt the bearing, washers, and spacer **XY_Motor_Mount_Right** as shown. The bolts screw into the mounting holes on the stepper motor.
+//!It's easier to do this if the motor mount is turned upside down.
+//!3. Bolt the **XY_Motor_Mount_Brace_Right** to the **XY_Motor_Mount_Right**.
+//!3. Bolt the pulley to the motor shaft, aligning it with the bearings.
+//!
 //! Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
-//! Note orientation of the JST connector.
-//!2. Bolt the pulley to the motor shaft.
 //
 module XY_Motor_Mount_Left_CF_assembly()
 assembly("XY_Motor_Mount_Left_CF", big=true, ngb=true) {
@@ -219,10 +223,13 @@ assembly("XY_Motor_Mount_Left_CF", big=true, ngb=true) {
     XY_Motor_Mount_CF_hardware(NEMA_type, left=true);
 }
 
-//!1. Place the cork damper on the stepper motor and bolt the motor to the **XY_Motor_Mount_Right**.
+//!1. Place the cork damper on the stepper motor and bolt the motor to the **XY_Motor_Mount_Right**, using two bolts at the front,
+// as shown. Note orientation of the JST connector.
+//!2. Bolt the bearing, washers, and spacer **XY_Motor_Mount_Right** as shown. The bolts screw into the mounting holes on the stepper motor.
+//!3. Bolt the **XY_Motor_Mount_Brace_Right** to the **XY_Motor_Mount_Right**.
+//!3. Bolt the pulley to the motor shaft, aligning it with the bearings.
+//!
 //! Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
-//! Note orientation of the JST connector.
-//!2. Bolt the pulley to the motor shaft.
 //
 module XY_Motor_Mount_Right_CF_assembly()
 assembly("XY_Motor_Mount_Right_CF", big=true, ngb=true) {

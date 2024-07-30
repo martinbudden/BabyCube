@@ -71,8 +71,9 @@ staged_assembly("Stage_1_CF", big=true, ngb=true) {
                 boltM3Buttonhead(10);
 }
 
-//! Bolt the **Right_Face_CF_assembly** to the **Base_CF_assembly** and the **Back_Face_CF_assembly**.
-//
+//!1. Bolt the **Right_Face_CF_assembly** to the **Base_CF_assembly** and the **Back_Face_CF_assembly**.
+//!2. Connect the wires from the **IEC** to the **PSU**.
+//!3. Connect the stepper motor cable from the extruder motor to the mainboard.
 module Stage_2_CF_assembly()
 staged_assembly("Stage_2_CF", big=true, ngb=true) {
 
@@ -97,8 +98,10 @@ staged_assembly("Stage_2_CF", big=true, ngb=true) {
     }
 }
 
-//!1. Attach the **Top_Face_CF_assembly**.
-//!2. Attach the Base Cover.
+//!1. Gather the cables from the printhead and wrap them in spiral cable wrap.
+//!2. Connect the printhead cables to the mainboard.
+//!3. Attach the **Top_Face_CF_assembly** to the back and right faces.
+//!4. Attach the **Printhead Assembly** to the X_Carriage.
 //
 module Stage_3_CF_assembly()
 staged_assembly("Stage_3_CF", big=true, ngb=true) {
@@ -139,7 +142,9 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
                         boltM3Buttonhead(10);
 }
 
-//! Bolt the **Left_Face_CF** to the **Base_CF_assembly** and the **Back_Face_CF_assembly**.
+
+//!1. Bolt the **Base_Cover** to the base, ensuring all cables are routed correctly.
+//!2. Bolt the **Left_Face_CF** to the base and the back and top faces.
 //
 module Stage_4_CF_assembly() pose(a=[55, 0, 25 - 50])
 staged_assembly("Stage_4_CF", big=true, ngb=true) {
@@ -181,7 +186,7 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
     }
 }
 
-//! Bolt the **Front_Face_CF_** to the base and the top, left, and right faces.
+//! Bolt the **Nameplate** and the **Front_Face_CF_** to the base and the top, left, and right faces.
 //
 module Stage_5_CF_assembly()
 staged_assembly("Stage_5_CF", big=true, ngb=true) {

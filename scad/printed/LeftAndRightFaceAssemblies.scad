@@ -149,7 +149,7 @@ assembly("Right_Face_Stage_1", big=true, ngb=true) {
 
 module rightFaceAssembly(NEMA_width, zipTies=true) {
 
-    stepper_motor_cable(400); // cable to extruder motor
+    stepper_motor_cable(300); // cable to extruder motor
     if (!exploded() && zipTies)
         rightFaceExtruderZipTies(NEMA_width);
     corkDamperThickness = _useCNC ? 0 : _corkDamperThickness; // no cork damper necessary to between motor and CF right side
@@ -160,7 +160,6 @@ module rightFaceAssembly(NEMA_width, zipTies=true) {
 
 
 module rightFaceHardware(NEMA_type, cnc=false) {
-    stepper_motor_cable(400);
     translate([eX + 2*eSizeX, 0, 0])
         rotate([-90, 0, 90])
             mirror([0, 1, 0]) {
