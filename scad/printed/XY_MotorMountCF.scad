@@ -137,18 +137,18 @@ module xyMotorMountCFBrace(NEMA_type, left) {
     }
 }
 
-module XY_Motor_Mount_Left_NEMA_14_stl() {
+module XY_Motor_Mount_Left_stl() {
     NEMA_type = NEMA14_36;
 
-    stl("XY_Motor_Mount_Left_NEMA_14")
+    stl("XY_Motor_Mount_Left")
         color(pp1_colour)
             xyMotorMountCF(NEMA_type, left=true);
 }
 
-module XY_Motor_Mount_Right_NEMA_14_stl() {
+module XY_Motor_Mount_Right_stl() {
     NEMA_type = NEMA14_36;
 
-    stl("XY_Motor_Mount_Right_NEMA_14")
+    stl("XY_Motor_Mount_Right")
         color(pp1_colour)
             xyMotorMountCF(NEMA_type, left=false);
 }
@@ -169,18 +169,18 @@ module XY_Motor_Mount_Right_NEMA_17_stl() {
             xyMotorMountCF(NEMA_type, left=false);
 }
 
-module XY_Motor_Mount_Brace_Left_NEMA_14_stl() {
+module XY_Motor_Mount_Brace_Left_stl() {
     NEMA_type = NEMA14_36;
 
-    stl("XY_Motor_Mount_Brace_Left_NEMA_14")
+    stl("XY_Motor_Mount_Brace_Left")
         color(pp2_colour)
             xyMotorMountCFBrace(NEMA_type, left=true);
 }
 
-module XY_Motor_Mount_Brace_Right_NEMA_14_stl() {
+module XY_Motor_Mount_Brace_Right_stl() {
     NEMA_type = NEMA14_36;
 
-    stl("XY_Motor_Mount_Brace_Right_NEMA_14")
+    stl("XY_Motor_Mount_Brace_Right")
         color(pp2_colour)
             vflip()
                 xyMotorMountCFBrace(NEMA_type, left=false);
@@ -212,13 +212,13 @@ assembly("XY_Motor_Mount_Left_CF", big=true, ngb=true) {
 
     stl_colour(pp1_colour)
         if (_xyMotorDescriptor == "NEMA14")
-            XY_Motor_Mount_Left_NEMA_14_stl();
+            XY_Motor_Mount_Left_stl();
         else
             XY_Motor_Mount_Left_NEMA_17_stl();
     if (useReversedBelts()) {
         explode(70, show_line=false)
             stl_colour(pp2_colour)
-                XY_Motor_Mount_Brace_Left_NEMA_14_stl();
+                XY_Motor_Mount_Brace_Left_stl();
     }
     XY_Motor_Mount_CF_hardware(NEMA_type, left=true);
 }
@@ -238,14 +238,14 @@ assembly("XY_Motor_Mount_Right_CF", big=true, ngb=true) {
 
     stl_colour(pp1_colour)
         if (_xyMotorDescriptor == "NEMA14")
-            XY_Motor_Mount_Right_NEMA_14_stl();
+            XY_Motor_Mount_Right_stl();
         else
             XY_Motor_Mount_Right_NEMA_17_stl();
     if (useReversedBelts()) {
         explode(70, show_line=false)
             stl_colour(pp2_colour)
                 vflip()
-                    XY_Motor_Mount_Brace_Right_NEMA_14_stl();
+                    XY_Motor_Mount_Brace_Right_stl();
     }
     XY_Motor_Mount_CF_hardware(NEMA_type, left=false);
 }
