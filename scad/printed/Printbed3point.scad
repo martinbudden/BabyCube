@@ -357,8 +357,8 @@ assembly("Print_bed_3_point", big=true) {
 //!1. Bolt the bearing blocks to the sides of the **Printbed_Frame**.
 //!2. Insert the leadnut and bolt it to the **Printbed_Frame**.
 //
-module Print_bed_3_point_printed_stage_1_assembly()
-assembly("Print_bed_3_point_printed_stage_1", big=true, ngb=true) {
+module Print_bed_3_point_printed_Stage_1_assembly()
+assembly("Print_bed_3_point_printed_Stage_1", big=true, ngb=true) {
 
     vflip()
         translate([eX/2 + eSizeX, eY + 2*eSizeY - _zLeadScrewOffset, -eSize - printBed3pointBaseOffsetZ]) // this moves it to the back face
@@ -382,7 +382,7 @@ assembly("Print_bed_3_point_printed_stage_1", big=true, ngb=true) {
 module Print_bed_3_point_printed_assembly()
 assembly("Print_bed_3_point_printed", big=true) {
     vflip()
-        Print_bed_3_point_printed_stage_1_assembly();
+        Print_bed_3_point_printed_Stage_1_assembly();
 
     translate([eX/2 + eSizeX, eY + 2*eSizeY - _zLeadScrewOffset, -eSize - printBed3pointBaseOffsetZ]) // this moves it to the back face
         rotate(180) {

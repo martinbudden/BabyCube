@@ -16,7 +16,7 @@ module Printbed_test() {
     //Print_bed_assembly();
     //Printbed_Frame_stl();
     //Print_bed_3_point_assembly();
-    //Print_bed_3_point_printed_stage_1_assembly();
+    //Print_bed_3_point_printed_Stage_1_assembly();
     Print_bed_3_point_printed_assembly();
     //printbed(100);
     //hflip() zCarriage(100);

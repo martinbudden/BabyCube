@@ -13,7 +13,7 @@ use <printed/Printbed3point.scad>
 
 
 module PRINTBED120E15_assembly() {
-    //vflip() Print_bed_3_point_printed_stage_1_assembly();
+    //vflip() Print_bed_3_point_printed_Stage_1_assembly();
     Print_bed_3_point_assembly();
 }
 
