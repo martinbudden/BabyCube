@@ -286,9 +286,9 @@ assembly("Top_Face_CF_Stage_3", big=true, ngb=true) {
 
     Top_Face_CF_Stage_2_assembly(t);
 
-    explode(-40, show_line=false)
+    explode(-60, show_line=false)
         XY_Motor_Mount_Left_CF_assembly();
-    explode(-40, show_line=false)
+    explode(-60, show_line=false)
         XY_Motor_Mount_Right_CF_assembly();
     xyMotorMountTopHolePositions(left=true, z=eZ)
         explode(20, true)
