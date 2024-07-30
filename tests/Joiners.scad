@@ -9,7 +9,6 @@ use <../scad/printed/BackFaceJoiners.scad>
 use <../scad/printed/BaseJoiners.scad>
 use <../scad/printed/TopFaceJoiners.scad>
 
-use <../scad/printed/Base.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 
 

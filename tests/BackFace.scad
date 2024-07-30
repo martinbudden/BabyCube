@@ -6,10 +6,10 @@ include <NopSCADlib/vitamins/stepper_motors.scad>
 
 use <../scad/printed/BackFace.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
-use <../scad/printed/LeftAndRightFaceAssemblies.scad>
-use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
+//use <../scad/printed/LeftAndRightFaceAssemblies.scad>
+//use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
 
-use <../scad/printed/TopFaceAssemblies.scad>
+//use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/Printbed.scad>
 use <../scad/printed/Printbed3point.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
@@ -42,8 +42,6 @@ module Back_Face_test() {
         //Back_Face_Stage_1_assembly();
         Back_Face_assembly(bedHeight(t));
     }
-    *let($preview=false)
-        Back_Face_stl();
     //Back_Face_CF_dxf();
     //Left_Face_assembly(switch=false);
     //Left_Face_CF_assembly();
@@ -53,11 +51,8 @@ module Back_Face_test() {
     //printheadHotendSideE3DV6(t=t);
     //camera(rpi_camera_v2, fov_distance = eY/2);
 
-    *translate_z(3)
-    if (_useCNC)
-        Top_Face_CF_Stage_1_assembly();
-    else
-        Top_Face_Stage_1_assembly(t);
+    //Top_Face_CF_Stage_1_assembly();
+    //Top_Face_Stage_1_assembly(t);
     //Top_Face_CF_assembly();
 
 
@@ -83,8 +78,6 @@ module Back_Face_test() {
             *Right_Face_assembly();
         }
     */
-    *let($preview=false)
-        Printbed_stl();
 }
 
 if ($preview)

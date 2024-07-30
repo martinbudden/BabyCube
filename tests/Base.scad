@@ -5,18 +5,17 @@ include <NopSCADlib/vitamins/pcbs.scad>
 include <NopSCADlib/vitamins/fans.scad>
 
 use <../scad/printed/Base.scad>
-use <../scad/printed/DisplayHousingAssemblies.scad>
+//use <../scad/printed/DisplayHousingAssemblies.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
-use <../scad/printed/LeftAndRightFaceAssemblies.scad>
-use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
+//use <../scad/printed/LeftAndRightFaceAssemblies.scad>
+use <../scad/printed/LeftAndRightFaceAssembliesCF.scad> // for IEC
 use <../scad/printed/FrontFace.scad>
-use <../scad/printed/FrontChords.scad>
-use <../scad/printed/Printbed.scad>
-use <../scad/printed/Printbed3point.scad>
+//use <../scad/printed/FrontChords.scad>
+//use <../scad/printed/Printbed.scad>
+//use <../scad/printed/Printbed3point.scad>
 
 include <../scad/vitamins/pcbs.scad>
 
-include <../scad/Parameters_Positions.scad>
 include <../scad/Parameters_Main.scad>
 
 
@@ -31,12 +30,13 @@ module Base_test() {
     //Base_template_stl();
     //let($hide_pcb=true)
     //Base_CF_Stage_1_assembly();
-    //#baseCoverAssembly();
     //Base_Cover_stl();
-    if (_useCNC)
+    if (_useCNC) {
+        //#baseCoverAssembly();
         Base_CF_assembly();
-    else
+    } else {
         Base_assembly();
+    }
     //baseAssembly(BTT_SKR_MINI_E3_V2_0);
 
     //pcbAssembly(RPI3A_plus);
