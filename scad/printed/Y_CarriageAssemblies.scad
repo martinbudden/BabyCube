@@ -13,6 +13,15 @@ use <Y_Carriage.scad>
 include <../Parameters_CoreXY.scad>
 use <../Parameters_Positions.scad>
 
+// When using standard belts the inside idler is plain and the outside idler is toothed.
+// When using reversed belts the inside idler is toothed and the outside idler is plain.
+// Need to compensate for belt teeth when using bearings rather than toothed pulleys.
+// Note that when using reversed belts, plainIdler refers to the toothed idler and toothIdler refers to he plain idler,
+// hence the beltToothHeight compensation is appled to the "plainIdler".
+// In principle both the x and y offsets should be compensated, but the y offset is not compensated here, instead it is
+// handled at the X_Carriage. This improves belt clearances on the Y_Carriage.
+beltToothHeight = coreXYBearing() ? belt_tooth_height(coreXY_belt(coreXY_type())) : 0;
+
 
 //function pulleyOffset() = [-yRailShiftX(), 0, yCarriageThickness() - 6 + 1.25 + pulleyStackHeight()];
 //function pulleyOffset() = [-yRailShiftX(), 0, yCarriageThickness() + pulleyStackHeight()/2];
@@ -21,11 +30,14 @@ function tongueOffset(NEMA_width=_xyNEMA_width) = (eX + 2*eSizeX - _xRailLength 
 
 topInset = 3.5;
 
-module yCarriage(NEMA_width, reversedBelts=false, left, cnc=false) {
+module yCarriage(NEMA_width, reversedBelts=false, left=true, cnc=false) {
     plainIdler = coreXY_plain_idler(coreXY_type());
     isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
     pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
     washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
+
+    plainIdlerOffset = pulleyOffset() + [reversedBelts ? beltToothHeight - 2 : 0, 0, 0];
+    toothedIdlerOffset = pulleyOffset();
 
     idlerHeight = isBearing ? 2*bb_width(plainIdler) + washer_thickness(washer) : pulley_height(plainIdler);
     chamfer = 0;
@@ -34,7 +46,7 @@ module yCarriage(NEMA_width, reversedBelts=false, left, cnc=false) {
     tongueOffset = tongueOffset(NEMA_width);
 
     assert(pulleyStackHeight(idlerHeight, pulleyBore) + yCarriageBraceThickness() == coreXYSeparation().z);
-    Y_Carriage(carriageType(_yCarriageDescriptor), idlerHeight, pulleyBore, railType(_xCarriageDescriptor), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetY, endStopOffsetX, tongueOffset, pulleyOffset(), pulleyOffset(), topInset, left=left, cnc=cnc);
+    Y_Carriage(carriageType(_yCarriageDescriptor), idlerHeight, pulleyBore, railType(_xCarriageDescriptor), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetY, endStopOffsetX, tongueOffset, plainIdlerOffset, toothedIdlerOffset, topInset, left=left, cnc=cnc);
 }
 
 module Y_Carriage_Left_stl() {
@@ -150,7 +162,9 @@ module yCarriageLeftAssembly(NEMA_width, t=undef, reversedBelts=false) {
                                 Y_Carriage_Brace_Left_RB_stl();
                             else
                                 Y_Carriage_Brace_Left_stl();
-            Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), pulleyOffset(), left=true);
+            plainIdlerOffset = pulleyOffset() + (reversedBelts ? [beltToothHeight - 2, 0, 0] : [0, 0, 0]);
+            toothedIdlerOffset = pulleyOffset();
+            Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), plainIdlerOffset, toothedIdlerOffset, left=true);
         }
 }
 
@@ -187,7 +201,9 @@ module yCarriageRightAssembly(NEMA_width, t=undef, reversedBelts=false) {
                                 Y_Carriage_Brace_Right_RB_stl();
                             else
                                 Y_Carriage_Brace_Right_stl();
-            Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), pulleyOffset(), left=false);
+            plainIdlerOffset = pulleyOffset() + (reversedBelts ? [beltToothHeight - 2, 0, 0] : [0, 0, 0]);
+            toothedIdlerOffset = pulleyOffset();
+            Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), plainIdlerOffset, toothedIdlerOffset, left=false);
         }
 }
 
@@ -219,11 +235,15 @@ module yCarriageRightRailAssembly(NEMA_width, t=undef, reversedBelts=false) {
                 rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
 }
 
+//! 1. The Y_Carriage should be bolted to the MGN carriage before the pulleys are added, since otherwise the bolts are not accessible.  
+//! 2. Bolt the pulleys to the Y_Carriage. Note also that there is a washer under each pulley, but not on top of the pulley.
 module Y_Carriage_Left_Rail_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 assembly("Y_Carriage_Left_Rail", big=true, ngb=true) {
     yCarriageLeftRailAssembly(_xyNEMA_width, t=t, reversedBelts=true);
 }
 
+//! 1. The Y_Carriage should be bolted to the MGN carriage before the pulleys are added, since otherwise the bolts are not accessible.  
+//! 2. Bolt the pulleys to the Y_carriage. Note also that there is a washer under each pulley, but not on top of the pulley.
 module Y_Carriage_Right_Rail_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 assembly("Y_Carriage_Right_Rail", big=true, ngb=true) {
     yCarriageRightRailAssembly(_xyNEMA_width, t=t, reversedBelts=true);
