@@ -46,8 +46,8 @@ staged_assembly("Stage_1", big=true, ngb=true) {
 
     translate_z(-eps) {
         stl_colour(pp2_colour)
-            baseLeftFeet();
-        baseLeftFeet(hardware=true);
+            baseFeet(left=true);
+        baseFeet(left=true, hardware=true);
     }
     explode(-40)
         baseLeftHolePositions(-_basePlateThickness)
@@ -59,8 +59,8 @@ staged_assembly("Stage_1", big=true, ngb=true) {
 
     translate_z(-eps) {
         stl_colour(pp2_colour)
-            baseRightFeet();
-        baseRightFeet(hardware=true);
+            baseFeet(left=false);
+        baseFeet(left=false, hardware=true);
     }
     explode(-40)
         baseRightHolePositions(-_basePlateThickness)

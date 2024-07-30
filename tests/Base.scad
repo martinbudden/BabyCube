@@ -45,10 +45,10 @@ module Base_test() {
     //pcbAssembly(BTT_SKR_E3_TURBO);
     //Base_SKR_E3_Turbo_assembly();
     //Base_SKR_1_4_assembly();
-    //baseLeftFeet();
-    //baseLeftFeet(hardware=true);
-    //baseRightFeet();
-    //baseRightFeet(hardware=true);
+    //baseFeet(left=true);
+    //baseFeet(left=true, hardware=true);
+    //baseFeet(left=false);
+    //baseFeet(left=false, hardware=true);
     //Display_Cover_assembly();
     //Display_Housing_assembly();
     *rotate([90, 0, 180]) {

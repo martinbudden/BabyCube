@@ -3,6 +3,7 @@ include <BasePSUandPCBs.scad>
 
 use <NopSCADlib/vitamins/sheet.scad>
 
+use <../utils/translateRotate.scad>
 include <Foot.scad>
 
 
@@ -141,13 +142,13 @@ assembly("Base_CF_Stage_1", big=true) {
 
     translate_z(-eps) {
         stl_colour(pp2_colour)
-            baseLeftFeet();
-        baseLeftFeet(hardware=true);
+            baseFeet(left=true);
+        baseFeet(left=true, hardware=true);
         stl_colour(pp2_colour)
-            baseRightFeet();
-        baseRightFeet(hardware=true);
+            baseFeet(left=false);
+        baseFeet(left=false, hardware=true);
         }
-    explode(10)
+    explode(10, show_line=false)
         stl_colour(pp2_colour)
             Base_Front_Joiner_stl();
     baseFrontHolePositions(-_basePlateThickness, cf=true)
@@ -155,7 +156,7 @@ assembly("Base_CF_Stage_1", big=true) {
             explode(15, true)
                 boltM3Buttonhead(10);
     rotate([90, 0, 90]) {
-        explode([0, 25, 0])
+        explode([0, 25, 0], show_line=false)
             stl_colour(pp1_colour)
                 Base_Left_Joiner_stl();
         lowerChordHolePositions(includeFeet=false)
@@ -166,7 +167,7 @@ assembly("Base_CF_Stage_1", big=true) {
     }
     translate([eX + 2*eSizeX, 0, 0])
         rotate([-90, 0, 90]) {
-            explode([0, -25, 0])
+            explode([0, -25, 0], show_line=false)
                 stl_colour(pp1_colour)
                     Base_Right_Joiner_stl();
             lowerChordHolePositions(includeFeet=false)
@@ -261,29 +262,19 @@ module baseAssembly(pcb=undef, psuType=undef) {
 }
 
 // All corners are offset by _baseBoltHoleInset in both the x and y direction so that the feet are symmetrical.
-module baseLeftFeet(hardware=false) {
+module baseFeet(left=true, hardware=false) {
     footHeight = 8;
-    for (i = [ [0, 0, -_basePlateThickness - footHeight, 0], [0, eY + 2*eSizeY, -_basePlateThickness - footHeight, 270] ])
-        translate([i.x, i.y, i.z])
-            rotate(i[3])
-                vflip()
-                    explode(hardware ? 30 : 20, true)
-                        if (hardware)
-                            Foot_LShaped_8mm_hardware();
-                        else
-                            Foot_LShaped_8mm_stl();
-    }
+    v = left
+        ? [ [0, 0, -_basePlateThickness - footHeight, 0], [0, eY + 2*eSizeY, -_basePlateThickness - footHeight, 270] ]
+        : [ [eX + 2*eSizeX, 0, -_basePlateThickness - footHeight, 90], [eX + 2*eSizeX, eY + 2*eSizeY, -_basePlateThickness - footHeight, 180] ];
 
-module baseRightFeet(hardware=false) {
-    footHeight = 8;
-    for (i = [ [eX + 2*eSizeX, 0, -_basePlateThickness - footHeight, 90], [eX + 2*eSizeX, eY + 2*eSizeY, -_basePlateThickness - footHeight, 180] ])
-        translate([i.x, i.y, i.z])
-            rotate(i[3])
-                vflip()
-                    explode(hardware ? 30 : 20, true)
-                        if (hardware)
-                            Foot_LShaped_8mm_hardware();
-                        else
-                            Foot_LShaped_8mm_stl();
+    for (i = v)
+        translate_r(i)
+            vflip()
+                explode(hardware ? 30 : 20, true, show_line=false)
+                    if (hardware)
+                        Foot_LShaped_8mm_hardware();
+                    else
+                        Foot_LShaped_8mm_stl();
 }
 

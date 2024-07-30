@@ -24,8 +24,8 @@ include <../scad/config/Parameters_Main.scad>
 module BoltHole_test() {
     NEMA_type = _xyMotorDescriptor == "NEMA14" ? NEMA14_36 : NEMA17_40;
 
-    //baseLeftFeet();
-    //baseRightFeet();
+    //baseFeet(left=true);
+    //baseFeet(left=false);
     BaseAL();
     //translate_z(eZ) color(pp3_colour) topFaceCover(NEMA_type);
     //translate_z(eZ + eps) color(pp3_colour) topFaceInterlock(NEMA_type);
