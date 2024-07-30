@@ -25,7 +25,6 @@ module Base_Front_Joiner_stl() {
         }
 }
 
-baseCoverHeight = 43;
 backBoltLength = 9;
 
 module baseSideJoiner(offset=0, baseCoverOffset, left) {
@@ -81,7 +80,6 @@ module Base_Left_Joiner_stl() {
     }
 }
 
-
 module Base_Right_Joiner_stl() {
     stl("Base_Right_Joiner")
         mirror([0, 1, 0])
@@ -100,5 +98,71 @@ module Base_Right_Joiner_stl() {
                     rotate([90, 0, 180])
                         boltHoleM3Tap(backBoltLength, horizontal=true);
             }
+}
+
+
+baceCoverCenterHolePosY = 144.5;
+baseCoverHeight = 43;
+
+module Base_Cover_stl() {
+    size = [eX + 2*eSizeX - 2*_sidePlateThickness, 144, 3];
+    sizeBack = [size.x, 3, baseCoverHeight - eSizeZ];
+    sizeCenterPillar = [eSizeXBase - _sidePlateThickness, 5, baseCoverHeight];
+    fillet = 1;
+
+    color(pp3_colour)
+        stl("Base_Cover")
+            difference() {
+                union() {
+                    translate([_sidePlateThickness, -size.y - _frontPlateCFThickness, 0]) {
+                        tolerance = 0.5;
+                        rounded_cube_xy(size - [0, eSizeY + tolerance, 0], fillet);
+                        translate([eSizeX - _sidePlateThickness + tolerance, 0, 0])
+                            rounded_cube_xy([eX - 2*tolerance, size.y, size.z], fillet);
+
+                        rounded_cube_xy(sizeBack, fillet);
+
+                        sizeBack2 = [size.x - 4*eSizeX, sizeBack.y, baseCoverHeight];
+                        translate([(size.x - sizeBack2.x)/2, 0, 0])
+                            rounded_cube_xy(sizeBack2, fillet);
+
+                        sizePillar = [eSizeXBase - _sidePlateThickness, eSizeY, sizeBack.z];
+                        for (x = [0, sizeBack.x - sizePillar.x])
+                            translate([x, 0, 0])
+                                rounded_cube_xy(sizePillar, fillet);
+                        translate([sizePillar.x, sizeBack.y, 0])
+                            fillet(2, sizePillar.z);
+                        translate([sizeBack.x - sizePillar.x, sizeBack.y, 0])
+                            rotate(90)
+                                fillet(2, sizePillar.z);
+                        translate([(sizeBack.x - sizeCenterPillar.x)/2, 0, 0]) {
+                            rounded_cube_xy(sizeCenterPillar, fillet);
+                            translate([sizeCenterPillar.x, sizeBack.y, 0])
+                                fillet(1, sizeCenterPillar.z);
+                            translate([0, sizeBack.y, 0])
+                                rotate(90)
+                                    fillet(1, sizeCenterPillar.z);
+                        }
+                    }// end translate
+                }// end union
+                for (x = [(eSizeXBase + _sidePlateThickness)/2, eX + (3*eSizeX - _sidePlateThickness)/2])
+                    translate([x, -(_frontPlateCFThickness + 3*eSizeY/2), 0])
+                        boltHoleM3(size.z);
+                assert(baceCoverCenterHolePosY == size.y + _frontPlateCFThickness - sizeCenterPillar.y/2);
+                translate([_sidePlateThickness + size.x/2, -size.y - _frontPlateCFThickness + sizeCenterPillar.y/2, sizeCenterPillar.z])
+                    vflip()
+                        boltHoleM3Tap(10);
+            }// end difference
+}
+
+module baseCoverAssembly() {
+    stl_colour(pp3_colour)
+        translate_z(baseCoverHeight)
+            vflip()
+                Base_Cover_stl();
+    for (x = [(eSizeXBase + _sidePlateThickness)/2, eX + (3*eSizeX - _sidePlateThickness)/2])
+        translate([x, _frontPlateCFThickness + 3*eSizeY/2, baseCoverHeight])
+            explode(10, true)
+                boltM3Caphead(8);
 }
 
