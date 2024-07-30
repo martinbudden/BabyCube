@@ -26,8 +26,6 @@ use <../scad/printed/TopFaceAssemblies.scad>
 include <../scad/utils/printParameters.scad>
 ///include <../scad/utils/X_Rail.scad>
 
-use <../scad/MainAssembly.scad>
-
 
 //$explode = 1;
 //$pose = 1;

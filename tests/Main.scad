@@ -5,8 +5,8 @@ include <NopSCADlib/utils/core/core.scad>
 include <../scad/utils/printParameters.scad>
 
 use <../scad/Main.scad>
-use <../scad/MainAssembly.scad>
-use <../scad/MainAssemblyCF.scad>
+use <../scad/assemblies/MainAssembly.scad>
+use <../scad/assemblies/MainAssemblyCF.scad>
 
 
 //$explode = 1;

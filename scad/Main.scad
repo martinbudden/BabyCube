@@ -136,7 +136,7 @@
 
 include <NopSCADlib/utils/core/core.scad>
 
-use <MainAssembly.scad>
+use <assemblies/MainAssembly.scad>
 
 //!1. Connect the wiring to the printhead.
 //!2. Connect the Bowden tube.

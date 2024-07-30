@@ -1,25 +1,25 @@
-include <global_defs.scad>
+include <../global_defs.scad>
 
-include <vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
-use <printed/BackFace.scad>
-use <printed/BackFaceAssemblies.scad>
-use <printed/Base.scad>
-use <printed/DisplayHousingAssemblies.scad>
-include <printed/Extras.scad>
-use <printed/FrontChords.scad>
-use <printed/LeftAndRightFaceAssemblies.scad>
-use <printed/PrintheadAssemblies.scad>
-use <printed/PrintheadAssembliesE3DV6.scad>
-use <printed/TopFaceAssemblies.scad>
-use <printed/X_CarriageAssemblies.scad>
+use <../printed/BackFace.scad>
+use <../printed/BackFaceAssemblies.scad>
+use <../printed/Base.scad>
+use <../printed/DisplayHousingAssemblies.scad>
+include <../printed/Extras.scad>
+use <../printed/FrontChords.scad>
+use <../printed/LeftAndRightFaceAssemblies.scad>
+use <../printed/PrintheadAssemblies.scad>
+use <../printed/PrintheadAssembliesE3DV6.scad>
+use <../printed/TopFaceAssemblies.scad>
+use <../printed/X_CarriageAssemblies.scad>
 
-include <utils/HolePositions.scad>
+include <../utils/HolePositions.scad>
 
-include <Parameters_CoreXY.scad>
-include <utils/CoreXYBelts.scad>
+include <../Parameters_CoreXY.scad>
+include <../utils/CoreXYBelts.scad>
 
-use <Parameters_Positions.scad>
+use <../Parameters_Positions.scad>
 
 
 staged_assembly = true; // set this to false for faster builds during development

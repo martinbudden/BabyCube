@@ -1,26 +1,26 @@
-include <global_defs.scad>
+include <../global_defs.scad>
 
-include <vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
-use <printed/BackFace.scad>
-use <printed/BackFaceAssemblies.scad>
-use <printed/Base.scad>
-use <printed/DisplayHousingAssemblies.scad>
-include <printed/Extras.scad>
-use <printed/FrontFace.scad>
-use <printed/LeftAndRightFaceAssemblies.scad>
-use <printed/LeftAndRightFaceAssembliesCF.scad>
-use <printed/PrintheadAssemblies.scad>
-use <printed/PrintheadAssembliesE3DRevo.scad>
-use <printed/TopFaceAssemblies.scad>
-use <printed/X_CarriageAssemblies.scad>
-use <printed/XY_IdlerBracket.scad>
+use <../printed/BackFace.scad>
+use <../printed/BackFaceAssemblies.scad>
+use <../printed/Base.scad>
+use <../printed/DisplayHousingAssemblies.scad>
+include <../printed/Extras.scad>
+use <../printed/FrontFace.scad>
+use <../printed/LeftAndRightFaceAssemblies.scad>
+use <../printed/LeftAndRightFaceAssembliesCF.scad>
+use <../printed/PrintheadAssemblies.scad>
+use <../printed/PrintheadAssembliesE3DRevo.scad>
+use <../printed/TopFaceAssemblies.scad>
+use <../printed/X_CarriageAssemblies.scad>
+use <../printed/XY_IdlerBracket.scad>
 
-include <utils/HolePositions.scad>
+include <../utils/HolePositions.scad>
 
-use <Parameters_Positions.scad>
-include <Parameters_CoreXY.scad>
-include <utils/CoreXYBelts.scad>
+use <../Parameters_Positions.scad>
+include <../Parameters_CoreXY.scad>
+include <../utils/CoreXYBelts.scad>
 
 
 staged_assembly = true; // set this to false for faster builds during development

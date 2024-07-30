@@ -10,7 +10,7 @@
 //
 include <NopSCADlib/utils/core/core.scad>
 
-use <MainAssemblyCF.scad>
+use <assemblies/MainAssemblyCF.scad>
 
 //! Add the printhead, spool holder and spool.
 //
