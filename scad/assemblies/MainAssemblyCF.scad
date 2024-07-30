@@ -217,14 +217,12 @@ module CF_FinalAssembly() {
     translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2]) {
         Stage_5_CF_assembly();
 
-        explode([100, 0, 100])
+        explode(1, true)
             faceRightSpoolHolder(cf=true);
-        if (!exploded()) {
-            explode(150)
-                bowdenTube(carriagePosition(), "E3DRevo");
-            explode([150, 0, 0])
-                faceRightSpool(cf=true);
-        }
+        explode(150)
+            bowdenTube(carriagePosition(), "E3DRevo");
+        if (!exploded())
+            faceRightSpool(cf=true);
     }
 }
 

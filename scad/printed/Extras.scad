@@ -26,12 +26,13 @@ module bowdenTube(carriagePosition, hotendDescriptor, extraZ=120) {
 
 module faceRightSpoolHolder(cf=false) {
     translate(spoolHolderPosition(cf))
-        rotate([90, 0, 0])
-            stl_colour(pp2_colour)
-                if (cf)
-                    Spool_Holder_CF_stl();
-                else
-                    Spool_Holder_stl();
+        explode([40, 0, 90])
+            rotate([90, 0, 0])
+                stl_colour(pp2_colour)
+                    if (cf)
+                        Spool_Holder_CF_stl();
+                    else
+                        Spool_Holder_stl();
 }
 
 module faceRightSpool(cf=false) {
