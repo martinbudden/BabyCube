@@ -90,21 +90,54 @@ module Front_Face_CF() {
             Front_Face_CF_dxf();
 }
 
-module Nameplate_stl() {
-    size = [eX < 220 ? 80 : eX == 220 ? 100 : 140, 22, 3];
-    stl("Nameplate");
+namePlateSize = [eX < 220 ? 80 : eX == 220 ? 100 : 140, 22, 3];
+module Nameplate_Back_stl() {
+    size = namePlateSize - [5, 5, 0.5];
     difference() {
-        translate([(eX + 2*eSizeX - size.x)/2, eZ - size.y - _topPlateThickness])
-            color(grey(30))
+        translate([(eX + 2*eSizeX - size.x)/2, eZ  - (namePlateSize.y + size.y)/2 - _topPlateThickness])
+            color(grey(90))
                 rounded_cube_xy(size, 2);
-        translate([(eX + 2*eSizeX - size.x)/2, eZ - size.y - _topPlateThickness])
-            translate([size.x/2, 10, size.z - 1 + eps])
-                linear_extrude(1)
-                    text(_cubeName, size=14, font="Calibri", halign="center", valign="center");
         frontFaceUpperHolePositions()
             boltHoleM3(size.z);
     }
 }
+
+module Nameplate_stl() {
+    size = namePlateSize;
+    cutoutSize = [5.1, 5.1, size.z - 0.5];
+    fillet = 2;
+    offset = [(eX + 2*eSizeX - size.x)/2, eZ - size.y - _topPlateThickness];
+    stl("Nameplate");
+    color(grey(30)) {
+        translate(offset)
+            translate([0, 5, size.z - 1 + eps]) {
+                translate([8.25, 0, 0])
+                    cube([1, 15, 1]);
+                translate([17.5, 0, 0])
+                    cube([1, 8, 1]);
+                translate([26.5, 0, 0])
+                    cube([1, 12, 1]);
+                translate([62.5, 0, 0])
+                    cube([1, 10.5, 1]);
+                translate([71.25, 4, 0])
+                    cube([1, 8, 1]);
+            }
+        difference() {
+            translate(offset)
+                rounded_cube_xy(size, fillet);
+            translate(offset) {
+                translate([size.x/2, 10.5, size.z - 1 + eps])
+                    linear_extrude(1)
+                        text(_cubeName, size=13, font="Calibri", halign="center", valign="center");
+                translate([cutoutSize.x/2, cutoutSize.y/2, -eps])
+                    rounded_cube_xy([size.x - cutoutSize.x, size.y - cutoutSize.y, cutoutSize.z], fillet);
+            }
+            frontFaceUpperHolePositions()
+                boltHoleM3(size.z);
+        }
+    }
+}
+
 module nameplateText() {
     size = [80, 22, 3];
     translate([(eX + 2*eSizeX)/2, eZ - 15, 2 + eps])

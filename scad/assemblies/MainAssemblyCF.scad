@@ -204,10 +204,12 @@ staged_assembly("Stage_5_CF", big=true, ngb=true) {
         Front_Face_CF();
     }
     rotate([90, 0, 0])
-        explode(120, true, show_line=false) {
+        explode(150, true, show_line=false) {
             stl_colour(grey(30))
                 Nameplate_stl();
-            nameplateText();
+            explode(-20, true)
+                stl_colour(grey(90))
+                    Nameplate_Back_stl();
             frontFaceUpperHolePositions(3)
                 boltM3Buttonhead(12);
         }
