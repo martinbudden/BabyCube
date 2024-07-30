@@ -154,9 +154,10 @@ module yCarriageLeftAssembly(NEMA_width, t=undef, reversedBelts=false) {
                 } else {
                     Y_Carriage_Left_NEMA_17_stl();
                 }
+            extraExplode = 20;
             if (yCarriageBraceThickness())
                 translate_z(yCarriageThickness() + pulleyStackHeight + eps)
-                    explode(5*yCarriageExplodeFactor(), show_line=false)
+                    explode(5*yCarriageExplodeFactor() + extraExplode, show_line=false)
                         stl_colour(pp1_colour)
                             if (reversedBelts)
                                 Y_Carriage_Brace_Left_RB_stl();
@@ -164,7 +165,8 @@ module yCarriageLeftAssembly(NEMA_width, t=undef, reversedBelts=false) {
                                 Y_Carriage_Brace_Left_stl();
             plainIdlerOffset = pulleyOffset() + (reversedBelts ? [beltToothHeight - 2, 0, 0] : [0, 0, 0]);
             toothedIdlerOffset = pulleyOffset();
-            Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), plainIdlerOffset, toothedIdlerOffset, left=true);
+            explode(extraExplode, true, show_line=false)
+                Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), plainIdlerOffset, toothedIdlerOffset, left=true);
         }
 }
 
@@ -193,9 +195,10 @@ module yCarriageRightAssembly(NEMA_width, t=undef, reversedBelts=false) {
                 } else {
                     Y_Carriage_Right_NEMA_17_stl();
                 }
+            extraExplode = 20;
             if (yCarriageBraceThickness())
                 translate_z(yCarriageThickness() + pulleyStackHeight + 2*eps)
-                    explode(5*yCarriageExplodeFactor(), show_line=false)
+                    explode(5*yCarriageExplodeFactor() + extraExplode, show_line=false)
                         stl_colour(pp1_colour)
                             if (reversedBelts)
                                 Y_Carriage_Brace_Right_RB_stl();
@@ -203,7 +206,8 @@ module yCarriageRightAssembly(NEMA_width, t=undef, reversedBelts=false) {
                                 Y_Carriage_Brace_Right_stl();
             plainIdlerOffset = pulleyOffset() + (reversedBelts ? [beltToothHeight - 2, 0, 0] : [0, 0, 0]);
             toothedIdlerOffset = pulleyOffset();
-            Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), plainIdlerOffset, toothedIdlerOffset, left=false);
+            explode(extraExplode, true, show_line=false)
+                Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), plainIdlerOffset, toothedIdlerOffset, left=false);
         }
 }
 

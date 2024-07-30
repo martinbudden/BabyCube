@@ -426,7 +426,7 @@ module Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, thickness, y
     assert(is_list(yCarriageType));
 
     yCarriagePulleys(yCarriageType, plainIdler, toothedIdler, thickness, yCarriageBraceThickness, plainIdlerOffset, toothedIdlerOffset, 0, left);
-    explode(15)
+    explode(-5, show_line=false)
         yCarriageBolts(yCarriageType, thickness);
 }
 
