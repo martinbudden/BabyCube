@@ -145,7 +145,7 @@ assembly("Top_Face_NEMA_17", big=true) {
     xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
 }
 
-module topFaceAssembly(NEMA_width, t=undef, cf=false) {
+module topFaceAssembly(NEMA_width, t=undef, nuts=false, cf=false) {
     yCarriageType = carriageType(_yCarriageDescriptor);
     yRailType = carriage_rail(yCarriageType);
 
@@ -158,10 +158,11 @@ module topFaceAssembly(NEMA_width, t=undef, cf=false) {
                 if (cf) {
                     railHolePositions(yRailType, _yRailLength, 2) {
                         translate_z(-_topPlateThickness)
-                            vflip()
-                                explode(40, true)
-                                    color(grey(80))
-                                        nut_and_washer(M3_nut, nyloc=true);
+                            if (nuts)
+                                vflip()
+                                    explode(40, true)
+                                        color(grey(80))
+                                            nut_and_washer(M3_nut, nyloc=true);
                         translate_z(rail_height(yRailType) - rail_bore_depth(yRailType))
                             explode(30, true)
                                 color(grey(70))
@@ -227,7 +228,16 @@ assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
 
     Top_Face_CF_Stage_1_assembly();
 
-    topFaceAssembly(NEMA_width(NEMA14_36), cf=true);
+    topFaceAssembly(NEMA_width(NEMA14_36), nuts=false, cf=true);
+
+    railOffset = yRailOffset(NEMA_width(NEMA14_36));
+    explode(40, show_line=false)
+        for (x = [0, eX + 2*eSizeX - 2*railOffset.x]) 
+        translate([x, 0, 0])
+            vflip()
+                stl_colour(pp3_colour)
+                    Y_Rail_Connector_stl();
+
     //yCarriageLeftAssembly(NEMA_width(NEMA14_36), t);
     //yCarriageRightAssembly(NEMA_width(NEMA14_36), t);
     explode(-20, show_line=false)
@@ -235,6 +245,38 @@ assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
     explode(-20, show_line=false)
         Y_Carriage_Right_Rail_assembly(t=t);
 
+}
+
+module Y_Rail_Connector_stl() {
+    vflip()
+        stl_colour(pp3_colour)
+            stl("Y_Rail_Connector") {
+                yCarriageType = carriageType(_yCarriageDescriptor);
+                yRailType = carriage_rail(yCarriageType);
+                size = [10, eY - 15, 7];
+
+                railOffset = yRailOffset(NEMA_width(NEMA14_36));
+                translate_z(_topPlateThickness)
+                    difference() {
+                        translate([railOffset.x - size.x/2, (eY + 2*eSizeY - size.y)/2, railOffset.z])
+                            rounded_cube_xy(size, 1);
+                        translate(railOffset)
+                            rotate([180, 0, 90])
+                                railHolePositions(yRailType, _yRailLength, 2) {
+                                    vflip()
+                                        boltHoleM3Tap(size.z- 1);
+                                    /*vflip()
+                                        boltHoleM3(size.z);
+                                    nut = M3_nut;
+                                    radius = nut_radius(nut) + 0.1;
+                                    depth = nut_thickness(nut) + 0.5 + 2*eps;
+                                    translate_z(-size.z-eps)
+                                        linear_extrude(depth)
+                                            circle(r=radius, $fn=6);*/
+
+                                }
+                    }// end difference
+            }// end stl
 }
 
 //! 1. Bolt the **XY_Motor_Mount** assemblies to the **Top_Face_CF**.
