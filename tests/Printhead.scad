@@ -18,7 +18,7 @@ use <../scad/printed/X_CarriageAssemblies.scad>
 include <../scad/utils/printParameters.scad>
 include <../scad/utils/X_Rail.scad>
 
-include <../scad/Parameters_CoreXY.scad>
+include <../scad/config/Parameters_CoreXY.scad>
 include <../scad/utils/CoreXYBelts.scad>
 
 

@@ -7,7 +7,7 @@ include <NopSCADlib/vitamins/pcbs.scad>
 include <DisplayHousing.scad>
 use <FrontChords.scad>
 
-include <../Parameters_Main.scad>
+include <../config/Parameters_Main.scad>
 
 
 display_type = BTT_TFT35_V3_0();

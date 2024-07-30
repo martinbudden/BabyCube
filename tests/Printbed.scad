@@ -6,7 +6,7 @@ use <../scad/printed/Printbed.scad>
 use <../scad/printed/Printbed3point.scad>
 use <../scad/printed/Z_Carriage.scad>
 
-include <../scad/Parameters_Main.scad>
+include <../scad/config/Parameters_Main.scad>
 
 
 //$explode = 1;

@@ -16,8 +16,8 @@ use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/PrintheadAssembliesE3DV6.scad>
 use <../scad/utils/printParameters.scad>
 
-use <../scad/Parameters_Positions.scad>
-include <../scad/Parameters_CoreXY.scad>
+use <../scad/config/Parameters_Positions.scad>
+include <../scad/config/Parameters_CoreXY.scad>
 include <../scad/utils/CoreXYBelts.scad>
 
 //$explode = 1;

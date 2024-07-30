@@ -11,7 +11,7 @@ include <../utils/HolePositions.scad>
 
 include <../vitamins/inserts.scad>
 
-include <../Parameters_CoreXY.scad>
+include <../config/Parameters_CoreXY.scad>
 
 function idlerBracketSize(coreXYPosBL=[0, 0, 0]) = [coreXYPosBL.y + 6, 6, floor(coreXYPosBL.x/2)*2 + 10];
 

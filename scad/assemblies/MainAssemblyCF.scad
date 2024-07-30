@@ -18,8 +18,8 @@ use <../printed/XY_IdlerBracket.scad>
 
 include <../utils/HolePositions.scad>
 
-use <../Parameters_Positions.scad>
-include <../Parameters_CoreXY.scad>
+use <../config/Parameters_Positions.scad>
+include <../config/Parameters_CoreXY.scad>
 include <../utils/CoreXYBelts.scad>
 
 

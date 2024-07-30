@@ -8,7 +8,7 @@ include <../utils/carriageTypes.scad>
 use <X_Carriage.scad>
 use <X_CarriageBeltAttachment.scad>
 
-include <../Parameters_CoreXY.scad>
+include <../config/Parameters_CoreXY.scad>
 
 xCarriageFrontSize = [30, 4, 40.5];
 function xCarriageBeltSideSize(xCarriageType, beltWidth) = 

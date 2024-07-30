@@ -10,8 +10,8 @@ include <../utils/carriageTypes.scad>
 
 use <Y_Carriage.scad>
 
-include <../Parameters_CoreXY.scad>
-use <../Parameters_Positions.scad>
+include <../config/Parameters_CoreXY.scad>
+use <../config/Parameters_Positions.scad>
 
 // When using standard belts the inside idler is plain and the outside idler is toothed.
 // When using reversed belts the inside idler is toothed and the outside idler is plain.

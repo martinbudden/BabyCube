@@ -10,7 +10,7 @@ include <NopSCADlib/vitamins/pillar.scad>
 include <../vitamins/pcbs.scad>
 include <../vitamins/psus.scad>
 
-include <../Parameters_Main.scad>
+include <../config/Parameters_Main.scad>
 
 function pcbOffsetFromBase() = eSizeZ + 2; // to allow clearance for removing SD card
 psuType = _psuDescriptor == "ASUS_FSKE_120W" ? ASUS_FSKE_120W_PSU : NG_CB_200W_24V;

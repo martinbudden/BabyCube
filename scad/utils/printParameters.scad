@@ -1,6 +1,6 @@
 include <NopSCADlib/utils/core/core.scad>
 
-include <../Parameters_Positions.scad>
+include <../config/Parameters_Positions.scad>
 
 module echoPrintParameters() {
     //assert(extrusion_width >= 1.1*nozzle, "extrusion_width too small for nozzle");

@@ -17,7 +17,7 @@ use <../utils/translateRotate.scad>
 include <Printbed.scad>
 use <Z_Carriage.scad>
 
-include <../Parameters_Main.scad>
+include <../config/Parameters_Main.scad>
 
 AL6anodised = [ "AL6anodised",       "Aluminium tooling plate", 6, [0.3, 0.3, 0.3, 1 ], false];
 

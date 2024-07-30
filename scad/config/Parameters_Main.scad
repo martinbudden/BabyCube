@@ -1,4 +1,4 @@
-include <target.scad>
+include <../target.scad>
 
 _cubeName = "BabyCube";
 _blowerDescriptor = "BL30x10";

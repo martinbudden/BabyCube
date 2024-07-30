@@ -11,7 +11,7 @@ use <../scad/printed/X_CarriageBeltAttachment.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 
 include <../scad/utils/carriageTypes.scad>
-include <../scad/Parameters_Main.scad>
+include <../scad/config/Parameters_Main.scad>
 
 //$explode = 1;
 //$pose = 1;

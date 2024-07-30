@@ -16,7 +16,7 @@ use <../scad/printed/FrontFace.scad>
 
 include <../scad/vitamins/pcbs.scad>
 
-include <../scad/Parameters_Main.scad>
+include <../scad/config/Parameters_Main.scad>
 
 
 //$explode = 1;

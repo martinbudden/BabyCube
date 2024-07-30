@@ -18,7 +18,7 @@ include <../utils/HolePositions.scad>
 //use <LeftAndRightFaces.scad> // for rockerPosition
 use <XY_IdlerBracket.scad>
 
-include <../Parameters_CoreXY.scad>
+include <../config/Parameters_CoreXY.scad>
 
 
 module Front_Face_CF_dxf() {

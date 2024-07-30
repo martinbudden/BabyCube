@@ -12,7 +12,7 @@ use <BasePSUandPCBs.scad> // for pcb position
 use <DisplayHousing.scad>
 use <XY_IdlerBracket.scad>
 
-include <../Parameters_Main.scad>
+include <../config/Parameters_Main.scad>
 
 
 fillet = _fillet;

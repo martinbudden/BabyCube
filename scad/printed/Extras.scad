@@ -15,7 +15,7 @@ use <LeftAndRightFaces.scad>
 include <SpoolHolder.scad>
 use <X_Carriage.scad>
 
-include <../Parameters_Main.scad>
+include <../config/Parameters_Main.scad>
 
 
 module bowdenTube(carriagePosition, hotendDescriptor, extraZ=120) {

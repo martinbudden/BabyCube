@@ -6,7 +6,7 @@ use <../scad/printed/FrontFace.scad>
 use <../scad/printed/FrontChords.scad>
 use <../scad/printed/XY_IdlerBracket.scad>
 
-include <../scad/Parameters_Main.scad>
+include <../scad/config/Parameters_Main.scad>
 
 
 //$explode = 1;

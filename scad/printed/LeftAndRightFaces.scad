@@ -19,7 +19,7 @@ use <SwitchShroud.scad>
 use <XY_IdlerBracket.scad>
 use <XY_Motors.scad>
 
-include <../Parameters_Main.scad>
+include <../config/Parameters_Main.scad>
 
 
 function extruderMotorType() = NEMA17_40;

@@ -19,7 +19,7 @@ include <../scad/utils/printParameters.scad>
 include <../scad/utils/X_Rail.scad>
 use <../scad/vitamins/E3DRevo.scad>
 
-include <../scad/Parameters_CoreXY.scad>
+include <../scad/config/Parameters_CoreXY.scad>
 include <../scad/utils/CoreXYBelts.scad>
 
 

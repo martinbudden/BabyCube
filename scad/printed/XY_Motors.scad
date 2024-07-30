@@ -13,7 +13,7 @@ include <../utils/motorTypes.scad>
 
 include <../vitamins/CorkDamper.scad>
 
-include <../Parameters_CoreXY.scad>
+include <../config/Parameters_CoreXY.scad>
 
 
 // NEMA 14 with longer shaft, to ensure clearances

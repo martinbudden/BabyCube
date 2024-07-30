@@ -14,8 +14,8 @@ use <Printbed3point.scad>
 include <XY_Motors.scad>
 include <Z_MotorMount.scad>
 
-include <../Parameters_CoreXY.scad>
-use <../Parameters_Positions.scad>
+include <../config/Parameters_CoreXY.scad>
+use <../config/Parameters_Positions.scad>
 
 
 module Back_Face_stl() {

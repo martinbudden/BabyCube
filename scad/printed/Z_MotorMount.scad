@@ -14,7 +14,7 @@ include <../vitamins/bolts.scad>
 include <../vitamins/CorkDamper.scad>
 include <../vitamins/leadscrew.scad>
 
-include <../Parameters_Main.scad>
+include <../config/Parameters_Main.scad>
 
 
 //                                              corner  body    boss    boss          shaft

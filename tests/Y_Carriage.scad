@@ -3,10 +3,10 @@
 include <../scad/printed/Y_Carriage.scad>
 include <../scad/printed/Y_CarriageAssemblies.scad>
 
-include <../scad/Parameters_CoreXY.scad>
+include <../scad/config/Parameters_CoreXY.scad>
 include <../scad/utils/CoreXYBelts.scad>
 
-use <../scad/Parameters_Positions.scad>
+use <../scad/config/Parameters_Positions.scad>
 
 
 //$explode = 1;

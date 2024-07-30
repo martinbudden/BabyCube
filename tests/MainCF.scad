@@ -13,7 +13,7 @@ include <../scad/utils/printParameters.scad>
 use <../scad/MainCF.scad>
 use <../scad/assemblies/MainAssemblyCF.scad>
 
-include <../scad/Parameters_Main.scad>
+include <../scad/config/Parameters_Main.scad>
 
 
 //$explode = 1;

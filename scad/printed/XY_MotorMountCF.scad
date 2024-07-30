@@ -4,7 +4,7 @@ include <NopSCADlib/utils/core/core.scad>
 include <../utils/motorTypes.scad>
 include <../vitamins/CorkDamper.scad>
 include <XY_Motors.scad>
-include <../Parameters_CoreXY.scad>
+include <../config/Parameters_CoreXY.scad>
 
 
 backSizeY = 5;

@@ -7,7 +7,7 @@ include <NopSCADlib/vitamins/stepper_motors.scad>
 
 include <../scad/printed/Z_MotorMount.scad>
 
-include <../scad/Parameters_Main.scad>
+include <../scad/config/Parameters_Main.scad>
 
 
 //$explode = 1;

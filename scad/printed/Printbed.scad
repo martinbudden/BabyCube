@@ -7,7 +7,7 @@ include <../vitamins/bolts.scad>
 
 use <Z_Carriage.scad>
 
-include <../Parameters_Main.scad>
+include <../config/Parameters_Main.scad>
 
 
 underlayThickness = 3;

@@ -2,7 +2,7 @@ use <NopSCADlib/utils/dogbones.scad>
 use <NopSCADlib/utils/fillet.scad>
 
 use <translateRotate.scad>
-include <../Parameters_Main.scad>
+include <../config/Parameters_Main.scad>
 
 
 module edgeCutout_x(size, cnc=false, center=false, xy_center=true, fillet=1, tolerance=_tabTolerance) {

@@ -5,7 +5,7 @@ include <NopSCADlib/utils/core/core.scad>
 include <../vitamins/bolts.scad>
 include <../utils/HolePositions.scad>
 include <../utils/cutouts.scad>
-include <../Parameters_Main.scad>
+include <../config/Parameters_Main.scad>
 
 module sideFaceJoiner() {
     difference() {

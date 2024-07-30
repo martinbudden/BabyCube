@@ -11,10 +11,10 @@ use <../scad/printed/BackFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 
-include <../scad/Parameters_CoreXY.scad>
+include <../scad/config/Parameters_CoreXY.scad>
 include <../scad/utils/CoreXYBelts.scad>
 
-use <../scad/Parameters_Positions.scad>
+use <../scad/config/Parameters_Positions.scad>
 
 
 

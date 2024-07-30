@@ -9,7 +9,7 @@ use <../vitamins/extruder.scad>
 
 include <LeftAndRightFaces.scad>
 
-include <../Parameters_CoreXY.scad>
+include <../config/Parameters_CoreXY.scad>
 
 
 module Left_Face_stl() {

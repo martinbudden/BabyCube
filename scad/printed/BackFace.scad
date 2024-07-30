@@ -20,7 +20,7 @@ use <X_CarriageAssemblies.scad>
 use <X_CarriageE3DV6.scad>
 include <Z_MotorMount.scad>
 
-include <../Parameters_Main.scad>
+include <../config/Parameters_Main.scad>
 
 
 // in XZ plane, coordinates are [x, z, y]

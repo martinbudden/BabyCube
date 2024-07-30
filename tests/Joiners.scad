@@ -3,7 +3,7 @@
 include <../scad/global_defs.scad>
 
 include <NopSCADlib/utils/core/core.scad>
-include <../scad/Parameters_Main.scad>
+include <../scad/config/Parameters_Main.scad>
 
 use <../scad/printed/BackFaceJoiners.scad>
 use <../scad/printed/BaseJoiners.scad>

@@ -9,8 +9,8 @@ include <../vitamins/pcbs.scad>
 use <X_Carriage.scad>
 use <X_CarriageAssemblies.scad>
 
-include <../Parameters_Main.scad>
-use <../Parameters_Positions.scad>
+include <../config/Parameters_Main.scad>
+use <../config/Parameters_Positions.scad>
 
 
 module printheadBeltSide(rotate=0, explode=0, t=undef, halfCarriage=true) {

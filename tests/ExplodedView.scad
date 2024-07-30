@@ -17,7 +17,7 @@ use <../scad/printed/PrintheadAssembliesE3DV6.scad>
 use <../scad/printed/PrintheadAssembliesE3DRevo.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 
-include <../scad/Parameters_Main.scad>
+include <../scad/config/Parameters_Main.scad>
 
 
 $explode = 1;

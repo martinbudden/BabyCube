@@ -16,7 +16,7 @@ include <../scad/utils/HolePositions.scad>
 
 include <../scad/vitamins/bolts.scad>
 
-include <../scad/Parameters_Main.scad>
+include <../scad/config/Parameters_Main.scad>
 
 
 //$explode = 1;

@@ -16,10 +16,10 @@ use <../printed/X_CarriageAssemblies.scad>
 
 include <../utils/HolePositions.scad>
 
-include <../Parameters_CoreXY.scad>
+include <../config/Parameters_CoreXY.scad>
 include <../utils/CoreXYBelts.scad>
 
-use <../Parameters_Positions.scad>
+use <../config/Parameters_Positions.scad>
 
 
 staged_assembly = true; // set this to false for faster builds during development

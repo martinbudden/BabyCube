@@ -14,7 +14,7 @@ include <../utils/ziptieCutout.scad>
 
 include <../vitamins/bolts.scad>
 
-include <../Parameters_Main.scad>
+include <../config/Parameters_Main.scad>
 
 
 /*function heatedBedSize() =

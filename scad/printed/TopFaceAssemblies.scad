@@ -8,7 +8,7 @@ use <Y_CarriageAssemblies.scad>
 use <XY_IdlerBracket.scad>
 
 
-use <../Parameters_Positions.scad>
+use <../config/Parameters_Positions.scad>
 include <../utils/CoreXYBelts.scad>
 
 
