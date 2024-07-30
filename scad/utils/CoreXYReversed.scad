@@ -5,6 +5,13 @@ module coreXYR_half(type, size, pos, offset_y = 0, x_gap = 0, plain_idler_offset
 
     function pulley_or(type) = pulley_od(type) / 2;
 
+    // Set offsets for using a plain pulley in place of the y-carriage toothed pulley.
+    // the pulley is moved in the x direction, assuming corresponding adjustment in the y-carriage.
+    // The last section of belt is moved in the y direction, assuming corresponding adjustment in the x-carriage.
+    beltPitchHeight = belt_pitch_height(coreXY_belt(type));
+    toothed_idler_offset = [beltPitchHeight, 0];
+    toothed_idler_belt_offset = [0, beltPitchHeight];
+
     // Start and end points
     start_pos = pos + [ (-size.x + x_gap) / 2, -size.y / 2 - pulley_or(coreXY_plain_idler(type)) - offset_y / 2];
     end_pos   = pos + [ (-size.x - x_gap) / 2, -size.y / 2 + pulley_or(coreXY_toothed_idler(type)) + offset_y / 2];
@@ -28,7 +35,7 @@ module coreXYR_half(type, size, pos, offset_y = 0, x_gap = 0, plain_idler_offset
 
     // y-carriage toothed pulley
     p4_type = coreXY_toothed_idler(type);
-    p4 = [ -size.x / 2 + pulley_or(p4_type) + pulley_or(p3_type), end_pos.y - pulley_or(p4_type) ];
+    p4 = [ -size.x / 2 + pulley_or(p4_type) + pulley_or(p3_type), end_pos.y - pulley_or(p4_type) ] + toothed_idler_offset;
 
     // stepper motor drive pulley
     pd_type = coreXY_drive_pulley(type);
@@ -71,8 +78,8 @@ module coreXYR_half(type, size, pos, offset_y = 0, x_gap = 0, plain_idler_offset
     ];
     path_end = [
         [ p3.x, p3.y, -pulley_or(p3_type) ],
-        [ p4.x, p4.y, pulley_or(p4_type) ],
-        [ end_pos.x, end_pos.y, 0]
+        [ p4.x - toothed_idler_offset.x + toothed_idler_belt_offset.x, p4.y - toothed_idler_offset.y + toothed_idler_belt_offset.y, pulley_or(p4_type) ], 
+        [ end_pos.x + toothed_idler_belt_offset.x, end_pos.y + toothed_idler_belt_offset.y, 0]
     ];
     path_middle = plain_idler_offset.y == 0
     ?
