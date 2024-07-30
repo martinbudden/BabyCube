@@ -4,7 +4,6 @@ include <BasePSUandPCBs.scad>
 use <NopSCADlib/vitamins/sheet.scad>
 
 include <Foot.scad>
-include <LeftAndRightFaces.scad> // for frameLower
 
 
 AL3 = [ "AL3", "Aluminium sheet", 3, silver * 1.1, false];
@@ -260,12 +259,12 @@ module baseAssembly(pcb=undef, psuType=undef) {
         }
 }
 
-baseCoverHeight = 43;
 baceCoverCenterHolePosY = 144.5;
 module Base_Cover_stl() {
     size = [eX + 2*eSizeX - 2*_sidePlateThickness, 144, 3];
     sizeBack = [size.x, 3, baseCoverHeight - eSizeZ];
     sizeCenterPillar = [eSizeXBase - _sidePlateThickness, 5, baseCoverHeight];
+    fillet = 1;
 
     color(pp3_colour)
         stl("Base_Cover")
@@ -348,54 +347,5 @@ module baseRightFeet(hardware=false) {
                             Foot_LShaped_8mm_hardware();
                         else
                             Foot_LShaped_8mm_stl();
-}
-
-module Base_Left_Joiner_stl() {
-    NEMA_width = NEMA_width(xyMotorType());
-
-    stl("Base_Left_Joiner")
-        difference() {
-            color(pp1_colour)
-                frameLower(NEMA_width, left=true, offset=_sidePlateThickness, cf=true);
-           lowerSideJoinerHolePositions(_sidePlateThickness, left=true)
-                boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
-            frontSideJoinerHolePositions(_sidePlateThickness)
-                boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
-            rotate([0, -90, 0])
-                frontFaceSideHolePositions(-_sidePlateThickness)
-                    vflip()
-                        boltHoleM3Tap(eSizeXBase, horizontal=true, rotate=-90);
-            faceConnectorHolePositions()
-                rotate([90, 0, 180])
-                    boltHoleM3Tap(backBoltLength(), horizontal=true);
-    }
-}
-
-
-module Base_Right_Joiner_stl() {
-    NEMA_width = NEMA_width(xyMotorType());
-
-    stl("Base_Right_Joiner")
-        mirror([0, 1, 0])
-            difference() {
-                color(pp1_colour)
-                    frameLower(NEMA_width, left=false, offset=_sidePlateThickness, cf=true);
-                lowerSideJoinerHolePositions(_sidePlateThickness, left=false)
-                    boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
-                frontSideJoinerHolePositions(_sidePlateThickness)
-                    boltHoleM3Tap(eSizeXBase - _sidePlateThickness);
-                rotate([0, -90, 0])
-                    frontFaceSideHolePositions(-_sidePlateThickness)
-                        vflip()
-                            boltHoleM3Tap(eSizeXBase, horizontal=true, rotate=-90);
-                faceConnectorHolePositions()
-                    rotate([90, 0, 180])
-                        boltHoleM3Tap(backBoltLength(), horizontal=true);
-                rotate([90, 90, 0])
-                    translate([-eX - 2*eSizeX, 0, -10])
-                        pcbPosition(BTT_SKR_MINI_E3_V2_0)
-                            pcb_hole_positions(BTT_SKR_MINI_E3_V2_0)
-                                boltHoleM3Tap(8, horizontal=true, rotate=90, chamfer_both_ends=false);
-            }
 }
 

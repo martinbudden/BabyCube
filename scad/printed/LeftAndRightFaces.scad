@@ -303,31 +303,30 @@ module idlerUpright(NEMA_width, left) {
     }
 }
 
-module frameLower(NEMA_width, left=true, offset=0, cf=false, length=0) {
-    if (!cf)
-        translate([eY + 2*eSizeY - motorUprightWidth, 0, offset]) {
-            difference() {
-                size = [motorUprightWidth, middleWebOffsetZ(), eSizeXBase - offset];
-                union() {
-                    translate([0, eSizeZ, 0])
-                        rounded_cube_xy(size, fillet);
-                    // small cube for back face boltholes
-                    translate([0, middleWebOffsetZ(), 0]) {
-                        rounded_cube_xy([eSizeY, eSizeZ, _backFaceHoleInset + 4 - offset], fillet);
-                        if (offset==0)
-                            translate([-eSizeY, 0, 0])
-                                cube([2*eSizeY, eSizeZ, eSizeX], fillet);
-                    }
+module frameLower(NEMA_width, left=true, offset=0, length=0) {
+    translate([eY + 2*eSizeY - motorUprightWidth, 0, offset]) {
+        difference() {
+            size = [motorUprightWidth, middleWebOffsetZ(), eSizeXBase - offset];
+            union() {
+                translate([0, eSizeZ, 0])
+                    rounded_cube_xy(size, fillet);
+                // small cube for back face boltholes
+                translate([0, middleWebOffsetZ(), 0]) {
+                    rounded_cube_xy([eSizeY, eSizeZ, _backFaceHoleInset + 4 - offset], fillet);
+                    if (offset==0)
+                        translate([-eSizeY, 0, 0])
+                            cube([2*eSizeY, eSizeZ, eSizeX], fillet);
                 }
-                // cutouts for zipties
-                for (y = motorUprightZipTiePositions())
-                    translate([-eps, y, size.z])
-                        zipTieCutout();
-                translate([eSizeZ, backFaceHolePositions()[1], _backFaceHoleInset - offset])
-                    rotate([90, 0, -90])
-                        boltHoleM3Tap(backBoltLength(), horizontal=!cf, chamfer_both_ends=false);
             }
+            // cutouts for zipties
+            for (y = motorUprightZipTiePositions())
+                translate([-eps, y, size.z])
+                    zipTieCutout();
+            translate([eSizeZ, backFaceHolePositions()[1], _backFaceHoleInset - offset])
+                rotate([90, 0, -90])
+                    boltHoleM3Tap(backBoltLength(), horizontal=true, chamfer_both_ends=false);
         }
+    }
 
     difference() {
         // bottom chord
@@ -337,20 +336,6 @@ module frameLower(NEMA_width, left=true, offset=0, cf=false, length=0) {
                 rounded_cube_xy([length == 0 ? eY + 2*eSizeY - offset : length, eSizeZ, eSizeXBase - offset], fillet);
             translate([eY + 2*eSizeY - 10, 0, offset])
                 rounded_cube_xy([10, 20, 35 - offset], fillet); // 38 to match frontConnector size
-            if (cf)
-                translate([offset, 0, offset])
-                    difference() {
-                        baseCoverOffset = 40;
-                        union() {
-                            rounded_cube_xy([eSizeY, 55, eSizeXBase - offset], fillet);
-                            rounded_cube_xy([2*eSizeY, baseCoverOffset, eSizeXBase - offset], fillet);
-                            translate([2*eSizeY, eSizeZ, 0])
-                                fillet(fillet, eSizeXBase - offset);
-                        }// end union
-                        translate([3*eSizeY/2, baseCoverOffset, (eSizeXBase - offset)/2])
-                            rotate([90, 0, 0])
-                                boltHoleM3Tap(10);
-                    }// end difference
         }
         translate([eY + 2*eSizeY, backFaceHolePositions()[0], _backFaceHoleInset])
             rotate([90, 0, -90])
@@ -358,11 +343,10 @@ module frameLower(NEMA_width, left=true, offset=0, cf=false, length=0) {
         translate([eY + 2*eSizeY, backFaceBracketLowerOffset().y, backFaceBracketLowerOffset().x])
             rotate([90, 0, -90])
                 boltHoleM3Tap(10, horizontal=true, chamfer_both_ends=false);
-        if (!cf)
-            for (x = bottomChordZipTiePositions(left))
-                translate([x, eSizeY + eps, eSizeX + 2])
-                    rotate(-90)
-                        zipTieCutout();
+        for (x = bottomChordZipTiePositions(left))
+            translate([x, eSizeY + eps, eSizeX + 2])
+                rotate(-90)
+                    zipTieCutout();
         lowerChordHolePositions()
             rotate([90, 0, 180])
                 // !! changing bolthole length can cause STL file to become invalid
