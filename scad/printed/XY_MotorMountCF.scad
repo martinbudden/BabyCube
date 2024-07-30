@@ -186,8 +186,8 @@ module XY_Motor_Mount_Brace_Right_stl() {
                 xyMotorMountCFBrace(NEMA_type, left=false);
 }
 
-module XY_Motor_Mount_Pulley_Spacer_M3_stl() {
-    stl("XY_Motor_Mount_Pulley_Spacer_M3");
+module XY_Pulley_Spacer_M3_stl() {
+    stl("XY_Pulley_Spacer_M3");
     color(pp3_colour)
         difference() {
             h = pulleyStackHeight + yCarriageBraceThickness();
@@ -308,11 +308,11 @@ module XY_Motor_Mount_CF_hardware(NEMA_type, left=true) {
                         explode(30)
                             translate_z(pulleyStackHeight)
                                 stl_colour(pp3_colour)
-                                    XY_Motor_Mount_Pulley_Spacer_M3_stl();
+                                    XY_Pulley_Spacer_M3_stl();
                     } else {
                         explode(5)
                             stl_colour(pp3_colour)
-                                XY_Motor_Mount_Pulley_Spacer_M3_stl();
+                                XY_Pulley_Spacer_M3_stl();
                         translate_z(separation.z)
                             explode(10, true)
                                 bearingStack(bearingType);
