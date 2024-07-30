@@ -1,6 +1,6 @@
 //! Display an exploded view of the BabyCube
 
-include <../scad/global_defs.scad>
+include <../scad/config/global_defs.scad>
 
 include <NopSCADlib/utils/core/core.scad>
 

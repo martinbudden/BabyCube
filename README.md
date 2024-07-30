@@ -125,6 +125,7 @@ The following table compares the sizes and build volumes of various small 3D pri
 Printer           | Build Volume | Nominal Dimensions
 ------------------| -------------| -------------------
 BabyCube          | 90 x 80 x 60 | 220 x 200 x 210
+BabyCubeCF220     | 99 x 99 x 84 | 220 x 220 x 220
 [Dice](https://www.instructables.com/DICE-a-Tiny-Rigid-and-Superfast-3D-printer/) | 90 x 75 x 80  | 200 x 200 x 200
 [Rook](https://github.com/rolohaun/Rook) | 120 x 120 x 100 (est) | 220 x 250 x 280 (est)
 [the100](https://github.com/MSzturc/the100) | 165 x 165 x 165 (est) |

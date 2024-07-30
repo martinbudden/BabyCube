@@ -1,6 +1,6 @@
 //! Display the the spool holder
 
-include <../scad/global_defs.scad>
+include <../scad/config/global_defs.scad>
 
 include <../scad/printed/SpoolHolder.scad>
 

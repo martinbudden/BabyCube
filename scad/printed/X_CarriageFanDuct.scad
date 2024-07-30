@@ -1,4 +1,4 @@
-include <../global_defs.scad>
+include <../config/global_defs.scad>
 
 include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/blowers.scad>

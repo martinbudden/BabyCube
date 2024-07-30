@@ -1,6 +1,6 @@
 //! Display the Face Joiners
 
-include <../scad/global_defs.scad>
+include <../scad/config/global_defs.scad>
 
 include <NopSCADlib/utils/core/core.scad>
 include <../scad/config/Parameters_Main.scad>

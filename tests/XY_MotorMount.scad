@@ -1,6 +1,6 @@
 //! Display the XY motor mounts
 
-include <../scad/global_defs.scad>
+include <../scad/config/global_defs.scad>
 
 include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>

@@ -1,4 +1,4 @@
-include <../global_defs.scad>
+include <../config/global_defs.scad>
 
 include <../utils/carriageTypes.scad>
 include <../utils/X_Rail.scad>
