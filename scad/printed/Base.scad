@@ -119,7 +119,7 @@ module baseCutouts(cnc=false, cf=false, radius=M3_clearance_radius, pcb=undef) {
 //
 module Base_assembly()
 assembly("Base", big=true) {
-
+    BaseAL(pcb=pcbType);
     //baseAssembly();
     baseAssembly(pcbType, psuType);
     not_on_bom()
