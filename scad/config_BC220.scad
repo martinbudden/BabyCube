@@ -6,26 +6,31 @@ _backPlateOutset = [0, 4];
 
 _tabTolerance = 0.0; // for 3D printed parts
 
-_chordLengths = [220, 220, 220];
+_chordLengths = [220, 220, 210];
 
 eSizeX = 8;
 
 _xyMotorDescriptor = "NEMA14";
 _zMotorDescriptor = "NEMA17_34L150";
 
-_psuDescriptor = "ASUS_FSKE_120W";
+_psuDescriptor = "NG_CB_200W_24V";
 
-// set _fullLengthYRail to add end cutouts for Y rail
-_fullLengthYRail = false;
 _xRailLength = 150;
-_yRailLength = 200;
+_yRailLength = floor(_chordLengths.y/50)*50;
+// set _fullLengthYRail to add end cutouts for Y rail
+_fullLengthYRail = _yRailLength == _chordLengths.y ? true : false;
+_backFaceUpperBracketOffset  = 3;
+_zRodOffsetZ  = _chordLengths.z == 200 ? 0 : _chordLengths.z - 200 - 3; // 3 is topPlateThickness
+_backFaceLowerBracketOffset  = _zRodOffsetZ;
 _xCarriageDescriptor = "MGN9C";
-_xCarriageCountersunk = true;
+_xCarriageCountersunk = false;
 _yCarriageDescriptor = "MGN9C";
-_coreXYDescriptor = "GT2_20_16";
+//_coreXYDescriptor = "GT2_20_16";
+_coreXYDescriptor = "GT2_20_F623";
+_useReversedBelts = true;
 
-_useFrontDisplay = true;
-_useFrontSwitch = true;
-_useHalfCarriage = true;
+_useFrontDisplay = false;
+_useFrontSwitch = false;
+_useHalfCarriage = false;
 
 _printBedSize = 120;
