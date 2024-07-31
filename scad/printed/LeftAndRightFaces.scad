@@ -65,18 +65,20 @@ module leftFace(NEMA_type) {
                         right_triangle(9, 9, 20, center=false);
             XY_MotorUpright(NEMA_type, left=true);
         }
-        switchShroudHolePositions()
-            boltPolyholeM3Countersunk(eSizeXBase, sink=0.25);
-        translate(rockerPosition(rocker_type())) {
-            rockerHoleSize = [frontReinforcementThickness() + 2*eps, rocker_slot_h(rocker_type()), rocker_slot_w(rocker_type())];
-            translate([-eps, -rockerHoleSize.y/2, -rockerHoleSize.z/2]) {
-                cube(rockerHoleSize);
-                // add cutout to avoid bridging bug in slic3r/PrusaSlicer/SuperSlicer
-                translate([rockerHoleSize.x/2, 0, rockerHoleSize.z - eps]) {
-                    //cube([rockerHoleSize.x/2, rockerHoleSize.y, 0.5 + eps]);
-                    translate([rockerHoleSize.x/2, 0, 0])
-                        rotate([90, 0, 180])
-                            right_triangle(rockerHoleSize.x/2, 1 + eps, rockerHoleSize.y, center=false);
+        if (_useFrontSwitch) {
+            switchShroudHolePositions()
+                boltPolyholeM3Countersunk(eSizeXBase, sink=0.25);
+            translate(rockerPosition(rocker_type())) {
+                rockerHoleSize = [frontReinforcementThickness() + 2*eps, rocker_slot_h(rocker_type()), rocker_slot_w(rocker_type())];
+                translate([-eps, -rockerHoleSize.y/2, -rockerHoleSize.z/2]) {
+                    cube(rockerHoleSize);
+                    // add cutout to avoid bridging bug in slic3r/PrusaSlicer/SuperSlicer
+                    translate([rockerHoleSize.x/2, 0, rockerHoleSize.z - eps]) {
+                        //cube([rockerHoleSize.x/2, rockerHoleSize.y, 0.5 + eps]);
+                        translate([rockerHoleSize.x/2, 0, 0])
+                            rotate([90, 0, 180])
+                                right_triangle(rockerHoleSize.x/2, 1 + eps, rockerHoleSize.y, center=false);
+                    }
                 }
             }
         }
@@ -157,13 +159,15 @@ module webbingLeft(NEMA_type) {
             fillet(innerFillet, upperWebThickness);
 
     // shroud for switch
-    translate([eSizeX - fillet, 0, 0])
-        cube([switchShroudSizeX - eSizeX + fillet, middleWebOffsetZ(), _webThickness]);
-    *translate([switchShroudSizeX, eSizeZ, 0]) // not needed, since covered by diagonal
-        fillet(innerFillet, _webThickness);
-    translate([switchShroudSizeX, middleWebOffsetZ(), 0])
-        rotate(-90)
+    if (_useFrontSwitch) {
+        translate([eSizeX - fillet, 0, 0])
+            cube([switchShroudSizeX - eSizeX + fillet, middleWebOffsetZ(), _webThickness]);
+        *translate([switchShroudSizeX, eSizeZ, 0]) // not needed, since covered by diagonal
             fillet(innerFillet, _webThickness);
+        translate([switchShroudSizeX, middleWebOffsetZ(), 0])
+            rotate(-90)
+                fillet(innerFillet, _webThickness);
+    }
     // upright by motor
     uprightPos = [coreXYPosTR(NEMA_width).y - 2 - NEMA_width/2 - eSizeY, middleWebOffsetZ(), 0];
     linear_extrude(upperWebThickness)
@@ -182,7 +186,8 @@ module webbingLeft(NEMA_type) {
                 if (_sideTabs)
                     sideFaceBackTabs();
             }
-            sideFaceMotorCutout(left, NEMA_width);
+            if (!_useReversedBelts)
+                sideFaceMotorCutout(left, NEMA_width);
         }
     // diagonal brace by motor
     translate([idlerBracketSize.x, middleWebOffsetZ() + eSizeZ, 0])
@@ -238,7 +243,8 @@ module webbingRight(NEMA_type) {
                     poly_circle(r=M3_clearance_radius);
             }
             spoolHolderCutout(NEMA_width);
-            sideFaceMotorCutout(left, NEMA_width);
+            if (!_useReversedBelts)
+                sideFaceMotorCutout(left, NEMA_width);
         }
 
     // support for the spoolholder
