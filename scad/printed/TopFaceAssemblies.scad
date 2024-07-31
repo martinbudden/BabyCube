@@ -6,7 +6,7 @@ include <XY_MotorMountCF.scad>
 use <PrintheadAssemblies.scad>
 use <Y_CarriageAssemblies.scad>
 use <XY_IdlerBracket.scad>
-
+use <Handle.scad>
 
 use <../config/Parameters_Positions.scad>
 include <../utils/CoreXYBelts.scad>
@@ -227,10 +227,14 @@ assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
     railOffset = yRailOffset(NEMA_width(NEMA14_36));
     explode(40, show_line=false)
         for (x = [0, eX + 2*eSizeX - 2*railOffset.x]) 
-            translate([x, 0, 0])
-                vflip()
+            translate([x, 0, 0]) {
+                rotate([0, -90, 0])
+                stl_colour(pp3_colour)
+                    Y_Rail_Handle_stl();
+                *vflip()
                     stl_colour(pp3_colour)
                         Y_Rail_Connector_stl();
+            }
 
     //yCarriageLeftAssembly(NEMA_width(NEMA14_36), t);
     //yCarriageRightAssembly(NEMA_width(NEMA14_36), t);
@@ -268,6 +272,33 @@ module Y_Rail_Connector_stl() {
                                         linear_extrude(depth)
                                             circle(r=radius, $fn=6);*/
 
+                                }
+                    }// end difference
+            }
+}
+
+module Y_Rail_Handle_stl() {
+    stl_colour(pp3_colour)
+        stl("Y_Rail_Handle") 
+            rotate([0, 90, 0]) {
+                yCarriageType = carriageType(_yCarriageDescriptor);
+                yRailType = carriage_rail(yCarriageType);
+                size = [10, eY - 15, 7];
+
+                railOffset = yRailOffset(NEMA_width(NEMA14_36));
+                translate_z(_topPlateThickness)
+                    difference() {
+                        translate([railOffset.x - size.x/2, (eY + 2*eSizeY - size.y)/2, railOffset.z]) {
+                            rounded_cube_xy(size, 1);
+                            translate([size.x/2, size.y/2, 0])
+                                rotate([0, -90, 0])
+                                    handle([size.x, 100, 37 + size.z], gripSizeY=15, holeCount=0, extended=true);
+                        }
+                        translate(railOffset)
+                            rotate([180, 0, 90])
+                                railHolePositions(yRailType, _yRailLength, 2) {
+                                    vflip()
+                                        boltHoleM3Tap(size.z- 1, horizontal=true);
                                 }
                     }// end difference
             }
