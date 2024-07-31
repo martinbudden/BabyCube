@@ -21,7 +21,7 @@ _yRailLength = floor(_chordLengths.y/50)*50;
 _fullLengthYRail = _yRailLength == _chordLengths.y ? true : false;
 _backFaceUpperBracketOffset  = 3;
 _zRodOffsetZ  = _chordLengths.z == 200 ? 0 : _chordLengths.z - 200 - 3; // 3 is topPlateThickness
-_backFaceLowerBracketOffset  = _zRodOffsetZ == 0 ? 0 : _zRodOffsetZ;
+_backFaceLowerBracketOffset  = _zRodOffsetZ;
 _xCarriageDescriptor = "MGN9C";
 _xCarriageCountersunk = false;
 _yCarriageDescriptor = "MGN9C";
