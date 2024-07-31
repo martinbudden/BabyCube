@@ -121,7 +121,7 @@ module backFaceBare(NEMA_type) {
     cutoutSize = [2, 4, eZ + 2*eps];
     zipTieCutoutSize = [10, 4, (_backPlateThickness + eps)*2];
     zipTieBridgeSize = [ 6, 15, 2];
-    backLowerChordSizeY = 20;
+    backLowerChordSizeY = 20 + _zRodOffsetZ;
 
     // side chords
     for (x = [eSizeXBase, eX - 2])
@@ -177,12 +177,12 @@ module backFaceUpperBrackets(NEMA_width, yOffset) {
     fcHeight = eSizeY + (eX + 2*eSizeX - upperChordSize.z)/2;
     rectSize = [eX + 2*eSizeX - 2*fcHeight, upperChordSize.y - _topPlateThickness-sk_size(SK_type).z - 1, reinforcementThickness];
 
-    translate([fcHeight, eY + 2*eSizeY - upperChordSize.y, 0])
+    translate([fcHeight, eZ - upperChordSize.y, 0])
         rounded_cube_xy(rectSize, 1);
 
     difference() {
         union() {
-            boltRectSize = [56, upperChordSize.y - _topPlateThickness, 8];
+            boltRectSize = [50, upperChordSize.y - _topPlateThickness, 8];
             translate([(eX + 2*eSizeX - boltRectSize.x)/2, eZ - boltRectSize.y - _topPlateThickness, 0])
                 rounded_cube_xy(boltRectSize, 1);
             translate([0, eZ - upperChordSize.y, -_backPlateThickness])
@@ -247,7 +247,7 @@ module backFaceLowerBrackets(NEMA_type, yOffset) {
         rotate([-90, -90, 0])
             Z_MotorMount(NEMA_type);
 
-    backLowerChordSizeY = 20;
+    backLowerChordSizeY = 20 + _zRodOffsetZ;
     fillet = 1;
     rectSize = [(eX - Z_MotorMountSize(NEMA_type).y + 5)/2, 10, reinforcementThickness];
     for (x = [eSizeXBase, eX + eSizeX - rectSize.x])
