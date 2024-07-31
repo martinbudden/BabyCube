@@ -10,6 +10,7 @@ include <../printed/Extras.scad>
 use <../printed/FrontChords.scad>
 use <../printed/LeftAndRightFaceAssemblies.scad>
 use <../printed/PrintheadAssemblies.scad>
+use <../printed/PrintheadAssembliesE3DRevo.scad>
 use <../printed/PrintheadAssembliesE3DV6.scad>
 use <../printed/TopFaceAssemblies.scad>
 use <../printed/X_CarriageAssemblies.scad>
@@ -115,7 +116,11 @@ staged_assembly("Stage_3", big=true, ngb=true) {
                 color(pp4_colour)
                     frontUpperChordMessage();
             }
-        Display_Housing_assembly();
+        if (_useFrontDisplay)
+            Display_Housing_assembly();
+        else
+            rotate([90, 0, 180])
+                Front_Lower_Chord_Solid_stl();
         frontLowerChordHardware();
     }
     baseFrontHolePositions(-_basePlateThickness)
@@ -158,6 +163,7 @@ staged_assembly("Stage_5", big=true, ngb=true) {
 }
 
 module FinalAssembly() {
+    hotendDescriptor = _useHalfCarriage ? "E3DV6" : "E3DRevo";
     translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2])
         if ($target == "BC200_test") {
             Left_Face_stl();
@@ -165,11 +171,14 @@ module FinalAssembly() {
         } else {
             Stage_5_assembly();
             if (!exploded())
-                printheadWiring(carriagePosition(), "E3DV6");
+                printheadWiring(carriagePosition(), hotendDescriptor);
             explode(100, true)
-                printheadHotendSideE3DV6();
+                if (hotendDescriptor == "E3DV6")
+                    printheadHotendSideE3DV6();
+                else
+                    printheadHotendSideE3DRevo();
             explode(150)
-                bowdenTube(carriagePosition(), "E3DV6");
+                bowdenTube(carriagePosition(), hotendDescriptor);
             explode([75, 0, 100])
                 faceRightSpoolHolder();
             explode([150, 0, 0])
