@@ -163,9 +163,10 @@ module Back_Face_CF() {
 //!1. Bolt the **Z_Motor_Mount** to the **Back_Face**.
 //!2. Attach the SK brackets to the **Back_Face**. Note the orientation of the tightening bolts: the top tightening bolts should
 //!face inward and the bottom tightening bolts should face outward. This allows access after the BabyCube is fully assembled.
-//!3. Bolt the **Back_Face_Left_Joiner** and the **Back_Face_Right_Joiner** to the **Back_Face**
-//!4. Loosely attach the stepper motor cables to the side joiners with cable ties. The longer cable goes to the left motor.
-//!5. Dry fit the **Top_Face** assembly to the **Back_Face** and adjust the position of the cables to reach the motors. Tighten
+//!3. Bolt the **Back_Face_Top_Joiner** to the **Back_Face**.
+//!4. Bolt the **Back_Face_Left_Joiner** and the **Back_Face_Right_Joiner** to the **Back_Face**
+//!5. Loosely attach the stepper motor cables to the side joiners with cable ties. The longer cable goes to the left motor.
+//!6. Dry fit the **Top_Face** assembly to the **Back_Face** and adjust the position of the cables to reach the motors. Tighten
 //!the cable ties and remove the **Top_Face**.
 //
 module Back_Face_CF_Stage_1_assembly()
@@ -181,16 +182,25 @@ assembly("Back_Face_CF_Stage_1", big=true, ngb=true) {
             if (!exploded())
                 backFaceZipTies();
         }
-        translate([eX + 2*eSizeX + eps, 0, 0]) {
-            rotate([-90, 0, 90])
-                explode([-50, 0, 0], show_line=false)
-                    stl_colour(pp2_colour)
-                        Back_Face_Right_Joiner_stl();
-            translate([0, 2*eY + 2*eSizeY, 0])
-                rotate([90, 0, -90])
-                    if (!exploded())
-                        backFaceZipTies();
-        }
+    translate([eX + 2*eSizeX + eps, 0, 0]) {
+        rotate([-90, 0, 90])
+            explode([-50, 0, 0], show_line=false)
+                stl_colour(pp2_colour)
+                    Back_Face_Right_Joiner_stl();
+        translate([0, 2*eY + 2*eSizeY, 0])
+            rotate([90, 0, -90])
+                if (!exploded())
+                    backFaceZipTies();
+    }
+
+    explode([0, -50, 0], show_line=false)
+        stl_colour(pp3_colour)
+            Back_Face_Top_Joiner_stl();
+    rotate([90, 0, 0])
+        backFaceCFTopHolePositions(-eY - 2*eSizeY - _backPlateCFThickness) // bolt back face to top joiner
+            vflip()
+                explode(50, true)
+                    boltM3Buttonhead(10);
 
    translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0]) {

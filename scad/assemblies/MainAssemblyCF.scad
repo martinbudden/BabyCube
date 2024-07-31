@@ -110,6 +110,9 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
 
     explode([-50, -50, 150], show_line=false)
         Top_Face_CF_assembly();
+    topFaceBackHolePositions(eZ) // bolt top face to back
+        explode(175, true)
+            boltM3Buttonhead(8);
 
     explode([-50, -50, 150], true, show_line=false)
         printheadHotendSideE3DRevo(explode=[0, 50, 100]);
@@ -129,11 +132,6 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
                     boltM3Buttonhead(10);
         }
     }
-    rotate([90, 0, 0])
-        backFaceCFTopHolePositions(-eY - 2*eSizeY - _backPlateCFThickness) // bolt back face to top
-            vflip()
-                explode(50, true)
-                    boltM3Buttonhead(10);
     rotate([90, 0, 0])
         for (left = [true, false])
             xyMotorMountBackHolePositions(left=left, z= -eY - 2*eSizeY - _backPlateCFThickness) // bolt back face to motor mounts

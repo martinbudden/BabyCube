@@ -7,6 +7,22 @@ include <../utils/HolePositions.scad>
 include <../utils/cutouts.scad>
 include <../config/Parameters_Main.scad>
 
+module Back_Face_Top_Joiner_stl() {
+    size = [50, eSizeY, eSizeZ];
+    stl("Back_Face_Top_Joiner");
+    color(pp3_colour)
+        difference() {
+            translate([(eX + 2*eSizeX - size.x) / 2, eY + 2*eSizeY - size.y, eZ - size.z - _topPlateThickness])
+                rounded_cube_xy(size, _fillet);
+            rotate([90, 0, 0])
+                backFaceCFTopHolePositions(-eY - 2*eSizeY)
+                    boltHoleM3Tap(size.y, horizontal=true);
+            topFaceBackHolePositions(eZ - _topPlateThickness)
+                vflip()
+                    boltHoleM3Tap(9);
+        }
+}
+
 module sideFaceJoiner() {
     difference() {
         offset = 20;

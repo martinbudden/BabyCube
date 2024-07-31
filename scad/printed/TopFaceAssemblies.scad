@@ -186,20 +186,17 @@ assembly("Top_Face_CF_Stage_1", big=true, ngb=true) {
 
     translate([-eps, 0, 0])
         rotate([90, 0, 90])
-            explode([0, -50, 0])
+            explode([0, -50, 0], show_line=false)
                 stl_colour(pp3_colour)
                     Top_Face_Left_Joiner_stl();
     translate([eX + 2*eSizeX + eps, 0, 0])
         rotate([-90, 0, 90])
-            explode([0, 50, 0])
+            explode([0, 50, 0], show_line=false)
                 stl_colour(pp3_colour)
                     Top_Face_Right_Joiner_stl();
-    explode(-50)
+    explode(-50, show_line=false)
         stl_colour(pp3_colour)
             Top_Face_Front_Joiner_stl();
-    explode(-50)
-        stl_colour(pp3_colour)
-            Top_Face_Back_Joiner_stl();
 
     explode(-50, show_line=false)
         XY_Idler_Bracket_Left_assembly();
@@ -207,9 +204,6 @@ assembly("Top_Face_CF_Stage_1", big=true, ngb=true) {
     explode(-50, show_line=false)
         XY_Idler_Bracket_Right_assembly();
 
-    topFaceBackHolePositions(eZ)
-        explode(25, true)
-            boltM3Buttonhead(8);
     topFaceSideHolePositions(eZ)
         explode(25, true)
             boltM3Buttonhead(8);
