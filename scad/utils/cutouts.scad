@@ -128,10 +128,10 @@ module backFaceSideCutouts(cnc=false, plateThickness=3, dogBoneThickness=3) {
             translate([x, y, -dogBoneThickness])
                 edgeCutout_x(dogboneSize, cnc);
     if (eZ != 200) {
-        endDogboneSize = [plateThickness*2, 2*yStep];
+        endDogboneSize = [plateThickness*2, 2*yStep, dogBoneThickness];
         for (y = [0, eZ == 220 ? eZ : eZ + yStep/2],
             x = [0, eX + 2*eSizeX])
-                translate([x, y])
+                translate([x, y, -dogBoneThickness])
                     edgeCutout_x(endDogboneSize, cnc);
     }
 
@@ -176,10 +176,17 @@ module sideFaceBackTabs() {
     x = eY + 2*eSizeY;
     translate([x - tabSize.x/2, 0])
         square([tabSize.x/2, eZ]);
-    for (y = [yStep*2 : yStep*2 : eZ - yStep*2])
+    start = eZ - floor(eZ/20) * 20;
+    // middle tabs
+    for (y = [start + yStep*2 : yStep*2 : eZ - yStep*2 + start])
         translate([x, y])
             rounded_square(tabSize, fillet);
-    for (y = [tabSize.y/4, eZ - tabSize.y/4])
+    // bottom tab
+    for (y = [(tabSize.y/2 + start)/2])
+        translate([x, y])
+            rounded_square([tabSize.x, tabSize.y/2 + start], fillet);
+    // top tab
+    for (y = [eZ - tabSize.y/4])
         translate([x, y])
             rounded_square([tabSize.x, tabSize.y/2], fillet);
 }
