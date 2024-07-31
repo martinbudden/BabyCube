@@ -58,9 +58,10 @@ module leftFaceHardware(NEMA_type, cnc=false, rocker=true) {
         if (!cnc) {
             XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), carriageType(_yCarriageDescriptor)));
             XY_MotorUprightHardware(NEMA_type, left=true);
-            translate(rockerPosition(rocker_type()))
-                rotate([0, -90, 0])
-                    rocker(rocker_type(), "red");
+            if (_useFrontSwitch)
+                translate(rockerPosition(rocker_type()))
+                    rotate([0, -90, 0])
+                        rocker(rocker_type(), "red");
         }
         if (!exploded() && !cnc)
             leftAndRightFaceZipTies(left=true, lowerZipTies=!cnc);
@@ -100,13 +101,13 @@ rpi_camera_zero = ["rpi_camera_zero", "Raspberry Pi Zero camera", rpi_camera_zer
 //!2. Secure the motor wires with zip ties.
 //!3. Bolt the two front idler pulleys with washers to the frame.
 //!4. Attach the wires to the switch and bolt the **Switch_Shroud** to the left face.
-module Left_Face_assembly(camera=false, fov_distance=0, switch=true) pose(a=[55, 0, 25 + 50])
+module Left_Face_assembly(camera=false, fov_distance=0) pose(a=[55, 0, 25 + 50])
 assembly("Left_Face", big=true) {
 
     stl_colour(pp1_colour)
         leftFaceAssembly();
     leftFaceHardware(xyMotorType());
-    if (switch) {
+    if (_useFrontSwitch) {
         explode([25, 0, 0])
             Switch_Shroud_assembly();
         Switch_Shroud_bolts();
