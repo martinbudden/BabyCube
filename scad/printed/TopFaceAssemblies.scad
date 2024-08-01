@@ -130,7 +130,7 @@ staged_assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
 //
 module Top_Face_assembly(t=undef)
-staged_assembly("Top_Face", big=true) {
+assembly("Top_Face", big=true) {
 
     Top_Face_Stage_2_assembly(t);
     //hidden() Top_Face_NEMA_17_stl();
@@ -149,7 +149,7 @@ staged_assembly("Top_Face", big=true) {
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
 //
 module Top_Face_NEMA_17_assembly(t=undef)
-staged_assembly("Top_Face_NEMA_17", big=true) {
+assembly("Top_Face_NEMA_17", big=true) {
 
     Top_Face_NEMA_17_Stage_2_assembly();
 
@@ -294,7 +294,7 @@ staged_assembly("Top_Face_CF_Stage_4", big=true, ngb=true) {
 //! Thread the belts as shown and attach to the **X_Carriage_Belt_Side**.
 //
 module Top_Face_CF_assembly(t=undef)
-staged_assembly("Top_Face_CF", big=true) {
+assembly("Top_Face_CF", big=true) {
 
     Top_Face_CF_Stage_4_assembly(t);
 
