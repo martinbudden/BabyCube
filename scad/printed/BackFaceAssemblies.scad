@@ -18,8 +18,14 @@ include <../config/Parameters_CoreXY.scad>
 use <../config/Parameters_Positions.scad>
 
 
-module Back_Face_stl() {
-    stl("Back_Face")
+module Back_Face_200_stl() {
+    stl("Back_Face_200")
+        color(pp2_colour)
+            backFace(zMotorType());
+}
+
+module Back_Face_210_stl() {
+    stl("Back_Face_210")
         color(pp2_colour)
             backFace(zMotorType());
 }
@@ -30,10 +36,10 @@ module Back_Face_NEMA_17_40_stl() {
             backFace(NEMA17_40L());
 }
 
-module backFace(zNEMA_type) {
+module backFace(zNEMA_type, fullyEnclosed=false) {
     difference() {
         union() {
-            backFaceBare(zNEMA_type);
+            backFaceBare(zNEMA_type, fullyEnclosed);
             backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
             backFaceUpperBrackets(_xyNEMA_width, backFaceUpperBracketOffset);// use_xyNEMA_width or rail offset
             backFaceLowerBracketOffset = is_undef(_backFaceLowerBracketOffset) ? 0 : _backFaceLowerBracketOffset;
@@ -44,6 +50,10 @@ module backFace(zNEMA_type) {
             boltPolyholeM3Countersunk(2*_backPlateThickness + 1, sink=0.25);
         backFaceBracketHolePositions(-_backPlateThickness)
             boltPolyholeM3Countersunk(2*_backPlateThickness + 1, sink=0.25);
+        // extra bolt hole for compatibility with XY_MotorMountRB
+        for (left = [true, false])
+            xyMotorMountBackHolePositions(left,-_backPlateThickness)
+                boltPolyholeM3Countersunk(2*_backPlateThickness + 1, sink=0.25);
         // add the bolt holes for attachment to the base
         /*backFaceBaseHolePositions()
             rotate([-90, 180, 0])
@@ -65,7 +75,10 @@ assembly("Back_Face_Stage_1", big=true, ngb=true) {
     translate([0, eY + 2*eSizeY + eps, 0])
         rotate([90, 0, 0]) {
             stl_colour(pp2_colour)
-                Back_Face_stl();
+                if (eZ==200)
+                    Back_Face_200_stl();
+                else if (eZ == 210)
+                    Back_Face_210_stl();
             backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
             backFaceUpperBracketsHardware(_backPlateThickness, backFaceUpperBracketOffset, counterSunk=true);
             backFaceLowerBracketOffset = is_undef(_backFaceLowerBracketOffset) ? 0 : _backFaceLowerBracketOffset;

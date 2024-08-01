@@ -30,7 +30,7 @@ SK_type = _zRodDiameter == 8 ? SK8 : _zRodDiameter == 10 ? SK10 : SK12;
 
 innerFillet = 5;
 reinforcementThickness = 5;
-upperChordSize = [eSizeY, sk_size(SK_type).z + _topPlateThickness + 8, eX + 2*eSizeX - 70];
+upperChordSize = [eSizeY, 50, eX + 2*eSizeX - 70]; // y was 25
 zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
 
 module backFaceBracketHolePositions(z=0, cnc=false) {
@@ -115,7 +115,7 @@ module printheadWiring(carriagePosition, hotendDescriptor) {
 
 
 
-module backFaceBare(NEMA_type) {
+module backFaceBare(NEMA_type, fullyEnclosed=false) {
     assert(isNEMAType(NEMA_type));
 
     cutoutSize = [2, 4, eZ + 2*eps];
@@ -152,6 +152,9 @@ module backFaceBare(NEMA_type) {
                     _backPlateThickness,
                     1.5*min(eSizeX, eSizeZ),
                     innerFillet/2);
+                if (fullyEnclosed)
+                    translate([horizontalRectSize.x - 1, Z_MotorMountHeight(NEMA_type) -1, 0])
+                        cube([wiringRectPosX - horizontalRectSize.x + 2, eZ - upperChordSize.y -Z_MotorMountHeight(NEMA_type) + 2, 1]);
                 //echo(printheadWiringPosX=printheadWiringPosX());
                 //echo(diag=[wiringRectPosX-horizontalRectSize.x, eZ - upperChordSize.y-Z_MotorMountHeight(NEMA_type)]);
             }
@@ -174,15 +177,16 @@ module backFaceUpperSKBracketHolePositions(yOffset) {
 }
 
 module backFaceUpperBrackets(NEMA_width, yOffset) {
+    upperChordSizeY = 25;
     fcHeight = eSizeY + (eX + 2*eSizeX - upperChordSize.z)/2;
-    rectSize = [eX + 2*eSizeX - 2*fcHeight, upperChordSize.y - _topPlateThickness-sk_size(SK_type).z - 1, reinforcementThickness];
+    rectSize = [eX + 2*eSizeX - 2*fcHeight, upperChordSizeY - _topPlateThickness-sk_size(SK_type).z - 1, reinforcementThickness];
 
-    translate([fcHeight, eZ - upperChordSize.y, 0])
+    translate([fcHeight, eZ - upperChordSizeY, 0])
         rounded_cube_xy(rectSize, 1);
 
     difference() {
         union() {
-            boltRectSize = [50, upperChordSize.y - _topPlateThickness, 8];
+            boltRectSize = [50, upperChordSizeY - _topPlateThickness, 8];
             translate([(eX + 2*eSizeX - boltRectSize.x)/2, eZ - boltRectSize.y - _topPlateThickness, 0])
                 rounded_cube_xy(boltRectSize, 1);
             translate([0, eZ - upperChordSize.y, -_backPlateThickness])
@@ -202,8 +206,9 @@ module backFaceUpperBrackets(NEMA_width, yOffset) {
                 translate_z(13 - topFaceBackHolePositionOffsetY())
                     boltHoleM3Tap(8, horizontal=true, chamfer_both_ends=false);*/
 
-        if (_fullLengthYRail)
-            railsCutout(NEMA_width, yRailOffset(NEMA_width));
+        // always make cutout for yRail, so back face can be used if _fullLengthYRail is true or not
+        //if (_fullLengthYRail)
+        railsCutout(NEMA_width, yRailOffset(NEMA_width));
     }
 
     /*translate([zRodOffsetX, _zRodLength - rodBracketSize().y + eSizeY/2, 0]) {
