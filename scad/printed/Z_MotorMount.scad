@@ -59,6 +59,7 @@ module NEMA_MotorWithIntegratedLeadScrew(NEMA_type, leadScrewLength, leadScrewDi
 
 zMotorMountTopPlateThickness = 5;
 braceWidth = 4.5;
+backHoleOffset = 8;
 
 function Z_MotorMountSize(NEMA_type, braceWidth=5, topPlateThickness=zMotorMountTopPlateThickness) = [
     NEMA_width(NEMA_type)/2 + _zLeadScrewOffset,
@@ -70,10 +71,10 @@ function Z_MotorMountHeightX(NEMA_type, topPlateThickness=zMotorMountTopPlateThi
 function Z_MotorMountHeight(NEMA_type, topPlateThickness=zMotorMountTopPlateThickness) = NEMA_length(NEMA_type) + 1.0 + topPlateThickness + _corkDamperThickness;
 
 module Z_MotorMountHolePositions(NEMA_type) {
-    height = Z_MotorMountHeight(NEMA_type) - zMotorMountTopPlateThickness/2 - _corkDamperThickness;
+    height = Z_MotorMountHeight(NEMA_type) - zMotorMountTopPlateThickness/2;
     size = Z_MotorMountSize(NEMA_type, braceWidth, zMotorMountTopPlateThickness);
 
-    for (x = [(size.y - braceWidth)/2, -(size.y - braceWidth)/2])
+    for (x = [(size.y - backHoleOffset)/2, -(size.y - backHoleOffset)/2])
         translate([eX/2 + eSizeX + x, height])
             children();
 }
@@ -91,26 +92,29 @@ module Z_MotorMount(NEMA_type, topPlateThickness = zMotorMountTopPlateThickness,
 
     translate_z(height) {
         difference() {
-            translate([-size.x + NEMA_width/2, -size.y/2])
-                union() {
-                    rounded_cube_xy(size, cf ? fillet : 0);
-                    if (backThickness)
-                        translate_z(-height)
-                            cube([backThickness, size.y, height + size.z], center=false);
-                }
-            if (cf) {
-                for (y = [(size.y - braceWidth)/2, -(size.y - braceWidth)/2])
-                    translate([-size.x + NEMA_width(NEMA_type)/2, y, zMotorMountTopPlateThickness/2])
-                        rotate([0, 90, 0])
-                            boltHoleM3Tap(10, horizontal=true, chamfer_both_ends=false, rotate=270);
-            } else {
-                translate([NEMA_width/2, size.y/2, size.z])
-                    rotate([0, 90, 180])
-                        fillet(fillet, size.x);
-                translate([NEMA_width/2 - size.x, -size.y/2, size.z])
-                    rotate([0, 90, 0])
-                        fillet(fillet, size.x);
-            }
+            union() {
+                translate([-size.x + NEMA_width/2, -size.y/2])
+                    union() {
+                        if (cf)
+                            rounded_cube_xy(size, fillet);
+                        else
+                            rounded_cube_yz(size, fillet);
+                        if (backThickness)
+                            translate_z(-height)
+                                cube([backThickness, size.y, height + size.z], center=false);
+                    }
+                // braces
+                for (y = [size.y/2 - braceWidth/2, -size.y/2 + braceWidth/2])
+                    translate([-size.x + backThickness + NEMA_width/2, y, 2*fillet])
+                        rotate([-90, 0, 0]) {
+                            rounded_right_triangle(size.x - backThickness - 2*fillet, height, braceWidth, fillet);
+                            translate_z(-braceWidth/2)
+                                if (cf)
+                                    rounded_cube_xz([8, height + 2*fillet, braceWidth], fillet);
+                                else
+                                    rounded_cube_yz([8, height + 2*fillet, braceWidth], fillet);
+                        }
+            }// end union
 
             translate_z(-eps)
                 rotate(-90)
@@ -122,47 +126,23 @@ module Z_MotorMount(NEMA_type, topPlateThickness = zMotorMountTopPlateThickness,
                 NEMA_screw_positions(NEMA_type)
                     rotate([180, 0, 90])
                         if (cf)
-                            boltHoleM3Countersunk(topPlateThickness, horizontal=!cf);
+                            boltHoleM3Countersunk(topPlateThickness);
                         else
-                            boltHoleM3(topPlateThickness, chamfer=0.5, horizontal=!cf);
-        } // difference
+                            boltHoleM3(topPlateThickness, chamfer=0.5, horizontal=true);
 
-        for (y = [size.y/2 - braceWidth/2, -size.y/2 + braceWidth/2])
-            translate([-size.x + backThickness + NEMA_width/2 - fillet, y, 0])
-                rotate([-90, 0, 0]) {
-                    translate([fillet, -2*fillet, 0 ]) {
-                        difference() {
-                            union() {
-                                rounded_right_triangle(size.x - backThickness - 2*fillet, height, braceWidth, fillet);
-                                translate_z(-braceWidth/2)
-                                    if (cf)
-                                        rounded_cube_xz([8, height + 2*fillet, braceWidth], fillet);
-                                    else
-                                        rounded_cube_yz([8, height + 2*fillet, braceWidth], fillet);
-                                // get rid of the fillet on the bottom of the rounded triangle
-                                if (fillet && !cf)
-                                    translate_z(-braceWidth/2)
-                                        cube([2, height + 2*fillet, braceWidth]);
-                            }
-                            translate([baseBackHoleOffset().y, height + 2*fillet, 0])
-                                rotate([90, 0, 0])
-                                    boltHoleM3Tap(8, horizontal=!cf, rotate=270, chamfer_both_ends=false);
-                            if (cf) {
-                                translate([0, -fillet, 0])
-                                    rotate([90, 0, 90])
-                                        boltHoleM3Tap(10, horizontal=true, chamfer_both_ends=false, rotate=270);
-                            } else {
-                                translate([0, height + 2*fillet, -braceWidth/2])
-                                    rotate([-90, -90, -90])
-                                        fillet(fillet, 2);
-                                translate([0, height + 2*fillet, braceWidth/2])
-                                    rotate([-90, 0, -90])
-                                        fillet(fillet, 2);
-                            }
-                        }
-                    }
-                }
-    }
+            // boltHoles to connect to the base
+            for (y = [size.y/2 - braceWidth/2, -size.y/2 + braceWidth/2])
+                translate([-size.x + backThickness + NEMA_width/2 +baseBackHoleOffset().y, y, -height])
+                    boltHoleM3Tap(10, horizontal=!cf, rotate=270, chamfer_both_ends=false);
+
+            // boltHoles to connect to the back
+            if (cf)
+                for (y = [(size.y - backHoleOffset)/2, -(size.y - backHoleOffset)/2])
+                    translate([-size.x + NEMA_width(NEMA_type)/2, y, zMotorMountTopPlateThickness/2])
+                        rotate([0, 90, 0])
+                            boltHoleM3Tap(12, horizontal=true, chamfer_both_ends=false, rotate=270);
+        }// end difference
+    }// end translate
 }
 
 module Z_MotorMountHardware(NEMA_type, topPlateThickness=zMotorMountTopPlateThickness, corkDamperThickness=_corkDamperThickness, cnc=false) {
