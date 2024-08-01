@@ -8,6 +8,7 @@ use <../scad/printed/FrontChords.scad>
 module FrontChords_test() {
     Front_Upper_Chord_stl();
     Front_Lower_Chord_stl();
+    //Front_Lower_Chord_Solid_stl();
     //Front_Lower_Chord_SKR_1_4_Headless_stl();
 }
 

@@ -5,7 +5,6 @@ include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/displays.scad>
 include <NopSCADlib/vitamins/pcbs.scad>
 
-use <../scad/printed/Base.scad>
 use <../scad/printed/DisplayHousingAssemblies.scad>
 use <../scad/printed/FrontChords.scad>
 

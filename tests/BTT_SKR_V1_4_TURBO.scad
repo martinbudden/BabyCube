@@ -3,7 +3,7 @@
 include <NopSCADlib/core.scad>
 include <NopSCADlib/vitamins/pcbs.scad>
 
-use <../scad/printed/Base.scad>
+use <../scad/printed/Base.scad> // for pcbOffsetFromBase
 use <../scad/printed/FrontChords.scad>
 
 

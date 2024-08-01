@@ -30,8 +30,9 @@ module Right_Face_test() {
     if (_useCNC) {
         Right_Face_CF_assembly();
     } else {
-        translate([eX + 2 * eSizeX + eps, 0, 0]) rotate([90, 0, -90]) Right_Face_stl();
+        //translate([eX + 2 * eSizeX + eps, 0, 0]) rotate([90, 0, -90]) Right_Face_stl();
         Right_Face_assembly();
+        //IEC_Housing();
     }
     //faceRightSpoolHolder(cf=_useCNC);
     //faceRightSpool(cf=_useCNC);
