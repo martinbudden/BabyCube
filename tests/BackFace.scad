@@ -40,7 +40,7 @@ module Back_Face_test() {
         //translate([0, eY + 2*eSizeY, 0]) rotate([90, 0, 0]) Back_Face_CF();
         //Back_Face_CF_Stage_1_assembly();
         //Back_Face_CF_Stage_2_assembly(bedHeight(t));
-        //Back_Face_CF_assembly();
+        Back_Face_CF_assembly();
     } else {
         //translate([0, eY + 2*eSizeY + eps, 0]) rotate([90, 0, 0]) translate_z(-4) backFace(zMotorType(),false);
         //translate([0, eY + 2*eSizeY, 0]) rotate([90, 0, 0]) Back_Face_CF();
@@ -87,7 +87,7 @@ module Back_Face_test() {
         }
     */
 }
-
+let($hide_bolts=true)
 if ($preview)
     translate([0, -eY, 0])
         Back_Face_test();
