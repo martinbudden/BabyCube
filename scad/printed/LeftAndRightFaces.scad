@@ -17,9 +17,7 @@ include <../vitamins/inserts.scad>
 
 use <SwitchShroud.scad>
 use <XY_IdlerBracket.scad>
-use <XY_Motors.scad>
-
-include <../config/Parameters_Main.scad>
+include <XY_MotorMountCF.scad>
 
 
 function extruderMotorType() = NEMA17_40;
@@ -33,7 +31,7 @@ upperWebThickness = 3;
 antiShearSize = [eY + 2*eSizeY, 20];
 switchShroudSizeX = 60;//switchShroudSize().x;
 upperFillet = 1.5;
-motorClearance = motorClearance(reversedBelts=false, cnc=false);
+motorClearance = motorClearance(reversedBelts=_useReversedBelts, cnc=_useCNC);
 
 function rocker_type() = small_rocker;
 function rockerPosition(rocker_type) = [0, rocker_height(rocker_type)/2 + frontLowerChordSize().y + 3, eSizeX + eps + rocker_slot_w(rocker_type)/2];

@@ -1,10 +1,4 @@
-include <../config/global_defs.scad>
-
-include <NopSCADlib/utils/core/core.scad>
-include <../utils/motorTypes.scad>
-include <../vitamins/CorkDamper.scad>
 include <XY_Motors.scad>
-include <../config/Parameters_CoreXY.scad>
 
 
 backSizeY = 5;
@@ -35,7 +29,21 @@ module xyMotorMountBeltGuide(sizeZ=10) {
             fillet(size.y - 2*fillet, size.z);
 }
 
-module xyMotorMountCF(NEMA_type, left) {
+module rounded_cube(xyz, size, fillet) {
+    if (xyz==0)
+        rounded_cube_yz(size, fillet)
+            children();
+    else if (xyz==1)
+        rounded_cube_xz(size, fillet)
+            children();
+    else if (xyz==2)
+        rounded_cube_xy(size, fillet)
+            children();
+    else
+        assert(false);
+}
+
+module xyMotorMountCF(NEMA_type, left, xyz=2) {
     assert(isNEMAType(NEMA_type));
 
     NEMA_width = NEMA_width(NEMA_type);
@@ -52,14 +60,14 @@ module xyMotorMountCF(NEMA_type, left) {
                 // baseplate for motor with cutouts
                 translate([ left ? _sidePlateThickness : eX + 2*eSizeX - _sidePlateThickness - size.x, eY + 2*eSizeY, 0]) {
                     translate([0, -size.y, 0])
-                        rounded_cube_xy([size.x, size.y, basePlateThickness], fillet);
+                        rounded_cube(xyz, [size.x, size.y, basePlateThickness], fillet);
                     translate([left ? 0 : size.x - sideSize.x, -sideSize.y, 0])
-                        rounded_cube_xy(sideSize, fillet);
+                        rounded_cube(xyz, sideSize, fillet);
                     translate([0, -backSize.y, 0]) {
                         cutoutSize = [8, 0, 15];
-                        rounded_cube_xy([backSize.x, backSize.y, backSize.z - cutoutSize.z], fillet);
+                        rounded_cube(xyz, [backSize.x, backSize.y, backSize.z - cutoutSize.z], fillet);
                         translate([left ? 0 : cutoutSize.x, 0, 0])
-                            rounded_cube_xy([backSize.x - cutoutSize.x, backSize.y, backSize.z], fillet);
+                            rounded_cube(xyz, [backSize.x - cutoutSize.x, backSize.y, backSize.z], fillet);
                     }
                     translate([left ? sideSize.x : size.x - sideSize.x, -backSize.y, 0])
                         rotate(left ? -90 : 180)

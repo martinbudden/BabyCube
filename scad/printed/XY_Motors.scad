@@ -67,9 +67,20 @@ module XY_MotorUpright(NEMA_type, left=true) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
 
-    XY_MotorPosition(NEMA_width, left)
-        //render_if(!$preview, convexity=10)
-            XY_MotorMount(NEMA_type, xyMotorMountBasePlateThickness(cnc=false), eZ - xyMotorPosition(NEMA_width, left).z, left, cnc=false);
+    if (_useReversedBelts) {
+        if (left)
+            rotate([-90, -90, 0])
+                xyMotorMountCF(NEMA_type, left, xyz=0);
+        else
+            translate([0, 0, eX + 2*eSizeX])
+               rotate([-90, 90, 0])
+                    mirror([0, 1, 0])
+                        xyMotorMountCF(NEMA_type, left, xyz=0);
+    } else {
+        XY_MotorPosition(NEMA_width, left)
+            //render_if(!$preview, convexity=10)
+                XY_MotorMount(NEMA_type, xyMotorMountBasePlateThickness(cnc=false), eZ - xyMotorPosition(NEMA_width, left).z, left, cnc=false);
+    }
 }
 
 module XY_MotorUprightHardware(NEMA_type, left=true) {

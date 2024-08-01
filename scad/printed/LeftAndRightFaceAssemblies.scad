@@ -9,8 +9,6 @@ use <../vitamins/extruder.scad>
 
 include <LeftAndRightFaces.scad>
 
-include <../config/Parameters_CoreXY.scad>
-
 
 module Left_Face_stl() {
     stl("Left_Face")
@@ -106,7 +104,13 @@ assembly("Left_Face", big=true) {
 
     stl_colour(pp1_colour)
         leftFaceAssembly();
-    leftFaceHardware(xyMotorType());
+    if (_useReversedBelts) {
+        stl_colour(pp2_colour)
+            XY_Motor_Mount_Brace_Left_stl();
+        XY_Motor_Mount_CF_hardware(xyMotorType(), left=true);
+    } else {
+        leftFaceHardware(xyMotorType());
+    }
     if (_useFrontSwitch) {
         explode([25, 0, 0])
             Switch_Shroud_assembly();
@@ -145,7 +149,14 @@ assembly("Right_Face_Stage_1", big=true, ngb=true) {
 
     stl_colour(pp1_colour)
         rightFaceStage1Assembly();
-    rightFaceHardware(xyMotorType());
+    if (_useReversedBelts) {
+        stl_colour(pp2_colour)
+            vflip()
+                XY_Motor_Mount_Brace_Right_stl();
+        XY_Motor_Mount_CF_hardware(xyMotorType(), left=false);
+    } else {
+        rightFaceHardware(xyMotorType());
+    }
 }
 
 module rightFaceAssembly(NEMA_width, zipTies=true) {
