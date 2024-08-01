@@ -45,12 +45,12 @@ function frontReinforcementThickness() = 3;
 function spoolHolderBracketSize(cf=false) = [cf ? 3 : eSizeX, cf ? 25 : 30, 20];
 
 
-module leftFace(NEMA_type) {
+module leftFace(NEMA_type, fullyEnclosed=false) {
     assert(isNEMAType(NEMA_type));
 
     difference() {
         union() {
-            frame(NEMA_type, left=true);
+            frame(NEMA_type, fullyEnclosed, left=true);
             webbingLeft(NEMA_type);
             NEMA_width = NEMA_width(NEMA_type);
             coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
@@ -87,7 +87,7 @@ module leftFace(NEMA_type) {
     }
 }
 
-module rightFace(NEMA_type) {
+module rightFace(NEMA_type, fullyEnclosed=false) {
     assert(isNEMAType(NEMA_type));
 
     // orient the right face for printing
@@ -95,7 +95,7 @@ module rightFace(NEMA_type) {
         mirror([0, 1, 0])
             difference() {
                 union() {
-                    frame(NEMA_type, left=false);
+                    frame(NEMA_type, fullyEnclosed, left=false);
                     webbingRight(NEMA_type);
                     NEMA_width = NEMA_width(NEMA_type);
                     coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
@@ -192,8 +192,8 @@ module webbingLeft(NEMA_type) {
         //diagonalDown([uprightPos.x - idlerBracketSize.x, middleWebOffsetZ() - 35 - eSizeZ, _webThickness], min(eSizeY, eSizeZ), 5, extend=true);
         diagonalDown([uprightPos.x - idlerBracketSize.x, eZ - eSizeZ - middleWebOffsetZ()-antiShearSize.y, upperWebThickness], min(eSizeY, eSizeZ), 5);
     // main diagonal brace
-    translate([switchShroudSizeX, eSizeZ, 0])
-        diagonal([eY + eSizeY - switchShroudSizeX, middleWebOffsetZ() - eSizeZ, _webThickness], min(eSizeY, eSizeZ), 5);
+    translate([(_useFrontSwitch ? switchShroudSizeX : 2*eSizeY), eSizeZ, 0])
+        diagonal([eY + eSizeY - (_useFrontSwitch ? switchShroudSizeX : 2*eSizeY), middleWebOffsetZ() - eSizeZ, _webThickness], min(eSizeY, eSizeZ), 5);
 }
 
 module spoolHolderCutout(NEMA_width, cnc=false) {
@@ -361,9 +361,24 @@ module frameLower(NEMA_width, left=true, offset=0, length=0) {
                 *translate_z(-eps)
                     poly_cylinder(r=M3_tap_radius, h=eSizeZ - 2, sides=6);
     }
+    // back fillet
     translate([eY + eSizeY, eSizeZ, offset])
         rotate(90)
             fillet(innerFillet, eSizeXBase - offset);
+    if (!_useFrontSwitch || !left) {
+        // attachment point for front cover
+        baseCoverOffset = 40;
+        difference() {
+            rounded_cube_xy([2*eSizeY, baseCoverOffset, eSizeXBase - offset], fillet);
+            translate([offset + 3*eSizeY/2, baseCoverOffset, (eSizeXBase + offset)/2 + 1])
+                rotate([90, 0, 0])
+                    boltHoleM3Tap(10);
+        }
+
+    }
+    // front fillet
+    translate([_useFrontSwitch ? eSizeY : 2*eSizeY, eSizeZ, 0])
+        fillet(innerFillet, eSizeXBase);
 }
 
 module frontConnector() {
@@ -388,7 +403,7 @@ module frontConnector() {
 
 
 //use coordinate frame of flat frame
-module frame(NEMA_type, left=true) {
+module frame(NEMA_type, fullyEnclosed=false, left=true) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
     topBoltHolderSize = topBoltHolderSize(0, reversedBelts=false, cnc=false);
@@ -396,6 +411,11 @@ module frame(NEMA_type, left=true) {
     idlerUpright(NEMA_width, left);
     difference() {
         union() {
+            if (fullyEnclosed) {
+                offset = [5, 5, 0];
+                translate(offset)
+                    cube([eY + 2*eSizeY -2*offset.x, eZ - _topPlateThickness - 2*offset.y, 1]);
+            }
             frameLower(NEMA_width, left);
             // cube for top face bolt holes
             topBoltHolderSize = topBoltHolderSize;
@@ -462,10 +482,6 @@ module frame(NEMA_type, left=true) {
             rotate(90)
                 fillet(3, eSizeX);// smaller fillet by motor cutout
     }
-
-    // lower
-    translate([eSizeY, eSizeZ, 0])
-        fillet(innerFillet, eSizeXBase);
 }
 
 function extruderZipTiePositions() = [10, 48];
