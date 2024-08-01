@@ -123,6 +123,11 @@ module Back_Face_CF_dxf() {
                     circle(r=M3_clearance_radius);
                 backFaceCFTopHolePositions()
                     circle(r=M3_clearance_radius);
+                // extra holes for compatibility with BC200 left and right STL faces
+                if (eZ == 200)
+                    for (x = [30, eX + 2*eSizeX - 30])
+                        translate([x, eZ - 15])
+                            circle(r=M3_clearance_radius);
                 backFaceCFSideHolePositions() // attaches to left and right face joiners
                     circle(r=M3_clearance_radius);
                 backFaceBracketHolePositions(-_backPlateThickness, cnc=true) // attaches to base side joiner
