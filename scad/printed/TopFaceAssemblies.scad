@@ -6,7 +6,7 @@ include <XY_MotorMountRB.scad>
 use <PrintheadAssemblies.scad>
 use <Y_CarriageAssemblies.scad>
 use <XY_IdlerBracket.scad>
-use <Handle.scad>
+use <TopFaceRail.scad>
 
 use <../config/Parameters_Positions.scad>
 include <../utils/CoreXYBelts.scad>
@@ -254,65 +254,6 @@ staged_assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
     explode(-20, show_line=false)
         Y_Carriage_Right_Rail_assembly(t=t);
 
-}
-
-module Y_Rail_Connector_stl() {
-    stl_colour(pp3_colour)
-        stl("Y_Rail_Connector")
-            vflip() {
-                yCarriageType = carriageType(_yCarriageDescriptor);
-                yRailType = carriage_rail(yCarriageType);
-                size = [10, eY - 15, 7];
-
-                railOffset = yRailOffset(NEMA_width(NEMA14_36));
-                translate_z(_topPlateThickness)
-                    difference() {
-                        translate([railOffset.x - size.x/2, (eY + 2*eSizeY - size.y)/2, railOffset.z])
-                            rounded_cube_xy(size, 1);
-                        translate(railOffset)
-                            rotate([180, 0, 90])
-                                railHolePositions(yRailType, _yRailLength, 2) {
-                                    vflip()
-                                        boltHoleM3Tap(size.z- 1);
-                                    /*vflip()
-                                        boltHoleM3(size.z);
-                                    nut = M3_nut;
-                                    radius = nut_radius(nut) + 0.1;
-                                    depth = nut_thickness(nut) + 0.5 + 2*eps;
-                                    translate_z(-size.z-eps)
-                                        linear_extrude(depth)
-                                            circle(r=radius, $fn=6);*/
-
-                                }
-                    }// end difference
-            }
-}
-
-module Y_Rail_Handle_stl() {
-    stl_colour(pp3_colour)
-        stl("Y_Rail_Handle") 
-            rotate([0, 90, 0]) {
-                yCarriageType = carriageType(_yCarriageDescriptor);
-                yRailType = carriage_rail(yCarriageType);
-                size = [10, eY - 15, 7];
-
-                railOffset = yRailOffset(NEMA_width(NEMA14_36));
-                translate_z(_topPlateThickness)
-                    difference() {
-                        translate([railOffset.x - size.x/2, (eY + 2*eSizeY - size.y)/2, railOffset.z]) {
-                            rounded_cube_xy(size, 1);
-                            translate([size.x/2, size.y/2, size.z - 5])
-                                rotate([0, -90, 0])
-                                    handle([size.x, 100, 35], gripSizeY=10, holeCount=0, extended=true);
-                        }
-                        translate(railOffset)
-                            rotate([180, 0, 90])
-                                railHolePositions(yRailType, _yRailLength, 2) {
-                                    vflip()
-                                        boltHoleM3Tap(size.z- 1, horizontal=true);
-                                }
-                    }// end difference
-            }
 }
 
 //! 1. Bolt the **XY_Motor_Mount** assemblies to the **Top_Face_CF**.
