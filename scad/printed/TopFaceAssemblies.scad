@@ -290,9 +290,9 @@ module Y_Rail_Handle_stl() {
                     difference() {
                         translate([railOffset.x - size.x/2, (eY + 2*eSizeY - size.y)/2, railOffset.z]) {
                             rounded_cube_xy(size, 1);
-                            translate([size.x/2, size.y/2, 0])
+                            translate([size.x/2, size.y/2, size.z - 5])
                                 rotate([0, -90, 0])
-                                    handle([size.x, 100, 37 + size.z], gripSizeY=15, holeCount=0, extended=true);
+                                    handle([size.x, 100, 35], gripSizeY=10, holeCount=0, extended=true);
                         }
                         translate(railOffset)
                             rotate([180, 0, 90])
