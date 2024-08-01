@@ -25,14 +25,6 @@ use <../config/Parameters_Positions.scad>
 
 staged_assembly = true; // set this to false for faster builds during development
 
-module staged_assembly(name, big, ngb) {
-    if (staged_assembly)
-        assembly(name, big, ngb)
-            children();
-    else
-        children();
-}
-
 //!1. Bolt the **Left_Face** and the left feet to the base.
 //!2. Bolt the **Right_Face** and the right feet to the base.
 //

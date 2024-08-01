@@ -12,6 +12,17 @@ use <../config/Parameters_Positions.scad>
 include <../utils/CoreXYBelts.scad>
 
 
+staged_assembly = true; // set this to false for faster builds during development
+
+module staged_assembly(name, big, ngb) {
+    if (staged_assembly)
+        assembly(name, big, ngb)
+            children();
+    else
+        children();
+}
+
+
 module Top_Face_stl() {
     stl("Top_Face")
         color(pp3_colour)
@@ -49,7 +60,7 @@ module Top_Face_CF() {
 //! 3. The bolts on the right side rail should be only loosely tightened - they will be fully tightened when the right rail
 //! is aligned when the X axis rail is added.
 module Top_Face_Stage_1_assembly(t=undef)  pose(a=[55 + 180, 0, 25 + 310])
-assembly("Top_Face_Stage_1", big=true, ngb=true) {
+staged_assembly("Top_Face_Stage_1", big=true, ngb=true) {
 
     translate_z(eZ)
         vflip()
@@ -59,7 +70,7 @@ assembly("Top_Face_Stage_1", big=true, ngb=true) {
 }
 
 module Top_Face_NEMA_17_Stage_1_assembly()  pose(a=[55 + 180, 0, 25 + 310])
-assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
+staged_assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
 
     translate_z(eZ)
         vflip()
@@ -80,7 +91,7 @@ assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
 //! of a turn) so they run freely.
 //
 module Top_Face_Stage_2_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
-assembly("Top_Face_Stage_2", big=true, ngb=true) {
+staged_assembly("Top_Face_Stage_2", big=true, ngb=true) {
 
     explode(15, show_line=false)
         Top_Face_Stage_1_assembly(t);
@@ -101,7 +112,7 @@ assembly("Top_Face_Stage_2", big=true, ngb=true) {
 //! of a turn) so they run freely.
 //
 module Top_Face_NEMA_17_Stage_2_assembly() pose(a=[55 + 180, 0, 25 + 310])
-assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
+staged_assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
 
     explode(15, show_line=false)
         Top_Face_NEMA_17_Stage_1_assembly();
@@ -119,7 +130,7 @@ assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
 //
 module Top_Face_assembly(t=undef)
-assembly("Top_Face", big=true) {
+staged_assembly("Top_Face", big=true) {
 
     Top_Face_Stage_2_assembly(t);
     //hidden() Top_Face_NEMA_17_stl();
@@ -138,7 +149,7 @@ assembly("Top_Face", big=true) {
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
 //
 module Top_Face_NEMA_17_assembly(t=undef)
-assembly("Top_Face_NEMA_17", big=true) {
+staged_assembly("Top_Face_NEMA_17", big=true) {
 
     Top_Face_NEMA_17_Stage_2_assembly();
 
@@ -179,7 +190,7 @@ module topFaceAssembly(NEMA_width, t=undef, nuts=false, cf=false) {
 //! 2. Bolt the **XY_Idler_Bracket** assemblies to the **Top_Face_CF**.
 //
 module Top_Face_CF_Stage_1_assembly()
-assembly("Top_Face_CF_Stage_1", big=true, ngb=true) {
+staged_assembly("Top_Face_CF_Stage_1", big=true, ngb=true) {
 
     translate_z(eZ - _topPlateThickness + eps)
         Top_Face_CF();
@@ -218,7 +229,7 @@ assembly("Top_Face_CF_Stage_1", big=true, ngb=true) {
 //! is aligned when the X axis rail is added.
 //
 module Top_Face_CF_Stage_2_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
-assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
+staged_assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
 
     Top_Face_CF_Stage_1_assembly();
 
@@ -307,7 +318,7 @@ module Y_Rail_Handle_stl() {
 //! 1. Bolt the **XY_Motor_Mount** assemblies to the **Top_Face_CF**.
 //
 module Top_Face_CF_Stage_3_assembly(t=undef)
-assembly("Top_Face_CF_Stage_3", big=true, ngb=true) {
+staged_assembly("Top_Face_CF_Stage_3", big=true, ngb=true) {
 
     Top_Face_CF_Stage_2_assembly(t);
 
@@ -332,7 +343,7 @@ assembly("Top_Face_CF_Stage_3", big=true, ngb=true) {
 //!5. Check that the carriages run smoothly on the Y-axis linear rails.
 //
 module Top_Face_CF_Stage_4_assembly(t=undef)
-assembly("Top_Face_CF_Stage_4", big=true, ngb=true) {
+staged_assembly("Top_Face_CF_Stage_4", big=true, ngb=true) {
 
     Top_Face_CF_Stage_3_assembly(t);
 
@@ -342,7 +353,7 @@ assembly("Top_Face_CF_Stage_4", big=true, ngb=true) {
 //! Thread the belts as shown and attach to the **X_Carriage_Belt_Side**.
 //
 module Top_Face_CF_assembly(t=undef)
-assembly("Top_Face_CF", big=true) {
+staged_assembly("Top_Face_CF", big=true) {
 
     Top_Face_CF_Stage_4_assembly(t);
 
@@ -375,7 +386,7 @@ module Top_Face_Right_Joiner_stl() {
 /*
 // used for debug
 module Top_Face_with_Printhead_assembly(t=undef)
-assembly("Top_Face_with_Printhead", big=true) {
+staged_assembly("Top_Face_with_Printhead", big=true) {
     Top_Face_with_X_Rail_assembly();
 
     xRailCarriagePosition(carriagePosition(t))
