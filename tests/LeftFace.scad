@@ -71,9 +71,10 @@ module Left_Face_test() {
         *rotate([90, 0, 90]) hflip()
             Switch_Shroud_stl();
     }
+    //Back_Face_assembly();
+    //translate([0, eY + 2*eSizeY, 0]) rotate([90, 0, 0]) Back_Face_CF();
     //Right_Face_assembly();
     //Right_Face_CF_assembly();
-    //Back_Face_assembly();
     //leftFace(NEMA_type);
     //translate([(eY + 2*eSizeY + _backPlateCFThickness)/2, eZ/2])
     //leftFaceCF(NEMA_width(NEMA_type));

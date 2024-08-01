@@ -62,6 +62,8 @@ module Top_Face_test() {
             //Back_Face_CF_Stage_1_assembly();
             //Right_Face_CF_assembly();
         } else {
+            //translate_z(eZ - _topPlateThickness) Top_Face_CF();
+            //rotate([90, 0, 90]) Left_Face_stl();
             Top_Face_assembly();
             //Top_Face_Stage_1_assembly();
             //Top_Face_Stage_2_assembly();
