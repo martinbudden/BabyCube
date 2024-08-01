@@ -18,7 +18,10 @@ include <../vitamins/inserts.scad>
 use <SwitchShroud.scad>
 use <XY_IdlerBracket.scad>
 include <XY_MotorMountRB.scad>
+include <IECHousing.scad>
 
+
+function iecPosition() = [eX + 2*eSizeX, eY + 2*eSizeY - eSizeY - 1 - iec_body_h(iecType())/2, eSizeZ/2 + iec_pitch(iecType())/2] + [0, -10, 8];
 
 function extruderMotorType() = NEMA17_40;
 

@@ -108,6 +108,9 @@ assembly("Left_Face", big=true) {
         stl_colour(pp2_colour)
             XY_Motor_Mount_Brace_Left_stl();
         XY_Motor_Mount_RB_hardware(xyMotorType(), left=true);
+        coreXYPosBL = coreXYPosBL(_xyNEMA_width, carriageType(_yCarriageDescriptor));
+        rotate([90, 0, 90])
+            XY_IdlerBracketHardware(coreXYPosBL, reversedBelts=true, left=true);
     } else {
         leftFaceHardware(xyMotorType());
     }
@@ -124,6 +127,27 @@ assembly("Left_Face", big=true) {
                 translate_z(5)
                 camera(cameraType, fov=[160, 160], fov_distance=fov_distance);
     }
+}
+
+module IEC_hardware() {
+    translate(iecPosition())
+        rotate([0, 90, 0]) {
+            iec(iecType());
+            translate([0, -12, 2 + eps])
+                rotate(90)
+                    not_on_bom() no_explode()
+                        rocker(small_rocker, "red");
+            iec_screw_positions(iecType())
+                translate_z(3)
+                    boltM3Countersunk(12);
+        }
+}
+
+module IEC_Housing() {
+    translate(iecPosition())
+        rotate([-90, 0, -90])
+            color(pp4_colour)
+                IEC_Housing_stl();
 }
 
 module rightFaceStage1Assembly() {
@@ -154,6 +178,13 @@ assembly("Right_Face_Stage_1", big=true, ngb=true) {
             vflip()
                 XY_Motor_Mount_Brace_Right_stl();
         XY_Motor_Mount_RB_hardware(xyMotorType(), left=false);
+        coreXYPosBL = coreXYPosBL(_xyNEMA_width, carriageType(_yCarriageDescriptor));
+        translate([eX + 2*eSizeX, 0, 0])
+            rotate([90, 0, 90])
+                vflip()
+                    mirror([0, 1, 0])
+                        XY_IdlerBracketHardware(coreXYPosBL, reversedBelts=true, left=false);
+
     } else {
         rightFaceHardware(xyMotorType());
     }
@@ -168,20 +199,26 @@ module rightFaceAssembly(NEMA_width, zipTies=true) {
     translate(extruderPosition(NEMA_width))
         rotate([90, 0, 90])
             Extruder_MK10_Dual_Pulley(extruderMotorType(), motorOffsetZ = extruderMotorOffsetZ() + corkDamperThickness, corkDamperThickness=corkDamperThickness);
+
+    if (!_useFrontSwitch) {
+        explode([-80, 0, 0], show_line=false)
+            IEC_Housing();
+        explode([40, 0, 0], true, show_line=false)
+            IEC_hardware();
+    }
 }
 
 
 module rightFaceHardware(NEMA_type, cnc=false) {
     translate([eX + 2*eSizeX, 0, 0])
         rotate([-90, 0, 90])
-            mirror([0, 1, 0]) {
+            mirror([0, 1, 0])
                 if (!cnc) {
                     XY_IdlerBracketHardware(coreXYPosBL(NEMA_width(NEMA_type), carriageType(_yCarriageDescriptor)));
                     XY_MotorUprightHardware(NEMA_type, left=false);
+                    if (!exploded())
+                        leftAndRightFaceZipTies(left=false, lowerZipTies=!cnc);
                 }
-                if (!exploded() && !cnc)
-                    leftAndRightFaceZipTies(left=false, lowerZipTies=!cnc);
-            }
 }
 
 //!1. Attach the extruder gear to the stepper motor.
