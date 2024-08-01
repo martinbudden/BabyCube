@@ -2,7 +2,7 @@ include <TopFaceJoiners.scad>
 include <../utils/X_Rail.scad>
 
 include <TopFace.scad>
-include <XY_MotorMountCF.scad>
+include <XY_MotorMountRB.scad>
 use <PrintheadAssemblies.scad>
 use <Y_CarriageAssemblies.scad>
 use <XY_IdlerBracket.scad>
@@ -323,9 +323,9 @@ staged_assembly("Top_Face_CF_Stage_3", big=true, ngb=true) {
     Top_Face_CF_Stage_2_assembly(t);
 
     explode(-60, show_line=false)
-        XY_Motor_Mount_Left_CF_assembly();
+        XY_Motor_Mount_Left_RB_assembly();
     explode(-60, show_line=false)
-        XY_Motor_Mount_Right_CF_assembly();
+        XY_Motor_Mount_Right_RB_assembly();
     xyMotorMountTopHolePositions(left=true, z=eZ)
         explode(20, true)
             boltM3Buttonhead(8);

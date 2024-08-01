@@ -107,7 +107,7 @@ assembly("Left_Face", big=true) {
     if (_useReversedBelts) {
         stl_colour(pp2_colour)
             XY_Motor_Mount_Brace_Left_stl();
-        XY_Motor_Mount_CF_hardware(xyMotorType(), left=true);
+        XY_Motor_Mount_RB_hardware(xyMotorType(), left=true);
     } else {
         leftFaceHardware(xyMotorType());
     }
@@ -153,7 +153,7 @@ assembly("Right_Face_Stage_1", big=true, ngb=true) {
         stl_colour(pp2_colour)
             vflip()
                 XY_Motor_Mount_Brace_Right_stl();
-        XY_Motor_Mount_CF_hardware(xyMotorType(), left=false);
+        XY_Motor_Mount_RB_hardware(xyMotorType(), left=false);
     } else {
         rightFaceHardware(xyMotorType());
     }

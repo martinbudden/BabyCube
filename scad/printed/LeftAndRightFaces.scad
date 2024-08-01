@@ -17,7 +17,7 @@ include <../vitamins/inserts.scad>
 
 use <SwitchShroud.scad>
 use <XY_IdlerBracket.scad>
-include <XY_MotorMountCF.scad>
+include <XY_MotorMountRB.scad>
 
 
 function extruderMotorType() = NEMA17_40;

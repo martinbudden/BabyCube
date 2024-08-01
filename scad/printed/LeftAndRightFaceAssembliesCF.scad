@@ -240,7 +240,7 @@ module rightFaceCF(NEMA_width) {
 
 //! 1. Bolt the **Front_Face_Joiner**, the **Left_Face_Back_Joiner**, and the **Left_Face_Upper_Joiner** to the
 //!**Left_Face**
-//! 2. Bolt the **XY_Idler_Bracket_Left_assembly** and the **XY_Motor_Mount_Left_CF_assembly** to the **Left_Face**
+//! 2. Bolt the **XY_Idler_Bracket_Left_assembly** and the **XY_Motor_Mount_Left_RB_assembly** to the **Left_Face**
 //
 module Left_Face_CF_assembly() pose(a=[55, 0, 25 + 50 - 20])
 assembly("Left_Face_CF", big=true) {
@@ -270,7 +270,7 @@ assembly("Left_Face_CF", big=true) {
                         boltM3Buttonhead(10);
         }
     *explode([20, 0, 0], show_line=false) {
-        XY_Motor_Mount_Left_CF_assembly();
+        XY_Motor_Mount_Left_RB_assembly();
         XY_Idler_Bracket_Left_assembly();
     }
     leftFaceHardware(xyMotorType(), cnc=true);

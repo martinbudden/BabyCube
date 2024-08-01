@@ -7,7 +7,7 @@ braceHeight = 10 - xyMotorMountBasePlateThickness();
 
 pulleyStackHeight = 2*washer_thickness(coreXYIdlerBore() == 3 ? M3_washer : coreXYIdlerBore() == 4 ? M4_shim : M5_shim) + pulley_height(coreXY_plain_idler(coreXY_type()));
 
-function xyMotorMountCFSize(NEMA_width) = [
+function xyMotorMountRBSize(NEMA_width) = [
     floor(NEMA_width) + 10,
     floor(NEMA_width) + 8 + (useReversedBelts() ? motorClearance().y - 12 : 0),
     38 + xyMotorMountBasePlateThickness()
@@ -43,11 +43,11 @@ module rounded_cube(xyz, size, fillet) {
         assert(false);
 }
 
-module xyMotorMountCF(NEMA_type, left, xyz=2) {
+module xyMotorMountRB(NEMA_type, left, xyz=2) {
     assert(isNEMAType(NEMA_type));
 
     NEMA_width = NEMA_width(NEMA_type);
-    size = xyMotorMountCFSize(NEMA_width);
+    size = xyMotorMountRBSize(NEMA_width);
     basePlateThickness = xyMotorMountBasePlateThickness();
     backSize = [size.x, backSizeY, size.z];
     sideSize = [sideSizeX, size.y, size.z];
@@ -107,15 +107,15 @@ module xyMotorMountCF(NEMA_type, left, xyz=2) {
     }
 }
 
-module xyMotorMountCFBrace(NEMA_type, left) {
+module xyMotorMountRBBrace(NEMA_type, left) {
     assert(isNEMAType(NEMA_type));
 
     NEMA_width = NEMA_width(NEMA_type);
-    xyMotorMountCFSize = xyMotorMountCFSize(NEMA_width);
-    size = [xyMotorMountCFSize(NEMA_width).x - sideSizeX, motorClearance().y + 3, braceHeight];
+    xyMotorMountRBSize = xyMotorMountRBSize(NEMA_width);
+    size = [xyMotorMountRBSize(NEMA_width).x - sideSizeX, motorClearance().y + 3, braceHeight];
     fillet = 1;
 
-    offsetZ  = eZ - _topPlateThickness - xyMotorMountCFSize.z + xyMotorMountBasePlateThickness() + 2*pulleyStackHeight + yCarriageBraceThickness();
+    offsetZ  = eZ - _topPlateThickness - xyMotorMountRBSize.z + xyMotorMountBasePlateThickness() + 2*pulleyStackHeight + yCarriageBraceThickness();
     difference() {
         translate([0, eY + 2*eSizeY - backSizeY - size.y, offsetZ])
             translate([left ? _sidePlateThickness + sideSizeX : eX + 2*eSizeX - _sidePlateThickness - sideSizeX - size.x, 0, 0]) {
@@ -150,7 +150,7 @@ module XY_Motor_Mount_Left_stl() {
 
     stl("XY_Motor_Mount_Left")
         color(pp1_colour)
-            xyMotorMountCF(NEMA_type, left=true);
+            xyMotorMountRB(NEMA_type, left=true);
 }
 
 module XY_Motor_Mount_Right_stl() {
@@ -158,7 +158,7 @@ module XY_Motor_Mount_Right_stl() {
 
     stl("XY_Motor_Mount_Right")
         color(pp1_colour)
-            xyMotorMountCF(NEMA_type, left=false);
+            xyMotorMountRB(NEMA_type, left=false);
 }
 
 module XY_Motor_Mount_Brace_Left_stl() {
@@ -166,7 +166,7 @@ module XY_Motor_Mount_Brace_Left_stl() {
 
     stl("XY_Motor_Mount_Brace_Left")
         color(pp2_colour)
-            xyMotorMountCFBrace(NEMA_type, left=true);
+            xyMotorMountRBBrace(NEMA_type, left=true);
 }
 
 module XY_Motor_Mount_Brace_Right_stl() {
@@ -175,7 +175,7 @@ module XY_Motor_Mount_Brace_Right_stl() {
     stl("XY_Motor_Mount_Brace_Right")
         color(pp2_colour)
             vflip()
-                xyMotorMountCFBrace(NEMA_type, left=false);
+                xyMotorMountRBBrace(NEMA_type, left=false);
 }
 
 module XY_Pulley_Spacer_M3_stl() {
@@ -197,8 +197,8 @@ module XY_Pulley_Spacer_M3_stl() {
 //!
 //! Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
 //
-module XY_Motor_Mount_Left_CF_assembly()
-assembly("XY_Motor_Mount_Left_CF", big=true, ngb=true) {
+module XY_Motor_Mount_Left_RB_assembly()
+assembly("XY_Motor_Mount_Left_RB", big=true, ngb=true) {
 
     NEMA_type = xyMotorType();
 
@@ -209,7 +209,7 @@ assembly("XY_Motor_Mount_Left_CF", big=true, ngb=true) {
             stl_colour(pp2_colour)
                 XY_Motor_Mount_Brace_Left_stl();
     }
-    XY_Motor_Mount_CF_hardware(NEMA_type, left=true);
+    XY_Motor_Mount_RB_hardware(NEMA_type, left=true);
 }
 
 //!1. Place the cork damper on the stepper motor and bolt the motor to the **XY_Motor_Mount_Right**, using two bolts at the front,
@@ -220,8 +220,8 @@ assembly("XY_Motor_Mount_Left_CF", big=true, ngb=true) {
 //!
 //! Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
 //
-module XY_Motor_Mount_Right_CF_assembly()
-assembly("XY_Motor_Mount_Right_CF", big=true, ngb=true) {
+module XY_Motor_Mount_Right_RB_assembly()
+assembly("XY_Motor_Mount_Right_RB", big=true, ngb=true) {
 
     NEMA_type = xyMotorType();
 
@@ -233,10 +233,10 @@ assembly("XY_Motor_Mount_Right_CF", big=true, ngb=true) {
                 vflip()
                     XY_Motor_Mount_Brace_Right_stl();
     }
-    XY_Motor_Mount_CF_hardware(NEMA_type, left=false);
+    XY_Motor_Mount_RB_hardware(NEMA_type, left=false);
 }
 
-module XY_Motor_Mount_CF_hardware(NEMA_type, left=true) {
+module XY_Motor_Mount_RB_hardware(NEMA_type, left=true) {
     NEMA_width = NEMA_width(NEMA_type);
     coreXYPosBL = coreXYPosBL(NEMA_width);
     coreXYPosTR = coreXYPosTR(NEMA_width);
@@ -247,8 +247,8 @@ module XY_Motor_Mount_CF_hardware(NEMA_type, left=true) {
 
     //braceOffsetZ = 2*bearingStackHeight() + yCarriageBraceThickness() + 0.5; // tolerance of 0.5
 
-    translate_z(eZ - _topPlateThickness - xyMotorMountCFSize(NEMA_width).z + basePlateThickness) {
-        offsetX = _sidePlateThickness + sideSizeX + xyMotorMountCFSize(NEMA_width).x/2;
+    translate_z(eZ - _topPlateThickness - xyMotorMountRBSize(NEMA_width).z + basePlateThickness) {
+        offsetX = _sidePlateThickness + sideSizeX + xyMotorMountRBSize(NEMA_width).x/2;
         translate([left ? offsetX : eX + 2*eSizeX - offsetX, eY + 2*eSizeY, 2*pulleyStackHeight + yCarriageBraceThickness() + braceHeight/2])
             rotate([90, 0, 180])
                 explode(20, true)

@@ -70,12 +70,12 @@ module XY_MotorUpright(NEMA_type, left=true) {
     if (_useReversedBelts) {
         if (left)
             rotate([-90, -90, 0])
-                xyMotorMountCF(NEMA_type, left, xyz=0);
+                xyMotorMountRB(NEMA_type, left, xyz=0);
         else
             translate([0, 0, eX + 2*eSizeX])
                rotate([-90, 90, 0])
                     mirror([0, 1, 0])
-                        xyMotorMountCF(NEMA_type, left, xyz=0);
+                        xyMotorMountRB(NEMA_type, left, xyz=0);
     } else {
         XY_MotorPosition(NEMA_width, left)
             //render_if(!$preview, convexity=10)
