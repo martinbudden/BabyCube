@@ -135,10 +135,9 @@ module Back_Face_CF_dxf() {
                     circle(r=M5_clearance_radius);
                 if (_fullLengthYRail)
                     railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
-                xyMotorMountBackHolePositions(left=true)
-                    circle(r=M3_clearance_radius);
-                xyMotorMountBackHolePositions(left=false)
-                    circle(r=M3_clearance_radius);
+                for (left = [true, false])
+                    xyMotorMountBackHolePositions(left)
+                        circle(r=M3_clearance_radius);
                 Z_MotorMountHolePositions(zMotorType())
                     circle(r=M3_clearance_radius);
                 // cutouts for zipties
