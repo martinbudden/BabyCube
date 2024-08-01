@@ -100,7 +100,7 @@ module frontLowerChordHardware() {
 }
 
 module Front_Lower_Chord_Solid_stl() {
-    stl("Front_Lower_Chord")
+    stl("Front_Lower_Chord_Solid")
         translate([-eX - 2*eSizeX, 0, 0])
             color(pp2_colour)
                 frontLowerChord();
