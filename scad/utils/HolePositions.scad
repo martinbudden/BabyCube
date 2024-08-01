@@ -23,7 +23,7 @@ function topFaceSideHolePositions() = eY == 180 ? [ 20, 100, 180 ] : [ 30, 110];
 
 // offset of side bolt holes for top plate
 function topBoltHolderThickness(reversedBelts) = yRailShiftX() + (reversedBelts ? 6.5 : 7.25);
-function topBoltHolderSize(sidePlateThickness=_sidePlateThickness, reversedBelts, cnc=false) = [eY + 2*eSizeY - 15 - (cnc ? 60 : 0) - _frontPlateCFThickness, 8, topBoltHolderThickness(reversedBelts) - sidePlateThickness]; // -15 to avoid back cube, +2.75 to give clearance for bolt hole
+function topBoltHolderSize(sidePlateThickness=_sidePlateThickness, reversedBelts, cnc=false) = [eY + 2*eSizeY - 15 - (reversedBelts ? 20 : 0) - _frontPlateCFThickness, 8, topBoltHolderThickness(reversedBelts) - sidePlateThickness]; // -15 to avoid back cube, +2.75 to give clearance for bolt hole
 function topFaceSideHolePositionOffset() = 3.75 + yRailShiftX() + 0.5;
 function baseBackHoleOffset() = [ floor(_zNEMA_width/2) + 4, 4];
 //topBackHoleOffset = [ 20, 4];

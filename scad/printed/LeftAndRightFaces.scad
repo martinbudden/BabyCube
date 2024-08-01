@@ -444,7 +444,7 @@ module frontConnector() {
 module frame(NEMA_type, left=true) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
-    topBoltHolderSize = topBoltHolderSize(0, reversedBelts=false, cnc=false);
+    topBoltHolderSize = topBoltHolderSize(0, reversedBelts=_useReversedBelts, cnc=false);
 
     idlerUpright(NEMA_width, left);
     difference() {
