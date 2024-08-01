@@ -56,7 +56,6 @@ module Top_Face_test() {
             Top_Face_CF_assembly();
             //Top_Face_CF_Stage_1_assembly();
             //Top_Face_CF_Stage_2_assembly();
-            //translate_z(2*eZ) vflip()
             //Top_Face_CF_Stage_3_assembly();
             //Top_Face_CF_Stage_4_assembly();
             //Front_Face_CF_assembly();
@@ -110,7 +109,7 @@ module Top_Face_test() {
 
 }
 
-module Top_Face_map() {
+module Top_Face_CF_map() {
     Top_Face_CF();
     translate([0, -eZ - 2, 0]) Front_Face_CF();
     translate([-eZ - 2, 0, 0]) rotate([0, 180, -90]) Left_Face_CF();
@@ -118,8 +117,7 @@ module Top_Face_map() {
      translate([eX + 2*eSizeX + eZ, 0, 0]) rotate(90)Right_Face_CF();
 }
 
-//Top_Face_map()
-//let($hide_bolts=true)
+//Top_Face_CF_map()
 if ($preview)
     translate_z(-eZ)
         Top_Face_test();

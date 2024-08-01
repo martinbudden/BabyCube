@@ -15,6 +15,7 @@ use <../scad/printed/TopFaceAssemblies.scad>
 //$explode = 1;
 //$pose = 1;
 module Joiners_test() {
+    Back_Face_Top_Joiner_stl();
     rotate([90, 0, 90])
         Back_Face_Left_Joiner_stl();
     translate([eX + 2*eSizeX + eps, 0, 0])
@@ -28,13 +29,12 @@ module Joiners_test() {
         rotate([-90, 0, 90])
             Base_Right_Joiner_stl();
 
+    Top_Face_Front_Joiner_stl();
     rotate([90, 0, 90])
         Top_Face_Left_Joiner_stl();
     translate([eX + 2*eSizeX + eps, 0, 0])
         rotate([-90, 0, 90])
             Top_Face_Right_Joiner_stl();
-    Top_Face_Back_Joiner_stl();
-    Top_Face_Front_Joiner_stl();
 }
 
 if ($preview)

@@ -23,19 +23,20 @@ include <../scad/utils/CoreXYBelts.scad>
 //$explode = 1;
 //$pose = 1;
 module Right_Face_test() {
-    echoPrintSize();
+    //echoPrintSize();
     //CoreXYBelts(carriagePosition(), x_gap=16);
     //Right_Face_CF();
 
-    if (_useCNC)
+    if (_useCNC) {
         Right_Face_CF_assembly();
-    else
+    } else {
+        translate([eX + 2 * eSizeX + eps, 0, 0]) rotate([90, 0, -90]) Right_Face_stl();
         Right_Face_assembly();
+    }
     //faceRightSpoolHolder(cf=_useCNC);
     //faceRightSpool(cf=_useCNC);
     //echo(ep=extruderPosition(_xyNEMA_width));
     //bowdenTube(carriagePosition(), "E3DRevo");
-    //Right_Face_stl();
     //Right_Face_NEMA_17_stl();
 
     //Right_Face_Stage_1_assembly();

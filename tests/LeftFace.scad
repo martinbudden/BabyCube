@@ -17,6 +17,8 @@ use <../scad/printed/FrontChords.scad>
 use <../scad/printed/FrontFace.scad>
 
 include <../scad/utils/printParameters.scad>
+include <../scad/config/Parameters_CoreXY.scad>
+include <../scad/utils/CoreXYBelts.scad>
 
 
 
@@ -25,7 +27,7 @@ NEMA_type = xyMotorType();
 //$explode = 1;
 //$pose = 1;
 
-module Left_Face_map() {
+module Left_Face_CF_map() {
     rotate([0, 180, 0])
         Left_Face_CF();
     translate([0, 0, 0])
@@ -33,6 +35,20 @@ module Left_Face_map() {
     translate([-eY-23, 0, 0])
         rotate([0, 180, 0])
             Back_Face_CF();
+}
+
+module Left_Face_map() {
+    translate([-eY-2*eSizeY - 5, 0, 0]) {
+        Left_Face_stl();
+        //Left_Face_CF();
+    }
+    Back_Face_stl();
+    //Back_Face_CF();
+    translate([eX + 2*eSizeX + 5, 0, 0]) {
+        //Right_Face_CF();
+        translate([eX + 2*eSizeX, 0, 0])
+            Right_Face_stl();
+    }
 }
 
 module Left_Face_test() {
@@ -47,17 +63,17 @@ module Left_Face_test() {
     //Left_Face_NEMA_17_CF_dxf();
 
     //Right_Face_CF_assembly();
-    if (_useCNC)
+    if (_useCNC) {
         Left_Face_CF_assembly();
-    else
+    } else {
+        //rotate([90, 0, 90]) Left_Face_stl();
         Left_Face_assembly(camera=!true);
-    *rotate([90, 0, 90]) hflip()
-        Switch_Shroud_stl();
+        *rotate([90, 0, 90]) hflip()
+            Switch_Shroud_stl();
+    }
     //Right_Face_assembly();
     //Right_Face_CF_assembly();
     //Back_Face_assembly();
-    *rotate([90, 0, 90])
-        Left_Face_stl();
     //leftFace(NEMA_type);
     //translate([(eY + 2*eSizeY + _backPlateCFThickness)/2, eZ/2])
     //leftFaceCF(NEMA_width(NEMA_type));
@@ -98,8 +114,8 @@ module Left_Face_test() {
 */
 }
 
+//Left_Face_map();
 if ($preview)
     Left_Face_test();
-    //Left_Face_map();
 else
     scale([0.5, 0.5, 0.5]) Left_Face_stl();

@@ -21,38 +21,50 @@ include <../scad/config/Parameters_Main.scad>
 
 
 $explode = 1;
-module Exploded_View_test() {
+module Exploded_View_test(full=true) {
     explode = 150;
 
-    no_explode()
-        Base_assembly();
+    if (full)
+        no_explode()
+            Base_assembly();
     explode([0, explode, 0]) {
         Back_Face_assembly();
-        backFaceCableTies();
+        if (full)
+            backFaceCableTies();
         }
     explode([-explode, 0, 0])
         Left_Face_assembly();
     explode([explode, 0, 0])
         Right_Face_assembly();
     explode([0, 0, 1.25*explode]) {
-        Top_Face_assembly();
-        printheadHotendSideE3DV6(explode=100);
-        printheadBeltSide(explode=100);
+        Top_Face_Stage_1_assembly();
+        if (full) {
+            Top_Face_assembly();
+            printheadHotendSideE3DV6(explode=100);
+            printheadBeltSide(explode=100);
+        } else {
+            Top_Face_Stage_1_assembly();
+        }
     }
-    explode([0, -explode, 0]) {
-        translate_z(eZ)
-            rotate([90, 0, 180]) {
-                translate([0, -eps, 0]) {
-                    stl_colour(pp2_colour)
-                        Front_Upper_Chord_stl();
-                    Front_Upper_Chord_hardware();
+    if (full)
+        explode([0, -explode, 0]) {
+            translate_z(eZ)
+                rotate([90, 0, 180]) {
+                    translate([0, -eps, 0]) {
+                        stl_colour(pp2_colour)
+                            Front_Upper_Chord_stl();
+                        Front_Upper_Chord_hardware();
+                    }
+                    color(pp4_colour)
+                        frontUpperChordMessage();
                 }
-                color(pp4_colour)
-                    frontUpperChordMessage();
-            }
-        Display_Housing_assembly();
-        frontLowerChordHardware();
-    }
+                if (_useFrontDisplay)
+                    Display_Housing_assembly();
+                else
+                    rotate([90, 0, 180])
+                        Front_Lower_Chord_Solid_stl();
+                frontLowerChordHardware();
+        }
 }
 
 module Exploded_View_CF_test() {

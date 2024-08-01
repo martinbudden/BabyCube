@@ -6,7 +6,7 @@ include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 
 include <../scad/printed/XY_Motors.scad>
-include <../scad/printed/XY_MotorMountCF.scad>
+include <../scad/printed/XY_MotorMountRB.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
 use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
@@ -42,8 +42,8 @@ module XY_MotorMount_test() {
     //translate_z(eZ -_topPlateThickness + eps) Top_Face_CF();
     let($hide_bolts=true) topFaceAssembly(_xyNEMA_width, t=4);
 
-    XY_Motor_Mount_Left_CF_assembly();
-    XY_Motor_Mount_Right_CF_assembly();
+    XY_Motor_Mount_Left_RB_assembly();
+    XY_Motor_Mount_Right_RB_assembly();
     //topFaceMotors(xyMotorType());
 }
 

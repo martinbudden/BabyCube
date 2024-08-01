@@ -16,8 +16,8 @@ use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/PrintheadAssembliesE3DRevo.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 use <../scad/printed/XY_IdlerBracket.scad>
-include <../scad/printed/XY_Motors.scad>
-include <../scad/printed/XY_MotorMountCF.scad>
+//include <../scad/printed/XY_Motors.scad>
+//include <../scad/printed/XY_MotorMountRB.scad>
 use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 use <../scad/printed/Y_CarriageAssemblies.scad>
@@ -36,16 +36,16 @@ module CoreXY() {
     echo(coreXYSeparation=coreXYSeparation());
 
     CoreXYBelts(carriagePosition(t), show_pulleys=[1, 0, 0]);
-    translate([0, carriagePosition(t).y - carriagePosition().y, 0])
+    *translate([0, carriagePosition(t).y - carriagePosition().y, 0])
         yCarriageLeftAssembly(_xyNEMA_width);
-    translate([0, carriagePosition(t).y - carriagePosition().y, 0])
+    *translate([0, carriagePosition(t).y - carriagePosition().y, 0])
         yCarriageRightAssembly(_xyNEMA_width);
     if (_useCNC) {
         let($hide_bolts=true) topFaceAssembly(_xyNEMA_width, t=t);
         XY_Idler_Bracket_Left_assembly();
         XY_Idler_Bracket_Right_assembly();
-        XY_Motor_Mount_Left_CF_assembly();
-        XY_Motor_Mount_Right_CF_assembly();
+        XY_Motor_Mount_Left_RB_assembly();
+        XY_Motor_Mount_Right_RB_assembly();
     } else {
         XY_Idler_Left_assembly();
         XY_Idler_Right_assembly();
