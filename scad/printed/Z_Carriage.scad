@@ -201,13 +201,7 @@ module zCarriage_hardware(zRodSeparation=_zRodSeparation) {
 module Z_Carriage_stl() {
     stl("Z_Carriage")
         color(pp4_colour)
-            zCarriage(printBedSize=100, zRodSeparation=100);
-}
-
-module Z_Carriage_96_stl() {
-    stl("Z_Carriage_96")
-        color(pp4_colour)
-            zCarriage(printBedSize=100, zRodSeparation=96);
+            zCarriage(printBedSize=100);
 }
 
 //! Slide the linear bearings into the **Z_Carriage**.

@@ -46,7 +46,7 @@ _corkDamperThickness = 2;
 // Z rods
 _zRodDiameter = 12;
 _zRodLength = floor(eZ/100)*100;
-_zRodSeparation = is_undef(_useReversedBelts) || _useReversedBelts==false ? 100 : 96;
+_zRodSeparation = 96; // and smaller and lower SK brackets interfere with Z_MotorMount. Any larger and upper SK brackets interfere with XY_MotorMountRB
 _zRodOffsetY = 23; // !! 20 to match SK8 and SK10 is a real squeeze. 23 for SK12 fits well
 
 _zLeadScrewDiameter = 8;
