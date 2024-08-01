@@ -27,7 +27,8 @@ function topBoltHolderSize(sidePlateThickness=_sidePlateThickness, reversedBelts
 function topFaceSideHolePositionOffset() = 3.75 + yRailShiftX() + 0.5;
 function baseBackHoleOffset() = [ floor(_zNEMA_width/2) + 4, 4];
 //topBackHoleOffset = [ 20, 4];
-function topFaceBackHolePositions() = eX == 250 ? [eX/2 + eSizeX] : [ eX/2 + eSizeX - 15, eX/2 + eSizeX + 15 ];
+function topFaceBackHolePositions() = [ eX/2 + eSizeX ];
+function backFaceTopHolePositions() = [ eX/2 + eSizeX - 15, eX/2 + eSizeX + 15 ];
 function topFaceBackHolePositionOffsetY() = 4;
 function topFaceFrontHolePositionOffsetY() = 8;
 
@@ -158,13 +159,6 @@ module backFaceLeftAndRightSideHolePositions(z=0, cf=false) {
         children();
 }
 
-module backFaceCFTopHolePositions(z=0) {
-    size = [eX + 2*eSizeX, eZ];
-    for (x = eX == 250 ? [size.x/2 - 20, size.x/2 + 20] : [size.x/2])
-        translate([x, size.y - _topPlateThickness - eSizeZ/2, z])
-            children();
-}
-
 module backFaceCFSideHolePositions(z=0) {
     size = [eX + 2*eSizeX, eZ];
     for (x = [_backFaceHoleInset, size.x - _backFaceHoleInset], y = [30, 110])
@@ -212,16 +206,14 @@ module topFaceFrontHolePositions(z=0, cf=false) {
 
 module topFaceBackHolePositions(z=0) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
-    //for (x = [size.x/2 - topBackHoleOffset.x, size.x/2 + topBackHoleOffset.x ])
     for (x = topFaceBackHolePositions())
         translate([x, eY + 2*eSizeY - topFaceBackHolePositionOffsetY(), z])
             children();
 }
 
-module backFaceTopHolePositions(z=0) {
-    size = [eX + 2*eSizeX, eZ];
-    for (x = topFaceBackHolePositions())
-        translate([x, eZ - _topPlateThickness, topFaceBackHolePositionOffsetY()])
+module backFaceCFTopHolePositions(z=0) {
+    for (x = backFaceTopHolePositions())
+        translate([x, eZ - _topPlateThickness - eSizeZ/2, z])
             children();
 }
 

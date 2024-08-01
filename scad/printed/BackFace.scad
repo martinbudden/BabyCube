@@ -191,11 +191,19 @@ module backFaceUpperBrackets(NEMA_width, yOffset) {
         backFaceUpperSKBracketHolePositions(yOffset)
             translate_z(-_backPlateThickness)
                 boltPolyholeM5Countersunk(_backPlateThickness, sink=0.25);
-        backFaceTopHolePositions()
-            rotate([90, 0, 0])
-                boltHoleM3Tap(8 + 10, horizontal=true, chamfer_both_ends=false);
 
-        railsCutout(NEMA_width, yRailOffset(NEMA_width));
+        rotate([-90, 0, 0]) 
+            translate([0, -eY - 2*eSizeY - eps, eZ - _topPlateThickness]) 
+                topFaceBackHolePositions()
+                    vflip()
+                        boltHoleM3Tap(8, horizontal=true, chamfer_both_ends=false);
+        /*topFaceBackHolePositions(topFaceBackHolePositionOffsetY())
+            rotate([90, 0, 0])
+                translate_z(13 - topFaceBackHolePositionOffsetY())
+                    boltHoleM3Tap(8, horizontal=true, chamfer_both_ends=false);*/
+
+        if (_fullLengthYRail)
+            railsCutout(NEMA_width, yRailOffset(NEMA_width));
     }
 
     /*translate([zRodOffsetX, _zRodLength - rodBracketSize().y + eSizeY/2, 0]) {
