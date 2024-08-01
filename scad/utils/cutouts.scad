@@ -61,7 +61,7 @@ module topFaceSideDogbones(cnc=false, plateThickness=_sidePlateThickness) {
             edgeCutout_x(dogboneSize, cnc);
     if (sizeY == 220) {
         endDogboneSize = [plateThickness*2, 2*yStep];
-        translate([0, sizeY - start])
+        translate([0, start + sizeY - yStep/2])
             edgeCutout_x(endDogboneSize, cnc);
     } else if (sizeY == 250) {
         startDogboneSize = [plateThickness*2, 2*yStep];
