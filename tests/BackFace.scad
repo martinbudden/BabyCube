@@ -34,18 +34,23 @@ module Back_Face_test() {
     //translate_z(_zMin) Print_bed_3_point_printed_assembly();
 
     if (_useCNC) {
+        //translate([0, eY + 2*eSizeY + eps, 0]) rotate([90, 0, 0])
+        //translate_z(-4) backFace(zMotorType())();
         //Back_Face_CF();
+        //translate([0, eY + 2*eSizeY, 0]) rotate([90, 0, 0]) Back_Face_CF();
         //Back_Face_CF_Stage_1_assembly();
         //Back_Face_CF_Stage_2_assembly(bedHeight(t));
-        Back_Face_CF_assembly();
+        //Back_Face_CF_assembly();
     } else {
-        //translate([0, eY + 2*eSizeY + eps, 0]) rotate([90, 0, 0]) translate_z(-4) Back_Face_stl();
+        //translate([0, eY + 2*eSizeY + eps, 0]) rotate([90, 0, 0]) translate_z(-4) backFace(zMotorType(),false);
+        //translate([0, eY + 2*eSizeY, 0]) rotate([90, 0, 0]) Back_Face_CF();
         //Back_Face_CF();
         //Back_Face_Stage_1_assembly();
         Back_Face_assembly(bedHeight(t));
     }
     //Back_Face_CF_dxf();
-    //Left_Face_assembly(switch=false);
+    //Left_Face_assembly();
+    //translate([-eps, 0, 0]) rotate([90, 0, 90]) Left_Face_stl();
     //Left_Face_CF_assembly();
     //Right_Face_CF_assembly();
     //Right_Face_assembly();
