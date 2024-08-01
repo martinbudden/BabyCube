@@ -161,7 +161,7 @@ module backFaceLeftAndRightSideHolePositions(z=0, cf=false) {
 
 module backFaceCFSideHolePositions(z=0) {
     size = [eX + 2*eSizeX, eZ];
-    for (x = [_backFaceHoleInset, size.x - _backFaceHoleInset], y = [30, 110])
+    for (x = [_backFaceHoleInset, size.x - _backFaceHoleInset], y = [30, eZ - 100])
         translate([x, y, z])
             children();
 }
