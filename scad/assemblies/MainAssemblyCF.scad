@@ -47,6 +47,8 @@ module staged_explode(z=0, show_line=true) {
 module Stage_1_CF_assembly() pose(a=[55+10, 0, 25 + 80])
 staged_assembly("Stage_1_CF", big=true, ngb=true) {
 
+    assert(holePositionsYRailShiftX==yRailShiftX());
+
     translate_z(-eps)
         staged_explode()
             Base_CF_assembly();

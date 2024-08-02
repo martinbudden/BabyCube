@@ -31,6 +31,8 @@ staged_assembly = true; // set this to false for faster builds during developmen
 module Stage_1_assembly()
 staged_assembly("Stage_1", big=true, ngb=true) {
 
+    assert(holePositionsYRailShiftX==yRailShiftX());
+
     explode([-100, 0, 25])
         Left_Face_assembly();
 
