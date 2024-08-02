@@ -56,6 +56,14 @@ function xyMotorPosition(NEMA_width, left) = [
     eX + 2*eSizeX - coreXYPosTR(NEMA_width).x + coreXY_drive_pulley_x_alignment(coreXY_type())
 ];*/
 
+module staged_assembly(name, big, ngb) {
+    if (staged_assembly)
+        assembly(name, big, ngb)
+            children();
+    else
+        children();
+}
+
 module XY_MotorPosition(NEMA_width, left=true) {
     //offset = eZ - coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor)).z + basePlateThickness + (left ? 0 : coreXYSeparation().z);
     rotate([-90, -90, 0])

@@ -17,6 +17,8 @@ include <Z_MotorMount.scad>
 include <../config/Parameters_CoreXY.scad>
 use <../config/Parameters_Positions.scad>
 
+staged_assembly = true; // set this to false for faster builds during development
+
 
 module Back_Face_200_stl() {
     stl("Back_Face_200")
@@ -70,7 +72,7 @@ module backFace(zNEMA_type, fullyEnclosed=false) {
 //! Attach the SK brackets to the **Back_Face**. Note the orientation of the tightening bolts: the top tightening bolts should
 //! face inward and the bottom tightening bolts should face outward. This allows access after the BabyCube is fully assembled.
 module Back_Face_Stage_1_assembly()
-assembly("Back_Face_Stage_1", big=true, ngb=true) {
+staged_assembly("Back_Face_Stage_1", big=true, ngb=true) {
 
     translate([0, eY + 2*eSizeY + eps, 0])
         rotate([90, 0, 0]) {
@@ -187,7 +189,7 @@ module Back_Face_CF() {
 //!the cable ties and remove the **Top_Face**.
 //
 module Back_Face_CF_Stage_1_assembly()
-assembly("Back_Face_CF_Stage_1", big=true, ngb=true) {
+staged_assembly("Back_Face_CF_Stage_1", big=true, ngb=true) {
 
     stepper_motor_cable(300);
     stepper_motor_cable(400);
@@ -247,7 +249,7 @@ assembly("Back_Face_CF_Stage_1", big=true, ngb=true) {
 //!2. Tighten the bolts in the SK brackets, ensuring the **Z_Carriage** slides freely on the rods.
 //
 module Back_Face_CF_Stage_2_assembly(bedHeight=bedHeight())
-assembly("Back_Face_CF_Stage_2", big=true, ngb=true) {
+staged_assembly("Back_Face_CF_Stage_2", big=true, ngb=true) {
     Back_Face_CF_Stage_1_assembly();
 
     zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;

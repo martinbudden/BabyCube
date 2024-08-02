@@ -14,14 +14,6 @@ include <../utils/CoreXYBelts.scad>
 
 staged_assembly = true; // set this to false for faster builds during development
 
-module staged_assembly(name, big, ngb) {
-    if (staged_assembly)
-        assembly(name, big, ngb)
-            children();
-    else
-        children();
-}
-
 
 module Top_Face_stl() {
     stl("Top_Face")
