@@ -36,7 +36,10 @@ module Top_Face_test() {
     //printheadHotendSideE3DRevo();
     //printheadBeltSide();
     //CoreXYBelts(carriagePosition());
-    //Top_Face_stl();
+    *translate_z(eZ) {
+        //vflip() Top_Face_stl();
+        translate_z(-4) Top_Face_CF();
+    }
     //Top_Face();
     //rotate(-90) topFaceSideDogbones();
     //translate([0, -eX, 0]) sideFaceTopDogbones();
