@@ -121,7 +121,7 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
 
     translate([eX + 2*eSizeX + eps, 0, 0]) {
         rotate([90, 0, 90]) {
-            upperSideJoinerHolePositions(reversedBelts=_useReversedBelts, cnc=true) // bolt right face to top
+            upperSideJoinerHolePositions(reversedBelts=_useReversedBelts) // bolt right face to top
                 explode(50, true)
                     boltM3Buttonhead(8);
             xyMotorMountSideHolePositions()
@@ -156,7 +156,7 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
         translate([-eps, 0, 0])
             rotate([90, 0, 90]) {
                 Left_Face_CF();
-                upperSideJoinerHolePositions(reversedBelts=_useReversedBelts, cnc=true) // bolt left face to top
+                upperSideJoinerHolePositions(reversedBelts=_useReversedBelts) // bolt left face to top
                     vflip()
                         explode(10, true)
                             boltM3Buttonhead(8);

@@ -309,7 +309,7 @@ module Top_Face_Left_Joiner_stl() {
         difference() {
             color(pp3_colour)
                 topFaceSideJoiner();
-            upperSideJoinerHolePositions(_sidePlateThickness, reversedBelts=_useReversedBelts, cnc=true)
+            upperSideJoinerHolePositions(_sidePlateThickness, reversedBelts=_useReversedBelts)
                 boltHoleM3Tap(topBoltHolderSize().z);
         }
 }
@@ -319,7 +319,7 @@ module Top_Face_Right_Joiner_stl() {
             difference() {
                 color(pp3_colour)
                     topFaceSideJoiner();
-                upperSideJoinerHolePositions(_sidePlateThickness, reversedBelts=_useReversedBelts, cnc=true)
+                upperSideJoinerHolePositions(_sidePlateThickness, reversedBelts=_useReversedBelts)
                     boltHoleM3Tap(topBoltHolderSize().z);
             }
 }
