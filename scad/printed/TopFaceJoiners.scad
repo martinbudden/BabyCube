@@ -44,3 +44,24 @@ module topFaceSideJoiner() {
     }
 }
 
+module Top_Face_Left_Joiner_stl() {
+    stl("Top_Face_Left_Joiner")
+        difference() {
+            color(pp3_colour)
+                topFaceSideJoiner();
+            upperSideJoinerHolePositions(_sidePlateThickness, reversedBelts=_useReversedBelts)
+                boltHoleM3Tap(topBoltHolderSize().z);
+        }
+}
+
+module Top_Face_Right_Joiner_stl() {
+    stl("Top_Face_Right_Joiner")
+        mirror([0, 1, 0])
+            difference() {
+                color(pp3_colour)
+                    topFaceSideJoiner();
+                upperSideJoinerHolePositions(_sidePlateThickness, reversedBelts=_useReversedBelts)
+                    boltHoleM3Tap(topBoltHolderSize().z);
+            }
+}
+
