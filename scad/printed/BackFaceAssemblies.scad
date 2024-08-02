@@ -8,6 +8,7 @@ include <NopSCADlib/vitamins/stepper_motors.scad>
 use <NopSCADlib/vitamins/pcb.scad>
 
 
+include <../utils/StagedAssembly.scad>
 include <BackFace.scad>
 use <Printbed.scad>
 use <Printbed3point.scad>

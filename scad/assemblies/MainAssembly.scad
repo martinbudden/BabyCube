@@ -16,6 +16,7 @@ use <../printed/TopFaceAssemblies.scad>
 use <../printed/X_CarriageAssemblies.scad>
 
 include <../utils/HolePositions.scad>
+include <../utils/StagedAssembly.scad>
 
 include <../config/Parameters_CoreXY.scad>
 include <../utils/CoreXYBelts.scad>

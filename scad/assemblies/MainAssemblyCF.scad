@@ -21,18 +21,11 @@ include <../utils/HolePositions.scad>
 use <../config/Parameters_Positions.scad>
 include <../config/Parameters_CoreXY.scad>
 include <../utils/CoreXYBelts.scad>
+include <../utils/StagedAssembly.scad>
 
 
 staged_assembly = true; // set this to false for faster builds during development
 
-module staged_explode(z=0, show_line=true) {
-    if (staged_assembly)
-        children();
-    else
-        translate_z(exploded() ? z : 0)
-            explode(eps, false, show_line=show_line)
-                children();
-}
 
 //! Bolt the **Back_Face_CF_assembly** to the **Base_CF_assembly**.
 //

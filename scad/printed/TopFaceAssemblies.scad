@@ -10,6 +10,7 @@ use <TopFaceRail.scad>
 
 use <../config/Parameters_Positions.scad>
 include <../utils/CoreXYBelts.scad>
+include <../utils/StagedAssembly.scad>
 
 
 staged_assembly = true; // set this to false for faster builds during development

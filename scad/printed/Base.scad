@@ -3,9 +3,11 @@ include <BasePSUandPCBs.scad>
 
 use <NopSCADlib/vitamins/sheet.scad>
 
+include <../utils/StagedAssembly.scad>
 use <../utils/translateRotate.scad>
 include <Foot.scad>
 
+staged_assembly = true; // set this to false for faster builds during development
 
 AL3 = [ "AL3", "Aluminium sheet", 3, silver * 1.1, false];
 
@@ -133,7 +135,7 @@ assembly("Base", big=true) {
 //!base plate.
 //
 module Base_CF_Stage_1_assembly()
-assembly("Base_CF_Stage_1", big=true) {
+staged_assembly("Base_CF_Stage_1", big=true) {
     BaseAL(pcb=pcbType);
     if (!_useCNC)
         hidden() Base_stl();
