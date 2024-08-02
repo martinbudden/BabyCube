@@ -24,10 +24,10 @@ module Top_Face_Front_Joiner_stl() {
 }
 
 module topFaceSideJoiner() {
-    offset = 80;
-    size = topBoltHolderSize(reversedBelts=_useReversedBelts, cnc=true) - [80, 0, 0];
+    topBoltHolderSize = topBoltHolderSize(reversedBelts=true);
+    size = [60, topBoltHolderSize.y, topBoltHolderSize.z];
     difference() {
-        translate([offset, eZ - _topPlateThickness - size.y, _sidePlateThickness])
+        translate([(eY + 2*eSizeY -size.x)/2, eZ - _topPlateThickness - size.y, _sidePlateThickness])
             rounded_cube_xy(size, _fillet);
         /*cutoutSize = [11, 1, size.z + 2*eps];
         translate([_frontPlateCFThickness, eZ - _topPlateThickness - size.y, _sidePlateThickness - eps]) {
