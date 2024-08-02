@@ -312,10 +312,10 @@ module webbingRight(NEMA_type, fullyEnclosed=false) {
         fillet(innerFillet, eSizeX);
 
     // blocks to prevent the spoolholder from twisting
-    if (!fullyEnclosed) {
-        translate([idlerBracketSize.x + spoolHolderBracketSize().z + 0.25, 0, 0])
-            rounded_cube_xy([10, spoolHolderPosition().z - middleWebOffsetZ(), eSizeX + 5], 2);
+    if (!fullyEnclosed)
         translate([0, middleWebOffsetZ(), 0]) {
+            translate([idlerBracketSize.x + spoolHolderBracketSize().z + 0.25, 0, 0])
+                rounded_cube_xy([10, spoolHolderPosition().z - middleWebOffsetZ(), eSizeX + 5], 2);
             height = eSizeZ + 5;
             rounded_cube_xy([idlerBracketSize.x, 3*eSizeZ, height], fillet);
             translate([frontReinforcementThickness(), 0, 0])
@@ -324,7 +324,6 @@ module webbingRight(NEMA_type, fullyEnclosed=false) {
             translate([frontReinforcementThickness(), 3*eSizeZ, 0])
                 fillet(innerFillet, height);
         }
-    }
 }
 
 motorUprightWidth = max(10, eSizeY); // make sure at least 10 wide, to accept inserts
