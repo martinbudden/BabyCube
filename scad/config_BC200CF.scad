@@ -15,18 +15,21 @@ _zMotorDescriptor = "NEMA17_34L150";
 
 _psuDescriptor = "NG_CB_200W_24V";
 
-// set _fullLengthYRail to add end cutouts for Y rail
-_fullLengthYRail = true;
 _xRailLength = 150;
 _yRailLength = 200;
+// set _fullLengthYRail to add end cutouts for Y rail
+_fullLengthYRail = true;
 _backFaceUpperBracketOffset  = 3;//_topPlateThickness
 _xCarriageDescriptor = "MGN9C";
-_xCarriageCountersunk = true;
+_xCarriageCountersunk = false;
 _yCarriageDescriptor = "MGN9C";
-_coreXYDescriptor = "GT2_20_16";
+//_coreXYDescriptor = "GT2_20_16";
+_coreXYDescriptor = "GT2_20_F623";
+_useReversedBelts = true;
+
 
 _useFrontDisplay = false;
 _useFrontSwitch = false;
-_useHalfCarriage = true;
+_useHalfCarriage = false;
 
 _printBedSize = 120;
