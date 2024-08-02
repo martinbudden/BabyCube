@@ -217,7 +217,7 @@ module rightFaceCF(NEMA_width) {
                     circle(r=M3_clearance_radius);
             }
             //spoolHolderCutout(NEMA_width, cnc=true);
-            translate([spoolHolderPosition(cf=true).y, spoolHolderPosition(cf=true).z-20, 0])
+            translate([spoolHolderPosition(cf=true).y, spoolHolderPosition(cf=true).z - 20, 0])
                 spoolHolderBracketHolePositions(M3=true)
                     circle(r=M3_clearance_radius);
             lowerSideJoinerHolePositions(left=false)
