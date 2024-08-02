@@ -112,7 +112,8 @@ staged_assembly("Stage_3", big=true, ngb=true) {
             Display_Housing_assembly();
         else
             rotate([90, 0, 180])
-                Front_Lower_Chord_Solid_stl();
+                color(pp2_colour)
+                    Front_Lower_Chord_Solid_stl();
         frontLowerChordHardware();
     }
     baseFrontHolePositions(-_basePlateThickness)
@@ -150,7 +151,7 @@ staged_assembly("Stage_5", big=true, ngb=true) {
     explode(100)
         CoreXYBelts(carriagePosition());
     explode(100, true) {
-        printheadBeltSide();
+        printheadBeltSide(halfCarriage=_useHalfCarriage);
     }
 }
 
