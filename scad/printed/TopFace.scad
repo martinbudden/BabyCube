@@ -73,23 +73,21 @@ module topFaceCover(NEMA_type) {
 }
 
 module topFaceWiringCutout(NEMA_width) {
-    insetY = _backPlateThickness - 1;
     cutoutBackY = cutoutBack - _backPlateThickness;
+    size = [6.5 + eps, cutoutBackY - (eY + 2*eSizeY - printheadWiringPos().y) + eps];
     fillet = 5;
     radius = 5;
-    size = [6.5 + eps, cutoutBackY - (eY + 2*eSizeY - printheadWiringPos().y) + eps];
 
-    translate([printheadWiringPos().x, 0,]) {
-        translate([0, printheadWiringPos().y - eps]) {
-            translate([-size.x/2, -size.y])
-                square(size, center=false);
-            circle(r=radius);
-        }
-        translate([size.x/2, eY + 2*eSizeY - cutoutBackY]) {
-            fillet(NEMA_width < 40 ? fillet : 1);
-            translate([-size.x, 0])
-                rotate(90)
-                    fillet(fillet);
+    translate([printheadWiringPos().x, printheadWiringPos().y]) {
+        circle(r=radius);
+        translate([-size.x/2, -size.y]) {
+            square(size, center=false);
+            translate([size.x, -eps]) {
+                fillet(NEMA_width < 40 ? 5 : 1);
+                translate([-size.x, 0])
+                    rotate(90)
+                        fillet(fillet);
+            }
         }
     }
 }
