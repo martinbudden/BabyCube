@@ -25,12 +25,13 @@ include <../scad/utils/CoreXYBelts.scad>
 module Right_Face_test() {
     //echoPrintSize();
     //CoreXYBelts(carriagePosition(), x_gap=16);
-    //Right_Face_CF();
+    //translate_z(4) Right_Face_CF();
+    //rotate([0, 180, 0]) rightFace(NEMA14T(), fullyEnclosed=true);
 
     if (_useCNC) {
         Right_Face_CF_assembly();
     } else {
-        //translate([eX + 2 * eSizeX + eps, 0, 0]) rotate([90, 0, -90]) Right_Face_stl();
+        //translate([eX + 2 * eSizeX + eps, 0, 0]) rotate([90, 0, -90]) rightFace(NEMA14T(), fullyEnclosed=true);
         Right_Face_assembly();
         //IEC_Housing();
     }

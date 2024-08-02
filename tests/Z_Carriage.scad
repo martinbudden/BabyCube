@@ -9,10 +9,7 @@ include <../scad/config/Parameters_Main.scad>
 //$pose = 1;
 module Z_Carriage_test() {
     rotate([180, 0, 0]) {
-        if (_useCNC)
-            Z_Carriage_96_stl();
-        else
-            Z_Carriage_stl();
+        Z_Carriage_stl();
         zCarriage_hardware();
     }
     //Z_Carriage_cable_ties(100);
