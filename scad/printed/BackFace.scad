@@ -262,7 +262,7 @@ module backFaceLowerBrackets(NEMA_type, yOffset) {
 
     backLowerChordSizeY = 20 + _zRodOffsetZ;
     fillet = 1;
-    rectSize = [(eX - Z_MotorMountSize(NEMA_type).y + 5)/2, 10, reinforcementThickness];
+    rectSize = [(eX - Z_MotorMountSize(NEMA_type).y + 7)/2, 10, reinforcementThickness];
     for (x = [eSizeXBase, eX + eSizeX - rectSize.x])
         translate([x, backLowerChordSizeY, 0])
             rounded_cube_xy(rectSize - [2, 0, 0], fillet);
@@ -272,8 +272,8 @@ module backFaceLowerBrackets(NEMA_type, yOffset) {
         rotate(90)
             fillet(innerFillet, reinforcementThickness);
     translate([eSizeX + rectSize.x - 3, backLowerChordSizeY, 0])
-            rotate(180)
-                fillet(5, rectSize.z);
+        rotate(180)
+            fillet(5, rectSize.z);
     translate([eX + eSizeX - rectSize.x + 3, backLowerChordSizeY, 0])
         rotate(-90)
             fillet(5, rectSize.z);
