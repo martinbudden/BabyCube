@@ -306,7 +306,7 @@ assembly("Right_Face_CF", big=true) {
     translate(spoolHolderPosition(cf=true))
         rotate([-90, 0, 90]) {
             explode(-40, true, show_line=false) {
-                stl_colour(pp1_colour)
+                stl_colour(pp2_colour)
                     Spool_Holder_Bracket_stl();
                 spoolHolderBracketHardware(M3=true, nutExplode=60);
             }
