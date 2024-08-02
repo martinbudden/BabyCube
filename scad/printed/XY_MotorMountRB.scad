@@ -80,9 +80,9 @@ module xyMotorMountRB(NEMA_type, left, xyz=2) {
         translate([left ? coreXYPosBL(NEMA_width).x : coreXYPosTR(NEMA_width).x, coreXYPosTR(NEMA_width).y, offsetZ]) {
             boltHoleM3Tap(basePlateThickness, horizontal=(xyz==0), rotate=-90);
             translate(left ? leftDrivePulleyOffset() : rightDrivePulleyOffset()) {
-                boltHole(NEMA_boss_radius(NEMA_type)*2 + 1, basePlateThickness, horizontal=(xyz==0), rotate=-90);
+                boltHole(NEMA_boss_radius(NEMA_type)*2 + 1, basePlateThickness, horizontal=(xyz==0), rotate=left ? -90 : 90);
                 NEMA_screw_positions(NEMA_type)
-                    boltHoleM3(basePlateThickness, horizontal=(xyz==0), rotate=-90);
+                    boltHoleM3(basePlateThickness, horizontal=(xyz==0), rotate=left ? -90 : 90);
             }
         }
 
@@ -94,14 +94,14 @@ module xyMotorMountRB(NEMA_type, left, xyz=2) {
         translate([0, eY + 2*eSizeY, 0])
             rotate([90, 0, 0])
                 xyMotorMountBackHolePositions(left)
-                    boltHoleM3Tap(backSize.y, horizontal=true, rotate=(xyz == 0 ? -90 : 0), chamfer_both_ends=false);
+                    boltHoleM3Tap(backSize.y, horizontal=true, rotate=(xyz == 0 ? (left ? -90 : 90) : 0), chamfer_both_ends=false);
         xyMotorMountTopHolePositions(left, eZ - _topPlateThickness)
             vflip()
-                boltHoleM3Tap(sideSize.x, horizontal=(xyz==0), rotate=-90);
+                boltHoleM3Tap(sideSize.x, horizontal=(xyz==0), left ? -90 : 90);
         translate([0, eY + 2*eSizeY - backSizeY, offsetZ + basePlateThickness + 2*pulleyStackHeight + yCarriageBraceThickness() + braceHeight/2])
             translate([left ? _sidePlateThickness + sideSizeX + size.x/2 : eX + 2*eSizeX - _sidePlateThickness - sideSizeX - size.x/2, 0, 0])
                 rotate([-90, 0, 0])
-                    boltHoleM3Countersunk(backSizeY, horizontal=true, rotate=(xyz == 0 ? 90 : 180));
+                    boltHoleM3Countersunk(backSizeY, horizontal=true, rotate=(xyz == 0 ? ((left ? 90 : -90)) : 180));
     }
 }
 
