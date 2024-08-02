@@ -1,4 +1,4 @@
- include <../config/global_defs.scad>
+include <../config/global_defs.scad>
 
 include <../vitamins/bolts.scad>
 
@@ -348,14 +348,15 @@ module idlerUpright(NEMA_width, left) {
                         zipTieCutout();
     }
     // idler upright, top part, xSize matches idler
-    idlerBracketSize = idlerBracketSize(coreXYPosBL(NEMA_width));
+    rightReversedBeltOffset = _useReversedBelts && !left ? coreXYSeparation().z : 0; // right sized idler bracket is smaller for reversed belts
+    idlerBracketSize = idlerBracketSize(coreXYPosBL(NEMA_width)) + [0, -rightReversedBeltOffset, 0];
     translate([0, middleWebOffsetZ(), 0])
         rounded_cube_xy([idlerBracketSize.x, eZ - middleWebOffsetZ() - _topPlateThickness, eSizeX], fillet);
     // idler upright reinforcement to stop front face shear
     coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
     translate([0, eSizeZ, 0])
         rounded_cube_xy([frontReinforcementThickness(), coreXYPosBL.z - coreXYSeparation().z/2 - idlerBracketSize.y - eSizeZ, idlerBracketSize.z], fillet);
-    translate([frontReinforcementThickness(), coreXYPosBL.z - idlerBracketSize.x - 2, 0])
+    translate([frontReinforcementThickness(), coreXYPosBL.z - idlerBracketSize.x - 2 + rightReversedBeltOffset, 0])
         rotate(270)
             fillet(1.5, idlerBracketSize.z);
     translate([0, eZ - eSizeZ - 5, 0]) {
