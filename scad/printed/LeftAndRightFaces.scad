@@ -1,4 +1,4 @@
-include <../config/global_defs.scad>
+ include <../config/global_defs.scad>
 
 include <../vitamins/bolts.scad>
 
@@ -399,6 +399,16 @@ module frameLower(NEMA_width, left=true, offset=0, length=0) {
                 rounded_cube_xy([length == 0 ? eY + 2*eSizeY - offset : length, eSizeZ, eSizeXBase - offset], fillet);
             translate([eY + 2*eSizeY - 10, 0, offset])
                 rounded_cube_xy([10, 20, 35 - offset], fillet); // 38 to match frontConnector size
+            if (!_useFrontSwitch || !left) {
+                // attachment point for front cover
+                baseCoverOffset = 40;
+                difference() {
+                    rounded_cube_xy([2*eSizeY, baseCoverOffset, eSizeXBase - offset], fillet);
+                    translate([offset + 3*eSizeY/2, baseCoverOffset, (eSizeXBase + offset)/2 + 1])
+                        rotate([90, 0, 0])
+                            boltHoleM3Tap(10);
+                }
+            }
         }
         translate([eY + 2*eSizeY, backFaceHolePositions()[0], _backFaceHoleInset])
             rotate([90, 0, -90])
@@ -424,17 +434,6 @@ module frameLower(NEMA_width, left=true, offset=0, length=0) {
     translate([eY + eSizeY, eSizeZ, offset])
         rotate(90)
             fillet(innerFillet, eSizeXBase - offset);
-    if (!_useFrontSwitch || !left) {
-        // attachment point for front cover
-        baseCoverOffset = 40;
-        difference() {
-            rounded_cube_xy([2*eSizeY, baseCoverOffset, eSizeXBase - offset], fillet);
-            translate([offset + 3*eSizeY/2, baseCoverOffset, (eSizeXBase + offset)/2 + 1])
-                rotate([90, 0, 0])
-                    boltHoleM3Tap(10);
-        }
-
-    }
     // front fillet
     translate([_useFrontSwitch ? eSizeY : 2*eSizeY, eSizeZ, 0])
         fillet(innerFillet, eSizeXBase);
