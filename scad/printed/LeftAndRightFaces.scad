@@ -58,7 +58,7 @@ module leftFace(NEMA_type, fullyEnclosed=false) {
             NEMA_width = NEMA_width(NEMA_type);
             coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
             translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
-                XY_IdlerBracket(coreXYPosBL(NEMA_width), NEMA_width, 0, cnc=false);
+                XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=_useReversedBelts, left=true, cnc=false);
             // add a support for the camera
             translate([0, coreXYPosBL.z - coreXYSeparation().z, 0])
                 translate([3, -5, eSizeX])
@@ -103,7 +103,7 @@ module rightFace(NEMA_type, fullyEnclosed=false) {
                     NEMA_width = NEMA_width(NEMA_type);
                     coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
                     translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
-                        XY_IdlerBracket(coreXYPosBL, NEMA_width, cnc=false);
+                        XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=_useReversedBelts, left=false, cnc=false);
                     XY_MotorUpright(NEMA_type, left=false);
                 }
                 if (fullyEnclosed)

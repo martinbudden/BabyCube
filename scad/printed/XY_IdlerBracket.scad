@@ -172,9 +172,9 @@ module xyIdlerBracketHolePositions(NEMA_width) {
             children();
 }
 
-module idlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, left=true) {
+module idlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, left=true, cnc=false) {
     fillet = 1;
-    size = idlerBracketSize(coreXYPosBL) - [offset, 0, reversedBelts ? 2 : 0];
+    size = idlerBracketSize(coreXYPosBL) - [offset, 0, reversedBelts ? (cnc ? 2 : 0) : 0];
     separation = coreXYSeparation().z;
 
     boltPos = [-coreXYPosBL.y + offset, coreXYPosBL.x - _sidePlateThickness, 0];
