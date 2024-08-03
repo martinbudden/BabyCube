@@ -82,10 +82,6 @@ module leftFace(NEMA_type, useFrontSwitch=false, fullyEnclosed=false) {
                 }
             }
         }
-        /*translate([0, eZ - _topPlateThickness, eX + 2*eSizeX])
-            rotate([90, 90, 0])
-                topFaceSideHolePositions()
-                    boltHoleM3Tap(topBoltHolderSize().y, horizontal=true, rotate = 90);*/
     }
 }
 
@@ -115,13 +111,6 @@ module rightFace(NEMA_type, useIEC=false, fullyEnclosed=false) {
                                     linear_extrude(nut_thickness(nut) + 0.5 + 2*eps)
                                         circle(r=nut_radius(nut) + 0.1, $fn=6);
                         }
-                /*translate([0, eZ - _topPlateThickness, eX + 2*eSizeX])
-                    rotate([90, 90, 0])
-                        topFaceSideHolePositions()
-                            //boltHoleM3Tap(topBoltHolderSize().y, horizontal=true, rotate=90);
-                            translate_z(-eps)
-                                rotate(30)
-                                    poly_cylinder(r=M3_tap_radius, h=topBoltHolderSize().y-2, sides=6);*/
             }
 }
 

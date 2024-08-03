@@ -191,19 +191,6 @@ module sideFaceBackTabs() {
             rounded_square([tabSize.x, tabSize.y/2], fillet);
 }
 
-/*!!TODO remove unused code
-module sideFaceSideDogbones(cnc=false, plateThickness=_sidePlateThickness) {
-    dogboneSize = [plateThickness*2, 20+_tabTolerance, 3 + 2*eps];
-    yStep = 20;
-
-    if (_sideTabs)
-        for (x = [eSizeY + dogboneSize.x/2],
-             y = [yStep : yStep*2 : eZ])
-                translate([x, y, 0])
-                    dogbone_rectangle_x(dogboneSize, xy_center=true, r=cnc ? cnc_bit_r : 0);
-}
-*/
-
 module railsCutout(NEMA_width, railOffset, cnc=false) {
     // add a cutout for the Y rail, since sometimes they are cut a bit long
     yRailType = railType(_yCarriageDescriptor);

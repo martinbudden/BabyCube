@@ -261,9 +261,6 @@ module baseAssembly(pcb=undef, psuType=undef) {
                             not_on_bom() no_explode()
                                 rocker(small_rocker, "red");
                 }
-            /*translate([-iecHousingSize().z, -iecHousingSize().x/2, -25])
-                rotate([90, 0, 90])
-                    IEC_Housing_Bevelled_stl();*/
             }
         } else {
             psuPosition(psuType) {
