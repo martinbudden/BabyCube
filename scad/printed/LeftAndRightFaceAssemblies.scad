@@ -13,27 +13,27 @@ include <LeftAndRightFaces.scad>
 module Left_Face_stl() {
     stl("Left_Face")
         color(pp1_colour)
-            leftFace(NEMA14T());
+            leftFace(NEMA14T(), useFrontSwitch=_useFrontSwitch);
             //cube([eY + 2*eSizeY, eZ, eSizeX]);
 }
 
 module Left_Face_NEMA_17_stl() {
     stl("Left_Face_NEMA_17")
         color(pp1_colour)
-            leftFace(NEMA17_40);
+            leftFace(NEMA17_40, useFrontSwitch=_useFrontSwitch);
             //cube([eY + 2*eSizeY, eZ, eSizeX]);
 }
 
 module Right_Face_stl() {
     stl("Right_Face")
         color(pp1_colour)
-            rightFace(NEMA14T());
+            rightFace(NEMA14T(), useIEC=!_useFrontSwitch);
 }
 
 module Right_Face_NEMA_17_stl() {
     stl("Right_Face_NEMA_17")
         color(pp1_colour)
-            rightFace(NEMA17_40);
+            rightFace(NEMA17_40, useIEC=!_useFrontSwitch);
             //cube([eY + 2*eSizeY, eZ, eSizeX]);
 }
 
