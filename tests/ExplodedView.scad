@@ -28,16 +28,16 @@ module Exploded_View_test(full=true) {
         translate_z(-explode)
             no_explode()
                 Base_assembly();
-    explode([0, explode, 0]) {
+    explode([0, explode, 0], show_line=false) {
         Back_Face_assembly();
         if (full)
             backFaceCableTies();
         }
-    explode([-explode, 0, 0])
+    explode([-explode, 0, 0], show_line=false)
         Left_Face_assembly();
-    explode([explode, 0, 0])
+    explode([explode, 0, 0], show_line=false)
         Right_Face_assembly();
-    explode([0, 0, 1.25*explode]) {
+    explode([0, 0, 1.25*explode], show_line=false) {
         Top_Face_Stage_1_assembly();
         if (full) {
             Top_Face_assembly();
@@ -48,7 +48,7 @@ module Exploded_View_test(full=true) {
         }
     }
     if (full)
-        explode([0, -explode, 0]) {
+        explode([0, -explode, 0], show_line=false) {
             translate_z(eZ)
                 rotate([90, 0, 180]) {
                     translate([0, -eps, 0]) {
