@@ -27,6 +27,8 @@ function extruderMotorType() = NEMA17_40;
 
 function backBoltLength() = 9;
 
+baseCoverInsideHeight = 40;
+baseCoverOutsideHeight = 43;
 
 fillet = _fillet;
 innerFillet = 5;
@@ -48,13 +50,13 @@ function frontReinforcementThickness() = 3;
 function spoolHolderBracketSize(cf=false) = [cf ? 3 : eSizeX, cf ? 25 : 30, 20];
 
 
-module leftFace(NEMA_type, fullyEnclosed=false) {
+module leftFace(NEMA_type, useFrontSwitch=false, fullyEnclosed=false) {
     assert(isNEMAType(NEMA_type));
 
     difference() {
         union() {
-            frame(NEMA_type, left=true);
-            webbingLeft(NEMA_type, fullyEnclosed);
+            frame(NEMA_type, left=true, useFrontSwitch=useFrontSwitch);
+            webbingLeft(NEMA_type, useFrontSwitch=useFrontSwitch, fullyEnclosed=fullyEnclosed);
             NEMA_width = NEMA_width(NEMA_type);
             coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
             translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
@@ -66,7 +68,7 @@ module leftFace(NEMA_type, fullyEnclosed=false) {
                         right_triangle(9, 9, 20, center=false);
             XY_MotorUpright(NEMA_type, left=true);
         }
-        if (_useFrontSwitch) {
+        if (useFrontSwitch) {
             switchShroudHolePositions()
                 boltPolyholeM3Countersunk(eSizeXBase, sink=0.25);
             translate(rockerPosition(rocker_type())) {
@@ -90,7 +92,7 @@ module leftFace(NEMA_type, fullyEnclosed=false) {
     }
 }
 
-module rightFace(NEMA_type, fullyEnclosed=false) {
+module rightFace(NEMA_type, useIEC=false, fullyEnclosed=false) {
     assert(isNEMAType(NEMA_type));
 
     // orient the right face for printing
@@ -98,8 +100,8 @@ module rightFace(NEMA_type, fullyEnclosed=false) {
         mirror([0, 1, 0])
             difference() {
                 union() {
-                    frame(NEMA_type, left=false);
-                    webbingRight(NEMA_type, fullyEnclosed);
+                    frame(NEMA_type, left=false, useFrontSwitch=false);
+                    webbingRight(NEMA_type, useIEC=useIEC, fullyEnclosed=fullyEnclosed);
                     NEMA_width = NEMA_width(NEMA_type);
                     coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
                     translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
@@ -158,7 +160,7 @@ module antiShearBracing(NEMA_width) {
     }
 }
 
-module webbingLeft(NEMA_type, fullyEnclosed=false) {
+module webbingLeft(NEMA_type, useFrontSwitch=false, fullyEnclosed=false) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
     left = true;
@@ -170,7 +172,7 @@ module webbingLeft(NEMA_type, fullyEnclosed=false) {
             fillet(innerFillet, upperWebThickness);
 
     // shroud for switch
-    if (_useFrontSwitch) {
+    if (useFrontSwitch) {
         translate([eSizeX - fillet, 0, 0])
             cube([switchShroudSizeX - eSizeX + fillet, middleWebOffsetZ(), _webThickness]);
         *translate([switchShroudSizeX, eSizeZ, 0]) // not needed, since covered by diagonal
@@ -210,13 +212,32 @@ module webbingLeft(NEMA_type, fullyEnclosed=false) {
             cube([motorDiagonalSize.x + eSizeY + 2, motorDiagonalSize.y + 2, 1]);
     
     // main diagonal brace
-    diagonalSize  = [eY + eSizeY - (_useFrontSwitch ? switchShroudSizeX : 2*eSizeY), middleWebOffsetZ() - eSizeZ, _webThickness];
-    translate([(_useFrontSwitch ? switchShroudSizeX : 2*eSizeY), eSizeZ, 0])
+    diagonalSize  = [eY + eSizeY - (useFrontSwitch ? switchShroudSizeX : 2*eSizeY), middleWebOffsetZ() - eSizeZ, _webThickness];
+    translate([(useFrontSwitch ? switchShroudSizeX : 2*eSizeY), eSizeZ, 0])
         diagonal(diagonalSize, min(eSizeY, eSizeZ), innerFillet);
     if (fullyEnclosed)
         translate([eSizeY - 1, eSizeZ - 1, 0])
             cube([diagonalSize.x + eSizeY + 2, diagonalSize.y + 2, 1]);
 
+    translate([(useFrontSwitch ? switchShroudSizeX : eSizeY), baseCoverOutsideHeight, 0])
+        fillet(innerFillet, diagonalSize.z);
+    translate([eSizeY, 0, 0]) {
+        cube([eY, baseCoverOutsideHeight, 1]);
+        translate([0, baseCoverOutsideHeight, 0]) {
+            translate([eY, 0, 0])
+                rotate(90)
+                    fillet(innerFillet, diagonalSize.z);
+        }
+        translate([0, baseCoverInsideHeight, 0])
+            cube([eY, baseCoverOutsideHeight - baseCoverInsideHeight, diagonalSize.z]);
+        cube([eSizeY, baseCoverOutsideHeight, diagonalSize.z]); // to fill in fillet on base cover attachment point
+        translate([eSizeY, baseCoverInsideHeight, 0])
+            rotate(-90)
+                fillet(innerFillet, diagonalSize.z);
+        translate([eY, baseCoverInsideHeight, 0])
+            rotate(180)
+                fillet(innerFillet, diagonalSize.z);
+    }
 }
 
 module spoolHolderCutout(NEMA_width, cnc=false) {
@@ -230,7 +251,7 @@ module spoolHolderCutout(NEMA_width, cnc=false) {
             rounded_square([extruderPosition(NEMA_width).y - width/2 - eSizeY-idlerBracketSize(coreXYPosBL(NEMA_width)).x, eZ - antiShearSize.y - spoolHolderPosition().z], innerFillet, center=false);
 }
 
-module webbingRight(NEMA_type, fullyEnclosed=false) {
+module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
     left = false;
@@ -238,13 +259,29 @@ module webbingRight(NEMA_type, fullyEnclosed=false) {
 
     // main diagonal brace
     iecPanelSize = [65, middleWebOffsetZ(), 3];
-    diagonalSize = [eY + 2*eps - (_useFrontSwitch ? 0 : iecPanelSize.x), middleWebOffsetZ() - eSizeZ + 2*eps, _useFrontSwitch ? _webThickness : iecPanelSize.z];
-    translate([eSizeY + eps, eSizeZ - eps, 0]) // eps displacement probably not necessary
+    iecOffset  = (useIEC ? iecPanelSize.x : 0);
+    diagonalSize = [eY + 2*eps - iecOffset, 
+                    middleWebOffsetZ() - baseCoverOutsideHeight + 2*eps,
+                    useIEC ? iecPanelSize.z : _webThickness];
+    translate([eSizeY + eps, baseCoverOutsideHeight - eps, 0]) // eps displacement probably not necessary
         diagonalDown(diagonalSize, min(eSizeY, eSizeZ), innerFillet);
+    translate([eSizeY, 0, 0]) {
+        cube([eY - iecOffset, baseCoverOutsideHeight, 1]);
+        translate([0, baseCoverInsideHeight, 0])
+            cube([eY - iecOffset, baseCoverOutsideHeight - baseCoverInsideHeight, diagonalSize.z]);
+        cube([eSizeY, baseCoverOutsideHeight, diagonalSize.z]); // to fill in fillet on base cover attachment point
+        translate([eSizeY, baseCoverInsideHeight, 0])
+            rotate(-90)
+                fillet(innerFillet, diagonalSize.z);
+        translate([eY -iecOffset, baseCoverInsideHeight, 0])
+            rotate(180)
+                fillet(innerFillet, diagonalSize.z);
+    }
+
     if (fullyEnclosed)
         translate([eSizeY - 1, eSizeZ - 1, 0])
-            cube([diagonalSize.x + 2, diagonalSize.y + 2, 1]);
-    if (!_useFrontSwitch)
+            cube([diagonalSize.x + 2, middleWebOffsetZ() + 2, 1]);
+    if (useIEC)
         difference() {
             translate([eY + eSizeY - iecPanelSize.x, 0, 0]) {
                 cube(iecPanelSize);
@@ -366,7 +403,7 @@ module idlerUpright(NEMA_width, left) {
     }
 }
 
-module frameLower(NEMA_width, left=true, offset=0, length=0) {
+module frameLower(NEMA_width, left=true, offset=0, length=0, useFrontSwitch=false) {
     translate([eY + 2*eSizeY - motorUprightWidth, 0, offset]) {
         difference() {
             size = [motorUprightWidth, middleWebOffsetZ(), eSizeXBase - offset];
@@ -399,12 +436,11 @@ module frameLower(NEMA_width, left=true, offset=0, length=0) {
                 rounded_cube_xy([length == 0 ? eY + 2*eSizeY - offset : length, eSizeZ, eSizeXBase - offset], fillet);
             translate([eY + 2*eSizeY - 10, 0, offset])
                 rounded_cube_xy([10, 20, 35 - offset], fillet); // 38 to match frontConnector size
-            if (!_useFrontSwitch || !left) {
+            if (!useFrontSwitch || !left) {
                 // attachment point for front cover
-                baseCoverOffset = 40;
                 difference() {
-                    rounded_cube_xy([2*eSizeY, baseCoverOffset, eSizeXBase - offset], fillet);
-                    translate([offset + 3*eSizeY/2, baseCoverOffset, (eSizeXBase + offset)/2 + 1])
+                    rounded_cube_xy([2*eSizeY, baseCoverInsideHeight, eSizeXBase - offset], fillet);
+                    translate([offset + 3*eSizeY/2, baseCoverInsideHeight, (eSizeXBase + offset)/2 + 1])
                         rotate([90, 0, 0])
                             boltHoleM3Tap(10);
                 }
@@ -435,7 +471,7 @@ module frameLower(NEMA_width, left=true, offset=0, length=0) {
         rotate(90)
             fillet(innerFillet, eSizeXBase - offset);
     // front fillet
-    translate([_useFrontSwitch ? eSizeY : 2*eSizeY, eSizeZ, 0])
+    translate([useFrontSwitch ? eSizeY : 2*eSizeY, eSizeZ, 0])
         fillet(innerFillet, eSizeXBase);
 }
 
@@ -461,7 +497,7 @@ module frontConnector() {
 
 
 //use coordinate frame of flat frame
-module frame(NEMA_type, left=true) {
+module frame(NEMA_type, left=true, useFrontSwitch=false) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
     topBoltHolderSize = topBoltHolderSize(0, reversedBelts=_useReversedBelts);
@@ -469,7 +505,7 @@ module frame(NEMA_type, left=true) {
     idlerUpright(NEMA_width, left);
     difference() {
         union() {
-            frameLower(NEMA_width, left);
+            frameLower(NEMA_width, left, useFrontSwitch=useFrontSwitch);
             // cube for top face bolt holes
             topBoltHolderSize = topBoltHolderSize;
             translate([0, eZ - _topPlateThickness - topBoltHolderSize.y, 0]) {
