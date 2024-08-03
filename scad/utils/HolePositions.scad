@@ -42,6 +42,8 @@ function backFaceHolePositions(cf=false) = cf ? [eSizeY/2 + 1] : [eSizeY/2 + 1, 
 
 function motorUprightZipTiePositions() = [30, middleWebOffsetZ() - 18];
 
+baseCoverInsideHeight = 40;
+baseCoverOutsideHeight = 43;
 
 // base
 module baseLeftCornerHolePositions(z=0) {
@@ -197,9 +199,9 @@ module frontFaceSideHolePositions(z=0) {
 }
 
 // top face
-module topFaceFrontHolePositions(z=0, cf=false) {
+module topFaceFrontHolePositions(z=0, useJoiner=false) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
-    positions = cf ? (_fullLengthYRail ? [95, size.x - 95] : [25, 95, size.x - 95, size.x - 25]) : [size.x/3 + eSizeX/6, 2*size.x/3 - eSizeX/6];
+    positions = useJoiner ? (_fullLengthYRail ? [95, size.x - 95] : [25, 95, size.x - 95, size.x - 25]) : [size.x/3 + eSizeX/6, 2*size.x/3 - eSizeX/6];
     for (x = positions)
         translate([x, topFaceFrontHolePositionOffsetY(), z])
             children();

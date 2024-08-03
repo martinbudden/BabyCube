@@ -27,9 +27,6 @@ function extruderMotorType() = NEMA17_40;
 
 function backBoltLength() = 9;
 
-baseCoverInsideHeight = 40;
-baseCoverOutsideHeight = 43;
-
 fillet = _fillet;
 innerFillet = 5;
 upperWebThickness = 3;

@@ -23,6 +23,13 @@ module Top_Face_stl() {
                 topFace(NEMA14_36);
 }
 
+module Top_Face_RB_stl() {
+    stl("Top_Face")
+        color(pp3_colour)
+            vflip()
+                topFace(NEMA14_36, useReversedBelts=true);
+}
+
 module Top_Face_NEMA_17_stl() {
     stl("Top_Face_NEMA_17")
         color(pp3_colour)
@@ -58,7 +65,10 @@ staged_assembly("Top_Face_Stage_1", big=true, ngb=true) {
     translate_z(eZ)
         vflip()
             stl_colour(pp3_colour)
-                Top_Face_stl();
+                if (_useReversedBelts)
+                    Top_Face_RB_stl();
+                else
+                    Top_Face_stl();
     topFaceAssembly(NEMA_width(NEMA14_36), t);
 }
 
@@ -211,7 +221,7 @@ staged_assembly("Top_Face_CF_Stage_1", big=true, ngb=true) {
     topFaceSideHolePositions(eZ)
         explode(25, true)
             boltM3Buttonhead(8);
-    topFaceFrontHolePositions(eZ, cf=true)
+    topFaceFrontHolePositions(eZ, useJoiner=true)
         explode(25, true)
             boltM3Buttonhead(8);
 }

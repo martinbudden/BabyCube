@@ -9,6 +9,9 @@ include <Foot.scad>
 
 staged_assembly = true; // set this to false for faster builds during development
 
+
+baceCoverCenterHolePosY = 144.5;
+
 AL3 = [ "AL3", "Aluminium sheet", 3, silver * 1.1, false];
 
 
@@ -105,6 +108,25 @@ module baseCutouts(cnc=false, cf=false, radius=M3_clearance_radius, pcb=undef) {
         }
     }
 }
+
+module Base_Cover_stl() {
+    color(pp3_colour)
+        stl("Base_Cover")
+            baseCover(baceCoverCenterHolePosY);
+}
+
+module baseCoverAssembly() {
+    stl_colour(pp3_colour)
+        translate_z(baseCoverOutsideHeight)
+            vflip()
+                Base_Cover_stl();
+    for (x = [(eSizeXBase + _sidePlateThickness)/2, eX + (3*eSizeX - _sidePlateThickness)/2])
+        translate([x, _frontPlateCFThickness + 3*eSizeY/2, baseCoverOutsideHeight])
+            explode(10, true)
+                boltM3Caphead(8);
+}
+
+
 
 //!1. Attach the **Base_Template** to the aluminium sheet and use it to drill out the holes. The base template has 2mm holes
 //!marked out for pilot holes. Once you have drilled these re-drill the holes with a 3mm bit. Note that the **Base_Template**

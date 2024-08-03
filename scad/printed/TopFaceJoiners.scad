@@ -17,7 +17,7 @@ module Top_Face_Front_Joiner_stl() {
                 frontFaceUpperHolePositions(-_frontPlateCFThickness)
                     vflip()
                         boltHoleM3Tap(size.y, horizontal=true, rotate=180);
-            topFaceFrontHolePositions(eZ - _topPlateThickness, cf=true)
+            topFaceFrontHolePositions(eZ - _topPlateThickness, useJoiner=true)
                 vflip()
                     boltHoleM3Tap(9);
         }
