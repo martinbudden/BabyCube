@@ -26,7 +26,7 @@ holePositionsYRailShiftX = 1;
 function topBoltHolderThickness(reversedBelts) = holePositionsYRailShiftX + (reversedBelts ? 6.5 : 7.25);
 function topBoltHolderSize(sidePlateThickness=_sidePlateThickness, reversedBelts) = [eY + 2*eSizeY - 15 - (reversedBelts ? 20 : 0) - _frontPlateCFThickness, 8, topBoltHolderThickness(reversedBelts) - sidePlateThickness]; // -15 to avoid back cube, +2.75 to give clearance for bolt hole
 function topFaceSideHolePositionOffset() = 3.75 + holePositionsYRailShiftX + 0.5;
-function baseBackHoleOffset() = [ floor(_zNEMA_width/2) + 4, 4];
+function baseBackHoleOffset() = [ 24, 4];
 //topBackHoleOffset = [ 20, 4];
 function topFaceBackHolePositions() = [ eX/2 + eSizeX ];
 function backFaceTopHolePositions() = [ eX/2 + eSizeX - 15, eX/2 + eSizeX + 15 ];

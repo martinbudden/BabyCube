@@ -63,7 +63,7 @@ backHoleOffset = 8;
 
 function Z_MotorMountSize(NEMA_type, braceWidth=5, topPlateThickness=zMotorMountTopPlateThickness) = [
     NEMA_width(NEMA_type)/2 + _zLeadScrewOffset,
-    NEMA_width(NEMA_type) + 2*braceWidth + 1,
+    floor(NEMA_width(NEMA_type)) + 2*braceWidth + 1.5,
     topPlateThickness
 ];
 
@@ -131,8 +131,10 @@ module Z_MotorMount(NEMA_type, topPlateThickness = zMotorMountTopPlateThickness,
                             boltHoleM3(topPlateThickness, chamfer=0.5, horizontal=true);
 
             // boltHoles to connect to the base
-            for (y = [size.y/2 - braceWidth/2, -size.y/2 + braceWidth/2])
-                translate([-size.x + backThickness + NEMA_width/2 +baseBackHoleOffset().y, y, -height])
+            baseHoleSeparation = (size.y - braceWidth)/2;
+            assert(baseHoleSeparation == baseBackHoleOffset().x);
+            for (y = [baseHoleSeparation, -baseHoleSeparation])
+                translate([-size.x + backThickness + NEMA_width/2 + baseBackHoleOffset().y, y, -height])
                     boltHoleM3Tap(10, horizontal=!cf, rotate=270, chamfer_both_ends=false);
 
             // boltHoles to connect to the back
