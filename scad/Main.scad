@@ -140,7 +140,7 @@ use <assemblies/MainAssembly.scad>
 
 //!1. Connect the wiring to the printhead.
 //!2. Connect the Bowden tube.
-//!3. Add the S**pool_Holder**.
+//!3. Add the **Spool_Holder**.
 //!4. Calibrate the printer.
 module main_assembly() pose(a=[55 + 19, 0, 25 - 15])
 assembly("main", big=true) {
