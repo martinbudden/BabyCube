@@ -3,6 +3,7 @@
 include <../scad/config/global_defs.scad>
 
 include <NopSCADlib/utils/core/core.scad>
+include <NopSCADlib/vitamins/stepper_motors.scad>
 
 //use <../scad/printed/BackFace.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
@@ -31,6 +32,11 @@ include <../scad/utils/printParameters.scad>
 //$pose = 1;
 module Top_Face_test() {
     echoPrintSize();
+
+    //topFace(NEMA14_36, useReversedBelts=true);
+    //topFaceCover(NEMA14_36, useReversedBelts=true);
+    //topFaceInterlock(NEMA14_36, useReversedBelts=true);
+
 
     //printheadHotendSideE3DV6();
     //printheadHotendSideE3DRevo();
@@ -122,6 +128,7 @@ module Top_Face_CF_map() {
      translate([eX + 2*eSizeX + eZ, 0, 0]) rotate(90)Right_Face_CF();
 }
 
+//Top_Face_CF();
 //Top_Face_CF_map()
 if ($preview)
     translate_z(-eZ)

@@ -1,5 +1,7 @@
 //! Display the the boltholes, to check if they meet
 
+include <../scad/config/global_defs.scad>
+
 include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 include <NopSCADlib/vitamins/screws.scad>
@@ -27,11 +29,13 @@ module BoltHole_test() {
     //baseFeet(left=true);
     //baseFeet(left=false);
     BaseAL();
-    //translate_z(eZ) color(pp3_colour) topFaceCover(NEMA_type);
-    //translate_z(eZ + eps) color(pp3_colour) topFaceInterlock(NEMA_type);
-    Top_Face_assembly();
 
     //Top_Face_assembly();
+    //translate_z(eZ) color(pp3_colour) topFaceCover(NEMA_type);
+    //translate_z(eZ + eps) color(pp3_colour) topFaceInterlock(NEMA_type);
+    translate_z(eZ + eps) color(pp3_colour) topFace(NEMA14_36, useReversedBelts=_useReversedBelts);
+
+
     // front connector
     translate([0, -eps, eps])
         rotate([90, 0, 180])
@@ -39,6 +43,7 @@ module BoltHole_test() {
     translate([0, -eps, eZ])
         rotate([90, 0, 180])
             Front_Upper_Chord_stl();
+
     // left face
     translate([-eps, 0, 0])
     rotate([90, 0, 90]) {
@@ -68,14 +73,15 @@ module BoltHole_test() {
             }
 
     // back face
-    translate([0, eY + 2*eSizeY, 0])
+    //Back_Face_assembly();
+    translate([0, eY + 2*eSizeY + eps, 0])
         rotate([90, 0, 0])
-            backFaceBaseHolePositions()
-                 rotate([90, 0, 0])
-                     translate_z(_basePlateThickness)
-                        boltM3Caphead(10);
+            stl_colour(pp2_colour)
+                if (eZ==200)
+                    Back_Face_200_stl();
+                else if (eZ == 210)
+                    Back_Face_210_stl();
 
-    Back_Face_assembly();
 }
 
 if ($preview) {

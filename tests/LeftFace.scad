@@ -61,6 +61,10 @@ module Left_Face_test() {
     //translate([0, -eZ/2, 0]) 
     //Left_Face_CF_dxf();
     //Left_Face_NEMA_17_CF_dxf();
+    //Left_Face_stl();
+    //Right_Face_stl();
+    //leftFace(NEMA_type, useFrontSwitch=!true, fullyEnclosed=!true);
+    //rightFace(NEMA_type, useFrontSwitch=!true, fullyEnclosed=!true);
 
     //Right_Face_CF_assembly();
     if (_useCNC) {

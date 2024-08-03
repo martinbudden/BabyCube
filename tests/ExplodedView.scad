@@ -25,8 +25,9 @@ module Exploded_View_test(full=true) {
     explode = 150;
 
     if (full)
-        no_explode()
-            Base_assembly();
+        translate_z(-explode)
+            no_explode()
+                Base_assembly();
     explode([0, explode, 0]) {
         Back_Face_assembly();
         if (full)
