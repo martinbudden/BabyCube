@@ -218,14 +218,29 @@ module backFaceCFTopHolePositions(z=0) {
             children();
 }
 
-module topFaceSideHolePositions(z=0) {
+module topFaceLeftSideHolePositions(z=0) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
-    for (x = [topFaceSideHolePositionOffset(), size.x - topFaceSideHolePositionOffset()],
-         //y = concat(topFaceMidSideHolePositions(), [eSizeY, eY + eSizeY]))
+    for (x = [topFaceSideHolePositionOffset()],
          y = topFaceSideHolePositions()
         )
         translate([x, y, z])
             children();
+}
+
+module topFaceRightSideHolePositions(z=0) {
+    size = [eX + 2*eSizeX, eY + 2*eSizeY];
+    for (x = [size.x - topFaceSideHolePositionOffset()],
+         y = topFaceSideHolePositions()
+        )
+        translate([x, y, z])
+            children();
+}
+
+module topFaceSideHolePositions(z=0) {
+    topFaceLeftSideHolePositions(z)
+        children();
+    topFaceRightSideHolePositions(z)
+        children();
 }
 
 module sideFaceTopHolePositions(z=topFaceSideHolePositionOffset()) {
