@@ -5,11 +5,13 @@ use <translateRotate.scad>
 include <../config/Parameters_Main.scad>
 
 
+dogBoneCNCBitRadius =1.5;
+
 module edgeCutout_x(size, cnc=false, center=false, xy_center=true, fillet=1, tolerance=_tabTolerance) {
     dogboneSize = size + [tolerance, 0, size.z == 0 ? 0 : 2*eps];
 
     translate_z(size.z == 0 ? 0 : -eps)
-        dogbone_rectangle_x(dogboneSize, r=cnc ? cnc_bit_r : 0, center=center, xy_center=xy_center);
+        dogbone_rectangle_x(dogboneSize, r=cnc ? dogBoneCNCBitRadius : 0, center=center, xy_center=xy_center);
     if (!cnc) {
         h = size.z ? size.z + 2*eps : 0;
         z = size.z ? -eps : 0;
@@ -31,7 +33,7 @@ module edgeCutout_y(size, cnc=false, center=false, xy_center=true, fillet=1, tol
     dogboneSize = size + [tolerance, 0, size.z == 0 ? 0 : 2*eps];
 
     translate_z(size.z == 0 ? 0 : -eps)
-        dogbone_rectangle_y(dogboneSize, r=cnc ? cnc_bit_r : 0, center=center, xy_center=xy_center);
+        dogbone_rectangle_y(dogboneSize, r=cnc ? dogBoneCNCBitRadius : 0, center=center, xy_center=xy_center);
     if (!cnc) {
         h = size.z ? size.z + 2*eps : 0;
         z = size.z ? -eps : 0;

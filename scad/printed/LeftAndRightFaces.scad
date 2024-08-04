@@ -174,7 +174,7 @@ module webbingLeft(NEMA_type, useFrontSwitch=false, fullyEnclosed=false) {
         difference() {
             union() {
                 translate(uprightPos)
-                    square([eY + 2*eSizeY - uprightPos.x, eZ - yRailSupportThickness() - middleWebOffsetZ() - cnc_bit_r]);
+                    square([eY + 2*eSizeY - uprightPos.x, eZ - yRailSupportThickness() - middleWebOffsetZ() - dogBoneCNCBitRadius]);
                 antiShearBracing(NEMA_width);
                 translate([uprightPos.x, eZ - antiShearSize.y])
                     rotate(180)
@@ -297,7 +297,7 @@ module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false) {
                     union() {
                         translate([0, middleWebOffsetZ()])
                             //square([eY + eSizeY - XY_MotorMountSize(NEMA_width).y + eps, eZ - middleWebOffsetZ() - _topPlateThickness]);
-                            square([eY + 2*eSizeY, eZ - middleWebOffsetZ() - _topPlateThickness - cnc_bit_r]);
+                            square([eY + 2*eSizeY, eZ - middleWebOffsetZ() - _topPlateThickness - dogBoneCNCBitRadius]);
                         antiShearBracing(NEMA_width);
                         // idler upright
                         rounded_square([eSizeY, eZ - eSizeZ + fillet], 3, center=false);
