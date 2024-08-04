@@ -33,12 +33,14 @@ module Printhead_test() {
 
     //E3DRevoVoron();
     //DropEffectXG();
-    //Printhead_DropEffect_XG_MGN9C_assembly();
+    //translate_z(50) Printhead_DropEffect_XG_MGN9C_assembly(); // clearance of 50-46=4 from bottome of xCarriage
+    //translate([50, 0, 50]) Printhead_E3DRevo_MGN9C_assembly(); // clearance of 2.8 from bottom of xCarriage
+    //translate([-50, 0, 53.25]) Printhead_E3DV6_MGN9C_assembly(); // nozzle clearance of 7.25 from bottom of xCarriage, fan duct has less clearance
     translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
         //printheadBeltSide(halfCarriage=false);
-        printheadHotendSideDropEffectXG();
-        //printheadHotendSideE3DRevo();
-        //printheadHotendSideE3DV6(halfCarriage=false, noPrinthead=!true);
+        printheadHotendSideDropEffectXG(boltLength=0);
+        //printheadHotendSideE3DRevo(boltLength=0);
+        //printheadHotendSideE3DV6(halfCarriage=false, noPrinthead=!true, boltLength=0);
         //CoreXYBelts(carriagePosition(), x_gap=2);
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         //bowdenTube(carriagePosition(), "DropEffectXG");
