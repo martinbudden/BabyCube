@@ -40,7 +40,7 @@ module Printhead_test() {
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         //bowdenTube(carriagePosition());
         //Back_Face_assembly();
-        printheadWiring(carriagePosition(), "E3DV6", zipTiePositions());
+        printheadWiring(carriagePosition(), "E3DV6",  backFaceZipTiePositions());
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();

@@ -22,10 +22,11 @@ module bowdenTube(carriagePosition, hotendDescriptor, extraZ=120) {
         bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + carriage_size(xCarriageType).y/2 + 5, eZ] + printheadBowdenOffset(hotendDescriptor), ptfeTube=true, extraZ=extraZ);
 }
 
-module printheadWiring(carriagePosition, hotendDescriptor, zipTiePositions) {
-    assert(!is_undef(zipTiePositions));
-    assert(is_list(zipTiePositions));
-    assert(!is_undef(zipTiePositions[0].x));
+module printheadWiring(carriagePosition, hotendDescriptor, backFaceZipTiePositions) {
+    zp = backFaceZipTiePositions;
+    assert(!is_undef(zp));
+    assert(is_list(zp));
+    assert(!is_undef(zp[0].x));
     cable_wrap(500);
 
     xCarriageType = carriageType(_xCarriageDescriptor);    
@@ -33,7 +34,6 @@ module printheadWiring(carriagePosition, hotendDescriptor, zipTiePositions) {
 
     //echo(px=printheadWiringPosX());
     //assert(is_num(printheadWiringPosX()));
-    zp = zipTiePositions;
     y = eY + 2*eSizeY - printheadWireRadius();
     p = [
         [ zp[0].x, y, zp[0].y ],

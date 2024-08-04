@@ -46,7 +46,7 @@ module Printhead_test() {
         bowdenTube(carriagePosition(), "DropEffectXG");
         assert(is_list(zipTiePositions()));
         assert(!is_undef(zipTiePositions()[0].x));
-        printheadWiring(carriagePosition(), "DropEffectXG", zipTiePositions());
+        printheadWiring(carriagePosition(), "DropEffectXG",  backFaceZipTiePositions());
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();

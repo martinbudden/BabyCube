@@ -61,15 +61,15 @@ module backFaceBracketHolePositions(z=0, reversedBelts=false) {
 
 wiringRectWidth = 20;
 
-function zipTiePositions(printheadWiringPosX=printheadWiringPosX()) = [
+function backFaceZipTiePositions(printheadWiringPosX=printheadWiringPosX()) = [
     [printheadWiringPosX + 15, 45],
     [printheadWiringPosX + 15, 80],
     [printheadWiringPosX, 110],
     [printheadWiringPosX, eZ - 40]
 ];
 
-module zipTiePositions() {
-    for (pos = zipTiePositions(printheadWiringPosX()))
+module backFaceZipTiePositions() {
+    for (pos = backFaceZipTiePositions(printheadWiringPosX()))
         translate([pos.x, pos.y])
             children();
 }
@@ -77,7 +77,7 @@ module zipTiePositions() {
 module backFaceCableTies() {
     translate([0, eY + eSizeY, 0])
         rotate([90, 0, 0])
-            zipTiePositions()
+            backFaceZipTiePositions()
                 translate_z(-2*printheadWireRadius() - _backPlateThickness + 1)
                     rotate(90)
                         cable_tie(cable_r=printheadWireRadius() + 0.5, thickness=_backPlateThickness);
@@ -127,12 +127,12 @@ module backFaceBare(NEMA_type, fullyEnclosed=false) {
                 //echo(diag=[wiringRectPosX-horizontalRectSize.x, eZ - upperChordSize.y-Z_MotorMountHeight(NEMA_type)]);
             }
             // cutouts for zipties
-            zipTiePositions()
+            backFaceZipTiePositions()
                 rounded_cube_xy(zipTieCutoutSize, r=1, xy_center=true, z_center=true);
         }
     }
 
-    zipTiePositions()
+    backFaceZipTiePositions()
         translate_z(-zipTieBridgeSize.z)
             rounded_cube_xy(zipTieBridgeSize, r=0.5, xy_center=true, z_center=false);
 }
