@@ -24,7 +24,7 @@ module Top_Face_stl() {
 }
 
 module Top_Face_RB_stl() {
-    stl("Top_Face")
+    stl("Top_Face_RB")
         color(pp3_colour)
             vflip()
                 topFace(NEMA14_36, useReversedBelts=true);
