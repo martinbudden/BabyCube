@@ -13,7 +13,7 @@ module revoImport3mf(file) {
 // z-distance from top of RevoVoron to tip of nozzle is 48.80mm, see https://e3d-online.zendesk.com/hc/en-us/articles/5927310441373-Revo-Voron-Datasheet
 function revoVoronSizeZ() = 48.8;
 
-module E3DRevoVoron() {
+module E3DRevoVoron(coreRotate=90) {
     vitamin(str(": E3D Revo Voron heatsink"));
     vitamin(str(": E3D Revo HeaterCore"));
 
@@ -27,6 +27,7 @@ module E3DRevoVoron() {
             rotate(45)
                 translate([-size.x/2, -size.y/2, 0])
                     cube(size);
+            rotate(coreRotate)
             translate([-13.4, 16.7, 9.4])
                 rotate(90)
                     revoImport3mf("RevoHeaterCore");

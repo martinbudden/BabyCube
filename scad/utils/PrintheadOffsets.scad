@@ -1,6 +1,6 @@
 function printheadHotendOffset(hotendDescriptor="E3DV6") = 
     hotendDescriptor == "E3DV6" ? [17, 18, 2] :
-    hotendDescriptor == "E3DRevo" ? [-2, 28, -1.2] : // revoVoronSizeZ() (48.8) - 50 
+    hotendDescriptor == "E3DRevo" ? [2, 28, -1.2] : // revoVoronSizeZ() (48.8) - 50 
     hotendDescriptor == "DropEffectXG" ? [0, 29.4, -1.5] : // dropEffectXGSizeZ() (48.5) - 50
     [0, 0, 0];
 function printheadBowdenOffset(hotendDescriptor="E3DV6") = 
