@@ -16,11 +16,11 @@ assembly("Printhead_E3DRevo_MGN9C", big=true) {
     X_Carriage_E3DRevo_MGN9C_hardware();
 }
 
-module printheadHotendSideE3DRevo(rotate=0, explode=0, t=undef, accelerometer=false) {
+module printheadHotendSideE3DRevo(rotate=0, explode=0, t=undef, accelerometer=false, boltLength=25) {
     screwType = hs_cap;
     boreDepth = xCarriageBoreDepth();
 
-    printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=25, boreDepth=boreDepth)
+    printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
         Printhead_E3DRevo_MGN9C_assembly();
 }
 

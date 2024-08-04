@@ -12,11 +12,11 @@ assembly("Printhead_DropEffect_XG_MGN9C", big=true) {
     X_Carriage_DropEffect_XG_MGN9C_hardware();
 }
 
-module printheadHotendSideDropEffectXG(rotate=0, explode=0, t=undef, accelerometer=false) {
+module printheadHotendSideDropEffectXG(rotate=0, explode=0, t=undef, accelerometer=false, boltLength=25) {
     screwType = hs_cap;
     boreDepth = xCarriageBoreDepth();
 
-    printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=25, boreDepth=boreDepth)
+    printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
         Printhead_DropEffect_XG_MGN9C_assembly();
 }
 

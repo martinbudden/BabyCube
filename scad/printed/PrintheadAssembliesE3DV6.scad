@@ -51,12 +51,12 @@ assembly("Printhead_E3DV6_MGN9C", big=true) {
     printheadE3DV6Assembly();
 }
 
-module printheadHotendSideE3DV6(rotate=0, explode=0, t=undef, accelerometer=false, halfCarriage=true, noPrinthead=false) {
+module printheadHotendSideE3DV6(rotate=0, explode=0, t=undef, accelerometer=false, halfCarriage=true, noPrinthead=false, boltLength=25) {
     xCarriageType = carriageType(_xCarriageDescriptor);
     screwType = halfCarriage ? hs_cs_cap : hs_cap;
     boreDepth = xCarriageBoreDepth();
 
-    printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=25, boreDepth=boreDepth)
+    printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
         if (halfCarriage) {
             xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, 1], [-1, 1] ]);
             Printhead_E3DV6_MGN9C_HC_assembly();
