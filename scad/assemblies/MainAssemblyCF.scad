@@ -178,26 +178,24 @@ staged_assembly("Stage_5_CF", big=true, ngb=true) {
 
     Stage_4_CF_assembly();
 
-    explode([0, -100, 0], true) {
-        rotate([90, 0, 0]) {
+    rotate([90, 0, 0]) {
+        explode(75, true, show_line=false) {
+            Front_Face_CF();
             frontFaceSideHolePositions()
                 boltM3Buttonhead(10);
             frontFaceLowerHolePositions()
                 boltM3Buttonhead(10);
         }
-    rotate([90, 0, 0])
-        Front_Face_CF();
-    }
-    rotate([90, 0, 0])
         explode(150, true, show_line=false) {
             stl_colour(grey(30))
                 Nameplate_stl();
-            explode(-20, true)
+            explode(-20, true, show_line=false)
                 stl_colour(grey(90))
                     Nameplate_Back_stl();
             frontFaceUpperHolePositions(3)
                 boltM3Buttonhead(12);
         }
+    }
 }
 
 module CF_FinalAssembly(test=false) {
