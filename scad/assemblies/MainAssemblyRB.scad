@@ -26,8 +26,8 @@ staged_assembly = true; // set this to false for faster builds during developmen
 
 //!1. Bolt the **Right_Face** and the right feet to the base.
 //
-module Stage_1_assembly()
-staged_assembly("Stage_1", big=true, ngb=true) {
+module Stage_1_RB_assembly()
+staged_assembly("Stage_1_RB", big=true, ngb=true) {
 
     assert(holePositionsYRailShiftX==yRailShiftX());
 
@@ -49,20 +49,20 @@ staged_assembly("Stage_1", big=true, ngb=true) {
 
 //! Add the **Back_Face** and bolt it to the right face and the base.
 //
-module Stage_2_assembly() pose(a=[55+10, 0, 25 + 80])
-staged_assembly("Stage_2", big=true, ngb=true) {
+module Stage_2_RB_assembly() pose(a=[55+10, 0, 25 + 80])
+staged_assembly("Stage_2_RB", big=true, ngb=true) {
 
-    Stage_1_assembly();
+    Stage_1_RB_assembly();
 
     explode([0, 200, 0], true) {
         Back_Face_assembly();
         translate([0, eY + 2*eSizeY, 0])
             rotate([90, 0, 0]) {
-                backFaceHolePositions(left=false, z=-_backPlateThickness, cf=false)
+                backFaceHolePositions(left=false, z=-_backPlateThickness, cf=true)
                     vflip()
                         explode(50)
                             boltM3Countersunk(6);
-                backFaceBracketHolePositions(-_backPlateThickness)
+                backFaceRightBracketHolePositions(-_backPlateThickness, cnc=true)
                     vflip()
                         explode(50)
                             boltM3Countersunk(10);
@@ -78,10 +78,10 @@ staged_assembly("Stage_2", big=true, ngb=true) {
 
 //! Add the **Top_Face**.
 //
-module Stage_3_assembly()
-staged_assembly("Stage_3", big=true, ngb=true) {
+module Stage_3_RB_assembly()
+staged_assembly("Stage_3_RB", big=true, ngb=true) {
 
-    Stage_2_assembly();
+    Stage_2_RB_assembly();
 
     explode(50, true) {
         if (_xyMotorDescriptor == "NEMA14")
@@ -96,30 +96,49 @@ staged_assembly("Stage_3", big=true, ngb=true) {
         xyMotorMountTopHolePositions(left=false, z=eZ + _topPlateCoverThickness)
             explode(20, true)
                 boltM3Buttonhead(8);
+        rotate([90, 0, 0])
+            xyMotorMountBackHolePositions(left=false, z= -eY - 2*eSizeY - _backPlateCFThickness) // bolt back face to motor mounts
+                vflip()
+                    explode(50, true)
+                        boltM3Countersunk(10);
     }
 }
 
 //!1. Bolt the **Left_Face** and the left feet to the base.
 //!2. Bolt the **Left_Face** to the back fase and the top face.
-module Stage_4_assembly()
-staged_assembly("Stage_4", big=true, ngb=true) {
+//
+module Stage_4_RB_assembly()
+staged_assembly("Stage_4_RB", big=true, ngb=true) {
 
-    Stage_3_assembly();
+    Stage_3_RB_assembly();
 
     explode([-250, 0, 50], true, show_line=false)
         baseCoverAssembly();
+
+    translate([0, eY + 2*eSizeY, 0])
+        rotate([90, 0, 0])
+            backFaceLeftBracketHolePositions(-_backPlateThickness, cnc=true)
+                vflip()
+                    explode(50)
+                        boltM3Countersunk(10);
+
 
     explode([-300, 0, 25]) {
         Left_Face_assembly();
         translate([0, eY + 2*eSizeY, 0])
             rotate([90, 0, 0])
-                backFaceHolePositions(left=true, z=-_backPlateThickness, cf=false)
+                backFaceHolePositions(left=true, z=-_backPlateThickness, cf=true)
                     vflip()
                         explode(50)
                             boltM3Countersunk(6);
         xyMotorMountTopHolePositions(left=true, z=eZ + _topPlateCoverThickness)
             explode(20, true)
                 boltM3Buttonhead(8);
+        rotate([90, 0, 0])
+            xyMotorMountBackHolePositions(left=false, z= -eY - 2*eSizeY - _backPlateCFThickness) // bolt back face to motor mounts
+                vflip()
+                    explode(50, true)
+                        boltM3Countersunk(10);
     }
 
     translate_z(-eps) {
@@ -140,10 +159,10 @@ staged_assembly("Stage_4", big=true, ngb=true) {
 //!2. Thread the belts in the pattern shown.
 //!3. Adjust the belts tension.
 //
-module Stage_5_assembly()
-staged_assembly("Stage_5", big=true, ngb=true) {
+module Stage_5_RB_assembly()
+staged_assembly("Stage_5_RB", big=true, ngb=true) {
 
-    Stage_4_assembly();
+    Stage_4_RB_assembly();
 
     explode(100)
         CoreXYBelts(carriagePosition());
@@ -154,10 +173,10 @@ staged_assembly("Stage_5", big=true, ngb=true) {
 
 //!Bolt the BabyCube nameplate and the **Front_Lower_Chord** to the front of the frame.
 //
-module Stage_6_assembly()
-staged_assembly("Stage_6", big=true, ngb=true) {
+module Stage_6_RB_assembly()
+staged_assembly("Stage_6_RB", big=true, ngb=true) {
 
-    Stage_5_assembly();
+    Stage_5_RB_assembly();
 
     explode([0, -20, 0], true) {
         translate_z(eZ)
@@ -184,10 +203,14 @@ staged_assembly("Stage_6", big=true, ngb=true) {
                 boltM3Buttonhead(10);
 }
 
-module FinalAssembly() {
+module RB_FinalAssembly(test=false) {
+    assert(_useReversedBelts==true || test==true);
+    assert(_useCNC==false || test==true);
+    assert(holePositionsYRailShiftX==yRailShiftX());
+
     hotendDescriptor = "E3DRevo";
     translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2]) {
-        Stage_6_assembly();
+        Stage_6_RB_assembly();
 
         if (!exploded())
             printheadWiring(carriagePosition(), hotendDescriptor);
