@@ -16,7 +16,6 @@ include <../utils/motorTypes.scad>
 include <../vitamins/cables.scad>
 
 use <X_CarriageAssemblies.scad>
-use <X_CarriageE3DV6.scad>
 include <Z_MotorMount.scad>
 
 include <../config/Parameters_Main.scad>
