@@ -60,12 +60,12 @@ module xCarriageDropEffectXGMGN9C(inserts=false) {
             rotate([90, 0, -90])
                 blower_hole_positions(blower_type)
                     vflip()
-                        boltHoleM2Tap(5);
+                        boltHoleM2Tap(7);
             rotate(-90)
                 fanDuctHolePositions()
                     rotate([90, 0, 0])
                         vflip()
-                            boltHoleM2Tap(6);
+                            boltHoleM2Tap(7);
         }
         translate([0, -railCarriageGap(), 0])
             xCarriageHotendSideHolePositions(xCarriageType)
@@ -129,17 +129,19 @@ module X_Carriage_DropEffect_XG_MGN9C_hardware() {
             */
             DropEffectXGSideBoltPositions()
                 translate_z(size.y)
-                    boltM3Countersunk(8);
-            DropEffectXG();
+                    explode(50)
+                        boltM3Countersunk(8);
+            explode(-50)
+                DropEffectXG();
         }
         rotate(180)
             translate([-13, 0, -15])
                 rotate([0, -90, 0]) {
-                    explode(40)
+                    explode([-50, 0, 20], true, show_line=false) {
                         not_on_bom() fan(fan_type);
-                    explode(40, true)
                         fan_hole_positions(fan_type)
                             not_on_bom() boltM2p5Buttonhead(12);
+                    }
                 }
     }
     translate([-size.x/2, hotendOffset.y + 13, hotendOffset.z + blowerOffsetZ - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
@@ -151,7 +153,7 @@ module X_Carriage_DropEffect_XG_MGN9C_hardware() {
                         boltM2Caphead(6);
             }
         }
-        explode([40, 0,-20], true)
+        explode(-40, true)
             rotate(-90) {
                 stl_colour(pp2_colour)
                     DropEffectXG_Fan_Duct_stl();
@@ -161,11 +163,13 @@ module X_Carriage_DropEffect_XG_MGN9C_hardware() {
     xCarriageDropEffectXGCableTiePositions(xCarriageType)
     translate([1, railCarriageGap() + 5.4, 0])
         rotate([0, 90, -90])
-            cable_tie(cable_r = 3.5, thickness = 5.5);
+            if (!exploded())
+                cable_tie(cable_r = 3.5, thickness = 5.5);
 
     xCarriageDropEffectXGMGN9CZipTiePositions(size, hotendOffset)
         rotate(90)
-            cable_tie(cable_r = 2.5, thickness = 2.5);
+            if (!exploded())
+                cable_tie(cable_r = 2.5, thickness = 2.5);
 }
 
 module DropEffectXG_Fan_Duct_stl() {

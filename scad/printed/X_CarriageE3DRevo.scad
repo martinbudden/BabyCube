@@ -56,12 +56,12 @@ module xCarriageE3DRevoMGN9C(inserts=false) {
            rotate([90, 0, -90])
                 blower_hole_positions(blower_type)
                     vflip()
-                        boltHoleM2Tap(5);
+                        boltHoleM2Tap(7);
                 rotate(-90)
                     fanDuctHolePositions()
                         rotate([90, 0, 0])
                             vflip()
-                                boltHoleM2Tap(6);
+                                boltHoleM2Tap(7);
         }
         translate([0, -railCarriageGap(), 0])
             xCarriageHotendSideHolePositions(xCarriageType)
@@ -107,7 +107,7 @@ module E3DRevoHolder(xCarriageType, size, fillet) {
             rounded_cube_yz(sizeFront, fillet);
         translate([hotendOffset.x, hotendOffset.y, 0])
             rotate(-90)
-                translate([-17, 0, -14])
+                translate([-18, 0, -14])
                     rotate([0, 90, 0]) {
                         fan_hole_positions(fan_type)
                             boltHoleM3Tap(sizeFront.y, horizontal=true, rotate=180);
@@ -143,11 +143,11 @@ module X_Carriage_E3DRevo_MGN9C_hardware() {
         rotate(-90)
             translate([-17, 0, -14])
                 rotate([0, -90, 0]) {
-                    explode(40)
+                    explode(40, true, show_line=false) {
                         fan(fan_type);
-                    explode(40, true)
                         fan_hole_positions(fan_type)
                             boltM3Buttonhead(12);
+                    }
                 }
     }
     translate([-size.x/2, hotendOffset.y + 13, hotendOffset.z + blowerOffsetZ - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
@@ -159,7 +159,7 @@ module X_Carriage_E3DRevo_MGN9C_hardware() {
                         boltM2Caphead(6);
             }
         }
-        explode([40, 0,-20], true)
+        explode(-40, true)
             rotate(-90) {
                 stl_colour(pp2_colour)
                     E3DRevo_Fan_Duct_stl();
@@ -169,11 +169,13 @@ module X_Carriage_E3DRevo_MGN9C_hardware() {
     xCarriageE3DRevoCableTiePositions(xCarriageType)
     translate([1, railCarriageGap() + 5.4, 0])
         rotate([0, 90, -90])
-            cable_tie(cable_r = 3.5, thickness = 5.5);
+            if (!exploded())
+                cable_tie(cable_r = 3.5, thickness = 5.5);
 
     xCarriageE3DRevoMGN9CZipTiePositions(size, hotendOffset)
         rotate(90)
-            cable_tie(cable_r = 2.5, thickness = 2.5);
+            if (!exploded())
+                cable_tie(cable_r = 2.5, thickness = 2.5);
 }
 
 module E3DRevo_Fan_Duct_stl() {
