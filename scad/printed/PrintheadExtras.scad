@@ -27,6 +27,8 @@ module printheadWiring(carriagePosition, hotendDescriptor, backFaceZipTiePositio
     assert(!is_undef(zp));
     assert(is_list(zp));
     assert(!is_undef(zp[0].x));
+    printheadWiringPos = printheadWiringPos();
+    assert(!is_undef(printheadWiringPos));
     cable_wrap(500);
 
     xCarriageType = carriageType(_xCarriageDescriptor);    
@@ -57,15 +59,15 @@ module printheadWiring(carriagePosition, hotendDescriptor, backFaceZipTiePositio
         [ zp[3].x, y, zp[3].y + 6],
         [ zp[3].x, y, zp[3].y + 10],
         [ zp[3].x, y - 15, eZ - 10],
-        [ zp[3].x, printheadWiringPos().y, eZ - 7],
-        [ zp[3].x, printheadWiringPos().y, eZ - 6],
-        [ zp[3].x, printheadWiringPos().y, eZ - 5],
-        [ zp[3].x, printheadWiringPos().y, eZ],
-        printheadWiringPos(),
-        printheadWiringPos() + [0, -5, 5],
-        printheadWiringPos() + [0, -5, 50],
-        printheadWiringPos() + [0, -5, 100],
-        (printheadWiringPos() + endPos)/2 + [0, 0, 180],
+        [ zp[3].x, printheadWiringPos.y, eZ - 7],
+        [ zp[3].x, printheadWiringPos.y, eZ - 6],
+        [ zp[3].x, printheadWiringPos.y, eZ - 5],
+        [ zp[3].x, printheadWiringPos.y, eZ],
+        printheadWiringPos,
+        printheadWiringPos + [0, -5, 5],
+        printheadWiringPos + [0, -5, 50],
+        printheadWiringPos + [0, -5, 100],
+        (printheadWiringPos + endPos)/2 + [0, 0, 180],
         endPos + [0, 0, 100],
         endPos + [0, 0, 50],
         endPos,

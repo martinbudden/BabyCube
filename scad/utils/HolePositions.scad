@@ -1,5 +1,6 @@
 function middleWebOffsetZ() = eZ - 105;
 
+// printheadWiringPos used by TopFace and BackFace
 function printheadWiringPosX() = let(zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2) (eX + eSizeX - zRodOffsetX/2 - 4);
 //function printheadWiringPosX() = eX + 2*eSizeX -47.5;
 //function printheadWiringPos() = [printheadWiringPosX(), eY + 2*eSizeY - 2*printheadWireRadius() - 10, eZ-50];

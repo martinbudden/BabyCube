@@ -76,20 +76,20 @@ module topFaceCover(NEMA_type, useReversedBelts=false) {
                     poly_circle(r=_zRodDiameter/2 + 0.5);
                 zLeadScrewHolePosition()
                     poly_circle(r=_zLeadScrewDiameter/2 + 1);
-                topFaceWiringCutout(NEMA_width);
+                topFaceWiringCutout(NEMA_width, printheadWiringPos());
             }
         topFaceRailHolePositions(NEMA_width)
             boltHoleM3Tap(size.z - 0.5, twist=0);
     }
 }
 
-module topFaceWiringCutout(NEMA_width) {
+module topFaceWiringCutout(NEMA_width, printheadWiringPos) {
     cutoutBackY = cutoutBack - _backPlateThickness;
-    size = [6.5 + eps, cutoutBackY - (eY + 2*eSizeY - printheadWiringPos().y) + eps];
+    size = [6.5 + eps, cutoutBackY - (eY + 2*eSizeY - printheadWiringPos.y) + eps];
     fillet = 5;
     radius = 5;
 
-    translate([printheadWiringPos().x, printheadWiringPos().y]) {
+    translate([printheadWiringPos.x, printheadWiringPos.y]) {
         circle(r=radius);
         translate([-size.x/2, -size.y]) {
             square(size, center=false);
@@ -204,7 +204,7 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, us
             cutout_circle(M3_clearance_radius, cnc);
     }
 
-    topFaceWiringCutout(NEMA_width);
+    topFaceWiringCutout(NEMA_width, printheadWiringPos());
 
     // remove the sides and back
     topFaceSideCutouts(cnc);
