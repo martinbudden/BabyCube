@@ -6,7 +6,8 @@ use <../printed/BackFace.scad>
 use <../printed/BackFaceAssemblies.scad>
 use <../printed/Base.scad>
 use <../printed/DisplayHousingAssemblies.scad>
-include <../printed/Extras.scad>
+use <../printed/SpoolHolderExtras.scad>
+use <../printed/PrintheadExtras.scad>
 use <../printed/FrontChords.scad>
 use <../printed/LeftAndRightFaceAssemblies.scad>
 use <../printed/PrintheadAssemblies.scad>
@@ -170,7 +171,7 @@ module FinalAssembly(test) {
         } else {
             Stage_5_assembly();
             if (!exploded())
-                printheadWiring(carriagePosition(), hotendDescriptor);
+                printheadWiring(carriagePosition(), hotendDescriptor, zipTiePositions());
             explode(100, true)
                 if (hotendDescriptor == "E3DV6")
                     printheadHotendSideE3DV6();

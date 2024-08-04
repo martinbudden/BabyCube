@@ -6,7 +6,8 @@ use <../printed/BackFace.scad>
 use <../printed/BackFaceAssemblies.scad>
 use <../printed/Base.scad>
 use <../printed/DisplayHousingAssemblies.scad>
-include <../printed/Extras.scad>
+use <../printed/SpoolHolderExtras.scad>
+use <../printed/PrintheadExtras.scad>
 use <../printed/FrontFace.scad>
 use <../printed/LeftAndRightFaceAssemblies.scad>
 use <../printed/LeftAndRightFaceAssembliesCF.scad>
@@ -104,7 +105,7 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
     explode([-50, -50, 150], true, show_line=false)
         printheadHotendSideE3DRevo(explode=[0, 50, 100]);
     if (!exploded())
-        printheadWiring(carriagePosition(), "E3DRevo");
+        printheadWiring(carriagePosition(), "E3DRevo", zipTiePositions());
 
     translate([eX + 2*eSizeX + eps, 0, 0]) {
         rotate([90, 0, 90]) {
@@ -242,7 +243,7 @@ module CF_DebugAssembly() {
             translate_z(-eps)
                 Base_CF_assembly();
         if (!exploded()) {
-            printheadWiring(carriagePosition(), "E3DRevo");
+            printheadWiring(carriagePosition(), "E3DRevo", zipTiePositions());
             explode(150)
                 bowdenTube(carriagePosition(), "E3DRevo");
         }

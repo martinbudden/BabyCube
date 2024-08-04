@@ -7,7 +7,7 @@ include <NopSCADlib/vitamins/sheets.scad>
 include <NopSCADlib/vitamins/fans.scad>
 
 include <LeftAndRightFaceAssemblies.scad>
-include <Extras.scad>
+use <SpoolHolderExtras.scad>
 
 include <../config/Parameters_CoreXY.scad>
 

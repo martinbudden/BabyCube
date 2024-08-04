@@ -6,8 +6,8 @@ include <NopSCADlib/utils/core/core.scad>
 //include <NopSCADlib/vitamins/screws.scad>
 include <../scad/utils/carriageTypes.scad>
 
-include <../scad/printed/Extras.scad>
-use <../scad/printed/BackFace.scad> // for printheadWiring
+use <../scad/printed/BackFace.scad> // for zipTiePositions()
+use <../scad/printed/PrintheadExtras.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/PrintheadAssembliesE3DRevo.scad>
 use <../scad/printed/PrintheadAssembliesE3DV6.scad>
@@ -39,7 +39,7 @@ module Printhead_test() {
         //CoreXYBelts(carriagePosition(), x_gap=2);
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         //bowdenTube(carriagePosition(), "E3DRevo");
-        //printheadWiring(carriagePosition(), "E3DRevo");
+        printheadWiring(carriagePosition(), "E3DRevo", zipTiePositions());
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();

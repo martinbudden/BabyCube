@@ -1,7 +1,7 @@
 include <NopSCADlib/utils/core/core.scad>
 
 use <NopSCADlib/utils/fillet.scad>
-use <../vitamins/bolts.scad>
+include <../vitamins/bolts.scad>
 
 
 function spoolOffset(cf=false) = cf ? [17.5, 0, 7] : [17.5, 0, 7];

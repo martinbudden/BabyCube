@@ -1,28 +1,11 @@
-
 include <../config/global_defs.scad>
 
-include <NopSCADlib/utils/core/core.scad>
-include <NopSCADlib/vitamins/screws.scad>
 include <NopSCADlib/vitamins/spools.scad>
+use <../printed/LeftAndRightFaces.scad> // for spoolHolderBracketSize()
 
-include <../utils/bezierTube.scad>
-include <../utils/carriageTypes.scad>
-include <../utils/PrintheadOffsets.scad>
-
-use <../vitamins/extruder.scad>
-
-use <LeftAndRightFaces.scad>
 include <SpoolHolder.scad>
-use <X_Carriage.scad>
-
 include <../config/Parameters_Main.scad>
 
-
-module bowdenTube(carriagePosition, hotendDescriptor, extraZ=120) {
-    xCarriageType = carriageType(_xCarriageDescriptor);
-    color("White")
-        bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + carriage_size(xCarriageType).y/2 + 5, eZ] + printheadBowdenOffset(hotendDescriptor), ptfeTube=true, extraZ=extraZ);
-}
 
 module faceRightSpoolHolder(cf=false) {
     translate(spoolHolderPosition(cf))

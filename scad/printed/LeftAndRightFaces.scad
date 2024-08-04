@@ -15,6 +15,7 @@ include <../utils/motorTypes.scad>
 
 include <../vitamins/inserts.scad>
 
+use <SpoolHolder.scad>
 use <SwitchShroud.scad>
 use <XY_IdlerBracket.scad>
 include <XY_MotorMountRB.scad>

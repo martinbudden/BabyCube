@@ -11,7 +11,6 @@ include <../utils/carriageTypes.scad>
 include <../utils/cutouts.scad>
 include <../utils/diagonal.scad>
 include <../utils/HolePositions.scad>
-include <../utils/PrintheadOffsets.scad>
 include <../utils/motorTypes.scad>
 
 include <../vitamins/cables.scad>
@@ -61,15 +60,16 @@ module backFaceBracketHolePositions(z=0, reversedBelts=false) {
 }
 
 wiringRectWidth = 20;
-zipTiePositions = [
-    [printheadWiringPos().x + 15, 45],
-    [printheadWiringPos().x + 15, 80],
-    [printheadWiringPos().x, 110],
-    [printheadWiringPos().x, eZ - 40]
+
+function zipTiePositions(printheadWiringPosX=printheadWiringPosX()) = [
+    [printheadWiringPosX + 15, 45],
+    [printheadWiringPosX + 15, 80],
+    [printheadWiringPosX, 110],
+    [printheadWiringPosX, eZ - 40]
 ];
 
 module zipTiePositions() {
-    for (pos = zipTiePositions)
+    for (pos = zipTiePositions(printheadWiringPosX()))
         translate([pos.x, pos.y])
             children();
 }
@@ -82,55 +82,6 @@ module backFaceCableTies() {
                     rotate(90)
                         cable_tie(cable_r=printheadWireRadius() + 0.5, thickness=_backPlateThickness);
 }
-
-module printheadWiring(carriagePosition, hotendDescriptor) {
-    cable_wrap(500);
-
-    xCarriageType = carriageType(_xCarriageDescriptor);
-    endPos = [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + carriage_size(xCarriageType).y/2 + 5, eZ] + printheadWiringOffset(hotendDescriptor);
-    zp = zipTiePositions;
-    y = eY + 2*eSizeY - printheadWireRadius();
-    p = [
-        [ zp[0].x, y, zp[0].y ],
-        [ zp[1].x, y, zp[1].y -5 ],
-        [ zp[1].x, y, zp[1].y ],
-        [ zp[1].x, y, zp[1].y + 5 ],
-        [ zp[1].x, y, zp[1].y + 10 ],
-        [ zp[1].x, y, zp[1].y + 15 ],
-        [ zp[2].x, y, zp[2].y - 15],
-        [ zp[2].x, y, zp[2].y - 12],
-        [ zp[2].x, y, zp[2].y - 11],
-        [ zp[2].x, y, zp[2].y - 10],
-        [ zp[2].x, y, zp[2].y - 5],
-        [ zp[2].x, y, zp[2].y ],
-        [ zp[2].x, y, zp[2].y + 5],
-        [ zp[3].x, y, zp[3].y - 5 ],
-        [ zp[3].x, y, zp[3].y - 10 ],
-        [ zp[3].x, y, zp[3].y - 11 ],
-        [ zp[3].x, y, zp[3].y],
-        [ zp[3].x, y, zp[3].y + 5],
-        [ zp[3].x, y, zp[3].y + 6],
-        [ zp[3].x, y, zp[3].y + 10],
-        [ zp[3].x, y - 15, eZ - 10],
-        [ zp[3].x, printheadWiringPos().y, eZ - 7],
-        [ zp[3].x, printheadWiringPos().y, eZ - 6],
-        [ zp[3].x, printheadWiringPos().y, eZ - 5],
-        [ zp[3].x, printheadWiringPos().y, eZ],
-        printheadWiringPos(),
-        printheadWiringPos() + [0, -5, 5],
-        printheadWiringPos() + [0, -5, 50],
-        printheadWiringPos() + [0, -5, 100],
-        (printheadWiringPos() + endPos)/2 + [0, 0, 180],
-        endPos + [0, 0, 100],
-        endPos + [0, 0, 50],
-        endPos,
-    ];
-    color(grey(20))
-        bezierTube2(p, tubeRadius=printheadWireRadius());
-
-}
-
-
 
 module backFaceBare(NEMA_type, fullyEnclosed=false) {
     assert(isNEMAType(NEMA_type));

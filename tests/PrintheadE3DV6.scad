@@ -8,8 +8,9 @@ include <../scad/utils/carriageTypes.scad>
 
 include <NopSCADlib/vitamins/blowers.scad>
 
+use <../scad/printed/BackFace.scad> // for zipTiePositions()
 use <../scad/printed/Base.scad>
-include <../scad/printed/Extras.scad>
+use <../scad/printed/PrintheadExtras.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/PrintheadAssembliesE3DV6.scad>
 use <../scad/printed/X_Carriage.scad>
@@ -39,7 +40,7 @@ module Printhead_test() {
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         //bowdenTube(carriagePosition());
         //Back_Face_assembly();
-        //printheadWiring(carriagePosition());
+        printheadWiring(carriagePosition(), "E3DV6", zipTiePositions());
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();
