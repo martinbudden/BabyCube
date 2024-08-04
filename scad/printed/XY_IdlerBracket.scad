@@ -236,7 +236,7 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, l
     difference() {
         union() {
             translate([offset, -yCarriageBraceThickness()/2, _sidePlateThickness])
-                idlerBracket(coreXYPosBL, NEMA_width, offset, reversedBelts, left);
+                idlerBracket(coreXYPosBL, NEMA_width, offset, reversedBelts, left, cnc);
             if (cnc)
                 translate([_frontPlateCFThickness, offsetY, _sidePlateThickness]) {
                     rounded_cube_xy(size, _fillet);
@@ -256,7 +256,7 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, l
         translate([offset, -yCarriageBraceThickness()/2, _sidePlateThickness]) {
             translate([-offset, yCarriageBraceThickness()/2 + offsetY + topBoltHolderSize.y, eX + 2*eSizeX - _sidePlateThickness])
                 rotate([90, 90, 0])
-                    topFaceFrontHolePositions(cf=true)
+                    topFaceFrontHolePositions(useJoiner=true)
                         boltHoleM3Tap(8, horizontal=true, rotate=90, chamfer_both_ends=false);
             idlerBracketSideHolePositions(coreXYPosBL, offset)
                 boltHoleM3Tap(12);
