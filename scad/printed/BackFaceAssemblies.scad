@@ -147,7 +147,7 @@ module Back_Face_CF_dxf() {
                             circle(r=M3_clearance_radius);
                 backFaceCFSideHolePositions() // attaches to left and right face joiners
                     circle(r=M3_clearance_radius);
-                backFaceBracketHolePositions(-_backPlateThickness, cnc=true) // attaches to base side joiner
+                backFaceBracketHolePositions(-_backPlateThickness, reversedBelts=true) // attaches to base side joiner
                     circle(r=M3_clearance_radius);
                 backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
                 backFaceUpperSKBracketHolePositions(backFaceUpperBracketOffset)
