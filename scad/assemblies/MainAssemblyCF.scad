@@ -200,7 +200,11 @@ staged_assembly("Stage_5_CF", big=true, ngb=true) {
         }
 }
 
-module CF_FinalAssembly() {
+module CF_FinalAssembly(test=false) {
+    assert(_useReversedBelts==true || test==true);
+    assert(_useCNC==true || test==true);
+    assert(holePositionsYRailShiftX==yRailShiftX());
+
     translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2]) {
         Stage_5_CF_assembly();
 
@@ -215,6 +219,10 @@ module CF_FinalAssembly() {
 
 
 module CF_DebugAssembly() {
+    assert(_useReversedBelts==true);
+    assert(_useCNC==true);
+    assert(holePositionsYRailShiftX==yRailShiftX());
+
     translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2]) {
         explode = 100;
         explode(explode + 25) {

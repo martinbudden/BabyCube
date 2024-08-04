@@ -13,9 +13,9 @@ use <assemblies/MainAssemblyRB.scad>
 
 //! Add the printhead, spool holder and spool.
 //
-module BC220_assembly() pose(a=[55, 0, 25])
+module BC220_assembly(test=false) pose(a=[55, 0, 25])
 assembly("BC220", big=true) {
-    FinalAssembly();
+    RB_FinalAssembly(test);
 }
 
 if ($preview)

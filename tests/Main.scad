@@ -21,7 +21,8 @@ module Main_test() {
     //Stage_3_assembly();
     //Stage_4_assembly();
     //Stage_5_assembly();
-    main_assembly();
+    //main_assembly();
+    BC200_assembly(test=true);
 }
 
 module position(a=[55, 0, 25], t=[0, 0, 0], d=undef) {

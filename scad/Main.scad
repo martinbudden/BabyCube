@@ -142,10 +142,10 @@ use <assemblies/MainAssembly.scad>
 //!2. Connect the Bowden tube.
 //!3. Add the **Spool_Holder**.
 //!4. Calibrate the printer.
-module main_assembly() pose(a=[55 + 19, 0, 25 - 15])
-assembly("main", big=true) {
-    FinalAssembly();
+module BC200_assembly(test=false) pose(a=[55, 0, 25])
+assembly("BC200", big=true) {
+    FinalAssembly(test);
 }
 
 if ($preview)
-    main_assembly();
+    BC200_assembly();

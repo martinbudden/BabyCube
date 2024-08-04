@@ -14,36 +14,31 @@ use <assemblies/MainAssemblyCF.scad>
 
 //! Add the printhead, spool holder and spool.
 //
-module BC200CF_assembly() pose(a=[55, 0, 25])
+module BC200CF_assembly(test=false) pose(a=[55, 0, 25])
 assembly("BC200CF", big=true) {
-    CF_FinalAssembly();
+    CF_FinalAssembly(test);
     //CF_DebugAssembly();
 }
 
 //!1. Attach the Bowden tube to the extruder and the hotend.
 //!2. Attach the **Spool_Holder**.
 //!
-module BC220CF_assembly() pose(a=[55, 0, 25])
+module BC220CF_assembly(test=false) pose(a=[55, 0, 25])
 assembly("BC220CF", big=true) {
-    CF_FinalAssembly();
+    CF_FinalAssembly(test);
     //CF_DebugAssembly();
 }
 
-module BC250CF_assembly() pose(a=[55, 0, 25])
+module BC250CF_assembly(test=false) pose(a=[55, 0, 25])
 assembly("BC250CF", big=true) {
-    CF_FinalAssembly();
+    CF_FinalAssembly(test);
     //CF_DebugAssembly();
 }
 
-module BC260CF_assembly() pose(a=[55, 0, 25])
+module BC260CF_assembly(test=false) pose(a=[55, 0, 25])
 assembly("BC260CF", big=true) {
-    CF_FinalAssembly();
+    CF_FinalAssembly(test);
     //CF_DebugAssembly();
-}
-
-module BC200CF_unstaged_assembly()
-assembly("BC200CF_unstaged", big=true) {
-    CF_DebugAssembly();
 }
 
 if ($preview)

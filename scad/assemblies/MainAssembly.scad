@@ -32,8 +32,6 @@ staged_assembly = true; // set this to false for faster builds during developmen
 module Stage_1_assembly()
 staged_assembly("Stage_1", big=true, ngb=true) {
 
-    assert(holePositionsYRailShiftX==yRailShiftX());
-
     explode([-100, 0, 25])
         Left_Face_assembly();
 
@@ -158,7 +156,12 @@ staged_assembly("Stage_5", big=true, ngb=true) {
     }
 }
 
-module FinalAssembly() {
+module FinalAssembly(test) {
+    assert(_useReversedBelts==false || test==true);
+    assert(_useCNC==false || test==true);
+    assert(holePositionsYRailShiftX==yRailShiftX());
+
+
     hotendDescriptor = _useHalfCarriage ? "E3DV6" : "E3DRevo";
     translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2])
         if ($target == "BC200_test") {

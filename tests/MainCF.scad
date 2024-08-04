@@ -35,7 +35,7 @@ module MainCF_test() {
     //Stage_4_CF_assembly();
     //Stage_5_CF_assembly();
     //BC200CF_debug();
-    BC200CF_assembly();
+    BC200CF_assembly(test=true);
 }
 
 if ($preview)
