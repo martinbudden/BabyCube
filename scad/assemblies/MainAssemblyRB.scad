@@ -34,16 +34,16 @@ staged_assembly("Stage_1_RB", big=true, ngb=true) {
     translate_z(-eps)
         Base_assembly();
 
-    explode([100, 50, 0])
+    explode([100, 50, 0], show_line=false)
         Right_Face_assembly();
     translate_z(-eps) {
         stl_colour(pp2_colour)
             baseFeet(left=false);
         baseFeet(left=false, hardware=true);
     }
-    explode(-40)
-        baseRightHolePositions(-_basePlateThickness)
-            vflip()
+    baseRightHolePositions(-_basePlateThickness)
+        vflip()
+            explode(40)
                 boltM3Buttonhead(8);
 }
 
@@ -53,11 +53,15 @@ module Stage_2_RB_assembly() pose(a=[55+10, 0, 25 + 80])
 staged_assembly("Stage_2_RB", big=true, ngb=true) {
 
     Stage_1_RB_assembly();
+    //BaseAL();
+    //translate([eX + 2 * eSizeX + eps, 0, 0]) rotate([90, 0, -90]) Right_Face_stl();
+
 
     explode([0, 200, 0], true) {
         Back_Face_assembly();
         translate([0, eY + 2*eSizeY, 0])
             rotate([90, 0, 0]) {
+                //Back_Face_210_stl();
                 backFaceHolePositions(left=false, z=-_backPlateThickness, cf=true)
                     vflip()
                         explode(50)
@@ -67,10 +71,16 @@ staged_assembly("Stage_2_RB", big=true, ngb=true) {
                         explode(50)
                             boltM3Countersunk(10);
             }
-            baseBackHolePositions(-_basePlateThickness)
+       rotate([90, 0, 0])
+            xyMotorMountBackHolePositions(left=false, z= -eY - 2*eSizeY - _backPlateCFThickness) // bolt back face to right face motor mounts
                 vflip()
-                    boltM3Buttonhead(10);
+                    explode(50, true)
+                        boltM3Countersunk(10);
     }
+    baseBackHolePositions(-_basePlateThickness) // bolt back face to base
+        vflip()
+            explode(50, true)
+                boltM3Buttonhead(10);
     if (!exploded())
         backFaceCableTies();
 }
@@ -83,25 +93,21 @@ staged_assembly("Stage_3_RB", big=true, ngb=true) {
 
     Stage_2_RB_assembly();
 
-    explode(50, true) {
+    explode(50, true, show_line=false)
         if (_xyMotorDescriptor == "NEMA14")
             Top_Face_assembly();
         else
             Top_Face_NEMA_17_assembly();
 
-        topFaceBackHolePositions(eZ + _topPlateCoverThickness)
+    topFaceBackHolePositions(eZ + _topPlateCoverThickness)
+        explode(50, true)
             boltM3Buttonhead(12);
-        topFaceRightSideHolePositions(eZ + _topPlateCoverThickness)
+    topFaceRightSideHolePositions(eZ + _topPlateCoverThickness)
+        explode(50, true)
             boltM3Buttonhead(12);
-        xyMotorMountTopHolePositions(left=false, z=eZ + _topPlateCoverThickness)
-            explode(20, true)
-                boltM3Buttonhead(8);
-        rotate([90, 0, 0])
-            xyMotorMountBackHolePositions(left=false, z= -eY - 2*eSizeY - _backPlateCFThickness) // bolt back face to motor mounts
-                vflip()
-                    explode(50, true)
-                        boltM3Countersunk(10);
-    }
+    xyMotorMountTopHolePositions(left=false, z=eZ + _topPlateCoverThickness)
+        explode(70, true)
+            boltM3Buttonhead(12);
 }
 
 //!1. Bolt the **Left_Face** and the left feet to the base.
@@ -112,35 +118,32 @@ staged_assembly("Stage_4_RB", big=true, ngb=true) {
 
     Stage_3_RB_assembly();
 
+    explode([-300, 0, 25])
+        Left_Face_assembly();
+
     explode([-250, 0, 50], true, show_line=false)
         baseCoverAssembly();
 
     translate([0, eY + 2*eSizeY, 0])
-        rotate([90, 0, 0])
-            backFaceLeftBracketHolePositions(-_backPlateThickness, reversedBelts=true)
+        rotate([90, 0, 0]) {
+            backFaceLeftBracketHolePositions(-_backPlateThickness, reversedBelts=true) // bolt back face to left face
                 vflip()
                     explode(50)
                         boltM3Countersunk(10);
-
-
-    explode([-300, 0, 25]) {
-        Left_Face_assembly();
-        translate([0, eY + 2*eSizeY, 0])
-            rotate([90, 0, 0])
-                backFaceHolePositions(left=true, z=-_backPlateThickness, cf=true)
-                    vflip()
-                        explode(50)
-                            boltM3Countersunk(6);
-        xyMotorMountTopHolePositions(left=true, z=eZ + _topPlateCoverThickness)
-            explode(20, true)
-                boltM3Buttonhead(8);
-        rotate([90, 0, 0])
-            xyMotorMountBackHolePositions(left=false, z= -eY - 2*eSizeY - _backPlateCFThickness) // bolt back face to motor mounts
+            backFaceHolePositions(left=true, z=-_backPlateThickness, cf=true)
                 vflip()
-                    explode(50, true)
-                        boltM3Countersunk(10);
-    }
+                    explode(50)
+                        boltM3Countersunk(6);
+        }
 
+    xyMotorMountTopHolePositions(left=true, z=eZ + _topPlateCoverThickness)
+        explode(20, true)
+            boltM3Buttonhead(12);
+    rotate([90, 0, 0])
+        xyMotorMountBackHolePositions(left=true, z= -eY - 2*eSizeY - _backPlateCFThickness) // bolt back face to motor mounts
+            vflip()
+                explode(50, true)
+                    boltM3Countersunk(10);
     translate_z(-eps) {
         stl_colour(pp2_colour)
             baseFeet(left=true);
@@ -148,9 +151,9 @@ staged_assembly("Stage_4_RB", big=true, ngb=true) {
     }
     topFaceLeftSideHolePositions(eZ + _topPlateCoverThickness)
         boltM3Buttonhead(12);
-    explode(-80)
-        baseLeftHolePositions(-_basePlateThickness)
-            vflip()
+    baseLeftHolePositions(-_basePlateThickness)
+        vflip()
+            explode(80)
                 boltM3Buttonhead(8);
 }
 
