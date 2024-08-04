@@ -51,8 +51,9 @@ module backFace(zNEMA_type, fullyEnclosed=false) {
         // add the bolt holes for attachment to the left and right faces
         backFaceLeftAndRightSideHolePositions(-_backPlateThickness)
             boltPolyholeM3Countersunk(2*_backPlateThickness + 1, sink=0.25);
-        backFaceBracketHolePositions(-_backPlateThickness)
+        backFaceBracketHolePositions(-_backPlateThickness, reversedBelts =_useReversedBelts)
             boltPolyholeM3Countersunk(2*_backPlateThickness + 1, sink=0.25);
+
         // extra bolt hole for compatibility with XY_MotorMountRB
         for (left = [true, false])
             xyMotorMountBackHolePositions(left,-_backPlateThickness)

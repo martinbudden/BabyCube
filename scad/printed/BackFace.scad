@@ -33,30 +33,30 @@ reinforcementThickness = 5;
 upperChordSize = [eSizeY, 50, eX + 2*eSizeX - 70]; // y was 25
 zRodOffsetX = (eX + 2*eSizeX - _zRodSeparation)/2;
 
-module backFaceLeftBracketHolePositions(z=0, cnc=false) {
+module backFaceLeftBracketHolePositions(z=0, reversedBelts=false) {
     for (x = [backFaceBracketLowerOffset().x])
         translate([x, backFaceBracketLowerOffset().y, z])
             children();
-    if (!cnc)
+    if (!reversedBelts)
         for (x = [backFaceBracketUpperOffset().x])
             translate([x, eZ - backFaceBracketUpperOffset().y, z])
                 children();
 }
 
-module backFaceRightBracketHolePositions(z=0, cnc=false) {
+module backFaceRightBracketHolePositions(z=0, reversedBelts=false) {
     for (x = [eX + 2*eSizeX - backFaceBracketLowerOffset().x])
         translate([x, backFaceBracketLowerOffset().y, z])
             children();
-    if (!cnc)
+    if (!reversedBelts)
         for (x = [eX + 2*eSizeX - backFaceBracketUpperOffset().x])
             translate([x, eZ - backFaceBracketUpperOffset().y, z])
                 children();
 }
 
-module backFaceBracketHolePositions(z=0, cnc=false) {
-    backFaceLeftBracketHolePositions(z=z, cnc=cnc)
+module backFaceBracketHolePositions(z=0, reversedBelts=false) {
+    backFaceLeftBracketHolePositions(z=z, reversedBelts=reversedBelts)
         children();
-    backFaceRightBracketHolePositions(z=z, cnc=cnc)
+    backFaceRightBracketHolePositions(z=z, reversedBelts=reversedBelts)
         children();
 }
 

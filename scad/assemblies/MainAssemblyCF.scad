@@ -46,7 +46,7 @@ staged_assembly("Stage_1_CF", big=true, ngb=true) {
                     vflip()
                         explode(50)
                             boltM3Buttonhead(10);
-                backFaceBracketHolePositions(-_backPlateCFThickness, cnc=true) // bolt back face to base bracket
+                backFaceBracketHolePositions(-_backPlateCFThickness, reversedBelts=true) // bolt back face to base bracket
                     vflip()
                         explode(50)
                             boltM3Buttonhead(10);

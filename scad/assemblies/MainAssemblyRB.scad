@@ -62,7 +62,7 @@ staged_assembly("Stage_2_RB", big=true, ngb=true) {
                     vflip()
                         explode(50)
                             boltM3Countersunk(6);
-                backFaceRightBracketHolePositions(-_backPlateThickness, cnc=true)
+                backFaceRightBracketHolePositions(-_backPlateThickness, reversedBelts=true)
                     vflip()
                         explode(50)
                             boltM3Countersunk(10);
@@ -117,7 +117,7 @@ staged_assembly("Stage_4_RB", big=true, ngb=true) {
 
     translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0])
-            backFaceLeftBracketHolePositions(-_backPlateThickness, cnc=true)
+            backFaceLeftBracketHolePositions(-_backPlateThickness, reversedBelts=true)
                 vflip()
                     explode(50)
                         boltM3Countersunk(10);
