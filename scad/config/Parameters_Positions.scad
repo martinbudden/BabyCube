@@ -24,7 +24,10 @@ function xPosAnimate(t) = eX/2 + t*100;
 function yPos(t) = t==-1 ? 0 : t<=3 ? (_yMin + _yMax)/2 : t<=5 ? _yMin  : _yMax;
 function yPosAnimate(t) = eY/2 + t*100;
 
-function carriagePosition(t=undef) = [is_undef(t) ? ($t > 1  ? xPos($t) : xPosAnimate($t)) : xPos(t), is_undef(t) ? ($t > 1  ? yPos($t) : yPosAnimate($t)) : yPos(t)];
+function carriagePosition(t=undef) = [
+    is_undef(t) ? ($t > 1  ? xPos($t) : xPosAnimate($t)) : xPos(t),
+    is_undef(t) ? ($t > 1  ? yPos($t) : yPosAnimate($t)) : yPos(t)
+];
 
 // Z-axis
 function zPos(t) = t==2 ? (_zMin + _zMax)/2 - 5 : t==7 ? _zMin : _zMax;
