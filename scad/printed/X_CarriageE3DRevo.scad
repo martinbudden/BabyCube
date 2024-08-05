@@ -115,7 +115,6 @@ module E3DRevoHolder(hotendDescriptor, size, fillet) {
         fillet(10, sizeSide.z);
 }
 
-
 module xCarriageE3DRevoMGN9C_hardware(hotendDescriptor) {
     xCarriageType = carriageType(_xCarriageDescriptor);
     hotendOffset = printheadHotendOffset(hotendDescriptor);
@@ -166,10 +165,10 @@ module xCarriageE3DRevoMGN9C_hardware(hotendDescriptor) {
         }
     }
     xCarriageE3DRevoCableTiePositions(xCarriageType)
-    translate([1, railCarriageGap() + 5.4, 0])
-        rotate([0, 90, -90])
-            if (!exploded())
-                cable_tie(cable_r = 3.5, thickness = 5.5);
+        translate([1, railCarriageGap() + 5.4, 0])
+            rotate([0, 90, -90])
+                if (!exploded())
+                    cable_tie(cable_r = 3.5, thickness = 5.5);
 
     xCarriageE3DRevoMGN9CZipTiePositions(size, hotendOffset)
         rotate(90)
@@ -250,6 +249,7 @@ module X_Carriage_E3DRevo_MGN9C_stl() {
             rotate([0, -90, 0])
                 xCarriageE3DRevoMGN9C("E3DRevo", inserts=false);
 }
+
 module X_Carriage_E3DRevo_MGN9C_hardware() {
     xCarriageE3DRevoMGN9C_hardware("E3DRevo");
 }
