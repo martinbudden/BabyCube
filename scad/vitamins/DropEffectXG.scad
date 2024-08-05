@@ -19,7 +19,7 @@ module DropEffectXG() {
             dropEffectImportStl("XG_Hotend_Nozzle");
         color(silver)
             dropEffectImportStl("XG_Hotend_Bracket");
-        color(silver)
+        color([0.7, 0.7, 0.7])
             dropEffectImportStl("XG_Hotend_Adaptor");
     }
 }
