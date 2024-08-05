@@ -11,6 +11,7 @@ use <../printed/FrontChords.scad>
 use <../printed/LeftAndRightFaceAssemblies.scad>
 use <../printed/PrintheadAssemblies.scad>
 use <../printed/PrintheadAssembliesE3DRevo.scad>
+use <../printed/PrintheadAssembliesDropEffectXG.scad>
 use <../printed/TopFaceAssemblies.scad>
 use <../printed/X_CarriageAssemblies.scad>
 
@@ -122,7 +123,7 @@ staged_assembly("Stage_4_RB", big=true, ngb=true) {
     explode([-300, 0, 25])
         Left_Face_assembly();
 
-    explode([-250, 0, 50], true, show_line=false)
+    explode([-200, 0, 50], true, show_line=false)
         baseCoverAssembly();
 
     translate([0, eY + 2*eSizeY, 0])
@@ -168,11 +169,11 @@ staged_assembly("Stage_5_RB", big=true, ngb=true) {
 
     Stage_4_RB_assembly();
 
-    explode(100)
-        CoreXYBelts(carriagePosition());
-    explode(100, true) {
+    explode([0, -75, 150], show_line=false)
+        not_on_bom()
+            CoreXYBelts(carriagePosition() + [25, 0]);
+    explode([0, -75, 150], true, show_line=false)
         printheadBeltSide(halfCarriage=_useHalfCarriage);
-    }
 }
 
 //!Bolt the BabyCube nameplate and the **Front_Lower_Chord** to the front of the frame.
@@ -207,12 +208,11 @@ staged_assembly("Stage_6_RB", big=true, ngb=true) {
                 boltM3Buttonhead(10);
 }
 
-module RB_FinalAssembly(test=false) {
+module RB_FinalAssembly(test=false, hotendDescriptor="E3DRevo") {
     assert(_useReversedBelts==true || test==true);
     assert(_useCNC==false || test==true);
     assert(holePositionsYRailShiftX==yRailShiftX());
 
-    hotendDescriptor = "E3DRevo";
     translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2]) {
         Stage_6_RB_assembly();
 
@@ -221,6 +221,8 @@ module RB_FinalAssembly(test=false) {
         explode(100, true)
             if (hotendDescriptor == "E3DRevo")
                 printheadHotendSideE3DRevo();
+            else if (hotendDescriptor == "DropEffectXG")
+                printheadHotendSideDropEffectXG();
         explode(150)
             bowdenTube(carriagePosition(), hotendDescriptor);
         explode([75, 0, 100])

@@ -18,11 +18,12 @@ module printheadBeltSide(rotate=0, explode=0, t=undef, halfCarriage=true) {
 
     xRailCarriagePosition(carriagePosition(t), rotate)
         explode(explode, true) {
-            explode([0, -20, 0], true)
-                if (halfCarriage)
-                    X_Carriage_Belt_Side_MGN9C_HC_assembly();
-                else
-                    X_Carriage_Belt_Side_MGN9C_assembly();
+            if (halfCarriage)
+                X_Carriage_Belt_Side_MGN9C_HC_assembly();
+            else if (_useReversedBelts)
+                X_Carriage_Belt_Side_MGN9C_RB_assembly();
+            else
+                X_Carriage_Belt_Side_MGN9C_assembly();
             xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = halfCarriage ? [ [1, -1], [-1, -1] ] : undef);
             xCarriageBeltClampAssembly(xCarriageType);
         }

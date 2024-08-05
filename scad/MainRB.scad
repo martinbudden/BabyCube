@@ -15,7 +15,7 @@ use <assemblies/MainAssemblyRB.scad>
 //
 module BC220_assembly(test=false) pose(a=[55, 0, 25])
 assembly("BC220", big=true) {
-    RB_FinalAssembly(test);
+    RB_FinalAssembly(test, "E3DRevo");
 }
 
 if ($preview)

@@ -9,6 +9,7 @@ use <X_Carriage.scad>
 use <X_CarriageBeltAttachment.scad>
 
 include <../config/Parameters_CoreXY.scad>
+include <../utils/CoreXYBelts.scad>
 
 xCarriageFrontSize = [30, 4, 40.5];
 function xCarriageBeltSideSize(xCarriageType, beltWidth) = 
@@ -80,12 +81,29 @@ module X_Carriage_Belt_Side_MGN9C_stl() {
                     xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, screwType=hs_cap, boreDepth=xCarriageBoreDepth(), halfCarriage=halfCarriage);
 }
 
+module X_Carriage_Belt_Side_MGN9C_RB_stl() {
+    xCarriageType = MGN9C_carriage;
+    extraX = xCarriageBeltAttachmentMGN9CExtraX();
+    size = xCarriageBeltSideSize(xCarriageType, beltWidth()) + [extraX, 0, 0];
+    holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
+    holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
+    beltsCenterZOffset = coreXYPosBL(_xyNEMA_width, carriageType(_yCarriageDescriptor)).z - eZ + yRailSupportThickness();
+    halfCarriage = false;
+
+    // orientate for printing
+    stl("X_Carriage_Belt_Side_MGN9C_RB")
+        color(pp4_colour)
+            translate([extraX/2, 0, 0])
+                rotate([90, 0, 180])
+                    xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, screwType=hs_cap, boreDepth=xCarriageBoreDepth(), halfCarriage=halfCarriage, reversedBelts=true);
+}
+
 //!Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the
 //!**X_Carriage_Belt_Side_MGN9C** part as shown. Note the belts are not shown in this diagram.
 //
 module X_Carriage_Belt_Side_MGN9C_HC_assembly()
 assembly("X_Carriage_Belt_Side_MGN9C_HC") {
-    xCarriageBeltSideMGN9CAssembly(halfCarriage=true);
+    xCarriageBeltSideMGN9CAssembly(halfCarriage=true, reversedBelts=false);
 }
 
 //!Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the
@@ -93,15 +111,27 @@ assembly("X_Carriage_Belt_Side_MGN9C_HC") {
 //
 module X_Carriage_Belt_Side_MGN9C_assembly()
 assembly("X_Carriage_Belt_Side_MGN9C") {
-    xCarriageBeltSideMGN9CAssembly(halfCarriage=false);
+    xCarriageBeltSideMGN9CAssembly(halfCarriage=false, reversedBelts=false);
 }
 
-module xCarriageBeltSideMGN9CAssembly(halfCarriage) {
+//!Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the
+//!**X_Carriage_Belt_Side_MGN9C** part as shown. Note the belts are not shown in this diagram.
+//
+module X_Carriage_Belt_Side_MGN9C_RB_assembly()
+assembly("X_Carriage_Belt_Side_MGN9C_RB") {
+    xCarriageBeltSideMGN9CAssembly(halfCarriage=false, reversedBelts=true);
+}
+
+module xCarriageBeltSideMGN9CAssembly(halfCarriage, reversedBelts) {
+    hidden()
+        CoreXYBelts([eX/2 + eSizeX, eY/2 + eSizeY]);
     translate([xCarriageBeltAttachmentMGN9CExtraX(), 0, 0])
         rotate([-90, 180, 0])
             stl_colour(pp4_colour)
                 if (halfCarriage)
                     X_Carriage_Belt_Side_MGN9C_HC_stl();
+                else if (reversedBelts)
+                    X_Carriage_Belt_Side_MGN9C_RB_stl();
                 else
                     X_Carriage_Belt_Side_MGN9C_stl();
 
@@ -145,9 +175,11 @@ module xCarriageBeltClampAssembly(xCarriageType) {
     size = xCarriageBeltSideSize(xCarriageType, beltWidth());
     translate([0, 5, beltsCenterZOffset])
         rotate([-90, 180, 0]) {
-            stl_colour(pp2_colour)
-                X_Carriage_Belt_Clamp_stl();
-            X_Carriage_Belt_Clamp_hardware(beltClampSize, countersunk=true);
+            explode(50, true) {
+                stl_colour(pp2_colour)
+                    X_Carriage_Belt_Clamp_stl();
+                X_Carriage_Belt_Clamp_hardware(beltClampSize, countersunk=true);
+            }
         }
 }
 
