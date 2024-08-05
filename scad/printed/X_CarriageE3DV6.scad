@@ -84,7 +84,7 @@ module xCarriageGroovemountMGN9CAssembly(halfCarriage) {
                 rotate([-90, 0, 0]) {
                     stl_colour(pp2_colour)
                         E3DV6_Fan_Duct_stl();
-                    Fan_Duct_hardware(xCarriageType, hotendDescriptor);
+                    Fan_Duct_hardware(blower_type);
                 }
 }
 

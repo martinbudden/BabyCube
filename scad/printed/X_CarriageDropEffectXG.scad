@@ -157,7 +157,7 @@ module X_Carriage_DropEffect_XG_MGN9C_hardware() {
             rotate(-90) {
                 stl_colour(pp2_colour)
                     DropEffectXG_Fan_Duct_stl();
-                Fan_Duct_hardware(xCarriageType, hotendDescriptor);
+                Fan_Duct_hardware(blower_type);
         }
     }
     xCarriageDropEffectXGCableTiePositions(xCarriageType)

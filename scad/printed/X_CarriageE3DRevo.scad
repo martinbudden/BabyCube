@@ -17,9 +17,7 @@ use <X_CarriageAssemblies.scad>
 use <X_CarriageFanDuct.scad>
 
 function xCarriageHotendSideE3DRevoSize(xCarriageType, beltWidth) = [xCarriageBeltSideSize(xCarriageType, beltWidth).x, 5, xCarriageBeltSideSize(xCarriageType, beltWidth).z];
-
-blowerOffsetZ = -1;
-
+function blowerOffsetZ(hotendDescriptor) = hotendDescriptor == "E3DRevo" ? -1 : -1;
 
 module xCarriageE3DRevoMGN9CZipTiePositions(size, hotendOffset) {
     zipTieCutoutSizeY = 5;
@@ -33,12 +31,13 @@ module xCarriageE3DRevoMGN9CZipTiePositions(size, hotendOffset) {
     }
 }
 
-module xCarriageE3DRevoMGN9C(inserts=false) {
+module xCarriageE3DRevoMGN9C(hotendDescriptor, inserts=false) {
     xCarriageType = MGN9C_carriage;
     size = xCarriageHotendSideE3DRevoSize(xCarriageType, beltWidth());
-    hotendDescriptor = "E3DRevo";
     hotendOffset = printheadHotendOffset(hotendDescriptor);
-    blower_type = BL30x10;
+    blower_type = hotendDescriptor == "E3DRevo" ? BL30x10 : BL40x10;
+    blowerOffsetZ = blowerOffsetZ(hotendDescriptor);
+
     fillet = 1;
     extraX = 4; // extend X_Carriage to cover hotend fan
 
@@ -47,18 +46,18 @@ module xCarriageE3DRevoMGN9C(inserts=false) {
             //xCarriageBack(xCarriageType, size, extraX, holeSeparationTop, holeSeparationBottom, strainRelief=false, countersunk=4, topHoleOffset=-xCarriageBeltAttachmentMGN9CExtraX()/2, accelerometerOffset = accelerometerOffset());
             xCarriageE3DRevoBack(xCarriageType, size, extraX, fillet);
             translate_z(hotendOffset.z)
-                E3DRevoHolder(xCarriageType, size, fillet);
+                E3DRevoHolder(hotendDescriptor, size, fillet);
         }
         zipTieCutoutSize = [9, 5, 2.25];
         xCarriageE3DRevoMGN9CZipTiePositions(size, hotendOffset)
             zipTieFullCutout(size=zipTieCutoutSize);
-        translate([-size.x/2, hotendOffset.y + 13, hotendOffset.z + blowerOffsetZ - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
+        translate([-size.x/2, hotendOffset.y + blower_width(blower_type)/2 - 2, hotendOffset.z + blowerOffsetZ - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
            rotate([90, 0, -90])
                 blower_hole_positions(blower_type)
                     vflip()
                         boltHoleM2Tap(7);
                 rotate(-90)
-                    fanDuctHolePositions()
+                    fanDuctHolePositions(blower_type)
                         rotate([90, 0, 0])
                             vflip()
                                 boltHoleM2Tap(7);
@@ -74,21 +73,18 @@ module xCarriageE3DRevoMGN9C(inserts=false) {
     }
 }
 
-module X_Carriage_E3DRevo_MGN9C_stl() {
-    stl("X_Carriage_E3DRevo_MGN9C")
-        color(pp1_colour)
-            xCarriageE3DRevoMGN9C(inserts=false);
-}
-
-module E3DRevoHolder(xCarriageType, size, fillet) {
-    hotendDescriptor = "E3DRevo";
+module E3DRevoHolder(hotendDescriptor, size, fillet) {
     hotendOffset = printheadHotendOffset(hotendDescriptor);
+    blowerOffsetZ = blowerOffsetZ(hotendDescriptor);
     fan_type = fan25x10;
 
     sizeTop = [size.x, hotendOffset.y + 8, xCarriageTopThickness()];
     difference() {
-        translate([-size.x/2, 10, 0])
+        translate([-size.x/2, 10, 0]) {
             rounded_cube_yz(sizeTop, fillet);
+            if (hotendDescriptor == "E3DRevo40")
+                rounded_cube_yz([7, sizeTop.y, sizeTop.z + 3], fillet);
+        }
         translate([hotendOffset.x, hotendOffset.y, 0]) {
             boltHoleM6(sizeTop.z, horizontal=true, rotate=90);
             revoVoronBoltPositions(sizeTop.z)
@@ -115,16 +111,16 @@ module E3DRevoHolder(xCarriageType, size, fillet) {
                             boltHole(fan_bore(fan_type), sizeFront.y, horizontal=true, rotate=180);
                     }
     }
-    translate([-size.x/2, 15, sizeTop.z - sizeSide.z])
+    translate([-size.x/2 + sizeSide.x, 15, sizeTop.z - sizeSide.z])
         fillet(10, sizeSide.z);
 }
 
 
-module X_Carriage_E3DRevo_MGN9C_hardware() {
+module xCarriageE3DRevoMGN9C_hardware(hotendDescriptor) {
     xCarriageType = carriageType(_xCarriageDescriptor);
-    hotendDescriptor = "E3DRevo";
     hotendOffset = printheadHotendOffset(hotendDescriptor);
-    blower_type = BL30x10;
+    blower_type = hotendDescriptor == "E3DRevo" ? BL30x10 : BL40x10;
+    blowerOffsetZ = blowerOffsetZ(hotendDescriptor);
     fan_type = fan25x10;
     size = xCarriageHotendSideE3DRevoSize(xCarriageType, beltWidth());
 
@@ -150,7 +146,7 @@ module X_Carriage_E3DRevo_MGN9C_hardware() {
                     }
                 }
     }
-    translate([-size.x/2, hotendOffset.y + 13, hotendOffset.z + blowerOffsetZ - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
+    translate([-size.x/2, hotendOffset.y + blower_width(blower_type)/2 - 2, hotendOffset.z + blowerOffsetZ - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
         rotate([90, 0, -90]) {
             explode(40, true, show_line=false) {
                 blower(blower_type);
@@ -162,8 +158,11 @@ module X_Carriage_E3DRevo_MGN9C_hardware() {
         explode(-40, true)
             rotate(-90) {
                 stl_colour(pp2_colour)
-                    E3DRevo_Fan_Duct_stl();
-                Fan_Duct_hardware(xCarriageType, hotendDescriptor);
+                    if (hotendDescriptor == "E3DRevo")
+                        E3DRevo_Fan_Duct_stl();
+                    else
+                        E3DRevo_Fan_Duct_40_stl();
+                Fan_Duct_hardware(blower_type);
         }
     }
     xCarriageE3DRevoCableTiePositions(xCarriageType)
@@ -176,12 +175,6 @@ module X_Carriage_E3DRevo_MGN9C_hardware() {
         rotate(90)
             if (!exploded())
                 cable_tie(cable_r = 2.5, thickness = 2.5);
-}
-
-module E3DRevo_Fan_Duct_stl() {
-    stl("E3DRevo_Fan_Duct")
-        color(pp2_colour)
-            fanDuct(16);
 }
 
 module xCarriageE3DRevoBack(xCarriageType, size, extraX, fillet) {
@@ -237,5 +230,37 @@ module xCarriageE3DRevoStrainRelief(carriageSize, xCarriageBackSize, fillet) {
                 translate([x - cutoutSize.x/2, -eps, -cutoutSize.z/2])
                     rounded_cube_yz(cutoutSize, 0.5);
     }
+}
+
+module E3DRevo_Fan_Duct_stl() {
+    stl("E3DRevo_Fan_Duct")
+        color(pp2_colour)
+            fanDuct(BL30x10, 16);
+}
+
+module E3DRevo_Fan_Duct_40_stl() {
+    stl("E3DRevo_Fan_Duct_40")
+        color(pp2_colour)
+            fanDuct(BL40x10, 16);
+}
+
+module X_Carriage_E3DRevo_MGN9C_stl() {
+    stl("X_Carriage_E3DRevo_MGN9C")
+        color(pp1_colour)
+            rotate([0, -90, 0])
+                xCarriageE3DRevoMGN9C("E3DRevo", inserts=false);
+}
+module X_Carriage_E3DRevo_MGN9C_hardware() {
+    xCarriageE3DRevoMGN9C_hardware("E3DRevo");
+}
+
+module X_Carriage_E3DRevo_40_MGN9C_stl() {
+    stl("X_Carriage_E3DRevo_MGN9C")
+        color(pp1_colour)
+            rotate([0, -90, 0])
+                xCarriageE3DRevoMGN9C("E3DRevo40", inserts=false);
+}
+module X_Carriage_E3DRevo_40_MGN9C_hardware() {
+    xCarriageE3DRevoMGN9C_hardware("E3DRevo40");
 }
 

@@ -12,8 +12,18 @@ module Printhead_E3DRevo_MGN9C_assembly() pose(a=[55, 0, 25 + 180])
 assembly("Printhead_E3DRevo_MGN9C", big=true) {
 
     stl_colour(pp1_colour)
-        X_Carriage_E3DRevo_MGN9C_stl();
+        rotate([0, 90, 0])
+            X_Carriage_E3DRevo_MGN9C_stl();
     X_Carriage_E3DRevo_MGN9C_hardware();
+}
+
+module Printhead_E3DRevo_40_MGN9C_assembly() pose(a=[55, 0, 25 + 180])
+assembly("Printhead_E3DRevo_40_MGN9C", big=true) {
+
+    stl_colour(pp1_colour)
+        rotate([0, 90, 0])
+            X_Carriage_E3DRevo_40_MGN9C_stl();
+    X_Carriage_E3DRevo_40_MGN9C_hardware();
 }
 
 module printheadHotendSideE3DRevo(rotate=0, explode=0, t=undef, accelerometer=false, boltLength=25) {
