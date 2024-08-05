@@ -103,7 +103,7 @@ module DropEffectXGHolder(hotendDescriptor, size, fillet) {
     translate([-size.x/2, 10, -27])
         rounded_cube_yz(sizeBaffle, 0.5);
     // fillet to divert airflow from hotend fan, limited in size to avoid interference with hotend bracket
-    translate([-size.x/2 + sizeSide.x, 15, hotendOffset.z - 27.5 + sizeBaffle.z + eps])
+    *translate([-size.x/2 + sizeSide.x, 15, hotendOffset.z - 27.5 + sizeBaffle.z + eps])
         fillet(4, 27.5 - hotendOffset.z + fillet);
 }
 
@@ -179,7 +179,12 @@ module xCarriageDropEffectXGBack(xCarriageType, size, extraX, fillet) {
 
     translate([-size.x/2, carriageSize.y/2, baseThickness]) {
         translate_z(-size.z) {
-            rounded_cube_yz(sizeX, fillet);
+            difference() {
+                rounded_cube_yz(sizeX, fillet);
+                // hotend fan exhaust outlet
+                translate([3, -eps, baseThickness + 14.5])
+                    cube([8, size.y + 2*eps, 15]);
+            }
             // extra extensions for bottom bolts
             rounded_cube_yz([size.x, size.y + 1, baseThickness], fillet);
         }
