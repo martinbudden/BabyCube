@@ -126,7 +126,7 @@ module E3DV6HotendHolder(xCarriageType, xCarriageBackSize, grooveMountSize, hote
                         vflip()
                             boltHoleM2Tap(blowerMountSize.x + 4);
                     rotate([-90, 0, 0])
-                        fanDuctHolePositions()
+                        fanDuctHolePositions(blower_type)
                             rotate([90, 0, 180])
                                 boltHoleM2Tap(blowerMountSize.x + 4);
                 }
