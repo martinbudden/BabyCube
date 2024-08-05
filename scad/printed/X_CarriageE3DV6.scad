@@ -91,5 +91,5 @@ module xCarriageGroovemountMGN9CAssembly(halfCarriage) {
 module E3DV6_Fan_Duct_stl() {
     stl("E3DV6_Fan_Duct")
         color(pp2_colour)
-            fanDuct(printheadHotendOffset("E3DV6").x);
+            fanDuct(BL30x10, printheadHotendOffset("E3DV6").x);
 }
