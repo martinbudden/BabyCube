@@ -65,7 +65,7 @@ module xCarriageE3DRevoMGN9C(hotendDescriptor, inserts=false) {
         translate([0, -railCarriageGap(), 0])
             xCarriageHotendSideHolePositions(xCarriageType)
                 if (inserts) {
-                    insertHoleM3(size.y, horizontal=true);
+                    insertHoleM3(size.y, horizontal=true, rotate=180);
                 } else {
                     //boltHoleM3Tap(size.y, horizontal=true, rotate=180);
                     boltHoleM3Tap(size.y + 1, horizontal=true, rotate=180, chamfer_both_ends=false);
@@ -86,9 +86,9 @@ module E3DRevoHolder(hotendDescriptor, size, fillet) {
                 rounded_cube_yz([7, sizeTop.y, sizeTop.z + 3], fillet);
         }
         translate([hotendOffset.x, hotendOffset.y, 0]) {
-            boltHoleM6(sizeTop.z, horizontal=true, rotate=90);
+            boltHoleM6(sizeTop.z, horizontal=true, rotate=-90);
             revoVoronBoltPositions(sizeTop.z)
-                rotate([180, 0, -90])
+                rotate([180, 0, 90])
                     boltHoleM2p5Counterbore(sizeTop.z, boreDepth=2, horizontal=true);
         }
     }
@@ -97,19 +97,39 @@ module E3DRevoHolder(hotendDescriptor, size, fillet) {
     translate([-size.x/2, 10, xCarriageTopThickness() - sizeSide.z])
         rounded_cube_yz(sizeSide, fillet);
 
-    sizeFront = [size.x, 3, 36];
+    sizeFront = [size.x, 3, 34];
     difference() {
-        translate([size.x/2 - sizeFront.x, sizeTop.y + 2, sizeTop.z - sizeFront.z])
-            rounded_cube_yz(sizeFront, fillet);
-        translate([hotendOffset.x, hotendOffset.y, 0])
+        indentY = 3;
+        translate([size.x/2 - sizeFront.x, sizeTop.y + 2+1, sizeTop.z - sizeFront.z]) {
+            rounded_cube_yz(sizeFront, 0.5);
+            // baffle for fan exhaust
+           translate([0, -indentY, 0]) {
+                rounded_cube_yz([sizeFront.x, sizeFront.y + indentY, 2], 0.5);
+                fillet = 5;
+                cube([sizeBaffle.x + fillet, 2, 2]);
+                translate([sizeBaffle.x, 0, 0])
+                    rotate(-90)
+                        fillet(fillet, 2);
+            }
+        }
+        translate([hotendOffset.x, hotendOffset.y + 1, 0])
             rotate(-90)
-                translate([-18, 0, -14])
+                translate([-18, 0, -13])
                     rotate([0, 90, 0]) {
                         fan_hole_positions(fan_type)
-                            boltHoleM3Tap(sizeFront.y, horizontal=true, rotate=180);
+                            boltHoleM3Tap(sizeFront.y, horizontal=true);
                         translate_z(fan_depth(fan_type)/2)
-                            boltHole(fan_bore(fan_type), sizeFront.y, horizontal=true, rotate=180);
+                            boltHole(fan_bore(fan_type), sizeFront.y + indentY, horizontal=true, chamfer=0.5);
                     }
+    }
+    sizeBaffle = [7, sizeTop.y - 7, 2];
+    translate([-size.x/2, 10, -26]) {
+        rounded_cube_yz(sizeBaffle, 0.5);
+        rounded_cube_yz([sizeTop.x, 10, sizeBaffle.z], 0.5);
+        fillet = 5;
+        cube([sizeBaffle.x + fillet, 10, sizeBaffle.z]);
+        translate([sizeBaffle.x, 10, 0])
+            fillet(fillet, sizeBaffle.z);
     }
     translate([-size.x/2 + sizeSide.x, 15, sizeTop.z - sizeSide.z])
         fillet(10, sizeSide.z);
@@ -135,8 +155,8 @@ module xCarriageE3DRevoMGN9C_hardware(hotendDescriptor) {
                 translate_z(xCarriageTopThickness())
                     bowden_connector();
         }
-        rotate(-90)
-            translate([-17, 0, -14])
+      rotate(-90)
+            translate([-19, 0, -13])
                 rotate([0, -90, 0]) {
                     explode(40, true, show_line=false) {
                         fan(fan_type);
@@ -154,8 +174,8 @@ module xCarriageE3DRevoMGN9C_hardware(hotendDescriptor) {
                         boltM2Caphead(6);
             }
         }
-        explode(-40, true)
-            rotate(-90) {
+        rotate(-90)
+            explode([0, -40, -10], true) {
                 stl_colour(pp2_colour)
                     if (hotendDescriptor == "E3DRevo")
                         E3DRevo_Fan_Duct_stl();
