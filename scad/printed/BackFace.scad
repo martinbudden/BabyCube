@@ -6,7 +6,6 @@ use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/sk_brackets.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
-include <../utils/bezierTube.scad>
 include <../utils/carriageTypes.scad>
 include <../utils/cutouts.scad>
 include <../utils/diagonal.scad>
@@ -15,7 +14,6 @@ include <../utils/motorTypes.scad>
 
 include <../vitamins/cables.scad>
 
-use <X_CarriageAssemblies.scad>
 include <Z_MotorMount.scad>
 
 include <../config/Parameters_Main.scad>
