@@ -18,6 +18,7 @@ module printheadHotendSideDropEffectXG(rotate=0, explode=0, t=undef, acceleromet
     boreDepth = xCarriageBoreDepth();
 
     printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
-        Printhead_DropEffect_XG_MGN9C_assembly();
+        translate([0, 0.46, 0])
+            Printhead_DropEffect_XG_MGN9C_assembly();
 }
 
