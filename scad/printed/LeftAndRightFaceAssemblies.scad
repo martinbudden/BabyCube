@@ -7,6 +7,7 @@ include <../vitamins/cables.scad>
 use <../vitamins/extruder.scad>
 
 
+function rightFaceFanPosition(fan, offset) = [eX + 2*eSizeX - fan_depth(fan)/2 + offset.x, fan_width(fan)/2 + offset.y, fan_width(fan)/2 + eSizeZ];
 
 module Left_Face_stl() {
     stl("Left_Face")
@@ -127,6 +128,22 @@ assembly("Left_Face", big=true) {
     }
 }
 
+module rightFaceFan(fan, offset, boltOffset=_sidePlateThickness) {
+    translate(rightFaceFanPosition(fan, offset))
+       rotate([0, 90, 0]) {
+            explode(-40)
+                fan(fan);
+            fan_hole_positions(fan) {
+                translate_z(boltOffset)
+                    boltM3Buttonhead(screw_longer_than(fan_depth(fan) + nut_thickness(M3_nut) + boltOffset));
+                translate_z(-fan_depth(fan))
+                    vflip()
+                        explode(50, true)
+                            nut(M3_nut);
+            }
+        }
+}
+
 module IEC_hardware() {
     translate(iecPosition())
         rotate([0, 90, 0]) {
@@ -227,4 +244,9 @@ module Right_Face_assembly()
 assembly("Right_Face") {
     Right_Face_Stage_1_assembly();
     rightFaceAssembly(_xyNEMA_width);
+
+    /*fan = fan30x10;
+    faceThickness = 1;
+    fanOffset = [-faceThickness, eSizeY + 50];
+    rightFaceFan(fan, fanOffset, boltOffset=faceThickness);*/
 }
