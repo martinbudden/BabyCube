@@ -12,7 +12,7 @@ include <../utils/StagedAssembly.scad>
 include <BackFace.scad>
 use <Printbed.scad>
 use <Printbed3point.scad>
-include <XY_Motors.scad>
+include <XY_Motors.scad>// for xyMotorMountBackHolePositions
 include <Z_MotorMount.scad>
 
 include <../config/Parameters_CoreXY.scad>
