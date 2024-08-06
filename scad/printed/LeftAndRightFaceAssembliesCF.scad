@@ -1,12 +1,9 @@
-include <../config/global_defs.scad>
+include <LeftAndRightFaceAssemblies.scad>
 
-include <NopSCADlib/core.scad>
-use <NopSCADlib/utils/fillet.scad>
 use <NopSCADlib/vitamins/psu.scad> // for psu_grill
 include <NopSCADlib/vitamins/sheets.scad>
 include <NopSCADlib/vitamins/fans.scad>
 
-include <LeftAndRightFaceAssemblies.scad>
 use <SpoolHolderExtras.scad>
 
 include <../config/Parameters_CoreXY.scad>

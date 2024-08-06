@@ -1,13 +1,11 @@
-include <../config/global_defs.scad>
+include <LeftAndRightFaces.scad>
 
-include <NopSCADlib/utils/core/core.scad>
 include <NopSCADlib/vitamins/cameras.scad>
 use <NopSCADlib/vitamins/pcb.scad>
 
 include <../vitamins/cables.scad>
 use <../vitamins/extruder.scad>
 
-include <LeftAndRightFaces.scad>
 
 
 module Left_Face_stl() {
