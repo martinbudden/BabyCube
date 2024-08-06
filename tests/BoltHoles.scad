@@ -9,9 +9,10 @@ include <NopSCADlib/vitamins/screws.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
 use <../scad/printed/Base.scad>
 use <../scad/printed/FrontChords.scad>
+use <../scad/printed/FrontFace.scad>
 use <../scad/printed/LeftAndRightFaces.scad>
 use <../scad/printed/LeftAndRightFaceAssemblies.scad>
-use <../scad/printed/TopFace.scad>
+use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
 use <../scad/printed/TopFaceAssemblies.scad>
 
 include <../scad/utils/HolePositions.scad>
@@ -84,7 +85,57 @@ module BoltHole_test() {
 
 }
 
-if ($preview) {
-    let($hide_bolts=true)
-    BoltHole_test();
+module BoltHole_CF_test() {
+    Back_Face_Top_Joiner_stl();
+    rotate([90, 0, 90])
+        Back_Face_Left_Joiner_stl();
+    translate([eX + 2*eSizeX + eps, 0, 0])
+        rotate([-90, 0, 90])
+            Back_Face_Right_Joiner_stl();
+
+    Base_Front_Joiner_stl();
+    rotate([90, 0, 90])
+        Base_Left_Joiner_stl();
+    translate([eX + 2*eSizeX, 0, 0])
+        rotate([-90, 0, 90])
+            Base_Right_Joiner_stl();
+
+    Top_Face_Front_Joiner_stl();
+    rotate([90, 0, 90])
+        Top_Face_Left_Joiner_stl();
+    translate([eX + 2*eSizeX + eps, 0, 0])
+        rotate([-90, 0, 90])
+            Top_Face_Right_Joiner_stl();
+
+    BaseAL();
+
+    translate([0, eY + 2*eSizeY + eps, 0])
+        rotate([90, 0, 0]) {
+            Back_Face_CF();
+            translate([eX/2 + eSizeX, 0, _zLeadScrewOffset])
+                rotate([90, -90, 0])
+                    stl_colour(pp2_colour)
+                        Z_Motor_Mount_stl();
+        }
+
+    rotate([90, 0, 90])
+      Left_Face_CF();
+
+    translate([eX + 2*eSizeX + eps, 0, 0])
+        rotate([90, 0, 90])
+            Right_Face_CF();
+
+    translate_z(eZ - _topPlateThickness + eps)
+        Top_Face_CF();
+
+    rotate([90, 0, 0])
+        Front_Face_CF();
 }
+
+
+if ($preview)
+    if (_useCNC)
+        BoltHole_CF_test();
+    else
+        BoltHole_test();
+

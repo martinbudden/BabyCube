@@ -6,7 +6,6 @@ include <../scad/utils/printParameters.scad>
 
 use <../scad/Main.scad>
 use <../scad/assemblies/MainAssembly.scad>
-use <../scad/assemblies/MainAssemblyCF.scad>
 
 
 //$explode = 1;
@@ -15,7 +14,6 @@ module Main_test() {
     echoPrintSize();
     echoPrintParameters();
 
-    //Stage_1_CF_assembly();
     //Stage_1_assembly();
     //Stage_2_assembly();
     //Stage_3_assembly();

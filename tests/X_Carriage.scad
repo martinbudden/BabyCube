@@ -19,6 +19,7 @@ module X_Carriage_test() {
     //echo(fho150=railFirstHoleOffset(MGN9, 150));
     //echo(fho200=railFirstHoleOffset(MGN9, 200));
     halfCarriage = !true;
+    reversedBelts = true;
 
     xCarriageType = carriageType(_xCarriageDescriptor);
 
@@ -26,6 +27,8 @@ module X_Carriage_test() {
     //X_Carriage_assembly();
     if (halfCarriage)
         X_Carriage_Belt_Side_MGN9C_HC_assembly();
+    else if(reversedBelts)
+        X_Carriage_Belt_Side_MGN9C_RB_assembly();
     else
         X_Carriage_Belt_Side_MGN9C_assembly();
     translate([xCarriageBeltAttachmentMGN9CExtraX()/2, 0, 0])
@@ -50,6 +53,5 @@ module X_Carriage_test() {
 //xCarriageBeltAttachment( [21, 19.95, 34], beltWidth(), beltSeparation(), cutoutOffsetY=1);
 //X_Carriage_Belt_Side_MGN9C_stl();
 //let($hide_bolts=true)
-//X_Carriage_Belt_Side_MGN9C_assembly();
 if ($preview)
     X_Carriage_test();

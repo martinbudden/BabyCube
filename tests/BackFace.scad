@@ -10,10 +10,8 @@ use <../scad/printed/BackFaceAssemblies.scad>
 //use <../scad/printed/LeftAndRightFaceAssembliesCF.scad>
 
 //use <../scad/printed/TopFaceAssemblies.scad>
-use <../scad/printed/Printbed.scad>
-use <../scad/printed/Printbed3point.scad>
-use <../scad/printed/PrintheadAssemblies.scad>
-use <../scad/printed/PrintheadAssembliesE3DV6.scad>
+//use <../scad/printed/Printbed.scad>
+//use <../scad/printed/Printbed3point.scad>
 use <../scad/utils/printParameters.scad>
 
 use <../scad/config/Parameters_Positions.scad>

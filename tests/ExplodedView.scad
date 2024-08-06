@@ -42,7 +42,7 @@ module Exploded_View_test(full=true) {
         if (full) {
             Top_Face_assembly();
             printheadHotendSideE3DV6(explode=100);
-            printheadBeltSide(explode=100);
+            printheadBeltSide(explode=100, reversedBelts=_useReversedBelts);
         } else {
             Top_Face_Stage_1_assembly();
         }

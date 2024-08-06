@@ -29,17 +29,20 @@ include <../scad/utils/CoreXYBelts.scad>
 module Printhead_test() {
     echoPrintSize();
     xCarriageType = carriageType(_xCarriageDescriptor);
+    //X_Carriage_E3DRevo_MGN9C_stl();
+    //Printhead_E3DRevo_MGN9C_assembly();
+    //Printhead_E3DRevo_40_MGN9C_assembly();
 
     //E3DRevoVoron();
     //let($hide_bolts=true)
     translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
-        //printheadBeltSide(halfCarriage=false);
+        //printheadBeltSide(halfCarriage=false, reversedBelts=true);
         printheadHotendSideE3DRevo(boltLength=0);
         //printheadHotendSideE3DV6(halfCarriage=false, noPrinthead=true, boltLength=0);
         //CoreXYBelts(carriagePosition(), x_gap=2);
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         //bowdenTube(carriagePosition(), "E3DRevo");
-        printheadWiring(carriagePosition(), "E3DRevo",  backFaceZipTiePositions());
+        //printheadWiring(carriagePosition(), "E3DRevo",  backFaceZipTiePositions());
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();
