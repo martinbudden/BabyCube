@@ -153,7 +153,7 @@ staged_assembly("Stage_5", big=true, ngb=true) {
     explode(100)
         CoreXYBelts(carriagePosition());
     explode(100, true) {
-        printheadBeltSide(halfCarriage=_useHalfCarriage);
+        printheadBeltSide(halfCarriage=_useHalfCarriage, reversedBelts=_useReversedBelts);
     }
 }
 

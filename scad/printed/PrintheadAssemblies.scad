@@ -13,14 +13,14 @@ include <../config/Parameters_Main.scad>
 use <../config/Parameters_Positions.scad>
 
 
-module printheadBeltSide(rotate=0, explode=0, t=undef, halfCarriage=true) {
+module printheadBeltSide(rotate=0, explode=0, t=undef, halfCarriage=true, reversedBelts=false) {
     xCarriageType = MGN9C_carriage;
 
     xRailCarriagePosition(carriagePosition(t), rotate)
         explode(explode, true) {
             if (halfCarriage)
                 X_Carriage_Belt_Side_MGN9C_HC_assembly();
-            else if (_useReversedBelts)
+            else if (reversedBelts)
                 X_Carriage_Belt_Side_MGN9C_RB_assembly();
             else
                 X_Carriage_Belt_Side_MGN9C_assembly();

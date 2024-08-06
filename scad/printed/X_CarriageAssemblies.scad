@@ -95,30 +95,51 @@ module X_Carriage_Belt_Side_MGN9C_RB_stl() {
         color(pp4_colour)
             translate([extraX/2, 0, 0])
                 rotate([90, 0, 180])
-                    xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, screwType=hs_cap, boreDepth=xCarriageBoreDepth(), halfCarriage=halfCarriage, reversedBelts=true);
+                    xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, screwType=hs_cap, boreDepth=xCarriageBoreDepth(), halfCarriage=halfCarriage, reversedBelts=true,endCube=true);
 }
 
-//!Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the
-//!**X_Carriage_Belt_Side_MGN9C** part as shown. Note the belts are not shown in this diagram.
+//!1. Insert the belts into the **X_Carriage_Belt_Tensioner**s.
+//!2. Bolt the tensioners into the **X_Carriage_Belt_Side_MGN9C** part as shown.
+//!
+//!Note: it may be a tight fit to insert the **X_Carriage_Belt_Tensioner**s into the **X_Carriage_Belt_Side_MGN9C**.
+//!It may be necessary to use a small file to file the slots in the X_Carriage. This is especially the case with the tops
+//!of the slots - these are printed using bridging and depending on how well your printer does bridging, so adjustemnt
+//!may be required.
+//!
+//! Note: for clarity, only a segment of the belts are shown in this diagram.
 //
 module X_Carriage_Belt_Side_MGN9C_HC_assembly()
-assembly("X_Carriage_Belt_Side_MGN9C_HC") {
+assembly("X_Carriage_Belt_Side_MGN9C_HC", big=true) {
     xCarriageBeltSideMGN9CAssembly(halfCarriage=true, reversedBelts=false);
 }
 
-//!Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the
-//!**X_Carriage_Belt_Side_MGN9C** part as shown. Note the belts are not shown in this diagram.
+//!1. Insert the belts into the **X_Carriage_Belt_Tensioner**s.
+//!2. Bolt the tensioners into the **X_Carriage_Belt_Side_MGN9C** part as shown.
+//!
+//!Note: it may be a tight fit to insert the **X_Carriage_Belt_Tensioner**s into the **X_Carriage_Belt_Side_MGN9C**.
+//!It may be necessary to use a small file to file the slots in the X_Carriage. This is especially the case with the tops
+//!of the slots - these are printed using bridging and depending on how well your printer does bridging, so adjustemnt
+//!may be required.
+//!
+//! Note: for clarity, only a segment of the belts are shown in this diagram.
 //
 module X_Carriage_Belt_Side_MGN9C_assembly()
-assembly("X_Carriage_Belt_Side_MGN9C") {
+assembly("X_Carriage_Belt_Side_MGN9C", big=true) {
     xCarriageBeltSideMGN9CAssembly(halfCarriage=false, reversedBelts=false);
 }
 
-//!Insert the belts into the **X_Carriage_Belt_Tensioner**s and then bolt the tensioners into the
-//!**X_Carriage_Belt_Side_MGN9C** part as shown. Note the belts are not shown in this diagram.
+//!1. Insert the belts into the **X_Carriage_Belt_Tensioner**s.
+//!2. Bolt the tensioners into the **X_Carriage_Belt_Side_MGN9C** part as shown.
+//!
+//!Note: it may be a tight fit to insert the **X_Carriage_Belt_Tensioner**s into the **X_Carriage_Belt_Side_MGN9C**.
+//!It may be necessary to use a small file to file the slots in the X_Carriage. This is especially the case with the tops
+//!of the slots - these are printed using bridging and depending on how well your printer does bridging, so adjustemnt
+//!may be required.
+//!
+//! Note: for clarity, only a segment of the belts are shown in this diagram.
 //
 module X_Carriage_Belt_Side_MGN9C_RB_assembly()
-assembly("X_Carriage_Belt_Side_MGN9C_RB") {
+assembly("X_Carriage_Belt_Side_MGN9C_RB", big=true) {
     xCarriageBeltSideMGN9CAssembly(halfCarriage=false, reversedBelts=true);
 }
 
@@ -141,7 +162,7 @@ module xCarriageBeltSideMGN9CAssembly(halfCarriage, reversedBelts) {
                 beltsCenterZOffset
             ];
     boltLength = 30;
-    translate(offset) {
+    /*translate(offset) {
         translate_z((beltSeparation() + beltWidth())/2)
             rotate([0, 0, 180]) {
                 explode([-40, 0, 0])
@@ -156,6 +177,44 @@ module xCarriageBeltSideMGN9CAssembly(halfCarriage, reversedBelts) {
                         X_Carriage_Belt_Tensioner_stl();
                 X_Carriage_Belt_Tensioner_hardware(beltTensionerSize, boltLength, xCarriageFrontSize.x/2 + offset.x);
             }
+    }*/
+    translate(offset) {
+        zOffset = (beltSeparation() + beltWidth())/2;
+        if (reversedBelts) {
+            translate([0, 0, -zOffset]) // -1.0 to -1.2
+                rotate([0, 180, 0]) {
+                    explode([-40, 0, 0], true, show_line=false) {
+                        stl_colour(pp2_colour)
+                            X_Carriage_Belt_Tensioner_RB_stl();
+                    mirror([0, 1, 0])
+                        X_Carriage_Belt_Tensioner_hardware(beltTensionerSize, boltLength, xCarriageFrontSize.x/2 + offset.x, upper=false);
+                    }
+                }
+            translate([-2*offset.x + xCarriageBeltAttachmentMGN9CExtraX(), 0, zOffset]) // 1.0 to 1.2
+                rotate([0, 0, 0]) {
+                    explode([-40, 0, 0], true, show_line=false) {
+                        stl_colour(pp2_colour)
+                            X_Carriage_Belt_Tensioner_RB_stl();
+                        mirror([0, 1, 0])
+                            X_Carriage_Belt_Tensioner_hardware(beltTensionerSize, boltLength, xCarriageFrontSize.x/2 + offset.x, upper=true);
+                    }
+                }
+        } else {
+            translate([0, 0, zOffset]) // 0.75 to 0.95
+                rotate([0, 0, 180]) {
+                    explode([-40, 0, 0])
+                        stl_colour(pp2_colour)
+                            X_Carriage_Belt_Tensioner_stl();
+                    X_Carriage_Belt_Tensioner_hardware(beltTensionerSize, boltLength, xCarriageFrontSize.x/2 + offset.x, upper=true);
+                }
+            translate([-2*offset.x + xCarriageBeltAttachmentMGN9CExtraX(), 0, -zOffset]) // -0.75 to -0.95
+                rotate([180, 0, 0]) {
+                    explode([-40, 0, 0])
+                        stl_colour(pp2_colour)
+                            X_Carriage_Belt_Tensioner_stl();
+                    X_Carriage_Belt_Tensioner_hardware(beltTensionerSize, boltLength, xCarriageFrontSize.x/2 + offset.x, upper=false);
+                }
+        }
     }
 }
 
@@ -163,6 +222,13 @@ module X_Carriage_Belt_Tensioner_stl() {
     stl("X_Carriage_Belt_Tensioner")
         color(pp2_colour)
             xCarriageBeltTensioner(xCarriageBeltTensionerSize(beltWidth(), xCarriageBeltTensionerSizeX));
+}
+
+module X_Carriage_Belt_Tensioner_RB_stl() {
+    stl("X_Carriage_Belt_Tensioner_RB")
+        color(pp2_colour)
+            mirror([0, 1, 0])
+                xCarriageBeltTensioner(xCarriageBeltTensionerSize(beltWidth(), xCarriageBeltTensionerSizeX));
 }
 
 module X_Carriage_Belt_Clamp_stl() {
@@ -173,7 +239,7 @@ module X_Carriage_Belt_Clamp_stl() {
 
 module xCarriageBeltClampAssembly(xCarriageType) {
     size = xCarriageBeltSideSize(xCarriageType, beltWidth());
-    translate([0, 5, beltsCenterZOffset])
+    translate([0, 6, beltsCenterZOffset])
         rotate([-90, 180, 0]) {
             explode(50, true) {
                 stl_colour(pp2_colour)

@@ -173,7 +173,7 @@ staged_assembly("Stage_5_RB", big=true, ngb=true) {
         not_on_bom()
             CoreXYBelts(carriagePosition() + [25, 0]);
     explode([0, -75, 150], true, show_line=false)
-        printheadBeltSide(halfCarriage=_useHalfCarriage);
+        printheadBeltSide(halfCarriage=false, reversedBelts=true);
 }
 
 //!Bolt the BabyCube nameplate and the **Front_Lower_Chord** to the front of the frame.

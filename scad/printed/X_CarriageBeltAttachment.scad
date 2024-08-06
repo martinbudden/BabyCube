@@ -3,6 +3,7 @@ include <../vitamins/bolts.scad>
 use <NopSCADlib/utils/core_xy.scad>
 use <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/rails.scad>
+include <NopSCADlib/vitamins/belts.scad>
 use <NopSCADlib/vitamins/pcb.scad>
 
 use <X_Carriage.scad>
@@ -103,10 +104,55 @@ module xCarriageBeltTensioner(size) {
     }
 }
 
-module X_Carriage_Belt_Tensioner_hardware(size, boltLength=40, offset=0) {
+/*module beltSegment() {
+    path = [ 
+        [30,  -2.6, 0],
+        [-2.75, -2.1, 0.5],
+        [-3.75,  -0.5, -0.5],
+        [-18,  0, 0]
+    ];
+    belt(GT2x6, path, open = true, tooth_colour=grey(90));
+}*/
+module beltSegment(belt_colour, tooth_colour) {
+    r = 1.5;
+/*    
+    y = -2.4;
+    yOffset = 3.8;
+    x = -3.3;
+    path = [
+        [30,    y + yOffset,     0],
+        [x + r, y + r + yOffset, r],
+        [x,     y/2 + yOffset,   0],
+        [x - r, -r + yOffset,   -r],
+        [-18,   yOffset,         0],   
+    ];
+*/    
+    y = -2.4;
+    y0 = 3.8;
+    y1 = 1.4;
+    x = -3.3;
+    path = [
+        [30,    y1,          0],
+        [x + r, y1 + r,      r],
+        [x,     (y1 + y0)/2, 0],
+        [x - r, y0 - r,     -r],
+        [-18,   y0,          0],   
+    ];
+    belt(GT2x6, path, open=true, belt_colour=belt_colour, tooth_colour=tooth_colour);
+}
+
+
+module X_Carriage_Belt_Tensioner_hardware(size, boltLength=40, offset=0, upper=undef) {
+    if (!is_undef(upper))
+        translate_z(eps)
+            mirror([1, 0, 0])
+                explode(20)
+                    not_on_bom()
+                        beltSegment(belt_colour=upper ? [0, 0, 1] : [0, 1, 0], tooth_colour=upper ? [0, 0, 0.5, 1] : [0, 0.5, 0, 1]);
+
     translate(xCarriageBeltTensionerBoltOffset(offset))
         rotate([90, 0, 90])
-            explode(10, true)
+            explode(50, true)
                 washer(M3_washer)
                     boltM3Caphead(boltLength);
 }
