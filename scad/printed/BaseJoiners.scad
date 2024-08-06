@@ -105,42 +105,41 @@ module Base_Right_Joiner_stl() {
 
 module baseCover(baceCoverCenterHolePosY, cf=true) {
     sizeCenterPillar = [eSizeXBase - _sidePlateThickness, 5, baseCoverOutsideHeight];
-    size = [eX + 2*eSizeX - 2*_sidePlateThickness, baceCoverCenterHolePosY() + sizeCenterPillar.y/2, baseCoverOutsideHeight - baseCoverInsideHeight];
+    size = [eX + 2*eSizeX, baceCoverCenterHolePosY() + sizeCenterPillar.y/2, baseCoverOutsideHeight - baseCoverInsideHeight];
     tolerance = 0;
-    xOffset = cf ? tolerance : 1 + tolerance;
-    sizeBack = [eX + 2*eSizeX - 2*tolerance - (cf ? 2*_sidePlateThickness : eSizeX), 3, baseCoverOutsideHeight - eSizeZ];
     fillet = 1;
-
     translate_z(eps)
     difference() {
         union() {
-            translate([_sidePlateThickness, -size.y, 0]) {
+            translate([0, -size.y, 0]) {
+                xOffset = cf ? _sidePlateThickness + tolerance : _webThickness + tolerance;
+                sizeBack = [size.x - 2*xOffset, 3, baseCoverOutsideHeight - eSizeZ];
                 translate([xOffset, 0, 0]) {
-                    rounded_cube_xy(size - [2*xOffset - (cf ? 0 : 0.5), eSizeY + tolerance + (cf ? _frontPlateCFThickness : 0), 0], fillet);
-                    rounded_cube_xy(sizeBack + [cf ? 0 : 0.5, 0, 0], fillet);
+                    rounded_cube_xy([size.x - 2*xOffset, size.y - eSizeY - tolerance - (cf ? _frontPlateCFThickness : 0), size.z], fillet);
+                    rounded_cube_xy(sizeBack, fillet);
                 }
-                xOffset2 = cf ? eSizeX - _sidePlateThickness + tolerance : eSizeXBase + 23 + tolerance;
-                translate([xOffset2, 0, 0])
-                    rounded_cube_xy([eX - (cf ? tolerance : 2*xOffset2 - eSizeXBase), size.y - (cf ? _frontPlateCFThickness : 4), size.z], fillet);
 
+                xOffset2 = cf ? eSizeX + tolerance : eSizeXBase + 20 + tolerance;
+                translate([xOffset2, 0, 0])
+                    rounded_cube_xy([eX - (cf ? tolerance : 2*xOffset2 - eSizeXBase), size.y - (cf ? _frontPlateCFThickness : _webThickness), size.z], fillet);
 
                 sizeBack2 = [size.x - 4*eSizeX, sizeBack.y, baseCoverOutsideHeight];
                 translate([(size.x - sizeBack2.x)/2, 0, 0])
                     rounded_cube_xy(sizeBack2, fillet);
 
                 sizePillar = [eSizeXBase - _sidePlateThickness, eSizeY, sizeBack.z];
-                translate([sizePillar.x + xOffset, 0, 0]) {
+                translate([xOffset, 0, 0]) {
                     rounded_cube_xy(sizePillar, fillet);
                     translate([0, sizeBack.y, 0])
                         fillet(2, sizePillar.z);
                 }
-                translate([sizeBack.x - sizePillar.x - tolerance + (cf ? 0: 1.5), 0, 0]) {
+                translate([size.x - xOffset - sizePillar.x, 0, 0]) {
                     rounded_cube_xy(sizePillar, fillet);
                     translate([0, sizeBack.y, 0])
                         rotate(90)
                             fillet(2, sizePillar.z);
                 }
-                translate([-_sidePlateThickness + eX/2 + eSizeX - sizeCenterPillar.x/2, 0, 0]) {
+                translate([size.x/2 - sizeCenterPillar.x/2, 0, 0]) {
                     rounded_cube_xy(sizeCenterPillar, fillet);
                     translate([sizeCenterPillar.x, sizeBack.y, 0])
                         fillet(1, sizeCenterPillar.z);
@@ -150,11 +149,11 @@ module baseCover(baceCoverCenterHolePosY, cf=true) {
                 }
             }
         }// end union
-        for (x = [cf ? _sidePlateThickness + 3.5 : 7, eX + 2*eSizeX - (cf ? _sidePlateThickness + 3.5 : 7)])
+        for (x = [cf ? _sidePlateThickness + 3.5 : 7, size.x - (cf ? _sidePlateThickness + 3.5 : 7)])
             translate([x, -3*eSizeY/2 - (cf ? _frontPlateCFThickness : 0), 0])
                 boltHoleM3(size.z);
         assert(baceCoverCenterHolePosY() == size.y - sizeCenterPillar.y/2);
-        translate([_sidePlateThickness + size.x/2, -size.y + sizeCenterPillar.y/2, sizeCenterPillar.z])
+        translate([(size.x)/2, -size.y + sizeCenterPillar.y/2, sizeCenterPillar.z])
             vflip()
                 boltHoleM3Tap(10);
     }// end difference

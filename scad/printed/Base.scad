@@ -129,8 +129,8 @@ module baseCoverAssembly(cf=true) {
                     Base_Cover_CF_stl();
                 else
                     Base_Cover_RB_stl();
-    for (x = [(eSizeXBase + _sidePlateThickness)/2, eX + (3*eSizeX - _sidePlateThickness)/2])
-        translate([x, _frontPlateCFThickness + 3*eSizeY/2, baseCoverOutsideHeight])
+    for (x = [cf ? 6.5 : 7, eX + 2*eSizeX - (cf ? 6.5 : 7)])
+        translate([x, 3*eSizeY/2 + (cf ? _frontPlateCFThickness : 0), baseCoverOutsideHeight])
             explode(10, true)
                 boltM3Caphead(8);
 }
