@@ -69,7 +69,7 @@ staged_assembly("Top_Face_Stage_1", big=true, ngb=true) {
                     Top_Face_RB_stl();
                 else
                     Top_Face_stl();
-    topFaceAssembly(NEMA_width(NEMA14_36), t);
+    topFaceYRails(NEMA_width(NEMA14_36), t);
 }
 
 module Top_Face_NEMA_17_Stage_1_assembly()  pose(a=[55 + 180, 0, 25 + 310])
@@ -79,7 +79,7 @@ staged_assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
         vflip()
             stl_colour(pp3_colour)
                 Top_Face_NEMA_17_stl();
-    topFaceAssembly(NEMA_width(NEMA17_40));
+    topFaceYRails(NEMA_width(NEMA17_40));
 }
 
 //! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable
@@ -159,7 +159,7 @@ assembly("Top_Face_NEMA_17", big=true) {
     xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
 }
 
-module topFaceAssembly(NEMA_width, t=undef, nuts=false, cf=false) {
+module topFaceYRails(NEMA_width, t=undef, nuts=false, cf=false) {
     yCarriageType = carriageType(_yCarriageDescriptor);
     yRailType = carriage_rail(yCarriageType);
 
@@ -236,7 +236,7 @@ staged_assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
 
     Top_Face_CF_Stage_1_assembly();
 
-    topFaceAssembly(NEMA_width(NEMA14_36), nuts=false, cf=true);
+    topFaceYRails(NEMA_width(NEMA14_36), nuts=false, cf=true);
 
     railOffset = yRailOffset(NEMA_width(NEMA14_36));
     explode(40, show_line=false)

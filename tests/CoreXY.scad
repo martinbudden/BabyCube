@@ -43,7 +43,7 @@ module CoreXY() {
         yCarriageRightAssembly(_xyNEMA_width);
 
     if (_useCNC) {
-        let($hide_bolts=true) topFaceAssembly(_xyNEMA_width, t=t);
+        let($hide_bolts=true) topFaceYRails(_xyNEMA_width, t=t);
         XY_Idler_Bracket_Left_assembly();
         XY_Idler_Bracket_Right_assembly();
         XY_Motor_Mount_Left_RB_assembly();

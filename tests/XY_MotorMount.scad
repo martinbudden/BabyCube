@@ -40,7 +40,7 @@ module XY_MotorMount_test() {
     //translate([0, eY + 2*eSizeY, 0]) rotate([90, 0, 0]) Back_Face_CF();
 
     //translate_z(eZ -_topPlateThickness + eps) Top_Face_CF();
-    let($hide_bolts=true) topFaceAssembly(_xyNEMA_width, t=4);
+    let($hide_bolts=true) topFaceYRails(_xyNEMA_width, t=4);
 
     XY_Motor_Mount_Left_RB_assembly();
     XY_Motor_Mount_Right_RB_assembly();

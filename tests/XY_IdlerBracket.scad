@@ -25,7 +25,7 @@ module XY_IdlerBracket_test() {
     //XY_IdlerBracketCutouts(coreXYPosBL(_xyNEMA_width));
 
     //translate_z(eZ -_topPlateThickness + eps) Top_Face_CF();
-    let($hide_bolts=true) topFaceAssembly(_xyNEMA_width, t=5);
+    let($hide_bolts=true) topFaceYRails(_xyNEMA_width, t=5);
 
     //Front_Face_CF_assembly();
     XY_Idler_Bracket_Left_assembly();
