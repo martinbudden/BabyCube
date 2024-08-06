@@ -146,8 +146,8 @@ module xCarriageDropEffectXGMGN9C_hardware(hotendDescriptor) {
                         boltM2Caphead(6);
             }
         }
-        explode(-40, true)
-            rotate(-90) {
+        rotate(-90)
+            explode([0, -40, -10], true) {
                 stl_colour(pp2_colour)
                     DropEffectXG_Fan_Duct_stl();
                 Fan_Duct_hardware(blower_type);
