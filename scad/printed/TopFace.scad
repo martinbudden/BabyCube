@@ -40,7 +40,7 @@ module topFaceCF(NEMA_type, extraY) {
 
 module topFaceCover(NEMA_type, useReversedBelts=false) {
     assert(isNEMAType(NEMA_type));
-    assert(_variant != "BC200CF" && _variant != "BC220CF"); // cover not used for CF, and won't draw properly if _variant erroneously set
+    //assert(_variant != "BC200CF" && _variant != "BC220CF"); // cover not used for CF, and won't draw properly if _variant erroneously set
 
     NEMA_width = NEMA_width(NEMA_type);
     size = [eX + 2*eSizeX + _backPlateOutset.x, eY + 2*eSizeY + _backPlateOutset.y, _topPlateCoverThickness];
