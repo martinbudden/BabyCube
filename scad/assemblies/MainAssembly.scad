@@ -171,14 +171,14 @@ module FinalAssembly(test) {
         } else {
             Stage_5_assembly();
             if (!exploded())
-                printheadWiring(carriagePosition(), hotendDescriptor, backFaceZipTiePositions());
+                printheadWiring(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], hotendDescriptor, backFaceZipTiePositions());
             explode(100, true)
                 if (hotendDescriptor == "E3DV6")
                     printheadHotendSideE3DV6();
                 else
                     printheadHotendSideE3DRevo();
             explode(150)
-                bowdenTube(carriagePosition(), hotendDescriptor);
+                bowdenTube(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], hotendDescriptor);
             explode([75, 0, 100])
                 faceRightSpoolHolder();
             explode([150, 0, 0])

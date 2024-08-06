@@ -105,7 +105,7 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
     explode([-50, -50, 150], true, show_line=false)
         printheadHotendSideE3DRevo(explode=[0, 50, 100]);
     if (!exploded())
-        printheadWiring(carriagePosition(), "E3DRevo",  backFaceZipTiePositions());
+        printheadWiring(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], "E3DRevo",  backFaceZipTiePositions());
 
     translate([eX + 2*eSizeX + eps, 0, 0]) {
         rotate([90, 0, 90]) {
@@ -243,9 +243,9 @@ module CF_DebugAssembly() {
             translate_z(-eps)
                 Base_CF_assembly();
         if (!exploded()) {
-            printheadWiring(carriagePosition(), "E3DRevo",  backFaceZipTiePositions());
+            printheadWiring(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], "E3DRevo",  backFaceZipTiePositions());
             explode(150)
-                bowdenTube(carriagePosition(), "E3DRevo");
+                bowdenTube(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], "E3DRevo");
         }
     }
 }

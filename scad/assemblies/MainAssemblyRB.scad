@@ -124,7 +124,7 @@ staged_assembly("Stage_4_RB", big=true, ngb=true) {
         Left_Face_assembly();
 
     explode([-200, 0, 50], true, show_line=false)
-        baseCoverAssembly();
+        baseCoverAssembly(cf=false);
 
     translate([0, eY + 2*eSizeY, 0])
         rotate([90, 0, 0]) {
@@ -217,14 +217,14 @@ module RB_FinalAssembly(test=false, hotendDescriptor="E3DRevo") {
         Stage_6_RB_assembly();
 
         if (!exploded())
-            printheadWiring(carriagePosition(), hotendDescriptor,  backFaceZipTiePositions());
+            printheadWiring(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], hotendDescriptor,  backFaceZipTiePositions());
         explode(100, true)
             if (hotendDescriptor == "E3DRevo")
                 printheadHotendSideE3DRevo();
             else if (hotendDescriptor == "DropEffectXG")
                 printheadHotendSideDropEffectXG();
         explode(150)
-            bowdenTube(carriagePosition(), hotendDescriptor);
+            bowdenTube(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], hotendDescriptor);
         explode([75, 0, 100])
             faceRightSpoolHolder();
         explode([150, 0, 0])

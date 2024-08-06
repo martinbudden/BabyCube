@@ -37,7 +37,8 @@ module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false, sc
 
     xRailCarriagePosition(carriagePosition(t), rotate=rotate) {
         explode(explode, true)
-            children();
+            translate([0, 0.46, 0]) //!!Magic number
+                children();
         if (boltLength > 0)
             explode([0, -40, 0], true)
                 xCarriageBeltSideBolts(xCarriageType, xCarriageBeltSideSize, topBoltLength=boltLength, holeSeparationTop=holeSeparationTop, bottomBoltLength=boltLength, holeSeparationBottom=holeSeparationBottom, screwType=screwType, boreDepth=boreDepth);

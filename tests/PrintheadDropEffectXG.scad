@@ -30,6 +30,7 @@ include <../scad/utils/CoreXYBelts.scad>
 module Printhead_test() {
     echoPrintSize();
     xCarriageType = carriageType(_xCarriageDescriptor);
+    carriagePosition = carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0];
 
     //E3DRevoVoron();
     //DropEffectXG();
@@ -40,15 +41,15 @@ module Printhead_test() {
     //translate([50, 0, 50]) Printhead_E3DRevo_MGN9C_assembly(); // clearance of 2.8 from bottom of xCarriage
     //translate([-60, 0, 53.25]) Printhead_E3DV6_MGN9C_assembly(); // nozzle clearance of 7.25 from bottom of xCarriage, fan duct has less clearance
 
-    translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
-        //printheadBeltSide(halfCarriage=false, reversedBelts=true);
+    translate(-[ carriagePosition.x, carriagePosition.y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
+        printheadBeltSide(halfCarriage=false, reversedBelts=true);
         printheadHotendSideDropEffectXG(boltLength=0);
         //printheadHotendSideE3DRevo(boltLength=0);
         //printheadHotendSideE3DV6(halfCarriage=false, noPrinthead=!true, boltLength=0);
-        //CoreXYBelts(carriagePosition(), x_gap=2);
+        CoreXYBelts(carriagePosition);
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
-        //bowdenTube(carriagePosition(), "DropEffectXG");
-        //printheadWiring(carriagePosition(), "DropEffectXG",  backFaceZipTiePositions());
+        //bowdenTube(carriagePosition, "DropEffectXG");
+        //printheadWiring(carriagePosition, "DropEffectXG",  backFaceZipTiePositions());
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();

@@ -19,7 +19,7 @@ include <../config/Parameters_Main.scad>
 module bowdenTube(carriagePosition, hotendDescriptor, extraZ=120) {
     xCarriageType = carriageType(_xCarriageDescriptor);
     color("White")
-        bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + carriage_size(xCarriageType).y/2 + 5, eZ] + printheadBowdenOffset(hotendDescriptor), ptfeTube=true, extraZ=extraZ);
+        bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition.x, carriagePosition.y, eZ] + printheadBowdenOffset(hotendDescriptor), vitamin=true, extraZ=extraZ);
 }
 
 module printheadWiring(carriagePosition, hotendDescriptor, backFaceZipTiePositions) {
@@ -32,7 +32,7 @@ module printheadWiring(carriagePosition, hotendDescriptor, backFaceZipTiePositio
     cable_wrap(500);
 
     xCarriageType = carriageType(_xCarriageDescriptor);    
-    endPos = [carriagePosition.x + eSizeX - 6 - xCarriageBeltSideSize(xCarriageType).x/2, carriagePosition.y + carriage_size(xCarriageType).y/2 + 5, eZ] + printheadWiringOffset(hotendDescriptor);
+    endPos = [carriagePosition.x, carriagePosition.y, eZ] + printheadWiringOffset(hotendDescriptor);
 
     //echo(px=printheadWiringPosX());
     //assert(is_num(printheadWiringPosX()));

@@ -29,18 +29,18 @@ include <../scad/utils/CoreXYBelts.scad>
 module Printhead_test() {
     echoPrintSize();
     xCarriageType = carriageType(_xCarriageDescriptor);
+    carriagePosition = carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0];
     echo(coreXYSeparation=coreXYSeparation());
     halfCarriage = !true;
 
-    //let($hide_bolts=true)
-    translate(-[ eSizeX + eX/2, carriagePosition().y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
-        //printheadBeltSide(halfCarriage=halfCarriage);
+    translate(-[ carriagePosition.x, carriagePosition.y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
+        printheadBeltSide(halfCarriage=halfCarriage);
         printheadHotendSideE3DV6(halfCarriage=halfCarriage, boltLength=0);
-        //CoreXYBelts(carriagePosition(), x_gap=2);
+        CoreXYBelts(carriagePosition);
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
-        //bowdenTube(carriagePosition());
+        //bowdenTube(carriagePosition, "E3DV6");
+        //printheadWiring(carriagePosition, "E3DV6",  backFaceZipTiePositions());
         //Back_Face_assembly();
-        printheadWiring(carriagePosition(), "E3DV6",  backFaceZipTiePositions());
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();

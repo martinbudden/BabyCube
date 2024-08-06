@@ -3,7 +3,7 @@ use <NopSCADlib/utils/maths.scad>
 use <NopSCADlib/utils/bezier.scad>
 
 
-module bezierTube(startPos, endPos, tubeRadius=2, ptfeTube=false, extraZ=50) {
+module bezierTube(startPos, endPos, tubeRadius=2, vitamin=false, extraZ=50) {
     assert(is_list(startPos));
     assert(is_list(endPos));
     assert(is_num(extraZ));
@@ -16,7 +16,7 @@ module bezierTube(startPos, endPos, tubeRadius=2, ptfeTube=false, extraZ=50) {
     path = bezier_path(p, 50);
 
     length = ceil(bezier_length(p));
-    if (ptfeTube)
+    if (vitamin)
         vitamin(str("bezierTube(): PTFE tube ", length, " mm"));
 
     translate(startPos)
