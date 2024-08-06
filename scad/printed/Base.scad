@@ -10,8 +10,6 @@ include <Foot.scad>
 staged_assembly = true; // set this to false for faster builds during development
 
 
-baceCoverCenterHolePosY = 144.5;
-
 AL3 = [ "AL3", "Aluminium sheet", 3, silver * 1.1, false];
 
 
@@ -69,7 +67,7 @@ module BaseAL(pcb=pcbType) {
 
 module baseCutouts(cnc=false, cf=false, radius=M3_clearance_radius, pcb=undef) {
     cncSides = cnc ? 0 : undef;
-    baseAllHolePositions(cf=cf, coverHolePosY=baceCoverCenterHolePosY)
+    baseAllHolePositions(cf=cf, coverHolePosY=baceCoverCenterHolePosY())
         poly_circle(radius, sides=cncSides);
 
     if (is_undef(pcb) || pcb==BTT_SKR_MINI_E3_V2_0)
@@ -109,17 +107,28 @@ module baseCutouts(cnc=false, cf=false, radius=M3_clearance_radius, pcb=undef) {
     }
 }
 
-module Base_Cover_stl() {
-    color(pp3_colour)
-        stl("Base_Cover")
-            baseCover(baceCoverCenterHolePosY);
+baseCoverColor = "MediumTurquoise";
+
+module Base_Cover_CF_stl() {
+    color(baseCoverColor)
+        stl("Base_Cover_CF")
+            baseCover(baceCoverCenterHolePosY(), cf=true);
 }
 
-module baseCoverAssembly() {
-    stl_colour(pp3_colour)
+module Base_Cover_RB_stl() {
+    color(baseCoverColor)
+        stl(baseCoverColor)
+            baseCover(baceCoverCenterHolePosY(), cf=false);
+}
+
+module baseCoverAssembly(cf=true) {
+    stl_colour(baseCoverColor)
         translate_z(baseCoverOutsideHeight)
             vflip()
-                Base_Cover_stl();
+                if (cf)
+                    Base_Cover_CF_stl();
+                else
+                    Base_Cover_RB_stl();
     for (x = [(eSizeXBase + _sidePlateThickness)/2, eX + (3*eSizeX - _sidePlateThickness)/2])
         translate([x, _frontPlateCFThickness + 3*eSizeY/2, baseCoverOutsideHeight])
             explode(10, true)

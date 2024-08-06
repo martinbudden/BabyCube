@@ -7,6 +7,8 @@ include <../vitamins/bolts.scad>
 include <../utils/HolePositions.scad>
 include <../config/Parameters_Main.scad>
 
+function baceCoverCenterHolePosY() = 144.5;
+
 
 module Base_Front_Joiner_stl() {
     size = [eX, eSizeY, eSizeZ];
@@ -101,36 +103,44 @@ module Base_Right_Joiner_stl() {
 }
 
 
-module baseCover(baceCoverCenterHolePosY) {
-    size = [eX + 2*eSizeX - 2*_sidePlateThickness, 144, baseCoverOutsideHeight - baseCoverInsideHeight];
-    sizeBack = [size.x, 3, baseCoverOutsideHeight - eSizeZ];
+module baseCover(baceCoverCenterHolePosY, cf=true) {
     sizeCenterPillar = [eSizeXBase - _sidePlateThickness, 5, baseCoverOutsideHeight];
+    size = [eX + 2*eSizeX - 2*_sidePlateThickness, baceCoverCenterHolePosY() + sizeCenterPillar.y/2, baseCoverOutsideHeight - baseCoverInsideHeight];
+    tolerance = 0;
+    xOffset = cf ? tolerance : 1 + tolerance;
+    sizeBack = [eX + 2*eSizeX - 2*tolerance - (cf ? 2*_sidePlateThickness : eSizeX), 3, baseCoverOutsideHeight - eSizeZ];
     fillet = 1;
 
+    translate_z(eps)
     difference() {
         union() {
-            translate([_sidePlateThickness, -size.y - _frontPlateCFThickness, 0]) {
-                tolerance = 0.5;
-                rounded_cube_xy(size - [0, eSizeY + tolerance, 0], fillet);
-                translate([eSizeX - _sidePlateThickness + tolerance, 0, 0])
-                    rounded_cube_xy([eX - 2*tolerance, size.y, size.z], fillet);
+            translate([_sidePlateThickness, -size.y, 0]) {
+                translate([xOffset, 0, 0]) {
+                    rounded_cube_xy(size - [2*xOffset - (cf ? 0 : 0.5), eSizeY + tolerance + (cf ? _frontPlateCFThickness : 0), 0], fillet);
+                    rounded_cube_xy(sizeBack + [cf ? 0 : 0.5, 0, 0], fillet);
+                }
+                xOffset2 = cf ? eSizeX - _sidePlateThickness + tolerance : eSizeXBase + 23 + tolerance;
+                translate([xOffset2, 0, 0])
+                    rounded_cube_xy([eX - (cf ? tolerance : 2*xOffset2 - eSizeXBase), size.y - (cf ? _frontPlateCFThickness : 4), size.z], fillet);
 
-                rounded_cube_xy(sizeBack, fillet);
 
                 sizeBack2 = [size.x - 4*eSizeX, sizeBack.y, baseCoverOutsideHeight];
                 translate([(size.x - sizeBack2.x)/2, 0, 0])
                     rounded_cube_xy(sizeBack2, fillet);
 
                 sizePillar = [eSizeXBase - _sidePlateThickness, eSizeY, sizeBack.z];
-                for (x = [0, sizeBack.x - sizePillar.x])
-                    translate([x, 0, 0])
-                        rounded_cube_xy(sizePillar, fillet);
-                translate([sizePillar.x, sizeBack.y, 0])
-                    fillet(2, sizePillar.z);
-                translate([sizeBack.x - sizePillar.x, sizeBack.y, 0])
-                    rotate(90)
+                translate([sizePillar.x + xOffset, 0, 0]) {
+                    rounded_cube_xy(sizePillar, fillet);
+                    translate([0, sizeBack.y, 0])
                         fillet(2, sizePillar.z);
-                translate([(sizeBack.x - sizeCenterPillar.x)/2, 0, 0]) {
+                }
+                translate([sizeBack.x - sizePillar.x - tolerance + (cf ? 0: 1.5), 0, 0]) {
+                    rounded_cube_xy(sizePillar, fillet);
+                    translate([0, sizeBack.y, 0])
+                        rotate(90)
+                            fillet(2, sizePillar.z);
+                }
+                translate([-_sidePlateThickness + eX/2 + eSizeX - sizeCenterPillar.x/2, 0, 0]) {
                     rounded_cube_xy(sizeCenterPillar, fillet);
                     translate([sizeCenterPillar.x, sizeBack.y, 0])
                         fillet(1, sizeCenterPillar.z);
@@ -140,11 +150,11 @@ module baseCover(baceCoverCenterHolePosY) {
                 }
             }
         }// end union
-        for (x = [(eSizeXBase + _sidePlateThickness)/2, eX + (3*eSizeX - _sidePlateThickness)/2])
-            translate([x, -(_frontPlateCFThickness + 3*eSizeY/2), 0])
+        for (x = [cf ? _sidePlateThickness + 3.5 : 7, eX + 2*eSizeX - (cf ? _sidePlateThickness + 3.5 : 7)])
+            translate([x, -3*eSizeY/2 - (cf ? _frontPlateCFThickness : 0), 0])
                 boltHoleM3(size.z);
-        assert(baceCoverCenterHolePosY == size.y + _frontPlateCFThickness - sizeCenterPillar.y/2);
-        translate([_sidePlateThickness + size.x/2, -size.y - _frontPlateCFThickness + sizeCenterPillar.y/2, sizeCenterPillar.z])
+        assert(baceCoverCenterHolePosY() == size.y - sizeCenterPillar.y/2);
+        translate([_sidePlateThickness + size.x/2, -size.y + sizeCenterPillar.y/2, sizeCenterPillar.z])
             vflip()
                 boltHoleM3Tap(10);
     }// end difference

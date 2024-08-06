@@ -424,10 +424,10 @@ module frameLower(NEMA_width, left=true, offset=0, length=0, useFrontSwitch=fals
             translate([eY + 2*eSizeY - 10, 0, offset])
                 rounded_cube_xy([10, 20, 35 - offset], fillet); // 38 to match frontConnector size
             if (!useFrontSwitch || !left) {
-                // attachment point for front cover
+                // attachment point for base cover
                 difference() {
                     rounded_cube_xy([2*eSizeY, baseCoverInsideHeight, eSizeXBase - offset], fillet);
-                    translate([offset + 3*eSizeY/2, baseCoverInsideHeight, (eSizeXBase + offset)/2 + 1])
+                    translate([offset + 3*eSizeY/2, baseCoverInsideHeight, (eSizeXBase + offset)/2 + 2])
                         rotate([90, 0, 0])
                             boltHoleM3Tap(10);
                 }
