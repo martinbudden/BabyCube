@@ -16,7 +16,7 @@ use <X_CarriageAssemblies.scad>
 use <X_CarriageFanDuct.scad>
 
 function xCarriageHotendSideDropEffectXGSize(xCarriageType, beltWidth) = [xCarriageBeltSideSize(xCarriageType, beltWidth).x, 5, xCarriageBeltSideSize(xCarriageType, beltWidth).z];
-function blowerOffset(hotendDescriptor) = [0, -3, 0];
+function blowerOffset(hotendDescriptor) = [0, -3, 0]; // -3 is experimental, -2 gives more clearance for blower wire
 sideZipTieCutoutSize = [9, 4, 2.25];
 
 module xCarriageDropEffectXGMGN9CSideZipTiePositions(size, hotendOffset, zipTieCutoutSizeY) {
@@ -37,8 +37,7 @@ module xCarriageDropEffectXGMGN9C(hotendDescriptor, inserts=false) {
     size = xCarriageHotendSideDropEffectXGSize(xCarriageType, beltWidth()); // [30, 5, 54]
     hotendOffset = printheadHotendOffset(hotendDescriptor);
     blower_type = BL30x10;
-    blowerOffsetY = blowerOffset(hotendDescriptor).y;
-    blowerOffsetZ = blowerOffset(hotendDescriptor).z;
+    blowerOffset = blowerOffset(hotendDescriptor);
 
     fillet = 1;
     extraX = 4; // extend X_Carriage to cover hotend fan
@@ -57,7 +56,7 @@ module xCarriageDropEffectXGMGN9C(hotendDescriptor, inserts=false) {
             rotate(90)
                 DropEffectXGSideBoltPositions()
                     boltHoleM3Countersunk(size.y, horizontal=true, rotate=180);
-        translate([-size.x/2, hotendOffset.y + blower_width(blower_type)/2 + blowerOffsetY, hotendOffset.z + blowerOffsetZ - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
+        translate([-size.x/2, hotendOffset.y + blower_width(blower_type)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
             rotate([90, 0, -90])
                 blower_hole_positions(blower_type)
                     vflip()
@@ -71,7 +70,7 @@ module xCarriageDropEffectXGMGN9C(hotendDescriptor, inserts=false) {
         translate([0, -railCarriageGap(), 0])
             xCarriageHotendSideHolePositions(xCarriageType)
                 if (inserts) {
-                    insertHoleM3(size.y, horizontal=true);
+                    insertHoleM3(size.y, horizontal=true, rotate=180);
                 } else {
                     //boltHoleM3Tap(size.y, horizontal=true, rotate=180);
                     boltHoleM3Tap(size.y + 1, horizontal=true, rotate=180, chamfer_both_ends=false);
@@ -81,13 +80,13 @@ module xCarriageDropEffectXGMGN9C(hotendDescriptor, inserts=false) {
 
 module DropEffectXGHolder(hotendDescriptor, size, fillet) {
     hotendOffset = printheadHotendOffset(hotendDescriptor);
-    blowerOffsetY = blowerOffset(hotendDescriptor).y;
-    blowerOffsetZ = blowerOffset(hotendDescriptor).z;
+    blowerOffset = blowerOffset(hotendDescriptor);
 
-    sizeTop = [size.x, hotendOffset.y + 9 + blowerOffsetY, xCarriageTopThickness()];
+    sizeTop = [size.x, hotendOffset.y + 9 + blowerOffset.y, xCarriageTopThickness()];
     difference() {
-        translate([-size.x/2, 10, 0])
+        translate([-size.x/2, 10, 0]) {
             rounded_cube_yz(sizeTop, fillet);
+        }
         translate([hotendOffset.x, hotendOffset.y, 0]) {
             // hole for hotend adaptor
             boltHole(16.25, sizeTop.z, horizontal=true, rotate=-90, chamfer=0.5);
@@ -98,7 +97,7 @@ module DropEffectXGHolder(hotendDescriptor, size, fillet) {
         }
     }
 
-    sizeSide = [3, sizeTop.y, size.z - 10 - blowerOffsetZ];
+    sizeSide = [3, sizeTop.y, size.z - 10 - blowerOffset.z];
     translate([-size.x/2, 10, xCarriageTopThickness() - sizeSide.z])
         rounded_cube_yz(sizeSide, fillet);
 
@@ -114,8 +113,7 @@ module xCarriageDropEffectXGMGN9C_hardware(hotendDescriptor) {
     xCarriageType = carriageType(_xCarriageDescriptor);
     hotendOffset = printheadHotendOffset(hotendDescriptor);
     blower_type = BL30x10;
-    blowerOffsetY = blowerOffset(hotendDescriptor).y;
-    blowerOffsetZ = blowerOffset(hotendDescriptor).z;
+    blowerOffset = blowerOffset(hotendDescriptor);
     fan_type = fan25x10;
     size = xCarriageHotendSideDropEffectXGSize(xCarriageType, beltWidth());
 
@@ -141,7 +139,7 @@ module xCarriageDropEffectXGMGN9C_hardware(hotendDescriptor) {
                     }
                 }
     }
-    translate([-size.x/2, hotendOffset.y + blower_width(blower_type)/2 + blowerOffsetY, hotendOffset.z + blowerOffsetZ - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
+    translate([-size.x/2, hotendOffset.y + blower_width(blower_type)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
         rotate([90, 0, -90]) {
             explode(40, true, show_line=false) {
                 blower(blower_type);
