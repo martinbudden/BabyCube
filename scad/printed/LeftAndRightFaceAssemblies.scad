@@ -129,14 +129,14 @@ assembly("Left_Face", big=true) {
 module rightFaceFan(fan, offset, boltOffset=_sidePlateThickness) {
     translate(rightFaceFanPosition(fan, offset))
        rotate([0, 90, 0]) {
-            explode(-40)
+            explode(-60)
                 fan(fan);
             fan_hole_positions(fan) {
                 translate_z(boltOffset)
                     boltM3Buttonhead(screw_longer_than(fan_depth(fan) + nut_thickness(M3_nut) + boltOffset));
                 translate_z(-fan_depth(fan))
                     vflip()
-                        explode(50, true)
+                        explode(70, true)
                             nut(M3_nut);
             }
         }
