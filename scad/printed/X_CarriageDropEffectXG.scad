@@ -157,7 +157,7 @@ module xCarriageDropEffectXGMGN9C_hardware(hotendDescriptor) {
         translate([1, railCarriageGap() + 5.4, 0])
             rotate([0, 90, -90])
                 if (!exploded())
-                    cable_tie(cable_r = 3.5, thickness = 5.5);
+                    cable_tie(cable_r = 3.5, thickness = 5.0);
 
     xCarriageDropEffectXGMGN9CZipTiePositions(size, hotendOffset)
         rotate(90)
