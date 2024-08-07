@@ -148,7 +148,7 @@ module xCarriageBeltSideMGN9CAssembly(halfCarriage, reversedBelts) {
         CoreXYBelts([eX/2 + eSizeX, eY/2 + eSizeY]);
     translate([xCarriageBeltAttachmentMGN9CExtraX(), 0, 0])
         rotate([-90, 180, 0])
-            stl_colour(pp4_colour)
+            stl_colour(pp1_colour)
                 if (halfCarriage)
                     X_Carriage_Belt_Side_MGN9C_HC_stl();
                 else if (reversedBelts)
