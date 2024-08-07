@@ -31,9 +31,9 @@ function beltOffsetZ() = yCarriageThickness() - coreXYSeparation().z - 26 + yCar
 //function beltOffsetZ() =  yCarriageThickness() + 19.5 - 55;
 
 // bolthole separation on NEMA14 motors is 26, so values of 13 and 26 allign pulleys with motor boltholes
-function leftDrivePulleyOffset() = useReversedBelts() ? [13, -13] : [0, 0];
-function rightDrivePulleyOffset() = useReversedBelts() ? [-13, -13] : [0, 0]; // need to give clearance to extruder motor
-function plainIdlerPulleyOffset() = useReversedBelts() ? [26, 0] : [0, 0];
+function leftDrivePulleyOffset(reversedBelts=useReversedBelts()) = reversedBelts ? [13, -13] : [0, 0];
+function rightDrivePulleyOffset(reversedBelts=useReversedBelts()) = reversedBelts ? [-13, -13] : [0, 0]; // need to give clearance to extruder motor
+function plainIdlerPulleyOffset(reversedBelts=useReversedBelts()) = reversedBelts ? [26, 0] : [0, 0];
 // use -12.75 for separation.x to make y-carriage idlers coincident vertically
 function  coreXYSeparation() = [
     0,

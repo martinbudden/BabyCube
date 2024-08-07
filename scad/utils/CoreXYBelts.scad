@@ -3,11 +3,11 @@
 include <coreXYReversed.scad>
 
 
-module CoreXYBelts(carriagePosition, coreXY_type=coreXY_type(), x_gap=0, show_pulleys=false, xyMotorWidth=undef, leftDrivePulleyOffset=leftDrivePulleyOffset(), rightDrivePulleyOffset=rightDrivePulleyOffset(), plainIdlerPulleyOffset=plainIdlerPulleyOffset()) {
+module CoreXYBelts(carriagePosition, reversedBelts=useReversedBelts(), coreXY_type=coreXY_type(), x_gap=0, show_pulleys=false, xyMotorWidth=undef, leftDrivePulleyOffset=leftDrivePulleyOffset(), rightDrivePulleyOffset=rightDrivePulleyOffset(), plainIdlerPulleyOffset=plainIdlerPulleyOffset()) {
     assert(is_list(carriagePosition) && len(carriagePosition) == 2);
 
     xyMotorWidth = is_undef(xyMotorWidth) ? _xyMotorDescriptor == "NEMA14" ? 35.2 : 42.3 : xyMotorWidth;
-    if (useReversedBelts())
+    if (reversedBelts)
         coreXYR_belts(coreXY_type,
             carriagePosition = [eX + 2*eSizeXBase - carriagePosition.x - x_gap, carriagePosition.y],
             coreXYPosBL = coreXYPosBL(xyMotorWidth),
