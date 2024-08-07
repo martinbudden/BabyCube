@@ -93,13 +93,14 @@ module Front_Face_CF() {
 namePlateSize = [eX < 220 ? 80 : eX == 220 ? 100 : 140, 22, 3];
 module Nameplate_Back_stl() {
     size = namePlateSize - [5, 5, 0.5];
-    difference() {
-        translate([(eX + 2*eSizeX - size.x)/2, eZ  - (namePlateSize.y + size.y)/2 - _topPlateThickness])
-            color(grey(90))
-                rounded_cube_xy(size, 2);
-        frontFaceUpperHolePositions()
-            boltHoleM3(size.z);
-    }
+    stl("Nameplate_Back")
+        difference() {
+            translate([(eX + 2*eSizeX - size.x)/2, eZ  - (namePlateSize.y + size.y)/2 - _topPlateThickness])
+                color(grey(90))
+                    rounded_cube_xy(size, 2);
+            frontFaceUpperHolePositions()
+                boltHoleM3(size.z);
+        }
 }
 
 module Nameplate_stl() {
