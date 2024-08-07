@@ -63,11 +63,11 @@ module XY_MotorPosition(NEMA_width, left=true) {
             children();
 }
 
-module XY_MotorUpright(NEMA_type, left=true) {
+module XY_MotorUpright(NEMA_type, left=true, reversedBelts=false) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
 
-    if (_useReversedBelts) {
+    if (reversedBelts) {
         if (left)
             rotate([-90, -90, 0])
                 xyMotorMountRB(NEMA_type, left, xyz=0);

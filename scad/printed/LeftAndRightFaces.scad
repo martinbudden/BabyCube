@@ -3,6 +3,8 @@ include <../config/global_defs.scad>
 include <../vitamins/bolts.scad>
 
 use <NopSCADlib/utils/fillet.scad>
+use <NopSCADlib/vitamins/psu.scad> // for psu_grill
+include <NopSCADlib/vitamins/fans.scad>
 include <NopSCADlib/vitamins/stepper_motors.scad>
 include <NopSCADlib/vitamins/rockers.scad>
 use <NopSCADlib/vitamins/wire.scad>
@@ -23,10 +25,13 @@ include <IECHousing.scad>
 
 
 function iecPosition() = [eX + 2*eSizeX, eY + 2*eSizeY - eSizeY - 1 - iec_body_h(iecType())/2, eSizeZ/2 + iec_pitch(iecType())/2] + [0, -10, 8];
+function rightFaceFanPosition(fan, offset) = [eX + 2*eSizeX - fan_depth(fan)/2 + offset.x, fan_width(fan)/2 + offset.y, fan_width(fan)/2 + eSizeZ];
 
 function extruderMotorType() = NEMA17_40;
 
 function backBoltLength() = 9;
+
+fanOffsetRB = [-1, eSizeY + 40];
 
 fillet = _fillet;
 innerFillet = 5;
@@ -48,23 +53,23 @@ function frontReinforcementThickness() = 3;
 function spoolHolderBracketSize(cf=false) = [cf ? 3 : eSizeX, cf ? 25 : 30, 20];
 
 
-module leftFace(NEMA_type, useFrontSwitch=false, fullyEnclosed=false) {
+module leftFace(NEMA_type, useFrontSwitch=false, fullyEnclosed=false, reversedBelts=false, fan=false) {
     assert(isNEMAType(NEMA_type));
 
     difference() {
         union() {
-            frame(NEMA_type, left=true, useFrontSwitch=useFrontSwitch);
-            webbingLeft(NEMA_type, useFrontSwitch=useFrontSwitch, fullyEnclosed=fullyEnclosed);
+            frame(NEMA_type, left=true, useFrontSwitch=useFrontSwitch, reversedBelts=reversedBelts);
+            webbingLeft(NEMA_type, useFrontSwitch=useFrontSwitch, fullyEnclosed=fullyEnclosed, fan=fan);
             NEMA_width = NEMA_width(NEMA_type);
             coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
             translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
-                XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=_useReversedBelts, left=true, cnc=false);
+                XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=reversedBelts, left=true, cnc=false);
             // add a support for the camera
             translate([0, coreXYPosBL.z - coreXYSeparation().z, 0])
                 translate([3, -5, eSizeX])
                     rotate([90, 0, 0])
                         right_triangle(9, 9, 20, center=false);
-            XY_MotorUpright(NEMA_type, left=true);
+            XY_MotorUpright(NEMA_type, left=true, reversedBelts=reversedBelts);
         }
         if (useFrontSwitch) {
             switchShroudHolePositions()
@@ -86,7 +91,7 @@ module leftFace(NEMA_type, useFrontSwitch=false, fullyEnclosed=false) {
     }
 }
 
-module rightFace(NEMA_type, useIEC=false, fullyEnclosed=false) {
+module rightFace(NEMA_type, useIEC=false, fullyEnclosed=false, reversedBelts=false, fan=false) {
     assert(isNEMAType(NEMA_type));
 
     // orient the right face for printing
@@ -94,13 +99,13 @@ module rightFace(NEMA_type, useIEC=false, fullyEnclosed=false) {
         mirror([0, 1, 0])
             difference() {
                 union() {
-                    frame(NEMA_type, left=false, useFrontSwitch=false);
-                    webbingRight(NEMA_type, useIEC=useIEC, fullyEnclosed=fullyEnclosed);
+                    frame(NEMA_type, left=false, useFrontSwitch=false, reversedBelts=reversedBelts);
+                    webbingRight(NEMA_type, useIEC=useIEC, fullyEnclosed=fullyEnclosed, reversedBelts=reversedBelts, fan=fan);
                     NEMA_width = NEMA_width(NEMA_type);
                     coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
                     translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
-                        XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=_useReversedBelts, left=false, cnc=false);
-                    XY_MotorUpright(NEMA_type, left=false);
+                        XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=reversedBelts, left=false, cnc=false);
+                    XY_MotorUpright(NEMA_type, left=false, reversedBelts=reversedBelts);
                 }
                 if (fullyEnclosed)
                     translate([spoolHolderPosition(cf=true).y, spoolHolderPosition(cf=true).z - 20, 0])
@@ -147,7 +152,7 @@ module antiShearBracing(NEMA_width) {
     }
 }
 
-module webbingLeft(NEMA_type, useFrontSwitch=false, fullyEnclosed=false) {
+module webbingLeft(NEMA_type, useFrontSwitch=false, fullyEnclosed=false, reversedBelts=false, fan=false) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
     left = true;
@@ -186,7 +191,7 @@ module webbingLeft(NEMA_type, useFrontSwitch=false, fullyEnclosed=false) {
                 if (_sideTabs)
                     sideFaceBackTabs();
             }
-            if (!_useReversedBelts)
+            if (!reversedBelts)
                 sideFaceMotorCutout(left, NEMA_width);
         }
     // diagonal brace by motor
@@ -208,8 +213,19 @@ module webbingLeft(NEMA_type, useFrontSwitch=false, fullyEnclosed=false) {
 
     translate([(useFrontSwitch ? switchShroudSizeX : eSizeY), baseCoverOutsideHeight, 0])
         fillet(innerFillet, diagonalSize.z);
+    // panel to enclose side under base cover
     translate([eSizeY, 0, 0]) {
-        cube([eY, baseCoverOutsideHeight, 1]);
+        linear_extrude(1)
+            difference() {
+                square([eY, baseCoverOutsideHeight]);
+
+                fanWidth = 30;
+                offsetY = 72;
+                if (reversedBelts)
+                    translate([fanWidth/2 + offsetY, fanWidth/2 + eSizeZ - 2])
+                        rotate(90)
+                            psu_grill(25, 30, grill_hole=3, grill_gap=1, fn=6, avoid=[]);
+            }
         translate([0, baseCoverOutsideHeight, 0]) {
             translate([eY, 0, 0])
                 rotate(90)
@@ -238,7 +254,7 @@ module spoolHolderCutout(NEMA_width, cnc=false) {
             rounded_square([extruderPosition(NEMA_width).y - width/2 - eSizeY-idlerBracketSize(coreXYPosBL(NEMA_width)).x, eZ - antiShearSize.y - spoolHolderPosition().z], innerFillet, center=false);
 }
 
-module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false) {
+module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false, reversedBelts=false, fan=false) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
     left = false;
@@ -252,8 +268,23 @@ module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false) {
                     useIEC ? iecPanelSize.z : _webThickness];
     translate([eSizeY + eps, baseCoverOutsideHeight - eps, 0]) // eps displacement probably not necessary
         diagonalDown(diagonalSize, min(eSizeY, eSizeZ), innerFillet);
+    // panel to enclose side under base cover
     translate([eSizeY, 0, 0]) {
-        cube([eY - iecOffset, baseCoverOutsideHeight, 1]);
+        //cube([eY - iecOffset, baseCoverOutsideHeight, 1]);
+        linear_extrude(1)
+            difference() {
+                square([eY - iecOffset, baseCoverOutsideHeight]);
+
+                if (fan) {
+                    fan_type = fan30x10;
+                    translate([fan_width(fan_type)/2 + fanOffsetRB.y - eSizeY, fan_width(fan_type)/2 + eSizeZ]) {
+                        poly_circle(r=fan_bore(fan_type)/2 - 0.5);
+                        fan_hole_positions(fan_type)
+                            poly_circle(r=M3_clearance_radius);
+                    }
+                }
+            }
+
         translate([0, baseCoverInsideHeight, 0])
             cube([eY - iecOffset, baseCoverOutsideHeight - baseCoverInsideHeight, diagonalSize.z]);
         cube([eSizeY, baseCoverOutsideHeight, diagonalSize.z]); // to fill in fillet on base cover attachment point
@@ -314,7 +345,7 @@ module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false) {
                     }
                     if (!fullyEnclosed)
                         spoolHolderCutout(NEMA_width);
-                    if (!_useReversedBelts)
+                    if (!reversedBelts)
                         sideFaceMotorCutout(left, NEMA_width);
                 }// end difference
             // support for the spoolholder
@@ -352,16 +383,16 @@ module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false) {
 
 motorUprightWidth = max(10, eSizeY); // make sure at least 10 wide, to accept inserts
 
-module motorUpright(NEMA_width, left) {
+module motorUpright(NEMA_width, left, reversedBelts) {
     //uprightTopZ = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor)).z - (left ? coreXYSeparation().z : 0);
-    uprightTopZ = _useReversedBelts ? eZ - _topPlateThickness - xyMotorMountRBSize(NEMA_width).z + 2*fillet : xyMotorPosition(NEMA_width, left).z + 2*fillet;
+    uprightTopZ = reversedBelts ? eZ - _topPlateThickness - xyMotorMountRBSize(NEMA_width).z + 2*fillet : xyMotorPosition(NEMA_width, left).z + 2*fillet;
     uprightPosZ = middleWebOffsetZ() + eSizeZ - 2*fillet;
     upperFillet = 1.5;
     translate([eY + 2*eSizeY - motorClearance.y + upperFillet, uprightPosZ, 0])
         cube([motorClearance.y - upperFillet, uprightTopZ - uprightPosZ, eSizeXBase]);
 }
 
-module idlerUpright(NEMA_width, left) {
+module idlerUpright(NEMA_width, left, reversedBelts) {
     difference() {
         rounded_cube_xy([eSizeY, eZ - eSizeZ + fillet + eps, eSizeX], 3);
         if (!left)
@@ -372,7 +403,7 @@ module idlerUpright(NEMA_width, left) {
                         zipTieCutout();
     }
     // idler upright, top part, xSize matches idler
-    rightReversedBeltOffset = _useReversedBelts && !left ? coreXYSeparation().z : 0; // right sized idler bracket is smaller for reversed belts
+    rightReversedBeltOffset = reversedBelts && !left ? coreXYSeparation().z : 0; // right sized idler bracket is smaller for reversed belts
     idlerBracketSize = idlerBracketSize(coreXYPosBL(NEMA_width)) + [0, -rightReversedBeltOffset, 0];
     translate([0, middleWebOffsetZ(), 0])
         rounded_cube_xy([idlerBracketSize.x, eZ - middleWebOffsetZ() - _topPlateThickness, eSizeX], fillet);
@@ -484,12 +515,12 @@ module frontConnector() {
 
 
 //use coordinate frame of flat frame
-module frame(NEMA_type, left=true, useFrontSwitch=false) {
+module frame(NEMA_type, left=true, useFrontSwitch=false, reversedBelts=false) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
-    topBoltHolderSize = topBoltHolderSize(0, reversedBelts=_useReversedBelts);
+    topBoltHolderSize = topBoltHolderSize(0, reversedBelts=reversedBelts);
 
-    idlerUpright(NEMA_width, left);
+    idlerUpright(NEMA_width, left, reversedBelts);
     difference() {
         union() {
             frameLower(NEMA_width, left, useFrontSwitch=useFrontSwitch);
@@ -502,7 +533,7 @@ module frame(NEMA_type, left=true, useFrontSwitch=false) {
                     rotate(270)
                         fillet(2, topBoltHolderSize.z);
             }
-            motorUpright(NEMA_width, left);
+            motorUpright(NEMA_width, left, reversedBelts);
 
             frontConnector();
             // middle chord

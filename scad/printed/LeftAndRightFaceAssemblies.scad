@@ -7,32 +7,30 @@ include <../vitamins/cables.scad>
 use <../vitamins/extruder.scad>
 
 
-function rightFaceFanPosition(fan, offset) = [eX + 2*eSizeX - fan_depth(fan)/2 + offset.x, fan_width(fan)/2 + offset.y, fan_width(fan)/2 + eSizeZ];
-
 module Left_Face_stl() {
     stl("Left_Face")
         color(pp1_colour)
-            leftFace(NEMA14T(), useFrontSwitch=_useFrontSwitch);
+            leftFace(NEMA14T(), useFrontSwitch=_useFrontSwitch, fan=_useReversedBelts);
             //cube([eY + 2*eSizeY, eZ, eSizeX]);
 }
 
 module Left_Face_NEMA_17_stl() {
     stl("Left_Face_NEMA_17")
         color(pp1_colour)
-            leftFace(NEMA17_40, useFrontSwitch=_useFrontSwitch);
+            leftFace(NEMA17_40, useFrontSwitch=_useFrontSwitch, fan=_useReversedBelts);
             //cube([eY + 2*eSizeY, eZ, eSizeX]);
 }
 
 module Right_Face_stl() {
     stl("Right_Face")
         color(pp1_colour)
-            rightFace(NEMA14T(), useIEC=!_useFrontSwitch);
+            rightFace(NEMA14T(), useIEC=!_useFrontSwitch, reversedBelts=_useReversedBelts, fan=_useReversedBelts);
 }
 
 module Right_Face_NEMA_17_stl() {
     stl("Right_Face_NEMA_17")
         color(pp1_colour)
-            rightFace(NEMA17_40, useIEC=!_useFrontSwitch);
+            rightFace(NEMA17_40, useIEC=!_useFrontSwitch, reversedBelts=_useReversedBelts, fan=_useReversedBelts);
             //cube([eY + 2*eSizeY, eZ, eSizeX]);
 }
 
@@ -245,8 +243,7 @@ assembly("Right_Face") {
     Right_Face_Stage_1_assembly();
     rightFaceAssembly(_xyNEMA_width);
 
-    /*fan = fan30x10;
-    faceThickness = 1;
-    fanOffset = [-faceThickness, eSizeY + 50];
-    rightFaceFan(fan, fanOffset, boltOffset=faceThickness);*/
+    fan = fan30x10;
+    if (_useReversedBelts)
+        rightFaceFan(fan, fanOffsetRB, boltOffset=-fanOffsetRB.x);
 }

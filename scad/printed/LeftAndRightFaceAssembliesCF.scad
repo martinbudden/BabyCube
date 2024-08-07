@@ -1,8 +1,6 @@
 include <LeftAndRightFaceAssemblies.scad>
 
-use <NopSCADlib/vitamins/psu.scad> // for psu_grill
 include <NopSCADlib/vitamins/sheets.scad>
-include <NopSCADlib/vitamins/fans.scad>
 
 use <SpoolHolderExtras.scad>
 
