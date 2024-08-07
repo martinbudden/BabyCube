@@ -58,7 +58,7 @@ module X_Carriage_Belt_Side_MGN9C_HC_stl() {
 
     // orientate for printing
     stl("X_Carriage_Belt_Side_MGN9C_HC")
-        color(pp4_colour)
+        color(pp1_colour)
             translate([extraX/2, 0, 0])
                 rotate([90, 0, 180])
                     xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, screwType=hs_cs_cap, halfCarriage=halfCarriage);
@@ -75,7 +75,7 @@ module X_Carriage_Belt_Side_MGN9C_stl() {
 
     // orientate for printing
     stl("X_Carriage_Belt_Side_MGN9C")
-        color(pp4_colour)
+        color(pp1_colour)
             translate([extraX/2, 0, 0])
                 rotate([90, 0, 180])
                     xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, screwType=hs_cap, boreDepth=xCarriageBoreDepth(), halfCarriage=halfCarriage);
@@ -92,7 +92,7 @@ module X_Carriage_Belt_Side_MGN9C_RB_stl() {
 
     // orientate for printing
     stl("X_Carriage_Belt_Side_MGN9C_RB")
-        color(pp4_colour)
+        color(pp1_colour)
             translate([extraX/2, 0, 0])
                 rotate([90, 0, 180])
                     xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth(), beltSeparation(), holeSeparationTop, holeSeparationBottom, accelerometerOffset=accelerometerOffset(), topHoleOffset=-extraX/2, screwType=hs_cap, boreDepth=xCarriageBoreDepth(), halfCarriage=halfCarriage, reversedBelts=true,endCube=true);

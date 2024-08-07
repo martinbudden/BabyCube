@@ -233,7 +233,7 @@ module DropEffectXG_Fan_Duct_stl() {
 
 module X_Carriage_DropEffect_XG_MGN9C_stl() {
     stl("X_Carriage_DropEffect_XG_MGN9C")
-        color(pp1_colour)
+        color(pp4_colour)
             rotate([0, -90, 0])
                 xCarriageDropEffectXGMGN9C("DropEffectXG", inserts=false);
 }

@@ -49,13 +49,13 @@ module xCarriageGroovemountMGN9C(halfCarriage, inserts=false) {
 
 module X_Carriage_Groovemount_MGN9C_HC_stl() {
     stl("X_Carriage_Groovemount_MGN9C_HC")
-        color(pp1_colour)
+        color(pp4_colour)
             xCarriageGroovemountMGN9C(halfCarriage=true);
 }
 
 module X_Carriage_Groovemount_MGN9C_stl() {
     stl("X_Carriage_Groovemount_MGN9C")
-        color(pp1_colour)
+        color(pp4_colour)
             xCarriageGroovemountMGN9C(halfCarriage=false);
 }
 
@@ -68,7 +68,7 @@ module xCarriageGroovemountMGN9CAssembly(halfCarriage) {
     hotendOffset = hotendOffset(xCarriageType, hotendDescriptor);
 
     rotate([0, 90, 0])
-        stl_colour(pp1_colour)
+        stl_colour(pp4_colour)
             if (halfCarriage)
                 X_Carriage_Groovemount_MGN9C_HC_stl();
             else

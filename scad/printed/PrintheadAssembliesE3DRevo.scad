@@ -11,7 +11,7 @@ include <X_CarriageE3DRevo.scad>
 module Printhead_E3DRevo_MGN9C_assembly() pose(a=[55, 0, 25 + 180])
 assembly("Printhead_E3DRevo_MGN9C", big=true) {
 
-    stl_colour(pp1_colour)
+    stl_colour(pp4_colour)
         rotate([0, 90, 0])
             X_Carriage_E3DRevo_MGN9C_stl();
     X_Carriage_E3DRevo_MGN9C_hardware();
@@ -20,7 +20,7 @@ assembly("Printhead_E3DRevo_MGN9C", big=true) {
 module Printhead_E3DRevo_40_MGN9C_assembly() pose(a=[55, 0, 25 + 180])
 assembly("Printhead_E3DRevo_40_MGN9C", big=true) {
 
-    stl_colour(pp1_colour)
+    stl_colour(pp4_colour)
         rotate([0, 90, 0])
             X_Carriage_E3DRevo_40_MGN9C_stl();
     X_Carriage_E3DRevo_40_MGN9C_hardware();
