@@ -22,7 +22,7 @@ include <../utils/HolePositions.scad>
 use <../config/Parameters_Positions.scad>
 include <../config/Parameters_CoreXY.scad>
 include <../utils/CoreXYBelts.scad>
-include <../utils/StagedAssembly.scad>
+include <../utils/StagedAssemblyMain.scad>
 
 
 //! Bolt the **Back_Face_CF_assembly** to the **Base_CF_assembly**.
