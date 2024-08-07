@@ -39,6 +39,7 @@ module Printhead_test() {
     translate(-[ carriagePosition.x, carriagePosition.y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
         //printheadBeltSide(halfCarriage=false, reversedBelts=true);
         printheadHotendSideE3DRevo(boltLength=0);
+        //printheadHotendSideE3DRevoCompact(boltLength=0);
         //printheadHotendSideE3DV6(halfCarriage=false, noPrinthead=true, boltLength=0);
         //CoreXYBelts(carriagePosition);
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
