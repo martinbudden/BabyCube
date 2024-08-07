@@ -329,7 +329,7 @@ assembly("Top_Face_CF", big=true) {
     explode(250, true, show_line=false)
         CoreXYBelts(carriagePosition());
     explode(100, true, show_line=false)
-        printheadBeltSide(halfCarriage=false, reversedBelts=false);
+        printheadBeltSide(halfCarriage=false, reversedBelts=true);
 }
 
 /*
