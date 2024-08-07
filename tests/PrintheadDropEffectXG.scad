@@ -49,7 +49,7 @@ module Printhead_test() {
         CoreXYBelts(carriagePosition);
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         //bowdenTube(carriagePosition, "DropEffectXG");
-        //printheadWiring(carriagePosition, "DropEffectXG",  backFaceZipTiePositions());
+        printheadWiring(carriagePosition, "DropEffectXG",  backFaceZipTiePositions(), segment=true);
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();

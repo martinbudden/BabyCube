@@ -35,10 +35,10 @@ module Printhead_test() {
     reversedBelts = false;
 
     translate(-[ carriagePosition.x, carriagePosition.y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
-        printheadBeltSide(halfCarriage=halfCarriage, reversedBelts=reversedBelts);
+        //printheadBeltSide(halfCarriage=halfCarriage, reversedBelts=reversedBelts);
         printheadHotendSideE3DV6(halfCarriage=halfCarriage, boltLength=0);
 
-        CoreXYBelts(carriagePosition, 
+        *CoreXYBelts(carriagePosition, 
             reversedBelts=reversedBelts, 
             coreXY_type=reversedBelts ? coreXY_GT2_20_F623 : coreXY_GT2_20_16,
             leftDrivePulleyOffset=leftDrivePulleyOffset(reversedBelts), 
@@ -46,7 +46,7 @@ module Printhead_test() {
             plainIdlerPulleyOffset=plainIdlerPulleyOffset(reversedBelts));
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         //bowdenTube(carriagePosition, "E3DV6");
-        //printheadWiring(carriagePosition, "E3DV6",  backFaceZipTiePositions());
+        printheadWiring(carriagePosition, "E3DV6",  backFaceZipTiePositions(), segment=true);
         //Back_Face_assembly();
     }
     //X_Carriage_assembly();

@@ -22,7 +22,7 @@ module bowdenTube(carriagePosition, hotendDescriptor, extraZ=120) {
         bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition.x, carriagePosition.y, eZ] + printheadBowdenOffset(hotendDescriptor), vitamin=true, extraZ=extraZ);
 }
 
-module printheadWiring(carriagePosition, hotendDescriptor, backFaceZipTiePositions) {
+module printheadWiring(carriagePosition, hotendDescriptor, backFaceZipTiePositions, segment=false) {
     zp = backFaceZipTiePositions;
     assert(!is_undef(zp));
     assert(is_list(zp));
@@ -37,7 +37,7 @@ module printheadWiring(carriagePosition, hotendDescriptor, backFaceZipTiePositio
     //echo(px=printheadWiringPosX());
     //assert(is_num(printheadWiringPosX()));
     y = eY + 2*eSizeY - printheadWireRadius();
-    p = [
+    p0 = [
         [ zp[0].x, y, zp[0].y ],
         [ zp[1].x, y, zp[1].y -5 ],
         [ zp[1].x, y, zp[1].y ],
@@ -69,9 +69,13 @@ module printheadWiring(carriagePosition, hotendDescriptor, backFaceZipTiePositio
         printheadWiringPos + [0, -5, 100],
         (printheadWiringPos + endPos)/2 + [0, 0, 180],
         endPos + [0, 0, 100],
+    ];
+    p1 = [
         endPos + [0, 0, 50],
+        endPos + [0, 0.1, 20],
         endPos,
     ];
+    p = segment ? p1 : concat(p0, p1);
     color(grey(20))
         bezierTube2(p, tubeRadius=printheadWireRadius());
 }

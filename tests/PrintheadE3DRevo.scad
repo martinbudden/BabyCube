@@ -44,7 +44,7 @@ module Printhead_test() {
         CoreXYBelts(carriagePosition);
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         //bowdenTube(carriagePosition, "E3DRevo");
-        //printheadWiring(carriagePosition, "E3DRevo",  backFaceZipTiePositions());
+        printheadWiring(carriagePosition, "E3DRevo",  backFaceZipTiePositions(), segment=true);
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();
