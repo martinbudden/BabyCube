@@ -24,12 +24,10 @@ include <../utils/CoreXYBelts.scad>
 use <../config/Parameters_Positions.scad>
 
 
-staged_assembly = true; // set this to false for faster builds during development
-
 //!1. Bolt the **Right_Face** and the right feet to the base.
 //
 module Stage_1_RB_assembly()
-staged_assembly("Stage_1_RB", big=true, ngb=true) {
+main_staged_assembly("Stage_1_RB", big=true, ngb=true) {
 
     assert(holePositionsYRailShiftX==yRailShiftX());
 
@@ -52,7 +50,7 @@ staged_assembly("Stage_1_RB", big=true, ngb=true) {
 //! Add the **Back_Face** and bolt it to the right face and the base.
 //
 module Stage_2_RB_assembly() pose(a=[55+10, 0, 25 + 80])
-staged_assembly("Stage_2_RB", big=true, ngb=true) {
+main_staged_assembly("Stage_2_RB", big=true, ngb=true) {
 
     Stage_1_RB_assembly();
     //BaseAL();
@@ -91,7 +89,7 @@ staged_assembly("Stage_2_RB", big=true, ngb=true) {
 //! Add the **Top_Face**.
 //
 module Stage_3_RB_assembly()
-staged_assembly("Stage_3_RB", big=true, ngb=true) {
+main_staged_assembly("Stage_3_RB", big=true, ngb=true) {
 
     Stage_2_RB_assembly();
 
@@ -116,7 +114,7 @@ staged_assembly("Stage_3_RB", big=true, ngb=true) {
 //!2. Bolt the **Left_Face** to the back fase and the top face.
 //
 module Stage_4_RB_assembly()
-staged_assembly("Stage_4_RB", big=true, ngb=true) {
+main_staged_assembly("Stage_4_RB", big=true, ngb=true) {
 
     Stage_3_RB_assembly();
 
@@ -165,7 +163,7 @@ staged_assembly("Stage_4_RB", big=true, ngb=true) {
 //!3. Adjust the belts tension.
 //
 module Stage_5_RB_assembly()
-staged_assembly("Stage_5_RB", big=true, ngb=true) {
+main_staged_assembly("Stage_5_RB", big=true, ngb=true) {
 
     Stage_4_RB_assembly();
 
@@ -179,7 +177,7 @@ staged_assembly("Stage_5_RB", big=true, ngb=true) {
 //!Bolt the BabyCube nameplate and the **Front_Lower_Chord** to the front of the frame.
 //
 module Stage_6_RB_assembly()
-staged_assembly("Stage_6_RB", big=true, ngb=true) {
+main_staged_assembly("Stage_6_RB", big=true, ngb=true) {
 
     Stage_5_RB_assembly();
 

@@ -18,8 +18,6 @@ include <Z_MotorMount.scad>
 include <../config/Parameters_CoreXY.scad>
 use <../config/Parameters_Positions.scad>
 
-staged_assembly = true; // set this to false for faster builds during development
-
 
 module Back_Face_x220_z200_stl() {
     assert(eZ==200);

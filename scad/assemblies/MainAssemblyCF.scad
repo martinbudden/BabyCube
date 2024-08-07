@@ -25,13 +25,10 @@ include <../utils/CoreXYBelts.scad>
 include <../utils/StagedAssembly.scad>
 
 
-staged_assembly = true; // set this to false for faster builds during development
-
-
 //! Bolt the **Back_Face_CF_assembly** to the **Base_CF_assembly**.
 //
 module Stage_1_CF_assembly() pose(a=[55+10, 0, 25 + 80])
-staged_assembly("Stage_1_CF", big=true, ngb=true) {
+main_staged_assembly("Stage_1_CF", big=true, ngb=true) {
 
     assert(holePositionsYRailShiftX==yRailShiftX());
 
@@ -63,7 +60,7 @@ staged_assembly("Stage_1_CF", big=true, ngb=true) {
 //!2. Connect the wires from the **IEC** to the **PSU**.
 //!3. Connect the stepper motor cable from the extruder motor to the mainboard.
 module Stage_2_CF_assembly()
-staged_assembly("Stage_2_CF", big=true, ngb=true) {
+main_staged_assembly("Stage_2_CF", big=true, ngb=true) {
 
     Stage_1_CF_assembly();
 
@@ -92,7 +89,7 @@ staged_assembly("Stage_2_CF", big=true, ngb=true) {
 //!4. Attach the **Printhead Assembly** to the X_Carriage.
 //
 module Stage_3_CF_assembly()
-staged_assembly("Stage_3_CF", big=true, ngb=true) {
+main_staged_assembly("Stage_3_CF", big=true, ngb=true) {
 
     Stage_2_CF_assembly();
 
@@ -133,7 +130,7 @@ staged_assembly("Stage_3_CF", big=true, ngb=true) {
 //!2. Bolt the **Left_Face_CF** to the base and the back and top faces.
 //
 module Stage_4_CF_assembly() pose(a=[55, 0, 25 - 50])
-staged_assembly("Stage_4_CF", big=true, ngb=true) {
+main_staged_assembly("Stage_4_CF", big=true, ngb=true) {
 
     Stage_3_CF_assembly();
 
@@ -175,7 +172,7 @@ staged_assembly("Stage_4_CF", big=true, ngb=true) {
 //! Bolt the **Nameplate** and the **Front_Face_CF_** to the base and the top, left, and right faces.
 //
 module Stage_5_CF_assembly()
-staged_assembly("Stage_5_CF", big=true, ngb=true) {
+main_staged_assembly("Stage_5_CF", big=true, ngb=true) {
 
     Stage_4_CF_assembly();
 

@@ -7,8 +7,6 @@ include <../utils/StagedAssembly.scad>
 use <../utils/translateRotate.scad>
 include <Foot.scad>
 
-staged_assembly = true; // set this to false for faster builds during development
-
 
 AL3 = [ "AL3", "Aluminium sheet", 3, silver * 1.1, false];
 
@@ -117,7 +115,7 @@ module Base_Cover_CF_stl() {
 
 module Base_Cover_RB_stl() {
     color(baseCoverColor)
-        stl(baseCoverColor)
+        stl("Base_Cover_RB")
             baseCover(baceCoverCenterHolePosY(), cf=false);
 }
 

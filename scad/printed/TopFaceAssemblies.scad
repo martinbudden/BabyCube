@@ -13,9 +13,6 @@ include <../utils/CoreXYBelts.scad>
 include <../utils/StagedAssembly.scad>
 
 
-staged_assembly = true; // set this to false for faster builds during development
-
-
 module Top_Face_stl() {
     stl("Top_Face")
         color(pp3_colour)
