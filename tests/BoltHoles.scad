@@ -79,9 +79,9 @@ module BoltHole_test() {
         rotate([90, 0, 0])
             stl_colour(pp2_colour)
                 if (eZ==200)
-                    Back_Face_200_stl();
+                    Back_Face_x220_z200_stl();
                 else if (eZ == 210)
-                    Back_Face_210_stl();
+                    Back_Face_x220_z210_stl();
 
 }
 

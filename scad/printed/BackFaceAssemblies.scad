@@ -21,14 +21,16 @@ use <../config/Parameters_Positions.scad>
 staged_assembly = true; // set this to false for faster builds during development
 
 
-module Back_Face_200_stl() {
-    stl("Back_Face_200")
+module Back_Face_x220_z200_stl() {
+    assert(eZ==200);
+    stl("Back_Face_x220_z200")
         color(pp2_colour)
             backFace(zMotorType());
 }
 
-module Back_Face_210_stl() {
-    stl("Back_Face_210")
+module Back_Face_x220_z210_stl() {
+    assert(eZ==210);
+    stl("Back_Face_x220_z210")
         color(pp2_colour)
             backFace(zMotorType());
 }
@@ -80,9 +82,9 @@ staged_assembly("Back_Face_Stage_1", big=true, ngb=true) {
         rotate([90, 0, 0]) {
             stl_colour(pp2_colour)
                 if (eZ==200)
-                    Back_Face_200_stl();
+                    Back_Face_x220_z200_stl();
                 else if (eZ == 210)
-                    Back_Face_210_stl();
+                    Back_Face_x220_z210_stl();
             backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
             backFaceUpperBracketsHardware(_backPlateThickness, backFaceUpperBracketOffset, counterSunk=true);
             backFaceLowerBracketOffset = is_undef(_backFaceLowerBracketOffset) ? 0 : _backFaceLowerBracketOffset;
