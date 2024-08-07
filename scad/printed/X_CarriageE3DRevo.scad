@@ -17,15 +17,19 @@ use <X_CarriageAssemblies.scad>
 use <X_CarriageFanDuct.scad>
 
 function xCarriageHotendSideE3DRevoSize(xCarriageType, beltWidth) = [xCarriageBeltSideSize(xCarriageType, beltWidth).x, 5, xCarriageBeltSideSize(xCarriageType, beltWidth).z];
-function blowerOffsetZ(hotendDescriptor) = hotendDescriptor == "E3DRevo" ? -1 : -1;
+function blowerOffset(hotendDescriptor) = hotendDescriptor == "E3DRevo" ? [0, -2, -1] : [0, -2, -1];
+sideZipTieCutoutSize = [9, 4, 2.25];
 
-module xCarriageE3DRevoMGN9CZipTiePositions(size, hotendOffset) {
-    zipTieCutoutSizeY = 5;
-    translate([0, hotendOffset.y - 6.5, hotendOffset.z + 10.5 - zipTieCutoutSizeY/2 - 4]) {// needs to clear boltHoles
-        translate([-size.x/2, 0, 0])
+module xCarriageE3DRevoMGN9CSideZipTiePositions(size, hotendOffset, zipTieCutoutSizeY) {
+    echo(he=hotendOffset);
+    echo(z=zipTieCutoutSizeY);
+    translate([0, hotendOffset.y, hotendOffset.z + 10.5 - zipTieCutoutSizeY/2 - 4]) {// needs to clear boltHoles
+        //blower side
+        translate([-size.x/2, -10, 0])
             rotate([90, 0, -90])
                 children();
-        translate([size.x/2, 0, 0])
+        // hotend fan side
+        translate([size.x/2, -6.5, 0])
             rotate([90, 0, 90])
                 children();
     }
@@ -36,7 +40,7 @@ module xCarriageE3DRevoMGN9C(hotendDescriptor, inserts=false) {
     size = xCarriageHotendSideE3DRevoSize(xCarriageType, beltWidth());
     hotendOffset = printheadHotendOffset(hotendDescriptor);
     blower_type = hotendDescriptor == "E3DRevo" ? BL30x10 : BL40x10;
-    blowerOffsetZ = blowerOffsetZ(hotendDescriptor);
+    blowerOffset = blowerOffset(hotendDescriptor);
 
     fillet = 1;
     extraX = 4; // extend X_Carriage to cover hotend fan
@@ -48,10 +52,9 @@ module xCarriageE3DRevoMGN9C(hotendDescriptor, inserts=false) {
             translate_z(hotendOffset.z)
                 E3DRevoHolder(hotendDescriptor, size, fillet);
         }
-        zipTieCutoutSize = [9, 5, 2.25];
-        xCarriageE3DRevoMGN9CZipTiePositions(size, hotendOffset)
-            zipTieFullCutout(size=zipTieCutoutSize);
-        translate([-size.x/2, hotendOffset.y + blower_width(blower_type)/2 - 2, hotendOffset.z + blowerOffsetZ - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
+        xCarriageE3DRevoMGN9CSideZipTiePositions(size, hotendOffset, sideZipTieCutoutSize.y)
+            zipTieFullCutout(size=sideZipTieCutoutSize);
+        translate([-size.x/2, hotendOffset.y + blower_width(blower_type)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
            rotate([90, 0, -90])
                 blower_hole_positions(blower_type)
                     vflip()
@@ -75,10 +78,10 @@ module xCarriageE3DRevoMGN9C(hotendDescriptor, inserts=false) {
 
 module E3DRevoHolder(hotendDescriptor, size, fillet) {
     hotendOffset = printheadHotendOffset(hotendDescriptor);
-    blowerOffsetZ = blowerOffsetZ(hotendDescriptor);
+    blowerOffset = blowerOffset(hotendDescriptor);
     fan_type = fan25x10;
 
-    sizeTop = [size.x, hotendOffset.y + 8, xCarriageTopThickness()];
+    sizeTop = [size.x, hotendOffset.y + 10 + blowerOffset.y, xCarriageTopThickness()];
     difference() {
         translate([-size.x/2, 10, 0]) {
             rounded_cube_yz(sizeTop, fillet);
@@ -86,14 +89,15 @@ module E3DRevoHolder(hotendDescriptor, size, fillet) {
                 rounded_cube_yz([7, sizeTop.y, sizeTop.z + 3], fillet);
         }
         translate([hotendOffset.x, hotendOffset.y, 0]) {
-            boltHoleM6(sizeTop.z, horizontal=true, rotate=-90);
+            // hole for Bowden connector
+            boltHole(M6_tap_radius*2, sizeTop.z, horizontal=true, rotate=-90, chamfer=0.5);
             revoVoronBoltPositions(sizeTop.z)
                 rotate([180, 0, 90])
                     boltHoleM2p5Counterbore(sizeTop.z, boreDepth=2, horizontal=true);
         }
     }
 
-    sizeSide = [3, sizeTop.y, size.z - 10 - blowerOffsetZ];
+    sizeSide = [3, sizeTop.y, size.z - 10 - blowerOffset.z];
     translate([-size.x/2, 10, xCarriageTopThickness() - sizeSide.z])
         rounded_cube_yz(sizeSide, fillet);
 
@@ -139,7 +143,7 @@ module xCarriageE3DRevoMGN9C_hardware(hotendDescriptor) {
     xCarriageType = carriageType(_xCarriageDescriptor);
     hotendOffset = printheadHotendOffset(hotendDescriptor);
     blower_type = hotendDescriptor == "E3DRevo" ? BL30x10 : BL40x10;
-    blowerOffsetZ = blowerOffsetZ(hotendDescriptor);
+    blowerOffset = blowerOffset(hotendDescriptor);
     fan_type = fan25x10;
     size = xCarriageHotendSideE3DRevoSize(xCarriageType, beltWidth());
 
@@ -165,7 +169,7 @@ module xCarriageE3DRevoMGN9C_hardware(hotendDescriptor) {
                     }
                 }
     }
-    translate([-size.x/2, hotendOffset.y + blower_width(blower_type)/2 - 2, hotendOffset.z + blowerOffsetZ - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
+    translate([-size.x/2, hotendOffset.y + blower_width(blower_type)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
         rotate([90, 0, -90]) {
             explode(40, true, show_line=false) {
                 blower(blower_type);
@@ -184,13 +188,13 @@ module xCarriageE3DRevoMGN9C_hardware(hotendDescriptor) {
                 Fan_Duct_hardware(blower_type);
         }
     }
-    xCarriageE3DRevoCableTiePositions(xCarriageType)
+    xCarriageE3DRevoStrainReliefCableTiePositions(xCarriageType)
         translate([1, railCarriageGap() + 5.4, 0])
             rotate([0, 90, -90])
                 if (!exploded())
                     cable_tie(cable_r = 3.5, thickness = 5.0);
 
-    xCarriageE3DRevoMGN9CZipTiePositions(size, hotendOffset)
+    xCarriageE3DRevoMGN9CSideZipTiePositions(size, hotendOffset, sideZipTieCutoutSize.y)
         rotate(90)
             if (!exploded())
                 cable_tie(cable_r = 2.5, thickness = 2.5);
@@ -221,18 +225,18 @@ module xCarriageE3DRevoBack(xCarriageType, size, extraX, fillet) {
     }
 }
 
-module xCarriageE3DRevoCableTieOffsets(strainReliefSizeX) {
+module xCarriageE3DRevoStrainReliefCableTieOffsets(strainReliefSizeX) {
     for (z = [10, 20])
         translate([strainReliefSizeX/2, 0, z])
             children();
 }
 
-module xCarriageE3DRevoCableTiePositions(xCarriageType, strainReliefSizeX=15) {
+module xCarriageE3DRevoStrainReliefCableTiePositions(xCarriageType, strainReliefSizeX=15) {
     xCarriageBackSizeX = xCarriageHotendSideE3DRevoSize(xCarriageType, beltWidth()).x;
     carriageSize = carriage_size(xCarriageType);
 
     translate([-xCarriageBackSizeX/2 - 1, carriageSize.y/2, xCarriageBaseThickness()])
-        xCarriageE3DRevoCableTieOffsets(strainReliefSizeX)
+        xCarriageE3DRevoStrainReliefCableTieOffsets(strainReliefSizeX)
             children();
 }
 
@@ -244,7 +248,7 @@ module xCarriageE3DRevoStrainRelief(carriageSize, xCarriageBackSize, fillet) {
         translate_z(-2*fillet)
             rounded_cube_yz(tabSize, fillet);
         cutoutSize = [2.2, tabSize.y + 2*eps, 4.5];
-        xCarriageE3DRevoCableTieOffsets(strainReliefSizeX)
+        xCarriageE3DRevoStrainReliefCableTieOffsets(strainReliefSizeX)
             for (x = [-4, 4])
                 translate([x - cutoutSize.x/2, -eps, -cutoutSize.z/2])
                     rounded_cube_yz(cutoutSize, 0.5);
