@@ -30,7 +30,6 @@ module Printhead_test() {
     echoPrintSize();
     xCarriageType = carriageType(_xCarriageDescriptor);
     carriagePosition = carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0];
-    //echo(xx=yRailOffset(_xyNEMA_width).x); 18.39
     //X_Carriage_E3DRevo_MGN9C_stl();
     //Printhead_E3DRevo_MGN9C_assembly();
     //Printhead_E3DRevo_40_MGN9C_assembly();
@@ -38,17 +37,18 @@ module Printhead_test() {
     //E3DRevoVoron();
     //let($hide_bolts=true)
     translate(-[ carriagePosition.x, carriagePosition.y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
-        printheadBeltSide(halfCarriage=false, reversedBelts=true);
+        //printheadBeltSide(halfCarriage=false, reversedBelts=true);
         printheadHotendSideE3DRevo(boltLength=0);
         //printheadHotendSideE3DV6(halfCarriage=false, noPrinthead=true, boltLength=0);
-        CoreXYBelts(carriagePosition);
+        //CoreXYBelts(carriagePosition);
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         //bowdenTube(carriagePosition, "E3DRevo");
-        printheadWiring(carriagePosition, "E3DRevo",  backFaceZipTiePositions(), segment=true);
+        //printheadWiring(carriagePosition, "E3DRevo",  backFaceZipTiePositions());
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();
 }
 
 if ($preview)
-    Printhead_test();
+    rotate(90)
+        Printhead_test();

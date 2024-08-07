@@ -48,7 +48,12 @@ module BoltHole_test() {
     // left face
     translate([-eps, 0, 0])
     rotate([90, 0, 90]) {
-        Left_Face_stl();
+        if (!_useReversedBelts)
+            Left_Face_stl();
+        else if (eZ==200)
+            Left_Face_y200_z200_stl();
+        else
+            Left_Face_y220_z210_stl();
         lowerChordHolePositions()
             rotate([90, 0, 0])
                 boltM3Buttonhead(10);
@@ -61,7 +66,12 @@ module BoltHole_test() {
     translate([eX + 2*eSizeX + eps, 0, 0])
         rotate([90, 0, 90])
             hflip()
-                Right_Face_stl();
+                if (!_useReversedBelts)
+                    Right_Face_stl();
+                else if (eZ==200)
+                    Right_Face_y200_z200_stl();
+                else
+                    Right_Face_y220_z210_stl();
     translate([eX + 2*eSizeX, 0, 0])
         rotate([90, 0, 90])
             mirror([0, 0, 1]) {

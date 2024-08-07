@@ -28,7 +28,7 @@ module Right_Face_test() {
     //CoreXYBelts(carriagePosition);
     //translate_z(4) Right_Face_CF();
     //rotate([0, 180, 0]) rightFace(NEMA14T(), fullyEnclosed=true, fan=true);
-    Right_Face_stl();
+    //Right_Face_stl();
 
     if (_useCNC) {
         Right_Face_CF_assembly();

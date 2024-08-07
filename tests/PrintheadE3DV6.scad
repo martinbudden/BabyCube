@@ -46,7 +46,7 @@ module Printhead_test() {
             plainIdlerPulleyOffset=plainIdlerPulleyOffset(reversedBelts));
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         //bowdenTube(carriagePosition, "E3DV6");
-        printheadWiring(carriagePosition, "E3DV6",  backFaceZipTiePositions(), segment=true);
+        //printheadWiring(carriagePosition, "E3DV6",  backFaceZipTiePositions());
         //Back_Face_assembly();
     }
     //X_Carriage_assembly();
@@ -62,4 +62,5 @@ module Printhead_test() {
 
 //let($hide_bolts=true)
 if ($preview)
-    Printhead_test();
+    rotate(90)
+        Printhead_test();

@@ -42,18 +42,19 @@ module Printhead_test() {
     //translate([-60, 0, 53.25]) Printhead_E3DV6_MGN9C_assembly(); // nozzle clearance of 7.25 from bottom of xCarriage, fan duct has less clearance
 
     translate(-[ carriagePosition.x, carriagePosition.y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
-        printheadBeltSide(halfCarriage=false, reversedBelts=true);
+        //printheadBeltSide(halfCarriage=false, reversedBelts=true);
         printheadHotendSideDropEffectXG(boltLength=0);
         //printheadHotendSideE3DRevo(boltLength=0);
         //printheadHotendSideE3DV6(halfCarriage=false, noPrinthead=!true, boltLength=0);
-        CoreXYBelts(carriagePosition);
+        //CoreXYBelts(carriagePosition);
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         //bowdenTube(carriagePosition, "DropEffectXG");
-        printheadWiring(carriagePosition, "DropEffectXG",  backFaceZipTiePositions(), segment=true);
+        //printheadWiring(carriagePosition, "DropEffectXG",  backFaceZipTiePositions());
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();
 }
 
 if ($preview)
-    Printhead_test();
+    rotate(90)
+        Printhead_test();
