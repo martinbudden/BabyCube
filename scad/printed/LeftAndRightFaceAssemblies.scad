@@ -8,6 +8,10 @@ use <../vitamins/extruder.scad>
 
 
 module Left_Face_stl() {
+    assert(_useReversedBelts==false);
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.y == 200);
+    assert(_chordLengths.z == 200);
     stl("Left_Face")
         color(pp1_colour)
             leftFace(NEMA14T(), useFrontSwitch=_useFrontSwitch, fan=_useReversedBelts);
@@ -15,34 +19,81 @@ module Left_Face_stl() {
 }
 
 module Left_Face_NEMA_17_stl() {
+    assert(_useReversedBelts==false);
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.y == 200);
+    assert(_chordLengths.z == 200);
     stl("Left_Face_NEMA_17")
         color(pp1_colour)
             leftFace(NEMA17_40, useFrontSwitch=_useFrontSwitch, fan=_useReversedBelts);
             //cube([eY + 2*eSizeY, eZ, eSizeX]);
 }
 
+module Left_Face_y200_z200_stl() {
+    assert(_chordLengths.y == 200);
+    assert(_chordLengths.z == 200);
+    stl("Left_Face_y200_z200")
+        color(pp1_colour)
+            leftFace(NEMA14T(), useFrontSwitch=_useFrontSwitch, fan=_useReversedBelts);
+}
+
+module Left_Face_y220_z210_stl() {
+    assert(_chordLengths.y == 220);
+    assert(_chordLengths.z == 210);
+    stl("Left_Face_y220_z210")
+        color(pp1_colour)
+            leftFace(NEMA14T(), useFrontSwitch=_useFrontSwitch, fan=_useReversedBelts);
+}
+
 module Right_Face_stl() {
+    assert(_useReversedBelts==false);
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.y == 200);
+    assert(_chordLengths.z == 200);
     stl("Right_Face")
         color(pp1_colour)
             rightFace(NEMA14T(), useIEC=!_useFrontSwitch, reversedBelts=_useReversedBelts, fan=_useReversedBelts);
 }
 
 module Right_Face_NEMA_17_stl() {
+    assert(_useReversedBelts==false);
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.y == 200);
+    assert(_chordLengths.z == 200);
     stl("Right_Face_NEMA_17")
         color(pp1_colour)
             rightFace(NEMA17_40, useIEC=!_useFrontSwitch, reversedBelts=_useReversedBelts, fan=_useReversedBelts);
             //cube([eY + 2*eSizeY, eZ, eSizeX]);
 }
+module Right_Face_y200_z200_stl() {
+    assert(_chordLengths.y == 200);
+    assert(_chordLengths.z == 200);
+    stl("Right_Face_y200_z200")
+        color(pp1_colour)
+            rightFace(NEMA14T(), useIEC=!_useFrontSwitch, reversedBelts=_useReversedBelts, fan=_useReversedBelts);
+}
 
+module Right_Face_y220_z210_stl() {
+    assert(_chordLengths.y == 220);
+    assert(_chordLengths.z == 210);
+    stl("Right_Face_y220_z210")
+        color(pp1_colour)
+            rightFace(NEMA14T(), useIEC=!_useFrontSwitch, reversedBelts=_useReversedBelts, fan=_useReversedBelts);
+}
 module leftFaceAssembly() {
     translate([-eps, 0, 0])
         rotate([90, 0, 90]) {
             if (_xyMotorDescriptor == "NEMA14") {
-                Left_Face_stl();
-                //hidden() Left_Face_NEMA_17_stl();
+                if (_useReversedBelts) {
+                    if (eZ == 200)
+                        Left_Face_y200_z200_stl();
+                    else
+                        Left_Face_y220_z210_stl();
+                } else {
+                    Left_Face_stl();
+                }
             } else {
                 Left_Face_NEMA_17_stl();
-                //hidden() Left_Face_stl();
             }
         }
 }
@@ -167,11 +218,16 @@ module rightFaceStage1Assembly() {
     translate([eX + 2 * eSizeX + eps, 0, 0])
         rotate([90, 0, -90])
             if (_xyMotorDescriptor=="NEMA14") {
-                Right_Face_stl();
-                //hidden() Right_Face_NEMA_17_stl();
+                if (_useReversedBelts) {
+                    if (eZ == 200)
+                        Right_Face_y200_z200_stl();
+                    else
+                        Right_Face_y220_z210_stl();
+                } else {
+                    Right_Face_stl();
+                }
             } else {
                 Right_Face_NEMA_17_stl();
-                //hidden() Right_Face_stl();
             }
 }
 

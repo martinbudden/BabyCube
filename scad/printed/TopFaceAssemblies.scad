@@ -20,13 +20,6 @@ module Top_Face_stl() {
                 topFace(NEMA14_36);
 }
 
-module Top_Face_RB_stl() {
-    stl("Top_Face_RB")
-        color(pp3_colour)
-            vflip()
-                topFace(NEMA14_36, useReversedBelts=true);
-}
-
 module Top_Face_NEMA_17_stl() {
     stl("Top_Face_NEMA_17")
         color(pp3_colour)
@@ -34,8 +27,36 @@ module Top_Face_NEMA_17_stl() {
                 topFace(NEMA17_40);
 }
 
-module Top_Face_CF_dxf() {
-    dxf("Top_Face_CF")
+module Top_Face_x220_y200_stl() {
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.y == 200);
+    stl("Top_Face_x220_y200")
+        color(pp3_colour)
+            vflip()
+                topFace(NEMA14_36, useReversedBelts=true);
+}
+
+module Top_Face_x220_y220_stl() {
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.y == 220);
+    stl("Top_Face_x220_y220")
+        color(pp3_colour)
+            vflip()
+                topFace(NEMA14_36, useReversedBelts=true);
+}
+
+
+module Top_Face_CF_x220_y200_dxf() {
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.y == 200);
+    dxf("Top_Face_CF_x220_y200")
+        topFaceCF(NEMA14_36, extraY=_backPlateCFThickness);
+}
+
+module Top_Face_CF_x220_y220_dxf() {
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.y == 220);
+    dxf("Top_Face_CF_x220_y220")
         topFaceCF(NEMA14_36, extraY=_backPlateCFThickness);
 }
 
@@ -47,7 +68,10 @@ module Top_Face_CF() {
 
     translate([size.x/2, size.y/2 + insetY, 0])
         render_2D_sheet(CF3, w=size.x, d=size.y)
-            Top_Face_CF_dxf();
+            if (eY + 2*eSizeY == 200)
+                Top_Face_CF_x220_y200_dxf();
+            else
+                Top_Face_CF_x220_y220_dxf();
 }
 
 //! 1. Turn the **Top_Face** upside down and place it on a flat surface.
@@ -62,10 +86,14 @@ staged_assembly("Top_Face_Stage_1", big=true, ngb=true) {
     translate_z(eZ)
         vflip()
             stl_colour(pp3_colour)
-                if (_useReversedBelts)
-                    Top_Face_RB_stl();
-                else
+                if (_useReversedBelts) {
+                    if (eY + 2*eSizeY == 200)
+                        Top_Face_x220_y200_stl();
+                    else
+                        Top_Face_x220_y220_stl();
+                } else {
                     Top_Face_stl();
+                }
     topFaceYRails(NEMA_width(NEMA14_36), t);
 }
 

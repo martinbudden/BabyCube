@@ -20,14 +20,16 @@ use <../config/Parameters_Positions.scad>
 
 
 module Back_Face_x220_z200_stl() {
-    assert(eZ==200);
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.z == 200);
     stl("Back_Face_x220_z200")
         color(pp2_colour)
             backFace(zMotorType());
 }
 
 module Back_Face_x220_z210_stl() {
-    assert(eZ==210);
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.z == 210);
     stl("Back_Face_x220_z210")
         color(pp2_colour)
             backFace(zMotorType());
@@ -125,50 +127,63 @@ assembly("Back_Face", big=true) {
             camera(cameraType);
 }
 
-module Back_Face_CF_dxf() {
+module backFaceCF() {
     size = [eX + 2*eSizeX, eZ];
 
-    dxf("Back_Face_CF")
-        difference() {
-            sheet_2D(CF3, size.x, size.y);
-            translate([-size.x/2, -size.y/2]) {
-                backFaceSideCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0);
-                yRailOffset = yRailOffset(_xyNEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
-                backFaceTopCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0, yRailOffset=yRailOffset);
-                // add the bolt holes for attachment to the left and right faces
-                backFaceLeftAndRightSideHolePositions(cf=true)
-                    circle(r=M3_clearance_radius);
-                backFaceCFTopHolePositions()
-                    circle(r=M3_clearance_radius);
-                // extra holes for compatibility with BC200 left and right STL faces
-                if (eZ == 200)
-                    for (x = [30, eX + 2*eSizeX - 30])
-                        translate([x, eZ - 15])
-                            circle(r=M3_clearance_radius);
-                backFaceCFSideHolePositions() // attaches to left and right face joiners
-                    circle(r=M3_clearance_radius);
-                backFaceBracketHolePositions(-_backPlateThickness, reversedBelts=true) // attaches to base side joiner
-                    circle(r=M3_clearance_radius);
-                backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
-                backFaceUpperSKBracketHolePositions(backFaceUpperBracketOffset)
-                    circle(r=M5_clearance_radius);
-                backFaceLowerBracketOffset = is_undef(_backFaceLowerBracketOffset) ? 0 : _backFaceLowerBracketOffset;
-                backFaceLowerSKBracketHolePositions(backFaceLowerBracketOffset)
-                    circle(r=M5_clearance_radius);
-                if (_fullLengthYRail)
-                    railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
-                for (left = [true, false])
-                    xyMotorMountBackHolePositions(left)
+    difference() {
+        sheet_2D(CF3, size.x, size.y);
+        translate([-size.x/2, -size.y/2]) {
+            backFaceSideCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0);
+            yRailOffset = yRailOffset(_xyNEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
+            backFaceTopCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0, yRailOffset=yRailOffset);
+            // add the bolt holes for attachment to the left and right faces
+            backFaceLeftAndRightSideHolePositions(cf=true)
+                circle(r=M3_clearance_radius);
+            backFaceCFTopHolePositions()
+                circle(r=M3_clearance_radius);
+            // extra holes for compatibility with BC200 left and right STL faces
+            if (eZ == 200)
+                for (x = [30, eX + 2*eSizeX - 30])
+                    translate([x, eZ - 15])
                         circle(r=M3_clearance_radius);
-                Z_MotorMountHolePositions(zMotorType())
+            backFaceCFSideHolePositions() // attaches to left and right face joiners
+                circle(r=M3_clearance_radius);
+            backFaceBracketHolePositions(-_backPlateThickness, reversedBelts=true) // attaches to base side joiner
+                circle(r=M3_clearance_radius);
+            backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
+            backFaceUpperSKBracketHolePositions(backFaceUpperBracketOffset)
+                circle(r=M5_clearance_radius);
+            backFaceLowerBracketOffset = is_undef(_backFaceLowerBracketOffset) ? 0 : _backFaceLowerBracketOffset;
+            backFaceLowerSKBracketHolePositions(backFaceLowerBracketOffset)
+                circle(r=M5_clearance_radius);
+            if (_fullLengthYRail)
+                railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
+            for (left = [true, false])
+                xyMotorMountBackHolePositions(left)
                     circle(r=M3_clearance_radius);
-                // cutouts for zipties
-                *zipTiePositions()
-                    for (x = [-4, 4])
-                        translate([x, 0])
-                            rounded_square([2, 4], r=0.5, center=true);
-            }
+            Z_MotorMountHolePositions(zMotorType())
+                circle(r=M3_clearance_radius);
+            // cutouts for zipties
+            *zipTiePositions()
+                for (x = [-4, 4])
+                    translate([x, 0])
+                        rounded_square([2, 4], r=0.5, center=true);
         }
+    }
+}
+
+module Back_Face_x220_z200_dxf() {
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.z == 200);
+    dxf("Back_Face_x220_z200")
+            backFaceCF();
+}
+
+module Back_Face_x220_z210_dxf() {
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.z == 210);
+    dxf("Back_Face_x220_z210")
+            backFaceCF();
 }
 
 CF3Blue = CF3;//[ "CF3",       "Sheet carbon fiber",      3, [0, 0, 1],                false,  5,  5,  [0, 0, 0.5] ];
@@ -178,7 +193,10 @@ module Back_Face_CF() {
 
     translate([size.x/2, size.y/2, -_backPlateCFThickness])
         render_2D_sheet(CF3Blue, w=size.x, d=size.y)
-            Back_Face_CF_dxf();
+            if (eZ == 200)
+                Back_Face_x220_z200_dxf();
+            else
+                Back_Face_x220_z210_dxf();
 }
 
 //!1. Bolt the **Z_Motor_Mount** to the **Back_Face**.
