@@ -21,15 +21,9 @@ module handleX() {
     size = [10, eY - 15, 7];
     rounded_cube_yz(size, 1);
     length = 100;
-    handleSize = [15, 15];
-    /*translate([size.x/2, size.y/2, 0])
-        rotate([0, 90, 0])
-            handle(length2=length, height2=40, size=[15, size.x], holeCount=0, extended=true);*/
-    size = [10, eY - 15, 7];
-    translate([size.x/2, size.y/2, 0])
+    translate([size.x/2, size.y/2, size.z -5])
         rotate([0, -90, 0])
-            handle([size.x, length, 40 + size.z], gripSizeY=15, holeCount=0, extended=true);
-    //size = [gripSize.x, length2, height2];
+            handle([size.x, length, 35], gripSizeY=10, holeCount=0, extended=true);
 }
 
 module Handle2_stl() {

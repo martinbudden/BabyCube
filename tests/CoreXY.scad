@@ -64,7 +64,7 @@ module CoreXY() {
     //let($hide_bolts=true)
     printheadBeltSide(t=t, halfCarriage=false, reversedBelts=true);
     //printheadHotendSideE3DRevo(t=t);
-    *xRailCarriagePosition(carriagePosition(), rotate=0) {// rotate 180 to make it easier to see belts
+    *xRailCarriagePosition(carriagePosition(t), rotate=0) {// rotate 180 to make it easier to see belts
         *rotate([0, 90, 0])
             X_Carriage_stl();
         X_Carriage_assembly();

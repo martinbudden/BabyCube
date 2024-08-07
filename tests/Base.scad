@@ -69,6 +69,7 @@ module Base_test() {
             //Back_Face_assembly();
             Back_Face_Stage_1_assembly();
             Right_Face_assembly();
+            //Left_Face_assembly();
         }
         //Left_Face_assembly();
     }

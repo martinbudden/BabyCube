@@ -15,7 +15,7 @@ module Y_Carriage_test0() {
     t = 3;
     translate_z(-eZ + 20) {
         if (!exploded())
-            CoreXYBelts(carriagePosition(t), x_gap=16, show_pulleys=[1,0,0]);
+            CoreXYBelts(carriagePosition(t) + [yRailOffset(_xyNEMA_width).x, 0], show_pulleys=[1,0,0]);
         yCarriageLeftAssembly(_xyNEMA_width, t=t, reversedBelts=true);
         yCarriageRightAssembly(_xyNEMA_width, t=t, reversedBelts=true);
         //Y_Carriage_Left_Rail_assembly(t=t);

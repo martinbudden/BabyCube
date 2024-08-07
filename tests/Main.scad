@@ -4,8 +4,8 @@ include <NopSCADlib/utils/core/core.scad>
 
 include <../scad/utils/printParameters.scad>
 
-use <../scad/Main.scad>
-use <../scad/assemblies/MainAssembly.scad>
+use <../scad/MainRB.scad>
+//use <../scad/assemblies/MainAssembly.scad>
 
 
 //$explode = 1;
@@ -20,7 +20,8 @@ module Main_test() {
     //Stage_4_assembly();
     //Stage_5_assembly();
     //main_assembly();
-    BC200_assembly(test=true);
+    //BC200_assembly(test=true);
+    BC220_assembly(test=true);
 }
 
 module position(a=[55, 0, 25], t=[0, 0, 0], d=undef) {

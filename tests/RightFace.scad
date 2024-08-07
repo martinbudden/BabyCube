@@ -24,21 +24,25 @@ include <../scad/utils/CoreXYBelts.scad>
 //$pose = 1;
 module Right_Face_test() {
     //echoPrintSize();
-    //CoreXYBelts(carriagePosition(), x_gap=16);
+    //carriagePosition = carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0];
+    //CoreXYBelts(carriagePosition);
     //translate_z(4) Right_Face_CF();
-    //rotate([0, 180, 0]) rightFace(NEMA14T(), fullyEnclosed=true);
+    //rotate([0, 180, 0]) rightFace(NEMA14T(), fullyEnclosed=true, fan=true);
+    Right_Face_stl();
 
     if (_useCNC) {
         Right_Face_CF_assembly();
+        //baseCoverAssembly(cf=true);
     } else {
-        //translate([eX + 2 * eSizeX + eps, 0, 0]) rotate([90, 0, -90]) rightFace(NEMA14T(), fullyEnclosed=true);
+        //translate([eX + 2 * eSizeX + eps, 0, 0]) rotate([90, 0, -90]) rightFace(NEMA14T(), fullyEnclosed=!true, fan=true);
         Right_Face_assembly();
         //IEC_Housing();
+        //baseCoverAssembly(cf=false);
     }
     //faceRightSpoolHolder(cf=_useCNC);
     //faceRightSpool(cf=_useCNC);
     //echo(ep=extruderPosition(_xyNEMA_width));
-    //bowdenTube(carriagePosition(), "E3DRevo");
+    //bowdenTube(carriagePosition, "E3DRevo");
     //Right_Face_NEMA_17_stl();
 
     //Right_Face_Stage_1_assembly();
@@ -46,7 +50,7 @@ module Right_Face_test() {
 
     //webbingRight(xyMotorType());
     //frame(NEMA_type, left=false);
-    //XY_MotorUpright(xyMotorType(), left=false);
+    //XY_MotorUpright(xyMotorType(), left=false, reversedBelts=_useReversedBelts);
     //hotEndWiring();
 
     //Base_assembly();

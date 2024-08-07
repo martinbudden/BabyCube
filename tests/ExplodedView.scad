@@ -71,8 +71,9 @@ module Exploded_View_test(full=true) {
 module Exploded_View_CF_test() {
     explode = 150;
 
-    no_explode()
-        Base_CF_assembly();
+    translate_z(-explode)
+        no_explode()
+            Base_CF_assembly();
     explode([0, 1.25*explode, 0], show_line=false)
         Back_Face_CF_assembly();
     explode([-explode, 0, 0], show_line=false)

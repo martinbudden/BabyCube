@@ -26,9 +26,9 @@ module XY_MotorMount_test() {
     //echo(leftDrivePulleyOffset=leftDrivePulleyOffset());
     //echo(rightDrivePulleyOffset=rightDrivePulleyOffset());
 
-    CoreXYBelts(carriagePosition(), show_pulleys=[1, 0, 0]);
+    CoreXYBelts(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], show_pulleys=[1, 0, 0]);
 
-    //XY_MotorUpright(xyMotorType(), left);
+    //XY_MotorUpright(xyMotorType(), left, reversedBelts=_useReversedBelts);
     //XY_MotorMount(xyMotorType(), left, basePlateThickness = 5, offset = basePlateThickness + eZ-coreXYPosBL(NEMA_width(xyMotorType())).z+(left?0:coreXYSeparation().z));
     //XY_MotorMountHardware(NEMA_type);
 

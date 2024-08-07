@@ -53,7 +53,7 @@ module Left_Face_map() {
 
 module Left_Face_test() {
     echoPrintSize();
-    //CoreXYBelts(carriagePosition());
+    //CoreXYBelts(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0]);
 
     //zipTieCutout();
     //Front_Face_CF_assembly();
@@ -63,8 +63,8 @@ module Left_Face_test() {
     //Left_Face_NEMA_17_CF_dxf();
     //Left_Face_stl();
     //Right_Face_stl();
-    //leftFace(NEMA_type, useFrontSwitch=!true, fullyEnclosed=!true);
-    //rightFace(NEMA_type, useFrontSwitch=!true, fullyEnclosed=!true);
+    //leftFace(NEMA_type, useFrontSwitch=!true, fullyEnclosed=!true, fan=true);
+    //rightFace(NEMA_type, useFrontSwitch=!true, fullyEnclosed=!true, fan=true);
 
     //Right_Face_CF_assembly();
     if (_useCNC) {
@@ -96,7 +96,7 @@ module Left_Face_test() {
     //faceCoreXYUpper(left=true);
 
     //translate([0, -40, 0])
-    //XY_MotorUpright(NEMA_type, left=true);
+    //XY_MotorUpright(NEMA_type, left=true, reversedBelts=_useReversedBelts);
     //yRailSupport(NEMA_type, left=true);
 
 

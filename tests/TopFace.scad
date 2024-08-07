@@ -41,7 +41,7 @@ module Top_Face_test() {
     //printheadHotendSideE3DV6();
     //printheadHotendSideE3DRevo();
     //printheadBeltSide();
-    //CoreXYBelts(carriagePosition());
+    //CoreXYBelts(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0]);
     *translate_z(eZ) {
         //vflip() Top_Face_stl();
         translate_z(-4) Top_Face_CF();
@@ -86,7 +86,6 @@ module Top_Face_test() {
             //Top_Face_NEMA_17_Stage_2_assembly();
         }
     }
-    //CoreXYBelts(carriagePosition());
     /*rotate([90, 0, 0])
         for (left = [true, false])
             xyMotorMountBackHolePositions(left=left, z= -eY - 2*eSizeY - _backPlateCFThickness) // bolt back face to motor mounts
@@ -105,7 +104,7 @@ module Top_Face_test() {
     else
         Left_Face_assembly();
     //Right_Face_assembly();
-    //bowdenTube(carriagePosition(), "E3DRevo");
+    //bowdenTube(carriagePosition, "E3DRevo");
 
     //Back_Face_CF_assembly();
     //Back_Face_CF_Stage_1_assembly();
