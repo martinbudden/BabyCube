@@ -24,20 +24,21 @@ module bowdenTube(carriagePosition, hotendDescriptor, extraZ=120) {
 
 module printheadWiring(carriagePosition, hotendDescriptor, backFaceZipTiePositions, segment=false) {
     zp = backFaceZipTiePositions;
-    assert(!is_undef(zp));
-    assert(is_list(zp));
-    assert(!is_undef(zp[0].x));
+    assert(!is_undef(zp) || segment==true);
+    assert(is_list(zp) || segment==true);
+    assert(!is_undef(zp[0].x) || segment==true);
     printheadWiringPos = printheadWiringPos();
-    assert(!is_undef(printheadWiringPos));
+    assert(!is_undef(printheadWiringPos) || segment==true);
     cable_wrap(500);
 
     xCarriageType = carriageType(_xCarriageDescriptor);    
-    endPos = [carriagePosition.x, carriagePosition.y, eZ] + printheadWiringOffset(hotendDescriptor);
+    endPos = printheadWiringOffset(hotendDescriptor) + (segment ? [0, 0, 0] : [carriagePosition.x, carriagePosition.y, eZ]);
 
     //echo(px=printheadWiringPosX());
     //assert(is_num(printheadWiringPosX()));
     y = eY + 2*eSizeY - printheadWireRadius();
-    p0 = [
+    p0 = segment ? undef :
+    [
         [ zp[0].x, y, zp[0].y ],
         [ zp[1].x, y, zp[1].y -5 ],
         [ zp[1].x, y, zp[1].y ],

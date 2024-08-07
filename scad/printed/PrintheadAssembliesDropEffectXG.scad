@@ -1,4 +1,5 @@
 include <PrintheadAssemblies.scad>
+use <PrintheadExtras.scad>
 
 include <X_CarriageDropEffectXG.scad>
 
@@ -11,6 +12,8 @@ assembly("Printhead_DropEffect_XG_MGN9C", big=true) {
         rotate([0, 90, 0])
             X_Carriage_DropEffect_XG_MGN9C_stl();
     X_Carriage_DropEffect_XG_MGN9C_hardware();
+    if (!exploded())
+        printheadWiring(undef, "DropEffectXG",  undef, segment=true);
 }
 
 module printheadHotendSideDropEffectXG(rotate=0, explode=0, t=undef, accelerometer=false, boltLength=25) {

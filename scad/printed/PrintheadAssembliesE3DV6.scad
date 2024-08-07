@@ -1,5 +1,6 @@
 include <PrintheadAssemblies.scad>
 include <X_CarriageE3DV6.scad>
+use <PrintheadExtras.scad>
 
 
 module printheadE3DV6Assembly() {
@@ -49,6 +50,8 @@ assembly("Printhead_E3DV6_MGN9C", big=true) {
 
     xCarriageGroovemountMGN9CAssembly(halfCarriage=false);
     printheadE3DV6Assembly();
+    if (!exploded())
+        printheadWiring(undef, "E3DV6",  undef, segment=true);
 }
 
 module printheadHotendSideE3DV6(rotate=0, explode=0, t=undef, accelerometer=false, halfCarriage=true, noPrinthead=false, boltLength=25) {
