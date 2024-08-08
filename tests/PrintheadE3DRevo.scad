@@ -30,9 +30,9 @@ module Printhead_test() {
     echoPrintSize();
     xCarriageType = carriageType(_xCarriageDescriptor);
     carriagePosition = carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0];
-    //X_Carriage_E3DRevo_MGN9C_stl();
-    //Printhead_E3DRevo_MGN9C_assembly();
-    //Printhead_E3DRevo_40_MGN9C_assembly();
+    //X_Carriage_E3DRevo_stl();
+    //Printhead_E3DRevo_assembly();
+    //Printhead_E3DRevo_40_assembly();
 
     //E3DRevoVoron();
     //let($hide_bolts=true)

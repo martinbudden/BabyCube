@@ -286,14 +286,14 @@ module E3DRevo_Fan_Duct_40_stl() {
             fanDuct(BL40x10, 16);
 }
 
-module X_Carriage_E3DRevo_MGN9C_stl() {
-    stl("X_Carriage_E3DRevo_MGN9C")
+module X_Carriage_E3DRevo_stl() {
+    stl("X_Carriage_E3DRevo")
         color(pp4_colour)
             rotate([0, -90, 0])
                 xCarriageE3DRevoMGN9C("E3DRevo", inserts=false);
 }
 
-module X_Carriage_E3DRevo_MGN9C_hardware() {
+module X_Carriage_E3DRevo_hardware() {
     xCarriageE3DRevoMGN9C_hardware("E3DRevo");
 }
 
@@ -309,7 +309,7 @@ module X_Carriage_E3DRevo_Compact_MGN9C_hardware() {
 }
 
 module X_Carriage_E3DRevo_40_MGN9C_stl() {
-    stl("X_Carriage_E3DRevo_MGN9C")
+    stl("X_Carriage_E3DRevo")
         color(pp4_colour)
             rotate([0, -90, 0])
                 xCarriageE3DRevoMGN9C("E3DRevo40", inserts=false);
