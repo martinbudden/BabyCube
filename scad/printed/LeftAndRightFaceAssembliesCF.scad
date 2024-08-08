@@ -312,7 +312,7 @@ assembly("Left_Face_CF", big=true) {
 //!4. Bolt the fan to the **Right_Face**. 
 //!5. Attach the stepper motor cable to the stepper motor.
 //
-module Right_Face_CF_assembly() pose(a=[55, 0, 25])
+module Right_Face_CF_assembly() pose(a=[55, 0, 25 - 45])
 assembly("Right_Face_CF", big=true) {
 
     translate([eX + 2*eSizeX + eps, 0, 0])

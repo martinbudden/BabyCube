@@ -180,7 +180,7 @@ assembly("Left_Face", big=true) {
 module rightFaceFan(fan, offset, boltOffset=_sidePlateThickness) {
     translate(rightFaceFanPosition(fan, offset))
        rotate([0, 90, 0]) {
-            explode(-60)
+            explode(-40)
                 fan(fan);
             fan_hole_positions(fan) {
                 translate_z(boltOffset)
@@ -294,7 +294,7 @@ module rightFaceHardware(NEMA_type, cnc=false) {
 //!2. Place the cork damper on the stepper motor and attach the motor through the frame to the extruder. Note the cork
 //!damper is important as it provides thermal insulation between the stepper motor and the frame.
 //!3. Secure the cables for both motors with the zip ties.
-module Right_Face_assembly()
+module Right_Face_assembly() pose(a=[55, 0, 25 - 45])
 assembly("Right_Face") {
     Right_Face_Stage_1_assembly();
     rightFaceAssembly(_xyNEMA_width);
