@@ -35,7 +35,7 @@ module xCarriageDropEffectXGMGN9C(hotendDescriptor, inserts=false) {
     xCarriageType = MGN9C_carriage;
     size = xCarriageHotendSideDropEffectXGSize(xCarriageType, beltWidth()); // [30, 5, 54]
     hotendOffset = printheadHotendOffset(hotendDescriptor);
-    blower_type = BL30x10;
+    blower = BL30x10;
     blowerOffset = blowerOffset(hotendDescriptor);
 
     fillet = 1;
@@ -55,14 +55,14 @@ module xCarriageDropEffectXGMGN9C(hotendDescriptor, inserts=false) {
             rotate(90)
                 DropEffectXGSideBoltPositions()
                     boltHoleM3Countersunk(size.y, horizontal=true, rotate=180);
-        translate([-size.x/2, hotendOffset.y + blower_width(blower_type)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
+        translate([-size.x/2, hotendOffset.y + blower_width(blower)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
             rotate([90, 0, -90])
-                blower_hole_positions(blower_type)
+                blower_hole_positions(blower)
                     vflip()
                         rotate(-30)
                             boltHoleM2p5Tap(5);
             rotate(-90)
-                fanDuctHolePositions(blower_type)
+                fanDuctHolePositions(blower)
                     rotate([90, 0, 0])
                         vflip()
                             boltHoleM2p5Tap(5);
@@ -129,7 +129,7 @@ module DropEffectXGHolder(hotendDescriptor, size, fillet) {
 module xCarriageDropEffectXGMGN9C_hardware(hotendDescriptor) {
     xCarriageType = carriageType(_xCarriageDescriptor);
     hotendOffset = printheadHotendOffset(hotendDescriptor);
-    blower_type = BL30x10;
+    blower = BL30x10;
     blowerOffset = blowerOffset(hotendDescriptor);
     size = xCarriageHotendSideDropEffectXGSize(xCarriageType, beltWidth());
 
@@ -148,12 +148,12 @@ module xCarriageDropEffectXGMGN9C_hardware(hotendDescriptor) {
                 DropEffectXGFan();
         }
     }
-    translate([-size.x/2, hotendOffset.y + blower_width(blower_type)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
+    translate([-size.x/2, hotendOffset.y + blower_width(blower)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
         rotate([90, 0, -90]) {
             explode(40, true, show_line=false) {
-                blower(blower_type);
-                blower_hole_positions(blower_type)
-                    translate_z(blower_lug(blower_type))
+                blower(blower);
+                blower_hole_positions(blower)
+                    translate_z(blower_lug(blower))
                         boltM2p5Caphead(6);
             }
         }
@@ -161,7 +161,7 @@ module xCarriageDropEffectXGMGN9C_hardware(hotendDescriptor) {
             explode([0, -40, -10], true) {
                 stl_colour(pp2_colour)
                     DropEffectXG_Fan_Duct_stl();
-                Fan_Duct_hardware(blower_type);
+                Fan_Duct_hardware(blower);
         }
     }
     xCarriageDropEffectXGStrainReliefCableTiePositions(xCarriageType)
