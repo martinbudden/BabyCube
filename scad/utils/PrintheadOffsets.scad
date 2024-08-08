@@ -7,8 +7,8 @@ function printheadHotendOffset(hotendDescriptor="E3DV6") =
     [0, 0, 0];
 function printheadBowdenOffset(hotendDescriptor="E3DV6") = 
     hotendDescriptor == "E3DV6" ? printheadHotendOffset(hotendDescriptor) + [-15, 15, 2] :
-    hotendDescriptor == "E3DRevo" ? printheadHotendOffset(hotendDescriptor) + [0, 0, 10] :
-    hotendDescriptor == "E3DRevoCompact" ? printheadHotendOffset(hotendDescriptor) + [0, 0, 10] :
+    hotendDescriptor == "E3DRevo" ? printheadHotendOffset(hotendDescriptor) + [0, 0, 18] :
+    hotendDescriptor == "E3DRevoCompact" ? printheadHotendOffset(hotendDescriptor) + [0, 0, 18] :
     hotendDescriptor == "E3DRevo40" ? printheadHotendOffset(hotendDescriptor) + [0, 0, 10] :
     hotendDescriptor == "DropEffectXG" ? printheadHotendOffset(hotendDescriptor) + [0, 0, 10] :
     [0, 0, 0];
