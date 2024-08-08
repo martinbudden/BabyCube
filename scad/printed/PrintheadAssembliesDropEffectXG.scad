@@ -5,13 +5,13 @@ include <X_CarriageDropEffectXG.scad>
 
 //!1.
 //
-module Printhead_DropEffect_XG_MGN9C_assembly() pose(a=[55, 0, 25 + 180])
-assembly("Printhead_DropEffect_XG_MGN9C", big=true) {
+module Printhead_DropEffect_XG_assembly() pose(a=[55, 0, 25 + 180])
+assembly("Printhead_DropEffect_XG", big=true) {
 
     stl_colour(pp4_colour)
         rotate([0, 90, 0])
-            X_Carriage_DropEffect_XG_MGN9C_stl();
-    X_Carriage_DropEffect_XG_MGN9C_hardware();
+            X_Carriage_DropEffect_XG_stl();
+    X_Carriage_DropEffect_XG_hardware();
     if (!exploded())
         printheadWiring(undef, "DropEffectXG",  undef, segment=true);
 }
@@ -21,6 +21,6 @@ module printheadHotendSideDropEffectXG(rotate=0, explode=0, t=undef, acceleromet
     boreDepth = xCarriageBoreDepth();
 
     printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
-        Printhead_DropEffect_XG_MGN9C_assembly();
+        Printhead_DropEffect_XG_assembly();
 }
 

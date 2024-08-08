@@ -19,7 +19,7 @@ function xCarriageHotendSideDropEffectXGSize(xCarriageType, beltWidth) = [xCarri
 function blowerOffset(hotendDescriptor) = [0, -3, 0]; // -3 is experimental, -2 gives more clearance for blower wire
 sideZipTieCutoutSize = [9, 4, 2.25];
 
-module xCarriageDropEffectXGMGN9CSideZipTiePositions(size, hotendOffset, zipTieCutoutSizeY) {
+module xCarriageDropEffectXGSideZipTiePositions(size, hotendOffset, zipTieCutoutSizeY) {
     translate([0, hotendOffset.y, hotendOffset.z + 10.5 - zipTieCutoutSizeY/2 - 4]) {// needs to clear boltHoles
         // blower side
         translate([-size.x/2, -8, 0])
@@ -32,7 +32,7 @@ module xCarriageDropEffectXGMGN9CSideZipTiePositions(size, hotendOffset, zipTieC
     }
 }
 
-module xCarriageDropEffectXGMGN9C(hotendDescriptor, inserts=false) {
+module xCarriageDropEffectXG(hotendDescriptor, inserts=false) {
     xCarriageType = MGN9C_carriage;
     size = xCarriageHotendSideDropEffectXGSize(xCarriageType, beltWidth()); // [30, 5, 54]
     hotendOffset = printheadHotendOffset(hotendDescriptor);
@@ -49,7 +49,7 @@ module xCarriageDropEffectXGMGN9C(hotendDescriptor, inserts=false) {
             translate_z(hotendOffset.z)
                 DropEffectXGHolder(hotendDescriptor, size, fillet);
         }
-        xCarriageDropEffectXGMGN9CSideZipTiePositions(size, hotendOffset, sideZipTieCutoutSize.y)
+        xCarriageDropEffectXGSideZipTiePositions(size, hotendOffset, sideZipTieCutoutSize.y)
             zipTieFullCutout(size=sideZipTieCutoutSize);
 
         translate(hotendOffset)
@@ -127,7 +127,7 @@ module DropEffectXGHolder(hotendDescriptor, size, fillet) {
     }
 }
 
-module xCarriageDropEffectXGMGN9C_hardware(hotendDescriptor) {
+module xCarriageDropEffectXG_hardware(hotendDescriptor) {
     xCarriageType = carriageType(_xCarriageDescriptor);
     hotendOffset = printheadHotendOffset(hotendDescriptor);
     blower = BL30x10;
@@ -171,7 +171,7 @@ module xCarriageDropEffectXGMGN9C_hardware(hotendDescriptor) {
                 if (!exploded())
                     cable_tie(cable_r = 3.5, thickness = 5.0);
 
-    xCarriageDropEffectXGMGN9CSideZipTiePositions(size, hotendOffset, sideZipTieCutoutSize.y)
+    xCarriageDropEffectXGSideZipTiePositions(size, hotendOffset, sideZipTieCutoutSize.y)
         rotate(90)
             if (!exploded())
                 cable_tie(cable_r = 2.5, thickness = 2.5);
@@ -246,14 +246,14 @@ module DropEffectXG_Fan_Duct_stl() {
             fanDuct(BL30x10, 14);
 }
 
-module X_Carriage_DropEffect_XG_MGN9C_stl() {
-    stl("X_Carriage_DropEffect_XG_MGN9C")
+module X_Carriage_DropEffect_XG_stl() {
+    stl("X_Carriage_DropEffect_XG")
         color(pp4_colour)
             rotate([0, -90, 0])
-                xCarriageDropEffectXGMGN9C("DropEffectXG", inserts=false);
+                xCarriageDropEffectXG("DropEffectXG", inserts=false);
 }
 
-module X_Carriage_DropEffect_XG_MGN9C_hardware() {
-    xCarriageDropEffectXGMGN9C_hardware("DropEffectXG");
+module X_Carriage_DropEffect_XG_hardware() {
+    xCarriageDropEffectXG_hardware("DropEffectXG");
 }
 

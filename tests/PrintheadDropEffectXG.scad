@@ -34,11 +34,11 @@ module Printhead_test() {
 
     //E3DRevoVoron();
     //DropEffectXG();
-    //Printhead_DropEffect_XG_MGN9C_assembly();
-    //X_Carriage_DropEffect_XG_MGN9C_stl();
+    //Printhead_DropEffect_XG_assembly();
+    //X_Carriage_DropEffect_XG_stl();
 
-    //translate_z(50) Printhead_DropEffect_XG_MGN9C_assembly(); // clearance of 50-46=4 from bottome of xCarriage
-    //translate([50, 0, 50]) Printhead_E3DRevo_MGN9C_assembly(); // clearance of 2.8 from bottom of xCarriage
+    //translate_z(50) Printhead_DropEffect_XG_assembly(); // clearance of 50-46=4 from bottome of xCarriage
+    //translate([50, 0, 50]) Printhead_E3DRevo_assembly(); // clearance of 2.8 from bottom of xCarriage
     //translate([-60, 0, 53.25]) Printhead_E3DV6_MGN9C_assembly(); // nozzle clearance of 7.25 from bottom of xCarriage, fan duct has less clearance
 
     translate(-[ carriagePosition.x, carriagePosition.y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
@@ -55,6 +55,14 @@ module Printhead_test() {
     //let($hide_bolts=true) Printhead_assembly();
 }
 
+//DropEffectXG_Fan_Duct_stl();
+
+//DropEffectXG();
+//DropEffectXGFan();
+//X_Carriage_DropEffect_XG_MGN9C_stl();
 if ($preview)
     rotate(90)
         Printhead_test();
+else
+    X_Carriage_DropEffect_XG_MGN9C_stl();
+
