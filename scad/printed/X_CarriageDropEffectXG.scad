@@ -8,6 +8,7 @@ use <NopSCADlib/vitamins/wire.scad>
 include <../utils/carriageTypes.scad>
 include <../utils/PrintheadOffsets.scad>
 include <../utils/ziptieCutout.scad>
+include <../utils/rounded_cutout.scad>
 
 include <../vitamins/DropEffectXG.scad>
 use <X_Carriage.scad>
@@ -194,9 +195,9 @@ module xCarriageDropEffectXGBack(xCarriageType, size, extraX, fillet) {
                 rounded_cube_yz(sizeX, fillet);
                 // hotend fan exhaust outlet
                 translate([3, 0, baseThickness + 14.5])
-                    roundedCutoutYZ([8, size.y, 15], 1);
+                    rounded_cutout_yz([8, size.y, 15], 1);
                 translate([size.x - 4, -eps, 25]) {
-                    roundedCutoutYZ([1.5, size.y, 4.5], 1);
+                    rounded_cutout_yz([2.5, size.y, 4.5], 1);
                 }
             }
             // extra extensions for bottom bolts
@@ -207,22 +208,6 @@ module xCarriageDropEffectXGBack(xCarriageType, size, extraX, fillet) {
             rounded_cube_yz([size.x, size.y + 2, topThickness], fillet);*/
         xCarriageDropEffectXGStrainRelief(carriageSize, size, fillet);
     }
-}
-
-module roundedCutoutYZ(size, fillet) {
-    translate([0, -eps, 0])
-        cube([size.x, size.y + 2*eps, size.z]);
-    rotate([0, 90, 0])
-        fillet(fillet, size.x);
-    translate([0, size.y, 0])
-        rotate([90, 180, 90])
-            fillet(fillet, size.x);
-    translate([0, size.y, size.z])
-        rotate([90, -90, 90])
-            fillet(fillet, size.x);
-    translate([0, 0, size.z])
-        rotate([90, 0, 90])
-            fillet(fillet, size.x);
 }
 
 module xCarriageDropEffectXGStrainReliefCableTieOffsets(strainReliefSizeX) {
@@ -251,7 +236,7 @@ module xCarriageDropEffectXGStrainRelief(carriageSize, xCarriageBackSize, fillet
         xCarriageDropEffectXGStrainReliefCableTieOffsets(strainReliefSizeX)
             for (x = [-4, 4])
                 translate([x - cutoutSize.x/2, -eps, -cutoutSize.z/2])
-                    roundedCutoutYZ(cutoutSize, 1);
+                    rounded_cutout_yz(cutoutSize, 1);
     }
 }
 
