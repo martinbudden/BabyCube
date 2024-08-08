@@ -156,6 +156,10 @@ module xCarriageDropEffectXG_hardware(hotendDescriptor) {
         rotate(90)
             if (!exploded())
                 cable_tie(cable_r = 2.5, thickness = 2.5);
+    translate([size.x/4, 14, 11.5])
+        rotate([90, 0, 0])
+            if (!exploded())
+                cable_tie(cable_r = 2.5, thickness = 4);
 }
 
 module xCarriageDropEffectXGBack(xCarriageType, size, fillet) {
@@ -191,8 +195,8 @@ module xCarriageDropEffectXGBack(xCarriageType, size, fillet) {
 }
 
 module xCarriageDropEffectXGStrainReliefCableTieOffsets(strainReliefSizeX) {
-    for (z = [10, 20])
-        translate([strainReliefSizeX/2, 0, z])
+    for (z = [10, 20, 30])
+       translate([strainReliefSizeX/2, 0, z])
             children();
 }
 
@@ -207,7 +211,7 @@ module xCarriageDropEffectXGStrainReliefCableTiePositions(xCarriageType, strainR
 
 module xCarriageDropEffectXGStrainRelief(carriageSize, xCarriageBackSize, fillet) {
     strainReliefSizeX =  16;
-    tabSize = [strainReliefSizeX, xCarriageBackSize.y, 27.5 + 2*fillet]; // ensure room for bolt heads
+    tabSize = [strainReliefSizeX, xCarriageBackSize.y, 27.5 + 10+ 2*fillet]; // ensure room for bolt heads
 
     translate_z(xCarriageBackSize.z)
         difference() {
