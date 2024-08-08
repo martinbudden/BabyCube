@@ -3,14 +3,13 @@ include <../config/global_defs.scad>
 include <../vitamins/bolts.scad>
 include <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/blowers.scad>
-include <NopSCADlib/vitamins/fans.scad>
 use <NopSCADlib/vitamins/wire.scad>
 
 include <../utils/carriageTypes.scad>
 include <../utils/PrintheadOffsets.scad>
 include <../utils/ziptieCutout.scad>
 
-use <../vitamins/DropEffectXG.scad>
+include <../vitamins/DropEffectXG.scad>
 use <X_Carriage.scad>
 use <X_CarriageAssemblies.scad>
 use <X_CarriageFanDuct.scad>
@@ -132,7 +131,6 @@ module xCarriageDropEffectXGMGN9C_hardware(hotendDescriptor) {
     hotendOffset = printheadHotendOffset(hotendDescriptor);
     blower_type = BL30x10;
     blowerOffset = blowerOffset(hotendDescriptor);
-    fan_type = fan25x10;
     size = xCarriageHotendSideDropEffectXGSize(xCarriageType, beltWidth());
 
     translate(hotendOffset) {
@@ -146,16 +144,9 @@ module xCarriageDropEffectXGMGN9C_hardware(hotendDescriptor) {
                         boltM3Countersunk(8);
             explode(-50)
                 DropEffectXG();
+            not_on_bom()
+                DropEffectXGFan();
         }
-        rotate(180)
-            translate([-13, 0, -15])
-                rotate([0, -90, 0]) {
-                    explode([-50, 0, 20], true, show_line=false) {
-                        not_on_bom() fan(fan_type);
-                        fan_hole_positions(fan_type)
-                            not_on_bom() boltM2p5Buttonhead(12);
-                    }
-                }
     }
     translate([-size.x/2, hotendOffset.y + blower_width(blower_type)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
         rotate([90, 0, -90]) {

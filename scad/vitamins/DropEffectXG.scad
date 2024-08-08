@@ -1,6 +1,6 @@
-include <../config/global_defs.scad>
-
 include <NopSCADlib/utils/rounded_cylinder.scad>
+include <../vitamins/bolts.scad>
+include <NopSCADlib/vitamins/fans.scad>
 
 module dropEffectImportStl(file) {
     import(str("../../../stlimport/DropEffect/", file, ".stl"), convexity=10);
@@ -22,6 +22,22 @@ module DropEffectXG() {
         color([0.7, 0.7, 0.7])
             dropEffectImportStl("XG_Hotend_Adaptor");
     }
+}
+
+module DropEffectXGFan() {
+    fan = fan25x10;
+    translate([0, -13, -15])
+        rotate([0, 90, -90]) {
+            explode([-50, 0, 20], true, show_line=false) {
+                fan(fan);
+            pitch = fan_hole_pitch(fan);
+            // fan only attached by 2 bolts
+            for(y = [-pitch, pitch])
+                translate([pitch, y, fan_depth(fan)/2])
+                        color([0.25, 0.25, 0.25])
+                            boltM2p5Caphead(14);
+            }
+        }
 }
 
 module DropEffectXGTopBoltPositions(z=0) {
