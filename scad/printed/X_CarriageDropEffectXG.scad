@@ -15,7 +15,7 @@ use <X_Carriage.scad>
 use <X_CarriageAssemblies.scad>
 use <X_CarriageFanDuct.scad>
 
-function xCarriageHotendSideDropEffectXGSize(xCarriageType, beltWidth) = [xCarriageBeltSideSize(xCarriageType, beltWidth).x, 5, xCarriageBeltSideSize(xCarriageType, beltWidth).z];
+function xCarriageDropEffectXGSize(xCarriageType, beltWidth) = [xCarriageBeltSideSize(xCarriageType, beltWidth).x, 5, xCarriageBeltSideSize(xCarriageType, beltWidth).z];
 function blowerOffset(hotendDescriptor) = [0, -3, 0]; // -3 is experimental, -2 gives more clearance for blower wire
 sideZipTieCutoutSize = [9, 4, 2.25];
 
@@ -25,29 +25,23 @@ module xCarriageDropEffectXGSideZipTiePositions(size, hotendOffset, zipTieCutout
         translate([-size.x/2, -8, 0])
             rotate([90, 0, -90])
                 children();
-        // hotend fan side
-        translate([size.x/2, -8, 0])
-            rotate([90, 0, 90])
-                children();
     }
 }
 
 module xCarriageDropEffectXG(hotendDescriptor, inserts=false) {
     xCarriageType = MGN9C_carriage;
-    size = xCarriageHotendSideDropEffectXGSize(xCarriageType, beltWidth()); // [30, 5, 54]
+    size = xCarriageDropEffectXGSize(xCarriageType, beltWidth()); // [30, 5, 54]
     hotendOffset = printheadHotendOffset(hotendDescriptor);
     blower = BL30x10;
     blowerOffset = blowerOffset(hotendDescriptor);
 
     fillet = 1;
-    extraX = 0; // no extension, it gets in the way of the heater cartridge wires
 
     difference() {
         union() {
             //xCarriageBack(xCarriageType, size, extraX, holeSeparationTop, holeSeparationBottom, strainRelief=false, countersunk=4, topHoleOffset=-xCarriageBeltAttachmentMGN9CExtraX()/2, accelerometerOffset = accelerometerOffset());
-            xCarriageDropEffectXGBack(xCarriageType, size, extraX, fillet);
-            translate_z(hotendOffset.z)
-                DropEffectXGHolder(hotendDescriptor, size, fillet);
+            xCarriageDropEffectXGBack(xCarriageType, size, fillet);
+            DropEffectXGHolder(hotendDescriptor, size, fillet);
         }
         xCarriageDropEffectXGSideZipTiePositions(size, hotendOffset, sideZipTieCutoutSize.y)
             zipTieFullCutout(size=sideZipTieCutoutSize);
@@ -86,8 +80,8 @@ module DropEffectXGHolder(hotendDescriptor, size, fillet) {
     carriageSizeY = 20; // carriage_size(MGN9C_carriage), since coordinates are based on center of MGN X carriage
     boltCoverSizeX = 5;
 
-    sizeTop = [size.x, hotendOffset.y + 9 + blowerOffset.y, xCarriageTopThickness() - 1];
-    translate([-sizeTop.x/2, carriageSizeY/2, 0]) {
+    sizeTop = [size.x, hotendOffset.y + 10 + blowerOffset.y, xCarriageTopThickness() - 1];
+    translate([-sizeTop.x/2, carriageSizeY/2, hotendOffset.z]) {
         translate_z(xCarriageTopThickness() - sizeTop.z)
             difference() {
                 union() {
@@ -132,7 +126,7 @@ module xCarriageDropEffectXG_hardware(hotendDescriptor) {
     hotendOffset = printheadHotendOffset(hotendDescriptor);
     blower = BL30x10;
     blowerOffset = blowerOffset(hotendDescriptor);
-    size = xCarriageHotendSideDropEffectXGSize(xCarriageType, beltWidth());
+    size = xCarriageDropEffectXGSize(xCarriageType, beltWidth());
 
     translate(hotendOffset) {
         rotate(90) {
@@ -177,32 +171,31 @@ module xCarriageDropEffectXG_hardware(hotendDescriptor) {
                 cable_tie(cable_r = 2.5, thickness = 2.5);
 }
 
-module xCarriageDropEffectXGBack(xCarriageType, size, extraX, fillet) {
+module xCarriageDropEffectXGBack(xCarriageType, size, fillet) {
     /*holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);
     holeSeparationBottom = xCarriageHoleSeparationBottom(xCarriageType);
     extraX = 0;
     xCarriageBack(xCarriageType, size, extraX, holeSeparationTop, holeSeparationBottom, strainRelief=false, countersunk=4, topHoleOffset=-xCarriageBeltAttachmentMGN9CExtraX()/2, accelerometerOffset = accelerometerOffset());
     */
 
-    sizeX = [size.x + extraX, size.y, size.z];
+    sizeX = [size.x, size.y, size.z + 4];
     carriageSize = carriage_size(xCarriageType);
     topThickness = xCarriageTopThickness();
     baseThickness = xCarriageBaseThickness();
 
-    translate([-size.x/2, carriageSize.y/2, topThickness]) {
-        translate_z(-size.z) {
-            difference() {
-                rounded_cube_yz(sizeX, fillet);
-                // hotend fan exhaust outlet
-                translate([3, 0, baseThickness + 14.5])
-                    rounded_cutout_yz([8, size.y, 15], 1);
-                translate([size.x - 4, -eps, 25]) {
-                    rounded_cutout_yz([2.5, size.y, 4.5], 1);
-                }
-            }
-            // extra extensions for bottom bolts
-            rounded_cube_yz([size.x, size.y + 1, baseThickness], fillet);
+    translate([-size.x/2, carriageSize.y/2, topThickness - size.z]) {
+        difference() {
+            rounded_cube_yz(sizeX, fillet);
+            // hotend fan exhaust outlet
+            translate([3, 0, baseThickness + 14.5])
+                rounded_cutout_yz([9, size.y, 15], 1);
+            translate([size.x - 4, 0, 25])
+                rounded_cutout_yz([2.5, size.y, 4.5], 1);
+            translate([3*size.x/4 - 4.5/2, 0, size.z])
+                rounded_cutout_yz([4.5, size.y, 1.5], 1);
         }
+        // extra extensions for bottom bolts
+        rounded_cube_yz([size.x, size.y + 1, baseThickness], fillet);
         // extra extensions for top bolts
         /*translate_z(-topThickness)
             rounded_cube_yz([size.x, size.y + 2, topThickness], fillet);*/
@@ -216,8 +209,8 @@ module xCarriageDropEffectXGStrainReliefCableTieOffsets(strainReliefSizeX) {
             children();
 }
 
-module xCarriageDropEffectXGStrainReliefCableTiePositions(xCarriageType, strainReliefSizeX=15) {
-    xCarriageBackSizeX = xCarriageHotendSideDropEffectXGSize(xCarriageType, beltWidth()).x;
+module xCarriageDropEffectXGStrainReliefCableTiePositions(xCarriageType, strainReliefSizeX=16) {
+    xCarriageBackSizeX = xCarriageDropEffectXGSize(xCarriageType, beltWidth()).x;
     carriageSize = carriage_size(xCarriageType);
 
     translate([-xCarriageBackSizeX/2 - 1, carriageSize.y/2, xCarriageBaseThickness()])
@@ -226,18 +219,19 @@ module xCarriageDropEffectXGStrainReliefCableTiePositions(xCarriageType, strainR
 }
 
 module xCarriageDropEffectXGStrainRelief(carriageSize, xCarriageBackSize, fillet) {
-    strainReliefSizeX =  15;
+    strainReliefSizeX =  16;
     tabSize = [strainReliefSizeX, xCarriageBackSize.y, 27.5 + 2*fillet]; // ensure room for bolt heads
 
-    difference() {
-        translate_z(-2*fillet)
-            rounded_cube_yz(tabSize, fillet);
-        cutoutSize = [2.2, tabSize.y + 2*eps, 4.5];
-        xCarriageDropEffectXGStrainReliefCableTieOffsets(strainReliefSizeX)
-            for (x = [-4, 4])
-                translate([x - cutoutSize.x/2, -eps, -cutoutSize.z/2])
-                    rounded_cutout_yz(cutoutSize, 1);
-    }
+    translate_z(xCarriageBackSize.z)
+        difference() {
+            translate_z(-2*fillet)
+                rounded_cube_yz(tabSize, fillet);
+            cutoutSize = [2.5, tabSize.y + 2*eps, 4.5];
+            xCarriageDropEffectXGStrainReliefCableTieOffsets(strainReliefSizeX)
+                for (x = [-4, 4])
+                    translate([x - cutoutSize.x/2, -eps, -cutoutSize.z/2])
+                        rounded_cutout_yz(cutoutSize, 1);
+        }
 }
 
 module DropEffectXG_Fan_Duct_stl() {
