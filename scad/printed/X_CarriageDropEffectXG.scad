@@ -10,7 +10,7 @@ include <../utils/PrintheadOffsets.scad>
 include <../utils/ziptieCutout.scad>
 include <../utils/rounded_cutout.scad>
 
-include <../vitamins/DropEffectXG.scad>
+use <../vitamins/DropEffectXG.scad>
 use <X_Carriage.scad>
 use <X_CarriageAssemblies.scad>
 use <X_CarriageFanDuct.scad>
@@ -18,15 +18,6 @@ use <X_CarriageFanDuct.scad>
 function xCarriageDropEffectXGSize(xCarriageType, beltWidth) = [xCarriageBeltSideSize(xCarriageType, beltWidth).x, 5, xCarriageBeltSideSize(xCarriageType, beltWidth).z];
 function blowerOffset(hotendDescriptor) = [0, -3, 0]; // -3 is experimental, -2 gives more clearance for blower wire
 sideZipTieCutoutSize = [9, 4, 2.25];
-
-module xCarriageDropEffectXGSideZipTiePositions(size, hotendOffset, zipTieCutoutSizeY) {
-    translate([0, hotendOffset.y, hotendOffset.z + 10.5 - zipTieCutoutSizeY/2 - 4]) {// needs to clear boltHoles
-        // blower side
-        translate([-size.x/2, -8, 0])
-            rotate([90, 0, -90])
-                children();
-    }
-}
 
 module xCarriageDropEffectXG(hotendDescriptor, inserts=false) {
     xCarriageType = MGN9C_carriage;
@@ -80,8 +71,8 @@ module DropEffectXGHolder(hotendDescriptor, size, fillet) {
     carriageSizeY = 20; // carriage_size(MGN9C_carriage), since coordinates are based on center of MGN X carriage
     boltCoverSizeX = 5;
 
-    sizeTop = [size.x, hotendOffset.y + 10 + blowerOffset.y, xCarriageTopThickness() - 1];
-    translate([-sizeTop.x/2, carriageSizeY/2, hotendOffset.z]) {
+    translate([-size.x/2, carriageSizeY/2, hotendOffset.z]) {
+        sizeTop = [size.x, hotendOffset.y + 10 + blowerOffset.y, xCarriageTopThickness() - 1];
         translate_z(xCarriageTopThickness() - sizeTop.z)
             difference() {
                 union() {
@@ -94,10 +85,6 @@ module DropEffectXGHolder(hotendDescriptor, size, fillet) {
                 translate([hotendOffset.x + sizeTop.x/2, hotendOffset.y - carriageSizeY/2, 0]) {
                     // hole for hotend adaptor
                     boltHole(17.5, sizeTop.z, horizontal=true, rotate=-90, chamfer=0.5);
-                    /*DropEffectXGTopBoltPositions(sizeTop.z)
-                        rotate([180, 0, -90])
-                            boltHoleM2p5Counterbore(sizeTop.z, boreDepth=2, horizontal=true);
-                    */
                 }
             }
 
@@ -234,11 +221,15 @@ module xCarriageDropEffectXGStrainRelief(carriageSize, xCarriageBackSize, fillet
         }
 }
 
-module DropEffectXG_Fan_Duct_stl() {
-    stl("DropEffectXG_Fan_Duct")
-        color(pp2_colour)
-            fanDuct(BL30x10, 14);
+module xCarriageDropEffectXGSideZipTiePositions(size, hotendOffset, zipTieCutoutSizeY) {
+    translate([0, hotendOffset.y, hotendOffset.z + 10.5 - zipTieCutoutSizeY/2 - 4]) {// needs to clear boltHoles
+        // blower side
+        translate([-size.x/2, -8, 0])
+            rotate([90, 0, -90])
+                children();
+    }
 }
+
 
 module X_Carriage_DropEffect_XG_stl() {
     stl("X_Carriage_DropEffect_XG")
@@ -249,5 +240,11 @@ module X_Carriage_DropEffect_XG_stl() {
 
 module X_Carriage_DropEffect_XG_hardware() {
     xCarriageDropEffectXG_hardware("DropEffectXG");
+}
+
+module DropEffectXG_Fan_Duct_stl() {
+    stl("DropEffectXG_Fan_Duct")
+        color(pp2_colour)
+            fanDuct(BL30x10, 14);
 }
 
