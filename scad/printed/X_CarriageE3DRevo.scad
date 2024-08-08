@@ -58,12 +58,12 @@ module xCarriageE3DRevoMGN9C(hotendDescriptor, inserts=false) {
            rotate([90, 0, -90])
                 blower_hole_positions(blower_type)
                     vflip()
-                        boltHoleM2Tap(7);
+                        boltHoleM2p5Tap(7);
                 rotate(-90)
                     fanDuctHolePositions(blower_type)
                         rotate([90, 0, 0])
                             vflip()
-                                boltHoleM2Tap(7);
+                                boltHoleM2p5Tap(7);
         }
         translate([0, -railCarriageGap(), 0])
             xCarriageHotendSideHolePositions(xCarriageType)
@@ -180,7 +180,7 @@ module xCarriageE3DRevoMGN9C_hardware(hotendDescriptor) {
                 blower(blower_type);
                 blower_hole_positions(blower_type)
                     translate_z(blower_lug(blower_type))
-                        boltM2Caphead(6);
+                        boltM2p5Caphead(6);
             }
         }
         rotate(-90)
