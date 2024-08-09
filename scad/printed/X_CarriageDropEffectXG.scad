@@ -40,33 +40,34 @@ module xCarriageDropEffectXG(hotendDescriptor, inserts=false) {
         translate(hotendOffset)
             rotate(90)
                 DropEffectXGSideBoltPositions()
-                    boltHoleM3Countersunk(size.y, horizontal=true, rotate=180);
+                    translate_z(size.y)
+                        boltPolyholeM3Countersunk(size.y);
         translate([-size.x/2, hotendOffset.y + blower_width(blower)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
             rotate([90, 0, -90])
                 blower_hole_positions(blower)
                     vflip()
-                        rotate(-30)
-                            boltHoleM2p5Tap(5);
+                        boltHoleM2p5Tap(5, horizontal=true, rotate=90);
             rotate(-90)
                 fanDuctHolePositions(blower)
                     rotate([90, 0, 0])
                         vflip()
-                            boltHoleM2p5Tap(5);
+                            boltHoleM2p5Tap(5, horizontal=true, rotate=90);
         }
         translate([0, -railCarriageGap(), 0])
             xCarriageHotendSideHolePositions(xCarriageType)
                 if (inserts) {
-                    insertHoleM3(size.y, horizontal=true, rotate=180);
+                    insertHoleM3(size.y);
                 } else {
                     //boltHoleM3Tap(size.y, horizontal=true, rotate=180);
-                    boltHoleM3Tap(size.y + 1, horizontal=true, rotate=180, chamfer_both_ends=false);
+                    boltHoleM3Tap(size.y + 1);
                 }
     }
 }
 
-module DropEffectXGHolder(hotendDescriptor, size, fillet) {
+module DropEffectXGHolder(hotendDescriptor, size, baseFillet) {
     hotendOffset = printheadHotendOffset(hotendDescriptor);
     blowerOffset = blowerOffset(hotendDescriptor);
+    fillet = 1;
 
     carriageSizeY = 20; // carriage_size(MGN9C_carriage), since coordinates are based on center of MGN X carriage
     boltCoverSizeX = 5;
@@ -76,35 +77,35 @@ module DropEffectXGHolder(hotendDescriptor, size, fillet) {
         translate_z(xCarriageTopThickness() - sizeTop.z)
             difference() {
                 union() {
-                    rounded_cube_yz(sizeTop, fillet);
+                    rounded_cube_xz(sizeTop, fillet);
                     // extension for blower bolt holes
                     extensionZ = xCarriageTopThickness() - sizeTop.z + 4;
                     translate_z(-extensionZ)
-                        rounded_cube_yz([boltCoverSizeX, sizeTop.y, sizeTop.z + extensionZ], fillet);
+                        rounded_cube_xz([boltCoverSizeX, sizeTop.y, sizeTop.z + extensionZ], fillet);
                 }
                 translate([hotendOffset.x + sizeTop.x/2, hotendOffset.y - carriageSizeY/2, 0]) {
                     // hole for hotend adaptor
-                    boltHole(17.5, sizeTop.z, horizontal=true, rotate=-90, chamfer=0.5);
+                    boltHole(17.5, sizeTop.z, horizontal=true, chamfer=0.5);
                 }
             }
 
         sizeSide = [3, sizeTop.y, size.z - 10 - blowerOffset.z];
         translate_z(xCarriageTopThickness() - sizeSide.z) {
-            rounded_cube_yz(sizeSide, fillet);
+            rounded_cube_xz(sizeSide, fillet);
             sizeBoltCover = [boltCoverSizeX, sizeTop.y, 11];
-            rounded_cube_yz(sizeBoltCover, fillet);
+            rounded_cube_xz(sizeBoltCover, fillet);
         }
 
         sizeBaffle = [6.5, sizeTop.y, 2];
         translate_z(-27) {
-            rounded_cube_yz(sizeBaffle, 0.5);
+            rounded_cube_xz(sizeBaffle, 0.5);
             *translate([0, 12.5, 0])
-                rounded_cube_yz([sizeBaffle.x + 1, 14, sizeBaffle.z], 0.5); // extra for bolt cover
-            rounded_cube_yz([sizeBaffle.x, 8, 5], 1); // bolt cover
+                rounded_cube_xz([sizeBaffle.x + 1, 14, sizeBaffle.z], 0.5); // extra for bolt cover
+            rounded_cube_xz([sizeBaffle.x, 8, 5], 1); // bolt cover
         }
         // fill in gap between back bolt extensions and boltcover
         translate_z(xCarriageTopThickness() - hotendOffset.z - size.z)
-            rounded_cube_yz([boltCoverSizeX, 6, 10], fillet);
+            rounded_cube_xz([boltCoverSizeX, 6, 12], baseFillet);
     }
 }
 
@@ -176,20 +177,22 @@ module xCarriageDropEffectXGBack(xCarriageType, size, fillet) {
 
     translate([-size.x/2, carriageSize.y/2, topThickness - size.z]) {
         difference() {
-            rounded_cube_yz(sizeX, fillet);
+            rounded_cube_xz(sizeX, fillet);
             // hotend fan exhaust outlet
-            translate([3, 0, baseThickness + 14.5])
-                rounded_cutout_yz([9, size.y, 15], 1);
-            translate([size.x - 4, 0, 25])
-                rounded_cutout_yz([2.5, size.y, 4.5], 1);
-            translate([3*size.x/4 - 4.5/2, 0, size.z])
-                rounded_cutout_yz([4.5, size.y, 1.5], 1);
+            translate([3, -eps, baseThickness + 14.5])
+                rounded_cube_xz([9, size.y + 2*eps, 15], 1);
+            // ziptie cutout
+            translate([size.x - 4, -eps, 25])
+                rounded_cube_xz([2, size.y + 2*eps, 4.5], 0.5);
+            // top ziptie cutout
+            translate([3*size.x/4 - 4.5/2, -eps, size.z])
+                rounded_cube_xz([4.5, size.y + 2*eps, 1.5], 0.5);
         }
         // extra extensions for bottom bolts
-        rounded_cube_yz([size.x, size.y + 1, baseThickness], fillet);
+        rounded_cube_xz([size.x, size.y + 1, baseThickness], fillet);
         // extra extensions for top bolts
         /*translate_z(-topThickness)
-            rounded_cube_yz([size.x, size.y + 2, topThickness], fillet);*/
+            rounded_cube_xz([size.x, size.y + 2, topThickness], fillet);*/
         xCarriageDropEffectXGStrainRelief(carriageSize, size, fillet);
     }
 }
@@ -216,12 +219,12 @@ module xCarriageDropEffectXGStrainRelief(carriageSize, xCarriageBackSize, fillet
     translate_z(xCarriageBackSize.z)
         difference() {
             translate_z(-2*fillet)
-                rounded_cube_yz(tabSize, fillet);
+                rounded_cube_xz(tabSize, fillet);
             cutoutSize = [2.5, tabSize.y + 2*eps, 4.5];
             xCarriageDropEffectXGStrainReliefCableTieOffsets(strainReliefSizeX)
                 for (x = [-4, 4])
                     translate([x - cutoutSize.x/2, -eps, -cutoutSize.z/2])
-                        rounded_cutout_yz(cutoutSize, 1);
+                        rounded_cube_xz(cutoutSize, 1);
         }
 }
 
@@ -238,7 +241,7 @@ module xCarriageDropEffectXGSideZipTiePositions(size, hotendOffset, zipTieCutout
 module X_Carriage_DropEffect_XG_stl() {
     stl("X_Carriage_DropEffect_XG")
         color(pp4_colour)
-            rotate([0, -90, 0])
+            rotate([90, 0, 0])
                 xCarriageDropEffectXG("DropEffectXG", inserts=false);
 }
 

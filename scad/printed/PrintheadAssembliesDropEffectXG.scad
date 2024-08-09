@@ -9,7 +9,7 @@ module Printhead_DropEffect_XG_assembly() pose(a=[55, 0, 25 + 180])
 assembly("Printhead_DropEffect_XG", big=true) {
 
     stl_colour(pp4_colour)
-        rotate([0, 90, 0])
+        rotate([-90, 0, 0])
             X_Carriage_DropEffect_XG_stl();
     X_Carriage_DropEffect_XG_hardware();
     if (!exploded())
