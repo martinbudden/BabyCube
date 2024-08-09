@@ -92,16 +92,17 @@ module DropEffectXGHolder(hotendDescriptor, size, baseFillet) {
         sizeSide = [3, sizeTop.y, size.z - 10 - blowerOffset.z];
         translate_z(xCarriageTopThickness() - sizeSide.z) {
             rounded_cube_xz(sizeSide, fillet);
-            sizeBoltCover = [boltCoverSizeX, sizeTop.y, 11];
+            sizeBoltCover = [boltCoverSizeX, sizeTop.y, 12];
             rounded_cube_xz(sizeBoltCover, fillet);
         }
 
         sizeBaffle = [6.5, sizeTop.y, 2];
-        translate_z(-27) {
+        translate_z(-25) {
             rounded_cube_xz(sizeBaffle, 0.5);
             *translate([0, 12.5, 0])
                 rounded_cube_xz([sizeBaffle.x + 1, 14, sizeBaffle.z], 0.5); // extra for bolt cover
-            rounded_cube_xz([sizeBaffle.x, 8, 5], 1); // bolt cover
+            translate_z(-2)
+                rounded_cube_xz([sizeBaffle.x, 8, 3], 0.5); // bolt cover
         }
         // fill in gap between back bolt extensions and boltcover
         translate_z(xCarriageTopThickness() - hotendOffset.z - size.z)
@@ -179,8 +180,8 @@ module xCarriageDropEffectXGBack(xCarriageType, size, fillet) {
         difference() {
             rounded_cube_xz(sizeX, fillet);
             // hotend fan exhaust outlet
-            translate([3, -eps, baseThickness + 14.5])
-                rounded_cube_xz([9, size.y + 2*eps, 15], 1);
+            translate([3, -eps, baseThickness + 13.5])
+                rounded_cube_xz([9, size.y + 2*eps, 16], 1);
             // ziptie cutout
             translate([size.x - 4, -eps, 25])
                 rounded_cube_xz([2, size.y + 2*eps, 4.5], 0.5);
