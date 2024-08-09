@@ -46,12 +46,12 @@ module xCarriageDropEffectXG(hotendDescriptor, inserts=false) {
             rotate([90, 0, -90])
                 blower_hole_positions(blower)
                     vflip()
-                        boltHoleM2p5Tap(5, horizontal=true, rotate=90);
+                        boltHoleM2p5Tap(5, horizontal=true, rotate=90, chamfer_both_ends=false);
             rotate(-90)
                 fanDuctHolePositions(blower)
                     rotate([90, 0, 0])
                         vflip()
-                            boltHoleM2p5Tap(5, horizontal=true, rotate=90);
+                            boltHoleM2p5Tap(5, horizontal=true, rotate=90, chamfer_both_ends=false);
         }
         translate([0, -railCarriageGap(), 0])
             xCarriageHotendSideHolePositions(xCarriageType)
@@ -77,13 +77,19 @@ module DropEffectXGHolder(hotendDescriptor, size, baseFillet) {
         translate_z(xCarriageTopThickness() - sizeTop.z)
             difference() {
                 union() {
-                    rounded_cube_xz(sizeTop, fillet);
+                    rounded_cube_xz([sizeTop.x, 10, sizeTop.z], fillet);
+                    rounded_cube_xz([5, sizeTop.y, sizeTop.z], fillet);
+                    translate([5, 10, 0]) {
+                        fillet(7, sizeTop.z);
+                        translate([-2, 0, 0])
+                            cube([2, 8, sizeTop.z]); // fill in gap caused by fillet on sizeTop
+                    }
                     // extension for blower bolt holes
                     extensionZ = xCarriageTopThickness() - sizeTop.z + 4;
                     translate_z(-extensionZ)
                         rounded_cube_xz([boltCoverSizeX, sizeTop.y, sizeTop.z + extensionZ], fillet);
                 }
-                translate([hotendOffset.x + sizeTop.x/2, hotendOffset.y - carriageSizeY/2, 0]) {
+                *translate([hotendOffset.x + sizeTop.x/2, hotendOffset.y - carriageSizeY/2, 0]) {
                     // hole for hotend adaptor
                     boltHole(17.5, sizeTop.z, horizontal=true, chamfer=0.5);
                 }
@@ -221,11 +227,11 @@ module xCarriageDropEffectXGStrainRelief(carriageSize, xCarriageBackSize, fillet
         difference() {
             translate_z(-2*fillet)
                 rounded_cube_xz(tabSize, fillet);
-            cutoutSize = [2.5, tabSize.y + 2*eps, 4.5];
+            cutoutSize = [2, tabSize.y + 2*eps, 4.5];
             xCarriageDropEffectXGStrainReliefCableTieOffsets(strainReliefSizeX)
                 for (x = [-4, 4])
                     translate([x - cutoutSize.x/2, -eps, -cutoutSize.z/2])
-                        rounded_cube_xz(cutoutSize, 1);
+                        rounded_cube_xz(cutoutSize, 0.5);
         }
 }
 
