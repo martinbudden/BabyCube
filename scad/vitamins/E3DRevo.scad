@@ -17,11 +17,9 @@ module E3DRevoVoron(coreRotate=90) {
     vitamin(str(": E3D Revo Voron heatsink"));
     vitamin(str(": E3D Revo HeaterCore"));
 
-    color("crimson")
-        translate([-13.4, 16.7, 9.4])
-            rotate(90)
-                revoImport3mf("RevoVoronHeatsink");
-    color(grey(90))
+    translate_z(revoNozzleOffsetZ() - 1)
+        revoVoronHeatsink();
+    *color(grey(90))
         intersection() {
             size = [25, 25, 50];
             rotate(45)
@@ -36,6 +34,14 @@ module E3DRevoVoron(coreRotate=90) {
                     revoImportStl("RevoVoron");*/
         } // end intersection
     E3DRevoNozzle();
+}
+
+module revoVoronHeatsink() {
+    translate_z(-revoNozzleOffsetZ() + 1)
+    color("crimson")
+        translate([-13.4, 16.7, 9.4])
+            rotate(90)
+                revoImport3mf("RevoVoronHeatsink");
 }
 
 module revoVoronBoltPositions(z=0) {
