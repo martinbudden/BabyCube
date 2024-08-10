@@ -17,7 +17,7 @@ assembly("Printhead_E3DRevo", big=true) {
             X_Carriage_E3DRevo_stl();
     X_Carriage_E3DRevo_hardware();
     if (!exploded())
-        printheadWiring(undef, "E3DRevo",  undef, segment=true);
+        printheadWiring("E3DRevo");
 }
 
 module Printhead_E3DRevo_Compact_assembly() pose(a=[55, 0, 25 + 180])
@@ -28,7 +28,7 @@ assembly("Printhead_E3DRevo", big=true) {
             X_Carriage_E3DRevo_Compact_stl();
     X_Carriage_E3DRevo_Compact_hardware();
     if (!exploded())
-        printheadWiring(undef, "E3DRevoCompact",  undef, segment=true);
+        printheadWiring("E3DRevoCompact");
 }
 
 module Printhead_E3DRevo_40_assembly() pose(a=[55, 0, 25 + 180])

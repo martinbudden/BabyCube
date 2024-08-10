@@ -171,7 +171,7 @@ module FinalAssembly(test) {
         } else {
             Stage_5_assembly();
             if (!exploded())
-                printheadWiring(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], hotendDescriptor, backFaceZipTiePositions());
+                printheadWiring(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], backFaceZipTiePositions());
             explode(100, true)
                 if (hotendDescriptor == "E3DV6")
                     printheadHotendSideE3DV6();

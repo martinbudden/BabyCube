@@ -13,7 +13,7 @@ assembly("Printhead_DropEffect_XG", big=true) {
             X_Carriage_DropEffect_XG_stl();
     X_Carriage_DropEffect_XG_hardware();
     if (!exploded())
-        printheadWiring(undef, "DropEffectXG",  undef, segment=true);
+        printheadWiring("DropEffectXG");
 }
 
 module printheadHotendSideDropEffectXG(rotate=0, explode=0, t=undef, accelerometer=false, boltLength=25) {

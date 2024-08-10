@@ -215,7 +215,7 @@ module RB_FinalAssembly(test=false, hotendDescriptor="E3DRevo") {
         Stage_6_RB_assembly();
 
         if (!exploded())
-            printheadWiring(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], hotendDescriptor,  backFaceZipTiePositions());
+            printheadWiring(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], backFaceZipTiePositions());
         explode(100, true)
             if (hotendDescriptor == "E3DRevo")
                 printheadHotendSideE3DRevo();

@@ -51,7 +51,7 @@ assembly("Printhead_E3DV6", big=true) {
     xCarriageGroovemountAssembly(halfCarriage=false);
     printheadE3DV6Assembly();
     if (!exploded())
-        printheadWiring(undef, "E3DV6",  undef, segment=true);
+        printheadWiring("E3DV6");
 }
 
 module printheadHotendSideE3DV6(rotate=0, explode=0, t=undef, accelerometer=false, halfCarriage=true, noPrinthead=false, boltLength=25) {
