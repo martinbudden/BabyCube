@@ -34,10 +34,10 @@ module printheadE3DV6Assembly() {
 //!2. Use the **E3DV6_Clamp** to attach the hotend to the **X_Carriage_Groovemount**.
 //!3. Collect the wires together and attach to the **X_Carriage_Groovemount** using the **Hotend_Strain_Relief_Clamp**.
 //
-module Printhead_E3DV6_MGN9C_HC_assembly() pose(a=[55, 0, 25 + 180])
-assembly("Printhead_E3DV6_MGN9C_HC", big=true) {
+module Printhead_E3DV6_HC_assembly() pose(a=[55, 0, 25 + 180])
+assembly("Printhead_E3DV6_HC", big=true) {
 
-    xCarriageGroovemountMGN9CAssembly(halfCarriage=true);
+    xCarriageGroovemountAssembly(halfCarriage=true);
     printheadE3DV6Assembly();
 }
 
@@ -45,10 +45,10 @@ assembly("Printhead_E3DV6_MGN9C_HC", big=true) {
 //!2. Use the **E3DV6_Clamp** to attach the hotend to the **X_Carriage_Groovemount**.
 //!3. Collect the wires together and attach to the **X_Carriage_Groovemount** using the **Hotend_Strain_Relief_Clamp**.
 //
-module Printhead_E3DV6_MGN9C_assembly() pose(a=[55, 0, 25 + 180])
-assembly("Printhead_E3DV6_MGN9C", big=true) {
+module Printhead_E3DV6_assembly() pose(a=[55, 0, 25 + 180])
+assembly("Printhead_E3DV6", big=true) {
 
-    xCarriageGroovemountMGN9CAssembly(halfCarriage=false);
+    xCarriageGroovemountAssembly(halfCarriage=false);
     printheadE3DV6Assembly();
     if (!exploded())
         printheadWiring(undef, "E3DV6",  undef, segment=true);
@@ -62,12 +62,12 @@ module printheadHotendSideE3DV6(rotate=0, explode=0, t=undef, accelerometer=fals
     printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
         if (halfCarriage) {
             xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, 1], [-1, 1] ]);
-            Printhead_E3DV6_MGN9C_HC_assembly();
+            Printhead_E3DV6_HC_assembly();
         } else {
             if (noPrinthead) // for debugging
-                xCarriageGroovemountMGN9CAssembly(halfCarriage=false);
+                xCarriageGroovemountAssembly(halfCarriage=false);
             else
-                Printhead_E3DV6_MGN9C_assembly();
+                Printhead_E3DV6_assembly();
         }
 }
 

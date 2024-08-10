@@ -33,7 +33,7 @@ module X_Carriage_test() {
         X_Carriage_Belt_Side_MGN9C_assembly();
     translate([xCarriageBeltAttachmentMGN9CExtraX()/2, 0, 0])
         xCarriageBeltClampAssembly(xCarriageType);
-    //xCarriageGroovemountMGN9CAssembly(halfCarriage=halfCarriage);
+    //xCarriageGroovemountAssembly(halfCarriage=halfCarriage);
     translate_z(-carriage_height(MGN9C_carriage)) carriage(MGN9C_carriage);
 
     //let($preview=false)

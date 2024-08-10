@@ -47,20 +47,20 @@ module xCarriageGroovemountMGN9C(halfCarriage, inserts=false) {
         }
 }
 
-module X_Carriage_Groovemount_MGN9C_HC_stl() {
-    stl("X_Carriage_Groovemount_MGN9C_HC")
+module X_Carriage_Groovemount_HC_stl() {
+    stl("X_Carriage_Groovemount_HC")
         color(pp4_colour)
             xCarriageGroovemountMGN9C(halfCarriage=true);
 }
 
-module X_Carriage_Groovemount_MGN9C_stl() {
-    stl("X_Carriage_Groovemount_MGN9C")
+module X_Carriage_Groovemount_stl() {
+    stl("X_Carriage_Groovemount")
         color(pp4_colour)
             xCarriageGroovemountMGN9C(halfCarriage=false);
 }
 
 //pose(a=[55, 0, 25 + 290])
-module xCarriageGroovemountMGN9CAssembly(halfCarriage) {
+module xCarriageGroovemountAssembly(halfCarriage) {
 
     xCarriageType = MGN9C_carriage;
     blower_type = blower_type();
@@ -72,7 +72,7 @@ module xCarriageGroovemountMGN9CAssembly(halfCarriage) {
             if (halfCarriage)
                 X_Carriage_Groovemount_MGN9C_HC_stl();
             else
-                X_Carriage_Groovemount_MGN9C_stl();
+                X_Carriage_Groovemount_stl();
 
     grooveMountSize = grooveMountSize(blower_type, hotendDescriptor);
 
