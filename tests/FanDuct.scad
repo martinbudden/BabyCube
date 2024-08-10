@@ -20,8 +20,8 @@ module FanDuct_test() {
                 translate_z(blower_lug(blower))
                     boltM2p5Caphead(6);
             }
-            fanDuct2(blower, jetOffset=[0, 24, -8]);
-            fanDuctHolePositions2(blower) 
+            fanDuct(blower, jetOffset=[0, 24, -8]);
+            fanDuctHolePositions(blower) 
                 boltM2p5Caphead(6);
         }
 }

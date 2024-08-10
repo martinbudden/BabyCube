@@ -277,6 +277,6 @@ module X_Carriage_DropEffect_XG_hardware() {
 module DropEffectXG_Fan_Duct_stl() {
     stl("DropEffectXG_Fan_Duct")
         color(pp2_colour)
-            fanDuct(BL30x10, printheadHotendOffsetX=14, jetOffset=-0.5, chimneySizeZ=14 + blowerOffset().z);
+            fanDuct(blower=BL30x10, jetOffset=[-0.75, 22, -8], chimneySizeZ=14 + blowerOffset().z);
 }
 

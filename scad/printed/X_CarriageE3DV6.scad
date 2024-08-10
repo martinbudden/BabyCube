@@ -91,5 +91,5 @@ module xCarriageGroovemountAssembly(halfCarriage) {
 module E3DV6_Fan_Duct_stl() {
     stl("E3DV6_Fan_Duct")
         color(pp2_colour)
-            fanDuct(BL30x10, printheadHotendOffset("E3DV6").x);
+            fanDuct(blower=BL30x10, jetOffset=[0, 24, -8], chimneySizeZ=13);
 }

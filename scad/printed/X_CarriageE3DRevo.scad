@@ -314,7 +314,7 @@ module X_Carriage_E3DRevo_40_hardware() {
 module E3DRevo_Fan_Duct_stl() {
     stl("E3DRevo_Fan_Duct")
         color(pp2_colour)
-            fanDuct(BL30x10, printheadHotendOffsetX=14, jetOffset=-0, chimneySizeZ=14 + blowerOffset().z);
+            fanDuct(blower=BL30x10, jetOffset=[0, 24, -8], chimneySizeZ=15 + blowerOffset().z);
 }
 
 module E3DRevo_Fan_Duct_40_stl() {
