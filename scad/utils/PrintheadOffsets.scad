@@ -17,5 +17,5 @@ function printheadWiringOffset(hotendDescriptor="E3DV6") =
     hotendDescriptor == "E3DRevo" ? printheadHotendOffset(hotendDescriptor) + [-9.5, -9.5, 12] :
     hotendDescriptor == "E3DRevoCompact" ? printheadHotendOffset(hotendDescriptor) + [-9.5, -15, 12] :
     hotendDescriptor == "E3DRevo40" ? printheadHotendOffset(hotendDescriptor) + [-9.5, -9.5, 12] :
-    hotendDescriptor == "DropEffectXG" ? printheadHotendOffset(hotendDescriptor) + [-7.5, -11, 16] :
+    hotendDescriptor == "DropEffectXG" ? printheadHotendOffset(hotendDescriptor) + [-7.5, -11.5, 16] :
     [0, 0, 0];
