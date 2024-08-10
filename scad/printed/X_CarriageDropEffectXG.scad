@@ -239,7 +239,7 @@ module xCarriageDropEffectXGStrainReliefCableTiePositions(xCarriageType, strainR
 
 module xCarriageDropEffectXGStrainRelief(carriageSize, xCarriageBackSize, fillet) {
     strainReliefSizeX =  16;
-    tabSize = [strainReliefSizeX, xCarriageBackSize.y, 27.5 + 10+ 2*fillet]; // ensure room for bolt heads
+    tabSize = [strainReliefSizeX, xCarriageBackSize.y, 27.5 + 10 + 2*fillet]; // ensure room for bolt heads
 
     translate_z(xCarriageBackSize.z)
         difference() {
@@ -254,9 +254,9 @@ module xCarriageDropEffectXGStrainRelief(carriageSize, xCarriageBackSize, fillet
 }
 
 module xCarriageDropEffectXGSideZipTiePositions(size, hotendOffset, blowerOffset, zipTieCutoutSizeY) {
-    translate([0, hotendOffset.y, hotendOffset.z + blowerOffset.z + 10.5 - zipTieCutoutSizeY/2 - 4]) {// needs to clear boltHoles
+    translate([0, hotendOffset.y, hotendOffset.z + 10.5 - zipTieCutoutSizeY/2 - 4]) {// needs to clear boltHoles
         // blower side
-        translate([-size.x/2, -13, 0])
+        translate([-size.x/2, -13, blowerOffset.z])
             rotate([90, 0, -90])
                 children();
     }
@@ -277,6 +277,6 @@ module X_Carriage_DropEffect_XG_hardware() {
 module DropEffectXG_Fan_Duct_stl() {
     stl("DropEffectXG_Fan_Duct")
         color(pp2_colour)
-            fanDuct(BL30x10, printheadHotendOffsetX=14, jetOffset=-0.5, chimneySizeZ = 14+blowerOffset().z);
+            fanDuct(BL30x10, printheadHotendOffsetX=14, jetOffset=-0.5, chimneySizeZ=14 + blowerOffset().z);
 }
 
