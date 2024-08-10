@@ -124,11 +124,11 @@ module E3DV6HotendHolder(xCarriageType, xCarriageBackSize, grooveMountSize, hote
                 blowerTranslate(xCarriageType, grooveMountSize, hotendOffset, blower_type) {
                     blower_hole_positions(blower_type)
                         vflip()
-                            boltHoleM2Tap(blowerMountSize.x + 4);
+                            boltHoleM2p5Tap(blowerMountSize.x + 4);
                     rotate([-90, 0, 0])
                         fanDuctHolePositions(blower_type)
-                            rotate([90, 0, 180])
-                                boltHoleM2Tap(blowerMountSize.x + 4);
+                            vflip()
+                                boltHoleM2p5Tap(blowerMountSize.x + 4);
                 }
 
             translate([hotendOffset.x, left ? hotendOffset.y : -hotendOffset.y + 2, hotendOffset.z]) { //!!TODO magic number +2
@@ -159,7 +159,7 @@ module partCoolingFan(blower_type) {
     blower(blower_type);
     blower_hole_positions(blower_type)
         translate_z(blower_lug(blower_type))
-            boltM2Caphead(6);
+            boltM2p5Caphead(6);
 }
 
 module E3DV6HotendPartCoolingFan(xCarriageType, grooveMountSize, hotendOffset, blower_type, left=true) {

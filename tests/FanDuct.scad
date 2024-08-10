@@ -17,11 +17,11 @@ module FanDuct_test() {
             rotate([90, 0, 0]) {
                 blower(blower);
                 blower_hole_positions(blower)
-                translate_z(blower_lug(blower))
-                    boltM2p5Caphead(6);
+                    translate_z(blower_lug(blower))
+                        boltM2p5Caphead(6);
             }
             fanDuct(blower, jetOffset=[0, 24, -8]);
-            fanDuctHolePositions(blower) 
+            fanDuctHolePositions(blower, -fanDuctTabThickness) 
                 boltM2p5Caphead(6);
         }
 }

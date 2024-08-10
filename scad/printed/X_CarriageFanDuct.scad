@@ -8,15 +8,7 @@ include <../vitamins/bolts.scad>
 
 fanDuctTabThickness = 2;
 
-module fanDuctHolePositions(blower_type=BL30x10, z=0) {
-    blowerSizeX = blower_size(blower_type).x;
-    xOffsets = blowerSizeX == 30 ? [-1.5, 27] : [3.5, 37];
-    for (x = xOffsets)
-        translate([x, z, -3])
-            children();
-}
-
-module fanDuctHolePositions(blower=BL30x10, z=-fanDuctTabThickness) {
+module fanDuctHolePositions(blower=BL30x10, z=0) {
     blowerCornerOffset = blower == BL30x10 ? 1 : 0;
     offsetX = blower == BL30x10 ? 1 : 5;
     chimneySizeX = blower_wall_left(blower) + blower_wall_right(blower) + blower_exit(blower) - blowerCornerOffset;

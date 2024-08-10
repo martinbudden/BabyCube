@@ -42,17 +42,16 @@ module xCarriageDropEffectXG(hotendDescriptor, inserts=false) {
                 DropEffectXGSideBoltPositions()
                     translate_z(size.y)
                         boltPolyholeM3Countersunk(size.y);
-        translate([-size.x/2, hotendOffset.y + blower_width(blower)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
-            rotate([90, 0, -90])
-                blower_hole_positions(blower)
-                    vflip()
-                        boltHoleM2p5Tap(5, horizontal=true, rotate=90, chamfer_both_ends=false);
-            rotate(-90)
-                fanDuctHolePositions(blower)
-                    rotate([90, 0, 0])
+        translate([-size.x/2, hotendOffset.y + blower_width(blower)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) // -27.8 leaves fan duct level with bottom of X_Carriage
+            rotate(-90) {
+                rotate([90, 0, 0])
+                    blower_hole_positions(blower)
                         vflip()
                             boltHoleM2p5Tap(5, horizontal=true, rotate=90, chamfer_both_ends=false);
-        }
+                fanDuctHolePositions(blower)
+                    vflip()
+                        boltHoleM2p5Tap(5, horizontal=true, rotate=90, chamfer_both_ends=false);
+            }
         translate([0, -railCarriageGap(), 0])
             xCarriageHotendSideHolePositions(xCarriageType)
                 if (inserts) {
@@ -141,28 +140,29 @@ module xCarriageDropEffectXG_hardware(hotendDescriptor, blowerOffset) {
                 translate_z(size.y)
                     explode(50)
                         boltM3Countersunk(8);
-            explode(-50)
+            explode(-50, true) {
                 DropEffectXG();
-            not_on_bom()
-                DropEffectXGFan();
-        }
-    }
-    translate([-size.x/2, hotendOffset.y + blower_width(blower)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) {// -27.8 leaves fan duct level with bottom of X_Carriage
-        rotate([90, 0, -90]) {
-            explode(40, true, show_line=false) {
-                blower(blower);
-                blower_hole_positions(blower)
-                    translate_z(blower_lug(blower))
-                        boltM2p5Caphead(6);
+                explode([0, -50, 0], true)
+                not_on_bom()
+                    DropEffectXGFan();
             }
         }
-        rotate(-90)
+    }
+    translate([-size.x/2, hotendOffset.y + blower_width(blower)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) // -27.8 leaves fan duct level with bottom of X_Carriage
+        rotate(-90) {
+            rotate([90, 0, 0])
+                explode(40, true, show_line=false) {
+                    blower(blower);
+                    blower_hole_positions(blower)
+                        translate_z(blower_lug(blower))
+                            boltM2p5Caphead(6);
+                }
             explode([0, -40, -10], true) {
                 stl_colour(pp2_colour)
                     DropEffectXG_Fan_Duct_stl();
                 Fan_Duct_hardware(blower);
+            }
         }
-    }
     xCarriageDropEffectXGStrainReliefCableTiePositions(xCarriageType)
         translate([1, railCarriageGap() + 5.4, 0])
             rotate([0, 90, -90])

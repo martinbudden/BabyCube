@@ -28,15 +28,13 @@ module DropEffectXGFan() {
     fan = fan25x10;
     translate([0, -13, -15])
         rotate([0, 90, -90]) {
-            explode([-50, 0, 20], true, show_line=false) {
-                fan(fan);
+            fan(fan);
             pitch = fan_hole_pitch(fan);
             // fan only attached by 2 bolts
             for(y = [-pitch, pitch])
                 translate([pitch, y, fan_depth(fan)/2])
-                        color([0.25, 0.25, 0.25])
-                            boltM2p5Caphead(14);
-            }
+                    color([0.25, 0.25, 0.25])
+                        boltM2p5Caphead(14);
         }
 }
 
