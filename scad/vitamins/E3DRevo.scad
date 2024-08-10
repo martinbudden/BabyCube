@@ -19,7 +19,8 @@ module E3DRevoVoron(coreRotate=90) {
 
     translate_z(revoNozzleOffsetZ() - 1)
         revoVoronHeatsink();
-    *color(grey(90))
+    /*
+    color(grey(90))
         intersection() {
             size = [25, 25, 50];
             rotate(45)
@@ -29,23 +30,17 @@ module E3DRevoVoron(coreRotate=90) {
             translate([-13.4, 16.7, 9.4])
                 rotate(90)
                     revoImport3mf("RevoHeaterCore");
-            /*translate([0, 0, 22.8])
+            *translate([0, 0, 22.8])
                 rotate([90, 0, -90])
-                    revoImportStl("RevoVoron");*/
+                    revoImportStl("RevoVoron");
         } // end intersection
+    */
     E3DRevoNozzle();
 }
 
-module revoVoronHeatsink() {
-    translate_z(-revoNozzleOffsetZ() + 1)
-    color("crimson")
-        translate([-13.4, 16.7, 9.4])
-            rotate(90)
-                revoImport3mf("RevoVoronHeatsink");
-}
-
 module revoVoronBoltPositions(z=0) {
-    for (x = [-5, 5], y = [-4.5, 4.5])
+    // 10 by 8.5 bolt spacing
+    for (x = [-5, 5], y = [-4.25, 4.25])
         translate([x, y, z])
             children();
 }
@@ -87,3 +82,70 @@ module E3DRevoNozzle() {
             cylinder(h=revoNozzleLength + 2*eps, r=0.4);
     } // end difference
 }
+
+module revoVoronHeatsinkImport() {
+    translate_z(-revoNozzleOffsetZ() + 1)
+    color("crimson")
+        translate([-13.4, 16.7, 9.4])
+            rotate(90)
+                revoImport3mf("RevoVoronHeatsink");
+}
+
+module revoVoronHeatsink() {
+    module fin(r, w=14) {
+        linear_extrude(0.75) {
+            difference() {
+                circle(r=r);
+                circle(r=1.5);
+                translate([-1.1*r, w/2])
+                    square([2.2*r, r]);
+                translate([-1.1*r, -w/2 -r])
+                    square([2.2*r, r]);
+                for (r = [0, 180])
+                    rotate(r)
+                        translate([-9.5, -7.1, 0])
+                            right_triangle(6,3.5,0);
+                for (m = [ [1, 0, 0], [0, 1, 0] ])
+                    mirror(m)
+                        translate([-9.5, -7.1, 0])
+                            right_triangle(6,3.5,0);
+            }
+        }
+    }
+
+    color(crimson)  {
+        difference() {
+            cylinder(h=27, r1=3.6, r2=3.15);
+            translate_z(-eps)
+                cylinder(h=27 + 2*eps, r=1.5);
+        }
+        for (i = [0 : 9])
+            translate_z(1 + 2.05 * i)
+                fin(9.4 - 0.223*i);
+        translate_z(21.5)
+            fin(7.9);
+
+        // top
+        translate_z(23.5)
+            difference() {
+                union() {
+                    cylinder(h=1, r1=8.35, r2=9);
+                    translate_z(1)
+                        cylinder(h=1.5, r=9);
+                    translate_z(2.5)
+                        cylinder(h=1, r1=9, r2=8.35);
+                }
+                translate_z(-eps)
+                    cylinder(h=3.5 + 2*eps, r=1.5);
+                revoVoronBoltPositions(-eps)
+                    cylinder(h=3.5 + 2*eps, r=2.5/2); // M3 tap radius
+
+                r = 9;
+                w = 14;
+                for (y = [w/2, -w/2 - r])
+                    translate([-1.1*r, y, -eps])
+                        cube([2.2*r, r, 3.5 + 2*eps]);
+            }
+    }
+}
+
