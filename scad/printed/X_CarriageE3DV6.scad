@@ -70,7 +70,7 @@ module xCarriageGroovemountAssembly(halfCarriage) {
     rotate([0, 90, 0])
         stl_colour(pp4_colour)
             if (halfCarriage)
-                X_Carriage_Groovemount_MGN9C_HC_stl();
+                X_Carriage_Groovemount_HC_stl();
             else
                 X_Carriage_Groovemount_stl();
 
