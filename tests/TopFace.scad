@@ -104,7 +104,7 @@ module Top_Face_test() {
     else
         Left_Face_assembly();
     //Right_Face_assembly();
-    //bowdenTube(carriagePosition, "E3DRevo");
+    //bowdenTube("E3DRevo", carriagePosition);
 
     //Back_Face_CF_assembly();
     //Back_Face_CF_Stage_1_assembly();

@@ -45,8 +45,8 @@ module Printhead_test() {
             rightDrivePulleyOffset=rightDrivePulleyOffset(reversedBelts), 
             plainIdlerPulleyOffset=plainIdlerPulleyOffset(reversedBelts));
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
-        //bowdenTube(carriagePosition, "E3DV6");
-        //printheadWiring(carriagePosition, "E3DV6",  backFaceZipTiePositions());
+        //bowdenTube("E3DV6", carriagePosition);
+        //printheadWiring("E3DV6", carriagePosition, backFaceZipTiePositions());
         //Back_Face_assembly();
     }
     //X_Carriage_assembly();

@@ -16,7 +16,7 @@ use <X_CarriageAssemblies.scad>
 include <../config/Parameters_Main.scad>
 
 
-module bowdenTube(carriagePosition, hotendDescriptor, extraZ=120) {
+module bowdenTube(hotendDescriptor, carriagePosition, extraZ=120) {
     xCarriageType = carriageType(_xCarriageDescriptor);
     color("White")
         bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition.x, carriagePosition.y, eZ] + printheadBowdenOffset(hotendDescriptor), vitamin=true, extraZ=extraZ);

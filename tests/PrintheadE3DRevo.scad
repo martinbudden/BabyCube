@@ -43,8 +43,8 @@ module Printhead_test() {
         //printheadHotendSideE3DV6(halfCarriage=false, noPrinthead=true, boltLength=0);
         //CoreXYBelts(carriagePosition);
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
-        //bowdenTube(carriagePosition, "E3DRevo");
-        //printheadWiring(carriagePosition, "E3DRevo",  backFaceZipTiePositions());
+        //bowdenTube("E3DRevo", carriagePosition);
+        //printheadWiring("E3DRevo", carriagePosition, backFaceZipTiePositions());
     }
     //X_Carriage_assembly();
     //let($hide_bolts=true) Printhead_assembly();

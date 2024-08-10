@@ -222,7 +222,7 @@ module RB_FinalAssembly(test=false, hotendDescriptor="E3DRevo") {
             else if (hotendDescriptor == "DropEffectXG")
                 printheadHotendSideDropEffectXG();
         explode(150)
-            bowdenTube(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], hotendDescriptor);
+            bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0]);
         explode([75, 0, 100])
             faceRightSpoolHolder();
         explode([150, 0, 0])
