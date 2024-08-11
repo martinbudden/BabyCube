@@ -23,7 +23,6 @@ include <../scad/config/Parameters_Main.scad>
 //$pose = 1;
 module Base_test() {
     //PSU();
-    //BaseAL_dxf();
     //BaseAL(BTT_SKR_MINI_E3_V2_0);
     //BaseAL();
     //Base_stl();

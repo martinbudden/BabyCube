@@ -43,16 +43,31 @@ module Base_Template_stl(pcb=pcbType) {
         }
 }
 
-module BaseAL_dxf(pcb=pcbType) {
+module BaseAL_x220_y200_dxf() {
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.y == 200);
+
+    dxf("BaseAL_x220_y200")
+        baseDxf(cf=_useCNC, pcb=pcbType);
+}
+
+module BaseAL_x220_y220_dxf() {
+    assert(_chordLengths.x == 220);
+    assert(_chordLengths.y == 220);
+
+    dxf("BaseAL_x220_y220")
+        baseDxf(cf=_useCNC, pcb=pcbType);
+}
+
+module baseDxf(cf, pcb) {
     size = [eX + 2*eSizeX + _backPlateOutset.x, eY + 2*eSizeY + _backPlateOutset.y, _basePlateThickness];
 
-    dxf("BaseAL")
-        color(sheet_colour(AL3))
-            difference() {
-                sheet_2D(AL3, size.x, size.y, 1);
-                translate([-size.x/2, -size.y/2])
-                    baseCutouts(cnc=true, cf=_useCNC, pcb=pcb);
-            }
+    color(sheet_colour(AL3))
+        difference() {
+            sheet_2D(AL3, size.x, size.y, 1);
+            translate([-size.x/2, -size.y/2])
+                baseCutouts(cnc=true, cf=cf, pcb=pcb);
+        }
 }
 
 module BaseAL(pcb=pcbType) {
@@ -60,7 +75,10 @@ module BaseAL(pcb=pcbType) {
 
     translate([size.x/2, size.y/2, -size.z/2])
         render_2D_sheet(AL3, w=size.x, d=size.y)
-            BaseAL_dxf(pcb);
+            if (eY + 2*eSizeY == 200)
+                BaseAL_x220_y200_dxf();
+            else
+                BaseAL_x220_y220_dxf();
 }
 
 module baseCutouts(cnc=false, cf=false, radius=M3_clearance_radius, pcb=undef) {
