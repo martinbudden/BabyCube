@@ -169,7 +169,7 @@ main_staged_assembly("Stage_4_CF", big=true, ngb=true) {
     }
 }
 
-//! Bolt the **Nameplate** and the **Front_Face_CF_** to the base and the top, left, and right faces.
+//! Bolt the **Nameplate** and the **Front_Face_CF** to the base and the top, left, and right faces.
 //
 module Stage_5_CF_assembly()
 main_staged_assembly("Stage_5_CF", big=true, ngb=true) {
