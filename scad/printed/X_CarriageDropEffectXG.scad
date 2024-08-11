@@ -3,7 +3,7 @@ include <../config/global_defs.scad>
 include <../vitamins/bolts.scad>
 include <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/blowers.scad>
-use <NopSCADlib/vitamins/wire.scad>
+include <NopSCADlib/vitamins/zipties.scad>
 
 include <../utils/carriageTypes.scad>
 include <../utils/PrintheadOffsets.scad>
@@ -163,24 +163,25 @@ module xCarriageDropEffectXG_hardware(hotendDescriptor, blowerOffset) {
                 Fan_Duct_hardware(blower);
             }
         }
+
     xCarriageDropEffectXGStrainReliefCableTiePositions(xCarriageType)
-        translate([1, railCarriageGap() + 5.4, 0])
-            rotate([0, 90, -90])
-                if (!exploded())
-                    cable_tie(cable_r = 3.5, thickness = 5.0);
+        translate([1, railCarriageGap() + 2, 0])
+            if (!exploded())
+                ziptie(small_ziptie, r=3.5, t=5.0);
 
     xCarriageDropEffectXGSideZipTiePositions(size, hotendOffset, blowerOffset, sideZipTieCutoutSize.y)
-        rotate(90)
+        rotate([-90, 0, 0])
+            translate([0, -2.5, 0])
+                if (!exploded())
+                    ziptie(small_ziptie, r=2.5, t=2.5);
+    translate([size.x/4, 11.5, 11.75])
+       rotate([0, 90, 0])
             if (!exploded())
-                cable_tie(cable_r = 2.5, thickness = 2.5);
-    translate([size.x/4, 14, 11.75])
-       rotate([90, 180, 0])
+                ziptie(small_ziptie, r=2.5, t=4.5);
+    translate([size.x/2 + 0.5, 11.5, 35 - size.z])
+        rotate([0, 180, 0])
             if (!exploded())
-                cable_tie(cable_r = 2.5, thickness = 4.5);
-    translate([size.x/2 +.5, 15, 35 - size.z])
-       rotate([90, -90, 0])
-            if (!exploded())
-                cable_tie(cable_r = 3.5, thickness = 0.5);
+                ziptie(small_ziptie, r=3.5, t=0.5);
 }
 
 module xCarriageDropEffectXGBack(xCarriageType, size, fillet) {
