@@ -4,6 +4,7 @@ include <../vitamins/bolts.scad>
 include <NopSCADlib/utils/fillet.scad>
 include <NopSCADlib/vitamins/blowers.scad>
 include <NopSCADlib/vitamins/fans.scad>
+include <NopSCADlib/vitamins/zipties.scad>
 use <NopSCADlib/vitamins/e3d.scad> // for bowden_connector
 use <NopSCADlib/vitamins/wire.scad>
 
@@ -180,15 +181,15 @@ module xCarriageE3DRevo_hardware(hotendDescriptor, blowerOffset) {
             }
         }
     xCarriageE3DRevoStrainReliefCableTiePositions(xCarriageType)
-        translate([1, railCarriageGap() + 5.4, 0])
-            rotate([0, 90, -90])
-                if (!exploded())
-                    cable_tie(cable_r = 3.5, thickness = 5.0);
+        translate([1, railCarriageGap() + 2.0, 0])
+            if (!exploded())
+                ziptie(small_ziptie, r=3.5, t=5.0);
 
     xCarriageE3DRevoSideZipTiePositions(size, hotendOffset, blowerOffset, sideZipTieCutoutSize.y)
-        rotate(90)
-            if (!exploded())
-                cable_tie(cable_r = 2.5, thickness = 2.5);
+        translate_z(2.5)
+            rotate([90, 180, 0])
+                if (!exploded())
+                    ziptie(small_ziptie, r=2.5, t=2.5);
 }
 
 module xCarriageE3DRevoBack(xCarriageType, hotendDescriptor, size, fillet) {
