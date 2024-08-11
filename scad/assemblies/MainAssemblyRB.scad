@@ -23,6 +23,8 @@ include <../utils/CoreXYBelts.scad>
 
 use <../config/Parameters_Positions.scad>
 
+hotendDescriptor = "E3DRevo";
+
 
 //!1. Bolt the **Right_Face** and the right feet to the base.
 //
@@ -158,9 +160,10 @@ main_staged_assembly("Stage_4_RB", big=true, ngb=true) {
 }
 
 
-//!1. Add the Printhead.
+//!1. Add the **X_Carriage_Belt_Side_MGN9C_RB** assembly
 //!2. Thread the belts in the pattern shown.
-//!3. Adjust the belts tension.
+//!4. Clamp the belts using the **XX_Carriage_Belt_Clamp**
+//!3. Adjust the belt tension.
 //
 module Stage_5_RB_assembly()
 main_staged_assembly("Stage_5_RB", big=true, ngb=true) {
@@ -174,39 +177,23 @@ main_staged_assembly("Stage_5_RB", big=true, ngb=true) {
         printheadBeltSide(halfCarriage=false, reversedBelts=true);
 }
 
-//!Bolt the BabyCube nameplate and the **Front_Lower_Chord** to the front of the frame.
+//!1. Add the **Printhead_E3DRevo** assembly.
 //
 module Stage_6_RB_assembly()
 main_staged_assembly("Stage_6_RB", big=true, ngb=true) {
 
     Stage_5_RB_assembly();
 
-    explode([0, -20, 0], true) {
-        translate_z(eZ)
-            rotate([90, 0, 180]) {
-                translate([0, -eps, 0]) {
-                    stl_colour(pp2_colour)
-                        Front_Upper_Chord_stl();
-                    Front_Upper_Chord_hardware();
-                }
-                color(pp4_colour)
-                    frontUpperChordMessage();
-            }
-        rotate([90, 0, 180])
-            color(pp2_colour)
-                Front_Lower_Chord_Solid_stl();
-        frontLowerChordHardware();
-    }
-    topFaceFrontHolePositions(eZ + _topPlateCoverThickness, useJoiner=false)
-        boltM3Buttonhead(12);
-
-    baseFrontHolePositions(-_basePlateThickness)
-        vflip()
-            explode(30)
-                boltM3Buttonhead(10);
+    if (!exploded())
+        printheadWiring(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], backFaceZipTiePositions());
+    explode(100, true)
+        if (hotendDescriptor == "E3DRevo")
+            printheadHotendSideE3DRevo();
+        else if (hotendDescriptor == "DropEffectXG")
+            printheadHotendSideDropEffectXG();
 }
 
-module RB_FinalAssembly(test=false, hotendDescriptor="E3DRevo") {
+module RB_FinalAssembly(test=false) {
     assert(_useReversedBelts==true || test==true);
     assert(_useCNC==false || test==true);
     assert(holePositionsYRailShiftX==yRailShiftX());
@@ -214,15 +201,33 @@ module RB_FinalAssembly(test=false, hotendDescriptor="E3DRevo") {
     translate([-(eX + 2*eSizeX)/2, - (eY + 2*eSizeY)/2, -eZ/2]) {
         Stage_6_RB_assembly();
 
-        if (!exploded())
-            printheadWiring(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], backFaceZipTiePositions());
-        explode(100, true)
-            if (hotendDescriptor == "E3DRevo")
-                printheadHotendSideE3DRevo();
-            else if (hotendDescriptor == "DropEffectXG")
-                printheadHotendSideDropEffectXG();
+        explode([0, -20, 0], true) {
+            translate_z(eZ)
+                rotate([90, 0, 180]) {
+                    translate([0, -eps, 0]) {
+                        stl_colour(pp2_colour)
+                            Front_Upper_Chord_stl();
+                        Front_Upper_Chord_hardware();
+                    }
+                    color(pp4_colour)
+                        frontUpperChordMessage();
+                }
+            rotate([90, 0, 180])
+                color(pp2_colour)
+                    Front_Lower_Chord_Solid_stl();
+            frontLowerChordHardware();
+        }
+        topFaceFrontHolePositions(eZ + _topPlateCoverThickness, useJoiner=false)
+            boltM3Buttonhead(12);
+
+        baseFrontHolePositions(-_basePlateThickness)
+            vflip()
+                explode(30)
+                    boltM3Buttonhead(10);
+
         explode(150)
             bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0]);
+
         explode([75, 0, 100])
             faceRightSpoolHolder();
         explode([150, 0, 0])

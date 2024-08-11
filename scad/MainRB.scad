@@ -11,11 +11,13 @@ include <NopSCADlib/utils/core/core.scad>
 
 use <assemblies/MainAssemblyRB.scad>
 
-//! Add the printhead, spool holder and spool.
+//!1. Bolt the BabyCube nameplate and the **Front_Lower_Chord** to the front of the frame.
+//!2. Connect the Bowden tube.
+//!3. Add the spool holder and spool.
 //
 module BC220_assembly(test=false) pose(a=[55, 0, 25])
 assembly("BC220", big=true) {
-    RB_FinalAssembly(test, "E3DRevo");
+    RB_FinalAssembly(test);
 }
 
 if ($preview)
