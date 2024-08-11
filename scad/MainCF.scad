@@ -21,7 +21,7 @@ assembly("BC200CF", big=true) {
 }
 
 //!1. Attach the Bowden tube to the extruder and the hotend.
-//!2. Attach the **Spool_Holder**.
+//!2. Attach the **Spool_Holder** and spool.
 //!
 module BC220CF_assembly(test=false) pose(a=[55, 0, 25])
 assembly("BC220CF", big=true) {
