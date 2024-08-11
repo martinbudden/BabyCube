@@ -13,8 +13,6 @@ include <../scad/config/Parameters_Main.scad>
 //$pose = 1;
 module Front_Face_test() {
     Front_Face_CF_assembly();
-    //Front_Face_CF();
-    //Front_Face_CF_dxf();
     //frontLowerChordSKR_1_4(headless=false);
     XY_Idler_Bracket_Left_assembly();
     XY_Idler_Bracket_Right_assembly();
