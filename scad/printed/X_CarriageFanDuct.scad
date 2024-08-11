@@ -7,12 +7,17 @@ include <../vitamins/bolts.scad>
 
 
 fanDuctTabThickness = 2;
+fanDuctTabOffsetX = 2.5; // if 2.5 or more, no cutout required around bolt heads
 
 module fanDuctHolePositions(blower=BL30x10, z=0) {
+    fanDuctHolePositionsWithOffsets(blower, z=z, tabOffsetX=fanDuctTabOffsetX)
+        children();
+}
+
+module fanDuctHolePositionsWithOffsets(blower=BL30x10, z=0, tabOffsetX=fanDuctTabOffsetX) {
     blowerCornerOffset = blower == BL30x10 ? 1 : 0;
     offsetX = blower == BL30x10 ? 1 : 5;
     chimneySizeX = blower_wall_left(blower) + blower_wall_right(blower) + blower_exit(blower) - blowerCornerOffset;
-    tabOffsetX = 2.5;
 
     for (x = [-tabOffsetX, chimneySizeX + tabOffsetX])
         translate([x + offsetX, z, -3])
@@ -46,28 +51,21 @@ module fanDuct(blower=BL30x10, jetOffset=[0, 24, -8], chimneySizeZ=14) {
                     translate([0, 11, 0])
                         rounded_cube_xy([chimneySize.x, 5, 3], fillet);
                 }
-                rotate([0, 90, 0])
+                /*rotate([0, 90, 0])
                     mirror([1, 0, 0])
                         translate([-eps, -eps, -eps])
-                            right_triangle(3, 3, chimneySize.x + 2*eps, center=false);
+                            right_triangle(3, 3, chimneySize.x + 2*eps, center=false);*/
             }
     }
-    module tabs(offsetX, tabThickness=fanDuctTabThickness) {
-        tabTopSize = [chimneySize.x + 10.5, tabThickness, 5];
+    module tabs(offsetX, tabThickness, tabOffsetX) {
+        tabTopSize = [chimneySize.x + 5.5 + 2*tabOffsetX, tabThickness, 5];
         tabBottomSize = [chimneySize.x, tabTopSize.y, 1];
-        difference() {
-            hull() {
-                translate([(chimneySize.x - tabBottomSize.x)/2, chimneySize.y - tabBottomSize.y, 0])
-                    rounded_cube_xy(tabBottomSize, 0.5);
-                translate([(chimneySize.x - tabTopSize.x)/2, chimneySize.y - tabTopSize.y, chimneySize.z - tabTopSize.z])
-                    rounded_cube_xy(tabTopSize, 0.5);
-            }
-            translate([-offsetX, chimneySize.y - tabTopSize.y, chimneySize.z])
-                fanDuctHolePositions(blower, 0)
-                    hflip()
-                        boltHoleM2p5(tabThickness, horizontal=true);
+        hull() {
+            translate([(chimneySize.x - tabBottomSize.x)/2, chimneySize.y - tabBottomSize.y, 0])
+                rounded_cube_xy(tabBottomSize, 0.5);
+            translate([(chimneySize.x - tabTopSize.x)/2, chimneySize.y - tabTopSize.y, chimneySize.z - tabTopSize.z])
+                rounded_cube_xy(tabTopSize, 0.5);
         }
-
     }
     module jet(offset) {
         jetStartSize = [18, 5, 2];
@@ -82,13 +80,14 @@ module fanDuct(blower=BL30x10, jetOffset=[0, 24, -8], chimneySizeZ=14) {
     }
 
     offsetX = blower == BL30x10 ? 1 : 5;
+    tabOffsetX = fanDuctTabOffsetX;
     translate([offsetX, -chimneySize.y, -chimneySize.z])
         difference() {
             fillet = 2;
             union() {
                 chimney(chimneySize, fillet);
                 foot(chimneySize, height=3, fillet=fillet);
-                tabs(offsetX);
+                tabs(offsetX, tabThickness=fanDuctTabThickness, tabOffsetX=tabOffsetX);
             }
 
             // the flue
@@ -96,6 +95,15 @@ module fanDuct(blower=BL30x10, jetOffset=[0, 24, -8], chimneySizeZ=14) {
             flueSize = chimneyTopSize - flueInset;
             translate([chimneySize.x - exit- wallRight + flueInset.x/2, top + flueInset.y/2, -eps])
                 rounded_cube_xy(flueSize, 1);
+
+            // the bolt holes
+            translate([-offsetX, chimneySize.y - fanDuctTabThickness, chimneySize.z])
+                fanDuctHolePositionsWithOffsets(blower, z=0, tabOffsetX=tabOffsetX) {
+                    hflip()
+                        boltHoleM2p5(fanDuctTabThickness, horizontal=true);
+                    // clearance for bolt head
+                    cylinder(h=chimneySize.y - fanDuctTabThickness + eps, r=screw_head_radius(M2p5_cap_screw) + 0.25);
+                }
 
             if (exploded())
                 jet(jetOffset);
@@ -106,7 +114,7 @@ module fanDuct(blower=BL30x10, jetOffset=[0, 24, -8], chimneySizeZ=14) {
 
 
 module Fan_Duct_hardware(blower_type=BL30x10) {
-    fanDuctHolePositions(blower_type, -fanDuctTabThickness)
+    fanDuctHolePositions(blower_type, z=-fanDuctTabThickness)
         boltM2p5Caphead(6);
 }
 

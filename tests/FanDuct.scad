@@ -21,8 +21,9 @@ module FanDuct_test() {
                         boltM2p5Caphead(6);
             }
             fanDuct(blower, jetOffset=[0, 24, -8]);
-            fanDuctHolePositions(blower, -fanDuctTabThickness) 
+            *fanDuctHolePositions(blower, -fanDuctTabThickness)
                 boltM2p5Caphead(6);
+            Fan_Duct_hardware(blower);
         }
 }
 
