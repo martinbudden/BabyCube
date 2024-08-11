@@ -31,7 +31,7 @@ module printheadWiring(hotendDescriptor, carriagePosition, backFaceZipTiePositio
     printheadWiringPos = printheadWiringPos();
     assert(!is_undef(printheadWiringPos) || segment==true);
 
-    if (!segment)
+    if (segment)
         cable_wrap(500);
 
     xCarriageType = carriageType(_xCarriageDescriptor);    
@@ -72,6 +72,7 @@ module printheadWiring(hotendDescriptor, carriagePosition, backFaceZipTiePositio
         printheadWiringPos + [0, -5, 50],
         printheadWiringPos + [0, -5, 100],
         (printheadWiringPos + endPos)/2 + [0, 0, 180],
+        endPos + [0, 0, 101],
         endPos + [0, 0, 100],
         endPos + [0, 0, 50],
     ];
