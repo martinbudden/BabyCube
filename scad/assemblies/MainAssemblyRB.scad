@@ -55,9 +55,6 @@ module Stage_2_RB_assembly() pose(a=[55+10, 0, 25 + 80])
 main_staged_assembly("Stage_2_RB", big=true, ngb=true) {
 
     Stage_1_RB_assembly();
-    //BaseAL();
-    //translate([eX + 2 * eSizeX + eps, 0, 0]) rotate([90, 0, -90]) Right_Face_stl();
-
 
     explode([0, 200, 0], true) {
         Back_Face_assembly();
