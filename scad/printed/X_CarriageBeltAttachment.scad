@@ -289,7 +289,7 @@ module xCarriageBeltSide(xCarriageType, size, beltsCenterZOffset, beltWidth, bel
                 xCarriageTopThickness()];
     baseThickness = xCarriageBaseThickness(xCarriageType);
     baseOffset = size.z - topSize.z;
-    fillet = 1;
+    fillet = 1.5;
     beltAttachmentSize = xCarriageBeltAttachmentSize(beltWidth, beltSeparation, size.x) + [1, 2*offsetY25 + cutoutOffsetZ + extraBeltOffset, 0];
     //offsetZ = 18.5 + offsetY25 - beltAttachmentSize.y;
 

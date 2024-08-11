@@ -26,7 +26,7 @@ module xCarriageDropEffectXG(hotendDescriptor, inserts=false) {
     blower = BL30x10;
     blowerOffset = blowerOffset();
 
-    fillet = 1;
+    fillet = 1.5;
 
     difference() {
         union() {
