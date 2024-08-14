@@ -42,11 +42,12 @@
 //!### Small parts
 //!
 //!For dimensional accuracy the small parts need to be printed with a layer height of 0.25mm and a first layer height of 0.25mm.
+//!In particular the **X_Carriage_Belt_Side** and the **X_Carriage_Belt_Tensioner**s must be printed with a layer height of 0.25mm.
 //!To maximise part strength, I use the following:
 //!
 //!1. extrusion width of 0.7mm if using a 0.6mm nozzle, 0.65mm if using a 0.4mm nozzle
-//!2. 3 perimeters
-//!3. 3 top and bottom layers
+//!2. 4 perimeters
+//!3. 4 top and bottom layers
 //!4. Grid (or honeycomb) infill - not any of the weaker infills (eg Rectangular). 30% infill.
 //!
 //!### Large parts
