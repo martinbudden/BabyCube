@@ -12,8 +12,7 @@ include <../utils/cutouts.scad>
 include <../utils/HolePositions.scad>
 include <../utils/motorTypes.scad>
 
-function yRailSupportSize(NEMA_width)
-    = [ eY + 2*eSizeY, yRailSupportThickness(), yRailOffset(NEMA_width).x + rail_width(railType(_yCarriageDescriptor))/2 + 1 ];
+function yRailSupportSizeZ(NEMA_width) = yRailOffset(NEMA_width).x + rail_width(railType(_yCarriageDescriptor))/2 + 1;
 
 //bearingType = BB608;
 
@@ -44,7 +43,7 @@ module topFaceCover(NEMA_type, useReversedBelts=false) {
 
     NEMA_width = NEMA_width(NEMA_type);
     size = [eX + 2*eSizeX + _backPlateOutset.x, eY + 2*eSizeY + _backPlateOutset.y, _topPlateCoverThickness];
-    cutoutX = 2*floor(yRailSupportSize(NEMA_width).z/2) + cutoutXExtra;
+    cutoutX = 2*floor(yRailSupportSizeZ(NEMA_width)/2) + cutoutXExtra;
     cutoutFrontY = cutoutFront;
     cutoutBackY = cutoutBack;
     cutoutSize = [size.x - 2*cutoutX, size.y - cutoutFrontY - cutoutBackY, size.z + 2*eps];
@@ -163,11 +162,10 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, us
     assert(isNEMAType(NEMA_type));
 
     NEMA_width = NEMA_width(NEMA_type);
-    insetX = 3;
     insetY = _backPlateThickness - 1;
     size = [eX + 2*eSizeX, eY + 2*eSizeY, yRailSupportThickness()];
 
-    cutoutX = 2 * floor(yRailSupportSize(NEMA_width).z/2) + cutoutXExtra;
+    cutoutX = 2 * floor(yRailSupportSizeZ(NEMA_width)/2) + cutoutXExtra;
     cutoutFrontY = cutoutFront - insetY + (cnc ? 2 : 0);
     cutoutBackY = cutoutBack - _backPlateThickness + insetY;
     cutoutSize = [size.x - 2*cutoutX, size.y - cutoutFrontY - cutoutBackY, size.z + 2*eps];
@@ -233,7 +231,6 @@ module topFaceRailHolePositions(NEMA_width, step=1) {
 
 module topFaceSideCutouts(cnc=false) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
-    insetX = 3;
     insetY = _backPlateThickness;
 
     translate([0, insetY])

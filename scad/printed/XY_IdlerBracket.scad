@@ -227,7 +227,6 @@ module XY_IdlerBracket(coreXYPosBL, NEMA_width, offset=0, reversedBelts=false, l
     //size = idlerBracketSize(coreXYPosBL) - [offset, 0, 0];
 
     //boltPos = [coreXYPosBL.y - offset, 0, coreXYPosBL.x - _sidePlateThickness];
-    //baseLength = eZ - coreXYPosBL.z + separation + size.y - yRailSupportSize(NEMA_width).y;
     offsetY = 9.5;
     topBoltHolderSize = topBoltHolderSize(reversedBelts=reversedBelts);
     size = [eY == 180 ? 45 : 55, topBoltHolderSize.y, topBoltHolderSize.z];
