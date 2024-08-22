@@ -47,7 +47,6 @@ module Back_Face_test() {
         //Back_Face_Stage_1_assembly();
         Back_Face_assembly(bedHeight(t));
     }
-    //Back_Face_CF_dxf();
     //Left_Face_assembly();
     //translate([-eps, 0, 0]) rotate([90, 0, 90]) Left_Face_stl();
     //Left_Face_CF_assembly();

@@ -87,27 +87,17 @@ module Right_Face_Lower_Joiner_Front_stl() {
             }
 }
 
-module Left_Face_CF_dxf() {
-    dxf("Left_Face_CF")
-        leftFaceCF(NEMA_width(NEMA14_36));
-}
-
-module Left_Face_NEMA_17_CF_dxf() {
-    dxf("Left_Face_NEMA_17_CF")
-        leftFaceCF(NEMA_width(NEMA17_40));
-}
-
-module Left_Face_CF_y200_z200_dxf() {
+module Left_Face_y200_z200_dxf() {
     assert(_chordLengths.y == 200);
     assert(_chordLengths.z == 200);
-    dxf("Left_Face_CF_y200_z200")
+    dxf("Left_Face_y200_z200")
         leftFaceCF(NEMA_width(NEMA14_36));
 }
 
-module Left_Face_CF_y220_z210_dxf() {
+module Left_Face_y220_z210_dxf() {
     assert(_chordLengths.y == 220);
     assert(_chordLengths.z == 210);
-    dxf("Left_Face_CF_y220_z210")
+    dxf("Left_Face_y220_z210")
         leftFaceCF(NEMA_width(NEMA14_36));
 }
 
@@ -118,55 +108,35 @@ module Left_Face_CF() {
 
     translate([size.x/2, size.y/2, 0])
         render_2D_sheet(CF3Red, w=size.x, d=size.y)
-            if (_xyMotorDescriptor=="NEMA14") {
-                if (eZ == 200)
-                    Left_Face_CF_y200_z200_dxf();
-                else
-                    Left_Face_CF_y220_z210_dxf();
-            } else {
-                Left_Face_NEMA_17_CF_dxf();
-            }
+            if (eZ == 200)
+                Left_Face_y200_z200_dxf();
+            else
+                Left_Face_y220_z210_dxf();
 }
 
-module Right_Face_CF_dxf() {
-    dxf("Right_Face_CF")
-        rightFaceCF(NEMA_width(NEMA14_36));
-}
-
-module Right_Face_NEMA_17_CF_dxf() {
-    dxf("Right_Face_NEMA_17_CF")
-        rightFaceCF(NEMA_width(NEMA17_40));
-}
-
-module Right_Face_CF_y200_z200_dxf() {
+module Right_Face_y200_z200_dxf() {
     assert(_chordLengths.y == 200);
     assert(_chordLengths.z == 200);
-    dxf("Right_Face_CF_y200_z200")
+    dxf("Right_Face_y200_z200")
         rightFaceCF(NEMA_width(NEMA14_36));
 }
 
-module Right_Face_CF_y220_z210_dxf() {
+module Right_Face_y220_z210_dxf() {
     assert(_chordLengths.y == 220);
     assert(_chordLengths.z == 210);
-    dxf("Right_Face_CF_y220_z210")
+    dxf("Right_Face_y220_z210")
         rightFaceCF(NEMA_width(NEMA14_36));
 }
-
-
 
 module Right_Face_CF() {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
 
     translate([size.x/2, size.y/2, -_sidePlateThickness])
         render_2D_sheet(CF3Red, w=size.x, d=size.y)
-            if (_xyMotorDescriptor=="NEMA14") {
-                if (eZ == 200)
-                    Right_Face_CF_y200_z200_dxf();
-                else
-                    Right_Face_CF_y220_z210_dxf();
-            } else {
-                Right_Face_NEMA_17_CF_dxf();
-            }
+            if (eZ == 200)
+                Right_Face_y200_z200_dxf();
+            else
+                Right_Face_y220_z210_dxf();
 }
 
 module leftFaceCF(NEMA_width) {

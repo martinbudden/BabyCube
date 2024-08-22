@@ -21,17 +21,17 @@ use <XY_IdlerBracket.scad>
 include <../config/Parameters_CoreXY.scad>
 
 
-module Front_Face_CF_x220_z200_dxf() {
+module Front_Face_x220_z200_dxf() {
     assert(_chordLengths.x == 220);
     assert(_chordLengths.z == 200);
-    dxf("Front_Face_CF_x220_z200")
+    dxf("Front_Face_x220_z200")
         frontFaceCF(coverBelts=true);
 }
 
-module Front_Face_CF_x220_z210_dxf() {
+module Front_Face_x220_z210_dxf() {
     assert(_chordLengths.x == 220);
     assert(_chordLengths.z == 210);
-    dxf("Front_Face_CF_x220_z210")
+    dxf("Front_Face_x220_z210")
         frontFaceCF(coverBelts=true);
 }
 module frontFaceCF(coverBelts) {
@@ -96,9 +96,9 @@ module Front_Face_CF() {
     translate([size.x/2, size.y/2, -_backPlateCFThickness])
         render_2D_sheet(CF3, w=size.x, d=size.y)
             if (eZ == 200)
-                Front_Face_CF_x220_z200_dxf();
+                Front_Face_x220_z200_dxf();
             else
-                Front_Face_CF_x220_z210_dxf();
+                Front_Face_x220_z210_dxf();
 }
 
 namePlateSize = [eX < 220 ? 80 : eX == 220 ? 100 : 140, 22, 3];
