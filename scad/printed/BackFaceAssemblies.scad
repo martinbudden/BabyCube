@@ -127,7 +127,7 @@ assembly("Back_Face", big=true) {
             camera(cameraType);
 }
 
-module backFaceCF() {
+module backFaceCNC() {
     size = [eX + 2*eSizeX, eZ];
 
     difference() {
@@ -176,14 +176,14 @@ module Back_Face_x220_z200_dxf() {
     assert(_chordLengths.x == 220);
     assert(_chordLengths.z == 200);
     dxf("Back_Face_x220_z200")
-            backFaceCF();
+            backFaceCNC();
 }
 
 module Back_Face_x220_z210_dxf() {
     assert(_chordLengths.x == 220);
     assert(_chordLengths.z == 210);
     dxf("Back_Face_x220_z210")
-            backFaceCF();
+            backFaceCNC();
 }
 
 CF3Blue = CF3;//[ "CF3",       "Sheet carbon fiber",      3, [0, 0, 1],                false,  5,  5,  [0, 0, 0.5] ];

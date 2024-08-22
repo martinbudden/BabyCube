@@ -50,14 +50,14 @@ module Top_Face_x220_y200_dxf() {
     assert(_chordLengths.x == 220);
     assert(_chordLengths.y == 200);
     dxf("Top_Face_x220_y200")
-        topFaceCF(NEMA14_36, extraY=_backPlateCFThickness);
+        topFaceCNC(NEMA14_36, extraY=_backPlateCFThickness);
 }
 
 module Top_Face_x220_y220_dxf() {
     assert(_chordLengths.x == 220);
     assert(_chordLengths.y == 220);
     dxf("Top_Face_x220_y220")
-        topFaceCF(NEMA14_36, extraY=_backPlateCFThickness);
+        topFaceCNC(NEMA14_36, extraY=_backPlateCFThickness);
 }
 
 module Top_Face_CF() {

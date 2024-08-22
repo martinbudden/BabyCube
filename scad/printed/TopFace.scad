@@ -27,7 +27,7 @@ module topFace(NEMA_type, useReversedBelts) {
     topFaceInterlock(NEMA_type, useReversedBelts);
 }
 
-module topFaceCF(NEMA_type, extraY) {
+module topFaceCNC(NEMA_type, extraY) {
     insetY = _backPlateCFThickness - extraY;
     size = [eX + 2*eSizeX, eY + 2*eSizeY + extraY, yRailSupportThickness()];
 

@@ -91,14 +91,14 @@ module Left_Face_y200_z200_dxf() {
     assert(_chordLengths.y == 200);
     assert(_chordLengths.z == 200);
     dxf("Left_Face_y200_z200")
-        leftFaceCF(NEMA_width(NEMA14_36));
+        leftFaceCNC(NEMA_width(NEMA14_36));
 }
 
 module Left_Face_y220_z210_dxf() {
     assert(_chordLengths.y == 220);
     assert(_chordLengths.z == 210);
     dxf("Left_Face_y220_z210")
-        leftFaceCF(NEMA_width(NEMA14_36));
+        leftFaceCNC(NEMA_width(NEMA14_36));
 }
 
 CF3Red = CF3;//[ "CF3",       "Sheet carbon fiber",      3, [1, 0, 0],                false,  5,  5,  [0.5, 0, 0] ];
@@ -118,14 +118,14 @@ module Right_Face_y200_z200_dxf() {
     assert(_chordLengths.y == 200);
     assert(_chordLengths.z == 200);
     dxf("Right_Face_y200_z200")
-        rightFaceCF(NEMA_width(NEMA14_36));
+        rightFaceCNC(NEMA_width(NEMA14_36));
 }
 
 module Right_Face_y220_z210_dxf() {
     assert(_chordLengths.y == 220);
     assert(_chordLengths.z == 210);
     dxf("Right_Face_y220_z210")
-        rightFaceCF(NEMA_width(NEMA14_36));
+        rightFaceCNC(NEMA_width(NEMA14_36));
 }
 
 module Right_Face_CF() {
@@ -139,7 +139,7 @@ module Right_Face_CF() {
                 Right_Face_y220_z210_dxf();
 }
 
-module leftFaceCF(NEMA_width) {
+module leftFaceCNC(NEMA_width) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
 
     difference() {
@@ -176,7 +176,7 @@ module leftFaceCF(NEMA_width) {
     }
 }
 
-module rightFaceCF(NEMA_width) {
+module rightFaceCNC(NEMA_width) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
 
     difference() {

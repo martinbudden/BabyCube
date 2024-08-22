@@ -25,16 +25,16 @@ module Front_Face_x220_z200_dxf() {
     assert(_chordLengths.x == 220);
     assert(_chordLengths.z == 200);
     dxf("Front_Face_x220_z200")
-        frontFaceCF(coverBelts=true);
+        frontFaceCNC(coverBelts=true);
 }
 
 module Front_Face_x220_z210_dxf() {
     assert(_chordLengths.x == 220);
     assert(_chordLengths.z == 210);
     dxf("Front_Face_x220_z210")
-        frontFaceCF(coverBelts=true);
+        frontFaceCNC(coverBelts=true);
 }
-module frontFaceCF(coverBelts) {
+module frontFaceCNC(coverBelts) {
     size = [eX + 2*eSizeX, eZ];
     insetX = idlerBracketSize(coreXYPosBL(_xyNEMA_width)).z;
     insetX2 = 10;
