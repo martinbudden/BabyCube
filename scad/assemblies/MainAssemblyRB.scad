@@ -110,7 +110,7 @@ main_staged_assembly("Stage_3_RB", big=true, ngb=true) {
 }
 
 //!1. Bolt the **Left_Face** and the left feet to the base.
-//!2. Bolt the **Left_Face** to the back fase and the top face.
+//!2. Bolt the **Left_Face** to the back face and the top face.
 //
 module Stage_4_RB_assembly()
 main_staged_assembly("Stage_4_RB", big=true, ngb=true) {
