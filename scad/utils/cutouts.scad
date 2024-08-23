@@ -24,17 +24,17 @@ module edgeCutout_x(size, cuttingRadius, tolerance, kerf, fillet=1) {
     if (cuttingRadius == 0) {
         h = size.z ? size.z + 2*eps : 0;
         z = size.z ? -eps : 0;
-        translate([0, dogboneSize.y/2, z])
+        translate([0, dogboneSize.y/2, z]) {
             fillet(fillet, h);
-        translate([0, dogboneSize.y/2, z])
             rotate(90)
                 fillet(fillet, h);
-        translate([0, -dogboneSize.y/2, z])
+        }
+        translate([0, -dogboneSize.y/2, z]) {
             rotate(180)
                 fillet(fillet, h);
-        translate([0, -dogboneSize.y/2, z])
             rotate(-90)
                 fillet(fillet, h);
+        }
     }
 }
 
@@ -46,17 +46,17 @@ module edgeCutout_y(size, cuttingRadius, tolerance, kerf, fillet=1) {
     if (cuttingRadius == 0) {
         h = size.z ? size.z + 2*eps : 0;
         z = size.z ? -eps : 0;
-        translate([dogboneSize.x/2, 0, z])
+        translate([dogboneSize.x/2, 0, z]) {
             fillet(fillet, h);
-        translate([dogboneSize.x/2, 0, z])
             rotate(-90)
                 fillet(fillet, h);
-        translate([-dogboneSize.x/2, 0, z])
+        }
+        translate([-dogboneSize.x/2, 0, z]) {
             rotate(180)
                 fillet(fillet, h);
-        translate([-dogboneSize.x/2, 0, z])
             rotate(90)
                 fillet(fillet, h);
+        }
     }
 }
 
