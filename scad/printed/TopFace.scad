@@ -151,16 +151,10 @@ module motorAccessHolePositions(NEMA_type, n=3) {
                         children();
 }
 
-module cutout_circle(r, cnc) {
-    if (cnc)
-        circle(r=r);
-    else
-        poly_circle(r=r);
-}
-
 module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, useReversedBelts=false, cnc=false) {
     assert(isNEMAType(NEMA_type));
 
+    cncSides = cnc ? 0 : undef;
     NEMA_width = NEMA_width(NEMA_type);
     insetY = _backPlateThickness - 1;
     size = [eX + 2*eSizeX, eY + 2*eSizeY, yRailSupportThickness()];
@@ -174,17 +168,17 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, us
         rounded_square([cutoutSize.x, cutoutSize.y], 4, center=false);
 
     topFaceRailHolePositions(NEMA_width, step = cnc ? 2 : 1)
-        cutout_circle(railHoleRadius, cnc);
+        poly_circle(railHoleRadius, cncSides);
 
     topFaceFrontHolePositions(useJoiner=cnc)
-        cutout_circle(M3_clearance_radius, cnc);
+        poly_circle(M3_clearance_radius, cncSides);
     topFaceBackHolePositions()
-        cutout_circle(M3_clearance_radius, cnc);
+        poly_circle(M3_clearance_radius, cncSides);
     topFaceSideHolePositions()
-        cutout_circle(M3_clearance_radius, cnc);
+        poly_circle(M3_clearance_radius, cncSides);
 
     zRodHolePositions()
-        cutout_circle(_zRodDiameter/2 + 0.5, cnc);
+        poly_circle(_zRodDiameter/2 + 0.5, cncSides);
 
     zLeadScrewHolePosition()
         if (is_undef(bearingType))
@@ -194,12 +188,12 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, us
 
     if (useReversedBelts) {
         xyMotorMountTopHolePositions(left=true)
-            cutout_circle(M3_clearance_radius, cnc);
+            poly_circle(M3_clearance_radius, cncSides);
         xyMotorMountTopHolePositions(left=false)
-            cutout_circle(M3_clearance_radius, cnc);
+            poly_circle(M3_clearance_radius, cncSides);
     } else {
         motorAccessHolePositions(NEMA_type)
-            cutout_circle(M3_clearance_radius, cnc);
+            poly_circle(M3_clearance_radius, cncSides);
     }
 
     topFaceWiringCutout(NEMA_width, printheadWiringPos());
