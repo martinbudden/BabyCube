@@ -90,15 +90,22 @@ module frontFaceCNC(coverBelts) {
     }
 }
 
-module Front_Face_CF() {
+module Front_Face_CF(render=true) {
     size = [eX + 2*eSizeX, eZ];
 
     translate([size.x/2, size.y/2, -_backPlateCFThickness])
-        render_2D_sheet(CF3, w=size.x, d=size.y)
-            if (eZ == 200)
-                Front_Face_x220_z200_dxf();
-            else
-                Front_Face_x220_z210_dxf();
+        if (render) {
+            render_2D_sheet(CF3, w=size.x, d=size.y)
+                if (eZ == 200)
+                    Front_Face_x220_z200_dxf();
+                else
+                    Front_Face_x220_z210_dxf();
+        } else {
+                if (eZ == 200)
+                    Front_Face_x220_z200_dxf();
+                else
+                    Front_Face_x220_z210_dxf();
+        }
 }
 
 namePlateSize = [eX < 220 ? 80 : eX == 220 ? 100 : 140, 22, 3];

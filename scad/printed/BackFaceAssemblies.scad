@@ -188,15 +188,22 @@ module Back_Face_x220_z210_dxf() {
 
 CF3Blue = CF3;//[ "CF3",       "Sheet carbon fiber",      3, [0, 0, 1],                false,  5,  5,  [0, 0, 0.5] ];
 
-module Back_Face_CF() {
+module Back_Face_CF(render=true) {
     size = [eX + 2*eSizeX, eZ];
 
     translate([size.x/2, size.y/2, -_backPlateCFThickness])
-        render_2D_sheet(CF3Blue, w=size.x, d=size.y)
+        if (render) {
+            render_2D_sheet(CF3Blue, w=size.x, d=size.y)
+                if (eZ == 200)
+                    Back_Face_x220_z200_dxf();
+                else
+                    Back_Face_x220_z210_dxf();
+        } else {
             if (eZ == 200)
                 Back_Face_x220_z200_dxf();
             else
                 Back_Face_x220_z210_dxf();
+        }
 }
 
 //!1. Bolt the **Z_Motor_Mount** to the **Back_Face**.

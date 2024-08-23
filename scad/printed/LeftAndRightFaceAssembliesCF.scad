@@ -103,15 +103,22 @@ module Left_Face_y220_z210_dxf() {
 
 CF3Red = CF3;//[ "CF3",       "Sheet carbon fiber",      3, [1, 0, 0],                false,  5,  5,  [0.5, 0, 0] ];
 
-module Left_Face_CF() {
+module Left_Face_CF(render=true) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
 
     translate([size.x/2, size.y/2, 0])
-        render_2D_sheet(CF3Red, w=size.x, d=size.y)
+        if (render) {
+            render_2D_sheet(CF3Red, w=size.x, d=size.y)
+                if (eZ == 200)
+                    Left_Face_y200_z200_dxf();
+                else
+                    Left_Face_y220_z210_dxf();
+        } else {
             if (eZ == 200)
                 Left_Face_y200_z200_dxf();
             else
                 Left_Face_y220_z210_dxf();
+        }
 }
 
 module Right_Face_y200_z200_dxf() {
@@ -128,15 +135,22 @@ module Right_Face_y220_z210_dxf() {
         rightFaceCNC(NEMA_width(NEMA14_36));
 }
 
-module Right_Face_CF() {
+module Right_Face_CF(render=true) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
 
     translate([size.x/2, size.y/2, -_sidePlateThickness])
-        render_2D_sheet(CF3Red, w=size.x, d=size.y)
+        if (render) {
+            render_2D_sheet(CF3Red, w=size.x, d=size.y)
+                if (eZ == 200)
+                    Right_Face_y200_z200_dxf();
+                else
+                    Right_Face_y220_z210_dxf();
+        } else {
             if (eZ == 200)
                 Right_Face_y200_z200_dxf();
             else
                 Right_Face_y220_z210_dxf();
+        }
 }
 
 module leftFaceCNC(NEMA_width) {

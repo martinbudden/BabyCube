@@ -27,30 +27,6 @@ NEMA_type = xyMotorType();
 //$explode = 1;
 //$pose = 1;
 
-module Left_Face_CF_map() {
-    rotate([0, 180, 0])
-        Left_Face_CF();
-    translate([0, 0, 0])
-        Front_Face_CF();
-    translate([-eY-23, 0, 0])
-        rotate([0, 180, 0])
-            Back_Face_CF();
-}
-
-module Left_Face_map() {
-    translate([-eY-2*eSizeY - 5, 0, 0]) {
-        Left_Face_stl();
-        //Left_Face_CF();
-    }
-    Back_Face_stl();
-    //Back_Face_CF();
-    translate([eX + 2*eSizeX + 5, 0, 0]) {
-        //Right_Face_CF();
-        translate([eX + 2*eSizeX, 0, 0])
-            Right_Face_stl();
-    }
-}
-
 module Left_Face_test() {
     echoPrintSize();
     //CoreXYBelts(carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0]);
@@ -117,8 +93,49 @@ module Left_Face_test() {
 */
 }
 
-//Left_Face_map();
+module Left_Face_CF_map() {
+    rotate([0, 180, 0])
+        Left_Face_CF(render=false);
+    translate([0, 0, 3])
+        Front_Face_CF(render=false);
+    translate([-eY-23, 0, -3])
+        rotate([0, 180, 0])
+            Back_Face_CF(render=false);
+}
+
+module Left_Face_map() {
+    translate([-eY - 2*eSizeY - 5, 0, 0])
+        if (_useReversedBelts) {
+            if (eZ == 200)
+                Left_Face_y200_z200_stl();
+            else
+                Left_Face_y220_z210_stl();
+        } else {
+            Left_Face_stl();
+        }
+
+    if (eZ == 200)
+        Back_Face_x220_z200_stl();
+    else
+        Back_Face_x220_z210_stl();
+
+    translate([eY + 2*eSizeY + 5, 0, 0])
+        translate([eX + 2*eSizeX, 0, 0])
+            if (_useReversedBelts) {
+                if (eZ == 200)
+                    Right_Face_y200_z200_stl();
+                else
+                    Right_Face_y220_z210_stl();
+            } else {
+                Right_Face_stl();
+            }
+}
+
+*if (_useCNC)
+    Left_Face_CF_map();
+else
+    Left_Face_map();
 if ($preview)
     Left_Face_test();
 else
-    scale([0.5, 0.5, 0.5]) Left_Face_stl();
+    scale([0.5, 0.5, 0.5]) Left_Face_y220_z210_stl();

@@ -120,12 +120,13 @@ module Top_Face_test() {
 }
 
 module Top_Face_CF_map() {
-    Top_Face_CF();
-    translate([0, -eZ - 2, 0]) Front_Face_CF();
-    translate([-eZ - 2, 0, 0]) rotate([0, 180, -90]) Left_Face_CF();
-    *translate([-eY - 2*eSizeY - 4, -eZ - 2, 0]) Left_Face_CF();
-    translate([eX + 2*eSizeX + eZ, 0, 0]) rotate(90)Right_Face_CF();
-    }
+    color(pp2_colour)
+        Top_Face_CF(render=false);
+    translate([0, -eZ - 2, 3]) Front_Face_CF(render=false);
+    translate([-eZ - 2, 0, 0]) rotate([0, 180, -90]) Left_Face_CF(render=false);
+    *translate([-eY - 2*eSizeY - 4, -eZ - 2, 0]) Left_Face_CF(render=false);
+    translate([eX + 2*eSizeX + eZ, 0, 3]) rotate(90)Right_Face_CF(render=false);
+}
 
 //Top_Face_CF();
 //Top_Face_CF_map()

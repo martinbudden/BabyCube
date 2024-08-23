@@ -60,18 +60,25 @@ module Top_Face_x220_y220_dxf() {
         topFaceCNC(NEMA14_36, extraY=_backPlateCFThickness);
 }
 
-module Top_Face_CF() {
+module Top_Face_CF(render=true) {
     extraY = _backPlateCFThickness;
     size = [eX + 2*eSizeX, eY + 2*eSizeY + extraY];
     //insetY = _backPlateThickness - 1;
     insetY = 0;
 
     translate([size.x/2, size.y/2 + insetY, 0])
-        render_2D_sheet(CF3, w=size.x, d=size.y)
+        if (render) {
+            render_2D_sheet(CF3, w=size.x, d=size.y)
+                if (eY + 2*eSizeY == 200)
+                    Top_Face_x220_y200_dxf();
+                else
+                    Top_Face_x220_y220_dxf();
+        } else {
             if (eY + 2*eSizeY == 200)
                 Top_Face_x220_y200_dxf();
             else
                 Top_Face_x220_y220_dxf();
+        }
 }
 
 //! 1. Turn the **Top_Face** upside down and place it on a flat surface.
