@@ -8,7 +8,7 @@ include <../config/Parameters_Main.scad>
 dogBoneCNCBitRadius = 1.5;
 
 module edgeCutout_x(size, cncBitRadius, tolerance, fillet=1) {
-    dogboneSize = size + [tolerance, 0, size.z == 0 ? 0 : 2*eps];
+    dogboneSize = size + [0, tolerance, size.z == 0 ? 0 : 2*eps];
 
     translate_z(size.z == 0 ? 0 : -eps)
         dogbone_rectangle_x(dogboneSize, r=cncBitRadius, center=false, xy_center=true);
@@ -118,7 +118,7 @@ module sideFaceBackDogBones(cnc=true, plateThickness) {
     cncBitRadius = cnc ? dogBoneCNCBitRadius : 0;
     tolerance = _tabTolerance;
     yStep = 20;
-    dogboneSize = [plateThickness*2, yStep - _tabTolerance, 0];
+    dogboneSize = [plateThickness*2, yStep, 0];
 
     start = eZ == 200 ? yStep : 3*yStep/2;
     x = eY + 2*eSizeY;
@@ -131,7 +131,7 @@ module backFaceSideCutouts(cnc=false, plateThickness, dogBoneThickness) {
     cncBitRadius = cnc ? dogBoneCNCBitRadius : 0;
     tolerance = _tabTolerance;
     yStep = 20;
-    dogboneSize = [plateThickness*2, yStep + _tabTolerance, dogBoneThickness];
+    dogboneSize = [plateThickness*2, yStep, dogBoneThickness];
 
     start = eZ == 200 ? 0 : 5*yStep/2;
     end = eZ == 200 ? eZ : eZ - yStep;
