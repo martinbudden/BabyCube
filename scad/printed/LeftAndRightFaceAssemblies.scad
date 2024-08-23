@@ -14,7 +14,7 @@ module Left_Face_stl() {
     assert(_chordLengths.z == 200);
     stl("Left_Face")
         color(pp1_colour)
-            leftFace(NEMA14T(), useFrontSwitch=_useFrontSwitch, fan=_useReversedBelts);
+            leftFace(NEMA14T(), useFrontSwitch=_useFrontSwitch, reversedBelts=_useReversedBelts, fan=_useReversedBelts);
             //cube([eY + 2*eSizeY, eZ, eSizeX]);
 }
 
@@ -25,7 +25,7 @@ module Left_Face_NEMA_17_stl() {
     assert(_chordLengths.z == 200);
     stl("Left_Face_NEMA_17")
         color(pp1_colour)
-            leftFace(NEMA17_40, useFrontSwitch=_useFrontSwitch, fan=_useReversedBelts);
+            leftFace(NEMA17_40, useFrontSwitch=_useFrontSwitch, reversedBelts=_useReversedBelts, fan=_useReversedBelts);
             //cube([eY + 2*eSizeY, eZ, eSizeX]);
 }
 
@@ -34,7 +34,7 @@ module Left_Face_y200_z200_stl() {
     assert(_chordLengths.z == 200);
     stl("Left_Face_y200_z200")
         color(pp1_colour)
-            leftFace(NEMA14T(), useFrontSwitch=_useFrontSwitch, fan=_useReversedBelts);
+            leftFace(NEMA14T(), useFrontSwitch=_useFrontSwitch, reversedBelts=_useReversedBelts, fan=_useReversedBelts);
 }
 
 module Left_Face_y220_z210_stl() {
@@ -42,7 +42,7 @@ module Left_Face_y220_z210_stl() {
     assert(_chordLengths.z == 210);
     stl("Left_Face_y220_z210")
         color(pp1_colour)
-            leftFace(NEMA14T(), useFrontSwitch=_useFrontSwitch, fan=_useReversedBelts);
+            leftFace(NEMA14T(), useFrontSwitch=_useFrontSwitch, reversedBelts=_useReversedBelts, fan=_useReversedBelts);
 }
 
 module Right_Face_stl() {

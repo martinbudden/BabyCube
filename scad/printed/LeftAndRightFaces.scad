@@ -59,7 +59,7 @@ module leftFace(NEMA_type, useFrontSwitch=false, fullyEnclosed=false, reversedBe
     difference() {
         union() {
             frame(NEMA_type, left=true, useFrontSwitch=useFrontSwitch, reversedBelts=reversedBelts);
-            webbingLeft(NEMA_type, useFrontSwitch=useFrontSwitch, fullyEnclosed=fullyEnclosed, fan=fan);
+            webbingLeft(NEMA_type, useFrontSwitch=useFrontSwitch, fullyEnclosed=fullyEnclosed, reversedBelts=reversedBelts, fan=fan);
             NEMA_width = NEMA_width(NEMA_type);
             coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
             translate([0, coreXYPosBL.z + coreXYSeparation().z, 0])
