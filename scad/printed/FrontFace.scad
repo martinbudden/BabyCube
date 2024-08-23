@@ -47,7 +47,7 @@ module frontFaceCNC(coverBelts) {
             translate([insetX, baseY])
                 rounded_square([size.x - 2*insetX, eZ - insetY - baseY + 15 - (coverBelts ? 24 : 0)], 3, center=false);
             if (coverBelts) {
-                if (_fullLengthYRail)
+                *if (_fullLengthYRail)
                     for (x = [18.5, size.x - 18.5])
                         translate([x, eZ - insetY - 10])
                             rounded_square([12, 20], 1.5, center=true);
