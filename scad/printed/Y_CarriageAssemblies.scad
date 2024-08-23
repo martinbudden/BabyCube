@@ -40,7 +40,7 @@ module yCarriage(NEMA_width, reversedBelts=false, left=true, cnc=false) {
     plainIdlerOffset = plainIdlerOffset(reversedBelts);
     toothedIdlerOffset = pulleyOffset();
 
-    idlerHeight = isBearing ? 2*bb_width(plainIdler) + washer_thickness(washer) : pulley_height(plainIdler);
+    idlerHeight = isBearing ? 2*bb_width(plainIdler) + washer_thickness(washer) : is_undef(plain_idler) ? 8.5 : pulley_height(plainIdler);
     chamfer = 0;
     blockOffsetY = topInset - 2.75 - 0.5;
     endStopOffsetX = left ? 2.5 : 1;
@@ -136,12 +136,6 @@ module yCarriageLeftAssembly(NEMA_width, t=undef, reversedBelts=false) {
     railOffset = yRailOffset(NEMA_width);
     plainIdler = reversedBelts ? coreXYBearing() : coreXY_plain_idler(coreXY_type());
     toothedIdler = reversedBelts ? coreXYBearing() : coreXY_toothed_idler(coreXY_type());
-    isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
-    pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
-    washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
-    idlerHeight = isBearing ? 2*bb_width(plainIdler) + washer_thickness(washer) : pulley_height(plainIdler);
-
-    pulleyStackHeight = pulleyStackHeight(idlerHeight, pulleyBore);
 
     translate([railOffset.x, carriagePosition(t).y, railOffset.z - carriage_height(yCarriageType)])
         rotate([180, 0, 0]) {
@@ -156,18 +150,25 @@ module yCarriageLeftAssembly(NEMA_width, t=undef, reversedBelts=false) {
                     Y_Carriage_Left_NEMA_17_stl();
                 }
             extraExplode = 20;
-            if (yCarriageBraceThickness())
-                translate_z(yCarriageThickness() + pulleyStackHeight + eps)
-                    explode(5*yCarriageExplodeFactor() + extraExplode, show_line=false)
-                        stl_colour(pp1_colour)
-                            if (reversedBelts)
-                                Y_Carriage_Brace_Left_RB_stl();
-                            else
-                                Y_Carriage_Brace_Left_stl();
-            plainIdlerOffset = plainIdlerOffset(reversedBelts);
-            toothedIdlerOffset = pulleyOffset();
-            explode(extraExplode, true, show_line=false)
-                Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), plainIdlerOffset, toothedIdlerOffset, left=true);
+            if (!is_undef(plainIdler)) {
+                if (yCarriageBraceThickness()) {
+                    isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
+                    pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
+                    washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
+                    idlerHeight = isBearing ? 2*bb_width(plainIdler) + washer_thickness(washer) : pulley_height(plainIdler);
+                    translate_z(yCarriageThickness() + pulleyStackHeight(idlerHeight, pulleyBore) + eps)
+                        explode(5*yCarriageExplodeFactor() + extraExplode, show_line=false)
+                            stl_colour(pp1_colour)
+                                if (reversedBelts)
+                                    Y_Carriage_Brace_Left_RB_stl();
+                                else
+                                    Y_Carriage_Brace_Left_stl();
+                }
+                plainIdlerOffset = plainIdlerOffset(reversedBelts);
+                toothedIdlerOffset = pulleyOffset();
+                explode(extraExplode, true, show_line=false)
+                    Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), plainIdlerOffset, toothedIdlerOffset, left=true);
+            }
         }
 }
 
@@ -177,12 +178,6 @@ module yCarriageRightAssembly(NEMA_width, t=undef, reversedBelts=false) {
     railOffset = yRailOffset(NEMA_width);
     plainIdler = reversedBelts ? coreXYBearing() : coreXY_plain_idler(coreXY_type());
     toothedIdler = reversedBelts ? coreXYBearing() : coreXY_toothed_idler(coreXY_type());
-    isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
-    pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
-    washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
-    idlerHeight = isBearing ? 2*bb_width(plainIdler) + washer_thickness(washer) : pulley_height(plainIdler);
-
-    pulleyStackHeight = pulleyStackHeight(idlerHeight, pulleyBore);
 
     translate([eX + 2*eSizeX - railOffset.x, carriagePosition(t).y, railOffset.z - carriage_height(yCarriageType)])
         rotate([180, 0, 180]) {
@@ -197,18 +192,25 @@ module yCarriageRightAssembly(NEMA_width, t=undef, reversedBelts=false) {
                     Y_Carriage_Right_NEMA_17_stl();
                 }
             extraExplode = 20;
-            if (yCarriageBraceThickness())
-                translate_z(yCarriageThickness() + pulleyStackHeight + 2*eps)
-                    explode(5*yCarriageExplodeFactor() + extraExplode, show_line=false)
-                        stl_colour(pp1_colour)
-                            if (reversedBelts)
-                                Y_Carriage_Brace_Right_RB_stl();
-                            else
-                                Y_Carriage_Brace_Right_stl();
-            plainIdlerOffset = plainIdlerOffset(reversedBelts);
-            toothedIdlerOffset = pulleyOffset();
-            explode(extraExplode, true, show_line=false)
-                Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), plainIdlerOffset, toothedIdlerOffset, left=false);
+            if (!is_undef(plainIdler)) {
+                if (yCarriageBraceThickness()) {
+                    isBearing = plainIdler[0] == "F623" || plainIdler[0] == "F684" || plainIdler[0] == "F694" || plainIdler[0] == "F695";
+                    pulleyBore = isBearing ? bb_bore(plainIdler) : pulley_bore(plainIdler);
+                    washer =  pulleyBore == 3 ? M3_washer : pulleyBore == 4 ? M4_shim : M5_shim;
+                    idlerHeight = isBearing ? 2*bb_width(plainIdler) + washer_thickness(washer) : pulley_height(plainIdler);
+                    translate_z(yCarriageThickness() + pulleyStackHeight(idlerHeight, pulleyBore) + 2*eps)
+                        explode(5*yCarriageExplodeFactor() + extraExplode, show_line=false)
+                            stl_colour(pp1_colour)
+                                if (reversedBelts)
+                                    Y_Carriage_Brace_Right_RB_stl();
+                                else
+                                    Y_Carriage_Brace_Right_stl();
+                }
+                plainIdlerOffset = plainIdlerOffset(reversedBelts);
+                toothedIdlerOffset = pulleyOffset();
+                explode(extraExplode, true, show_line=false)
+                    Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), plainIdlerOffset, toothedIdlerOffset, left=false);
+            }
         }
 }
 

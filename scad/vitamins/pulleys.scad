@@ -33,24 +33,26 @@ GT2x20sd_pulley           = ["GT2x20sd_pulley",           "GT2sd", 20, 12.22, GT
 M4_shim = ["M4_shim",          4,   9,   0.5, false,  undef,  undef, undef, undef];
 M5_shim = ["M5_shim",          5,  10,   0.5, false,  undef,  undef, undef, undef];
 
-function bearingStackHeight(bearingType=BBF623, washer=M3_washer) = 3*washer_thickness(washer) + 2*bb_width(bearingType);
+function bearingStackHeight(bearingType=BBF623, washer=M3_washer) = is_undef(bearingType) ? 9.5 : 3*washer_thickness(washer) + 2*bb_width(bearingType);
 
 module bearingStack(bearingType, explode=5) {
-    washer = bb_bore(bearingType) == 3 ? M3_washer : bb_bore(bearingType) == 4 ? M4_shim : M5_shim;
+    washer = (is_undef(bearingType) || bb_bore(bearingType) == 3) ? M3_washer : bb_bore(bearingType) == 4 ? M4_shim : M5_shim;
     washer(washer);
-    translate_z(washer_thickness(washer) + bb_width(bearingType)/2) {
-        explode(explode)
-            ball_bearing(bearingType);
-        explode(2*explode)
-            translate_z(bb_width(bearingType)/2)
-                washer(washer);
-        explode(3*explode)
-            translate_z(bb_width(bearingType) + washer_thickness(washer))
-                vflip()
-                    ball_bearing(bearingType);
-        explode(4*explode)
-            translate_z(3*bb_width(bearingType)/2 + washer_thickness(washer))
-                washer(washer);
+    if (!is_undef(bearingType)) {
+        translate_z(washer_thickness(washer) + bb_width(bearingType)/2) {
+            explode(explode)
+                ball_bearing(bearingType);
+            explode(2*explode)
+                translate_z(bb_width(bearingType)/2)
+                    washer(washer);
+            explode(3*explode)
+                translate_z(bb_width(bearingType) + washer_thickness(washer))
+                    vflip()
+                        ball_bearing(bearingType);
+            explode(4*explode)
+                translate_z(3*bb_width(bearingType)/2 + washer_thickness(washer))
+                    washer(washer);
+        }
     }
     if ($children)
         translate_z(bearingStackHeight(bearingType, washer))
