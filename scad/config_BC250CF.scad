@@ -4,8 +4,6 @@ _useCNC = true;
 
 _backPlateOutset = [0, 0];
 
-_tabTolerance = 0.05; // for CNC, 0.05 each side gives 0.1 total tolerance
-
 _chordLengths = [270, 250, 250];
 
 eSizeX = 10;

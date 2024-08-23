@@ -4,8 +4,6 @@ _useCNC = false;
 
 _backPlateOutset = [0, 4];
 
-_tabTolerance = 0.0; // for 3D printed parts
-
 _chordLengths = [220, 220, 210];
 
 eSizeX = 8;
