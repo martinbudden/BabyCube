@@ -66,10 +66,10 @@ module backFace(zNEMA_type, fullyEnclosed=false) {
                 boltHoleM3Tap(10, horizontal=true, chamfer_both_ends=false);*/
 
         if (_backFaceSideCutouts)
-            backFaceSideCutouts();
+            backFaceSideCutouts(cnc=false, plateThickness=3, dogBoneThickness=3);
         yRailOffset = yRailOffset(_xyNEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
         if (_backFaceTopCutouts)
-            backFaceTopCutouts(yRailOffset=yRailOffset);
+            backFaceTopCutouts(cnc=false, plateThickness=_topPlateThickness, dogBoneThickness=3, yRailOffset=yRailOffset);
     }
 }
 

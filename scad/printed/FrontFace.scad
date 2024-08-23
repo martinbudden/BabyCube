@@ -62,7 +62,7 @@ module frontFaceCNC(coverBelts) {
                         fillet(2);
             }
             backFaceSideCutouts(cnc=true, plateThickness=_frontPlateCFThickness, dogBoneThickness=0);
-            backFaceTopCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0, yRailOffset = 13.4);
+            backFaceTopCutouts(cnc=true, plateThickness=_frontPlateCFThickness, dogBoneThickness=0, yRailOffset = 13.4);
             if (_fullLengthYRail)
                 railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
             frontFaceSideHolePositions()

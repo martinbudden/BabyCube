@@ -234,10 +234,10 @@ module topFaceSideCutouts(cnc=false) {
     insetY = _backPlateThickness;
 
     translate([0, insetY])
-        topFaceSideDogbones(cnc);
+        topFaceSideDogbones(cnc, plateThickness=_sidePlateThickness);
 
     translate([size.x, insetY])
-        topFaceSideDogbones(cnc);
+        topFaceSideDogbones(cnc, plateThickness=_sidePlateThickness);
 }
 
 module topFaceFrontCutouts(cnc, NEMA_width) {
@@ -248,7 +248,7 @@ module topFaceFrontCutouts(cnc, NEMA_width) {
     offsetX = (eX + 2*eSizeX - size.x)/2;
     if (cnc) {
         yRailOffset = yRailOffset(NEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
-        topFaceFrontAndBackDogbones(cnc, yRailOffset=yRailOffset);
+        topFaceFrontAndBackDogbones(cnc, plateThickness=_backPlateCFThickness, yRailOffset=yRailOffset);
     } else {
         translate([offsetX, -2*fillet])
             rounded_square(size, 0, center=false);
@@ -281,7 +281,7 @@ module topFaceBackCutouts(cnc, NEMA_width) {
     yRailOffset = yRailOffset(NEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
 
     translate([0, size.y + insetY])
-        topFaceFrontAndBackDogbones(cnc, yRailOffset=yRailOffset);
+        topFaceFrontAndBackDogbones(cnc, plateThickness=_backPlateCFThickness, yRailOffset=yRailOffset);
     if (!cnc) {
         translate([insetX, size.y])
             rotate(-90)
