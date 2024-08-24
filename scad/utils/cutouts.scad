@@ -12,8 +12,15 @@ Oxy-fuel cutting – 1.1 mm
 Plasma cutting – 3.8 mm
 */
 
+// cutoutTypes
+P3D = 0; // 3D printer
+CNC = 1; // CNC mill
+WJ = 2; // Waterjet
+
 dogBoneCNCBitRadius = 1.5;
+dogBoneWJRadius = 0.9;
 cncTabTolerance = 0.05; // 0.05 each side gives 0.1 total tolerance
+wjKerf = 0.9;
 
 
 module edgeCutout_x(size, cuttingRadius, tolerance, kerf, fillet=1) {
@@ -60,10 +67,10 @@ module edgeCutout_y(size, cuttingRadius, tolerance, kerf, fillet=1) {
     }
 }
 
-module topFaceSideDogbones(cnc=false, plateThickness) {
-    cuttingRadius = cnc ? dogBoneCNCBitRadius : 0;
-    tolerance = cnc ? cncTabTolerance : 0;
-    kerf = 0;
+module topFaceSideDogbones(toolType=P3D, plateThickness) {
+    cuttingRadius = toolType == P3D ? 0 : toolType == CNC ? dogBoneCNCBitRadius : dogBoneWJRadius;
+    tolerance = toolType == P3D ? 0 : cncTabTolerance;
+    kerf = toolType == WJ ? wjKerf : 0;
     yStep = 20;
     dogboneSize = [plateThickness*2, yStep, 0];
     sizeY = eY + 2*eSizeY;
@@ -84,15 +91,19 @@ module topFaceSideDogbones(cnc=false, plateThickness) {
     }
 }
 
-module topFaceFrontAndBackDogbones(cnc=false, plateThickness, yRailOffset) {
-    cuttingRadius = cnc ? dogBoneCNCBitRadius : 0;
-    tolerance = cnc ? cncTabTolerance : 0;
-    kerf = 0;
+module topFaceFrontAndBackDogbones(toolType=P3D, plateThickness, yRailOffset) {
+    cuttingRadius = toolType == P3D ? 0 : toolType == CNC ? dogBoneCNCBitRadius : dogBoneWJRadius;
+    tolerance = toolType == P3D ? 0 : cncTabTolerance;
+    kerf = toolType == WJ ? wjKerf : 0;
     xStep = 20;
     dogboneSize = [xStep, plateThickness*2, 0];
     sizeX = eX + 2*eSizeX;
 
-    if (cnc) {
+    if (toolType==P3D) {
+        for (x = [0 : xStep*2 : eX])
+            translate([x - eps + dogboneSize.x/2, 0])
+                edgeCutout_y(dogboneSize, cuttingRadius, tolerance, kerf);
+    } else {
         //start = eX == 200 ? 3*xStep : eX == 220 ? 30 : xStep + 5;
         start = sizeX == 220 ? xStep*2 : xStep + 5;
         for (x = [start : xStep*2 : eX - start])
@@ -105,17 +116,13 @@ module topFaceFrontAndBackDogbones(cnc=false, plateThickness, yRailOffset) {
                 translate([x - eps + endDogboneSize.x/2, 0])
                     edgeCutout_y(endDogboneSize, cuttingRadius, tolerance, kerf);
         }
-    } else {
-        for (x = [0 : xStep*2 : eX])
-            translate([x - eps + dogboneSize.x/2, 0])
-                edgeCutout_y(dogboneSize, cuttingRadius, tolerance, kerf);
     }
 }
 
-module sideFaceTopDogbones(cnc=false, plateThickness) {
-    cuttingRadius = cnc ? dogBoneCNCBitRadius : 0;
-    tolerance = cnc ? cncTabTolerance : 0;
-    kerf = 0;
+module sideFaceTopDogbones(toolType=P3D, plateThickness) {
+    cuttingRadius = toolType == P3D ? 0 : toolType == CNC ? dogBoneCNCBitRadius : dogBoneWJRadius;
+    tolerance = toolType == P3D ? 0 : cncTabTolerance;
+    kerf = toolType == WJ ? wjKerf : 0;
     xStep = 20;
     dogboneSize = [xStep, plateThickness*2, 0];
 
@@ -126,10 +133,10 @@ module sideFaceTopDogbones(cnc=false, plateThickness) {
                 edgeCutout_y(dogboneSize, cuttingRadius, tolerance, kerf);
 }
 
-module sideFaceBackDogBones(cnc=true, plateThickness) {
-    cuttingRadius = cnc ? dogBoneCNCBitRadius : 0;
-    tolerance = cnc ? cncTabTolerance : 0;
-    kerf = 0;
+module sideFaceBackDogBones(toolType=P3D, plateThickness) {
+    cuttingRadius = toolType == P3D ? 0 : toolType == CNC ? dogBoneCNCBitRadius : dogBoneWJRadius;
+    tolerance = toolType == P3D ? 0 : cncTabTolerance;
+    kerf = toolType == WJ ? wjKerf : 0;
     yStep = 20;
     dogboneSize = [plateThickness*2, yStep, 0];
 
@@ -140,10 +147,10 @@ module sideFaceBackDogBones(cnc=true, plateThickness) {
             edgeCutout_x(dogboneSize, cuttingRadius, tolerance, kerf);
 }
 
-module backFaceSideCutouts(cnc=false, plateThickness, dogBoneThickness) {
-    cuttingRadius = cnc ? dogBoneCNCBitRadius : 0;
-    tolerance = cnc ? cncTabTolerance : 0;
-    kerf = 0;
+module backFaceSideCutouts(toolType=P3D, plateThickness, dogBoneThickness) {
+    cuttingRadius = toolType == P3D ? 0 : toolType == CNC ? dogBoneCNCBitRadius : dogBoneWJRadius;
+    tolerance = toolType == P3D ? 0 : cncTabTolerance;
+    kerf = toolType == WJ ? wjKerf : 0;
     yStep = 20;
     dogboneSize = [plateThickness*2, yStep, dogBoneThickness];
 
@@ -170,10 +177,10 @@ module backFaceSideCutouts(cnc=false, plateThickness, dogBoneThickness) {
                     fillet(1, plateThickness + 2*eps);
 }
 
-module backFaceTopCutouts(cnc=false, plateThickness, dogBoneThickness, yRailOffset) {
-    cuttingRadius = cnc ? dogBoneCNCBitRadius : 0;
-    tolerance = cnc ? cncTabTolerance : 0;
-    kerf = 0;
+module backFaceTopCutouts(toolType=P3D, plateThickness, dogBoneThickness, yRailOffset) {
+    cuttingRadius = toolType == P3D ? 0 : toolType == CNC ? dogBoneCNCBitRadius : dogBoneWJRadius;
+    tolerance = toolType == P3D ? 0 : cncTabTolerance;
+    kerf = toolType == WJ ? wjKerf : 0;
     xStep = 20;
     dogboneSize = [xStep, plateThickness*2, dogBoneThickness];
     sizeX = eX + 2*eSizeX;

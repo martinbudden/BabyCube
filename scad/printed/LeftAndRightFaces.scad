@@ -148,7 +148,7 @@ module antiShearBracing(NEMA_width) {
     difference() {
         translate([0, eZ - antiShearSize.y])
             rounded_square(antiShearSize, fillet, center=false);
-        sideFaceTopDogbones(cnc=false, plateThickness=_topPlateThickness);
+        sideFaceTopDogbones(toolType=P3D, plateThickness=_topPlateThickness);
     }
 }
 

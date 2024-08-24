@@ -34,8 +34,9 @@ module Front_Face_x220_z210_dxf() {
     dxf("Front_Face_x220_z210")
         frontFaceCNC(coverBelts=true);
 }
-module frontFaceCNC(coverBelts) {
+module frontFaceCNC(coverBelts, toolType=CNC) {
     size = [eX + 2*eSizeX, eZ];
+    kerf = toolType == WJ ? wjKerf : 0;
     insetX = idlerBracketSize(coreXYPosBL(_xyNEMA_width)).z;
     insetX2 = 10;
     insetY = 21;
@@ -61,8 +62,8 @@ module frontFaceCNC(coverBelts) {
                     rotate(270)
                         fillet(2);
             }
-            backFaceSideCutouts(cnc=true, plateThickness=_frontPlateCFThickness, dogBoneThickness=0);
-            backFaceTopCutouts(cnc=true, plateThickness=_frontPlateCFThickness, dogBoneThickness=0, yRailOffset = 13.4);
+            backFaceSideCutouts(toolType, plateThickness=_frontPlateCFThickness, dogBoneThickness=0);
+            backFaceTopCutouts(toolType, plateThickness=_frontPlateCFThickness, dogBoneThickness=0, yRailOffset = 13.4);
             if (_fullLengthYRail)
                 railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
             frontFaceSideHolePositions()

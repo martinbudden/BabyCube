@@ -26,14 +26,14 @@ module topFace(NEMA_type, useReversedBelts) {
     topFaceInterlock(NEMA_type, useReversedBelts);
 }
 
-module topFaceCNC(NEMA_type, extraY) {
+module topFaceCNC(NEMA_type, extraY, toolType=CNC) {
     insetY = _backPlateCFThickness - extraY;
     size = [eX + 2*eSizeX, eY + 2*eSizeY + extraY, yRailSupportThickness()];
 
     difference() {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2 - insetY])
-            topFaceInterlockCutouts(NEMA_type, M3_clearance_radius, useReversedBelts=true, cnc=true);
+            topFaceInterlockCutouts(NEMA_type, M3_clearance_radius, useReversedBelts=true, toolType);
     }
 }
 
@@ -112,7 +112,7 @@ module topFaceInterlock(NEMA_type, useReversedBelts=false) {
         linear_extrude(size.z)
             difference() {
                 rounded_square([size.x, size.y], _fillet, center=false);
-                topFaceInterlockCutouts(NEMA_type, M3_tap_radius, useReversedBelts=useReversedBelts, cnc=false);
+                topFaceInterlockCutouts(NEMA_type, M3_tap_radius, useReversedBelts=useReversedBelts, toolType=P3D);
             }
     if (!is_undef(bearingType))
         translate_z(-bb_width(bearingType))
@@ -151,26 +151,26 @@ module motorAccessHolePositions(NEMA_type, n=3) {
                         children();
 }
 
-module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, useReversedBelts=false, cnc=false) {
+module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, useReversedBelts=false, toolType=P3D) {
     assert(isNEMAType(NEMA_type));
 
-    cncSides = cnc ? 0 : undef;
+    cncSides = toolType == P3D ? undef : 0;
     NEMA_width = NEMA_width(NEMA_type);
     insetY = _backPlateThickness - 1;
     size = [eX + 2*eSizeX, eY + 2*eSizeY, yRailSupportThickness()];
 
     cutoutX = 2 * floor(yRailSupportSizeZ(NEMA_width)/2) + cutoutXExtra;
-    cutoutFrontY = cutoutFront - insetY + (cnc ? 2 : 0);
+    cutoutFrontY = cutoutFront - insetY + (toolType==P3D ? 0 : 2);
     cutoutBackY = cutoutBack - _backPlateThickness + insetY;
     cutoutSize = [size.x - 2*cutoutX, size.y - cutoutFrontY - cutoutBackY, size.z + 2*eps];
 
     translate([(size.x - cutoutSize.x)/2, cutoutFrontY + insetY])
         rounded_square([cutoutSize.x, cutoutSize.y], 4, center=false);
 
-    topFaceRailHolePositions(NEMA_width, step = cnc ? 2 : 1)
+    topFaceRailHolePositions(NEMA_width, step = toolType==P3D ? 1 : 2)
         poly_circle(railHoleRadius, cncSides);
 
-    topFaceFrontHolePositions(useJoiner=cnc)
+    topFaceFrontHolePositions(useJoiner=(toolType!=P3D))
         poly_circle(M3_clearance_radius, cncSides);
     topFaceBackHolePositions()
         poly_circle(M3_clearance_radius, cncSides);
@@ -199,9 +199,9 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, us
     topFaceWiringCutout(NEMA_width, printheadWiringPos());
 
     // remove the sides and back
-    topFaceSideCutouts(cnc);
-    topFaceFrontCutouts(cnc, NEMA_width);
-    topFaceBackCutouts(cnc, NEMA_width);
+    topFaceSideCutouts(toolType);
+    topFaceFrontCutouts(toolType, NEMA_width);
+    topFaceBackCutouts(toolType, NEMA_width);
 }
 
 module railHolePositions(type, length, step=1) { //! Position children over screw holes
@@ -223,27 +223,24 @@ module topFaceRailHolePositions(NEMA_width, step=1) {
                     children();
 }
 
-module topFaceSideCutouts(cnc=false) {
+module topFaceSideCutouts(toolType=P3D) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
     insetY = _backPlateThickness;
 
     translate([0, insetY])
-        topFaceSideDogbones(cnc, plateThickness=_sidePlateThickness);
+        topFaceSideDogbones(toolType, plateThickness=_sidePlateThickness);
 
     translate([size.x, insetY])
-        topFaceSideDogbones(cnc, plateThickness=_sidePlateThickness);
+        topFaceSideDogbones(toolType, plateThickness=_sidePlateThickness);
 }
 
-module topFaceFrontCutouts(cnc, NEMA_width) {
+module topFaceFrontCutouts(toolType, NEMA_width) {
     fillet = 1;
     extraX = _xyMotorDescriptor == "NEMA14" ? 0 : 6;
     size = [eX + 2*eSizeX - 2*idlerBracketTopSizeZ() - extraX, _backPlateThickness + 2*fillet];
 
     offsetX = (eX + 2*eSizeX - size.x)/2;
-    if (cnc) {
-        yRailOffset = yRailOffset(NEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
-        topFaceFrontAndBackDogbones(cnc, plateThickness=_backPlateCFThickness, yRailOffset=yRailOffset);
-    } else {
+    if (toolType==P3D) {
         translate([offsetX, -2*fillet])
             rounded_square(size, 0, center=false);
         cornerCutoutSize = [12 + extraX, size.y];
@@ -265,18 +262,21 @@ module topFaceFrontCutouts(cnc, NEMA_width) {
         translate([eX + 2*eSizeX - _sidePlateThickness, _backPlateThickness])
             rotate(90)
                 fillet(fillet);
+    } else {
+        yRailOffset = yRailOffset(NEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
+        topFaceFrontAndBackDogbones(toolType, plateThickness=_backPlateCFThickness, yRailOffset=yRailOffset);
     }
 }
 
-module topFaceBackCutouts(cnc, NEMA_width) {
+module topFaceBackCutouts(toolType, NEMA_width) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
     insetX = 3;
     insetY = 3;
     yRailOffset = yRailOffset(NEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
 
     translate([0, size.y + insetY])
-        topFaceFrontAndBackDogbones(cnc, plateThickness=_backPlateCFThickness, yRailOffset=yRailOffset);
-    if (!cnc) {
+        topFaceFrontAndBackDogbones(toolType, plateThickness=_backPlateCFThickness, yRailOffset=yRailOffset);
+    if (toolType==P3D) {
         translate([insetX, size.y])
             rotate(-90)
                 fillet(1);

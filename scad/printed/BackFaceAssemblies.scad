@@ -66,10 +66,10 @@ module backFace(zNEMA_type, fullyEnclosed=false) {
                 boltHoleM3Tap(10, horizontal=true, chamfer_both_ends=false);*/
 
         if (_backFaceSideCutouts)
-            backFaceSideCutouts(cnc=false, plateThickness=3, dogBoneThickness=3);
+            backFaceSideCutouts(toolType=P3D, plateThickness=3, dogBoneThickness=3);
         yRailOffset = yRailOffset(_xyNEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
         if (_backFaceTopCutouts)
-            backFaceTopCutouts(cnc=false, plateThickness=_topPlateThickness, dogBoneThickness=3, yRailOffset=yRailOffset);
+            backFaceTopCutouts(toolType=P3D, plateThickness=_topPlateThickness, dogBoneThickness=3, yRailOffset=yRailOffset);
     }
 }
 
@@ -127,15 +127,16 @@ assembly("Back_Face", big=true) {
             camera(cameraType);
 }
 
-module backFaceCNC() {
+module backFaceCNC(toolType=CNC) {
     size = [eX + 2*eSizeX, eZ];
+    kerf = toolType == WJ ? wjKerf : 0;
 
     difference() {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2]) {
-            backFaceSideCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0);
+            backFaceSideCutouts(toolType, plateThickness=_backPlateCFThickness, dogBoneThickness=0);
             yRailOffset = yRailOffset(_xyNEMA_width).x - (rail_width(railType(_yCarriageDescriptor)) + 3)/2;
-            backFaceTopCutouts(cnc=true, plateThickness=_backPlateCFThickness, dogBoneThickness=0, yRailOffset=yRailOffset);
+            backFaceTopCutouts(toolType, plateThickness=_backPlateCFThickness, dogBoneThickness=0, yRailOffset=yRailOffset);
             // add the bolt holes for attachment to the left and right faces
             backFaceLeftAndRightSideHolePositions(cf=true)
                 circle(r=M3_clearance_radius);

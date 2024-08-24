@@ -153,19 +153,20 @@ module Right_Face_CF(render=true) {
         }
 }
 
-module leftFaceCNC(NEMA_width) {
+module leftFaceCNC(NEMA_width, toolType=CNC) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
+    kerf = toolType == WJ ? wjKerf : 0;
 
     difference() {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2]) {
             if (NEMA_width < NEMA_width(NEMA17_40) && !_useReversedBelts)
                 sideFaceMotorCutout(left=true, NEMA_width=NEMA_width, zOffset=1.5);
-            sideFaceTopDogbones(cnc=true, plateThickness=_topPlateThickness);
+            sideFaceTopDogbones(toolType, plateThickness=_topPlateThickness);
             translate([_backPlateCFThickness, 0])
-                sideFaceBackDogBones(cnc=true, plateThickness=_sidePlateThickness);
+                sideFaceBackDogBones(toolType, plateThickness=_sidePlateThickness);
             translate([-eY - 2*eSizeY, 0])
-                sideFaceBackDogBones(cnc=true, plateThickness=_sidePlateThickness);
+                sideFaceBackDogBones(toolType, plateThickness=_sidePlateThickness);
             if (_useFrontSwitch)
                 switchShroudHolePositions()
                     circle(r=M3_clearance_radius);
@@ -190,8 +191,9 @@ module leftFaceCNC(NEMA_width) {
     }
 }
 
-module rightFaceCNC(NEMA_width) {
+module rightFaceCNC(NEMA_width, toolType=CNC) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
+    kerf = toolType == WJ ? wjKerf : 0;
 
     difference() {
         sheet_2D(CF3, size.x, size.y);
@@ -221,11 +223,11 @@ module rightFaceCNC(NEMA_width) {
                 }
             if (NEMA_width < NEMA_width(NEMA17_40) && !_useReversedBelts)
                 sideFaceMotorCutout(left=false, NEMA_width=NEMA_width, zOffset=1.5);
-            sideFaceTopDogbones(cnc=true, plateThickness=_topPlateThickness);
+            sideFaceTopDogbones(toolType, plateThickness=_topPlateThickness);
             translate([_backPlateCFThickness, 0])
-                sideFaceBackDogBones(cnc=true, plateThickness=_sidePlateThickness);
+                sideFaceBackDogBones(toolType, plateThickness=_sidePlateThickness);
             translate([-eY - 2*eSizeY, 0])
-                sideFaceBackDogBones(cnc=true, plateThickness=_sidePlateThickness);
+                sideFaceBackDogBones(toolType, plateThickness=_sidePlateThickness);
             translate([extruderPosition(NEMA_width).y, extruderPosition(NEMA_width).z]) {
                 circle(r=NEMA_boss_radius(extruderMotorType()) + 0.25);
                 // extruder motor bolt holes
