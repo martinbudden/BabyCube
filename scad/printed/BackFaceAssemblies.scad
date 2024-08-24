@@ -129,7 +129,7 @@ assembly("Back_Face", big=true) {
 
 module backFaceCNC(toolType=CNC) {
     size = [eX + 2*eSizeX, eZ];
-    kerf = toolType == WJ ? wjKerf : 0;
+    kerf = toolType == LSR ? lsrKerf : toolType ==WJ ? wjKerf : 0;
     kerf2 =  kerf/2;
 
     difference() {

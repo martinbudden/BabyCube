@@ -155,7 +155,7 @@ module Right_Face_CF(render=true) {
 
 module leftFaceCNC(NEMA_width, toolType=CNC) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
-    kerf = toolType == WJ ? wjKerf : 0;
+    kerf = toolType == LSR ? lsrKerf : toolType ==WJ ? wjKerf : 0;
     kerf2 = kerf/2;
 
     difference() {
@@ -194,7 +194,7 @@ module leftFaceCNC(NEMA_width, toolType=CNC) {
 
 module rightFaceCNC(NEMA_width, toolType=CNC) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
-    kerf = toolType == WJ ? wjKerf : 0;
+    kerf = toolType == LSR ? lsrKerf : toolType ==WJ ? wjKerf : 0;
     kerf2 = kerf/2;
 
     difference() {
@@ -220,7 +220,7 @@ module rightFaceCNC(NEMA_width, toolType=CNC) {
             if (!is_undef(fan))
                 translate([rightFaceFanPosition(fan, fanOffsetCF).y, rightFaceFanPosition(fan, fanOffsetCF).z]) {
                     circle(r=fan_bore(fan)/2 - 0.5 - kerf2);
-                    fan_hole_positions(fan)
+                    fan_hole_positions(fan, z=0)
                         circle(r=M3_clearance_radius - kerf2);
                 }
             if (NEMA_width < NEMA_width(NEMA17_40) && !_useReversedBelts)

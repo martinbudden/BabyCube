@@ -83,7 +83,7 @@ module topFaceCover(NEMA_type, useReversedBelts=false) {
 }
 
 module topFaceWiringCutout(NEMA_width, printheadWiringPos, toolType) {
-    kerf = toolType == WJ ? wjKerf : 0;
+    kerf = toolType == LSR ? lsrKerf : toolType ==WJ ? wjKerf : 0;
     kerf2 =  kerf/2;
 
     cutoutBackY = cutoutBack - _backPlateThickness;
@@ -157,7 +157,7 @@ module motorAccessHolePositions(NEMA_type, n=3) {
 module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, useReversedBelts=false, toolType=P3D) {
     assert(isNEMAType(NEMA_type));
 
-    kerf = toolType == WJ ? wjKerf : 0;
+    kerf = toolType == LSR ? lsrKerf : toolType ==WJ ? wjKerf : 0;
     kerf2 =  kerf/2;
     cncSides = toolType == P3D ? undef : 0;
 
