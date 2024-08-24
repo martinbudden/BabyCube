@@ -50,7 +50,7 @@ module Top_Face_test() {
     //rotate(-90) topFaceSideDogbones();
     //translate([0, -eX, 0]) sideFaceTopDogbones(cnc=false, plateThickness=_topPlateThickness);
     //topFaceSideCutouts();
-    //topFaceBackCutouts();
+    //topFaceBackCutouts(toolType=CNC);
     *translate_z(eZ)
         topFaceCover(xyMotorType());
     *translate_z(eZ + eps)
@@ -60,7 +60,7 @@ module Top_Face_test() {
     if (_xyMotorDescriptor == "NEMA14") {
         if (_useCNC) {
             //topFaceFrontAndBackDogbones(true, plateThickness=_backPlateCFThickness, yRailOffset=20);
-            //topFaceFrontCutouts(true);
+            //topFaceFrontCutouts(toolType=CNC);
             //Top_Face_CF();
             Top_Face_CF_assembly();
             //Top_Face_CF_Stage_1_assembly();
@@ -128,8 +128,8 @@ module Top_Face_CF_map() {
     translate([eX + 2*eSizeX + eZ, 0, 3]) rotate(90)Right_Face_CF(render=false);
 }
 
-//Top_Face_CF();
-//Top_Face_CF_map()
+//Top_Face_CF(render=false);
+//Top_Face_CF_map()\
 if ($preview)
     translate_z(-eZ)
         Top_Face_test();

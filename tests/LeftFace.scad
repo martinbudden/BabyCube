@@ -94,8 +94,9 @@ module Left_Face_test() {
 }
 
 module Left_Face_CF_map() {
-    rotate([0, 180, 0])
-        Left_Face_CF(render=false);
+    translate([-1, 0, 0])
+        rotate([0, 180, 0])
+            Left_Face_CF(render=false);
     translate([0, 0, 3])
         Front_Face_CF(render=false);
     translate([-eY-23, 0, -3])
@@ -135,6 +136,7 @@ module Left_Face_map() {
     Left_Face_CF_map();
 else
     Left_Face_map();
+
 if ($preview)
     Left_Face_test();
 else

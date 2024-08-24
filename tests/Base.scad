@@ -7,8 +7,7 @@ include <NopSCADlib/vitamins/fans.scad>
 use <../scad/printed/Base.scad>
 //use <../scad/printed/DisplayHousingAssemblies.scad>
 use <../scad/printed/BackFaceAssemblies.scad>
-//use <../scad/printed/LeftAndRightFaceAssemblies.scad>
-use <../scad/printed/LeftAndRightFaceAssembliesCF.scad> // for IEC
+use <../scad/printed/LeftAndRightFaceAssemblies.scad> // for IEC
 use <../scad/printed/FrontFace.scad>
 //use <../scad/printed/FrontChords.scad>
 //use <../scad/printed/Printbed.scad>

@@ -34,6 +34,7 @@ module XY_IdlerBracket_test() {
     //translate_z(eZ) XY_Idler_Bracket_Right_stl();
 }
 
+if (_useCNC)
 if ($preview)
     translate_z(-eZ)
         XY_IdlerBracket_test();

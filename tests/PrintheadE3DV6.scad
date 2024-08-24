@@ -31,8 +31,9 @@ module Printhead_test() {
     xCarriageType = carriageType(_xCarriageDescriptor);
     carriagePosition = carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0];
     echo(coreXYSeparation=coreXYSeparation());
-    halfCarriage = !true;
+    halfCarriage = false;
     reversedBelts = false;
+    //X_Carriage_Groovemount_stl();
 
     translate(-[ carriagePosition.x, carriagePosition.y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
         //printheadBeltSide(halfCarriage=halfCarriage, reversedBelts=reversedBelts);
@@ -64,3 +65,5 @@ module Printhead_test() {
 if ($preview)
     rotate(90)
         Printhead_test();
+else
+    X_Carriage_Groovemount_stl();
