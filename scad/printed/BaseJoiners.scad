@@ -17,7 +17,7 @@ module Base_Front_Joiner_stl() {
             translate([eSizeX, _frontPlateCFThickness, 0])
                 color(pp2_colour)
                     rounded_cube_xy(size, _fillet);
-            baseFrontHolePositions(cf=true)
+            baseFrontHolePositions(frontCenterHole=true)
                 boltHoleM3Tap(size.z);
             baseAllCornerHolePositions()
                 boltHoleM3Tap(size.z);

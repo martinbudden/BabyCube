@@ -100,9 +100,9 @@ module baseRightHolePositions(z=0) {
                     children();
 }
 
-module baseFrontHolePositions(z=0, cf=false) {
+module baseFrontHolePositions(z=0, frontCenterHole=false) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
-    for (x = cf ? [size.x/2] : [size.x/3 + eSizeX/6, 2*size.x/3 - eSizeX/6],
+    for (x = frontCenterHole ? [size.x/2] : [size.x/3 + eSizeX/6, 2*size.x/3 - eSizeX/6],
          y = [_baseBoltHoleInset.y] )
         translate([x, y, z])
             rotate(90)
@@ -124,7 +124,7 @@ module baseCoverHolePosition(z=0, coverHolePosY) {
         children();
 }
 
-module baseAllHolePositions(z=0, cf=false, coverHolePosY=0) {
+module baseAllHolePositions(z=0, frontCenterHole=false, coverHolePosY=0) {
     baseAllCornerHolePositions(z)
         children();
     baseLeftHolePositions(z)
@@ -133,7 +133,7 @@ module baseAllHolePositions(z=0, cf=false, coverHolePosY=0) {
         children();
     baseBackHolePositions(z)
         children();
-    baseFrontHolePositions(z, cf)
+    baseFrontHolePositions(z, frontCenterHole)
         children();
     if (coverHolePosY)
         baseCoverHolePosition(z=0, coverHolePosY=coverHolePosY)

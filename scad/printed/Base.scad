@@ -4,7 +4,7 @@ include <BasePSUandPCBs.scad>
 use <NopSCADlib/vitamins/sheet.scad>
 
 include <../utils/StagedAssembly.scad>
-use <../utils/translateRotate.scad>
+include <../utils/cutouts.scad>
 include <Foot.scad>
 
 
@@ -48,7 +48,7 @@ module BaseAL_x220_y200_dxf() {
     assert(_chordLengths.y == 200);
 
     dxf("BaseAL_x220_y200")
-        baseDxf(cf=_useCNC, pcb=undef);
+        baseDxf(toolType=CNC, frontCenterHole=_useCNC, pcb=undef);
 }
 
 module BaseAL_x220_y220_dxf() {
@@ -56,17 +56,17 @@ module BaseAL_x220_y220_dxf() {
     assert(_chordLengths.y == 220);
 
     dxf("BaseAL_x220_y220")
-        baseDxf(cf=_useCNC, pcb=undef);
+        baseDxf(toolType=CNC, frontCenterHole=_useCNC, pcb=undef);
 }
 
-module baseDxf(cf, pcb) {
+module baseDxf(toolType, frontCenterHole, pcb) {
     size = [eX + 2*eSizeX + _backPlateOutset.x, eY + 2*eSizeY + _backPlateOutset.y, _basePlateThickness];
 
     color(sheet_colour(AL3))
         difference() {
             sheet_2D(AL3, size.x, size.y, 1);
             translate([-size.x/2, -size.y/2])
-                baseCutouts(cnc=true, cf=cf, pcb=pcb);
+                baseCutouts(toolType=toolType, frontCenterHole=frontCenterHole, pcb=pcb);
         }
 }
 
@@ -81,49 +81,51 @@ module BaseAL() {
                 BaseAL_x220_y220_dxf();
 }
 
-module baseCutouts(cnc=false, cf=false, radius=M3_clearance_radius, pcb=undef) {
-    cncSides = cnc ? 0 : undef;
-    baseAllHolePositions(cf=cf, coverHolePosY=baceCoverCenterHolePosY())
-        poly_circle(radius, sides=cncSides);
+module baseCutouts(toolType=P3D, frontCenterHole=false, radius=M3_clearance_radius, pcb=undef) {
+    kerf = toolType == LSR ? lsrKerf : toolType ==WJ ? wjKerf : 0;
+    kerf2 =  kerf/2;
+    cncSides = toolType == P3D ? undef : 0;
+
+    baseAllHolePositions(frontCenterHole=frontCenterHole, coverHolePosY=baceCoverCenterHolePosY())
+        poly_circle(radius - kerf2, sides=cncSides);
 
     if (is_undef(pcb) || pcb==BTT_SKR_MINI_E3_V2_0)
         pcbPosition(BTT_SKR_MINI_E3_V2_0)
             pcb_screw_positions(BTT_SKR_MINI_E3_V2_0)
-                if (!(cnc && $i == 4))
-                    poly_circle(radius, sides=cncSides);
+                poly_circle(radius - kerf2, sides=cncSides);
 
     if (is_undef(pcb) || pcb==BTT_SKR_PICO_V1_0)
         pcbPosition(BTT_SKR_PICO_V1_0)
             pcb_screw_positions(BTT_SKR_PICO_V1_0)
-                poly_circle(radius, sides=cncSides);
+                poly_circle(radius - kerf2, sides=cncSides);
 
     if (pcb==BTT_SKR_E3_TURBO)
         pcb_back_screw_positions(BTT_SKR_E3_TURBO, -30)
-            poly_circle(radius, sides=cncSides);
+            poly_circle(radius - kerf2, sides=cncSides);
 
     if (pcb==BTT_SKR_V1_4_TURBO)
         pcb_back_screw_positions(BTT_SKR_V1_4_TURBO)
-            poly_circle(radius, sides=cncSides);
+            poly_circle(radius - kerf2, sides=cncSides);
 
     pcbPosition(RPI3A_plus)
         pcb_screw_positions(RPI3A_plus)
-            poly_circle(radius, sides=cncSides);
+            poly_circle(radius - kerf2, sides=cncSides);
 
     *pcbPosition(BTT_RRF_WIFI_V1_0)
         pcb_screw_positions(BTT_RRF_WIFI_V1_0)
-            poly_circle(radius, sides=cncSides);
+            poly_circle(radius - kerf2, sides=cncSides);
 
     if (psu_screw_hole_radius(psuType)) {
         psuPosition(psuType)
             psu_screw_positions(psuType, f_bottom)
-                poly_circle(M4_tap_radius, sides=cncSides);
+                poly_circle(M4_tap_radius - kerf2, sides=cncSides);
     } else {
         psuPosition(psuType) {
-            psuSupportHoleSize = [21, - psuHoleInset.y*2]; // 21 wide for battery strap
+            psuSupportHoleSize = [21 - kerf2, - psuHoleInset.y*2 - kerf2]; // 21 wide for battery strap
             psuHolePositions(psuType)
                 rounded_square([psuSupportHoleSize.x, radius < M3_clearance_radius? 2 : psuSupportHoleSize.y], 0.5);
             psuBracketHolePositions(psuType)
-                poly_circle(M3_tap_radius, sides=cncSides);
+                poly_circle(M3_tap_radius - kerf2, sides=cncSides);
         }
     }
 }
@@ -205,7 +207,7 @@ staged_assembly("Base_CF_Stage_1", big=true) {
     explode(10, show_line=false)
         stl_colour(pp2_colour)
             Base_Front_Joiner_stl();
-    baseFrontHolePositions(-_basePlateThickness, cf=true)
+    baseFrontHolePositions(-_basePlateThickness, frontCenterHole=true)
         vflip()
             explode(15, true)
                 boltM3Buttonhead(10);
