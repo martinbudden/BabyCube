@@ -124,12 +124,13 @@ module Top_Face_CF_map() {
         Top_Face_CF(render=false);
     translate([0, -eZ - 2, 3]) Front_Face_CF(render=false);
     translate([-eZ - 2, 0, 0]) rotate([0, 180, -90]) Left_Face_CF(render=false);
-    *translate([-eY - 2*eSizeY - 4, -eZ - 2, 0]) Left_Face_CF(render=false);
-    translate([eX + 2*eSizeX + eZ, 0, 3]) rotate(90)Right_Face_CF(render=false);
+    translate([eX + 2*eSizeX + eZ, 0, 3]) rotate(90) Right_Face_CF(render=false);
+    translate([eX + 2*eSizeX, eY + 2*eSizeY + eZ + 3, 3])rotate([0, 0, 180]) Back_Face_CF(render=false);
+
 }
 
 //Top_Face_CF(render=false);
-//Top_Face_CF_map()\
+//Top_Face_CF_map()
 if ($preview)
     translate_z(-eZ)
         Top_Face_test();
