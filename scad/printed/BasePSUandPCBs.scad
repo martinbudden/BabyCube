@@ -130,6 +130,9 @@ module pcbPosition(pcbType, alignRight=true, cnc=_useCNC) {
     } else if (pcbType == BTT_SKR_E3_TURBO) {
         translate([(eX + 2*eSizeX)/2, 40, 0])
             children();
+    } else if (pcbType == BTT_SKR_PICO_V1_0) {
+        translate([(eX + 2*eSizeX)/2 + 35, 50, 0])
+            children();
     } else if (pcbType == BTT_SKR_V1_4_TURBO) {// || pcbType == BTT_RRF_WIFI_V1_0)
         translate([(eX + 2*eSizeX)/2, pcbSize.y/2 + 1, 0]) // y offset of 1 allows front lower chord to be filled in for headless mode
             if (pcbType == BTT_SKR_V1_4_TURBO)

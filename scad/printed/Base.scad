@@ -38,7 +38,7 @@ module Base_Template_stl(pcb=pcbType) {
                 linear_extrude(size.z)
                     difference() {
                         rounded_square([size.x, size.y], 1.5, center=false);
-                        baseCutouts(radius=1, pcb=pcb);
+                        baseCutouts(radius=1, pcb=undef);
                     }
         }
 }
@@ -48,7 +48,7 @@ module BaseAL_x220_y200_dxf() {
     assert(_chordLengths.y == 200);
 
     dxf("BaseAL_x220_y200")
-        baseDxf(cf=_useCNC, pcb=pcbType);
+        baseDxf(cf=_useCNC, pcb=undef);
 }
 
 module BaseAL_x220_y220_dxf() {
@@ -56,7 +56,7 @@ module BaseAL_x220_y220_dxf() {
     assert(_chordLengths.y == 220);
 
     dxf("BaseAL_x220_y220")
-        baseDxf(cf=_useCNC, pcb=pcbType);
+        baseDxf(cf=_useCNC, pcb=undef);
 }
 
 module baseDxf(cf, pcb) {
@@ -70,7 +70,7 @@ module baseDxf(cf, pcb) {
         }
 }
 
-module BaseAL(pcb=pcbType) {
+module BaseAL() {
     size = [eX + 2*eSizeX + _backPlateOutset.x, eY + 2*eSizeY + _backPlateOutset.y, _basePlateThickness];
 
     translate([size.x/2, size.y/2, -size.z/2])
@@ -92,11 +92,16 @@ module baseCutouts(cnc=false, cf=false, radius=M3_clearance_radius, pcb=undef) {
                 if (!(cnc && $i == 4))
                     poly_circle(radius, sides=cncSides);
 
-    if (is_undef(pcb) || pcb==BTT_SKR_E3_TURBO)
+    if (is_undef(pcb) || pcb==BTT_SKR_PICO_V1_0)
+        pcbPosition(BTT_SKR_PICO_V1_0)
+            pcb_screw_positions(BTT_SKR_PICO_V1_0)
+                poly_circle(radius, sides=cncSides);
+
+    if (pcb==BTT_SKR_E3_TURBO)
         pcb_back_screw_positions(BTT_SKR_E3_TURBO, -30)
             poly_circle(radius, sides=cncSides);
 
-    if (is_undef(pcb) || pcb==BTT_SKR_V1_4_TURBO)
+    if (pcb==BTT_SKR_V1_4_TURBO)
         pcb_back_screw_positions(BTT_SKR_V1_4_TURBO)
             poly_circle(radius, sides=cncSides);
 
@@ -168,7 +173,7 @@ module baseCoverAssembly(cf=true) {
 //
 module Base_assembly()
 assembly("Base", big=true) {
-    BaseAL(pcb=pcbType);
+    BaseAL();
     //baseAssembly();
     baseAssembly(pcbType, psuType);
     not_on_bom()
@@ -183,7 +188,7 @@ assembly("Base", big=true) {
 //
 module Base_CF_Stage_1_assembly()
 staged_assembly("Base_CF_Stage_1", big=true) {
-    BaseAL(pcb=pcbType);
+    BaseAL();
     if (!_useCNC)
         hidden() Base_stl();
     hidden() Base_Template_stl();
@@ -241,6 +246,7 @@ assembly("Base_CF", big=true) {
 
     //baseAssembly();
     baseAssembly(BTT_SKR_MINI_E3_V2_0, psuType);
+    //baseAssembly(BTT_SKR_PICO_V1_0, psuType=undef);
     pcbAssembly(RPI3A_plus);
 }
 

@@ -42,3 +42,21 @@ RPI3A_plus =  ["RPI3A+", "Raspberry Pi 3A+",
     [": Micro SD card"], // accessories
     [32.5 - 9.5 * 2.54, 52.5 - 1.27, 20, 2] // 20x2 grid of holes
 ];
+
+BTT_SKR_PICO_V1_0 = [
+    "BTT_SKR_PICO_V1_0", "BigTreeTech SKR Pico V1.0",
+    85, 56, 1.6, // size
+    1, // corner radius
+    3, // mounting hole diameter
+    5, // pad around mounting hole
+    grey(30), // color
+    false, // true if parts should be separate BOM items
+    [ // hole positions
+        [3.5, 3.5], [61.5, 3.5], [61.5, -3.5], [3.5, -3.5]
+    ],
+    [ // components
+    ],
+    [] // accessories
+];
+
+
