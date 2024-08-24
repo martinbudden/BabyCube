@@ -24,7 +24,6 @@ module Y_Rail_Connector_stl() {
                 size = [10, eY - 15, 7];
 
                 railOffset = yRailOffset(_xyNEMA_width);
-                echo(railOffset=railOffset);
                 translate_z(_topPlateThickness)
                     difference() {
                         translate([railOffset.x - size.x/2, (eY + 2*eSizeY - size.y)/2, railOffset.z])
