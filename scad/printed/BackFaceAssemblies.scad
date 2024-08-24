@@ -130,6 +130,7 @@ assembly("Back_Face", big=true) {
 module backFaceCNC(toolType=CNC) {
     size = [eX + 2*eSizeX, eZ];
     kerf = toolType == WJ ? wjKerf : 0;
+    kerf2 =  kerf/2;
 
     difference() {
         sheet_2D(CF3, size.x, size.y);
@@ -139,31 +140,31 @@ module backFaceCNC(toolType=CNC) {
             backFaceTopCutouts(toolType, plateThickness=_backPlateCFThickness, dogBoneThickness=0, yRailOffset=yRailOffset);
             // add the bolt holes for attachment to the left and right faces
             backFaceLeftAndRightSideHolePositions(cf=true)
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             backFaceCFTopHolePositions()
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             // extra holes for compatibility with BC200 left and right STL faces
             if (eZ == 200)
                 for (x = [30, eX + 2*eSizeX - 30])
                     translate([x, eZ - 15])
-                        circle(r=M3_clearance_radius);
+                        circle(r=M3_clearance_radius - kerf2);
             backFaceCFSideHolePositions() // attaches to left and right face joiners
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             backFaceBracketHolePositions(-_backPlateThickness, reversedBelts=true) // attaches to base side joiner
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
             backFaceUpperSKBracketHolePositions(backFaceUpperBracketOffset)
-                circle(r=M5_clearance_radius);
+                circle(r=M5_clearance_radius - kerf2);
             backFaceLowerBracketOffset = is_undef(_backFaceLowerBracketOffset) ? 0 : _backFaceLowerBracketOffset;
             backFaceLowerSKBracketHolePositions(backFaceLowerBracketOffset)
-                circle(r=M5_clearance_radius);
+                circle(r=M5_clearance_radius - kerf2);
             if (_fullLengthYRail)
                 railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
             for (left = [true, false])
                 xyMotorMountBackHolePositions(left)
-                    circle(r=M3_clearance_radius);
+                    circle(r=M3_clearance_radius - kerf2);
             Z_MotorMountHolePositions(zMotorType())
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             // cutouts for zipties
             *zipTiePositions()
                 for (x = [-4, 4])

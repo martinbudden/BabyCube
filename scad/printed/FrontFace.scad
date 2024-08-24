@@ -37,6 +37,7 @@ module Front_Face_x220_z210_dxf() {
 module frontFaceCNC(coverBelts, toolType=CNC) {
     size = [eX + 2*eSizeX, eZ];
     kerf = toolType == WJ ? wjKerf : 0;
+    kerf2 = kerf/2;
     insetX = idlerBracketSize(coreXYPosBL(_xyNEMA_width)).z;
     insetX2 = 10;
     insetY = 21;
@@ -46,7 +47,7 @@ module frontFaceCNC(coverBelts, toolType=CNC) {
         translate([-size.x/2, -size.y/2]) {
             baseY = 45;
             translate([insetX, baseY])
-                rounded_square([size.x - 2*insetX, eZ - insetY - baseY + 15 - (coverBelts ? 24 : 0)], 3, center=false);
+                rounded_square([size.x - 2*insetX - kerf2, eZ - insetY - baseY + 15 - (coverBelts ? 24 : 0) - kerf2], 3, center=false);
             if (coverBelts) {
                 *if (_fullLengthYRail)
                     for (x = [18.5, size.x - 18.5])
@@ -67,11 +68,11 @@ module frontFaceCNC(coverBelts, toolType=CNC) {
             if (_fullLengthYRail)
                 railsCutout(_xyNEMA_width, yRailOffset(_xyNEMA_width), cnc=true);
             frontFaceSideHolePositions()
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             frontFaceUpperHolePositions()
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             frontFaceLowerHolePositions()
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             /*if (_useFrontSwitch)
                 translate([rockerPosition(rocker_type()).z, rockerPosition(rocker_type()).y])
                     rocker_hole(rocker_type(), 0, rounded=false);

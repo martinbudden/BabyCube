@@ -156,6 +156,7 @@ module Right_Face_CF(render=true) {
 module leftFaceCNC(NEMA_width, toolType=CNC) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
     kerf = toolType == WJ ? wjKerf : 0;
+    kerf2 = kerf/2;
 
     difference() {
         sheet_2D(CF3, size.x, size.y);
@@ -169,23 +170,23 @@ module leftFaceCNC(NEMA_width, toolType=CNC) {
                 sideFaceBackDogBones(toolType, plateThickness=_sidePlateThickness);
             if (_useFrontSwitch)
                 switchShroudHolePositions()
-                    circle(r=M3_clearance_radius);
+                    circle(r=M3_clearance_radius - kerf2);
             lowerSideJoinerHolePositions(left=true)
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             upperSideJoinerHolePositions(reversedBelts=_useReversedBelts)
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             backSideJoinerHolePositions()
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             frontSideJoinerHolePositions()
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             xyMotorMountSideHolePositions()
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             xyIdlerBracketHolePositions(NEMA_width)
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             if (!is_undef(fan))
                 translate([rightFaceFanPosition(fan, fanOffsetCF).y, rightFaceFanPosition(fan, fanOffsetCF).z])
                     rotate(90)
-                        psu_grill(25, 30, grill_hole=3.5, grill_gap=2, fn=0, avoid=[]);
+                        psu_grill(25, 30, grill_hole=3.5 - kerf, grill_gap=2, fn=0, avoid=[]);
 
         }
     }
@@ -194,6 +195,7 @@ module leftFaceCNC(NEMA_width, toolType=CNC) {
 module rightFaceCNC(NEMA_width, toolType=CNC) {
     size = [eY + 2*eSizeY + _backPlateCFThickness, eZ];
     kerf = toolType == WJ ? wjKerf : 0;
+    kerf2 = kerf/2;
 
     difference() {
         sheet_2D(CF3, size.x, size.y);
@@ -206,20 +208,20 @@ module rightFaceCNC(NEMA_width, toolType=CNC) {
                 //translate([eSizeY + 35, eSizeZ])
                 //    rounded_square([40, 15], 5, center=false);
                 // IEC cutout
-                cutoutSize = [48, 30];
+                cutoutSize = [48 - kerf2, 30 - kerf2];
                 translate([iecPosition().y, iecPosition().z]) {
                     rounded_square(cutoutSize, 5, center=true);
                     for(y = [-iec_pitch(iecType())/2, iec_pitch(iecType())/2])
                         translate([0, y])
-                            circle(r=M3_clearance_radius);
+                            circle(r=M3_clearance_radius - kerf2);
                 }
             }
             // fan coutout
             if (!is_undef(fan))
                 translate([rightFaceFanPosition(fan, fanOffsetCF).y, rightFaceFanPosition(fan, fanOffsetCF).z]) {
-                    circle(r=fan_bore(fan)/2 - 0.5);
+                    circle(r=fan_bore(fan)/2 - 0.5 - kerf2);
                     fan_hole_positions(fan)
-                        circle(r=M3_clearance_radius);
+                        circle(r=M3_clearance_radius - kerf2);
                 }
             if (NEMA_width < NEMA_width(NEMA17_40) && !_useReversedBelts)
                 sideFaceMotorCutout(left=false, NEMA_width=NEMA_width, zOffset=1.5);
@@ -229,27 +231,27 @@ module rightFaceCNC(NEMA_width, toolType=CNC) {
             translate([-eY - 2*eSizeY, 0])
                 sideFaceBackDogBones(toolType, plateThickness=_sidePlateThickness);
             translate([extruderPosition(NEMA_width).y, extruderPosition(NEMA_width).z]) {
-                circle(r=NEMA_boss_radius(extruderMotorType()) + 0.25);
+                circle(r=NEMA_boss_radius(extruderMotorType()) + 0.25 - kerf2);
                 // extruder motor bolt holes
                 NEMA_screw_positions(extruderMotorType())
-                    circle(r=M3_clearance_radius);
+                    circle(r=M3_clearance_radius - kerf2);
             }
             //spoolHolderCutout(NEMA_width, cnc=true);
             translate([spoolHolderPosition(cf=true).y, spoolHolderPosition(cf=true).z - 20, 0])
                 spoolHolderBracketHolePositions(M3=true)
-                    circle(r=M3_clearance_radius);
+                    circle(r=M3_clearance_radius - kerf2);
             lowerSideJoinerHolePositions(left=false)
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             upperSideJoinerHolePositions(reversedBelts=_useReversedBelts)
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             backSideJoinerHolePositions()
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             frontSideJoinerHolePositions()
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             xyMotorMountSideHolePositions()
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
             xyIdlerBracketHolePositions(NEMA_width)
-                circle(r=M3_clearance_radius);
+                circle(r=M3_clearance_radius - kerf2);
         }
     }
 }

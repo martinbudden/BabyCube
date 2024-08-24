@@ -33,7 +33,7 @@ module topFaceCNC(NEMA_type, extraY, toolType=CNC) {
     difference() {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2 - insetY])
-            topFaceInterlockCutouts(NEMA_type, M3_clearance_radius, useReversedBelts=true, toolType);
+            topFaceInterlockCutouts(NEMA_type, M3_clearance_radius, useReversedBelts=true, toolType=toolType);
     }
 }
 
@@ -75,21 +75,24 @@ module topFaceCover(NEMA_type, useReversedBelts=false) {
                     poly_circle(r=_zRodDiameter/2 + 0.5);
                 zLeadScrewHolePosition()
                     poly_circle(r=_zLeadScrewDiameter/2 + 1);
-                topFaceWiringCutout(NEMA_width, printheadWiringPos());
+                topFaceWiringCutout(NEMA_width, printheadWiringPos(), P3D);
             }
         topFaceRailHolePositions(NEMA_width)
             boltHoleM3Tap(size.z - 0.5, twist=0);
     }
 }
 
-module topFaceWiringCutout(NEMA_width, printheadWiringPos) {
+module topFaceWiringCutout(NEMA_width, printheadWiringPos, toolType) {
+    kerf = toolType == WJ ? wjKerf : 0;
+    kerf2 =  kerf/2;
+
     cutoutBackY = cutoutBack - _backPlateThickness;
-    size = [6.5 + eps, cutoutBackY - (eY + 2*eSizeY - printheadWiringPos.y) + eps];
+    size = [6.5 + eps - kerf2, cutoutBackY - (eY + 2*eSizeY - printheadWiringPos.y) + eps - kerf2];
     fillet = 5;
     radius = 5;
 
     translate([printheadWiringPos.x, printheadWiringPos.y]) {
-        circle(r=radius);
+        circle(r=radius - kerf2);
         translate([-size.x/2, -size.y]) {
             square(size, center=false);
             translate([size.x, -eps]) {
@@ -154,7 +157,10 @@ module motorAccessHolePositions(NEMA_type, n=3) {
 module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, useReversedBelts=false, toolType=P3D) {
     assert(isNEMAType(NEMA_type));
 
+    kerf = toolType == WJ ? wjKerf : 0;
+    kerf2 =  kerf/2;
     cncSides = toolType == P3D ? undef : 0;
+
     NEMA_width = NEMA_width(NEMA_type);
     insetY = _backPlateThickness - 1;
     size = [eX + 2*eSizeX, eY + 2*eSizeY, yRailSupportThickness()];
@@ -162,41 +168,41 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, us
     cutoutX = 2 * floor(yRailSupportSizeZ(NEMA_width)/2) + cutoutXExtra;
     cutoutFrontY = cutoutFront - insetY + (toolType==P3D ? 0 : 2);
     cutoutBackY = cutoutBack - _backPlateThickness + insetY;
-    cutoutSize = [size.x - 2*cutoutX, size.y - cutoutFrontY - cutoutBackY, size.z + 2*eps];
+    cutoutSize = [size.x - 2*cutoutX - kerf2, size.y - cutoutFrontY - cutoutBackY - kerf2, size.z + 2*eps];
 
     translate([(size.x - cutoutSize.x)/2, cutoutFrontY + insetY])
         rounded_square([cutoutSize.x, cutoutSize.y], 4, center=false);
 
     topFaceRailHolePositions(NEMA_width, step = toolType==P3D ? 1 : 2)
-        poly_circle(railHoleRadius, cncSides);
+        poly_circle(railHoleRadius - kerf2, cncSides);
 
     topFaceFrontHolePositions(useJoiner=(toolType!=P3D))
-        poly_circle(M3_clearance_radius, cncSides);
+        poly_circle(M3_clearance_radius - kerf2, cncSides);
     topFaceBackHolePositions()
-        poly_circle(M3_clearance_radius, cncSides);
+        poly_circle(M3_clearance_radius - kerf2, cncSides);
     topFaceSideHolePositions()
-        poly_circle(M3_clearance_radius, cncSides);
+        poly_circle(M3_clearance_radius - kerf2, cncSides);
 
     zRodHolePositions()
-        poly_circle(_zRodDiameter/2 + 0.5, cncSides);
+        poly_circle(_zRodDiameter/2 + 0.5 - kerf2, cncSides);
 
     zLeadScrewHolePosition()
         if (is_undef(bearingType))
-            poly_circle(r=_zLeadScrewDiameter/2 + 1);
+            poly_circle(r=_zLeadScrewDiameter/2 + 1 - kerf2);
         else
-            poly_circle(r=bb_diameter(bearingType)/2);
+            poly_circle(r=bb_diameter(bearingType)/2 - kerf2);
 
     if (useReversedBelts) {
         xyMotorMountTopHolePositions(left=true)
-            poly_circle(M3_clearance_radius, cncSides);
+            poly_circle(M3_clearance_radius - kerf2, cncSides);
         xyMotorMountTopHolePositions(left=false)
-            poly_circle(M3_clearance_radius, cncSides);
+            poly_circle(M3_clearance_radius - kerf2, cncSides);
     } else {
         motorAccessHolePositions(NEMA_type)
-            poly_circle(M3_clearance_radius, cncSides);
+            poly_circle(M3_clearance_radius - kerf2, cncSides);
     }
 
-    topFaceWiringCutout(NEMA_width, printheadWiringPos());
+    topFaceWiringCutout(NEMA_width, printheadWiringPos(), toolType);
 
     // remove the sides and back
     topFaceSideCutouts(toolType);
