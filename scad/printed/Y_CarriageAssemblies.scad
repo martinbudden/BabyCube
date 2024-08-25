@@ -47,7 +47,7 @@ module yCarriage(NEMA_width, reversedBelts=false, left=true, cnc=false) {
     tongueOffset = tongueOffset(NEMA_width);
 
     assert(pulleyStackHeight(idlerHeight, pulleyBore) + yCarriageBraceThickness() == coreXYSeparation().z);
-    Y_Carriage(carriageType(_yCarriageDescriptor), idlerHeight, pulleyBore, railType(_xCarriageDescriptor), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetY, endStopOffsetX, tongueOffset, plainIdlerOffset, toothedIdlerOffset, topInset, left=left, cnc=cnc);
+    Y_Carriage(carriageType(_yCarriageDescriptor), idlerHeight, pulleyBore, railType(_xCarriageDescriptor), _xRailLength, yCarriageThickness(), chamfer, yCarriageBraceThickness(), blockOffsetY, endStopOffsetX, tongueOffset, plainIdlerOffset, toothedIdlerOffset, topInset, reversedBelts=reversedBelts, left=left, cnc=cnc);
 }
 
 module Y_Carriage_Left_stl() {
@@ -131,7 +131,6 @@ module Y_Carriage_Brace_Right_RB_stl() {
 }
 
 module yCarriageLeftAssembly(NEMA_width, t=undef, reversedBelts=false) {
-
     yCarriageType = carriageType(_yCarriageDescriptor);
     railOffset = yRailOffset(NEMA_width);
     plainIdler = reversedBelts ? coreXYBearing() : coreXY_plain_idler(coreXY_type());
