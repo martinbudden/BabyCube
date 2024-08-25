@@ -207,7 +207,7 @@ module CF_FinalAssembly(test=false) {
         explode(1, true)
             faceRightSpoolHolder(cf=true);
         explode(150)
-            bowdenTube("E3DRevo", carriagePosition());
+            bowdenTube("E3DRevo", carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0]);
         if (!exploded())
             faceRightSpool(cf=true);
     }
