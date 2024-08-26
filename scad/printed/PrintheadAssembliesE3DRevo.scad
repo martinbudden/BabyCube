@@ -8,6 +8,8 @@ include <X_CarriageE3DRevo.scad>
 //!3. Bolt the **E3DRevo_Fan_Duct** and the square radial fan to the **X_Carriage_E3DRevo**.
 //!4. Bolt the axial fan to the **X_Carriage_E3DRevo**.
 //!5. Attach the **E3D Revo HeaterCore** to the **E3D Revo Voron heatsink** and screw in the **E3D Revo nozzle**
+//!6. Gather the cables from the printhead and wrap them in spiral cable wrap.
+//!7. Use zipties to secure the wrapped cables to the printhead
 //
 module Printhead_E3DRevo_assembly() pose(a=[55, 0, 25 + 180])
 assembly("Printhead_E3DRevo", big=true) {
