@@ -30,7 +30,7 @@ function yCarriageBlockSizeX(yCarriageType) = carriage_width(yCarriageType) + 4;
 function yCarriageExplodeFactor() = 5;
 function yCarriageTongueThickness(yCarriageType, chamfer=0) = isMGN9C(yCarriageType) ? 6.5 - chamfer : 6.5;
 
-function leftSupportLength(reversedBelts) = reversedBelts ? 10 : 17;
+function leftSupportLength(reversedBelts) = reversedBelts ? 17 : 17;
 function boltOffsetMGN9(left, reversedBelts) = left ? leftSupportLength(reversedBelts) - 6.5 : 10;
 function boltOffsetInnerMGN12(left, blockOffsetX) = blockOffsetX ? 29 : 21;
 function boltOffsetOuterMGN12(left, blockOffsetX) = (blockOffsetX ? (left ? 2.5 : 5) : 3);
@@ -159,28 +159,51 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
             if (isMGN9C(yCarriageType)) {
                 if (left) {
                     size = [leftSupportLength(reversedBelts), 7, h];
-                    translate([plainPulleyPos.x - 3.25, -size.y/2, 0])
-                        rounded_cube_xy(size, 3);
+                    translate([plainPulleyPos.x - 3.25, - size.y/2, 0])
+                        if (reversedBelts) {
+                            translate([size.y/2, size.y/2, 0]) {
+                                hull() {
+                                    cylinder(r=size.y/2-0.7, h=size.z);
+                                    translate([size.x - size.y, 0, 0])
+                                        cylinder(r=size.y/2, h=size.z);
+                                }
+                            }
+                        } else {
+                            rounded_cube_xy(size, 3);
+                        }
                     translate([blockSize.x/2 - blockOffset.x/2 + endstopX, size.y/2, 0])
                         fillet(1.5, thickness);
-                    translate([blockSize.x/2 - blockOffset.x/2, -size.y/2, 0])
+                    translate([blockSize.x/2 - blockOffset.x/2, -size.y/2 + (reversedBelts ? 0.55 : 0), 0])
                         rotate(270)
                             fillet(1.5, thickness);
                 } else {
-                    size = [8.5, 15, h];
+                    size = [reversedBelts ? 6.5 : 8.5, 15, h];
                     translate([toothedPulleyPos.x - 3.25, -size.y/2, 0])
                         rounded_cube_xy(size, 1.5);
-                    if (yCarriageBraceThickness) {
-                        size2 = [6, 9.5, h];
-                        //translate([11.75 + 14 + 4.75 - size2.x, 3.5 - size.y/2, 0]) {
-                        translate([18.5, 3.5 - size.y/2, 0]) {
-                            rounded_cube_xy(size2, 1.5);
-                            translate([-5.5, 0, 0])
-                                cube([9, size2.y, thickness]);
+                    if (reversedBelts) {
+                        size2 = [6.5, 8.5, h];
+                        translate([0, 2 - size.y/2, 0]) {
+                            translate([17, 0, 0]) {
+                                rounded_cube_xy(size2, 1.5);
+                                translate([-3, 0, 0])
+                                    rounded_cube_xy([size2.x + 3, tongueSize.y, thickness], 1.5);
+                            }
+                            translate([blockSize.x/2 - blockOffset.x/2 + endstopX, 0, 0])
+                                rotate(270)
+                                    fillet(2, thickness);
                         }
-                        translate([blockSize.x/2 - blockOffset.x/2 + endstopX, 3.5 -size.y/2, 0])
-                            rotate(270)
-                                fillet(1.5, thickness);
+                    } else {
+                        size2 = [6, 9.5, h];
+                        translate([0, 3.5 - size.y/2, 0]) {
+                            translate([18.5, 0, 0]) {
+                                rounded_cube_xy(size2, 1.5);
+                                translate([-5.5, 0, 0])
+                                    cube([9, size2.y, thickness]);
+                            }
+                            translate([blockSize.x/2 - blockOffset.x/2 + endstopX, 0, 0])
+                                rotate(270)
+                                    fillet(1.5, thickness);
+                        }
                     }
                 }
             } else {
@@ -280,12 +303,12 @@ module yCarriageBraceBoltPositionsMGN12(blockSizeX, blockOffsetX, left) {
 module yCarriageBraceMGN9C(thickness, plainPulleyOffset, boltHoleRadius, reversedBelts, left) {
     difference() {
         if (left) {
-            size = [leftSupportLength(reversedBelts) + 12.5, 7, thickness];
+            size = [leftSupportLength(reversedBelts) + (reversedBelts ? 11.2 : 12.5), 7, thickness];
             translate([-4.5, -size.y/2, 0])
-                rounded_cube_xy(size, 3);
+                rounded_cube_xy(size, size.y/2 - eps);
         } else {
-            size = [28.75, 9.5, thickness]; // was 32.5, so diff rom 32.25, saves 3.5
-            translate([-4.25, -4, 0]) //was4.5
+            size = reversedBelts ? [27.75, 8.5, thickness] : [28.75, 9.5, thickness]; // was 32.5, so diff rom 32.25, saves 3.5
+            translate([-4.25, reversedBelts ? -5.5 : -4, 0]) //was4.5
                 rounded_cube_xy(size, 1.5);
         }
         for (x = [plainPulleyOffset.x, 11.15, 11.15 + boltOffsetMGN9(left)])
