@@ -150,7 +150,7 @@ module backFaceCNC(toolType=CNC) {
                         circle(r=M3_clearance_radius - kerf2);
             backFaceCFSideHolePositions() // attaches to left and right face joiners
                 circle(r=M3_clearance_radius - kerf2);
-            backFaceBracketHolePositions(-_backPlateThickness, reversedBelts=true) // attaches to base side joiner
+            backFaceBracketHolePositions(0, reversedBelts=true) // attaches to base side joiner
                 circle(r=M3_clearance_radius - kerf2);
             backFaceUpperBracketOffset = is_undef(_backFaceUpperBracketOffset) ? _topPlateThickness : _backFaceUpperBracketOffset;
             backFaceUpperSKBracketHolePositions(backFaceUpperBracketOffset)
