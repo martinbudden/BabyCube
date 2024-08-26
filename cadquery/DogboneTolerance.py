@@ -1,5 +1,5 @@
 import cadquery as cq
-from dogbone import dogbone
+from dogbone import dogboneT
 
 sizeZ = 3
 M3_clearance_radius = 3.3 / 2
@@ -52,13 +52,13 @@ def dogboneTolerance(
 
     result = result.extrude(sizeZ) \
         .pushPoints(rightDogbones) \
-        .dogbone(20, 6, cuttingRadius, 90, t0, kerf).cutThruAll() \
+        .dogboneT(20, 6, cuttingRadius, 90, t0, kerf).cutThruAll() \
         .pushPoints(bottomDogbones) \
-        .dogbone(20, 6, cuttingRadius, 0, t1, kerf).cutThruAll() \
+        .dogboneT(20, 6, cuttingRadius, 0, t1, kerf).cutThruAll() \
         .pushPoints(leftDogbones) \
-        .dogbone(20, 6, cuttingRadius, 90, t2, kerf).cutThruAll() \
+        .dogboneT(20, 6, cuttingRadius, 90, t2, kerf).cutThruAll() \
         .pushPoints(topDogbones) \
-        .dogbone(20, 6, cuttingRadius, 0, t3, kerf).cutThruAll() \
+        .dogboneT(20, 6, cuttingRadius, 0, t3, kerf).cutThruAll() \
 
     return result
 
