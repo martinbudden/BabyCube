@@ -39,11 +39,11 @@ module Printhead_test() {
         //printheadBeltSide(halfCarriage=halfCarriage, reversedBelts=reversedBelts);
         printheadHotendSideE3DV6(halfCarriage=halfCarriage, boltLength=0);
 
-        *CoreXYBelts(carriagePosition, 
-            reversedBelts=reversedBelts, 
+        *CoreXYBelts(carriagePosition,
+            reversedBelts=reversedBelts,
             coreXY_type=reversedBelts ? coreXY_GT2_20_F623 : coreXY_GT2_20_16,
-            leftDrivePulleyOffset=leftDrivePulleyOffset(reversedBelts), 
-            rightDrivePulleyOffset=rightDrivePulleyOffset(reversedBelts), 
+            leftDrivePulleyOffset=leftDrivePulleyOffset(reversedBelts),
+            rightDrivePulleyOffset=rightDrivePulleyOffset(reversedBelts),
             plainIdlerPulleyOffset=plainIdlerPulleyOffset(reversedBelts));
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
         //bowdenTube("E3DV6", carriagePosition);

@@ -48,7 +48,7 @@ module iecHousingStl(size) {
             translate([size.x/2 - 25, -cutoutSize.y/2, -eps])
                 rotate(180)
                     fillet(fillet, blockHeight - 5 + 2*eps);
-            
+
             holeSize = [5, 10, 10];
             translate([size.x/2 - holeSize.x + eps, -size.y/2 + 5, eps]) {
                 translate([-fillet, 0, 0])

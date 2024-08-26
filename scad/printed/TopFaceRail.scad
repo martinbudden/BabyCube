@@ -49,7 +49,7 @@ module Y_Rail_Connector_stl() {
 
 module Y_Rail_Handle_stl() {
     stl_colour(pp3_colour)
-        stl("Y_Rail_Handle") 
+        stl("Y_Rail_Handle")
             rotate([0, 90, 0]) {
                 yCarriageType = carriageType(_yCarriageDescriptor);
                 yRailType = carriage_rail(yCarriageType);

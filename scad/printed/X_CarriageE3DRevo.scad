@@ -211,7 +211,7 @@ module xCarriageE3DRevoBack(xCarriageType, hotendDescriptor, size, fillet) {
             rounded_cube_yz(sizeX, fillet);
             if (hotendDescriptor == "E3DRevoCompact") {
                 fan = fan25x10;
-                translate([size.x/2 + hotendOffset.x, 0, size.z - 22]) 
+                translate([size.x/2 + hotendOffset.x, 0, size.z - 22])
                     rotate([90, 0, 180]) {
                         offset = 3;
                         translate_z(offset)

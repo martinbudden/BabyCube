@@ -241,14 +241,14 @@ module yCarriageRightRailAssembly(NEMA_width, t=undef, reversedBelts=false) {
                 rail_assembly(yCarriageType, _yRailLength, posY, carriage_end_colour="green", carriage_wiper_colour="red");
 }
 
-//! 1. The Y_Carriage should be bolted to the MGN carriage before the pulleys are added, since otherwise the bolts are not accessible.  
+//! 1. The Y_Carriage should be bolted to the MGN carriage before the pulleys are added, since otherwise the bolts are not accessible.
 //! 2. Bolt the pulleys to the Y_Carriage. Note also that there is a washer under each pulley, but not on top of the pulley.
 module Y_Carriage_Left_Rail_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 assembly("Y_Carriage_Left_Rail", big=true, ngb=true) {
     yCarriageLeftRailAssembly(_xyNEMA_width, t=t, reversedBelts=true);
 }
 
-//! 1. The Y_Carriage should be bolted to the MGN carriage before the pulleys are added, since otherwise the bolts are not accessible.  
+//! 1. The Y_Carriage should be bolted to the MGN carriage before the pulleys are added, since otherwise the bolts are not accessible.
 //! 2. Bolt the pulleys to the Y_carriage. Note also that there is a washer under each pulley, but not on top of the pulley.
 module Y_Carriage_Right_Rail_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 assembly("Y_Carriage_Right_Rail", big=true, ngb=true) {

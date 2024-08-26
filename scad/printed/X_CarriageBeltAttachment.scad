@@ -105,7 +105,7 @@ module xCarriageBeltTensioner(size) {
 }
 
 /*module beltSegment() {
-    path = [ 
+    path = [
         [30,  -2.6, 0],
         [-2.75, -2.1, 0.5],
         [-3.75,  -0.5, -0.5],
@@ -115,7 +115,7 @@ module xCarriageBeltTensioner(size) {
 }*/
 module beltSegment(belt_colour, tooth_colour) {
     r = 1.5;
-/*    
+/*
     y = -2.4;
     yOffset = 3.8;
     x = -3.3;
@@ -124,9 +124,9 @@ module beltSegment(belt_colour, tooth_colour) {
         [x + r, y + r + yOffset, r],
         [x,     y/2 + yOffset,   0],
         [x - r, -r + yOffset,   -r],
-        [-18,   yOffset,         0],   
+        [-18,   yOffset,         0],
     ];
-*/    
+*/
     y = -2.4;
     y0 = 3.8;
     y1 = 1.4;
@@ -136,7 +136,7 @@ module beltSegment(belt_colour, tooth_colour) {
         [x + r, y1 + r,      r],
         [x,     (y1 + y0)/2, 0],
         [x - r, y0 - r,     -r],
-        [-18,   y0,          0],   
+        [-18,   y0,          0],
     ];
     belt(GT2x6, path, open=true, belt_colour=belt_colour, tooth_colour=tooth_colour);
 }

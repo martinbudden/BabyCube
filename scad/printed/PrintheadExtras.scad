@@ -34,7 +34,7 @@ module printheadWiring(hotendDescriptor, carriagePosition, backFaceZipTiePositio
     if (segment)
         cable_wrap(500);
 
-    xCarriageType = carriageType(_xCarriageDescriptor);    
+    xCarriageType = carriageType(_xCarriageDescriptor);
     endPos = printheadWiringOffset(hotendDescriptor) + (segment ? [0, 0, 0] : [carriagePosition.x, carriagePosition.y, eZ]);
 
     //echo(px=printheadWiringPosX());

@@ -12,7 +12,7 @@ include <../config/Parameters_CoreXY.scad>
 include <../utils/CoreXYBelts.scad>
 
 xCarriageFrontSize = [30, 4, 40.5];
-function xCarriageBeltSideSize(xCarriageType, beltWidth) = 
+function xCarriageBeltSideSize(xCarriageType, beltWidth) =
     [max(carriage_size(xCarriageType).x, xCarriageFrontSize.x),
      xCarriageFrontSize.y,
      28 + carriage_height(xCarriageType) + xCarriageTopThickness() + xCarriageBaseThickness(xCarriageType) + (!is_undef(beltWidth) && beltWidth == 9 ? 4.5 : 0)

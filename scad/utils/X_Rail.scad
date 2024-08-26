@@ -13,7 +13,7 @@ module xRail(carriagePosition, xCarriageType, xRailLength, yCarriageType) {
     xRailType = carriage_rail(xCarriageType);
     assert(is_list(xRailType));
 
-    translate([eSizeX + eX/2, carriagePosition.y, eZ - yRailSupportThickness() - carriage_height(yCarriageType)]) 
+    translate([eSizeX + eX/2, carriagePosition.y, eZ - yRailSupportThickness() - carriage_height(yCarriageType)])
         explode(30, true) {
             railOffsetX = yRailOffset(_xyNEMA_width).x;
             tongueOffset = (eX + 2*eSizeX - xRailLength -2*railOffsetX)/2;

@@ -202,7 +202,7 @@ module webbingLeft(NEMA_type, useFrontSwitch=false, fullyEnclosed=false, reverse
     if (fullyEnclosed)
         translate([eSizeY - 1, middleWebOffsetZ() + eSizeZ - 1, 0])
             cube([motorDiagonalSize.x + eSizeY + 2, motorDiagonalSize.y + 2, 1]);
-    
+
     // main diagonal brace
     diagonalSize  = [eY + eSizeY - (useFrontSwitch ? switchShroudSizeX : 2*eSizeY), middleWebOffsetZ() - eSizeZ, _webThickness];
     translate([(useFrontSwitch ? switchShroudSizeX : 2*eSizeY), eSizeZ, 0])
@@ -263,7 +263,7 @@ module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false, reversedBelts=
     // main diagonal brace
     iecPanelSize = [65, middleWebOffsetZ(), 3];
     iecOffset  = (useIEC ? iecPanelSize.x : 0);
-    diagonalSize = [eY + 2*eps - iecOffset, 
+    diagonalSize = [eY + 2*eps - iecOffset,
                     middleWebOffsetZ() - baseCoverOutsideHeight + 2*eps,
                     useIEC ? iecPanelSize.z : _webThickness];
     translate([eSizeY + eps, baseCoverOutsideHeight - eps, 0]) // eps displacement probably not necessary

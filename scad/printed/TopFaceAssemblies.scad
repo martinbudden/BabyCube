@@ -118,7 +118,7 @@ staged_assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
 //! so be sure to attach them as shown in the diagram.
 //!
 //! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not
-//! accessible.  
+//! accessible.
 //! Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a
 //! washer under each of the upper pulleys, but not on top of those pulleys.
 //!
@@ -139,7 +139,7 @@ staged_assembly("Top_Face_Stage_2", big=true, ngb=true) {
 //! so be sure to attach them as per the diagram.
 //!
 //! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not
-//! accessible.  
+//! accessible.
 //! Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a
 //! washer under each pulley, but not on top of the pulley.
 //!
@@ -272,7 +272,7 @@ staged_assembly("Top_Face_CF_Stage_2", big=true, ngb=true) {
 
     railOffset = yRailOffset(NEMA_width(NEMA14_36));
     explode(40, show_line=false)
-        for (x = [0, eX + 2*eSizeX - 2*railOffset.x]) 
+        for (x = [0, eX + 2*eSizeX - 2*railOffset.x])
             translate([x, 0, 0]) {
                 rotate([0, -90, 0])
                 stl_colour(pp3_colour)

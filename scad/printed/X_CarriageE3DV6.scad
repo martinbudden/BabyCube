@@ -15,7 +15,7 @@ function xCarriageHotendSideSize(xCarriageType, beltWidth) = [xCarriageBeltSideS
 //function xCarriageHotendOffsetY(xCarriageType) = carriage_size(xCarriageType).y/2 + xCarriageHotendSideSize(xCarriageType).y + 0.5;
 
 //!!TODO - change hotendOffset.z to 1.5 for new X_Carriage with belt attachments
-function hotendOffset(xCarriageType, hotendDescriptor="E3DV6") = 
+function hotendOffset(xCarriageType, hotendDescriptor="E3DV6") =
     printheadHotendOffset(hotendDescriptor) + [-xCarriageHotendSideSize(xCarriageType).x/2, carriage_size(xCarriageType).y/2 + 5, 0];
 function grooveMountSize(blower_type, hotendDescriptor="E3DV6") = [printheadHotendOffset(hotendDescriptor).x, blower_size(blower_type).x + 6.25, 12];
 function blower_type() = is_undef(_blowerDescriptor) || _blowerDescriptor == "BL30x10" ? BL30x10 : BL40x10;

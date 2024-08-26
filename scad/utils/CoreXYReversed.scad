@@ -78,7 +78,7 @@ module coreXYR_half(type, size, pos, offset_y = 0, x_gap = 0, plain_idler_offset
     ];
     path_end = [
         [ p3.x, p3.y, -pulley_or(p3_type) ],
-        [ p4.x - toothed_idler_offset.x + toothed_idler_belt_offset.x, p4.y - toothed_idler_offset.y + toothed_idler_belt_offset.y, pulley_or(p4_type) ], 
+        [ p4.x - toothed_idler_offset.x + toothed_idler_belt_offset.x, p4.y - toothed_idler_offset.y + toothed_idler_belt_offset.y, pulley_or(p4_type) ],
         [ end_pos.x + toothed_idler_belt_offset.x, end_pos.y + toothed_idler_belt_offset.y, 0]
     ];
     path_middle = plain_idler_offset.y == 0

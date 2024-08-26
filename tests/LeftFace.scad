@@ -34,7 +34,7 @@ module Left_Face_test() {
     //zipTieCutout();
     //Front_Face_CF_assembly();
     //Back_Face_CF_assembly();
-    //translate([0, -eZ/2, 0]) 
+    //translate([0, -eZ/2, 0])
     //Left_Face_stl();
     //Right_Face_stl();
     //leftFace(NEMA_type, useFrontSwitch=!true, fullyEnclosed=!true, fan=true);

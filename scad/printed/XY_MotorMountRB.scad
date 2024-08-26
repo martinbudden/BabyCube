@@ -252,7 +252,7 @@ module XY_Motor_Mount_RB_hardware(NEMA_type, left=true) {
                 explode(20, true)
                     boltM3Countersunk(12);
         translate(left ? [coreXYPosBL.x, coreXYPosTR.y] : [coreXYPosTR.x, coreXYPosTR.y]) {
-            translate(left ? leftDrivePulleyOffset() : rightDrivePulleyOffset()) {     
+            translate(left ? leftDrivePulleyOffset() : rightDrivePulleyOffset()) {
                 corkDamperThickness = 2;
                 translate_z(-basePlateThickness - corkDamperThickness) {
                     explode(-20)

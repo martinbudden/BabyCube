@@ -161,8 +161,8 @@ module backFaceUpperBrackets(NEMA_width, yOffset) {
             translate_z(-_backPlateThickness)
                 boltPolyholeM5Countersunk(_backPlateThickness, sink=0.25);
 
-        rotate([-90, 0, 0]) 
-            translate([0, -eY - 2*eSizeY - eps, eZ - _topPlateThickness]) 
+        rotate([-90, 0, 0])
+            translate([0, -eY - 2*eSizeY - eps, eZ - _topPlateThickness])
                 topFaceBackHolePositions()
                     vflip()
                         boltHoleM3Tap(8, horizontal=true, chamfer_both_ends=false);

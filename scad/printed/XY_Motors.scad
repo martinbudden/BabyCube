@@ -103,8 +103,8 @@ module xyMotorMountTopHolePositions(left=true, z=0) {
     size = [eX + 2*eSizeX, eY + 2*eSizeY];
     x = _useReversedBelts ? 46/2 + 4 : 46/2;
     y = 190;
-    for (pos = left ? [[_useReversedBelts ? _sidePlateThickness + 2.5 : topFaceSideHolePositionOffset(), y], [_sidePlateThickness + x, size.y - 2.5]] 
-                    : [[size.x - (_useReversedBelts ? _sidePlateThickness + 2.5 :topFaceSideHolePositionOffset()), y], [size.x - _sidePlateThickness - x, size.y - 2.5]] 
+    for (pos = left ? [[_useReversedBelts ? _sidePlateThickness + 2.5 : topFaceSideHolePositionOffset(), y], [_sidePlateThickness + x, size.y - 2.5]]
+                    : [[size.x - (_useReversedBelts ? _sidePlateThickness + 2.5 :topFaceSideHolePositionOffset()), y], [size.x - _sidePlateThickness - x, size.y - 2.5]]
         )
         translate([pos.x, pos.y, z])
             children();
