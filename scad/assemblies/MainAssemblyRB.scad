@@ -10,8 +10,8 @@ use <../printed/PrintheadExtras.scad>
 use <../printed/FrontChords.scad>
 use <../printed/LeftAndRightFaceAssemblies.scad>
 use <../printed/PrintheadAssemblies.scad>
-use <../printed/PrintheadAssembliesE3DRevo.scad>
 use <../printed/PrintheadAssembliesDropEffectXG.scad>
+use <../printed/PrintheadAssembliesE3DRevo.scad>
 use <../printed/TopFaceAssemblies.scad>
 use <../printed/X_CarriageAssemblies.scad>
 
@@ -174,7 +174,7 @@ main_staged_assembly("Stage_5_RB", big=true, ngb=true) {
         printheadBeltSide(halfCarriage=false, reversedBelts=true);
 }
 
-//!1. Add the **Printhead_E3DRevo** assembly.
+//!1. Attach the **Printhead Assembly** to the X_Carriage
 //
 module Stage_6_RB_assembly()
 main_staged_assembly("Stage_6_RB", big=true, ngb=true) {
