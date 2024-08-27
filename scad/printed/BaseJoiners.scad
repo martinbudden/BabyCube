@@ -119,9 +119,9 @@ module baseCover(baceCoverCenterHolePosY, cf=true) {
                     rounded_cube_xy(sizeBack, fillet);
                 }
 
-                xOffset2 = cf ? eSizeX + tolerance : eSizeXBase + 20 + tolerance;
+                xOffset2 = cf ? eSizeX + tolerance : eSizeXBase + 26 + tolerance;
                 translate([xOffset2, 0, 0])
-                    rounded_cube_xy([eX - (cf ? tolerance : 2*xOffset2 - eSizeXBase), size.y - (cf ? _frontPlateCFThickness : _webThickness), size.z], fillet);
+                    rounded_cube_xy([eX - (cf ? tolerance : 2*xOffset2 - 2*eSizeX), size.y - (cf ? _frontPlateCFThickness : _webThickness), size.z], fillet);
 
                 sizeBack2 = [size.x - 4*eSizeX, sizeBack.y, baseCoverOutsideHeight];
                 translate([(size.x - sizeBack2.x)/2, 0, 0])
