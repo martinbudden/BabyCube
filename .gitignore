@@ -157,7 +157,7 @@ BC220CF/stls/*
 BC220CF/tmp/
 BC220CF/*.html
 # change to !, except for _diff, .stl, and .dxf, once released
-BC220CF/readme.md
+!BC220CF/readme.md
 #!BC220CF/assemblies/BC220CF_assembly.png
 !BC220CF/assemblies/BC220CF_assembled.png
 !BC220CF/assemblies/*.png
