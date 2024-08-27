@@ -50,7 +50,7 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 |      |      |      |      |      |      |      |      |      |       | **Vitamins** |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  Aluminium box section 12mm x 8mm x 1mm, length 85mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  Aluminium sheet 220mm x 224mm x 3mm |
-|   .  |   .  |   8  |   .  |   .  |   .  |   8  |   .  |   .  |   16  |  Ball bearing F623-2RS 3mm x 10mm x 4mm |
+|   .  |   .  |   8  |   8  |   .  |   .  |   8  |   .  |   .  |   24  |  Ball bearing F623-2RS 3mm x 10mm x 4mm |
 |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  Belt GT2 x 6mm x 842mm - not shown |
 |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  Belt GT2 x 6mm x 842mm - not shown |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  BigTreeTech SKR Mini E3 v2.0 |
@@ -93,7 +93,6 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  PSU NIUGUY CB-200W-24V |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  |  PTFE tube 307 mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   5  |   .  |    5  |  Pillar hex nylon F/F M3x12 |
-|   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |    4  |  Pulley GT2 idler smooth 10mm |
 |   .  |   .  |   1  |   .  |   .  |   .  |   1  |   .  |   .  |    2  |  Pulley GT2OB 20 teeth |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  Raspberry Pi 3A+ (optional) |
 |   .  |   .  |   .  |   .  |   2  |   .  |   .  |   .  |   .  |    2  |  SCS12UU bearing block |
@@ -106,9 +105,9 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |  Stepper motor cable, 150mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  |  Stepper motor cable, 300mm |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |  Voron V0 aluminium build plate 120mm x 120mm x 6mm |
-|   .  |   2  |  14  |   6  |   .  |   .  |  14  |   .  |   .  |   36  |  Washer M3 x 7mm x 0.5mm |
+|   .  |   2  |  14  |  10  |   .  |   .  |  14  |   .  |   .  |   40  |  Washer M3 x 7mm x 0.5mm |
 |   6  |   .  |   .  |   .  |   1  |   .  |   2  |   .  |   4  |   13  |  Ziptie 2.5mm x 100mm min length |
-|  15  |   6  |  31  |  54  |  30  |  29  |  49  |  22  |  58  |  294  | Total vitamins count |
+|  15  |   6  |  31  |  62  |  30  |  29  |  49  |  22  |  58  |  302  | Total vitamins count |
 |      |      |      |      |      |      |      |      |      |       | **3D printed parts** |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  | Back_Face_x220_z210.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  | Base_Cover_RB.stl |
@@ -129,10 +128,10 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | X_Carriage_Belt_Side_MGN9C_RB.stl |
 |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  | X_Carriage_Belt_Tensioner_RB.stl |
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | X_Carriage_DropEffect_XG.stl |
-|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Brace_Left.stl |
-|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Brace_Right.stl |
-|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Left.stl |
-|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Right.stl |
+|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Brace_Left_RB.stl |
+|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Brace_Right_RB.stl |
+|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Left_RB.stl |
+|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Right_RB.stl |
 |   2  |   3  |   3  |   5  |   1  |   1  |   4  |   .  |   9  |   28  | Total 3D printed parts count |
 |      |      |      |      |      |      |      |      |      |       | **CNC routed parts** |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  | BaseAL_x220_y220.dxf |
@@ -301,21 +300,21 @@ is aligned when the X axis rail is added.
 
 | Qty | Description |
 |----:|:------------|
+|   8 | Ball bearing F623-2RS 3mm x 10mm x 4mm |
 |  10 | Bolt M3 caphead x  8mm |
 |   2 | Bolt M3 caphead x 16mm |
 |   2 | Bolt M3 caphead x 25mm |
-|   4 | Pulley GT2 idler smooth 10mm |
-|   6 | Washer M3 x 7mm x 0.5mm |
+|  10 | Washer M3 x 7mm x 0.5mm |
 
 ### 3D Printed parts
 
-| 1 x Y_Carriage_Brace_Left.stl | 1 x Y_Carriage_Brace_Right.stl | 1 x Y_Carriage_Left.stl |
+| 1 x Y_Carriage_Brace_Left_RB.stl | 1 x Y_Carriage_Brace_Right_RB.stl | 1 x Y_Carriage_Left_RB.stl |
 |----------|----------|----------|
-| ![Y_Carriage_Brace_Left.stl](stls/Y_Carriage_Brace_Left.png) | ![Y_Carriage_Brace_Right.stl](stls/Y_Carriage_Brace_Right.png) | ![Y_Carriage_Left.stl](stls/Y_Carriage_Left.png) |
+| ![Y_Carriage_Brace_Left_RB.stl](stls/Y_Carriage_Brace_Left_RB.png) | ![Y_Carriage_Brace_Right_RB.stl](stls/Y_Carriage_Brace_Right_RB.png) | ![Y_Carriage_Left_RB.stl](stls/Y_Carriage_Left_RB.png) |
 
-| 1 x Y_Carriage_Right.stl |
+| 1 x Y_Carriage_Right_RB.stl |
 |----------|
-| ![Y_Carriage_Right.stl](stls/Y_Carriage_Right.png) |
+| ![Y_Carriage_Right_RB.stl](stls/Y_Carriage_Right_RB.png) |
 
 ### Sub-assemblies
 
