@@ -1,10 +1,11 @@
 import cadquery as cq
-from dogbone import dogboneT
-from LeftFace import leftFaceHoles
 from typing import (TypeVar)
 T = TypeVar("T", bound="Workplane")
 
-from constants import cncCuttingRadius, fittingTolerance, lsrKerf, lsrCuttingRadius
+import dogboneT
+import TopFaceWiringCutout
+from exports import exports
+from constants import fittingTolerance, cncKerf, cncCuttingRadius, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
 from constants import backPlateThickness, sizeZ, _zLeadScrewDiameter, _zRodDiameter, _zRodSeparation, _zRodOffsetY
 from constants import M3_clearance_radius
 
@@ -14,8 +15,8 @@ def topFace(
     sizeX: float,
     sizeY: float,
     sizeZ: float,
-    cuttingRadius: float = 1.5,
     dogboneTolerance: float = 0,
+    cuttingRadius: float = 1.5,
     kerf: float = 0,
 ) -> T:
 
@@ -79,21 +80,19 @@ def topFace(
     return result
 
 
-#dxf = (cq.importers.importDXF("../BC220CF/dxfs/Top_Face_x220_y220.dxf").wires().toPending().extrude(sizeZ))
+dxf = (cq.importers.importDXF("../BC220CF/dxfs/Top_Face_x220_y220.dxf").wires().toPending().extrude(sizeZ))
 
-topFaceCNC = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, cuttingRadius=cncCuttingRadius, dogboneTolerance=fittingTolerance, kerf=0)
-#topFaceLSR = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, cuttingRadius=lsrCuttingRadius, dogboneTolerance=fittingTolerance, kerf=lsrKerf)
+topFaceCNC = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
+#topFaceLSR = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
+#topFaceWJ  = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
 
 #show_object(topFaceCNC)
 #show_object(topFaceLSR)
 #show_object(dxf)
 
-#cq.exporters.export(topFaceCNC, "Top_Face_x220_y220_CNC.stl")
 if 'topFaceCNC' in globals():
-    cq.exporters.export(topFaceCNC.section(), "Top_Face_x220_y220_CNC.dxf")
-#cq.exporters.export(leftFaceCNC, "Top_Face_x220_y220_CNC.step")
-
-#cq.exporters.export(topFaceLSR, "Top_Face_x220_y220_LSR.stl")
+    exports(topFaceCNC, "Top_Face_x220_y220", "CNC")
 if 'topFaceLSR' in globals():
-    cq.exporters.export(topFaceLSR.section(), "Top_Face_x220_y220_LSR.dxf")
-#cq.exporters.export(topFaceLSR, "Top_Face_x220_y220_LSR.step")
+    exports(topFaceLSR, "Top_Face_x220_y220", "LSR")
+if 'topFaceWJ' in globals():
+    exports(topFaceWJ, "Top_Face_x220_y220", "WJ")

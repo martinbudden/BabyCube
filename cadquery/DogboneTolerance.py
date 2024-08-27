@@ -1,13 +1,10 @@
 import cadquery as cq
-from dogbone import dogboneT
 
-sizeZ = 3
-M3_clearance_radius = 3.3 / 2
-
-cncCuttingRadius = 1.5
-cncKerf = 0.0
-lsrCuttingRadius = 0.3
-lsrKerf = 0.3
+import dogboneT
+from exports import exports
+from constants import fittingTolerance, cncKerf, cncCuttingRadius, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
+from constants import backPlateThickness, sizeZ
+from constants import M3_clearance_radius
 
 def dogboneTolerance(
     sizeX: float,
@@ -72,6 +69,16 @@ dxf = (
 
 dogboneToleranceCNC  = dogboneTolerance(120, 80, sizeZ, cncCuttingRadius, cncKerf)
 dogboneToleranceLSR  = dogboneTolerance(120, 80, sizeZ, lsrCuttingRadius, lsrKerf)
+dogboneToleranceWJ  = dogboneTolerance(120, 80, sizeZ, wjCuttingRadius, wjKerf)
+
+if 'dogboneToleranceCNC' in globals():
+    exports(dogboneToleranceCNC, "DogboneTolerance", "CNC")
+if 'dogboneToleranceLSR' in globals():
+    exports(dogboneToleranceLSR, "DogboneTolerance", "LSR")
+if 'dogboneToleranceWJ' in globals():
+    exports(dogboneToleranceWJ, "DogboneTolerance", "WJ")
+
+
 
 cq.exporters.export(dogboneToleranceCNC, "DogboneTolerance_CNC.stl")
 #cq.exporters.export(dogboneToleranceCNC.section(), "DogboneTolerance_CNC.dxf")

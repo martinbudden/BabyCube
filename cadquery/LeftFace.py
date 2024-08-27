@@ -1,9 +1,10 @@
 import cadquery as cq
-from dogbone import dogboneT
 from typing import (TypeVar)
 T = TypeVar("T", bound="Workplane")
 
-from constants import cncCuttingRadius, fittingTolerance, lsrKerf, lsrCuttingRadius
+import dogboneT
+from exports import exports
+from constants import fittingTolerance, cncKerf, cncCuttingRadius, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
 from constants import backPlateThickness, sizeZ
 from constants import M3_clearance_radius
 
@@ -80,19 +81,17 @@ def leftFace(
 
 #dxf = (cq.importers.importDXF("../BC220CF/dxfs/Left_Face_y220_z210.dxf").wires().toPending().extrude(sizeZ))
 
-#leftFaceCNC = leftFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, cuttingRadius=cncCuttingRadius, dogboneTolerance=fittingTolerance, kerf=0)
-leftFaceLSR = leftFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, cuttingRadius=lsrCuttingRadius, dogboneTolerance=fittingTolerance, kerf=lsrKerf)
+#leftFaceCNC = leftFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
+leftFaceLSR = leftFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
+leftFaceWJ  = leftFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
 
 #show_object(leftFaceCNC)
 #show_object(leftFaceLSR)
 #show_object(dxf)
 
-#cq.exporters.export(leftFaceCNC, "Left_Face_y220_z210_CNC.stl")
 if 'leftFaceCNC' in globals():
-    cq.exporters.export(leftFaceCNC.section(), "Left_Face_y220_z210_CNC.dxf")
-#cq.exporters.export(leftFaceCNC, "Left_Face_y220_z210_CNC.step")
-
-#cq.exporters.export(leftFaceLSR, "Left_Face_y220_z210_LSR.stl")
+    exports(leftFaceCNC, "Left_Face_y220_z210", "CNC")
 if 'leftFaceLSR' in globals():
-    cq.exporters.export(leftFaceLSR.section(), "Left_Face_y220_z210_LSR.dxf")
-#cq.exporters.export(leftFaceLSR, "Left_Face_y220_z210_LSR.step")
+    exports(leftFaceLSR, "Left_Face_y220_z210", "LSR")
+if 'leftFaceWJ' in globals():
+    exports(leftFaceWJ, "Left_Face_y220_z210", "WJ")

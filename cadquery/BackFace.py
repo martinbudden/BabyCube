@@ -1,10 +1,11 @@
 import cadquery as cq
-from dogbone import dogbone
 from typing import (TypeVar)
 T = TypeVar("T", bound="Workplane")
 
-from constants import cncCuttingRadius, fittingTolerance, lsrKerf, lsrCuttingRadius
-from constants import sizeZ, eSizeZ, backPlateThickness
+import dogboneT
+from exports import exports
+from constants import fittingTolerance, cncKerf, cncCuttingRadius, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
+from constants import sizeZ, eSizeZ, backPlateThickness, _zRodSeparation
 from constants import M3_clearance_radius, M5_clearance_radius
 
 
@@ -20,7 +21,6 @@ def backFace(
 
     kerf2 = kerf/2
 
-    _zRodSeparation = 96
     sk_sizeZ = 14
     sk_screw_separation = 32
     zRodOffsetX = (sizeX - _zRodSeparation)/2;
@@ -76,17 +76,21 @@ def backFace(
 
 #dxf = (cq.importers.importDXF("../BC220CF/dxfs/Back_Face_x220_z210.dxf").wires().toPending().extrude(sizeZ))
 
-backFaceCNC = backFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, cuttingRadius=cncCuttingRadius, dogboneTolerance=fittingTolerance, kerf=0)
-backFaceLSR = backFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, cuttingRadius=lsrCuttingRadius, dogboneTolerance=fittingTolerance, kerf=lsrKerf)
+backFaceCNC = backFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, cuttingRadius=cncCuttingRadius, dogboneTolerance=fittingTolerance, kerf=cncKerf)
+#backFaceLSR = backFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, cuttingRadius=lsrCuttingRadius, dogboneTolerance=fittingTolerance, kerf=lsrKerf)
+#backFaceWJ = backFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, cuttingRadius=wjCuttingRadius, dogboneTolerance=fittingTolerance, kerf=wjKerf)
+
+if 'backFaceCNC' in globals():
+    exports(backFaceCNC, "Back_Face_x220_z210", "CNC")
+if 'backFaceLSR' in globals():
+    exports(backFaceLSR, "Back_Face_x220_z210", "LSR")
+if 'backFaceWJ' in globals():
+    exports(backFaceWJ, "Back_Face_x220_z210", "WJ")
 
 #show_object(backFaceCNC)
 #show_object(backFaceLSR)
 #show_object(dxf)
 
-cq.exporters.export(backFaceCNC, "Back_Face_x220_z210.stl")
-#cq.exporters.export(backFaceCNC.section(), "Back_Face_x220_z210.dxf")
-#cq.exporters.export(backFaceCNC, "Back_Face_x220_z210.step")
 
-cq.exporters.export(backFaceLSR, "Back_Face_x220_z210_LSR.stl")
-#cq.exporters.export(backFaceLSR.section(), "Back_Face_x220_z210_LSR.dxf")
-#cq.exporters.export(backFaceLSR, "Back_Face_x220_z210_LSR.step")
+
+

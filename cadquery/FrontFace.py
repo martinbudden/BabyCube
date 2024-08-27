@@ -1,10 +1,10 @@
 import cadquery as cq
-from dogbone import dogboneT
-from LeftFace import leftFaceHoles
 from typing import (TypeVar)
 T = TypeVar("T", bound="Workplane")
 
-from constants import cncCuttingRadius, fittingTolerance, lsrKerf, lsrCuttingRadius
+import dogboneT
+from exports import exports
+from constants import fittingTolerance, cncKerf, cncCuttingRadius, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
 from constants import backPlateThickness, sizeZ
 from constants import M3_clearance_radius
 
@@ -66,19 +66,17 @@ def frontFace(
 
 dxf = (cq.importers.importDXF("../BC220CF/dxfs/Front_Face_x220_z210.dxf").wires().toPending().extrude(sizeZ))
 
-frontFaceCNC = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, cuttingRadius=cncCuttingRadius, dogboneTolerance=fittingTolerance, kerf=0)
-#frontFaceLSR = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, cuttingRadius=lsrCuttingRadius, dogboneTolerance=fittingTolerance, kerf=lsrKerf)
+frontFaceCNC = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
+#frontFaceLSR = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
+#frontFaceWJ  = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
 
 #show_object(frontFaceCNC)
 #show_object(frontFaceLSR)
 #show_object(dxf)
 
-#cq.exporters.export(frontFaceCNC, "Front_Face_x220_z210_CNC.stl")
 if 'frontFaceCNC' in globals():
-    cq.exporters.export(frontFaceCNC.section(), "Front_Face_x220_z210_CNC.dxf")
-#cq.exporters.export(leftFaceCNC, "Front_Face_x220_z210_CNC.step")
-
-#cq.exporters.export(frontFaceLSR, "Front_Face_x220_z210_LSR.stl")
+    exports(frontFaceCNC, "Front_Face_x220_z210", "CNC")
 if 'frontFaceLSR' in globals():
-    cq.exporters.export(frontFaceLSR.section(), "Front_Face_x220_z210_LSR.dxf")
-#cq.exporters.export(frontFaceLSR, "Front_Face_x220_z210_LSR.step")
+    exports(frontFaceLSR, "Front_Face_x220_z210", "LSR")
+if 'frontFaceWJ' in globals():
+    exports(frontFaceWJ, "Front_Face_x220_z210", "WJ")
