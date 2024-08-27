@@ -14,7 +14,7 @@ module cutouts(size, toolType=CNC) {
     t1 = 0.050;
     t2 = 0.075;
     t3 = 0.100;
-    
+
     M3_clearance_radius = 3.3 / 2;
 
     // use kerf on left side
@@ -67,26 +67,26 @@ module cutouts(size, toolType=CNC) {
     }*/
 
     xStep = 20;
-    dogboneXSize = [xStep, size.z*2, 0];
+    dogboneYSize = [xStep, size.z*2, 0]; //dogboneY has ends of bones going in Y direction
     // t1 on bottom
     for (x = [0 : xStep*2 : size.x])
         translate([x, 0])
-            edgeCutout_y(dogboneXSize, cuttingRadius, t1, kerf);
+            edgeCutout_y(dogboneYSize, cuttingRadius, t1, kerf);
     // t3 on top
     for (x = [0 : xStep*2 : size.x])
         translate([x, size.y])
-            edgeCutout_y(dogboneXSize, cuttingRadius, t3, kerf);
+            edgeCutout_y(dogboneYSize, cuttingRadius, t3, kerf);
 
     yStep = 20;
-    dogboneYSize = [size.z*2, yStep, 0];
+    dogboneXSize = [size.z*2, yStep, 0];
     // t2 on left side
     for (y = [0 : yStep*2 : size.y])
         translate([0, y])
-            edgeCutout_x(dogboneYSize, cuttingRadius, t2, kerf);
+            edgeCutout_x(dogboneXSize, cuttingRadius, t2, kerf);
     // t0 on right side
     for (y = [0 : yStep*2 : size.y])
         translate([size.x, y])
-            edgeCutout_x(dogboneYSize, cuttingRadius, t0, kerf);
+            edgeCutout_x(dogboneXSize, cuttingRadius, t0, kerf);
 
 }
 
@@ -110,6 +110,7 @@ module DogboneLSRToleranceTest(size=[120, 80, 3]) {
 
 module DogboneTolerance_test() {
     size = [120, 80, 3];
+    color(pp2_colour)
     render_2D_sheet(CF3, w=size.x, d=size.y)
         DogboneCNCToleranceTest(size);
 }
@@ -117,6 +118,7 @@ module DogboneTolerance_test() {
 
 //DogboneTolerance_test();
 //DogboneCNCToleranceTest();
+rotate([25, 0, 0])
 if ($preview)
     DogboneTolerance_test();
 else

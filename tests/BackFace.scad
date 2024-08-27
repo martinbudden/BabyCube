@@ -35,7 +35,7 @@ module Back_Face_test() {
     if (_useCNC) {
         //translate([0, eY + 2*eSizeY + eps, 0]) rotate([90, 0, 0])
         //translate_z(-4) backFace(zMotorType())();
-        //Back_Face_CF();
+        //Back_Face_CF(render=false);
         //translate([0, eY + 2*eSizeY, 0]) rotate([90, 0, 0]) Back_Face_CF();
         //Back_Face_CF_Stage_1_assembly();
         //Back_Face_CF_Stage_2_assembly(bedHeight(t));

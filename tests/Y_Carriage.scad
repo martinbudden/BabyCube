@@ -35,7 +35,7 @@ module Y_Carriage_test1() {
     Y_Carriage_Left_stl();
     Y_Carriage_hardware(yCarriageType, plainIdler, toothedIdler, yCarriageThickness(), yCarriageBraceThickness(), pulleyOffset(), pulleyOffset(), left=true);
 
-    *if (yCarriageBraceThickness())
+    if (yCarriageBraceThickness())
         translate_z(yCarriageThickness() + pulleyStackHeight(idlerHeight, pulleyBore) + eps)
             Y_Carriage_Brace_Left_stl();
     *translate_z(-carriage_height(yCarriageType))

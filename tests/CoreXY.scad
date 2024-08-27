@@ -34,13 +34,13 @@ module CoreXY() {
     echoPrintSize();
     echo(coreXY_drive_pulley_x_offset=coreXY_drive_pulley_x_alignment(coreXY_type()));
     echo(coreXYSeparation=coreXYSeparation());
+    echo(reversedBelts=useReversedBelts());
+
     carriagePosition = carriagePosition(t) + [yRailOffset(_xyNEMA_width).x, 0];
 
-    CoreXYBelts(carriagePosition, show_pulleys=[1, 0, 0]);
-    *translate([0, carriagePosition.y - carriagePosition.y, 0])
-        yCarriageLeftAssembly(_xyNEMA_width);
-    *translate([0, carriagePosition.y - carriagePosition.y, 0])
-        yCarriageRightAssembly(_xyNEMA_width);
+    CoreXYBelts(carriagePosition, show_pulleys=![1, 0, 0]);
+    yCarriageLeftAssembly(_xyNEMA_width, t=t, reversedBelts=useReversedBelts());
+    yCarriageRightAssembly(_xyNEMA_width, t=t, reversedBelts=useReversedBelts());
 
     if (_useCNC) {
         let($hide_bolts=true) topFaceYRails(_xyNEMA_width, t=t);
@@ -62,7 +62,7 @@ module CoreXY() {
     }
     xRail(carriagePosition(t), carriageType(_xCarriageDescriptor), _xRailLength, carriageType(_yCarriageDescriptor));
     //let($hide_bolts=true)
-    printheadBeltSide(t=t, halfCarriage=false, reversedBelts=true);
+    *printheadBeltSide(t=t, halfCarriage=false, reversedBelts=true);
     //printheadHotendSideE3DRevo(t=t);
     *xRailCarriagePosition(carriagePosition(t), rotate=0) {// rotate 180 to make it easier to see belts
         *rotate([0, 90, 0])
