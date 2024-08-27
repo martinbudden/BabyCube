@@ -72,8 +72,8 @@ dxf = (
 )
 
 dogboneToleranceCNC  = dogboneTolerance(120, 80, sizeZ, cncCuttingRadius, cncKerf)
-dogboneToleranceLSR  = dogboneTolerance(120, 80, sizeZ, lsrCuttingRadius, lsrKerf)
-dogboneToleranceWJ  = dogboneTolerance(120, 80, sizeZ, wjCuttingRadius, wjKerf)
+#dogboneToleranceLSR  = dogboneTolerance(120, 80, sizeZ, lsrCuttingRadius, lsrKerf)
+#dogboneToleranceWJ  = dogboneTolerance(120, 80, sizeZ, wjCuttingRadius, wjKerf)
 
 if 'dogboneToleranceCNC' in globals():
     exports(dogboneToleranceCNC, "DogboneTolerance", "CNC")
@@ -81,17 +81,3 @@ if 'dogboneToleranceLSR' in globals():
     exports(dogboneToleranceLSR, "DogboneTolerance", "LSR")
 if 'dogboneToleranceWJ' in globals():
     exports(dogboneToleranceWJ, "DogboneTolerance", "WJ")
-
-
-
-cq.exporters.export(dogboneToleranceCNC, "DogboneTolerance_CNC.stl")
-#cq.exporters.export(dogboneToleranceCNC.section(), "DogboneTolerance_CNC.dxf")
-cq.exporters.export(dogboneToleranceCNC, "DogboneTolerance_CNC.step")
-
-cq.exporters.export(dogboneToleranceLSR, "DogboneTolerance_LSR.stl")
-#cq.exporters.export(dogboneToleranceLSR.section(), "DogboneTolerance_LSR.dxf")
-cq.exporters.export(dogboneToleranceLSR, "DogboneTolerance_LSR.step")
-
-show_object(dogboneToleranceCNC)
-#show_object(dogboneToleranceLSR)
-#show_object(dxf)
