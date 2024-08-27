@@ -21,9 +21,9 @@ cutoutBack = 42.5;
 cutoutXExtra = 6;
 
 
-module topFace(NEMA_type, useReversedBelts) {
-    topFaceCover(NEMA_type, useReversedBelts);
-    topFaceInterlock(NEMA_type, useReversedBelts);
+module topFace(NEMA_type, reversedBelts) {
+    topFaceCover(NEMA_type, reversedBelts);
+    topFaceInterlock(NEMA_type, reversedBelts);
 }
 
 module topFaceCNC(NEMA_type, extraY, toolType=CNC) {
@@ -33,11 +33,11 @@ module topFaceCNC(NEMA_type, extraY, toolType=CNC) {
     difference() {
         sheet_2D(CF3, size.x, size.y);
         translate([-size.x/2, -size.y/2 - insetY])
-            topFaceInterlockCutouts(NEMA_type, M3_clearance_radius, useReversedBelts=true, toolType=toolType);
+            topFaceInterlockCutouts(NEMA_type, M3_clearance_radius, reversedBelts=true, toolType=toolType);
     }
 }
 
-module topFaceCover(NEMA_type, useReversedBelts=false) {
+module topFaceCover(NEMA_type, reversedBelts=false) {
     assert(isNEMAType(NEMA_type));
     //assert(_variant != "BC200CF" && _variant != "BC220CF"); // cover not used for CF, and won't draw properly if _variant erroneously set
 
@@ -62,7 +62,7 @@ module topFaceCover(NEMA_type, useReversedBelts=false) {
                     poly_circle(r=M3_clearance_radius);
                 topFaceSideHolePositions()
                     poly_circle(r=M3_clearance_radius);
-                if (useReversedBelts) {
+                if (reversedBelts) {
                     xyMotorMountTopHolePositions(left=true)
                         poly_circle(r=M3_clearance_radius);
                     xyMotorMountTopHolePositions(left=false)
@@ -105,7 +105,7 @@ module topFaceWiringCutout(NEMA_width, printheadWiringPos, toolType) {
     }
 }
 
-module topFaceInterlock(NEMA_type, useReversedBelts=false) {
+module topFaceInterlock(NEMA_type, reversedBelts=false) {
     assert(isNEMAType(NEMA_type));
 
     insetY = 3;
@@ -115,7 +115,7 @@ module topFaceInterlock(NEMA_type, useReversedBelts=false) {
         linear_extrude(size.z)
             difference() {
                 rounded_square([size.x, size.y], _fillet, center=false);
-                topFaceInterlockCutouts(NEMA_type, M3_tap_radius, useReversedBelts=useReversedBelts, toolType=P3D);
+                topFaceInterlockCutouts(NEMA_type, M3_tap_radius, reversedBelts=reversedBelts, toolType=P3D);
             }
     if (!is_undef(bearingType))
         translate_z(-bb_width(bearingType))
@@ -154,7 +154,7 @@ module motorAccessHolePositions(NEMA_type, n=3) {
                         children();
 }
 
-module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, useReversedBelts=false, toolType=P3D) {
+module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, reversedBelts=false, toolType=P3D) {
     assert(isNEMAType(NEMA_type));
 
     kerf = toolType == LSR ? lsrKerf : toolType ==WJ ? wjKerf : 0;
@@ -192,7 +192,7 @@ module topFaceInterlockCutouts(NEMA_type, railHoleRadius=M3_clearance_radius, us
         else
             poly_circle(r=bb_diameter(bearingType)/2 - kerf2);
 
-    if (useReversedBelts) {
+    if (reversedBelts) {
         xyMotorMountTopHolePositions(left=true)
             poly_circle(M3_clearance_radius - kerf2, cncSides);
         xyMotorMountTopHolePositions(left=false)

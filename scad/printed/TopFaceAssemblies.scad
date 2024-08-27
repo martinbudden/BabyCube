@@ -33,7 +33,7 @@ module Top_Face_x220_y200_stl() {
     stl("Top_Face_x220_y200")
         color(pp3_colour)
             vflip()
-                topFace(NEMA14_36, useReversedBelts=true);
+                topFace(NEMA14_36, reversedBelts=true);
 }
 
 module Top_Face_x220_y220_stl() {
@@ -42,7 +42,7 @@ module Top_Face_x220_y220_stl() {
     stl("Top_Face_x220_y220")
         color(pp3_colour)
             vflip()
-                topFace(NEMA14_36, useReversedBelts=true);
+                topFace(NEMA14_36, reversedBelts=true);
 }
 
 
@@ -131,8 +131,8 @@ staged_assembly("Top_Face_Stage_2", big=true, ngb=true) {
     explode(15, show_line=false)
         Top_Face_Stage_1_assembly(t);
 
-    yCarriageLeftAssembly(NEMA_width(NEMA14_36), t);
-    yCarriageRightAssembly(NEMA_width(NEMA14_36), t);
+    yCarriageLeftAssembly(NEMA_width(NEMA14_36), t, reversedBelts=_useReversedBelts);
+    yCarriageRightAssembly(NEMA_width(NEMA14_36), t, reversedBelts=_useReversedBelts);
 }
 
 //! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable
@@ -152,8 +152,8 @@ staged_assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
     explode(15, show_line=false)
         Top_Face_NEMA_17_Stage_1_assembly();
 
-    yCarriageLeftAssembly(NEMA_width(NEMA17_40));
-    yCarriageRightAssembly(NEMA_width(NEMA17_40));
+    yCarriageLeftAssembly(NEMA_width(NEMA17_40), reversedBelts=_useReversedBelts);
+    yCarriageRightAssembly(NEMA_width(NEMA17_40), reversedBelts=_useReversedBelts);
 }
 
 //!1. Turn the **Top_Face** into its normal orientation.
