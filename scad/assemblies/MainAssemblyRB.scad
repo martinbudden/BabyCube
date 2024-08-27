@@ -23,7 +23,7 @@ include <../utils/CoreXYBelts.scad>
 
 use <../config/Parameters_Positions.scad>
 
-hotendDescriptor = "E3DRevo";
+hotendDescriptor = "DropEffectXG";
 
 
 //!1. Bolt the **Right_Face** and the right feet to the base.
