@@ -59,6 +59,8 @@ def topFace(
         .finalize() \
         .cutThruAll()
 
+    result = result.moveTo(65, sizeY/2 - 41.5).wiringCutout().cutThruAll()
+
     leftDogbones = [(-sizeX/2, i - sizeY/2) for i in range(50, 190, 40)]
     rightDogbones = [(sizeX/2, i - sizeY/2) for i in range(50, 190, 40)]
     frontDogbones = [(i - sizeX/2, -sizeY/2) for i in range(10, sizeY, 40)]
