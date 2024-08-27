@@ -24,42 +24,48 @@ def frontFace(
     idlerHoles = [(x, sizeY/2 - 15.5) for x in [30 - sizeX/2, sizeX/2 - 30]]
     sideHoles = [(x, y) for x in [6.5 - sizeX/2, sizeX/2 - 6.5] for y in [30 - sizeY/2, sizeY/2 - 60]]
 
-    result = self \
-        .rect(sizeX, sizeY) \
-        .pushPoints(baseHoles) \
-        .circle(M3_clearance_radius - kerf/2) \
-        .pushPoints(topHoles) \
-        .circle(M3_clearance_radius - kerf/2) \
-        .pushPoints(idlerHoles) \
-        .circle(M3_clearance_radius - kerf/2) \
-        .pushPoints(sideHoles) \
+    result = (
+        self
+        .rect(sizeX, sizeY)
+        .pushPoints(baseHoles)
         .circle(M3_clearance_radius - kerf/2)
+        .pushPoints(topHoles)
+        .circle(M3_clearance_radius - kerf/2)
+        .pushPoints(idlerHoles)
+        .circle(M3_clearance_radius - kerf/2)
+        .pushPoints(sideHoles)
+        .circle(M3_clearance_radius - kerf/2)
+    )
 
     result = result.extrude(sizeZ)
 
-    result = result \
-        .moveTo(0, 7.5) \
-        .sketch().rect(sizeX - 52, sizeY - 75) \
-        .vertices() \
-        .fillet(3) \
-        .finalize() \
+    result = (
+        result
+        .moveTo(0, 7.5)
+        .sketch().rect(sizeX - 52, sizeY - 75)
+        .vertices()
+        .fillet(3)
+        .finalize()
         .cutThruAll()
+    )
 
     leftDogbones = [(-sizeX/2, i - sizeY/2) for i in range(50, 210 + 1, 40)]
     rightDogbones = [(sizeX/2, i - sizeY/2) for i in range(50, 210 + 1, 40)]
     topDogbones = [(i - sizeX/2, sizeY/2) for i in range(30, 190 + 1, 40)]
 
-    result = result \
-        .pushPoints(rightDogbones) \
-        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll() \
-        .moveTo(-sizeX/2, -sizeY/2) \
-        .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll() \
-        .pushPoints(leftDogbones) \
-        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll() \
-        .moveTo(sizeX/2, -sizeY/2) \
-        .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll() \
-        .pushPoints(topDogbones) \
-        .dogboneT(20, 6, cuttingRadius, 0, dogboneTolerance).cutThruAll() \
+    result = (
+        result
+        .pushPoints(rightDogbones)
+        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
+        .moveTo(-sizeX/2, -sizeY/2)
+        .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
+        .pushPoints(leftDogbones)
+        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
+        .moveTo(sizeX/2, -sizeY/2)
+        .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
+        .pushPoints(topDogbones)
+        .dogboneT(20, 6, cuttingRadius, 0, dogboneTolerance).cutThruAll()
+    )
 
     return result
 

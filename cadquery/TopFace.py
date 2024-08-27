@@ -28,36 +28,40 @@ def topFace(
     railHoles = [(x, y - sizeY/2) for x in [18.5 - sizeX/2, sizeX/2 - 18.5] for y in range(24, 200, 40)]
     zRodHoles = [(x, sizeY/2 - _zRodOffsetY - backPlateThickness) for x in [-_zRodSeparation/2, _zRodSeparation/2]]
 
-    result = self \
-        .rect(sizeX, sizeY) \
-        .pushPoints(sideHoles) \
-        .circle(M3_clearance_radius - kerf/2) \
-        .pushPoints(railHoles) \
-        .circle(M3_clearance_radius - kerf/2) \
-        .pushPoints(frontHoles) \
-        .circle(M3_clearance_radius - kerf/2) \
-        .pushPoints(idlerHoles) \
-        .circle(M3_clearance_radius - kerf/2) \
-        .pushPoints(backHoles) \
-        .circle(M3_clearance_radius - kerf/2) \
-        .pushPoints(motorHoles) \
-        .circle(M3_clearance_radius - kerf/2) \
-        .moveTo(0, sizeY/2 - 7) \
-        .circle(M3_clearance_radius - kerf/2) \
-        .moveTo(0, sizeY/2 - _zRodOffsetY - backPlateThickness) \
-        .circle(_zLeadScrewDiameter/2 + 1 - kerf/2) \
-        .pushPoints(zRodHoles) \
-        .circle(_zRodDiameter/2 + 0.5 - kerf/2) \
+    result = (
+        self
+        .rect(sizeX, sizeY)
+        .pushPoints(sideHoles)
+        .circle(M3_clearance_radius - kerf/2)
+        .pushPoints(railHoles)
+        .circle(M3_clearance_radius - kerf/2)
+        .pushPoints(frontHoles)
+        .circle(M3_clearance_radius - kerf/2)
+        .pushPoints(idlerHoles)
+        .circle(M3_clearance_radius - kerf/2)
+        .pushPoints(backHoles)
+        .circle(M3_clearance_radius - kerf/2)
+        .pushPoints(motorHoles)
+        .circle(M3_clearance_radius - kerf/2)
+        .moveTo(0, sizeY/2 - 7)
+        .circle(M3_clearance_radius - kerf/2)
+        .moveTo(0, sizeY/2 - _zRodOffsetY - backPlateThickness)
+        .circle(_zLeadScrewDiameter/2 + 1 - kerf/2)
+        .pushPoints(zRodHoles)
+        .circle(_zRodDiameter/2 + 0.5 - kerf/2)
+    )
 
     result = result.extrude(sizeZ)
 
-    result = result \
-        .moveTo(0, -14) \
-        .sketch().rect(sizeX - 56, sizeY - 55) \
-        .vertices() \
-        .fillet(4) \
-        .finalize() \
+    result = (
+        result
+        .moveTo(0, -14)
+        .sketch().rect(sizeX - 56, sizeY - 55)
+        .vertices()
+        .fillet(4)
+        .finalize()
         .cutThruAll()
+    )
 
     result = result.moveTo(65, sizeY/2 - 41.5).wiringCutout().cutThruAll()
 
@@ -67,17 +71,19 @@ def topFace(
     backDogbones = [(i - sizeX/2, sizeY/2) for i in range(10, sizeY, 40)]
     cornerDogbones = [(x, y) for x in [-sizeX/2, sizeX/2] for y in [-sizeY/2, sizeY/2 - backPlateThickness]]
 
-    result = result \
-        .pushPoints(rightDogbones) \
-        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll() \
-        .pushPoints(leftDogbones) \
-        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll() \
-        .pushPoints(frontDogbones) \
-        .dogboneT(20, 6, cuttingRadius, 0, dogboneTolerance).cutThruAll() \
-        .pushPoints(backDogbones) \
-        .dogboneT(20, 6, cuttingRadius, 0, dogboneTolerance).cutThruAll() \
-        .pushPoints(cornerDogbones) \
-        .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll() \
+    result = (
+        result
+        .pushPoints(rightDogbones)
+        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
+        .pushPoints(leftDogbones)
+        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
+        .pushPoints(frontDogbones)
+        .dogboneT(20, 6, cuttingRadius, 0, dogboneTolerance).cutThruAll()
+        .pushPoints(backDogbones)
+        .dogboneT(20, 6, cuttingRadius, 0, dogboneTolerance).cutThruAll()
+        .pushPoints(cornerDogbones)
+        .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
+    )
 
     return result
 

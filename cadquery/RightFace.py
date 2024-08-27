@@ -26,50 +26,62 @@ def rightFace(
     result = leftFaceHoles(self, sizeX, sizeY, kerf, grill=False)
 
     fan = fan30x10
-    result = result \
-        .moveTo(68 - sizeX/2, 25 - sizeY/2) \
-        .circle(fan_bore(fan)/2 - 0.5) \
-        .rect(2*fan_hole_pitch(fan), 2*fan_hole_pitch(fan), forConstruction=True) \
-        .vertices() \
+    result = (
+        result
+        .moveTo(68 - sizeX/2, 25 - sizeY/2)
+        .circle(fan_bore(fan)/2 - 0.5)
+        .rect(2*fan_hole_pitch(fan), 2*fan_hole_pitch(fan), forConstruction=True)
+        .vertices()
         .circle(M3_clearance_radius - kerf/2)
+    )
 
     motor = NEMA17_40
-    result = result \
-        .moveTo(sizeX/2 - 75, sizeY/2 - 73) \
-        .circle(NEMA_boss_radius(motor) + 0.25) \
-        .rect(NEMA_hole_pitch(motor), NEMA_hole_pitch(motor), forConstruction=True) \
-        .vertices() \
+    result = (
+        result
+        .moveTo(sizeX/2 - 75, sizeY/2 - 73)
+        .circle(NEMA_boss_radius(motor) + 0.25)
+        .rect(NEMA_hole_pitch(motor), NEMA_hole_pitch(motor), forConstruction=True)
+        .vertices()
         .circle(M3_clearance_radius - kerf/2)
+    )
 
     # spool holder
-    result = result \
-        .pushPoints([(x - sizeX/2, sizeY/2 - 80) for x in [8, 45]]) \
+    result = (
+        result
+        .pushPoints([(x - sizeX/2, sizeY/2 - 80) for x in [8, 45]])
         .circle(M3_clearance_radius - kerf/2)
+    )
 
     # ICE
     iecPosition = (175.5 - sizeX/2, 33 - sizeY/2)
-    result = result \
-        .pushPoints([(iecPosition[0], iecPosition[1] + y) for y in [-20, 20]]) \
+    result = (
+        result
+        .pushPoints([(iecPosition[0], iecPosition[1] + y) for y in [-20, 20]])
         .circle(M3_clearance_radius - kerf/2)
-    result = result.extrude(sizeZ) \
-        .moveTo(iecPosition[0], iecPosition[1]) \
-        .sketch().rect(48, 30) \
-        .vertices() \
-        .fillet(5) \
-        .finalize() \
+    )
+    result = (
+        result.extrude(sizeZ)
+        .moveTo(iecPosition[0], iecPosition[1])
+        .sketch().rect(48, 30)
+        .vertices()
+        .fillet(5)
+        .finalize()
         .cutThruAll()
+    )
 
     leftDogbones = [(-sizeX/2, i - sizeY/2) for i in range(30, 210 + 1, 40)]
     rightDogbones = [(sizeX/2, i - sizeY/2) for i in range(30, 210 + 1, 40)]
     topDogbones = [(i - sizeX/2, sizeY/2) for i in range(30, 190 + 1, 40)]
 
-    result = result \
-        .pushPoints(rightDogbones) \
-        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll() \
-        .pushPoints(leftDogbones) \
-        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll() \
-        .pushPoints(topDogbones) \
+    result = (
+        result
+        .pushPoints(rightDogbones)
+        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
+        .pushPoints(leftDogbones)
+        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
+        .pushPoints(topDogbones)
         .dogboneT(20, 6, cuttingRadius, 0, dogboneTolerance).cutThruAll()
+    )
 
     return result
 

@@ -22,20 +22,22 @@ def dogboneTolerance(
     bottomDogbones = [(i, -sizeY/2) for i in range(-60, 60 + 1, 40)]
 
 
-    result = cq.Workplane("XY") \
-        .rect(sizeX, sizeY) \
-        .moveTo(20 - sizeX/2, 60 - sizeY/2) \
-        .circle(1.5 - kerf2) \
-        .moveTo(20 - sizeX/2, 40 - sizeY/2) \
-        .circle(M3_clearance_radius - kerf2) \
-        .moveTo(20 - sizeX/2, 20 - sizeY/2) \
-        .circle(2.5 - kerf2) \
-        .moveTo(40 - sizeX/2, 20 - sizeY/2) \
-        .circle(1.5) \
-        .moveTo(60 - sizeX/2, 20 - sizeY/2) \
-        .circle(M3_clearance_radius) \
-        .moveTo(80 - sizeX/2, 20 - sizeY/2) \
+    result = (
+        cq.Workplane("XY")
+        .rect(sizeX, sizeY)
+        .moveTo(20 - sizeX/2, 60 - sizeY/2)
+        .circle(1.5 - kerf2)
+        .moveTo(20 - sizeX/2, 40 - sizeY/2)
+        .circle(M3_clearance_radius - kerf2)
+        .moveTo(20 - sizeX/2, 20 - sizeY/2)
+        .circle(2.5 - kerf2)
+        .moveTo(40 - sizeX/2, 20 - sizeY/2)
+        .circle(1.5)
+        .moveTo(60 - sizeX/2, 20 - sizeY/2)
+        .circle(M3_clearance_radius)
+        .moveTo(80 - sizeX/2, 20 - sizeY/2)
         .circle(2.5)
+    )
 
 
     # t0 on right side
@@ -47,23 +49,25 @@ def dogboneTolerance(
     # t3 on top
     t3 = 0.100
 
-    result = result.extrude(sizeZ) \
-        .pushPoints(rightDogbones) \
-        .dogboneT(20, 6, cuttingRadius, 90, t0, kerf).cutThruAll() \
-        .pushPoints(bottomDogbones) \
-        .dogboneT(20, 6, cuttingRadius, 0, t1, kerf).cutThruAll() \
-        .pushPoints(leftDogbones) \
-        .dogboneT(20, 6, cuttingRadius, 90, t2, kerf).cutThruAll() \
-        .pushPoints(topDogbones) \
-        .dogboneT(20, 6, cuttingRadius, 0, t3, kerf).cutThruAll() \
+    result = (
+        result.extrude(sizeZ)
+        .pushPoints(rightDogbones)
+        .dogboneT(20, 6, cuttingRadius, 90, t0, kerf).cutThruAll()
+        .pushPoints(bottomDogbones)
+        .dogboneT(20, 6, cuttingRadius, 0, t1, kerf).cutThruAll()
+        .pushPoints(leftDogbones)
+        .dogboneT(20, 6, cuttingRadius, 90, t2, kerf).cutThruAll()
+        .pushPoints(topDogbones)
+        .dogboneT(20, 6, cuttingRadius, 0, t3, kerf).cutThruAll()
+    )
 
     return result
 
 
 dxf = (
-    cq.importers.importDXF("../tests/DogboneToleranceCNC.dxf") \
-    .wires() \
-    .toPending() \
+    cq.importers.importDXF("../tests/DogboneToleranceCNC.dxf")
+    .wires()
+    .toPending()
     .extrude(sizeZ)
 )
 
