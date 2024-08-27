@@ -1,4 +1,4 @@
-staged_assembly = !true; // set this to false for faster builds during development
+staged_assembly = true; // set this to false for faster builds during development
 
 
 module staged_assembly(name, big, ngb) {
