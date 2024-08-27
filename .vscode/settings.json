@@ -9,6 +9,7 @@
         "bezier",
         "Bowden",
         "buttonhead",
+        "cadquery",
         "Calibri",
         "caphead",
         "colour",
@@ -19,6 +20,7 @@
         "dogbone",
         "dogbones",
         "dxfs",
+        "eachpoint",
         "EEPROM",
         "endfacet",
         "endloop",
@@ -69,6 +71,7 @@
         "valign",
         "vflip",
         "Voron",
+        "Workplane",
         "ziptie",
         "zipties",
         "ZPROBE"
