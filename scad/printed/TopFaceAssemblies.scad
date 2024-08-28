@@ -114,16 +114,14 @@ staged_assembly("Top_Face_NEMA_17_Stage_1", big=true, ngb=true) {
     topFaceYRails(NEMA_width(NEMA17_40));
 }
 
-//! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable
-//! so be sure to attach them as shown in the diagram.
-//!
-//! The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not
-//! accessible.
-//! Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a
-//! washer under each of the upper pulleys, but not on top of those pulleys.
-//!
-//! Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16
-//! of a turn) so they run freely.
+//!1.Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable
+//!so be sure to attach them as shown in the diagram.
+//!2.The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not
+//!accessible.
+//!3.Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a
+//!washer under each of the upper pulleys, but not on top of those pulleys.
+//!4.Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16
+//!of a turn) so they run freely.
 //
 module Top_Face_Stage_2_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
 staged_assembly("Top_Face_Stage_2", big=true, ngb=true) {
@@ -131,8 +129,24 @@ staged_assembly("Top_Face_Stage_2", big=true, ngb=true) {
     explode(15, show_line=false)
         Top_Face_Stage_1_assembly(t);
 
-    yCarriageLeftAssembly(NEMA_width(NEMA14_36), t, reversedBelts=_useReversedBelts);
-    yCarriageRightAssembly(NEMA_width(NEMA14_36), t, reversedBelts=_useReversedBelts);
+    yCarriageLeftAssembly(NEMA_width(NEMA14_36), t, reversedBelts=false);
+    yCarriageRightAssembly(NEMA_width(NEMA14_36), t, reversedBelts=false);
+}
+
+//!1.Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable
+//!so be sure to attach them as shown in the diagram.
+//!2.The carriages should be attached to the rails before the bearings are added, since otherwise the bolts are not accessible.
+//!3.Attach the **F623** bearings to the carriages. Note that there is a washer under each of the upper bearings, but not on top of those bearings.
+//!4.Tighten the bearing bolts, being careful not to overtighten them.
+//
+module Top_Face_Stage_2_RB_assembly(t=undef) pose(a=[55 + 180, 0, 25 + 310])
+staged_assembly("Top_Face_Stage_2_RB", big=true, ngb=true) {
+
+    explode(15, show_line=false)
+        Top_Face_Stage_1_assembly(t);
+
+    yCarriageLeftAssembly(NEMA_width(NEMA14_36), t, reversedBelts=true);
+    yCarriageRightAssembly(NEMA_width(NEMA14_36), t, reversedBelts=true);
 }
 
 //! Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable
@@ -167,7 +181,10 @@ staged_assembly("Top_Face_NEMA_17_Stage_2", big=true, ngb=true) {
 module Top_Face_assembly(t=undef)
 assembly("Top_Face", big=true) {
 
-    Top_Face_Stage_2_assembly(t);
+    if (_useReversedBelts)
+        Top_Face_Stage_2_RB_assembly(t);
+    else
+        Top_Face_Stage_2_assembly(t);
     //hidden() Top_Face_NEMA_17_stl();
     //hidden() Y_Carriage_Left_AL_dxf();
     //hidden() Y_Carriage_Right_AL_dxf();
