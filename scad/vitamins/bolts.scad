@@ -6,7 +6,7 @@ include <NopSCADlib/vitamins/screws.scad>
 
 // bolt holes
 
-module boltHole(diameter, length, horizontal=false, rotate=0, chamfer=0, chamfer_both_ends=true, cnc=false, twist=0) {
+module boltHole(diameter, length, horizontal=false, rotate=0, chamfer=0.5, chamfer_both_ends=true, cnc=false, twist=0) {
     function boltHoleTwist(radius, twist) = $preview ? 0 : is_undef(twist) ? (radius > M3_tap_radius ? 0 : 4) : twist;
 
     translate_z(-eps)
@@ -20,7 +20,7 @@ module boltHole(diameter, length, horizontal=false, rotate=0, chamfer=0, chamfer
 }
 
 module boltHoleCounterbore(screw_type, length, boreDepth=undef, boltHeadTolerance=0, horizontal=false, chamfer=0, cnc=false, twist=0) {
-    boltHole(2*screw_head_radius(screw_type) + boltHeadTolerance, is_undef(boreDepth) ? screw_head_height(screw_type) : boreDepth, horizontal=horizontal, chamfer=chamfer, chamfer_both_ends=false, cnc=cnc, twist=twist);
+    boltHole(2*(screw_head_radius(screw_type) + boltHeadTolerance), is_undef(boreDepth) ? screw_head_height(screw_type) : boreDepth, horizontal=horizontal, chamfer=chamfer, chamfer_both_ends=false, cnc=cnc, twist=twist);
     boltHole(2*screw_clearance_radius(screw_type), length, horizontal, chamfer=chamfer, cnc=cnc, twist=twist);
 }
 
@@ -53,7 +53,7 @@ module boltHoleM2p5(length, horizontal=false, rotate=0, chamfer=0.5, chamfer_bot
 }
 
 module boltHoleM2p5Tap(length, horizontal=false, rotate=0, chamfer=0.5, chamfer_both_ends=true, cnc=false, twist=undef) {
-    boltHole(M2_tap_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
+    boltHole(M2p5_tap_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
 module boltHoleM2p5Counterbore(length, boreDepth=undef, boltHeadTolerance=0.4, horizontal=false, cnc=false, twist=0) {
@@ -133,6 +133,13 @@ module boltHoleM4Tap(length, horizontal=false, rotate=0, chamfer=0.5, chamfer_bo
     boltHole(M4_tap_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
+module boltHoleM4Countersunk(length) {
+    translate_z(-eps)
+        vflip()
+            screw_countersink(M4_cs_cap_screw, 2*length + 2*eps);
+    boltHoleM4(length, cnc=true);
+}
+
 module boltPolyholeM4Countersunk(length, sink=0) {
     screw_polysink(M4_cs_cap_screw, 2*length + 2*eps, sink=sink);
 }
@@ -160,11 +167,23 @@ module boltPolyholeM5Countersunk(length, sink=0) {
     screw_polysink(M5_cs_cap_screw, 2*length + 2*eps, sink=sink);
 }
 
+module boltHoleM5CounterboreButtonhead(length, boreDepth=undef, boltHeadTolerance=0.4, horizontal=false, chamfer=0.5, cnc=false, twist=0) {
+    boltHoleCounterbore(M5_dome_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance, horizontal=horizontal, chamfer=0.5, cnc=cnc, twist=twist);
+}
+
+module boltHoleM5HangingCounterboreButtonhead(length, boreDepth=undef, boltHeadTolerance=0.4) {
+    boltHoleHangingCounterbore(M5_dome_screw, length=length, boreDepth=boreDepth, boltHeadTolerance=boltHeadTolerance);
+}
+
 
 // M6 bolt holes
 
 module boltHoleM6(length, horizontal=false, rotate=0, chamfer=0.5, chamfer_both_ends=true, cnc=false, twist=undef) {
     boltHole(M6_clearance_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
+}
+
+module boltHoleM6Tap(length, horizontal=false, rotate=0, chamfer=0.5, chamfer_both_ends=true, cnc=false, twist=undef) {
+    boltHole(M6_tap_radius*2, length, horizontal, rotate, chamfer, chamfer_both_ends, cnc, twist);
 }
 
 module boltHoleM6Counterbore(length, boreDepth=undef, boltHeadTolerance=0.4, cnc=false, twist=0) {
@@ -202,6 +221,10 @@ module boltM3Caphead(length) {
     bolt(M3_cap_screw, length);
 }
 
+module boltM3Shoulder(length) {
+    bolt(M3_shoulder_screw, length);
+}
+
 module boltM3Countersunk(length, boreDepth=undef) {
     translate_z(is_undef(boreDepth) ? 0 : boreDepth)
         bolt(M3_cs_cap_screw, length);
@@ -218,6 +241,10 @@ module boltM3Panhead(length) {
 
 module boltM4Caphead(length) {
     bolt(M4_cap_screw, length);
+}
+
+module boltM4Shoulder(length) {
+    bolt(M4_shoulder_screw, length);
 }
 
 module boltM4Countersunk(length, boreDepth=undef) {
