@@ -157,6 +157,7 @@ module webbingLeft(NEMA_type, useFrontSwitch=false, fullyEnclosed=false, reverse
     NEMA_width = NEMA_width(NEMA_type);
     left = true;
     idlerBracketSize = idlerBracketSize(coreXYPosBL(NEMA_width));
+    middleWebOffsetZ = middleWebOffsetZ();
 
     // not needed as covered by diagonal
     *translate([idlerBracketSize.x, eZ - antiShearSize.y, 0])
@@ -166,28 +167,28 @@ module webbingLeft(NEMA_type, useFrontSwitch=false, fullyEnclosed=false, reverse
     // shroud for switch
     if (useFrontSwitch) {
         translate([eSizeX - fillet, 0, 0])
-            cube([switchShroudSizeX - eSizeX + fillet, middleWebOffsetZ(), _webThickness]);
+            cube([switchShroudSizeX - eSizeX + fillet, middleWebOffsetZ, _webThickness]);
         *translate([switchShroudSizeX, eSizeZ, 0]) // not needed, since covered by diagonal
             fillet(innerFillet, _webThickness);
-        translate([switchShroudSizeX, middleWebOffsetZ(), 0])
+        translate([switchShroudSizeX, middleWebOffsetZ, 0])
             rotate(-90)
                 fillet(innerFillet, _webThickness);
     }
     // upright by motor
-    uprightPos = [reversedBelts ? eY + 2*eSizeY - xyMotorMountRBSize(NEMA_width).y : eY + eSizeY - XY_MotorMountSize(NEMA_width).y, middleWebOffsetZ(), 0];
+    uprightPos = [reversedBelts ? eY + 2*eSizeY - xyMotorMountRBSize(NEMA_width).y : eY + eSizeY - XY_MotorMountSize(NEMA_width).y, middleWebOffsetZ, 0];
     linear_extrude(upperWebThickness)
         difference() {
             union() {
                 translate(uprightPos)
-                    square([eY + 2*eSizeY - uprightPos.x, eZ - yRailSupportThickness() - middleWebOffsetZ()]);
+                    square([eY + 2*eSizeY - uprightPos.x, eZ - yRailSupportThickness() - middleWebOffsetZ]);
                 antiShearBracing(NEMA_width);
                 translate([uprightPos.x, eZ - antiShearSize.y])
                     rotate(180)
                         fillet(innerFillet);
                 // idler upright
                 rounded_square([eSizeY, eZ - eSizeZ + fillet], 1.5, center=false);
-                translate([0, middleWebOffsetZ(), 0])
-                    rounded_square([idlerBracketSize.x, eZ - middleWebOffsetZ() - _topPlateThickness], fillet, center=false);
+                translate([0, middleWebOffsetZ, 0])
+                    rounded_square([idlerBracketSize.x, eZ - middleWebOffsetZ - _topPlateThickness], fillet, center=false);
                 if (_sideTabs)
                     sideFaceBackTabs();
             }
@@ -201,16 +202,16 @@ module webbingLeft(NEMA_type, useFrontSwitch=false, fullyEnclosed=false, reverse
                 fillet(5, topBoltHolderSize.z);
     }
     // diagonal brace by motor
-    motorDiagonalSize = [uprightPos.x - idlerBracketSize.x, eZ - eSizeZ - middleWebOffsetZ()-antiShearSize.y, upperWebThickness];
-    translate([idlerBracketSize.x, middleWebOffsetZ() + eSizeZ, 0])
-        //diagonalDown([uprightPos.x - idlerBracketSize.x, middleWebOffsetZ() - 35 - eSizeZ, _webThickness], min(eSizeY, eSizeZ), 5, extend=true);
+    motorDiagonalSize = [uprightPos.x - idlerBracketSize.x, eZ - eSizeZ - middleWebOffsetZ-antiShearSize.y, upperWebThickness];
+    translate([idlerBracketSize.x, middleWebOffsetZ + eSizeZ, 0])
+        //diagonalDown([uprightPos.x - idlerBracketSize.x, middleWebOffsetZ - 35 - eSizeZ, _webThickness], min(eSizeY, eSizeZ), 5, extend=true);
         diagonalDown(motorDiagonalSize, min(eSizeY, eSizeZ), innerFillet);
     if (fullyEnclosed)
-        translate([eSizeY - 1, middleWebOffsetZ() + eSizeZ - 1, 0])
+        translate([eSizeY - 1, middleWebOffsetZ + eSizeZ - 1, 0])
             cube([motorDiagonalSize.x + eSizeY + 2, motorDiagonalSize.y + 2, 1]);
 
     // main diagonal brace
-    diagonalSize  = [eY + eSizeY - (useFrontSwitch ? switchShroudSizeX : 2*eSizeY), middleWebOffsetZ() - eSizeZ, _webThickness];
+    diagonalSize  = [eY + eSizeY - (useFrontSwitch ? switchShroudSizeX : 2*eSizeY), middleWebOffsetZ - eSizeZ, _webThickness];
     translate([(useFrontSwitch ? switchShroudSizeX : 2*eSizeY), eSizeZ, 0])
         diagonal(diagonalSize, min(eSizeY, eSizeZ), innerFillet);
     if (fullyEnclosed)
@@ -265,6 +266,7 @@ module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false, reversedBelts=
     NEMA_width = NEMA_width(NEMA_type);
     left = false;
     idlerBracketSize = idlerBracketSize(coreXYPosBL(NEMA_width));
+    middleWebOffsetZ = middleWebOffsetZ();
 
     if (reversedBelts) {
         topBoltHolderSize = topBoltHolderSize(0, reversedBelts=reversedBelts);
@@ -274,10 +276,10 @@ module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false, reversedBelts=
     }
 
     // main diagonal brace
-    iecPanelSize = [65, middleWebOffsetZ(), 3];
+    iecPanelSize = [65, middleWebOffsetZ, 3];
     iecOffset  = (useIEC ? iecPanelSize.x : 0);
     diagonalSize = [eY + 2*eps - iecOffset,
-                    middleWebOffsetZ() - baseCoverOutsideHeight + 2*eps,
+                    middleWebOffsetZ - baseCoverOutsideHeight + 2*eps,
                     useIEC ? iecPanelSize.z : _webThickness];
     translate([eSizeY + eps, baseCoverOutsideHeight - eps, 0]) // eps displacement probably not necessary
         diagonalDown(diagonalSize, min(eSizeY, eSizeZ), innerFillet);
@@ -311,7 +313,7 @@ module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false, reversedBelts=
 
     if (fullyEnclosed)
         translate([eSizeY - 1, eSizeZ - 1, 0])
-            cube([diagonalSize.x + 2, middleWebOffsetZ() + 2, 1]);
+            cube([diagonalSize.x + 2, middleWebOffsetZ + 2, 1]);
     if (useIEC)
         difference() {
             translate([eY + eSizeY - iecPanelSize.x, 0, 0]) {
@@ -339,13 +341,13 @@ module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false, reversedBelts=
             linear_extrude(upperWebThickness)
                 difference() {
                     union() {
-                        translate([0, middleWebOffsetZ()])
-                            square([eY + 2*eSizeY, eZ - middleWebOffsetZ() - _topPlateThickness]);
+                        translate([0, middleWebOffsetZ])
+                            square([eY + 2*eSizeY, eZ - middleWebOffsetZ - _topPlateThickness]);
                         antiShearBracing(NEMA_width);
                         // idler upright
                         rounded_square([eSizeY, eZ - eSizeZ + fillet], 3, center=false);
-                        translate([0, middleWebOffsetZ(), 0])
-                            rounded_square([idlerBracketSize.x, eZ - middleWebOffsetZ() - _topPlateThickness], fillet, center=false);
+                        translate([0, middleWebOffsetZ, 0])
+                            rounded_square([idlerBracketSize.x, eZ - middleWebOffsetZ - _topPlateThickness], fillet, center=false);
                         if (_sideTabs)
                             sideFaceBackTabs();
                     }// end union
@@ -361,9 +363,9 @@ module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false, reversedBelts=
                         sideFaceMotorCutout(left, NEMA_width);
                 }// end difference
             // support for the spoolholder
-            translate([0, middleWebOffsetZ(), 0]) {
+            translate([0, middleWebOffsetZ, 0]) {
                 offset = 22.5;
-                rounded_cube_xy([extruderPosition.y - offset - eSizeY + innerFillet, spoolHolderPosition().z - middleWebOffsetZ(), eSizeX], innerFillet);
+                rounded_cube_xy([extruderPosition.y - offset - eSizeY + innerFillet, spoolHolderPosition().z - middleWebOffsetZ, eSizeX], innerFillet);
                 translate([extruderPosition.y - offset - eSizeY + innerFillet, eSizeZ, 0])
                     fillet(innerFillet, eSizeX);
             }
@@ -380,9 +382,9 @@ module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false, reversedBelts=
 
     // blocks to prevent the spoolholder from twisting
     if (!fullyEnclosed)
-        translate([0, middleWebOffsetZ(), 0]) {
+        translate([0, middleWebOffsetZ, 0]) {
             translate([idlerBracketSize.x + spoolHolderBracketSize().z + 0.25, 0, 0])
-                rounded_cube_xy([10, spoolHolderPosition().z - middleWebOffsetZ(), eSizeX + 5], 2);
+                rounded_cube_xy([10, spoolHolderPosition().z - middleWebOffsetZ, eSizeX + 5], 2);
             height = eSizeZ + 5;
             rounded_cube_xy([idlerBracketSize.x, 3*eSizeZ, height], fillet);
             translate([frontReinforcementThickness(), 0, 0])
@@ -395,10 +397,10 @@ module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false, reversedBelts=
 
 motorUprightWidth = max(10, eSizeY); // make sure at least 10 wide, to accept inserts
 
-module motorUpright(NEMA_width, left, reversedBelts) {
+module motorUpright(NEMA_width, middleWebOffsetZ, left, reversedBelts) {
     //uprightTopZ = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor)).z - (left ? coreXYSeparation().z : 0);
     uprightTopZ = reversedBelts ? eZ - _topPlateThickness - xyMotorMountRBSize(NEMA_width).z + 2*fillet : xyMotorPosition(NEMA_width, left).z + 2*fillet;
-    uprightPosZ = middleWebOffsetZ() + eSizeZ - 2*fillet;
+    uprightPosZ = middleWebOffsetZ + eSizeZ - 2*fillet;
     upperFillet = 1.5;
     uprightWidth = reversedBelts ? motorUprightWidth : motorClearance.y - upperFillet;
     translate([eY + 2*eSizeY - uprightWidth, 0, 0]) {
@@ -407,13 +409,13 @@ module motorUpright(NEMA_width, left, reversedBelts) {
         translate([0, uprightTopZ - 2*fillet, 0])
             rotate(180)
                 fillet(reversedBelts ? 5 : 2, eSizeXBase);
-        translate([0, middleWebOffsetZ()+ eSizeZ, 0])
+        translate([0, middleWebOffsetZ+ eSizeZ, 0])
             rotate(90)
                 fillet(3, eSizeX);
     }
 }
 
-module idlerUpright(NEMA_width, left, reversedBelts) {
+module idlerUpright(NEMA_width, middleWebOffsetZ, left, reversedBelts) {
     difference() {
         rounded_cube_xy([eSizeY, eZ - eSizeZ + fillet + eps, eSizeX], 3);
         if (!left)
@@ -426,8 +428,8 @@ module idlerUpright(NEMA_width, left, reversedBelts) {
     // idler upright, top part, xSize matches idler
     rightReversedBeltOffset = reversedBelts && !left ? coreXYSeparation().z : 0; // right sized idler bracket is smaller for reversed belts
     idlerBracketSize = idlerBracketSize(coreXYPosBL(NEMA_width)) + [0, -rightReversedBeltOffset, 0];
-    translate([0, middleWebOffsetZ(), 0])
-        rounded_cube_xy([idlerBracketSize.x, eZ - middleWebOffsetZ() - _topPlateThickness, eSizeX], fillet);
+    translate([0, middleWebOffsetZ, 0])
+        rounded_cube_xy([idlerBracketSize.x, eZ - middleWebOffsetZ - _topPlateThickness, eSizeX], fillet);
     // idler upright reinforcement to stop front face shear
     coreXYPosBL = coreXYPosBL(NEMA_width, carriageType(_yCarriageDescriptor));
     translate([0, eSizeZ, 0])
@@ -442,15 +444,15 @@ module idlerUpright(NEMA_width, left, reversedBelts) {
     }
 }
 
-module frameLower(NEMA_width, left=true, offset=0, length=0, useFrontSwitch=false) {
+module frameLower(NEMA_width, left=true, middleWebOffsetZ, offset=0, length=0, useFrontSwitch=false) {
     translate([eY + 2*eSizeY - motorUprightWidth, 0, offset]) {
         difference() {
-            size = [motorUprightWidth, middleWebOffsetZ(), eSizeXBase - offset];
+            size = [motorUprightWidth, middleWebOffsetZ, eSizeXBase - offset];
             union() {
                 translate([0, eSizeZ, 0])
                     rounded_cube_xy(size, fillet);
                 // small cube for back face boltholes
-                translate([0, middleWebOffsetZ(), 0]) {
+                translate([0, middleWebOffsetZ, 0]) {
                     rounded_cube_xy([eSizeY, eSizeZ, _backFaceHoleInset + 4 - offset], fillet);
                     if (offset==0)
                         translate([-eSizeY, 0, 0])
@@ -540,11 +542,12 @@ module frame(NEMA_type, left=true, useFrontSwitch=false, reversedBelts=false) {
     assert(isNEMAType(NEMA_type));
     NEMA_width = NEMA_width(NEMA_type);
     topBoltHolderSize = topBoltHolderSize(0, reversedBelts=reversedBelts);
+    middleWebOffsetZ = middleWebOffsetZ();
 
-    idlerUpright(NEMA_width, left, reversedBelts);
+    idlerUpright(NEMA_width, middleWebOffsetZ, left, reversedBelts);
     difference() {
         union() {
-            frameLower(NEMA_width, left, useFrontSwitch=useFrontSwitch);
+            frameLower(NEMA_width, left, middleWebOffsetZ, useFrontSwitch=useFrontSwitch);
             // cube for top face bolt holes
             topBoltHolderSize = topBoltHolderSize;
             translate([0, eZ - _topPlateThickness - topBoltHolderSize.y, 0]) {
@@ -554,11 +557,11 @@ module frame(NEMA_type, left=true, useFrontSwitch=false, reversedBelts=false) {
                     rotate(270)
                         fillet(2, topBoltHolderSize.z);
             }
-            motorUpright(NEMA_width, left, reversedBelts);
+            motorUpright(NEMA_width, middleWebOffsetZ, left, reversedBelts);
 
             frontConnector();
             // middle chord
-            translate([0, middleWebOffsetZ(), 0])
+            translate([0, middleWebOffsetZ, 0])
                 cube([eY + eSizeY + eps, eSizeZ, eSizeX]);
         }
         sideFaceTopHolePositions()
@@ -589,7 +592,7 @@ module frame(NEMA_type, left=true, useFrontSwitch=false, reversedBelts=false) {
         // middle chord
         if (!left)// add cutouts for extruder motor wires
             for (y = extruderZipTiePositions())
-                translate([y + extruderPosition(NEMA_width).y, middleWebOffsetZ() - eps, eSizeX])
+                translate([y + extruderPosition(NEMA_width).y, middleWebOffsetZ - eps, eSizeX])
                     rotate(90)
                         zipTieCutout();
     }
@@ -597,7 +600,7 @@ module frame(NEMA_type, left=true, useFrontSwitch=false, reversedBelts=false) {
     // fillets
 
     // middle
-    translate([eSizeY, middleWebOffsetZ(), 0]) {
+    translate([eSizeY, middleWebOffsetZ, 0]) {
         rotate(-90)
             fillet(innerFillet, eSizeX);
         translate([eY, 0, 0])
