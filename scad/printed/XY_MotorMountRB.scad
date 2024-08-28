@@ -86,11 +86,12 @@ module xyMotorMountRB(NEMA_type, left, xyz=2) {
             }
         }
 
-        translate([left ? _sidePlateThickness : eX + 2*eSizeX - _sidePlateThickness, 0, 0])
-            rotate([90, 0, 90])
-                xyMotorMountSideHolePositions()
-                    vflip(!left)
-                        boltHoleM3Tap(sideSize.x, horizontal=true, rotate=left ? 0 : 180, chamfer_both_ends=false);
+        if (xyz == 2) // side holes not needed when xyMotorMount incorporated in Left_Face stl file
+            translate([left ? _sidePlateThickness : eX + 2*eSizeX - _sidePlateThickness, 0, 0])
+                rotate([90, 0, 90])
+                    xyMotorMountSideHolePositions()
+                        vflip(!left)
+                            boltHoleM3Tap(sideSize.x, horizontal=true, rotate=left ? 0 : 180, chamfer_both_ends=false);
         translate([0, eY + 2*eSizeY, 0])
             rotate([90, 0, 0])
                 xyMotorMountBackHolePositions(left)
@@ -101,7 +102,7 @@ module xyMotorMountRB(NEMA_type, left, xyz=2) {
         translate([0, eY + 2*eSizeY - backSizeY, offsetZ + basePlateThickness + 2*pulleyStackHeight + yCarriageBraceThickness() + braceHeight/2])
             translate([left ? _sidePlateThickness + sideSizeX + size.x/2 : eX + 2*eSizeX - _sidePlateThickness - sideSizeX - size.x/2, 0, 0])
                 rotate([-90, 0, 0])
-                    boltHoleM3Countersunk(backSizeY, horizontal=true, rotate=(xyz == 0 ? ((left ? 90 : -90)) : 180));
+                    boltHoleM3Countersunk(backSizeY, horizontal=true, rotate=(xyz == 0 ? (left ? -90 : 90) : 180));
     }
 }
 
