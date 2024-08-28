@@ -35,19 +35,21 @@ module Left_Face_test() {
     //Front_Face_CF_assembly();
     //Back_Face_CF_assembly();
     //translate([0, -eZ/2, 0])
-    //Left_Face_stl();
-    //Right_Face_stl();
+    //if (_useReversedBelts) Left_Face_y220_z210_stl(); else Left_Face_stl();
+    //if (_useReversedBelts) Right_Face_y220_z210_stl(); else Right_Face_stl();
     //leftFace(NEMA_type, useFrontSwitch=!true, fullyEnclosed=!true, fan=true);
     //rightFace(NEMA_type, useFrontSwitch=!true, fullyEnclosed=!true, fan=true);
 
     //Right_Face_CF_assembly();
     if (_useCNC) {
         Left_Face_CF_assembly();
+        //baseCoverAssembly(cf=true);
     } else {
         //rotate([90, 0, 90]) Left_Face_stl();
-        Left_Face_assembly(camera=!true);
-        *rotate([90, 0, 90]) hflip()
-            Switch_Shroud_stl();
+        if (_useReversedBelts) Left_Face_RB_assembly(camera=!true); else Left_Face_assembly(camera=!true)
+        //Right_Face_assembly();
+        //baseCoverAssembly(cf=false);
+        if (!_useReversedBelts) rotate([90, 0, 90]) hflip() Switch_Shroud_stl();
     }
     //Back_Face_assembly();
     //translate([0, eY + 2*eSizeY, 0]) rotate([90, 0, 0]) Back_Face_CF();
