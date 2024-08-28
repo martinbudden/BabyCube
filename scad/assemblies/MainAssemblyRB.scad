@@ -118,7 +118,7 @@ main_staged_assembly("Stage_4_RB", big=true, ngb=true) {
     Stage_3_RB_assembly();
 
     explode([-300, 0, 25])
-        Left_Face_assembly();
+        Left_Face_RB_assembly();
 
     explode([-200, 0, 50], true, show_line=false)
         baseCoverAssembly(cf=false);

@@ -142,31 +142,50 @@ rpi_camera_zero = ["rpi_camera_zero", "Raspberry Pi Zero camera", rpi_camera_zer
 
 
 //!1. Place the cork damper on the stepper motor and bolt the motor to the frame.
-//! Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
-//! Note orientation of the JST connector.
+//!Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
+//!Note orientation of the JST connector.
 //!2. Secure the motor wires with zip ties.
-//!3. Bolt the two front idler pulleys with washers to the frame.
+//!3. Bolt the front idler pulleys with washers to the frame.
 //!4. Attach the wires to the switch and bolt the **Switch_Shroud** to the left face.
+//
 module Left_Face_assembly(camera=false, fov_distance=0) pose(a=[55, 0, 25 + 50])
 assembly("Left_Face", big=true) {
 
     stl_colour(pp1_colour)
         leftFaceAssembly();
-    if (_useReversedBelts) {
-        stl_colour(pp2_colour)
-            XY_Motor_Mount_Brace_Left_stl();
-        XY_Motor_Mount_RB_hardware(xyMotorType(), left=true);
-        coreXYPosBL = coreXYPosBL(_xyNEMA_width, carriageType(_yCarriageDescriptor));
-        rotate([90, 0, 90])
-            XY_IdlerBracketHardware(coreXYPosBL, reversedBelts=true, left=true);
-    } else {
-        leftFaceHardware(xyMotorType());
-    }
+    leftFaceHardware(xyMotorType());
     if (_useFrontSwitch) {
         explode([25, 0, 0])
             Switch_Shroud_assembly();
         Switch_Shroud_bolts();
     }
+    if (camera) {
+        cameraType = rpi_camera_zero;
+        cameraPCBSize = pcb_size(camera_pcb(cameraType));
+        translate([eSizeX + cameraPCBSize.x/2, 3, 145])
+            rotate([-90, 0, -45])
+                translate_z(5)
+                camera(cameraType, fov=[160, 160], fov_distance=fov_distance);
+    }
+}
+
+//!1. Place the cork damper on the stepper motor and bolt the motor to the frame.
+//!Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
+//!Note orientation of the JST connector.
+//!2. Secure the motor wires with zip ties.
+//!3. Bolt the front idler **F623** bearings with washers to the frame.
+//
+module Left_Face_RB_assembly(camera=false, fov_distance=0) pose(a=[55, 0, 25 + 50])
+assembly("Left_Face_RB", big=true) {
+
+    stl_colour(pp1_colour)
+        leftFaceAssembly();
+    stl_colour(pp2_colour)
+        XY_Motor_Mount_Brace_Left_stl();
+    XY_Motor_Mount_RB_hardware(xyMotorType(), left=true);
+    coreXYPosBL = coreXYPosBL(_xyNEMA_width, carriageType(_yCarriageDescriptor));
+    rotate([90, 0, 90])
+        XY_IdlerBracketHardware(coreXYPosBL, reversedBelts=true, left=true);
     if (camera) {
         cameraType = rpi_camera_zero;
         cameraPCBSize = pcb_size(camera_pcb(cameraType));
