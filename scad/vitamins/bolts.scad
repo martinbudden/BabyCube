@@ -85,7 +85,7 @@ module boltHoleM3Countersunk(length, horizontal=false, rotate=0) {
         // cut the countersink
         translate_z(length)
             hflip()
-                boltHoleM3(length, horizontal=true, rotate=rotate, chamfer=3.2, chamfer_both_ends=false);
+                boltHoleM3(length, horizontal=true, rotate=-rotate, chamfer=3.2, chamfer_both_ends=false);
     } else {
         translate_z(-eps)
             vflip()
