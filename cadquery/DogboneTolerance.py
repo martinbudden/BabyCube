@@ -13,9 +13,8 @@ def dogboneTolerance(
     cuttingRadius: float = 1.5,
     kerf: float = 0,
 ):
-    kerf2 = lsrCuttingRadius / 2
+    kerf2 = lsrCuttingRadius / 2 # for test holes with kerf use this kerf
 
-    #range(start, end, step)
     leftDogbones = [(-sizeX/2, i) for i in range(-40, 40 + 1, 40)]
     rightDogbones = [(sizeX/2, i) for i in range(-40, 40 + 1, 40)]
     topDogbones = [(i, sizeY/2) for i in range(-60, 60 + 1, 40)]
@@ -41,7 +40,7 @@ def dogboneTolerance(
 
 
     # t0 on right side
-    t0 = 0.025*10
+    t0 = 0.025
     # t1 on bottom
     t1 = 0.050
     # t2 on left side
@@ -64,12 +63,7 @@ def dogboneTolerance(
     return result
 
 
-dxf = (
-    cq.importers.importDXF("../tests/DogboneToleranceCNC.dxf")
-    .wires()
-    .toPending()
-    .extrude(sizeZ)
-)
+#dxf = (cq.importers.importDXF("../tests/DogboneToleranceCNC.dxf").wires().toPending().extrude(sizeZ))
 
 dogboneToleranceCNC  = dogboneTolerance(120, 80, sizeZ, cncCuttingRadius, cncKerf)
 #dogboneToleranceLSR  = dogboneTolerance(120, 80, sizeZ, lsrCuttingRadius, lsrKerf)
