@@ -7,8 +7,8 @@ include <NopSCADlib/vitamins/sheets.scad>
 include <../scad/utils/cutouts.scad>
 
 module cutouts(size, toolType=CNC) {
-    cuttingRadius = toolType == P3D ? 0 : toolType == CNC ? dogBoneCNCBitRadius : dogBoneWJRadius;
-    kerf = toolType == LSR ? lsrKerf : toolType == WJ ? wjKerf : 0;
+    cuttingRadius = cuttingRadius(toolType);
+    kerf = kerf(toolType);
 
     t0 = 0.025;
     t1 = 0.050;
