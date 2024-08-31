@@ -17,4 +17,5 @@ _zRodOffsetY = 23
 _zLeadScrewDiameter = 8
 
 M3_clearance_radius = 3.3 / 2
+M4_clearance_radius = 2.2
 M5_clearance_radius = 5.3 / 2

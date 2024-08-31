@@ -10,7 +10,7 @@ from stepper_motors import NEMA17_40, NEMA_boss_radius, NEMA_hole_pitch
 
 from constants import fittingTolerance, cncKerf, cncCuttingRadius, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
 from constants import backPlateThickness, sizeZ
-from constants import M3_clearance_radius
+from constants import M3_clearance_radius, M4_clearance_radius
 
 
 def rightFace(
@@ -57,7 +57,7 @@ def rightFace(
     result = (
         result
         .pushPoints([(iecPosition[0], iecPosition[1] + y) for y in [-20, 20]])
-        .circle(M3_clearance_radius - kerf/2)
+        .circle(M4_clearance_radius - kerf/2)
     )
     result = (
         result.extrude(sizeZ)
