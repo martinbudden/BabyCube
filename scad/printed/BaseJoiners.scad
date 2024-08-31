@@ -5,6 +5,7 @@ use <NopSCADlib/utils/fillet.scad>
 
 include <../vitamins/bolts.scad>
 include <../utils/HolePositions.scad>
+use <../utils/translateRotate.scad>
 include <../config/Parameters_Main.scad>
 
 function baceCoverCenterHolePosY() = 144.5;
@@ -149,6 +150,13 @@ module baseCover(baceCoverCenterHolePosY, cf=true) {
                 }
             }
         }// end union
+        cutoutSize = [10, 3 + 2*eps, eSizeZ + eps];
+        translate([size.x/2 + sizeCenterPillar.x/2, -size.y - eps, baseCoverOutsideHeight - cutoutSize.z + eps]) {
+            cube(cutoutSize + [0, 2, 0]);
+            for (v = [ [0, 0, 0, 90], [cutoutSize.x, 0, 0, 0], [cutoutSize.x, cutoutSize.y, 0, -90] ])
+                translate_r(v)
+                    fillet(1, cutoutSize.z);
+        }
         for (x = [cf ? _sidePlateThickness + 3.5 : 7, size.x - (cf ? _sidePlateThickness + 3.5 : 7)])
             translate([x, -3*eSizeY/2 - (cf ? _frontPlateCFThickness : 0), 0])
                 boltHoleM3(size.z);
