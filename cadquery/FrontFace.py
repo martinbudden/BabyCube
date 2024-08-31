@@ -1,6 +1,6 @@
 import cadquery as cq
-from typing import (TypeVar)
-T = TypeVar("T", bound="Workplane")
+
+from TypeDefinitions import T, Point3D
 
 import dogboneT
 from exports import exports
@@ -19,14 +19,16 @@ def frontFace(
     kerf: float = 0,
 ) -> T:
 
-    baseHoles = [(x, 5 - sizeY/2) for x in [65 - sizeX/2, sizeX/2 - 65]]
-    topHoles = [(x, sizeY/2 - 8) for x in [25, -25]]
-    idlerHoles = [(x, sizeY/2 - 15.5) for x in [30 - sizeX/2, sizeX/2 - 30]]
-    sideHoles = [(x, y) for x in [6.5 - sizeX/2, sizeX/2 - 6.5] for y in [30 - sizeY/2, sizeY/2 - 60]]
+    size = Point3D(sizeX, sizeY, sizeZ)
+
+    baseHoles = [(x, 5 - size.y/2) for x in [65 - size.x/2, size.x/2 - 65]]
+    topHoles = [(x, size.y/2 - 8) for x in [25, -25]]
+    idlerHoles = [(x, size.y/2 - 15.5) for x in [30 - size.x/2, size.x/2 - 30]]
+    sideHoles = [(x, y) for x in [6.5 - size.x/2, size.x/2 - 6.5] for y in [30 - size.y/2, size.y/2 - 60]]
 
     result = (
         self
-        .rect(sizeX, sizeY)
+        .rect(size.x, size.y)
         .pushPoints(baseHoles)
         .circle(M3_clearance_radius - kerf/2)
         .pushPoints(topHoles)
@@ -35,33 +37,34 @@ def frontFace(
         .circle(M3_clearance_radius - kerf/2)
         .pushPoints(sideHoles)
         .circle(M3_clearance_radius - kerf/2)
+        .moveTo(0, 7.5)
     )
 
-    result = result.extrude(sizeZ)
+    result = result.extrude(size.z)
 
     result = (
         result
         .moveTo(0, 7.5)
-        .sketch().rect(sizeX - 52, sizeY - 75)
+        .sketch().rect(size.x - 52, size.y - 75)
         .vertices()
         .fillet(3)
         .finalize()
         .cutThruAll()
     )
 
-    leftDogbones = [(-sizeX/2, i - sizeY/2) for i in range(50, 210 + 1, 40)]
-    rightDogbones = [(sizeX/2, i - sizeY/2) for i in range(50, 210 + 1, 40)]
-    topDogbones = [(i - sizeX/2, sizeY/2) for i in range(30, 190 + 1, 40)]
+    leftDogbones = [(-size.x/2, i - size.y/2) for i in range(50, 210 + 1, 40)]
+    rightDogbones = [(size.x/2, i - size.y/2) for i in range(50, 210 + 1, 40)]
+    topDogbones = [(i - size.x/2, size.y/2) for i in range(30, 190 + 1, 40)]
 
     result = (
         result
         .pushPoints(rightDogbones)
         .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
-        .moveTo(-sizeX/2, -sizeY/2)
+        .moveTo(-size.x/2, -size.y/2)
         .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
         .pushPoints(leftDogbones)
         .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
-        .moveTo(sizeX/2, -sizeY/2)
+        .moveTo(size.x/2, -size.y/2)
         .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
         .pushPoints(topDogbones)
         .dogboneT(20, 6, cuttingRadius, 0, dogboneTolerance).cutThruAll()
@@ -70,7 +73,7 @@ def frontFace(
     return result
 
 
-dxf = (cq.importers.importDXF("../BC220CF/dxfs/Front_Face_x220_z210.dxf").wires().toPending().extrude(sizeZ))
+#dxf = (cq.importers.importDXF("../BC220CF/dxfs/Front_Face_x220_z210.dxf").wires().toPending().extrude(sizeZ))
 
 frontFaceCNC = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
 #frontFaceLSR = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)

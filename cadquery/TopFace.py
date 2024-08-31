@@ -1,6 +1,6 @@
 import cadquery as cq
-from typing import (TypeVar)
-T = TypeVar("T", bound="Workplane")
+
+from TypeDefinitions import T, Point3D
 
 import dogboneT
 import TopFaceWiringCutout
@@ -20,17 +20,23 @@ def topFace(
     kerf: float = 0,
 ) -> T:
 
-    sideHoles = [(x, y) for x in [5.25 - sizeX/2, sizeX/2 - 5.25] for y in [30 - sizeY/2, -backPlateThickness/2]]
-    backHoles = [(x, sizeY/2 - 5.5) for x in [30 - sizeX/2, sizeX/2 - 30]]
-    frontHoles = [(x, 8 - sizeY/2) for x in [15, -15]]
-    idlerHoles = [(x, 8 - sizeY/2) for x in [25 - sizeX/2, sizeX/2 - 25]]
-    motorHoles = [(x, sizeY/2 - 30 - backPlateThickness) for x in [5.5 - sizeX/2, sizeX/2 - 5.5]]
-    railHoles = [(x, y - sizeY/2) for x in [18.5 - sizeX/2, sizeX/2 - 18.5] for y in range(24, 200, 40)]
-    zRodHoles = [(x, sizeY/2 - _zRodOffsetY - backPlateThickness) for x in [-_zRodSeparation/2, _zRodSeparation/2]]
+    size = Point3D(sizeX, sizeY, sizeZ)
+
+    sideHoles = [(x, y) for x in [5.25 - size.x/2, size.x/2 - 5.25] for y in [30 - size.y/2, -backPlateThickness/2]]
+    backHoles = [(x, size.y/2 - 5.5) for x in [30 - size.x/2, size.x/2 - 30]]
+    frontHoles = [(x, 8 - size.y/2) for x in [15, -15]]
+    idlerHoles = [(x, 8 - size.y/2) for x in [25 - size.x/2, size.x/2 - 25]]
+    motorHoles = [(x, size.y/2 - 30 - backPlateThickness) for x in [5.5 - size.x/2, size.x/2 - 5.5]]
+    railHoles = [(x, y - size.y/2) for x in [18.5 - size.x/2, size.x/2 - 18.5] for y in range(24, 200, 40)]
+    zRodHoles = [(x, size.y/2 - _zRodOffsetY - backPlateThickness) for x in [-_zRodSeparation/2, _zRodSeparation/2]]
 
     result = (
         self
-        .rect(sizeX, sizeY)
+        .rect(size.x, size.y)
+    )
+
+    result = (
+        result
         .pushPoints(sideHoles)
         .circle(M3_clearance_radius - kerf/2)
         .pushPoints(railHoles)
@@ -43,33 +49,33 @@ def topFace(
         .circle(M3_clearance_radius - kerf/2)
         .pushPoints(motorHoles)
         .circle(M3_clearance_radius - kerf/2)
-        .moveTo(0, sizeY/2 - 7)
+        .moveTo(0, size.y/2 - 7)
         .circle(M3_clearance_radius - kerf/2)
-        .moveTo(0, sizeY/2 - _zRodOffsetY - backPlateThickness)
+        .moveTo(0, size.y/2 - _zRodOffsetY - backPlateThickness)
         .circle(_zLeadScrewDiameter/2 + 1 - kerf/2)
         .pushPoints(zRodHoles)
         .circle(_zRodDiameter/2 + 0.5 - kerf/2)
     )
 
-    result = result.extrude(sizeZ)
+    result = result.extrude(size.z)
 
     result = (
         result
         .moveTo(0, -14)
-        .sketch().rect(sizeX - 56, sizeY - 55)
+        .sketch().rect(size.x - 56, size.y - 55)
         .vertices()
         .fillet(4)
         .finalize()
         .cutThruAll()
     )
 
-    result = result.moveTo(65, sizeY/2 - 41.5).wiringCutout().cutThruAll()
+    result = result.moveTo(65, size.y/2 - 41.5).wiringCutout().cutThruAll()
 
-    leftDogbones = [(-sizeX/2, i - sizeY/2) for i in range(50, 190, 40)]
-    rightDogbones = [(sizeX/2, i - sizeY/2) for i in range(50, 190, 40)]
-    frontDogbones = [(i - sizeX/2, -sizeY/2) for i in range(10, sizeY, 40)]
-    backDogbones = [(i - sizeX/2, sizeY/2) for i in range(10, sizeY, 40)]
-    cornerDogbones = [(x, y) for x in [-sizeX/2, sizeX/2] for y in [-sizeY/2, sizeY/2 - backPlateThickness]]
+    leftDogbones = [(-size.x/2, i - size.y/2) for i in range(50, 190, 40)]
+    rightDogbones = [(size.x/2, i - size.y/2) for i in range(50, 190, 40)]
+    frontDogbones = [(i - size.x/2, -size.y/2) for i in range(10, size.y, 40)]
+    backDogbones = [(i - size.x/2, size.y/2) for i in range(10, size.y, 40)]
+    cornerDogbones = [(x, y) for x in [-size.x/2, size.x/2] for y in [-size.y/2, size.y/2 - backPlateThickness]]
 
     result = (
         result

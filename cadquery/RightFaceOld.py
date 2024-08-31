@@ -1,6 +1,6 @@
 import cadquery as cq
-
-from TypeDefinitions import T, Point2D, Point3D
+from typing import (TypeVar)
+T = TypeVar("T", bound="Workplane")
 
 import dogboneT
 from exports import exports
@@ -23,14 +23,12 @@ def rightFace(
     kerf: float = 0,
 ) -> T:
 
-    size = Point3D(sizeX, sizeY, sizeZ)
-
-    result = leftFaceHoles(self, size.x, size.y, kerf, grill=False)
+    result = leftFaceHoles(self, sizeX, sizeY, kerf, grill=False)
 
     fan = fan30x10
     result = (
         result
-        .moveTo(68 - size.x/2, 25 - size.y/2)
+        .moveTo(68 - sizeX/2, 25 - sizeY/2)
         .circle(fan_bore(fan)/2 - 0.5)
         .rect(2*fan_hole_pitch(fan), 2*fan_hole_pitch(fan), forConstruction=True)
         .vertices()
@@ -40,7 +38,7 @@ def rightFace(
     motor = NEMA17_40
     result = (
         result
-        .moveTo(size.x/2 - 75, size.y/2 - 73)
+        .moveTo(sizeX/2 - 75, sizeY/2 - 73)
         .circle(NEMA_boss_radius(motor) + 0.25)
         .rect(NEMA_hole_pitch(motor), NEMA_hole_pitch(motor), forConstruction=True)
         .vertices()
@@ -50,31 +48,30 @@ def rightFace(
     # spool holder
     result = (
         result
-        .pushPoints([(x - size.x/2, size.y/2 - 80) for x in [8, 45]])
+        .pushPoints([(x - sizeX/2, sizeY/2 - 80) for x in [8, 45]])
         .circle(M3_clearance_radius - kerf/2)
     )
 
     # ICE
-    iecPosition = Point2D(175.5 - size.x/2, 33 - size.y/2)
+    iecPosition = (175.5 - sizeX/2, 33 - sizeY/2)
     result = (
         result
-        .pushPoints([(iecPosition.x, iecPosition.y + y) for y in [-20, 20]])
+        .pushPoints([(iecPosition[0], iecPosition[1] + y) for y in [-20, 20]])
         .circle(M4_clearance_radius - kerf/2)
     )
-    iecCutoutSize = Point2D(48, 30)
     result = (
-        result.extrude(size.z)
-        .moveTo(iecPosition.x, iecPosition.y)
-        .sketch().rect(iecCutoutSize.x, iecCutoutSize.y)
+        result.extrude(sizeZ)
+        .moveTo(iecPosition[0], iecPosition[1])
+        .sketch().rect(48, 30)
         .vertices()
         .fillet(5)
         .finalize()
         .cutThruAll()
     )
 
-    leftDogbones = [(-size.x/2, i - size.y/2) for i in range(30, 210 + 1, 40)]
-    rightDogbones = [(size.x/2, i - size.y/2) for i in range(30, 210 + 1, 40)]
-    topDogbones = [(i - size.x/2, size.y/2) for i in range(30, 190 + 1, 40)]
+    leftDogbones = [(-sizeX/2, i - sizeY/2) for i in range(30, 210 + 1, 40)]
+    rightDogbones = [(sizeX/2, i - sizeY/2) for i in range(30, 210 + 1, 40)]
+    topDogbones = [(i - sizeX/2, sizeY/2) for i in range(30, 190 + 1, 40)]
 
     result = (
         result

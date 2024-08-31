@@ -1,6 +1,7 @@
 import cadquery as cq
-from typing import (TypeVar)
-T = TypeVar("T", bound="Workplane")
+
+from TypeDefinitions import T, Point3D
+
 
 import dogboneT
 from exports import exports
@@ -19,27 +20,29 @@ def backFace(
     kerf: float = 0,
 ) -> T:
 
+    size = Point3D(sizeX, sizeY, sizeZ)
+
     kerf2 = kerf/2
 
     sk_sizeZ = 14
     sk_screw_separation = 32
-    zRodOffsetX = (sizeX - _zRodSeparation)/2;
-    skBracketHoles = [(zRodOffsetX + x + s -sizeX/2, -sizeY/2 + y) for x in [0, _zRodSeparation] for s in [-sk_screw_separation/2, sk_screw_separation/2] for y in [sk_sizeZ/2 + 7, sizeY - sk_sizeZ/2 - 3]]
+    zRodOffsetX = (size.x - _zRodSeparation)/2;
+    skBracketHoles = [(zRodOffsetX + x + s -size.x/2, -size.y/2 + y) for x in [0, _zRodSeparation] for s in [-sk_screw_separation/2, sk_screw_separation/2] for y in [sk_sizeZ/2 + 7, size.y - sk_sizeZ/2 - 3]]
 
     eSizeZ = 10
     topPlateThickness = 3
-    topHoles = [(x, sizeY/2 - topPlateThickness - eSizeZ/2) for x in [-15, 15]]
+    topHoles = [(x, size.y/2 - topPlateThickness - eSizeZ/2) for x in [-15, 15]]
 
-    zMotorMountHoles = [(132.25 - sizeX/2, 39.5 - sizeY/2), (87.75 - sizeX/2, 39.5 - sizeY/2)]
-    backFaceCFSideHoles = [(x, y - sizeY/2) for x in [8 - sizeX/2, sizeX/2 - 8] for y in [30, 110]]
-    backFaceBracketHoles = [(30 - sizeX/2, 15 - sizeY/2), (sizeX/2 - 30, 15 - sizeY/2)]
-    backFaceHoles = [(8 - sizeX/2, 6 - sizeY/2),(sizeX/2 - 8, 6 - sizeY/2)]
+    zMotorMountHoles = [(132.25 - size.x/2, 39.5 - size.y/2), (87.75 - size.x/2, 39.5 - size.y/2)]
+    backFaceCFSideHoles = [(x, y - size.y/2) for x in [8 - size.x/2, size.x/2 - 8] for y in [30, 110]]
+    backFaceBracketHoles = [(30 - size.x/2, 15 - size.y/2), (size.x/2 - 30, 15 - size.y/2)]
+    backFaceHoles = [(8 - size.x/2, 6 - size.y/2),(size.x/2 - 8, 6 - size.y/2)]
 
-    xyMotorMountBackHoles = [(8 - sizeX/2, sizeY/2 - 8), (sizeX/2 - 8, sizeY/2 - 8), (37 - sizeX/2, sizeY/2 - 43.5), (sizeX/2 - 37, sizeY/2 - 43.5)]
+    xyMotorMountBackHoles = [(8 - size.x/2, size.y/2 - 8), (size.x/2 - 8, size.y/2 - 8), (37 - size.x/2, size.y/2 - 43.5), (size.x/2 - 37, size.y/2 - 43.5)]
 
     result = (
         self
-        .rect(sizeX, sizeY)
+        .rect(size.x, size.y)
         .pushPoints(skBracketHoles)
         .circle(M5_clearance_radius - kerf2)
         .pushPoints(topHoles)
@@ -58,20 +61,20 @@ def backFace(
 
 
     #range(start, end, step)
-    leftDogbones = [(-sizeX/2, i - sizeY/2) for i in range(50, 210 + 1, 40)]
-    rightDogbones = [(sizeX/2, i - sizeY/2) for i in range(50, 210 + 1, 40)]
-    topDogbones = [(i - sizeX/2, sizeY/2) for i in range(30, 190 + 1, 40)]
+    leftDogbones = [(-size.x/2, i - size.y/2) for i in range(50, 210 + 1, 40)]
+    rightDogbones = [(size.x/2, i - size.y/2) for i in range(50, 210 + 1, 40)]
+    topDogbones = [(i - size.x/2, size.y/2) for i in range(30, 190 + 1, 40)]
 
     result = (
         result
         .extrude(sizeZ)
         .pushPoints(rightDogbones)
         .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
-        .moveTo(-sizeX/2, -sizeY/2)
+        .moveTo(-size.x/2, -size.y/2)
         .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
         .pushPoints(leftDogbones)
         .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
-        .moveTo(sizeX/2, -sizeY/2)
+        .moveTo(size.x/2, -size.y/2)
         .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
         .pushPoints(topDogbones)
         .dogboneT(20, 6, cuttingRadius, 0, dogboneTolerance).cutThruAll()

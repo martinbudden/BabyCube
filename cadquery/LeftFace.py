@@ -1,6 +1,6 @@
 import cadquery as cq
-from typing import (TypeVar)
-T = TypeVar("T", bound="Workplane")
+
+from TypeDefinitions import T, Point2D, Point3D
 
 import dogboneT
 from exports import exports
@@ -17,19 +17,21 @@ def leftFaceHoles(
     grill: bool = True
 ) -> T:
 
-    baseHoles = [(x, 5 - sizeY/2) for x in [10 - sizeX/2, 76.5 - sizeX/2, sizeX/2 - 79.5, sizeX/2 - 13]]
-    topHoles = [(x, sizeY/2 - 7) for x in [50 - sizeX/2, 90 - sizeX/2, 130 - sizeX/2]]
-    frontHoles = [(8 - sizeX/2, 50 - sizeY/2)]
-    idlerHoles = [(8 - sizeX/2, sizeY/2 - 44), (10 - sizeX/2, sizeY/2 - 15.5)]
-    backHoles = [(sizeX/2 - 8, 50 - sizeY/2), (sizeX/2 - 8, 90 - sizeY/2)]
-    motorHoles = [(sizeX/2 - 15, sizeY/2 - 18), (sizeX/2 - 38, sizeY/2 - 43.5)]
+    size = Point2D(sizeX, sizeY)
 
-    grillHoles = [(55.3 + x*8.5 - sizeX/2, y - sizeY/2) for x in range(0, 4) for y in range(15, 40, 5)]
-    grillHoles2 = [(55.3 + 8.5/2 + x*8.5 - sizeX/2, y+2.5 - sizeY/2) for x in range(0, 3) for y in range(15, 35, 5)]
+    baseHoles = [(x, 5 - size.y/2) for x in [10 - sizeX/2, 76.5 - size.x/2, size.x/2 - 79.5, size.x/2 - 13]]
+    topHoles = [(x, size.y/2 - 7) for x in [50 - size.x/2, 90 - size.x/2, 130 - size.x/2]]
+    frontHoles = [(8 - size.x/2, 50 - size.y/2)]
+    idlerHoles = [(8 - size.x/2, size.y/2 - 44), (10 - size.x/2, size.y/2 - 15.5)]
+    backHoles = [(size.x/2 - 8, 50 - size.y/2), (size.x/2 - 8, 90 - size.y/2)]
+    motorHoles = [(size.x/2 - 15, size.y/2 - 18), (size.x/2 - 38, size.y/2 - 43.5)]
+
+    grillHoles = [(55.3 + x*8.5 - size.x/2, y - size.y/2) for x in range(0, 4) for y in range(15, 40, 5)]
+    grillHoles2 = [(55.3 + 8.5/2 + x*8.5 - size.x/2, y+2.5 - size.y/2) for x in range(0, 3) for y in range(15, 35, 5)]
 
     result = (
         self
-        .rect(sizeX, sizeY)
+        .rect(size.x, size.y)
         .pushPoints(baseHoles)
         .circle(M3_clearance_radius - kerf/2)
         .pushPoints(topHoles)
@@ -65,15 +67,16 @@ def leftFace(
     kerf: float = 0,
 ) -> T:
 
-    result = leftFaceHoles(self, sizeX, sizeY, kerf)
+    size = Point3D(sizeX, sizeY, sizeZ)
 
-    #range(start, end, step)
-    leftDogbones = [(-sizeX/2, i - sizeY/2) for i in range(30, 210 + 1, 40)]
-    rightDogbones = [(sizeX/2, i - sizeY/2) for i in range(30, 210 + 1, 40)]
-    topDogbones = [(i - sizeX/2, sizeY/2) for i in range(30, 190 + 1, 40)]
+    result = leftFaceHoles(self, size.x, size.y, kerf)
+
+    leftDogbones = [(-size.x/2, i - size.y/2) for i in range(30, 210 + 1, 40)]
+    rightDogbones = [(size.x/2, i - size.y/2) for i in range(30, 210 + 1, 40)]
+    topDogbones = [(i - size.x/2, size.y/2) for i in range(30, 190 + 1, 40)]
 
     result = (
-        result.extrude(sizeZ)
+        result.extrude(size.z)
         .pushPoints(rightDogbones)
         .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
         .pushPoints(leftDogbones)
