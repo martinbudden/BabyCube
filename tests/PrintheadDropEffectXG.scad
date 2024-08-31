@@ -7,6 +7,7 @@ include <NopSCADlib/utils/core/core.scad>
 include <../scad/utils/carriageTypes.scad>
 
 use <../scad/printed/BackFace.scad> // for zipTiePositions()
+//use <../scad/printed/LeftAndRightFaces.scad> // for extruderPosition()
 use <../scad/printed/PrintheadExtras.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/PrintheadAssembliesE3DRevo.scad>
@@ -49,7 +50,7 @@ module Printhead_test() {
         //printheadHotendSideE3DV6(halfCarriage=false, noPrinthead=!true, boltLength=0);
         //CoreXYBelts(carriagePosition);
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
-        //bowdenTube("DropEffectXG", carriagePosition);
+        //bowdenTube("DropEffectXG", carriagePosition, extruderPosition(_xyNEMA_width));
         //printheadWiring("DropEffectXG", carriagePosition,  backFaceZipTiePositions());
     }
     //X_Carriage_assembly();

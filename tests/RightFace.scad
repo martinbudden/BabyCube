@@ -28,7 +28,7 @@ module Right_Face_test() {
     //CoreXYBelts(carriagePosition);
     //translate_z(4) Right_Face_CF();
     //rotate([0, 180, 0]) rightFace(NEMA14T(), fullyEnclosed=true, fan=true);
-    //Right_Face_stl();
+    //if (_useReversedBelts) Right_Face_y220_z210_stl(); else Right_Face_stl();
 
     if (_useCNC) {
         Right_Face_CF_assembly();
@@ -42,7 +42,7 @@ module Right_Face_test() {
     //faceRightSpoolHolder(cf=_useCNC);
     //faceRightSpool(cf=_useCNC);
     //echo(ep=extruderPosition(_xyNEMA_width));
-    //bowdenTube("E3DRevo", carriagePosition);
+    //bowdenTube("E3DRevo", carriagePosition, extruderPosition(_xyNEMA_width));
     //Right_Face_NEMA_17_stl();
 
     //Right_Face_Stage_1_assembly();

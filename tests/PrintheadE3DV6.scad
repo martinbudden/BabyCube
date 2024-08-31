@@ -10,6 +10,7 @@ include <NopSCADlib/vitamins/blowers.scad>
 
 use <../scad/printed/BackFace.scad> // for zipTiePositions()
 use <../scad/printed/Base.scad>
+//use <../scad/printed/LeftAndRightFaces.scad> // for extruderPosition()
 use <../scad/printed/PrintheadExtras.scad>
 use <../scad/printed/PrintheadAssemblies.scad>
 use <../scad/printed/PrintheadAssembliesE3DV6.scad>
@@ -46,7 +47,7 @@ module Printhead_test() {
             rightDrivePulleyOffset=rightDrivePulleyOffset(reversedBelts),
             plainIdlerPulleyOffset=plainIdlerPulleyOffset(reversedBelts));
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
-        //bowdenTube("E3DV6", carriagePosition);
+        //bowdenTube("E3DV6", carriagePosition, extruderPosition(_xyNEMA_width));
         //printheadWiring("E3DV6", carriagePosition, backFaceZipTiePositions());
         //Back_Face_assembly();
     }
