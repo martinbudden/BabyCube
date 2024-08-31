@@ -1,6 +1,6 @@
 import cadquery as cq
 
-from TypeDefinitions import T, Point3D
+from TypeDefinitions import T, Point2D, Point3D
 
 import dogboneT
 from exports import exports
@@ -21,14 +21,19 @@ def frontFace(
 
     size = Point3D(sizeX, sizeY, sizeZ)
 
-    baseHoles = [(x, 5 - size.y/2) for x in [65 - size.x/2, size.x/2 - 65]]
-    topHoles = [(x, size.y/2 - 8) for x in [25, -25]]
-    idlerHoles = [(x, size.y/2 - 15.5) for x in [30 - size.x/2, size.x/2 - 30]]
-    sideHoles = [(x, y) for x in [6.5 - size.x/2, size.x/2 - 6.5] for y in [30 - size.y/2, size.y/2 - 60]]
-
     result = (
         self
         .rect(size.x, size.y)
+        .center(-size.x/2, -size.y/2) # set origin to bottom left corner of face
+    )
+
+    baseHoles = [(x, 5) for x in [65, size.x - 65]]
+    topHoles = [(x + size.x/2, size.y - 8) for x in [25, -25]]
+    idlerHoles = [(x, size.y - 15.5) for x in [30, size.x - 30]]
+    sideHoles = [(x, y) for x in [6.5, size.x - 6.5] for y in [30, size.y - 60]]
+
+    result = (
+        result
         .pushPoints(baseHoles)
         .circle(M3_clearance_radius - kerf/2)
         .pushPoints(topHoles)
@@ -37,37 +42,42 @@ def frontFace(
         .circle(M3_clearance_radius - kerf/2)
         .pushPoints(sideHoles)
         .circle(M3_clearance_radius - kerf/2)
-        .moveTo(0, 7.5)
     )
 
     result = result.extrude(size.z)
 
+    sideDogbones = [(0, i) for i in range(50, 210 + 1, 40)]
+    topDogbones = [(i, size.y) for i in range(30, 190 + 1, 40)]
+
     result = (
         result
-        .moveTo(0, 7.5)
-        .sketch().rect(size.x - 52, size.y - 75)
+        .pushPoints(sideDogbones)
+        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
+        .moveTo(0, 0)
+        .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
+        .center(size.x, 0)
+        .pushPoints(sideDogbones)
+        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
+        .moveTo(0, 0)
+        .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
+        .center(-size.x, 0)
+        .pushPoints(topDogbones)
+        .dogboneT(20, 6, cuttingRadius, 0, dogboneTolerance).cutThruAll()
+    )
+
+    cutoutBackOffsetY = 30
+    cutoutFrontOffsetY = 45
+    cutoutSize = Point2D(size.x - 52, size.y - cutoutBackOffsetY - cutoutFrontOffsetY)
+
+    result = (
+        result.faces(">Z")
+        .moveTo(size.x/2, cutoutSize.y/2 + cutoutFrontOffsetY)
+        .sketch()
+        .rect(cutoutSize.x, cutoutSize.y)
         .vertices()
         .fillet(3)
         .finalize()
         .cutThruAll()
-    )
-
-    leftDogbones = [(-size.x/2, i - size.y/2) for i in range(50, 210 + 1, 40)]
-    rightDogbones = [(size.x/2, i - size.y/2) for i in range(50, 210 + 1, 40)]
-    topDogbones = [(i - size.x/2, size.y/2) for i in range(30, 190 + 1, 40)]
-
-    result = (
-        result
-        .pushPoints(rightDogbones)
-        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
-        .moveTo(-size.x/2, -size.y/2)
-        .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
-        .pushPoints(leftDogbones)
-        .dogboneT(20, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
-        .moveTo(size.x/2, -size.y/2)
-        .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
-        .pushPoints(topDogbones)
-        .dogboneT(20, 6, cuttingRadius, 0, dogboneTolerance).cutThruAll()
     )
 
     return result

@@ -1,9 +1,11 @@
 import cadquery as cq
 
+from TypeDefinitions import T, Point3D
+
 import dogboneT
 from exports import exports
 from constants import fittingTolerance, cncKerf, cncCuttingRadius, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
-from constants import backPlateThickness, sizeZ
+from constants import sizeZ
 from constants import M3_clearance_radius
 
 def dogboneTolerance(
@@ -12,32 +14,35 @@ def dogboneTolerance(
     sizeZ: float,
     cuttingRadius: float = 1.5,
     kerf: float = 0,
-):
-    kerf2 = lsrCuttingRadius / 2 # for test holes with kerf use this kerf
+) -> T:
 
-    leftDogbones = [(-sizeX/2, i) for i in range(-40, 40 + 1, 40)]
-    rightDogbones = [(sizeX/2, i) for i in range(-40, 40 + 1, 40)]
-    topDogbones = [(i, sizeY/2) for i in range(-60, 60 + 1, 40)]
-    bottomDogbones = [(i, -sizeY/2) for i in range(-60, 60 + 1, 40)]
-
+    size = Point3D(sizeX, sizeY, sizeZ)
 
     result = (
         cq.Workplane("XY")
-        .rect(sizeX, sizeY)
-        .moveTo(20 - sizeX/2, 60 - sizeY/2)
+        .rect(size.x, size.y)
+        .center(-size.x/2, -size.y/2) # set origin to bottom left corner of rectangle
+    )
+
+    kerf2 = lsrCuttingRadius / 2 # for test holes with kerf use this kerf
+
+    result = (
+        result
+        .moveTo(20, 60)
         .circle(1.5 - kerf2)
-        .moveTo(20 - sizeX/2, 40 - sizeY/2)
+        .moveTo(20, 40)
         .circle(M3_clearance_radius - kerf2)
-        .moveTo(20 - sizeX/2, 20 - sizeY/2)
+        .moveTo(20, 20)
         .circle(2.5 - kerf2)
-        .moveTo(40 - sizeX/2, 20 - sizeY/2)
+        .moveTo(40, 20)
         .circle(1.5)
-        .moveTo(60 - sizeX/2, 20 - sizeY/2)
+        .moveTo(60, 20)
         .circle(M3_clearance_radius)
-        .moveTo(80 - sizeX/2, 20 - sizeY/2)
+        .moveTo(80, 20)
         .circle(2.5)
     )
 
+    result = result.extrude(size.z)
 
     # t0 on right side
     t0 = 0.025
@@ -48,15 +53,28 @@ def dogboneTolerance(
     # t3 on top
     t3 = 0.100
 
+    sideDogbones = [(0, y) for y in range(0, 80 + 1, 40)]
+    topAndBottomDogbones = [(x, 0) for x in range(0, 120 + 1, 40)]
+
     result = (
-        result.extrude(sizeZ)
-        .pushPoints(rightDogbones)
-        .dogboneT(20, 6, cuttingRadius, 90, t0, kerf).cutThruAll()
-        .pushPoints(bottomDogbones)
-        .dogboneT(20, 6, cuttingRadius, 0, t1, kerf).cutThruAll()
-        .pushPoints(leftDogbones)
+        result
+        # left side
+        .pushPoints(sideDogbones)
         .dogboneT(20, 6, cuttingRadius, 90, t2, kerf).cutThruAll()
-        .pushPoints(topDogbones)
+
+        # right side
+        .center(size.x, 0)
+        .pushPoints(sideDogbones)
+        .dogboneT(20, 6, cuttingRadius, 90, t0, kerf).cutThruAll()
+
+        # bottom side
+        .center(-size.x, 0)
+        .pushPoints(topAndBottomDogbones)
+        .dogboneT(20, 6, cuttingRadius, 0, t1, kerf).cutThruAll()
+
+        # tip side
+        .center(0, size.y)
+        .pushPoints(topAndBottomDogbones)
         .dogboneT(20, 6, cuttingRadius, 0, t3, kerf).cutThruAll()
     )
 

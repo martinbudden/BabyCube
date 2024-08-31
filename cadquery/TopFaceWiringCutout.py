@@ -1,9 +1,6 @@
 import cadquery as cq
-from typing import (TypeVar)
-T = TypeVar("T", bound="Workplane")
-from collections import namedtuple
 
-Point2D = namedtuple('Point2D', 'x y')
+from TypeDefinitions import T, Point2D
 
 
 def wiringCutout(
@@ -24,10 +21,10 @@ def wiringCutout(
         .segment((size.x/2 + radius, -size.y/2))
         .arc((size.x/2 + radius, radius - size.y/2), radius, 180, 90.0)
         .assemble(tag="face")
-        .reset() \
-        .rect(size.x, size.y) \
-        .edges(">Y") \
-        .circle(radius) \
+        .reset()
+        .rect(size.x, size.y)
+        .edges(">Y")
+        .circle(radius)
     )
 
     return result.finalize()
