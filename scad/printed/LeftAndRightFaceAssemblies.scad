@@ -165,7 +165,7 @@ assembly("Left_Face", big=true) {
         translate([eSizeX + cameraPCBSize.x/2, 3, 145])
             rotate([-90, 0, -45])
                 translate_z(5)
-                camera(cameraType, fov=[160, 160], fov_distance=fov_distance);
+                    camera(cameraType, fov=[160, 160], fov_distance=fov_distance);
     }
 }
 
@@ -192,7 +192,7 @@ assembly("Left_Face_RB", big=true) {
         translate([eSizeX + cameraPCBSize.x/2, 3, 145])
             rotate([-90, 0, -45])
                 translate_z(5)
-                camera(cameraType, fov=[160, 160], fov_distance=fov_distance);
+                    camera(cameraType, fov=[160, 160], fov_distance=fov_distance);
     }
 }
 
