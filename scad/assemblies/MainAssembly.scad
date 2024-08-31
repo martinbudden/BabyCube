@@ -178,7 +178,7 @@ module FinalAssembly(test) {
                 else
                     printheadHotendSideE3DRevo();
             explode(150)
-                bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0]);
+                bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], extruderPosition(_xyNEMA_width));
             explode([75, 0, 100])
                 faceRightSpoolHolder();
             explode([150, 0, 0])

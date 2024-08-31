@@ -8,18 +8,14 @@ include <../utils/PrintheadOffsets.scad>
 include <../utils/HolePositions.scad>
 include <../vitamins/cables.scad>
 use <../vitamins/extruder.scad> // for extruderBowdenOffset()
-use <../printed/LeftAndRightFaces.scad> // for extruderPosition()
-
-use <X_Carriage.scad>
-use <X_CarriageAssemblies.scad>
 
 include <../config/Parameters_Main.scad>
 
 
-module bowdenTube(hotendDescriptor, carriagePosition, extraZ=120) {
+module bowdenTube(hotendDescriptor, carriagePosition, extruderPosition, extraZ=120) {
     xCarriageType = carriageType(_xCarriageDescriptor);
     color("White")
-        bezierTube(extruderPosition(_xyNEMA_width) + extruderBowdenOffset(), [carriagePosition.x, carriagePosition.y, eZ] + printheadBowdenOffset(hotendDescriptor), vitamin=true, extraZ=extraZ);
+        bezierTube(extruderPosition + extruderBowdenOffset(), [carriagePosition.x, carriagePosition.y, eZ] + printheadBowdenOffset(hotendDescriptor), vitamin=true, extraZ=extraZ);
 }
 
 module printheadWiring(hotendDescriptor, carriagePosition, backFaceZipTiePositions) {

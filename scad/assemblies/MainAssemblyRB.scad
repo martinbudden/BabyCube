@@ -223,7 +223,7 @@ module RB_FinalAssembly(test=false) {
                     boltM3Buttonhead(10);
 
         explode(150)
-            bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0]);
+            bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], extruderPosition(_xyNEMA_width));
 
         explode([75, 0, 100])
             faceRightSpoolHolder();

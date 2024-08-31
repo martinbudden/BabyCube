@@ -212,7 +212,7 @@ module CF_FinalAssembly(test=false) {
         explode(1, true)
             faceRightSpoolHolder(cf=true);
         explode(150)
-            bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0]);
+            bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], extruderPosition(_xyNEMA_width));
         if (!exploded())
             faceRightSpool(cf=true);
     }
@@ -250,7 +250,7 @@ module CF_DebugAssembly() {
         if (!exploded()) {
             printheadWiring(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], backFaceZipTiePositions());
             explode(150)
-                bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0]);
+                bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], extruderPosition(_xyNEMA_width));
         }
     }
 }
