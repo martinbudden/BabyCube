@@ -213,7 +213,7 @@ module rightFaceCNC(NEMA_width, toolType=CNC) {
                     rounded_square(cutoutSize, 5, center=true);
                     for(y = [-iec_pitch(iecType())/2, iec_pitch(iecType())/2])
                         translate([0, y])
-                            circle(r=M3_clearance_radius - kerf2);
+                            circle(r=M4_clearance_radius - kerf2);
                 }
             }
             // fan coutout
@@ -318,10 +318,6 @@ assembly("Right_Face_CF", big=true) {
     rightFaceHardware(xyMotorType(), cnc=true);
     rightFaceAssembly(_xyNEMA_width, zipTies=false);
 
-    explode([-80, 0, 0], show_line=false)
-        IEC_Housing();
-    explode([40, 0, 0], true, show_line=false)
-        IEC_hardware();
     if (!is_undef(fan))
         rightFaceFan(fan, fanOffsetCF);
 }

@@ -324,12 +324,11 @@ module webbingRight(NEMA_type, useIEC=false, fullyEnclosed=false, reversedBelts=
             }
             translate([iecPosition().y, iecPosition().z, 0]) {
                 cutoutSize = [48, 30, iecPanelSize.z + 2*eps];
-                for(y = [-iec_pitch(iecType())/2, iec_pitch(iecType())/2]){
-                    translate_z(-eps)
-                        rounded_cube_xy(cutoutSize, 5, xy_center=true);
+                translate_z(-eps)
+                    rounded_cube_xy(cutoutSize, 5, xy_center=true);
+                for(y = [-iec_pitch(iecType())/2, iec_pitch(iecType())/2])
                     translate([0, y, 0])
-                        boltHoleM3(iecPanelSize.z);
-                }
+                        boltHoleM4(iecPanelSize.z);
             }
         }
 
