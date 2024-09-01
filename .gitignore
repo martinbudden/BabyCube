@@ -56,7 +56,7 @@ PRINTBED120/*.html
 !PRINTBED120/assemblies/main_assembled.png
 !PRINTBED120/assemblies/*.png
 PRINTBED120/assemblies/*_diff.png
-!PRINTBED120/dxfs/*.dxf
+#!PRINTBED120/dxfs/*.dxf
 !PRINTBED120/dxfs/*.png
 PRINTBED120/dxfs/*_diff.png
 !PRINTBED120/stls/*.stl
@@ -139,15 +139,15 @@ BC220/stls/*
 BC220/tmp/
 BC220/*.html
 # change to !, except for _diff, .stl, and .dxf, once released
-BC220/readme.md
-BC220/assemblies/main_assembled.png
-#!BC220/assemblies/*.png
+!BC220/readme.md
+!BC220/assemblies/main_assembled.png
+!BC220/assemblies/*.png
 BC220/assemblies/*_diff.png
 #!BC220/dxfs/*.dxf
-#!BC220/dxfs/*.png
+!BC220/dxfs/*.png
 BC220/dxfs/*_diff.png
 #!BC220/stls/*.stl
-#!BC220/stls/*.png
+!BC220/stls/*.png
 BC220/stls/*_diff.png
 
 BC220CF/assemblies/*
@@ -158,7 +158,7 @@ BC220CF/tmp/
 BC220CF/*.html
 # change to !, except for _diff, .stl, and .dxf, once released
 !BC220CF/readme.md
-#!BC220CF/assemblies/BC220CF_assembly.png
+!BC220CF/assemblies/BC220CF_assembly.png
 !BC220CF/assemblies/BC220CF_assembled.png
 !BC220CF/assemblies/*.png
 BC220CF/assemblies/*_diff.png
