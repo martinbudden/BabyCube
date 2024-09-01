@@ -38,6 +38,9 @@ module Printhead_test() {
     //Printhead_DropEffect_XG_assembly();
     //X_Carriage_DropEffect_XG_stl();
     //DropEffectXG_Fan_Duct_stl();
+    //rotate([-90, 0, 0]) X_Carriage_DropEffect_XG_stl();
+    //X_Carriage_DropEffect_XG_hardware();
+    //xCarriageDropEffectXG_hotend(printheadHotendOffset("DropEffectXG"), fan=false);
 
     //translate_z(50) Printhead_DropEffect_XG_assembly(); // clearance of 50-46=4 from bottome of xCarriage
     //translate([50, 0, 50]) Printhead_E3DRevo_assembly(); // clearance of 2.8 from bottom of xCarriage
