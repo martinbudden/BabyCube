@@ -18,9 +18,9 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 1. [Parts list](#Parts_list)
 1. [Printhead_DropEffect_XG assembly](#Printhead_DropEffect_XG_assembly)
 1. [X_Carriage_Belt_Side_MGN9C_RB assembly](#X_Carriage_Belt_Side_MGN9C_RB_assembly)
-1. [Left_Face assembly](#Left_Face_assembly)
+1. [Left_Face_RB assembly](#Left_Face_RB_assembly)
 1. [Top_Face_Stage_1 assembly](#Top_Face_Stage_1_assembly)
-1. [Top_Face_Stage_2 assembly](#Top_Face_Stage_2_assembly)
+1. [Top_Face_Stage_2_RB assembly](#Top_Face_Stage_2_RB_assembly)
 1. [Top_Face assembly](#Top_Face_assembly)
 1. [Print_bed_3_point_printed_Stage_1 assembly](#Print_bed_3_point_printed_Stage_1_assembly)
 1. [Print_bed_3_point_printed assembly](#Print_bed_3_point_printed_assembly)
@@ -45,7 +45,7 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 
 ## Parts list
 
-| <span style="writing-mode: vertical-rl; text-orientation: mixed;">Printhead DropEffect XG</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">X Carriage Belt Side MGN9C RB</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Left Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Top Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed 3 Point Printed</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Back Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Right Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Base</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">BC220</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">TOTALS</span> |  |
+| <span style="writing-mode: vertical-rl; text-orientation: mixed;">Printhead DropEffect XG</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">X Carriage Belt Side MGN9C RB</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Left Face RB</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Top Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Print Bed 3 Point Printed</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Back Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Right Face</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">Base</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">BC220</span> | <span style="writing-mode: vertical-rl; text-orientation: mixed;">TOTALS</span> |  |
 |-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|------:|:-------------|
 |      |      |      |      |      |      |      |      |      |       | **Vitamins** |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |    1  |  Aluminium box section 12mm x 8mm x 1mm, length 85mm |
@@ -216,9 +216,9 @@ Note: for clarity, only a segment of the belts are shown in this diagram.
 [Top](#TOP)
 
 ---
-<a name="Left_Face_assembly"></a>
+<a name="Left_Face_RB_assembly"></a>
 
-## Left_Face assembly
+## Left_Face_RB assembly
 
 ### Vitamins
 
@@ -242,16 +242,15 @@ Note: for clarity, only a segment of the belts are shown in this diagram.
 
 ### Assembly instructions
 
-![Left_Face_assembly](assemblies/Left_Face_assembly.png)
+![Left_Face_RB_assembly](assemblies/Left_Face_RB_assembly.png)
 
 1. Place the cork damper on the stepper motor and bolt the motor to the frame.
 Note the cork damper is important as it provides thermal insulation between the stepper motor and the frame.
 Note orientation of the JST connector.
 2. Secure the motor wires with zip ties.
-3. Bolt the two front idler pulleys with washers to the frame.
-4. Attach the wires to the switch and bolt the **Switch_Shroud** to the left face.
+3. Bolt the front idler **F623** bearings with washers to the frame.
 
-![Left_Face_assembled](assemblies/Left_Face_assembled.png)
+![Left_Face_RB_assembled](assemblies/Left_Face_RB_assembled.png)
 
 <span></span>
 [Top](#TOP)
@@ -292,9 +291,9 @@ is aligned when the X axis rail is added.
 [Top](#TOP)
 
 ---
-<a name="Top_Face_Stage_2_assembly"></a>
+<a name="Top_Face_Stage_2_RB_assembly"></a>
 
-## Top_Face_Stage_2 assembly
+## Top_Face_Stage_2_RB assembly
 
 ### Vitamins
 
@@ -324,20 +323,15 @@ is aligned when the X axis rail is added.
 
 ### Assembly instructions
 
-![Top_Face_Stage_2_assembly](assemblies/Top_Face_Stage_2_assembly.png)
+![Top_Face_Stage_2_RB_assembly](assemblies/Top_Face_Stage_2_RB_assembly.png)
 
-Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable
+1.Attach the left and right **Y_carriages** to the top face rails. Note that the two carriages are not interchangeable
 so be sure to attach them as shown in the diagram.
+2.The carriages should be attached to the rails before the bearings are added, since otherwise the bolts are not accessible.
+3.Attach the **F623** bearings to the carriages. Note that there is a washer under each of the upper bearings, but not on top of those bearings.
+4.Tighten the bearing bolts, being careful not to overtighten them.
 
-The carriages should be attached to the rails before the pulleys are added, since otherwise the bolts are not
-accessible.
-Attach the pulleys to the carriages. Note that the toothless pulleys are on the inside. Note also that there is a
-washer under each of the upper pulleys, but not on top of those pulleys.
-
-Tighten the pulley bolts until the pulleys stop running freely, and then loosen them slightly (approximately 1/16
-of a turn) so they run freely.
-
-![Top_Face_Stage_2_assembled](assemblies/Top_Face_Stage_2_assembled.png)
+![Top_Face_Stage_2_RB_assembled](assemblies/Top_Face_Stage_2_RB_assembled.png)
 
 <span></span>
 [Top](#TOP)
@@ -357,9 +351,9 @@ of a turn) so they run freely.
 
 ### Sub-assemblies
 
-| 1 x Top_Face_Stage_2_assembly |
+| 1 x Top_Face_Stage_2_RB_assembly |
 |----------|
-| ![Top_Face_Stage_2_assembled](assemblies/Top_Face_Stage_2_assembled_tn.png) |
+| ![Top_Face_Stage_2_RB_assembled](assemblies/Top_Face_Stage_2_RB_assembled_tn.png) |
 
 ### Assembly instructions
 
@@ -770,9 +764,9 @@ Add the **Top_Face**.
 
 ### Sub-assemblies
 
-| 1 x Left_Face_assembly | 1 x Stage_3_RB_assembly |
+| 1 x Left_Face_RB_assembly | 1 x Stage_3_RB_assembly |
 |----------|----------|
-| ![Left_Face_assembled](assemblies/Left_Face_assembled_tn.png) | ![Stage_3_RB_assembled](assemblies/Stage_3_RB_assembled_tn.png) |
+| ![Left_Face_RB_assembled](assemblies/Left_Face_RB_assembled_tn.png) | ![Stage_3_RB_assembled](assemblies/Stage_3_RB_assembled_tn.png) |
 
 ### Assembly instructions
 
