@@ -115,7 +115,7 @@ module DropEffectXGHolder(hotendDescriptor, size, blowerOffset, baseFillet) {
                 rotate([-90, 0, 0])
                     fillet(fillet, sizeTop.y);
             *translate([0, 12.5, 0])
-                rounded_cube_xz([sizeBaffle.x + 1, 14, sizeBaffle.z], 0.5); // extra for bolt cover
+                rounded_cube_xz([sizeBaffle.x + 1, 14, sizeBaffle.z], 0.5); // extra baffle
             translate_z(-12)
                 rounded_cube_xz([sizeBaffle.x, 6, 13], 0.5); // bolt cover
         }
@@ -125,10 +125,8 @@ module DropEffectXGHolder(hotendDescriptor, size, blowerOffset, baseFillet) {
     }
 }
 
-module xCarriageDropEffectXG_hardware(hotendDescriptor, blowerOffset) {
-    xCarriageType = carriageType(_xCarriageDescriptor);
-    hotendOffset = printheadHotendOffset(hotendDescriptor);
-    blower = BL30x10;
+module xCarriageDropEffectXG_hotend(hotendOffset, fan=true) {
+    xCarriageType = MGN9C_carriage;
     size = xCarriageDropEffectXGSize(xCarriageType, beltWidth());
 
     translate(hotendOffset) {
@@ -142,12 +140,23 @@ module xCarriageDropEffectXG_hardware(hotendDescriptor, blowerOffset) {
                         boltM3Countersunk(8);
             explode(-50, true) {
                 DropEffectXG();
-                explode([0, -50, 0], true)
-                not_on_bom()
-                    DropEffectXGFan();
+                if (fan)
+                    explode([0, -50, 0], true)
+                        not_on_bom()
+                            DropEffectXGFan();
             }
         }
     }
+}
+
+module xCarriageDropEffectXG_hardware(hotendDescriptor, blowerOffset) {
+    xCarriageType = MGN9C_carriage;
+    hotendOffset = printheadHotendOffset(hotendDescriptor);
+    size = xCarriageDropEffectXGSize(xCarriageType, beltWidth());
+    blower = BL30x10;
+
+    xCarriageDropEffectXG_hotend(hotendOffset, fan=true);
+
     translate([-size.x/2, hotendOffset.y + blower_width(blower)/2 + blowerOffset.y, hotendOffset.z + blowerOffset.z - 27.8]) // -27.8 leaves fan duct level with bottom of X_Carriage
         rotate(-90) {
             rotate([90, 0, 0])
@@ -175,7 +184,7 @@ module xCarriageDropEffectXG_hardware(hotendDescriptor, blowerOffset) {
                 if (!exploded())
                     ziptie(small_ziptie, r=2.5, t=2.5);
     translate([size.x/4, 11.5, 11.75])
-       rotate([0, 90, 0])
+        rotate([0, 90, 0])
             if (!exploded())
                 ziptie(small_ziptie, r=2.5, t=4.5);
     translate([size.x/2 + 0.5, 11.5, 35 - size.z])
