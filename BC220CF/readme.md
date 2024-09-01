@@ -77,7 +77,7 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 |   .  |   .  |   .  |   .  |   4  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 caphead x 35mm |
 |   2  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 countersunk x  8mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Bolt M3 countersunk x 10mm |
-|   .  |   .  |   2  |   4  |   3  |   .  |   .  |   .  |   .  |    9  |  Bolt M3 countersunk x 12mm |
+|   .  |   .  |   2  |   2  |   3  |   .  |   .  |   .  |   .  |    7  |  Bolt M3 countersunk x 12mm |
 |   .  |   .  |   4  |   .  |   .  |   .  |   .  |   .  |   .  |    4  |  Bolt M3 countersunk x 35mm |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   2  |   .  |    2  |  Bolt M4 buttonhead x  8mm |
 |   .  |   .  |   .  |   .  |   .  |   8  |   .  |   .  |   .  |    8  |  Bolt M5 buttonhead x 16mm |
@@ -88,7 +88,7 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  DropEffect XG Hotend |
 |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Fan 30mm x 10mm |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |  Heating pad 100mm x 100mm |
-|   .  |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |    2  |  IEC320 C14 switched fused inlet module |
+|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  IEC320 C14 switched fused inlet module |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |  Leadscrew nut 8 x 2 |
 |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  Linear rail MGN9 x 150mm |
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Linear rail MGN9 x 200mm |
@@ -122,7 +122,7 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  |  Voron V0 aluminium build plate 120mm x 120mm x 6mm |
 |   .  |   2  |  38  |   2  |   .  |   .  |   .  |   .  |   .  |   42  |  Washer M3 x 7mm x 0.5mm |
 |   6  |   .  |   .  |   .  |   1  |   4  |   .  |   .  |   .  |   11  |  Ziptie 2.5mm x 100mm min length |
-|  15  |   6  | 135  |  25  |  30  |  44  |  12  |  34  |  58  |  359  | Total vitamins count |
+|  15  |   6  | 135  |  22  |  30  |  44  |  12  |  34  |  58  |  356  | Total vitamins count |
 |      |      |      |      |      |      |      |      |      |       | **3D printed parts** |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  | Back_Face_Left_Joiner.stl |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  | Back_Face_Right_Joiner.stl |
@@ -134,7 +134,7 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | Base_Template.stl |
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | DropEffectXG_Fan_Duct.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   4  |   .  |   .  |    4  | Foot_LShaped_8mm.stl |
-|   .  |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |    2  | IEC_Housing.stl |
+|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  | IEC_Housing.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  | Nameplate.stl |
 |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   1  |    1  | Nameplate_Back.stl |
 |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |    1  | Printbed_Frame.stl |
@@ -160,7 +160,7 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |   .  |    1  | Y_Carriage_Right_RB.stl |
 |   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |    2  | Y_Rail_Handle.stl |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  | Z_Motor_Mount.stl |
-|   2  |   3  |  18  |   3  |   1  |   4  |   8  |   .  |   4  |   43  | Total 3D printed parts count |
+|   2  |   3  |  18  |   2  |   1  |   4  |   8  |   .  |   4  |   42  | Total 3D printed parts count |
 |      |      |      |      |      |      |      |      |      |       | **CNC routed parts** |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  | Back_Face_x220_z210.dxf |
 |   .  |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |    1  | BaseAL_x220_y220.dxf |
@@ -652,9 +652,9 @@ Thread the belts as shown and attach to the **X_Carriage_Belt_Side**.
 |----:|:------------|
 |   2 | Bolt M3 buttonhead x 12mm |
 |   4 | Bolt M3 buttonhead x 16mm |
-|   4 | Bolt M3 countersunk x 12mm |
+|   2 | Bolt M3 countersunk x 12mm |
 |   1 | Fan 30mm x 10mm |
-|   2 | IEC320 C14 switched fused inlet module |
+|   1 | IEC320 C14 switched fused inlet module |
 |   1 | MK10 Dual Pulley Extruder |
 |   4 | Nut M3 x 2.4mm  |
 |   2 | Nut M3 x 2.4mm nyloc |
@@ -665,7 +665,7 @@ Thread the belts as shown and attach to the **X_Carriage_Belt_Side**.
 
 ### 3D Printed parts
 
-| 2 x IEC_Housing.stl | 1 x Spool_Holder_Bracket.stl |
+| 1 x IEC_Housing.stl | 1 x Spool_Holder_Bracket.stl |
 |----------|----------|
 | ![IEC_Housing.stl](stls/IEC_Housing.png) | ![Spool_Holder_Bracket.stl](stls/Spool_Holder_Bracket.png) |
 
