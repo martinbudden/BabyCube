@@ -92,10 +92,3 @@ frontFaceCNC = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, dogb
 #show_object(frontFaceCNC)
 #show_object(frontFaceLSR)
 #show_object(dxf)
-
-if 'frontFaceCNC' in globals():
-    exports(frontFaceCNC, "Front_Face_x220_z210", "CNC")
-if 'frontFaceLSR' in globals():
-    exports(frontFaceLSR, "Front_Face_x220_z210", "LSR")
-if 'frontFaceWJ' in globals():
-    exports(frontFaceWJ, "Front_Face_x220_z210", "WJ")

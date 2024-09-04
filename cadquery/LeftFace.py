@@ -106,9 +106,3 @@ leftFaceCNC = leftFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=2
 #show_object(leftFaceLSR)
 #show_object(dxf)
 
-if 'leftFaceCNC' in globals():
-    exports(leftFaceCNC, "Left_Face_y220_z210", "CNC")
-if 'leftFaceLSR' in globals():
-    exports(leftFaceLSR, "Left_Face_y220_z210", "LSR")
-if 'leftFaceWJ' in globals():
-    exports(leftFaceWJ, "Left_Face_y220_z210", "WJ")

@@ -88,13 +88,6 @@ backFaceCNC = backFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, cuttin
 #backFaceLSR = backFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, cuttingRadius=lsrCuttingRadius, dogboneTolerance=fittingTolerance, kerf=lsrKerf)
 #backFaceWJ = backFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, cuttingRadius=wjCuttingRadius, dogboneTolerance=fittingTolerance, kerf=wjKerf)
 
-if 'backFaceCNC' in globals():
-    exports(backFaceCNC, "Back_Face_x220_z210", "CNC")
-if 'backFaceLSR' in globals():
-    exports(backFaceLSR, "Back_Face_x220_z210", "LSR")
-if 'backFaceWJ' in globals():
-    exports(backFaceWJ, "Back_Face_x220_z210", "WJ")
-
 #show_object(backFaceCNC)
 #show_object(backFaceLSR)
 #show_object(dxf)

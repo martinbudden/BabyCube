@@ -125,9 +125,3 @@ topFaceCNC = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickne
 #show_object(topFaceLSR)
 #show_object(dxf)
 
-if 'topFaceCNC' in globals():
-    exports(topFaceCNC, "Top_Face_x220_y220", "CNC")
-if 'topFaceLSR' in globals():
-    exports(topFaceLSR, "Top_Face_x220_y220", "LSR")
-if 'topFaceWJ' in globals():
-    exports(topFaceWJ, "Top_Face_x220_y220", "WJ")

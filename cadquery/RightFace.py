@@ -92,9 +92,3 @@ rightFaceCNC = rightFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY
 #show_object(rightFaceLSR)
 #show_object(dxf)
 
-if 'rightFaceCNC' in globals():
-    exports(rightFaceCNC, "Right_Face_y220_z210", "CNC")
-if 'rightFaceLSR' in globals():
-    exports(rightFaceLSR, "Right_Face_y220_z210", "LSR")
-if 'rightFaceWJ' in globals():
-    exports(rightFaceWJ, "Right_Face_y220_z210", "WJ")
