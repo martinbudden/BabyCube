@@ -186,7 +186,7 @@ module leftFaceCNC(NEMA_width, toolType=CNC) {
             if (!is_undef(fan))
                 translate([rightFaceFanPosition(fan, fanOffsetCF).y, rightFaceFanPosition(fan, fanOffsetCF).z])
                     rotate(90)
-                        psu_grill(25, 30, grill_hole=3.5 - kerf, grill_gap=2, fn=0, avoid=[]);
+                        psu_grill(25, 30, grill_hole=M3_clearance_radius*2 - kerf, grill_gap=2, fn=0, avoid=[]);
 
         }
     }

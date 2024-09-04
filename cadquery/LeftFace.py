@@ -55,9 +55,9 @@ def leftFaceHoles(
         result = (
             result
             .pushPoints(grillHoles)
-            .circle(1.75 - kerf/2)
+            .circle(M3_clearance_radius - kerf/2)
             .pushPoints(grillHoles2)
-            .circle(1.75 - kerf/2)
+            .circle(M3_clearance_radius - kerf/2)
         )
 
     return result
