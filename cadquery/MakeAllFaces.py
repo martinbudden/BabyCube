@@ -62,5 +62,12 @@ def makeWJs():
     exports(topFaceWJ, "Top_Face_x220_y220", "WJ")
 
 
-makeCNCs()
+def main() -> None:
+    makeCNCs()
+    #makeLSRs()
+    #makeWJs()
+
+
+if __name__ == '__main__':
+    main()
 

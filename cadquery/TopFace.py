@@ -115,13 +115,16 @@ def topFace(
     return result
 
 
-#dxf = (cq.importers.importDXF("../BC220CF/dxfs/Top_Face_x220_y220.dxf").wires().toPending().extrude(sizeZ))
+def main() -> None:
+    #dxf = (cq.importers.importDXF("../BC220CF/dxfs/Top_Face_x220_y220.dxf").wires().toPending().extrude(sizeZ))
 
-topFaceCNC = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
-#topFaceLSR = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
-#topFaceWJ  = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
+    topFaceCNC = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
+    #topFaceLSR = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
+    #topFaceWJ  = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
 
-#show_object(topFaceCNC)
-#show_object(topFaceLSR)
-#show_object(dxf)
+    #show_object(topFaceCNC)
+    #show_object(topFaceLSR)
+    #show_object(dxf)
 
+if __name__ == '__main__':
+    main()

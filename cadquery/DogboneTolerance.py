@@ -81,15 +81,20 @@ def dogboneTolerance(
     return result
 
 
-#dxf = (cq.importers.importDXF("../tests/DogboneToleranceCNC.dxf").wires().toPending().extrude(sizeZ))
+def main() -> None:
+    #dxf = (cq.importers.importDXF("../tests/DogboneToleranceCNC.dxf").wires().toPending().extrude(sizeZ))
 
-dogboneToleranceCNC  = dogboneTolerance(120, 80, sizeZ, cncCuttingRadius, cncKerf)
-#dogboneToleranceLSR  = dogboneTolerance(120, 80, sizeZ, lsrCuttingRadius, lsrKerf)
-#dogboneToleranceWJ  = dogboneTolerance(120, 80, sizeZ, wjCuttingRadius, wjKerf)
+    dogboneToleranceCNC  = dogboneTolerance(120, 80, sizeZ, cncCuttingRadius, cncKerf)
+    #dogboneToleranceLSR  = dogboneTolerance(120, 80, sizeZ, lsrCuttingRadius, lsrKerf)
+    #dogboneToleranceWJ  = dogboneTolerance(120, 80, sizeZ, wjCuttingRadius, wjKerf)
 
-if 'dogboneToleranceCNC' in globals():
-    exports(dogboneToleranceCNC, "DogboneTolerance", "CNC")
-if 'dogboneToleranceLSR' in globals():
-    exports(dogboneToleranceLSR, "DogboneTolerance", "LSR")
-if 'dogboneToleranceWJ' in globals():
-    exports(dogboneToleranceWJ, "DogboneTolerance", "WJ")
+    if 'dogboneToleranceCNC' in globals():
+        exports(dogboneToleranceCNC, "DogboneTolerance", "CNC")
+    if 'dogboneToleranceLSR' in globals():
+        exports(dogboneToleranceLSR, "DogboneTolerance", "LSR")
+    if 'dogboneToleranceWJ' in globals():
+        exports(dogboneToleranceWJ, "DogboneTolerance", "WJ")
+
+
+if __name__ == '__main__':
+    main()

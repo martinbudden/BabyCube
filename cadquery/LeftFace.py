@@ -96,13 +96,18 @@ def leftFace(
     return result
 
 
-#dxf = (cq.importers.importDXF("../BC220CF/dxfs/Left_Face_y220_z210.dxf").wires().toPending().extrude(sizeZ))
+def main() -> None:
+    #dxf = (cq.importers.importDXF("../BC220CF/dxfs/Left_Face_y220_z210.dxf").wires().toPending().extrude(sizeZ))
 
-leftFaceCNC = leftFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
-#leftFaceLSR = leftFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
-#leftFaceWJ  = leftFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
+    leftFaceCNC = leftFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
+    #leftFaceLSR = leftFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
+    #leftFaceWJ  = leftFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
 
-#show_object(leftFaceCNC)
-#show_object(leftFaceLSR)
-#show_object(dxf)
+    #show_object(leftFaceCNC)
+    #show_object(leftFaceLSR)
+    #show_object(dxf)
+
+
+if __name__ == '__main__':
+    main()
 
