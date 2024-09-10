@@ -3,7 +3,7 @@ include <../vitamins/bolts.scad>
 include <NopSCADlib/vitamins/fans.scad>
 
 module dropEffectImportStl(file) {
-    import(str("../../../stlimport/DropEffect/", file, ".stl"), convexity=10);
+    import(str("../stlimport/DropEffect/", file, ".stl"), convexity=10);
 }
 
 function dropEffectXGSizeZ() = 48.5;
