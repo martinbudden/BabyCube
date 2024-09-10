@@ -29,8 +29,10 @@ pictures/temp/
 //scad/target.scad
 scad/bom.scad
 
-cadquery/*
+cadquery/*.*
 !cadquery/*.py
+!cadquery/exports/*.dxf
+!cadquery/exports/*.step
 
 tests.*
 tests/*.*
