@@ -3,7 +3,6 @@ import cadquery as cq
 from TypeDefinitions import T, Point3D
 
 import dogboneT
-from exports import exports
 from constants import fittingTolerance, cncKerf, cncCuttingRadius, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
 from constants import sizeZ, eSizeZ, topPlateThickness, _zRodSeparation
 from constants import M3_clearance_radius, M5_clearance_radius
@@ -90,11 +89,12 @@ def main() -> None:
     #backFaceLSR = backFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, cuttingRadius=lsrCuttingRadius, dogboneTolerance=fittingTolerance, kerf=lsrKerf)
     #backFaceWJ = backFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, cuttingRadius=wjCuttingRadius, dogboneTolerance=fittingTolerance, kerf=wjKerf)
 
-    #show_object(backFaceCNC)
+    show_object(backFaceCNC)
     #show_object(backFaceLSR)
     #show_object(dxf)
 
 
-if __name__ == '__main__':
+# check if running in cq-editor
+if 'show_object' in globals():
     main()
 

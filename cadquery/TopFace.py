@@ -4,7 +4,6 @@ from TypeDefinitions import T, Point2D, Point3D
 
 import dogboneT
 import TopFaceWiringCutout
-from exports import exports
 from constants import fittingTolerance, cncKerf, cncCuttingRadius, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
 from constants import backPlateThickness, frontPlateCFThickness, sizeZ, _zLeadScrewDiameter, _zRodDiameter, _zRodSeparation, _zRodOffsetY
 from constants import M3_clearance_radius
@@ -122,9 +121,11 @@ def main() -> None:
     #topFaceLSR = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
     #topFaceWJ  = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
 
-    #show_object(topFaceCNC)
+    show_object(topFaceCNC)
     #show_object(topFaceLSR)
     #show_object(dxf)
 
-if __name__ == '__main__':
+
+# check if running in cq-editor
+if 'show_object' in globals():
     main()

@@ -3,7 +3,6 @@ import cadquery as cq
 from TypeDefinitions import T, Point2D, Point3D
 
 import dogboneT
-from exports import exports
 from LeftFace import leftFace
 from fans import fan30x10, fan_bore, fan_hole_pitch
 from stepper_motors import NEMA17_40, NEMA_boss_radius, NEMA_hole_pitch
@@ -89,10 +88,11 @@ def main() -> None:
     #rightFaceLSR = rightFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
     #rightFaceWJ  = rightFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
 
-    #show_object(rightFaceCNC)
+    show_object(rightFaceCNC)
     #show_object(rightFaceLSR)
     #show_object(dxf)
 
 
-if __name__ == '__main__':
+# check if running in cq-editor
+if 'show_object' in globals():
     main()
