@@ -113,9 +113,9 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 |   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   1  |    2  |  Sheet carbon fiber 223mm x 210mm x 3mm |
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  Spiral cable wrap, 500mm |
 |   1  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |   .  |    1  |  Square radial fan 3010 |
-|   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Stepper motor NEMA14 x 36mm |
+|   .  |   .  |   2  |   .  |   .  |   .  |   .  |   .  |   .  |    2  |  Stepper motor NEMA14 x 36mm (5x24 shaft) |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |  Stepper motor NEMA17 x 34mm, 150mm integrated leadscrew |
-|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Stepper motor NEMA17 x 40mm |
+|   .  |   .  |   .  |   1  |   .  |   .  |   .  |   .  |   .  |    1  |  Stepper motor NEMA17 x 40mm (5x20 shaft) |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |  Stepper motor cable, 150mm |
 |   .  |   .  |   .  |   1  |   .  |   1  |   .  |   .  |   .  |    2  |  Stepper motor cable, 300mm |
 |   .  |   .  |   .  |   .  |   .  |   1  |   .  |   .  |   .  |    1  |  Stepper motor cable, 400mm |
@@ -180,14 +180,14 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   4 | Bolt M2.5 caphead x  6mm |
-|   2 | Bolt M3 countersunk x  8mm |
-|   1 | DropEffect XG Hotend |
-|   1 | Spiral cable wrap, 500mm |
-|   1 | Square radial fan 3010 |
-|   6 | Ziptie 2.5mm x 100mm min length |
+|Qty|Description|
+|---:|:----------|
+| 4 | Bolt M2.5 caphead x  6mm |
+| 2 | Bolt M3 countersunk x  8mm |
+| 1 | DropEffect XG Hotend |
+| 1 | Spiral cable wrap, 500mm |
+| 1 | Square radial fan 3010 |
+| 6 | Ziptie 2.5mm x 100mm min length |
 
 ### 3D Printed parts
 
@@ -216,12 +216,12 @@ is sufficient detail that someone with a good understanding of 3D printers can b
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   1 | Belt GT2 x 6mm x 836mm - not shown |
-|   1 | Belt GT2 x 6mm x 836mm - not shown |
-|   2 | Bolt M3 caphead x 30mm |
-|   2 | Washer M3 x 7mm x 0.5mm |
+|Qty|Description|
+|---:|:----------|
+| 1 | Belt GT2 x 6mm x 836mm - not shown |
+| 1 | Belt GT2 x 6mm x 836mm - not shown |
+| 2 | Bolt M3 caphead x 30mm |
+| 2 | Washer M3 x 7mm x 0.5mm |
 
 ### 3D Printed parts
 
@@ -255,16 +255,16 @@ Note: for clarity, only a segment of the belts are shown in this diagram.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   6 | Ball bearing F623-2RS 3mm x 10mm x 4mm |
-|   2 | Bolt M3 caphead x  8mm |
-|   1 | Bolt M3 countersunk x 12mm |
-|   2 | Bolt M3 countersunk x 35mm |
-|   1 | Cork damper NEMA 14 |
-|   1 | Pulley GT2OB 20 teeth |
-|   1 | Stepper motor NEMA14 x 36mm |
-|  11 | Washer M3 x 7mm x 0.5mm |
+|Qty|Description|
+|---:|:----------|
+| 6 | Ball bearing F623-2RS 3mm x 10mm x 4mm |
+| 2 | Bolt M3 caphead x  8mm |
+| 1 | Bolt M3 countersunk x 12mm |
+| 2 | Bolt M3 countersunk x 35mm |
+| 1 | Cork damper NEMA 14 |
+| 1 | Pulley GT2OB 20 teeth |
+| 1 | Stepper motor NEMA14 x 36mm (5x24 shaft) |
+| 11 | Washer M3 x 7mm x 0.5mm |
 
 ### 3D Printed parts
 
@@ -295,16 +295,16 @@ Note the cork damper is important as it provides thermal insulation between the 
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   6 | Ball bearing F623-2RS 3mm x 10mm x 4mm |
-|   2 | Bolt M3 caphead x  8mm |
-|   1 | Bolt M3 countersunk x 12mm |
-|   2 | Bolt M3 countersunk x 35mm |
-|   1 | Cork damper NEMA 14 |
-|   1 | Pulley GT2OB 20 teeth |
-|   1 | Stepper motor NEMA14 x 36mm |
-|  11 | Washer M3 x 7mm x 0.5mm |
+|Qty|Description|
+|---:|:----------|
+| 6 | Ball bearing F623-2RS 3mm x 10mm x 4mm |
+| 2 | Bolt M3 caphead x  8mm |
+| 1 | Bolt M3 countersunk x 12mm |
+| 2 | Bolt M3 countersunk x 35mm |
+| 1 | Cork damper NEMA 14 |
+| 1 | Pulley GT2OB 20 teeth |
+| 1 | Stepper motor NEMA14 x 36mm (5x24 shaft) |
+| 11 | Washer M3 x 7mm x 0.5mm |
 
 ### 3D Printed parts
 
@@ -336,15 +336,15 @@ Note the cork damper is important as it provides thermal insulation between the 
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   4 | Ball bearing F623-2RS 3mm x 10mm x 4mm |
-|   5 | Bolt M3 caphead x  8mm |
-|   1 | Bolt M3 caphead x 16mm |
-|   1 | Bolt M3 caphead x 25mm |
-|   1 | Linear rail MGN9 x 200mm |
-|   1 | Linear rail carriage MGN9C |
-|   5 | Washer M3 x 7mm x 0.5mm |
+|Qty|Description|
+|---:|:----------|
+| 4 | Ball bearing F623-2RS 3mm x 10mm x 4mm |
+| 5 | Bolt M3 caphead x  8mm |
+| 1 | Bolt M3 caphead x 16mm |
+| 1 | Bolt M3 caphead x 25mm |
+| 1 | Linear rail MGN9 x 200mm |
+| 1 | Linear rail carriage MGN9C |
+| 5 | Washer M3 x 7mm x 0.5mm |
 
 ### 3D Printed parts
 
@@ -371,15 +371,15 @@ Note the cork damper is important as it provides thermal insulation between the 
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   4 | Ball bearing F623-2RS 3mm x 10mm x 4mm |
-|   5 | Bolt M3 caphead x  8mm |
-|   1 | Bolt M3 caphead x 16mm |
-|   1 | Bolt M3 caphead x 25mm |
-|   1 | Linear rail MGN9 x 200mm |
-|   1 | Linear rail carriage MGN9C |
-|   5 | Washer M3 x 7mm x 0.5mm |
+|Qty|Description|
+|---:|:----------|
+| 4 | Ball bearing F623-2RS 3mm x 10mm x 4mm |
+| 5 | Bolt M3 caphead x  8mm |
+| 1 | Bolt M3 caphead x 16mm |
+| 1 | Bolt M3 caphead x 25mm |
+| 1 | Linear rail MGN9 x 200mm |
+| 1 | Linear rail carriage MGN9C |
+| 5 | Washer M3 x 7mm x 0.5mm |
 
 ### 3D Printed parts
 
@@ -406,11 +406,11 @@ Note the cork damper is important as it provides thermal insulation between the 
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   2 | Ball bearing F623-2RS 3mm x 10mm x 4mm |
-|   1 | Bolt M3 caphead x 25mm |
-|   3 | Washer M3 x 7mm x 0.5mm |
+|Qty|Description|
+|---:|:----------|
+| 2 | Ball bearing F623-2RS 3mm x 10mm x 4mm |
+| 1 | Bolt M3 caphead x 25mm |
+| 3 | Washer M3 x 7mm x 0.5mm |
 
 ### 3D Printed parts
 
@@ -436,11 +436,11 @@ Bolt the two bearings with washers into the **XY_Idler_Bracket_Right**, as shown
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   2 | Ball bearing F623-2RS 3mm x 10mm x 4mm |
-|   1 | Bolt M3 caphead x 25mm |
-|   3 | Washer M3 x 7mm x 0.5mm |
+|Qty|Description|
+|---:|:----------|
+| 2 | Ball bearing F623-2RS 3mm x 10mm x 4mm |
+| 1 | Bolt M3 caphead x 25mm |
+| 3 | Washer M3 x 7mm x 0.5mm |
 
 ### 3D Printed parts
 
@@ -466,10 +466,10 @@ Bolt the two bearings with washers into the **XY_Idler_Bracket_Left**, as shown.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   8 | Bolt M3 buttonhead x  8mm |
-|   1 | Sheet carbon fiber 220mm x 223mm x 3mm |
+|Qty|Description|
+|---:|:----------|
+| 8 | Bolt M3 buttonhead x  8mm |
+| 1 | Sheet carbon fiber 220mm x 223mm x 3mm |
 
 ### 3D Printed parts
 
@@ -510,9 +510,9 @@ Bolt the two bearings with washers into the **XY_Idler_Bracket_Left**, as shown.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|  10 | Bolt M3 caphead x 10mm |
+|Qty|Description|
+|---:|:----------|
+| 10 | Bolt M3 caphead x 10mm |
 
 ### 3D Printed parts
 
@@ -547,9 +547,9 @@ is aligned when the X axis rail is added.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   4 | Bolt M3 buttonhead x  8mm |
+|Qty|Description|
+|---:|:----------|
+| 4 | Bolt M3 buttonhead x  8mm |
 
 ### Sub-assemblies
 
@@ -575,11 +575,11 @@ is aligned when the X axis rail is added.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   4 | Bolt M3 caphead x 10mm |
-|   1 | Linear rail MGN9 x 150mm |
-|   1 | Linear rail carriage MGN9C |
+|Qty|Description|
+|---:|:----------|
+| 4 | Bolt M3 caphead x 10mm |
+| 1 | Linear rail MGN9 x 150mm |
+| 1 | Linear rail carriage MGN9C |
 
 ### Sub-assemblies
 
@@ -611,12 +611,12 @@ again tightening the corresponding bolts.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   1 | Belt GT2 x 6mm x 836mm |
-|   1 | Belt GT2 x 6mm x 836mm |
-|   4 | Bolt M3 buttonhead x 12mm |
-|   2 | Bolt M3 countersunk x 10mm |
+|Qty|Description|
+|---:|:----------|
+| 1 | Belt GT2 x 6mm x 836mm |
+| 1 | Belt GT2 x 6mm x 836mm |
+| 4 | Bolt M3 buttonhead x 12mm |
+| 2 | Bolt M3 countersunk x 10mm |
 
 ### 3D Printed parts
 
@@ -648,20 +648,20 @@ Thread the belts as shown and attach to the **X_Carriage_Belt_Side**.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   2 | Bolt M3 buttonhead x 12mm |
-|   4 | Bolt M3 buttonhead x 16mm |
-|   2 | Bolt M3 countersunk x 12mm |
-|   1 | Fan 30mm x 10mm |
-|   1 | IEC320 C14 switched fused inlet module |
-|   1 | MK10 Dual Pulley Extruder |
-|   4 | Nut M3 x 2.4mm  |
-|   2 | Nut M3 x 2.4mm nyloc |
-|   1 | Sheet carbon fiber 223mm x 210mm x 3mm |
-|   1 | Stepper motor NEMA17 x 40mm |
-|   1 | Stepper motor cable, 300mm |
-|   2 | Washer M3 x 7mm x 0.5mm |
+|Qty|Description|
+|---:|:----------|
+| 2 | Bolt M3 buttonhead x 12mm |
+| 4 | Bolt M3 buttonhead x 16mm |
+| 2 | Bolt M3 countersunk x 12mm |
+| 1 | Fan 30mm x 10mm |
+| 1 | IEC320 C14 switched fused inlet module |
+| 1 | MK10 Dual Pulley Extruder |
+| 4 | Nut M3 x 2.4mm  |
+| 2 | Nut M3 x 2.4mm nyloc |
+| 1 | Sheet carbon fiber 223mm x 210mm x 3mm |
+| 1 | Stepper motor NEMA17 x 40mm (5x20 shaft) |
+| 1 | Stepper motor cable, 300mm |
+| 2 | Washer M3 x 7mm x 0.5mm |
 
 ### 3D Printed parts
 
@@ -699,13 +699,13 @@ Thread the belts as shown and attach to the **X_Carriage_Belt_Side**.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   2 | Bolt M3 caphead x  8mm |
-|   4 | Bolt M3 caphead x 35mm |
-|   4 | Bolt M5 countersunk x 12mm |
-|   1 | Leadscrew nut 8 x 2 |
-|   2 | SCS12UU bearing block |
+|Qty|Description|
+|---:|:----------|
+| 2 | Bolt M3 caphead x  8mm |
+| 4 | Bolt M3 caphead x 35mm |
+| 4 | Bolt M5 countersunk x 12mm |
+| 1 | Leadscrew nut 8 x 2 |
+| 2 | SCS12UU bearing block |
 
 ### 3D Printed parts
 
@@ -732,15 +732,15 @@ Thread the belts as shown and attach to the **X_Carriage_Belt_Side**.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   3 | Bolt M3 countersunk x 12mm |
-|   1 | Cork underlay 120mm x 120mm x 3mm |
-|   1 | Heating pad 100mm x 100mm |
-|   1 | Magnetic base 120mm x 120mm |
-|   9 | O-ring nitrile 3mm x 2mm |
-|   1 | Voron V0 aluminium build plate 120mm x 120mm x 6mm |
-|   1 | Ziptie 2.5mm x 100mm min length |
+|Qty|Description|
+|---:|:----------|
+| 3 | Bolt M3 countersunk x 12mm |
+| 1 | Cork underlay 120mm x 120mm x 3mm |
+| 1 | Heating pad 100mm x 100mm |
+| 1 | Magnetic base 120mm x 120mm |
+| 9 | O-ring nitrile 3mm x 2mm |
+| 1 | Voron V0 aluminium build plate 120mm x 120mm x 6mm |
+| 1 | Ziptie 2.5mm x 100mm min length |
 
 ### Sub-assemblies
 
@@ -773,17 +773,17 @@ leveling and help thermally insulate the heated bed from the **Printbed_Frame**.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   6 | Bolt M3 buttonhead x 10mm |
-|   2 | Bolt M3 buttonhead x 12mm |
-|   8 | Bolt M5 buttonhead x 16mm |
-|   8 | Nut M5 x 4mm nyloc |
-|   4 | SK12 shaft support bracket |
-|   1 | Sheet carbon fiber 220mm x 210mm x 3mm |
-|   1 | Stepper motor cable, 300mm |
-|   1 | Stepper motor cable, 400mm |
-|   4 | Ziptie 2.5mm x 100mm min length |
+|Qty|Description|
+|---:|:----------|
+| 6 | Bolt M3 buttonhead x 10mm |
+| 2 | Bolt M3 buttonhead x 12mm |
+| 8 | Bolt M5 buttonhead x 16mm |
+| 8 | Nut M5 x 4mm nyloc |
+| 4 | SK12 shaft support bracket |
+| 1 | Sheet carbon fiber 220mm x 210mm x 3mm |
+| 1 | Stepper motor cable, 300mm |
+| 1 | Stepper motor cable, 400mm |
+| 4 | Ziptie 2.5mm x 100mm min length |
 
 ### 3D Printed parts
 
@@ -828,9 +828,9 @@ the cable ties and remove the **Top_Face**.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   2 | Linear rod 12mm x 200mm |
+|Qty|Description|
+|---:|:----------|
+| 2 | Linear rod 12mm x 200mm |
 
 ### Sub-assemblies
 
@@ -857,12 +857,12 @@ the cable ties and remove the **Top_Face**.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   4 | Bolt M3 buttonhead x 10mm |
-|   1 | Cork damper NEMA 17 |
-|   1 | Stepper motor NEMA17 x 34mm, 150mm integrated leadscrew |
-|   1 | Stepper motor cable, 150mm |
+|Qty|Description|
+|---:|:----------|
+| 4 | Bolt M3 buttonhead x 10mm |
+| 1 | Cork damper NEMA 17 |
+| 1 | Stepper motor NEMA17 x 34mm, 150mm integrated leadscrew |
+| 1 | Stepper motor cable, 150mm |
 
 ### Sub-assemblies
 
@@ -889,11 +889,11 @@ motor to the **Back_Face**. Note the orientation of the JST socket.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   1 | Aluminium sheet 220mm x 220mm x 3mm |
-|   3 | Bolt M3 buttonhead x 10mm |
-|   8 | Bolt M3 buttonhead x 12mm |
+|Qty|Description|
+|---:|:----------|
+| 1 | Aluminium sheet 220mm x 220mm x 3mm |
+| 3 | Bolt M3 buttonhead x 10mm |
+| 8 | Bolt M3 buttonhead x 12mm |
 
 ### 3D Printed parts
 
@@ -934,16 +934,16 @@ base plate.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   1 | Aluminium box section 12mm x 8mm x 1mm, length 85mm |
-|   1 | BigTreeTech SKR Mini E3 v2.0 |
-|  18 | Bolt M3 caphead x  8mm |
-|   2 | Bolt M4 buttonhead x  8mm |
-|   1 | Micro SD card |
-|   1 | PSU NIUGUY CB-200W-24V |
-|   9 | Pillar hex nylon F/F M3x12 |
-|   1 | Raspberry Pi 3A+ |
+|Qty|Description|
+|---:|:----------|
+| 1 | Aluminium box section 12mm x 8mm x 1mm, length 85mm |
+| 1 | BigTreeTech SKR Mini E3 v2.0 |
+| 18 | Bolt M3 caphead x  8mm |
+| 2 | Bolt M4 buttonhead x  8mm |
+| 1 | Micro SD card |
+| 1 | PSU NIUGUY CB-200W-24V |
+| 9 | Pillar hex nylon F/F M3x12 |
+| 1 | Raspberry Pi 3A+ |
 
 ### Sub-assemblies
 
@@ -974,9 +974,9 @@ section in place until it is attached to the base plate.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   6 | Bolt M3 buttonhead x 10mm |
+|Qty|Description|
+|---:|:----------|
+| 6 | Bolt M3 buttonhead x 10mm |
 
 ### Sub-assemblies
 
@@ -1002,10 +1002,10 @@ Bolt the **Back_Face_CF_assembly** to the **Base_CF_assembly**.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   4 | Bolt M3 buttonhead x  8mm |
-|   3 | Bolt M3 buttonhead x 10mm |
+|Qty|Description|
+|---:|:----------|
+| 4 | Bolt M3 buttonhead x  8mm |
+| 3 | Bolt M3 buttonhead x 10mm |
 
 ### Sub-assemblies
 
@@ -1033,11 +1033,11 @@ Bolt the **Back_Face_CF_assembly** to the **Base_CF_assembly**.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   4 | Bolt M3 buttonhead x  8mm |
-|   8 | Bolt M3 buttonhead x 10mm |
-|   4 | Bolt M3 caphead x 25mm |
+|Qty|Description|
+|---:|:----------|
+| 4 | Bolt M3 buttonhead x  8mm |
+| 8 | Bolt M3 buttonhead x 10mm |
+| 4 | Bolt M3 caphead x 25mm |
 
 ### Sub-assemblies
 
@@ -1065,12 +1065,12 @@ Bolt the **Back_Face_CF_assembly** to the **Base_CF_assembly**.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   7 | Bolt M3 buttonhead x  8mm |
-|   7 | Bolt M3 buttonhead x 10mm |
-|   2 | Bolt M3 caphead x  8mm |
-|   1 | Sheet carbon fiber 223mm x 210mm x 3mm |
+|Qty|Description|
+|---:|:----------|
+| 7 | Bolt M3 buttonhead x  8mm |
+| 7 | Bolt M3 buttonhead x 10mm |
+| 2 | Bolt M3 caphead x  8mm |
+| 1 | Sheet carbon fiber 223mm x 210mm x 3mm |
 
 ### 3D Printed parts
 
@@ -1111,11 +1111,11 @@ Bolt the **Back_Face_CF_assembly** to the **Base_CF_assembly**.
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   8 | Bolt M3 buttonhead x 10mm |
-|   2 | Bolt M3 buttonhead x 12mm |
-|   1 | Sheet carbon fiber 220mm x 210mm x 3mm |
+|Qty|Description|
+|---:|:----------|
+| 8 | Bolt M3 buttonhead x 10mm |
+| 2 | Bolt M3 buttonhead x 12mm |
+| 1 | Sheet carbon fiber 220mm x 210mm x 3mm |
 
 ### 3D Printed parts
 
@@ -1155,9 +1155,9 @@ Bolt the **Nameplate** and the **Front_Face_CF** to the base and the top, left, 
 
 ### Vitamins
 
-| Qty | Description |
-|----:|:------------|
-|   1 | PTFE tube 311 mm |
+|Qty|Description|
+|---:|:----------|
+| 1 | PTFE tube 311 mm |
 
 ### 3D Printed parts
 
