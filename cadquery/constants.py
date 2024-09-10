@@ -10,9 +10,13 @@ wjCuttingRadius = wjKerf  # rather than wjKerf/2, so no full engagement in corne
 
 sizeZ = 3
 eSizeZ = 10
-backPlateThickness = 3
-frontPlateCFThickness = 3
-topPlateThickness = 3
+plateThickness = 3
+backPlateThickness = plateThickness
+frontPlateCFThickness = plateThickness
+topPlateThickness = plateThickness
+cSizeX = 220
+cSizeY = 220 + backPlateThickness
+cSizeZ = 210
 _zRodSeparation = 96
 _zRodDiameter = 12
 _zRodSeparation = 96

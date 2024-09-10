@@ -4,7 +4,8 @@ from TypeDefinitions import T, Point3D
 
 import dogboneT
 from constants import fittingTolerance, cncKerf, cncCuttingRadius, dogboneChamfer, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
-from constants import sizeZ, eSizeZ, topPlateThickness, _zRodSeparation
+from constants import eSizeZ, topPlateThickness, _zRodSeparation
+from constants import cSizeX, cSizeZ, plateThickness
 from constants import M3_clearance_radius, M5_clearance_radius
 
 
@@ -88,9 +89,9 @@ def backFace(
 def main() -> None:
     #dxf = (cq.importers.importDXF("../BC220CF/dxfs/Back_Face_x220_z210.dxf").wires().toPending().extrude(sizeZ))
 
-    backFaceCNC = backFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=sizeZ, cuttingRadius=cncCuttingRadius, dogboneTolerance=fittingTolerance, kerf=cncKerf)
-    #backFaceLSR = backFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=sizeZ, cuttingRadius=lsrCuttingRadius, dogboneTolerance=fittingTolerance, kerf=lsrKerf)
-    #backFaceWJ = backFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=sizeZ, cuttingRadius=wjCuttingRadius, dogboneTolerance=fittingTolerance, kerf=wjKerf)
+    backFaceCNC = backFace(cq.Workplane("XY"), sizeX=cSizeX, sizeY=cSizeZ, sizeZ=plateThickness, cuttingRadius=cncCuttingRadius, dogboneTolerance=fittingTolerance, kerf=cncKerf)
+    #backFaceLSR = backFace(cq.Workplane("XY"), sizeX=cSizeX, sizeY=cSizeZ, sizeZ=plateThickness, cuttingRadius=lsrCuttingRadius, dogboneTolerance=fittingTolerance, kerf=lsrKerf)
+    #backFaceWJ = backFace(cq.Workplane("XY"), sizeX=cSizeX, sizeY=cSizeZ, sizeZ=plateThickness, cuttingRadius=wjCuttingRadius, dogboneTolerance=fittingTolerance, kerf=wjKerf)
 
     show_object(backFaceCNC)
     #show_object(backFaceLSR)

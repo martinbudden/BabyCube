@@ -8,7 +8,7 @@ from fans import fan30x10, fan_bore, fan_hole_pitch
 from stepper_motors import NEMA17_40, NEMA_boss_radius, NEMA_hole_pitch
 
 from constants import fittingTolerance, cncKerf, cncCuttingRadius, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
-from constants import backPlateThickness, sizeZ
+from constants import cSizeY, cSizeZ, plateThickness
 from constants import M3_clearance_radius, M4_clearance_radius
 
 
@@ -84,9 +84,9 @@ def rightFace(
 def main() -> None:
     #dxf = (cq.importers.importDXF("../BC220CF/dxfs/Right_Face_y220_z210.dxf").wires().toPending().extrude(sizeZ))
 
-    rightFaceCNC = rightFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
-    #rightFaceLSR = rightFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
-    #rightFaceWJ  = rightFace(cq.Workplane("XY"), sizeX=220+backPlateThickness, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
+    rightFaceCNC = rightFace(cq.Workplane("XY"), sizeX=cSizeY, sizeY=cSizeZ, sizeZ=plateThickness, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
+    #rightFaceLSR = rightFace(cq.Workplane("XY"), sizeX=cSizeY, sizeY=cSizeZ, sizeZ=plateThickness, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
+    #rightFaceWJ  = rightFace(cq.Workplane("XY"), sizeX=cSizeY, sizeY=cSizeZ, sizeZ=plateThickness, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
 
     show_object(rightFaceCNC)
     #show_object(rightFaceLSR)
