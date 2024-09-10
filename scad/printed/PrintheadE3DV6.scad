@@ -26,7 +26,7 @@ module E3Dv6plusFan() {
             //vitamin(str("E3D_V6_Fan_Duct(): ", "E3D V6 Fan Duct"));
             rotate([90, 0, 0])
                 color("SkyBlue")
-                    import("../stlimport/E3D_V6_6_Duct.stl");
+                    import("../stlimport/E3D/E3D_V6_6_Duct.stl");
             translate([-20, 0, 15])
                 rotate([0, 90, 0]) {
                     fan(fan_type);
