@@ -3,7 +3,7 @@ import cadquery as cq
 from TypeDefinitions import T, Point3D
 
 import dogboneT
-from exports import exports
+from exportCalibrations import exportCalibrations
 from constants import fittingTolerance, cncKerf, cncCuttingRadius, dogboneChamfer, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
 from constants import sizeZ
 from constants import M3_clearance_radius
@@ -93,19 +93,19 @@ def main() -> None:
 
     if 'dogboneToleranceCNC' in locals():
         print("exporting DogboneTolerance CNC")
-        exports(dogboneToleranceCNC, "DogboneTolerance", "CNC")
+        exportCalibrations(dogboneToleranceCNC, "DogboneTolerance", "CNC")
         if 'show_object' in globals():
             show_object(dogboneToleranceCNC)
 
     if 'dogboneToleranceLSR' in locals():
         print("exporting DogboneTolerance LSR")
-        exports(dogboneToleranceLSR, "DogboneTolerance", "LSR")
+        exportCalibrations(dogboneToleranceLSR, "DogboneTolerance", "LSR")
         if 'show_object' in globals():
             show_object(dogboneToleranceLSR)
 
     if 'dogboneToleranceWJ' in locals():
         print("exporting DogboneTolerance WJ")
-        exports(dogboneToleranceWJ, "DogboneTolerance", "WJ")
+        exportCalibrations(dogboneToleranceWJ, "DogboneTolerance", "WJ")
         if 'show_object' in globals():
             show_object(dogboneToleranceWJ)
 
