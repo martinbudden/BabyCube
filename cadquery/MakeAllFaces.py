@@ -68,7 +68,6 @@ def main() -> None:
     #makeWJs()
 
 
-# check if running in cq-editor
-if 'show_object' in globals():
+if __name__ == '__main__':
     main()
 
