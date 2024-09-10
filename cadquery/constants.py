@@ -1,6 +1,7 @@
 cncKerf = 0
 cncCuttingRadius1p5mm = 1.5
 cncCuttingRadius = 3.5/2 # large enough so that neither 3/8 inch or 3mm bit is fully engaged in corners
+dogboneChamfer = 0.25 # to avoid sharp edges and ease assembly
 fittingTolerance = 0.05 # 0.05 each side gives 0.1 total tolerance
 lsrKerf = 0.3
 lsrCuttingRadius = lsrKerf # rather than lsrKerf/2, so no full engagement in corners

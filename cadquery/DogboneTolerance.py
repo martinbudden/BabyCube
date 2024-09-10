@@ -4,7 +4,7 @@ from TypeDefinitions import T, Point3D
 
 import dogboneT
 from exports import exports
-from constants import fittingTolerance, cncKerf, cncCuttingRadius, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
+from constants import fittingTolerance, cncKerf, cncCuttingRadius, dogboneChamfer, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
 from constants import sizeZ
 from constants import M3_clearance_radius
 
@@ -77,6 +77,9 @@ def dogboneTolerance(
         .pushPoints(topAndBottomDogbones)
         .dogboneT(20, 6, cuttingRadius, 0, t3, kerf).cutThruAll()
     )
+    # chamfer and fillet the dogbone edges to avoid sharp edges and ease assembly
+    result = result.edges("|Z").chamfer(dogboneChamfer)
+    result = result.edges("|Z").fillet(0.25)
 
     return result
 

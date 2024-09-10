@@ -4,8 +4,8 @@ from TypeDefinitions import T, Point2D, Point3D
 
 import dogboneT
 import TopFaceWiringCutout
-from constants import fittingTolerance, cncKerf, cncCuttingRadius, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
-from constants import backPlateThickness, frontPlateCFThickness, sizeZ, _zLeadScrewDiameter, _zRodDiameter, _zRodSeparation, _zRodOffsetY
+from constants import fittingTolerance, cncKerf, cncCuttingRadius, dogboneChamfer, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
+from constants import sizeZ, backPlateThickness, frontPlateCFThickness, _zLeadScrewDiameter, _zRodDiameter, _zRodSeparation, _zRodOffsetY
 from constants import M3_clearance_radius
 
 
@@ -75,6 +75,8 @@ def topFace(
         .cutThruAll()
     )
     result = result.moveTo(size.x/2 + 65, size.y - cutoutBackOffsetY).wiringCutout().cutThruAll()
+    # fillet the wiring cutout
+    result = result.edges("|Z").fillet(1)
 
     sideDogbones = [(0, y) for y in range(50, 190, 40)]
     frontAndBackDogbones = [(x, 0) for x in range(50, size.y - 40, 40)]
@@ -110,6 +112,9 @@ def topFace(
         .pushPoints(cornerDogbones)
         .dogboneT(40, 6, cuttingRadius, 90, dogboneTolerance).cutThruAll()
     )
+    # chamfer and fillet the dogbone edges to avoid sharp edges and ease assembly
+    result = result.edges("|Z").chamfer(dogboneChamfer)
+    result = result.edges("|Z").fillet(0.25)
 
     return result
 
@@ -117,9 +122,9 @@ def topFace(
 def main() -> None:
     #dxf = (cq.importers.importDXF("../BC220CF/dxfs/Top_Face_x220_y220.dxf").wires().toPending().extrude(sizeZ))
 
-    topFaceCNC = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
-    #topFaceLSR = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
-    #topFaceWJ  = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
+    topFaceCNC = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=sizeZ, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
+    #topFaceLSR = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=sizeZ, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
+    #topFaceWJ  = topFace(cq.Workplane("XY"), sizeX=220, sizeY=220 + backPlateThickness, sizeZ=sizeZ, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
 
     show_object(topFaceCNC)
     #show_object(topFaceLSR)

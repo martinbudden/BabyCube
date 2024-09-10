@@ -3,8 +3,8 @@ import cadquery as cq
 from TypeDefinitions import T, Point2D, Point3D
 
 import dogboneT
-from constants import fittingTolerance, cncKerf, cncCuttingRadius, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
-from constants import backPlateThickness, sizeZ
+from constants import fittingTolerance, cncKerf, cncCuttingRadius, dogboneChamfer, lsrKerf, lsrCuttingRadius, wjKerf, wjCuttingRadius
+from constants import sizeZ
 from constants import M3_clearance_radius
 
 
@@ -63,6 +63,9 @@ def frontFace(
         .pushPoints(topDogbones)
         .dogboneT(20, 6, cuttingRadius, 0, dogboneTolerance).cutThruAll()
     )
+    # chamfer and fillet the dogbone edges to avoid sharp edges and ease assembly
+    result = result.edges("|Z").chamfer(dogboneChamfer)
+    result = result.edges("|Z").fillet(0.25)
 
     cutoutBackOffsetY = 30
     cutoutFrontOffsetY = 45
@@ -84,9 +87,9 @@ def frontFace(
 
 def main() -> None:
     #dxf = (cq.importers.importDXF("../BC220CF/dxfs/Front_Face_x220_z210.dxf").wires().toPending().extrude(sizeZ))
-    frontFaceCNC = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
-    #frontFaceLSR = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
-    #frontFaceWJ  = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=3, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
+    frontFaceCNC = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=sizeZ, dogboneTolerance=fittingTolerance, cuttingRadius=cncCuttingRadius, kerf=cncKerf)
+    #frontFaceLSR = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=sizeZ, dogboneTolerance=fittingTolerance, cuttingRadius=lsrCuttingRadius, kerf=lsrKerf)
+    #frontFaceWJ  = frontFace(cq.Workplane("XY"), sizeX=220, sizeY=210, sizeZ=sizeZ, dogboneTolerance=fittingTolerance, cuttingRadius=wjCuttingRadius, kerf=wjKerf)
 
     show_object(frontFaceCNC)
     #show_object(frontFaceLSR)

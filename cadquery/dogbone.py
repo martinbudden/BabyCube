@@ -20,6 +20,7 @@ def dogbone(
     xLen: float,
     yLen: float,
     radius: float = 0,
+    fillet: float = 0,
     angle: float = 0,
 ) -> T:
     """
@@ -67,8 +68,11 @@ def dogbone(
     edges.append(Edge.makeThreePointArc(p7, a78, p8))
 
     dogbone = Wire.assembleEdges(edges)
+    if fillet != 0:
+        dogbone= dogbone.fillet2D(fillet, dogbone.vertices())
     dogbone = dogbone.rotate(Vector(), Vector(0, 0, 1), angle)
 
     return self.eachpoint(lambda loc: dogbone.moved(loc), True)
 
 cq.Workplane.dogbone = dogbone
+

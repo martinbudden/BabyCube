@@ -14,6 +14,8 @@ def dogboneT(
     tolerance: float = 0,
     kerf: float = 0,
 ) -> T:
-    return dogbone(self, sizeX + tolerance - kerf, sizeY - kerf, radius, angle)
+    fillet = 0.25
+    return dogbone(self, sizeX + tolerance - kerf, sizeY - kerf, radius, fillet, angle)
 
 cq.Workplane.dogboneT = dogboneT
+
