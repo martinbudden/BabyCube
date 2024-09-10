@@ -92,18 +92,24 @@ def main() -> None:
     #dogboneToleranceWJ  = dogboneTolerance(120, 80, sizeZ, wjCuttingRadius, wjKerf)
 
     if 'dogboneToleranceCNC' in locals():
+        print("exporting DogboneTolerance CNC")
         exports(dogboneToleranceCNC, "DogboneTolerance", "CNC")
-        show_object(dogboneToleranceCNC)
+        if 'show_object' in globals():
+            show_object(dogboneToleranceCNC)
 
     if 'dogboneToleranceLSR' in locals():
+        print("exporting DogboneTolerance LSR")
         exports(dogboneToleranceLSR, "DogboneTolerance", "LSR")
-        show_object(dogboneToleranceLSR)
+        if 'show_object' in globals():
+            show_object(dogboneToleranceLSR)
 
     if 'dogboneToleranceWJ' in locals():
+        print("exporting DogboneTolerance WJ")
         exports(dogboneToleranceWJ, "DogboneTolerance", "WJ")
-        show_object(dogboneToleranceWJ)
+        if 'show_object' in globals():
+            show_object(dogboneToleranceWJ)
 
 
 # check if running in cq-editor
-if 'show_object' in globals():
+if __name__ == '__main__' or 'show_object' in globals():
     main()
