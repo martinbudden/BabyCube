@@ -42,7 +42,7 @@ module Right_Face_test() {
     //faceRightSpoolHolder(cf=_useCNC);
     //faceRightSpool(cf=_useCNC);
     //echo(ep=extruderPosition(_xyNEMA_width));
-    //bowdenTube("E3DRevo", carriagePosition, extruderPosition(_xyNEMA_width));
+    //bowdenTube("E3DRevo", carriagePosition, extruderPosition(_xyNEMA_width) + extruderBowdenOffset());
     //Right_Face_NEMA_17_stl();
 
     //Right_Face_Stage_1_assembly();

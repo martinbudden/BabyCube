@@ -8,11 +8,8 @@ include <../scad/utils/carriageTypes.scad>
 
 use <../scad/printed/BackFace.scad> // for zipTiePositions()
 //use <../scad/printed/LeftAndRightFaces.scad> // for extruderPosition()
-use <../scad/printed/PrintheadExtras.scad>
-use <../scad/printed/PrintheadAssemblies.scad>
-use <../scad/printed/PrintheadAssembliesE3DRevo.scad>
-use <../scad/printed/PrintheadAssembliesE3DV6.scad>
-use <../scad/printed/PrintheadAssembliesDropEffectXG.scad>
+//use <../scad/vitamins/extruder.scad> // for extruderBowdenOffset()
+use <../scad/printed/PrintheadAssembliesAll.scad>
 use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageDropEffectXG.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
@@ -48,12 +45,12 @@ module Printhead_test() {
 
     translate(-[ carriagePosition.x, carriagePosition.y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
         //printheadBeltSide(halfCarriage=false, reversedBelts=true);
-        printheadHotendSideDropEffectXG(boltLength=0);
-        //printheadHotendSideE3DRevo(boltLength=0);
-        //printheadHotendSideE3DV6(halfCarriage=false, noPrinthead=!true, boltLength=0);
+        printheadHotendSide("DropEffectXG", boltLength=0);
+        //printheadHotendSideE3DRevo("E3DRevo", boltLength=0);
+        //printheadHotendSideE3DV6("E3DV6", boltLength=0, halfCarriage=false, noPrinthead=!true);
         //CoreXYBelts(carriagePosition);
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
-        //bowdenTube("DropEffectXG", carriagePosition, extruderPosition(_xyNEMA_width));
+        //bowdenTube("DropEffectXG", carriagePosition, extruderPosition(_xyNEMA_width) + extruderBowdenOffset());
         //printheadWiring("DropEffectXG", carriagePosition,  backFaceZipTiePositions());
     }
     //X_Carriage_assembly();

@@ -11,9 +11,8 @@ include <NopSCADlib/vitamins/blowers.scad>
 use <../scad/printed/BackFace.scad> // for zipTiePositions()
 use <../scad/printed/Base.scad>
 //use <../scad/printed/LeftAndRightFaces.scad> // for extruderPosition()
-use <../scad/printed/PrintheadExtras.scad>
-use <../scad/printed/PrintheadAssemblies.scad>
-use <../scad/printed/PrintheadAssembliesE3DV6.scad>
+//use <../scad/vitamins/extruder.scad> // for extruderBowdenOffset()
+use <../scad/printed/PrintheadAssembliesAll.scad>
 use <../scad/printed/X_Carriage.scad>
 use <../scad/printed/X_CarriageAssemblies.scad>
 
@@ -38,7 +37,7 @@ module Printhead_test() {
 
     translate(-[ carriagePosition.x, carriagePosition.y, eZ - yRailOffset(_xyNEMA_width).x - carriage_clearance(xCarriageType) ]) {
         //printheadBeltSide(halfCarriage=halfCarriage, reversedBelts=reversedBelts);
-        printheadHotendSideE3DV6(halfCarriage=halfCarriage, boltLength=0);
+        printheadHotendSide("E3DV6", boltLength=0, halfCarriage=halfCarriage);
 
         *CoreXYBelts(carriagePosition,
             reversedBelts=reversedBelts,
@@ -47,7 +46,7 @@ module Printhead_test() {
             rightDrivePulleyOffset=rightDrivePulleyOffset(reversedBelts),
             plainIdlerPulleyOffset=plainIdlerPulleyOffset(reversedBelts));
         //xRail(carriagePosition(), xCarriageType, _xRailLength, carriageType(_yCarriageDescriptor));
-        //bowdenTube("E3DV6", carriagePosition, extruderPosition(_xyNEMA_width));
+        //bowdenTube("E3DV6", carriagePosition, extruderPosition(_xyNEMA_width) + extruderBowdenOffset());
         //printheadWiring("E3DV6", carriagePosition, backFaceZipTiePositions());
         //Back_Face_assembly();
     }
