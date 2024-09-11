@@ -112,11 +112,11 @@ The standard variant uses a BigTreeTech TFT35 v3.0 display, however it should al
 
 I have started to look at developing a variant with a carbon fiber frame, however this is very much a [work in progress](concepts/readme.md).
 
-![BabyCubeCF](concepts/BC200CF_assembled.png)
+![BabyCubeCF](concepts/BC220CF_assembled.png)
 
 The exploded version:
 
-![BabyCubeCF exploded](concepts/BC200CF_unstaged_assembly.png)
+![BabyCubeCF exploded](concepts/BC220CF_exploded.png)
 
 ## Comparisons
 
