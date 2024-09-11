@@ -1,7 +1,6 @@
-include <PrintheadAssemblies.scad>
-use <PrintheadExtras.scad>
-
+// This module is intended to be included in PrintheadAssembliesAll.scad
 include <X_CarriageDropEffectXG.scad>
+include <PrintheadExtras.scad>
 
 //!1. Assemble the DropEffect XG hotend, including fan and Bowden adaptor.
 //!2. Attach the DropEffect XG hotend to the **X_Carriage**
@@ -23,7 +22,7 @@ module printheadHotendSideDropEffectXG(rotate=0, explode=0, t=undef, acceleromet
     screwType = hs_cap;
     boreDepth = xCarriageBoreDepth();
 
-    printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
+    printheadHotendSidePlace(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
         Printhead_DropEffect_XG_assembly();
 }
 

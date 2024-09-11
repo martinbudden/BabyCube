@@ -1,6 +1,6 @@
-include <PrintheadAssemblies.scad>
+// This module is intended to be included in PrintheadAssembliesAll.scad
 include <X_CarriageE3DV6.scad>
-use <PrintheadExtras.scad>
+include <PrintheadExtras.scad>
 
 
 module printheadE3DV6Assembly() {
@@ -54,12 +54,12 @@ assembly("Printhead_E3DV6", big=true) {
         printheadWiring("E3DV6");
 }
 
-module printheadHotendSideE3DV6(rotate=0, explode=0, t=undef, accelerometer=false, halfCarriage=true, noPrinthead=false, boltLength=25) {
+module printheadHotendSideE3DV6(rotate=0, explode=0, t=undef, accelerometer=false, boltLength=25, halfCarriage=true, noPrinthead=false) {
     xCarriageType = carriageType(_xCarriageDescriptor);
     screwType = halfCarriage ? hs_cs_cap : hs_cap;
     boreDepth = xCarriageBoreDepth();
 
-    printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
+    printheadHotendSidePlace(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
         if (halfCarriage) {
             xCarriageTopBolts(xCarriageType, countersunk=_xCarriageCountersunk, positions = [ [1, 1], [-1, 1] ]);
             Printhead_E3DV6_HC_assembly();

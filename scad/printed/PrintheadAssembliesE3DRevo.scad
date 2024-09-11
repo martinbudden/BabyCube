@@ -1,7 +1,6 @@
-include <PrintheadAssemblies.scad>
-use <PrintheadExtras.scad>
-
+// This module is intended to be included in PrintheadAssembliesAll.scad
 include <X_CarriageE3DRevo.scad>
+include <PrintheadExtras.scad>
 
 //!1. Bolt the **E3D Revo Voron heatsink** to the **X_Carriage_E3DRevo**.
 //!2. Screw the **Bowden connector** into the **X_Carriage_E3DRevo**. Use an M6 bolt to pre-tap the X_Carriage.
@@ -46,7 +45,7 @@ module printheadHotendSideE3DRevo(rotate=0, explode=0, t=undef, accelerometer=fa
     screwType = hs_cap;
     boreDepth = xCarriageBoreDepth();
 
-    printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
+    printheadHotendSidePlace(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
         Printhead_E3DRevo_assembly();
 }
 
@@ -54,7 +53,7 @@ module printheadHotendSideE3DRevoCompact(rotate=0, explode=0, t=undef, accelerom
     screwType = hs_cap;
     boreDepth = xCarriageBoreDepth();
 
-    printheadHotendSide(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
+    printheadHotendSidePlace(rotate=rotate, explode=explode, t=t, accelerometer=accelerometer, screwType=screwType, boltLength=boltLength, boreDepth=boreDepth)
         Printhead_E3DRevo_Compact_assembly();
 }
 

@@ -29,7 +29,7 @@ module printheadBeltSide(rotate=0, explode=0, t=undef, halfCarriage=true, revers
         }
 }
 
-module printheadHotendSide(rotate=0, explode=0, t=undef, accelerometer=false, screwType=hs_cs_cap, boltLength=25, boreDepth=0) {
+module printheadHotendSidePlace(rotate=0, explode=0, t=undef, accelerometer=false, screwType=hs_cs_cap, boltLength=25, boreDepth=0) {
     xCarriageType = carriageType(_xCarriageDescriptor);
     xCarriageBeltSideSize = xCarriageBeltSideSize(xCarriageType, beltWidth()) + [xCarriageBeltAttachmentMGN9CExtraX(), 0, 0];
     holeSeparationTop = xCarriageHoleSeparationTop(xCarriageType);

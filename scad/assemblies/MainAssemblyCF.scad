@@ -1,29 +1,21 @@
 include <../config/global_defs.scad>
 
-include <../vitamins/bolts.scad>
+include <../printed/PrintheadAssembliesAll.scad>
 
-use <../printed/BackFace.scad>
 use <../printed/BackFaceAssemblies.scad>
 use <../printed/Base.scad>
-use <../printed/DisplayHousingAssemblies.scad>
 use <../printed/SpoolHolderExtras.scad>
-use <../printed/PrintheadExtras.scad>
 use <../printed/FrontFace.scad>
-use <../printed/LeftAndRightFaceAssemblies.scad>
 use <../printed/LeftAndRightFaceAssembliesCF.scad>
-use <../printed/PrintheadAssemblies.scad>
-use <../printed/PrintheadAssembliesDropEffectXG.scad>
-use <../printed/PrintheadAssembliesE3DRevo.scad>
 use <../printed/TopFaceAssemblies.scad>
-use <../printed/X_CarriageAssemblies.scad>
 use <../printed/XY_IdlerBracket.scad>
 
-include <../utils/HolePositions.scad>
+include <../utils/StagedAssemblyMain.scad>
+use <../vitamins/extruder.scad> // for extruderBowdenOffset()
 
 use <../config/Parameters_Positions.scad>
 include <../config/Parameters_CoreXY.scad>
 include <../utils/CoreXYBelts.scad>
-include <../utils/StagedAssemblyMain.scad>
 
 hotendDescriptor = "DropEffectXG";
 
@@ -102,10 +94,7 @@ main_staged_assembly("Stage_3_CF", big=true, ngb=true) {
             boltM3Buttonhead(8);
 
     explode([-50, -50, 150], true, show_line=false)
-        if (hotendDescriptor == "E3DRevo")
-            printheadHotendSideE3DRevo(explode=[0, 50, 100]);
-        else if (hotendDescriptor == "DropEffectXG")
-            printheadHotendSideDropEffectXG(explode=[0, 50, 100]);
+        printheadHotendSide(hotendDescriptor, explode=[0, 50, 100]);
     if (!exploded())
         printheadWiring(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], backFaceZipTiePositions());
 
@@ -212,7 +201,7 @@ module CF_FinalAssembly(test=false) {
         explode(1, true)
             faceRightSpoolHolder(cf=true);
         explode(150)
-            bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], extruderPosition(_xyNEMA_width));
+            bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], extruderPosition(_xyNEMA_width) + extruderBowdenOffset());
         if (!exploded())
             faceRightSpool(cf=true);
     }
@@ -228,10 +217,7 @@ module CF_DebugAssembly() {
         explode = 100;
         explode(explode + 25) {
             Top_Face_CF_assembly();
-            if (hotendDescriptor == "E3DRevo")
-                printheadHotendSideE3DRevo();
-            else if (hotendDescriptor == "DropEffectXG")
-                printheadHotendSideDropEffectXG();
+            printheadHotendSide(hotendDescriptor);
         }
         explode([0, explode, 0])
             Back_Face_CF_assembly();
@@ -250,7 +236,8 @@ module CF_DebugAssembly() {
         if (!exploded()) {
             printheadWiring(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], backFaceZipTiePositions());
             explode(150)
-                bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], extruderPosition(_xyNEMA_width));
+                bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], extruderPosition(_xyNEMA_width) + extruderBowdenOffset());
         }
     }
 }
+

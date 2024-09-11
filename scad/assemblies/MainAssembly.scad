@@ -1,23 +1,18 @@
 include <../config/global_defs.scad>
 
-include <../vitamins/bolts.scad>
+include <../printed/PrintheadAssembliesAll.scad>
 
-use <../printed/BackFace.scad>
 use <../printed/BackFaceAssemblies.scad>
 use <../printed/Base.scad>
 use <../printed/DisplayHousingAssemblies.scad>
 use <../printed/SpoolHolderExtras.scad>
-use <../printed/PrintheadExtras.scad>
 use <../printed/FrontChords.scad>
 use <../printed/LeftAndRightFaceAssemblies.scad>
-use <../printed/PrintheadAssemblies.scad>
-use <../printed/PrintheadAssembliesE3DRevo.scad>
-use <../printed/PrintheadAssembliesE3DV6.scad>
 use <../printed/TopFaceAssemblies.scad>
-use <../printed/X_CarriageAssemblies.scad>
 
 include <../utils/HolePositions.scad>
 include <../utils/StagedAssembly.scad>
+use <../vitamins/extruder.scad> // for extruderBowdenOffset()
 
 include <../config/Parameters_CoreXY.scad>
 include <../utils/CoreXYBelts.scad>
@@ -173,12 +168,9 @@ module FinalAssembly(test) {
             if (!exploded())
                 printheadWiring(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], backFaceZipTiePositions());
             explode(100, true)
-                if (hotendDescriptor == "E3DV6")
-                    printheadHotendSideE3DV6();
-                else
-                    printheadHotendSideE3DRevo();
+                printheadHotendSide(hotendDescriptor);
             explode(150)
-                bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], extruderPosition(_xyNEMA_width));
+                bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], extruderPosition(_xyNEMA_width) + extruderBowdenOffset());
             explode([75, 0, 100])
                 faceRightSpoolHolder();
             explode([150, 0, 0])

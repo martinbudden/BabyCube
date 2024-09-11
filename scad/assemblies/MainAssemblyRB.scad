@@ -1,22 +1,16 @@
 include <../config/global_defs.scad>
 
-include <../vitamins/bolts.scad>
+include <../printed/PrintheadAssembliesAll.scad>
 
-use <../printed/BackFace.scad>
 use <../printed/BackFaceAssemblies.scad>
 use <../printed/Base.scad>
 use <../printed/SpoolHolderExtras.scad>
-use <../printed/PrintheadExtras.scad>
 use <../printed/FrontChords.scad>
 use <../printed/LeftAndRightFaceAssemblies.scad>
-use <../printed/PrintheadAssemblies.scad>
-use <../printed/PrintheadAssembliesDropEffectXG.scad>
-use <../printed/PrintheadAssembliesE3DRevo.scad>
 use <../printed/TopFaceAssemblies.scad>
-use <../printed/X_CarriageAssemblies.scad>
 
-include <../utils/HolePositions.scad>
 include <../utils/StagedAssemblyMain.scad>
+use <../vitamins/extruder.scad> // for extruderBowdenOffset()
 
 include <../config/Parameters_CoreXY.scad>
 include <../utils/CoreXYBelts.scad>
@@ -184,10 +178,7 @@ main_staged_assembly("Stage_6_RB", big=true, ngb=true) {
     if (!exploded())
         printheadWiring(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], backFaceZipTiePositions());
     explode(100, true)
-        if (hotendDescriptor == "E3DRevo")
-            printheadHotendSideE3DRevo();
-        else if (hotendDescriptor == "DropEffectXG")
-            printheadHotendSideDropEffectXG();
+        printheadHotendSide(hotendDescriptor);
 }
 
 module RB_FinalAssembly(test=false) {
@@ -223,7 +214,7 @@ module RB_FinalAssembly(test=false) {
                     boltM3Buttonhead(10);
 
         explode(150)
-            bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], extruderPosition(_xyNEMA_width));
+            bowdenTube(hotendDescriptor, carriagePosition() + [yRailOffset(_xyNEMA_width).x, 0], extruderPosition(_xyNEMA_width) + extruderBowdenOffset());
 
         explode([75, 0, 100])
             faceRightSpoolHolder();
