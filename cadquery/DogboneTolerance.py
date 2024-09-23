@@ -72,7 +72,7 @@ def dogboneTolerance(
         .pushPoints(topAndBottomDogbones)
         .dogboneT(20, 6, cuttingRadius, 0, t1, kerf).cutThruAll()
 
-        # tip side
+        # top side
         .center(0, size.y)
         .pushPoints(topAndBottomDogbones)
         .dogboneT(20, 6, cuttingRadius, 0, t3, kerf).cutThruAll()
