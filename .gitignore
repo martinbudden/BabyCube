@@ -5,17 +5,19 @@
 *.bak
 *.save
 *.lnk
-__pycache__
 *.pyc
-Thumbs.db
-
 *.log
 *.echo
 *.3mf
+*.gco
+*.gcode
+
+__pycache__
+Thumbs.db
 times.txt
 cmd_times.txt
 
-# .vscode/
+scratch/
 
 documents/*
 !documents/MarlinConfiguration.md
@@ -23,8 +25,6 @@ documents/*
 !documents/BabyCube200_BOM.ods
 !documents/PrinterEnd.gcode
 !documents/PrinterStart.gcode
-
-pictures/temp/
 
 //scad/target.scad
 scad/bom.scad
@@ -34,6 +34,8 @@ cadquery/*.*
 !cadquery/exports/*.dxf
 !cadquery/exports/*.step
 cadquery/calibration/*.stl
+
+pictures/temp/
 
 tests.*
 tests/*.*
