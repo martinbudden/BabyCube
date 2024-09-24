@@ -19,12 +19,10 @@ cmd_times.txt
 
 scratch/
 
-documents/*
-!documents/MarlinConfiguration.md
-!documents/klipper_btt_skr_mini_e3_v2.cfg
+documents/*.*
+!documents/klipper/*.*
+!documents/Marlin/*.*
 !documents/BabyCube200_BOM.ods
-!documents/PrinterEnd.gcode
-!documents/PrinterStart.gcode
 
 //scad/target.scad
 scad/bom.scad
