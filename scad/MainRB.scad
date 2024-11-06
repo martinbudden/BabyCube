@@ -5,7 +5,7 @@
 //!is they do not show every small detail of the construction, and in particular they do not show the wiring. However there
 //!is sufficient detail that someone with a good understanding of 3D printers can build the BabyCube.
 //!
-//!![BC22o Assembly](assemblies/BC220_assembled.png)
+//!![BC220 Assembly](assemblies/BC220_assembled.png)
 //
 include <NopSCADlib/utils/core/core.scad>
 
