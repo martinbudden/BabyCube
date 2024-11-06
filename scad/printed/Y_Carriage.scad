@@ -283,7 +283,7 @@ module Y_Carriage(yCarriageType, idlerHeight, pulleyBore, xRailType, xRailLength
         }
         translate_z(thickness + pulleyStackHeight(idlerHeight, pulleyBore))
             if (isMGN9C(yCarriageType))
-                translate([plainPulleyPos.x + boltOffsetMGN9(left), 0, 0])
+                translate([plainPulleyPos.x + boltOffsetMGN9(left, reversedBelts), 0, 0])
                     vflip()
                         boltHoleM3Tap(12, twist=4, cnc=cnc);
             else
@@ -311,7 +311,11 @@ module yCarriageBraceMGN9C(thickness, plainPulleyOffset, boltHoleRadius, reverse
             translate([-4.25, reversedBelts ? -5.5 : -4, 0]) //was4.5
                 rounded_cube_xy(size, 1.5);
         }
-        for (x = [plainPulleyOffset.x, 11.15, 11.15 + boltOffsetMGN9(left)])
+        for (x = [
+                plainPulleyOffset.x,
+                plainPulleyOffset.x + (reversedBelts ? 11 : 12.15),
+                boltOffsetMGN9(left, reversedBelts) + (reversedBelts ? 10 : 11.15),
+                ])
             translate([x, 0, 0])
                 boltHole(boltHoleRadius*2, thickness, twist=4);
     }
