@@ -20,15 +20,15 @@ use <../config/Parameters_Positions.scad>
 // hence the beltToothHeight compensation is appled to the "plainIdler".
 // In principle both the x and y offsets should be compensated, but the y offset is not compensated here, instead it is
 // handled at the X_Carriage. This improves belt clearances on the Y_Carriage.
-beltToothHeight = coreXYBearing() ? belt_tooth_height(coreXY_belt(coreXY_type())) : 0;
-beltPitchHeight = coreXYBearing() ? belt_pitch_height(coreXY_belt(coreXY_type())) : 0;
+beltToothHeight = coreXYBearing() ? belt_tooth_height(coreXY_belt(coreXY_type())) : 0; // 0.75
+beltPitchHeight = coreXYBearing() ? belt_pitch_height(coreXY_belt(coreXY_type())) : 0; // 1.004
 
 
 //function pulleyOffset() = [-yRailShiftX(), 0, yCarriageThickness() - 6 + 1.25 + pulleyStackHeight()];
 //function pulleyOffset() = [-yRailShiftX(), 0, yCarriageThickness() + pulleyStackHeight()/2];
 function pulleyOffset() = [-yRailShiftX(), 0, 0];
 function tongueOffset(NEMA_width=_xyNEMA_width) = (eX + 2*eSizeX - _xRailLength - 2*yRailOffset(NEMA_width).x)/2;
-function plainIdlerOffset(reversedBelts) = pulleyOffset() + (reversedBelts ? [beltToothHeight - 2, 0, 0] : [0, 0, 0]);
+function plainIdlerOffset(reversedBelts) = pulleyOffset() + (reversedBelts ? [beltToothHeight - 1.9, 0, 0] : [0, 0, 0]);
 topInset = 3.5;
 
 module yCarriage(NEMA_width, reversedBelts=false, left=true, cnc=false) {
